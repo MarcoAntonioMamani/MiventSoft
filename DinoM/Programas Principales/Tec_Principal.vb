@@ -87,6 +87,7 @@ Public Class Tec_Principal
         listaTabs.Add(Panel_ingresos)
         listaTabs.Add(Panel_Mapa)
         listaTabs.Add(Panel_Almacen)
+        listaTabs.Add(Panel_Reportes)
         Dim idRolUsu As String = gi_userRol
         Dim dtModulos As DataTable = L_prLibreriaDetalleGeneral(gi_LibSistema, gi_LibSISModulo)
         Dim listFormsModulo As New List(Of String)

@@ -23,7 +23,6 @@ Partial Class Tec_Login
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tec_Login))
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.tbpassword = New DevComponents.DotNetBar.Controls.TextBoxX()
@@ -43,19 +42,18 @@ Partial Class Tec_Login
         '
         'Panel3
         '
-        Me.Panel3.BackColor = System.Drawing.Color.Aqua
+        Me.Panel3.BackColor = System.Drawing.Color.White
         Me.Panel3.Controls.Add(Me.Panel1)
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Padding = New System.Windows.Forms.Padding(2)
-        Me.Panel3.Size = New System.Drawing.Size(992, 433)
+        Me.Panel3.Size = New System.Drawing.Size(937, 385)
         Me.Panel3.TabIndex = 33
         '
         'Panel1
         '
-        Me.Panel1.BackColor = System.Drawing.Color.White
-        Me.Panel1.BackgroundImage = Global.DinoM.My.Resources.Resources.tecfondo
+        Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.Panel1.Controls.Add(Me.tbpassword)
         Me.Panel1.Controls.Add(Me.btnsalir)
         Me.Panel1.Controls.Add(Me.btnIngresar)
@@ -67,7 +65,7 @@ Partial Class Tec_Login
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(2, 2)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(988, 429)
+        Me.Panel1.Size = New System.Drawing.Size(933, 381)
         Me.Panel1.TabIndex = 0
         '
         'tbpassword
@@ -80,13 +78,13 @@ Partial Class Tec_Login
         Me.tbpassword.Border.Class = "TextBoxBorder"
         Me.tbpassword.Border.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
         Me.tbpassword.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.tbpassword.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbpassword.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbpassword.Location = New System.Drawing.Point(457, 192)
         Me.tbpassword.Margin = New System.Windows.Forms.Padding(4)
         Me.tbpassword.Name = "tbpassword"
         Me.tbpassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.tbpassword.PreventEnterBeep = True
-        Me.tbpassword.Size = New System.Drawing.Size(385, 36)
+        Me.tbpassword.Size = New System.Drawing.Size(385, 37)
         Me.tbpassword.TabIndex = 1
         Me.tbpassword.WatermarkBehavior = DevComponents.DotNetBar.eWatermarkBehavior.HideNonEmpty
         Me.tbpassword.WatermarkColor = System.Drawing.Color.DarkGray
@@ -97,7 +95,7 @@ Partial Class Tec_Login
         Me.btnsalir.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnsalir.BackColor = System.Drawing.Color.Transparent
         Me.btnsalir.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground
-        Me.btnsalir.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnsalir.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnsalir.HotTrackingStyle = DevComponents.DotNetBar.eHotTrackingStyle.Color
         Me.btnsalir.Location = New System.Drawing.Point(677, 275)
         Me.btnsalir.Name = "btnsalir"
@@ -113,7 +111,7 @@ Partial Class Tec_Login
         Me.btnIngresar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnIngresar.BackColor = System.Drawing.Color.Transparent
         Me.btnIngresar.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground
-        Me.btnIngresar.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnIngresar.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnIngresar.HotTrackingStyle = DevComponents.DotNetBar.eHotTrackingStyle.Color
         Me.btnIngresar.Location = New System.Drawing.Point(457, 275)
         Me.btnIngresar.Name = "btnIngresar"
@@ -127,7 +125,7 @@ Partial Class Tec_Login
         'PictureBox1
         '
         Me.PictureBox1.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
+        Me.PictureBox1.Image = Global.DinoM.My.Resources.Resources.tecbrin
         Me.PictureBox1.Location = New System.Drawing.Point(67, 41)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(294, 272)
@@ -145,6 +143,7 @@ Partial Class Tec_Login
         '
         'tbUsuario
         '
+        Me.tbUsuario.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         '
         '
         '
@@ -152,13 +151,14 @@ Partial Class Tec_Login
         Me.tbUsuario.Border.BorderColor2 = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.tbUsuario.Border.Class = "TextBoxBorder"
         Me.tbUsuario.Border.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.tbUsuario.Border.CornerTypeBottomLeft = DevComponents.DotNetBar.eCornerType.Rounded
         Me.tbUsuario.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.tbUsuario.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbUsuario.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbUsuario.Location = New System.Drawing.Point(457, 130)
         Me.tbUsuario.Margin = New System.Windows.Forms.Padding(4)
         Me.tbUsuario.Name = "tbUsuario"
         Me.tbUsuario.PreventEnterBeep = True
-        Me.tbUsuario.Size = New System.Drawing.Size(385, 36)
+        Me.tbUsuario.Size = New System.Drawing.Size(385, 37)
         Me.tbUsuario.TabIndex = 0
         Me.tbUsuario.WatermarkBehavior = DevComponents.DotNetBar.eWatermarkBehavior.HideNonEmpty
         Me.tbUsuario.WatermarkColor = System.Drawing.Color.DarkGray
@@ -168,11 +168,11 @@ Partial Class Tec_Login
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.White
-        Me.Label2.Location = New System.Drawing.Point(392, 91)
+        Me.Label2.Location = New System.Drawing.Point(433, 87)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(493, 20)
+        Me.Label2.Size = New System.Drawing.Size(446, 21)
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "Por Favor Acceda Al sistema con sus credenciales autorizados :"
         '
@@ -180,11 +180,11 @@ Partial Class Tec_Login
         '
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Font = New System.Drawing.Font("Calibri", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(497, 41)
+        Me.Label1.Location = New System.Drawing.Point(420, 30)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(320, 29)
+        Me.Label1.Size = New System.Drawing.Size(466, 49)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Autentificación De Usuario"
         '
@@ -200,7 +200,7 @@ Partial Class Tec_Login
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(992, 433)
+        Me.ClientSize = New System.Drawing.Size(937, 385)
         Me.Controls.Add(Me.Panel3)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Tec_Login"
