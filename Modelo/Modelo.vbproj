@@ -234,6 +234,12 @@
     <Compile Include="ModeloAyuda.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ModeloConTab.Designer.vb">
+      <DependentUpon>ModeloConTab.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ModeloConTab.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ModeloF00.Designer.vb">
       <DependentUpon>ModeloF00.vb</DependentUpon>
     </Compile>
@@ -289,6 +295,9 @@
   <ItemGroup>
     <EmbeddedResource Include="ModeloAyuda.resx">
       <DependentUpon>ModeloAyuda.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModeloConTab.resx">
+      <DependentUpon>ModeloConTab.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ModeloF00.resx">
       <DependentUpon>ModeloF00.vb</DependentUpon>

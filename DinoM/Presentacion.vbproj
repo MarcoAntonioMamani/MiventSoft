@@ -1361,6 +1361,11 @@
     <None Include="Resources\estadistico.png" />
     <None Include="Resources\facturacion.png" />
     <None Include="Resources\izquierda2.png" />
+    <None Include="Resources\iconadd.png" />
+    <None Include="Resources\iconeditar.png" />
+    <None Include="Resources\iconguardar.png" />
+    <None Include="Resources\iconeliminar.png" />
+    <None Include="Resources\iconatras.png" />
     <Content Include="Resources\man.png" />
     <None Include="Resources\pdf.png" />
     <None Include="Resources\txt.png" />

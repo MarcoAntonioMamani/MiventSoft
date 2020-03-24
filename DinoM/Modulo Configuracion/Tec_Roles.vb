@@ -112,10 +112,10 @@ Public Class Tec_Roles
 
 
     Public Sub _PMInhabilitar()
-        btnNuevo.Enabled = True
-        btnModificar.Enabled = True
-        btnEliminar.Enabled = True
-        btnGrabar.Enabled = False
+        btnNuevo.Visible = True
+        btnModificar.Visible = True
+        btnEliminar.Visible = True
+        btnGrabar.Visible = False
         PanelNavegacion.Enabled = True
         JGrM_Buscador.Enabled = True
 
@@ -173,11 +173,12 @@ Public Class Tec_Roles
         _PMOLimpiar()
         _PMHabilitar()
 
-        btnNuevo.Enabled = False
-        btnModificar.Enabled = False
-        btnEliminar.Enabled = False
-        btnGrabar.Enabled = True
+        btnNuevo.Visible = False
+        btnModificar.Visible = False
+        btnEliminar.Visible = False
+        btnGrabar.Visible = True
         PanelNavegacion.Enabled = False
+        tbRol.Focus()
 
 
         '_PMOLimpiar()
@@ -190,10 +191,10 @@ Public Class Tec_Roles
             _MModificar = True
 
             _PMHabilitar()
-            btnNuevo.Enabled = False
-            btnModificar.Enabled = False
-            btnEliminar.Enabled = False
-            btnGrabar.Enabled = True
+            btnNuevo.Visible = False
+            btnModificar.Visible = False
+            btnEliminar.Visible = False
+            btnGrabar.Visible = True
 
             PanelNavegacion.Enabled = False
 
@@ -533,8 +534,8 @@ Public Class Tec_Roles
 
     Public Function _PMOGetListEstructuraBuscador() As List(Of Modelo.Celda)
         Dim listEstCeldas As New List(Of Modelo.Celda)
-        listEstCeldas.Add(New Modelo.Celda("ybnumi", True, "ID", 70))
-        listEstCeldas.Add(New Modelo.Celda("ybrol", True, "ROL", 120))
+        listEstCeldas.Add(New Modelo.Celda("ybnumi", True, "ID", 100))
+        listEstCeldas.Add(New Modelo.Celda("ybrol", True, "ROL", 400))
         listEstCeldas.Add(New Modelo.Celda("ybfact", False))
         listEstCeldas.Add(New Modelo.Celda("ybhact", False))
         listEstCeldas.Add(New Modelo.Celda("ybuact", False))
