@@ -474,18 +474,6 @@
     <None Include="Resources\rewinder.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\back-1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\derechaLine.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\derechaDoble.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\izquierda2.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\favicon.png" />
   </ItemGroup>
   <ItemGroup>
@@ -494,6 +482,7 @@
     <Content Include="Resources\addbt.png" />
     <Content Include="Resources\addimg.png" />
     <Content Include="Resources\almacen.png" />
+    <None Include="Resources\back-1.png" />
     <Content Include="Resources\cancel.png" />
     <Content Include="Resources\checked.png" />
     <Content Include="Resources\clase_practica.png" />
@@ -501,6 +490,8 @@
     <Content Include="Resources\compra.png" />
     <Content Include="Resources\cuestion.png" />
     <Content Include="Resources\delete.png" />
+    <None Include="Resources\derechaLine.png" />
+    <None Include="Resources\derechaDoble.png" />
     <Content Include="Resources\dinases1.png" />
     <Content Include="Resources\efectoS.png" />
     <Content Include="Resources\eliminar.jpg" />
@@ -527,6 +518,7 @@
     <Content Include="Resources\img1.jpg" />
     <Content Include="Resources\img2.jpg" />
     <Content Include="Resources\INFORMATION.png" />
+    <None Include="Resources\izquierda2.png" />
     <Content Include="Resources\jpg.png" />
     <Content Include="Resources\man-28.png" />
     <Content Include="Resources\man.png" />
@@ -549,8 +541,8 @@
     <Content Include="Resources\rubbish.png" />
     <Content Include="Resources\sheets.png" />
     <Content Include="Resources\street-map.png" />
-    <None Include="Resources\tec_triangulo_blanco.png" />
     <None Include="Resources\tecbrin.png" />
+    <None Include="Resources\tec_triangulo_blanco.png" />
     <Content Include="Resources\ToastError.png" />
     <Content Include="Resources\ToastWarning.png" />
     <Content Include="Resources\ttf.bmp" />
