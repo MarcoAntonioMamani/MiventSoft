@@ -75,17 +75,17 @@ Public Class Tec_Login
             ToastNotification.Show(Me, "Error: Debe ingresar una contraseña correctamente..!!!", P_Global.tc_warning, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
             Exit Sub
         End If
-        Dim dtUsuario As DataTable = L_Validar_Usuario(tbUsuario.Text, tbpassword.Text)
+        Dim dtUsuario As DataTable = L_Validar_Usuario(tbUsuario.Text.ToUpper(), tbpassword.Text.ToUpper())
         If dtUsuario.Rows.Count = 0 Then
             ToastNotification.Show(Me, "Error: Los datos de Usuario y Contraseña son incorrectas. Por Favor ingrese con credenciales validos !!!", P_Global.tc_warning, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
             tbUsuario.SelectAll()
             tbUsuario.Focus()
         Else
             gs_user = tbUsuario.Text
-            gi_userFuente = dtUsuario.Rows(0).Item("ydfontsize")
-            gi_userNumi = dtUsuario.Rows(0).Item("ydnumi")
-            gi_userRol = dtUsuario.Rows(0).Item("ydrol")
-            gi_userSuc = dtUsuario.Rows(0).Item("ydsuc")
+            gi_userFuente = 13
+            gi_userNumi = dtUsuario.Rows(0).Item("Id")
+            gi_userRol = dtUsuario.Rows(0).Item("RolId")
+            gi_userSuc = dtUsuario.Rows(0).Item("SucursalId")
             'gb_userTodasSuc = IIf(dtUsuario.Rows(0).Item("ydall") = 1, True, False)
 
             _prDesvenecerPantalla()

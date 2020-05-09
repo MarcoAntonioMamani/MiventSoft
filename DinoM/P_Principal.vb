@@ -121,7 +121,7 @@ Public Class P_Principal
 
         Dim idRolUsu As String = gi_userRol
 
-        Dim dtModulos As DataTable = L_prLibreriaDetalleGeneral(gi_LibSistema, gi_LibSISModulo)
+        Dim dtModulos As DataTable = L_prLibreriaDetalleGeneral(1)
         Dim listFormsModulo As New List(Of String)
 
         For i = 0 To dtModulos.Rows.Count - 1

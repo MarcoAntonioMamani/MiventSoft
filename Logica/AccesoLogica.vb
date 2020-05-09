@@ -45,17 +45,16 @@ Public Class AccesoLogica
 #Region "LIBRERIAS"
 
 
-    Public Shared Function L_prLibreriaDetalleGeneral(_cod1 As String, _cod2 As String) As DataTable
+    Public Shared Function L_prLibreriaDetalleGeneral(_IdClasificador As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 3))
-        _listParam.Add(New Datos.DParametro("@cncod1", _cod1))
-        _listParam.Add(New Datos.DParametro("@cncod2", _cod2))
-        _listParam.Add(New Datos.DParametro("@cnuact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@IdClasificador", _IdClasificador))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
-        _Tabla = D_ProcedimientoConParam("sp_dg_TC0051", _listParam)
+        _Tabla = D_ProcedimientoConParam("MAM_Clasificadores", _listParam)
 
         Return _Tabla
     End Function
@@ -167,11 +166,11 @@ Public Class AccesoLogica
         Dim _Tabla As DataTable
         Dim _Where As String
         If _Modo = 0 Then
-            _Where = " ycnumi = ycnumi"
+            _Where = " RolesDetalles.RolId = RolesDetalles.RolId"
         Else
-            _Where = " ycnumi=" + _idCabecera + " and ZY001.yamod=" + _idModulo + " and ZY0021.ycyanumi=ZY001.yanumi"
+            _Where = " RolesDetalles.RolId=" + _idCabecera + " and Programas.Modulo=" + _idModulo + " and RolesDetalles.ProgramaId=Programas.Id"
         End If
-        _Tabla = D_Datos_Tabla("ZY0021.ycnumi,ZY0021.ycyanumi,ZY0021.ycshow,ZY0021.ycadd,ZY0021.ycmod,ZY0021.ycdel,ZY001.yaprog,ZY001.yatit", "ZY0021,ZY001", _Where)
+        _Tabla = D_Datos_Tabla("RolesDetalles.Id,RolesDetalles.RolId,RolesDetalles.Ver,RolesDetalles.Insertar,RolesDetalles.Modificar,RolesDetalles.Eliminar,Programas.IdPrograma,Programas.DescripcionPrograma", "RolesDetalles,Programas", _Where)
         Return _Tabla
     End Function
 
@@ -355,7 +354,7 @@ Public Class AccesoLogica
     End Function
     Public Shared Function L_Validar_Usuario(_Nom As String, _Pass As String) As DataTable
         Dim _Tabla As DataTable
-        _Tabla = D_Datos_Tabla("ydnumi,yduser,ydrol,ydpass,ydest,ydcant,ydfontsize,ydsuc", "ZY003", "yduser = '" + _Nom + "' AND ydpass = '" + _Pass + "'")
+        _Tabla = D_Datos_Tabla("Id,RolId,SucursalId", "Usuarios", "NombreUsuario = '" + _Nom + "' AND Contrasena = '" + _Pass + "'")
         Return _Tabla
     End Function
 #End Region
@@ -3114,9 +3113,9 @@ Public Class AccesoLogica
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 3))
-        _listParam.Add(New Datos.DParametro("@uact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
-        _Tabla = D_ProcedimientoConParam("sp_dg_ZY002", _listParam)
+        _Tabla = D_ProcedimientoConParam("MAM_Roles", _listParam)
 
         Return _Tabla
     End Function
@@ -3127,10 +3126,10 @@ Public Class AccesoLogica
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 4))
-        _listParam.Add(New Datos.DParametro("@ybnumi", _numi))
-        _listParam.Add(New Datos.DParametro("@uact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
-        _Tabla = D_ProcedimientoConParam("sp_dg_ZY002", _listParam)
+        _Tabla = D_ProcedimientoConParam("MAM_Roles", _listParam)
 
         Return _Tabla
     End Function
@@ -3143,12 +3142,12 @@ Public Class AccesoLogica
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 1))
-        _listParam.Add(New Datos.DParametro("@ybnumi", _numi))
-        _listParam.Add(New Datos.DParametro("@ybrol", _rol))
-        _listParam.Add(New Datos.DParametro("@ZY0021", "", _detalle))
-        _listParam.Add(New Datos.DParametro("@uact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@NombreRol", _rol))
+        _listParam.Add(New Datos.DParametro("@RolDetalleType", "", _detalle))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
-        _Tabla = D_ProcedimientoConParam("sp_dg_ZY002", _listParam)
+        _Tabla = D_ProcedimientoConParam("MAM_Roles", _listParam)
 
         If _Tabla.Rows.Count > 0 Then
             _numi = _Tabla.Rows(0).Item(0)
@@ -3168,12 +3167,13 @@ Public Class AccesoLogica
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 2))
-        _listParam.Add(New Datos.DParametro("@ybnumi", _numi))
-        _listParam.Add(New Datos.DParametro("@ybrol", _rol))
-        _listParam.Add(New Datos.DParametro("@ZY0021", "", _detalle))
-        _listParam.Add(New Datos.DParametro("@uact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@NombreRol", _rol))
+        _listParam.Add(New Datos.DParametro("@RolDetalleType", "", _detalle))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
-        _Tabla = D_ProcedimientoConParam("sp_dg_ZY002", _listParam)
+
+        _Tabla = D_ProcedimientoConParam("MAM_Roles", _listParam)
 
         If _Tabla.Rows.Count > 0 Then
             _resultado = True
@@ -3191,28 +3191,24 @@ Public Class AccesoLogica
 
         Dim _resultado As Boolean
 
-        If L_fnbValidarEliminacion(_numi, "ZY002", "ybnumi", _mensaje) = True Then
-            Dim _Tabla As DataTable
+        Dim _Tabla As DataTable
 
-            Dim _listParam As New List(Of Datos.DParametro)
+        Dim _listParam As New List(Of Datos.DParametro)
 
             _listParam.Add(New Datos.DParametro("@tipo", -1))
-            _listParam.Add(New Datos.DParametro("@ybnumi", _numi))
-            _listParam.Add(New Datos.DParametro("@uact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
-            _Tabla = D_ProcedimientoConParam("sp_dg_ZY002", _listParam)
+        _Tabla = D_ProcedimientoConParam("MAM_Roles", _listParam)
 
-            If _Tabla.Rows.Count > 0 Then
+        If _Tabla.Rows.Count > 0 Then
                 _resultado = True
                 'L_prTipoCambioGrabarHistorial(_numi, _fecha, _dolar, _ufv, "TIPO DE CAMBIO", 3)
             Else
                 _resultado = False
             End If
-        Else
-            _resultado = False
-        End If
 
-        Return _resultado
+            Return _resultado
     End Function
 
 

@@ -70,23 +70,24 @@ Module P_Global
     End Sub
 
     Public Sub g_prArmarComboLibreria(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo, cod1 As String, cod2 As String)
-        Dim dt As New DataTable
-        dt = L_prLibreriaDetalleGeneral(cod1, cod2)
+        ''Marco
+        'Dim dt As New DataTable
+        'dt = L_prLibreriaDetalleGeneral(cod1, cod2)
 
-        With mCombo
-            .DropDownList.Columns.Clear()
+        'With mCombo
+        '    .DropDownList.Columns.Clear()
 
-            .DropDownList.Columns.Add("cenum").Width = 70
-            .DropDownList.Columns("cenum").Caption = "COD"
+        '    .DropDownList.Columns.Add("cenum").Width = 70
+        '    .DropDownList.Columns("cenum").Caption = "COD"
 
-            .DropDownList.Columns.Add("cedesc1").Width = 200
-            .DropDownList.Columns("cedesc1").Caption = "DESCRIPCION"
+        '    .DropDownList.Columns.Add("cedesc1").Width = 200
+        '    .DropDownList.Columns("cedesc1").Caption = "DESCRIPCION"
 
-            .ValueMember = "cenum"
-            .DisplayMember = "cedesc1"
-            .DataSource = dt
-            .Refresh()
-        End With
+        '    .ValueMember = "cenum"
+        '    .DisplayMember = "cedesc1"
+        '    .DataSource = dt
+        '    .Refresh()
+        'End With
     End Sub
 
     Public Sub g_prArmarCombo(cbj As MultiColumnCombo, dtCombo As DataTable,

@@ -57,19 +57,20 @@ Public Class Tec_Principal
         _prValidarMayusculas()
     End Sub
     Public Sub _prValidarMayusculas()
-        Dim dt As DataTable = L_fnPorcUtilidad()
-        If (dt.Rows.Count > 0) Then
-            Modelo.MGlobal.gs_mayusuculas = dt.Rows(0).Item("mayusculas")
-        End If
+        'Dim dt As DataTable = L_fnPorcUtilidad()
+        'If (dt.Rows.Count > 0) Then
+        '    Modelo.MGlobal.gs_mayusuculas = dt.Rows(0).Item("mayusculas")
+        'End If
+        Modelo.MGlobal.gs_mayusuculas = 0
     End Sub
 
     Private Sub P_prCargarParametros()
-        Dim dtConfSistema As DataTable = L_fnConfSistemaGeneral()
+        'Dim dtConfSistema As DataTable = L_fnConfSistemaGeneral()
 
-        gb_FacturaEmite = dtConfSistema.Rows(0).Item("cccefac")
-        gi_FacturaTipo = dtConfSistema.Rows(0).Item("ccctfac")
-        gi_FacturaCantidadItems = dtConfSistema.Rows(0).Item("ccccite")
-        gb_FacturaIncluirICE = dtConfSistema.Rows(0).Item("ccciice")
+        'gb_FacturaEmite = dtConfSistema.Rows(0).Item("cccefac")
+        'gi_FacturaTipo = dtConfSistema.Rows(0).Item("ccctfac")
+        'gi_FacturaCantidadItems = dtConfSistema.Rows(0).Item("ccccite")
+        'gb_FacturaIncluirICE = dtConfSistema.Rows(0).Item("ccciice")
         'gi_codeBar = dtConfSistema.Rows(0).Item("ccciice")
 
     End Sub
@@ -89,7 +90,7 @@ Public Class Tec_Principal
         listaTabs.Add(Panel_Almacen)
         listaTabs.Add(Panel_Reportes)
         Dim idRolUsu As String = gi_userRol
-        Dim dtModulos As DataTable = L_prLibreriaDetalleGeneral(gi_LibSistema, gi_LibSISModulo)
+        Dim dtModulos As DataTable = L_prLibreriaDetalleGeneral(1)  ''' id=1 los modulos del sistema
         Dim listFormsModulo As New List(Of String)
 
         For i = 0 To dtModulos.Rows.Count - 1
@@ -99,7 +100,7 @@ Public Class Tec_Principal
             If dtDetRol.Rows.Count > 0 Then
                 'cargo los nombres de los programas(botones) del modulo
                 For Each fila As DataRow In dtDetRol.Rows
-                    listFormsModulo.Add(fila.Item("yaprog").ToString.ToUpper)
+                    listFormsModulo.Add(fila.Item("IdPrograma").ToString.ToUpper)
                 Next
                 'recorro el modulo(tab) que corresponde
                 For Each _item As DevComponents.DotNetBar.BaseItem In listaTabs.Item(i).Items
@@ -110,12 +111,12 @@ Public Class Tec_Principal
                             Dim TTexto As String = btn.TitleText
                             Dim f As Integer = listFormsModulo.IndexOf(btn.Name.ToUpper)
                             If Texto = "" Then 'esta usando el Title Text
-                                btn.TitleText = dtDetRol.Rows(f).Item("yatit").ToString.ToUpper
+                                btn.TitleText = dtDetRol.Rows(f).Item("DescripcionPrograma").ToString.ToUpper
                             Else 'esta usando el Text
-                                btn.Text = dtDetRol.Rows(f).Item("yatit").ToString.ToUpper
+                                btn.Text = dtDetRol.Rows(f).Item("DescripcionPrograma").ToString.ToUpper
                             End If
 
-                            If dtDetRol.Rows(f).Item("ycshow") = True Or dtDetRol.Rows(f).Item("ycadd") = True Or dtDetRol.Rows(f).Item("ycmod") = True Or dtDetRol.Rows(f).Item("ycdel") = True Then
+                            If dtDetRol.Rows(f).Item("Ver") = 1 Or dtDetRol.Rows(f).Item("Insertar") = 1 Or dtDetRol.Rows(f).Item("Modificar") = 1 Or dtDetRol.Rows(f).Item("Eliminar") = 1 Then
                                 btn.Visible = True
                             Else
                                 btn.Visible = False
@@ -138,7 +139,7 @@ Public Class Tec_Principal
                                     '    _subBtn.Text = dtDetRol.Rows(f).Item("yatit").ToString.ToUpper
                                     'End If
 
-                                    If dtDetRol.Rows(f).Item("ycshow") = True Or dtDetRol.Rows(f).Item("ycadd") = True Or dtDetRol.Rows(f).Item("ycmod") = True Or dtDetRol.Rows(f).Item("ycdel") = True Then
+                                    If dtDetRol.Rows(f).Item("Ver") = 1 Or dtDetRol.Rows(f).Item("Insertar") = 1 Or dtDetRol.Rows(f).Item("Modificar") = 1 Or dtDetRol.Rows(f).Item("Eliminar") = 1 Then
                                         _subBtn.Visible = True
                                     Else
                                         _subBtn.Visible = False
@@ -233,7 +234,8 @@ Public Class Tec_Principal
         'Dim frm As New F0_Roles
         Dim frm As New Tec_Roles
         frm._nameButton = btConfRoles.Name
-        'frm._modulo = FP_Configuracion
+        'frm._modulo = Panel_Configuracion
+
         Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
         tab3.RecalcSize()
         tab3.ThemeAware = True

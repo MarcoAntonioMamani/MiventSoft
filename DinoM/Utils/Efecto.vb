@@ -14,6 +14,9 @@ Public Class Efecto
     Public ancho As Integer
     Public Row As Janus.Windows.GridEX.GridEXRow
     Public SeleclCol As Integer = -1
+    Public titulo As String
+    Public descripcion As String
+
 
 
 
@@ -40,23 +43,36 @@ Public Class Efecto
     End Sub
     Sub _prMostrarFormAyuda()
 
-        Dim frmAyuda As Modelo.ModeloAyuda
-        frmAyuda = New Modelo.ModeloAyuda(alto, ancho, dt, Context.ToUpper, listEstCeldas)
-        If (SeleclCol >= 0) Then
-            frmAyuda.Columna = SeleclCol
-            frmAyuda._prSeleccionar()
+        'Dim frmAyuda As Modelo.ModeloAyuda
+        'frmAyuda = New Modelo.ModeloAyuda(alto, ancho, dt, Context.ToUpper, listEstCeldas)
+        'If (SeleclCol >= 0) Then
+        '    frmAyuda.Columna = SeleclCol
+        '    frmAyuda._prSeleccionar()
 
-        End If
+        'End If
+        'frmAyuda.ShowDialog()
+        'If frmAyuda.seleccionado = True Then
+        '    Row = frmAyuda.filaSelect
+        '    band = True
+        '    Me.Close()
+        'Else
+        '    band = False
+        '    Me.Close()
+        'End If
+        Dim frmAyuda As Formulario_Eliminar
+        frmAyuda = New Formulario_Eliminar
+        frmAyuda.Titulo = titulo
+        frmAyuda.Descripcion = descripcion
         frmAyuda.ShowDialog()
-        If frmAyuda.seleccionado = True Then
-            Row = frmAyuda.filaSelect
+        If frmAyuda.respuesta = True Then
+
             band = True
             Me.Close()
         Else
             band = False
             Me.Close()
         End If
-       
+
     End Sub
     Sub _prMostrarMensaje()
         Dim blah As Bitmap = My.Resources.cuestion

@@ -88,19 +88,20 @@ Public Class F0_Roles
     End Sub
 
     Private Sub _PCargarListModulo()
-        Dim dataTable As DataTable
-        dataTable = L_prLibreriaDetalleGeneral(gi_LibSistema, gi_LibSISModulo)
+        ''Marco
+        'Dim dataTable As DataTable
+        'dataTable = L_prLibreriaDetalleGeneral(gi_LibSistema, gi_LibSISModulo)
 
-        ListB_Empleados.ItemHeight = 30
-        ListB_Empleados.SelectionMode = eSelectionMode.One
-        ListB_Empleados.BackColor = Color.AliceBlue
-        ListB_Empleados.DataSource = dataTable
-        ListB_Empleados.DisplayMember = "cndesc1"
-        ListB_Empleados.ValueMember = "cnnum"
+        'ListB_Empleados.ItemHeight = 30
+        'ListB_Empleados.SelectionMode = eSelectionMode.One
+        'ListB_Empleados.BackColor = Color.AliceBlue
+        'ListB_Empleados.DataSource = dataTable
+        'ListB_Empleados.DisplayMember = "cndesc1"
+        'ListB_Empleados.ValueMember = "cnnum"
 
-        If dataTable.Rows.Count > 0 Then
-            ListB_Empleados.SetSelected(0, False)
-        End If
+        'If dataTable.Rows.Count > 0 Then
+        '    ListB_Empleados.SetSelected(0, False)
+        'End If
     End Sub
 
     Private Sub _PFiltrar()

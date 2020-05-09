@@ -26,7 +26,10 @@ Public Class Tec_Roles
         _PMInhabilitar()
 
 
+        If (CType(grModulos.DataSource, DataTable).Rows.Count > 0) Then
 
+            grModulos.Row = 0
+        End If
 
     End Sub
 
@@ -242,13 +245,13 @@ Public Class Tec_Roles
     End Sub
 
     Private Sub _PMSalir()
-        If btnGrabar.Enabled = True Then
+        If btnGrabar.Visible = True Then
             _PMInhabilitar()
             _PMPrimerRegistro()
 
         Else
             '  Public _modulo As SideNavItem
-            _modulo.Select()
+            '_modulo.Select()
             _tab.Close()
         End If
     End Sub
@@ -269,6 +272,9 @@ Public Class Tec_Roles
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         Me.Icon = ico
         tbRol.MaxLength = 30
+        If (CType(grModulos.DataSource, DataTable).Rows.Count > 0) Then
+            grModulos.Row = 0
+        End If
     End Sub
 
     Private Sub _prAsignarPermisos()
@@ -294,7 +300,7 @@ Public Class Tec_Roles
 
     Private Sub _prCargarGridModulos()
         Dim dt As New DataTable
-        dt = L_prLibreriaDetalleGeneral(gi_LibSistema, gi_LibSISModulo)
+        dt = L_prLibreriaDetalleGeneral(1)
 
         grModulos.DataSource = dt
         grModulos.RetrieveStructure()
@@ -310,9 +316,7 @@ Public Class Tec_Roles
             .Width = 240
         End With
 
-        With grModulos.RootTable.Columns("cndesc2")
-            .Visible = False
-        End With
+
 
         With grModulos
             .GroupByBoxVisible = False
@@ -338,58 +342,54 @@ Public Class Tec_Roles
         grDetalle.RetrieveStructure()
 
         'dar formato a las columnas
-        With grDetalle.RootTable.Columns("ycline")
+        With grDetalle.RootTable.Columns("Id")
             .Width = 50
             .Visible = False
             .EditType = EditType.NoEdit
         End With
-        With grDetalle.RootTable.Columns("yamod")
-            .Width = 50
-            .Visible = False
-            .EditType = EditType.NoEdit
-        End With
-
-        With grDetalle.RootTable.Columns("ycnumi")
+        With grDetalle.RootTable.Columns("Modulo")
             .Width = 50
             .Visible = False
             .EditType = EditType.NoEdit
         End With
 
-        With grDetalle.RootTable.Columns("ycyanumi")
+
+
+        With grDetalle.RootTable.Columns("ProgramaId")
             .Caption = "CODIGO"
             .Width = 80
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .EditType = EditType.NoEdit
         End With
 
-        With grDetalle.RootTable.Columns("yaprog")
-            .Caption = "NOMBRE"
+        With grDetalle.RootTable.Columns("RolId")
+   
             .Width = 200
             .Visible = False
             .EditType = EditType.NoEdit
         End With
-        With grDetalle.RootTable.Columns("yatit")
+        With grDetalle.RootTable.Columns("DescripcionPrograma")
             .Caption = "PROGRAMAS"
             .Width = 300
             .EditType = EditType.NoEdit
         End With
 
-        With grDetalle.RootTable.Columns("ycshow")
+        With grDetalle.RootTable.Columns("Ver")
             .Caption = "VER"
             .Width = 150
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center
         End With
-        With grDetalle.RootTable.Columns("ycadd")
+        With grDetalle.RootTable.Columns("Insertar")
             .Caption = "AGREGAR"
             .Width = 150
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center
         End With
-        With grDetalle.RootTable.Columns("ycmod")
+        With grDetalle.RootTable.Columns("Modificar")
             .Caption = "EDITAR"
             .Width = 150
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center
         End With
-        With grDetalle.RootTable.Columns("ycdel")
+        With grDetalle.RootTable.Columns("Eliminar")
             .Caption = "ELIMINAR"
             .Width = 150
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center
@@ -417,7 +417,7 @@ Public Class Tec_Roles
             Dim numiModulo As String = grModulos.GetValue("cnnum")
             Dim desc As String = grModulos.GetValue("cndesc1")
             grDetalle.RemoveFilters()
-            grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("yamod"), Janus.Windows.GridEX.ConditionOperator.Equal, numiModulo))
+            grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("Modulo"), Janus.Windows.GridEX.ConditionOperator.Equal, numiModulo))
 
         End If
 
@@ -428,7 +428,7 @@ Public Class Tec_Roles
 
         Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
         Dim numiModulo As String = grModulos.GetValue("cnnum")
-        Dim filasFiltradas As DataRow() = dt.Select("yamod=" + numiModulo)
+        Dim filasFiltradas As DataRow() = dt.Select("Modulo=" + numiModulo)
         For Each fila As DataRow In filasFiltradas
             fila.Item(columna) = 1
             If fila.Item("estado") = 1 Then
@@ -474,7 +474,7 @@ Public Class Tec_Roles
 
     Public Function _PMOGrabarRegistro() As Boolean
 
-        Dim dtDetalle As DataTable = CType(grDetalle.DataSource, DataTable).DefaultView.ToTable(True, "ycline", "ycnumi", "ycyanumi", "ycshow", "ycadd", "ycmod", "ycdel", "estado")
+        Dim dtDetalle As DataTable = CType(grDetalle.DataSource, DataTable).DefaultView.ToTable(True, "Id", "RolId", "ProgramaId", "DescripcionPrograma", "Modulo", "Ver", "Insertar", "Modificar", "Eliminar", "estado")
         Dim res As Boolean = L_prRolGrabar(tbNumi.Text, tbRol.Text, dtDetalle)
         If res Then
             ToastNotification.Show(Me, "Codigo de Rol ".ToUpper + tbNumi.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
@@ -485,7 +485,7 @@ Public Class Tec_Roles
 
     Public Function _PMOModificarRegistro() As Boolean
 
-        Dim dtDetalle As DataTable = CType(grDetalle.DataSource, DataTable).DefaultView.ToTable(True, "ycline", "ycnumi", "ycyanumi", "ycshow", "ycadd", "ycmod", "ycdel", "estado")
+        Dim dtDetalle As DataTable = CType(grDetalle.DataSource, DataTable).DefaultView.ToTable(True, "Id", "RolId", "ProgramaId", "DescripcionPrograma", "Modulo", "Ver", "Insertar", "Modificar", "Eliminar", "estado")
         Dim res As Boolean = L_prRolModificar(tbNumi.Text, tbRol.Text, dtDetalle)
         If res Then
 
@@ -496,9 +496,29 @@ Public Class Tec_Roles
     End Function
 
     Public Sub _PMOEliminarRegistro()
-        Dim info As New TaskDialogInfo("eliminacion".ToUpper, eTaskDialogIcon.Delete, "¿esta seguro de eliminar el registro?".ToUpper, "".ToUpper, eTaskDialogButton.Yes Or eTaskDialogButton.Cancel, eTaskDialogBackgroundColor.Blue)
-        Dim result As eTaskDialogResult = TaskDialog.Show(info)
-        If result = eTaskDialogResult.Yes Then
+        'Dim info As New TaskDialogInfo("eliminacion".ToUpper, eTaskDialogIcon.Delete, "¿esta seguro de eliminar el registro?".ToUpper, "".ToUpper, eTaskDialogButton.Yes Or eTaskDialogButton.Cancel, eTaskDialogBackgroundColor.Blue)
+        'Dim result As eTaskDialogResult = TaskDialog.Show(info)
+        'If result = eTaskDialogResult.Yes Then
+        '    Dim mensajeError As String = ""
+        '    Dim res As Boolean = L_prRolBorrar(tbNumi.Text, mensajeError)
+        '    If res Then
+        '        ToastNotification.Show(Me, "Codigo de Rol ".ToUpper + tbNumi.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+        '        _PMFiltrar()
+        '    Else
+        '        ToastNotification.Show(Me, mensajeError, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+        '    End If
+        'End If
+
+        Dim ef = New Efecto
+
+
+        ef.tipo = 3
+        ef.titulo = "Confirmación de Eliminación"
+        ef.descripcion = "¿Esta Seguro de Eliminar el Rol " + tbRol.Text + " ?"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
             Dim mensajeError As String = ""
             Dim res As Boolean = L_prRolBorrar(tbNumi.Text, mensajeError)
             If res Then
@@ -508,6 +528,8 @@ Public Class Tec_Roles
                 ToastNotification.Show(Me, mensajeError, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
             End If
         End If
+
+
     End Sub
     Public Function _PMOValidarCampos() As Boolean
         Dim _ok As Boolean = True
@@ -534,11 +556,11 @@ Public Class Tec_Roles
 
     Public Function _PMOGetListEstructuraBuscador() As List(Of Modelo.Celda)
         Dim listEstCeldas As New List(Of Modelo.Celda)
-        listEstCeldas.Add(New Modelo.Celda("ybnumi", True, "ID", 100))
-        listEstCeldas.Add(New Modelo.Celda("ybrol", True, "ROL", 400))
-        listEstCeldas.Add(New Modelo.Celda("ybfact", False))
-        listEstCeldas.Add(New Modelo.Celda("ybhact", False))
-        listEstCeldas.Add(New Modelo.Celda("ybuact", False))
+        listEstCeldas.Add(New Modelo.Celda("Id", True, "ID", 100))
+        listEstCeldas.Add(New Modelo.Celda("NombreRol", True, "ROL", 400))
+        listEstCeldas.Add(New Modelo.Celda("FechaRegistro", False))
+        listEstCeldas.Add(New Modelo.Celda("HoraRegistro", False))
+        listEstCeldas.Add(New Modelo.Celda("UsuarioRegistro", False))
         Return listEstCeldas
     End Function
 
@@ -546,14 +568,21 @@ Public Class Tec_Roles
         JGrM_Buscador.Row = _MPos
 
         With JGrM_Buscador
-            tbNumi.Text = .GetValue("ybnumi").ToString
-            tbRol.Text = .GetValue("ybrol").ToString
+            tbNumi.Text = .GetValue("Id").ToString
+            tbRol.Text = .GetValue("NombreRol").ToString
             'CARGAR DETALLE
             _prCargarGridDetalle(tbNumi.Text)
         End With
 
         LblPaginacion.Text = Str(_MPos + 1) + "/" + JGrM_Buscador.RowCount.ToString
-
+        If (Not IsNothing(grDetalle.DataSource)) Then
+            Dim numiModulo As String = grModulos.GetValue("cnnum")
+            Dim desc As String = grModulos.GetValue("cndesc1")
+            grDetalle.RemoveFilters()
+            Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
+            grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("Modulo"), Janus.Windows.GridEX.ConditionOperator.Equal, numiModulo))
+            lbprivilegio.Text = "privilegios del modulo ".ToUpper + desc
+        End If
     End Sub
 
 
@@ -570,19 +599,19 @@ Public Class Tec_Roles
     End Sub
 #End Region
     Private Sub SELECCIONARTODOSSHOWToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SELECCIONARTODOSSHOWToolStripMenuItem.Click
-        _prSeleccionarTodos("ycshow")
+        _prSeleccionarTodos("Ver")
     End Sub
 
     Private Sub SELECCIONARTODOSADDToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SELECCIONARTODOSADDToolStripMenuItem.Click
-        _prSeleccionarTodos("ycadd")
+        _prSeleccionarTodos("Insertar")
     End Sub
 
     Private Sub SELECCIONARTODOSEDITToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SELECCIONARTODOSEDITToolStripMenuItem.Click
-        _prSeleccionarTodos("ycmod")
+        _prSeleccionarTodos("Modificar")
     End Sub
 
     Private Sub SELECCIONARTODOSDELToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SELECCIONARTODOSDELToolStripMenuItem.Click
-        _prSeleccionarTodos("ycdel")
+        _prSeleccionarTodos("Eliminar")
     End Sub
 
 
@@ -603,7 +632,7 @@ Public Class Tec_Roles
     End Sub
     Private Sub grDetalle_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grDetalle.EditingCell
         If btnGrabar.Enabled Then
-            If e.Column.Key <> "ycshow" And e.Column.Key <> "ycadd" And e.Column.Key <> "ycmod" And e.Column.Key <> "ycdel" Then
+            If e.Column.Key <> "Ver" And e.Column.Key <> "Insertar" And e.Column.Key <> "Modificar" And e.Column.Key <> "Eliminar" Then
                 e.Cancel = True
             End If
         Else
@@ -663,7 +692,7 @@ Public Class Tec_Roles
             Dim desc As String = grModulos.GetValue("cndesc1")
             grDetalle.RemoveFilters()
             Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
-            grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("yamod"), Janus.Windows.GridEX.ConditionOperator.Equal, numiModulo))
+            grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("Modulo"), Janus.Windows.GridEX.ConditionOperator.Equal, numiModulo))
             lbprivilegio.Text = "privilegios del modulo ".ToUpper + desc
         End If
 

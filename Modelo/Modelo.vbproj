@@ -512,8 +512,13 @@
     <Content Include="Resources\fondopanel.jpg" />
     <Content Include="Resources\GRABACION_EXITOSA.png" />
     <Content Include="Resources\iconacercar.png" />
+    <None Include="Resources\iconadd.png" />
     <Content Include="Resources\iconalejar.png" />
+    <None Include="Resources\iconatras.png" />
+    <None Include="Resources\iconeliminar.png" />
+    <None Include="Resources\iconeditar.png" />
     <Content Include="Resources\IconFondo.png" />
+    <None Include="Resources\iconguardar.png" />
     <Content Include="Resources\ic_a.png" />
     <Content Include="Resources\ic_c.png" />
     <Content Include="Resources\ic_f.png" />
@@ -544,6 +549,8 @@
     <Content Include="Resources\rubbish.png" />
     <Content Include="Resources\sheets.png" />
     <Content Include="Resources\street-map.png" />
+    <None Include="Resources\tec_triangulo_blanco.png" />
+    <None Include="Resources\tecbrin.png" />
     <Content Include="Resources\ToastError.png" />
     <Content Include="Resources\ToastWarning.png" />
     <Content Include="Resources\ttf.bmp" />

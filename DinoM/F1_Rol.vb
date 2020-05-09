@@ -49,7 +49,7 @@ Public Class F1_Rol
 
     Private Sub _prCargarGridModulos()
         Dim dt As New DataTable
-        dt = L_prLibreriaDetalleGeneral(gi_LibSistema, gi_LibSISModulo)
+        dt = L_prLibreriaDetalleGeneral(1)
 
         grModulos.DataSource = dt
         grModulos.RetrieveStructure()

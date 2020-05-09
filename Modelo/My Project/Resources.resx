@@ -262,4 +262,25 @@
   <data name="pie_chart" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pie-chart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="iconadd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconadd.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="iconatras" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconatras.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="iconeditar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconeditar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="iconeliminar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconeliminar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="iconguardar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconguardar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tecbrin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\tecbrin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tec_triangulo_blanco" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\tec_triangulo_blanco.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
