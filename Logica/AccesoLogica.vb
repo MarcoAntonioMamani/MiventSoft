@@ -3105,7 +3105,139 @@ Public Class AccesoLogica
     End Function
 #End Region
 
-#Region "ROLES CORRECTO"
+#Region "Usuarios TecBrinc"
+    Public Shared Function L_prUsuarioGeneral() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Usuarios", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prListaRolesUsuarios() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Usuarios", _listParam)
+
+        Return _Tabla
+    End Function
+    Public Shared Function L_prListaEmpresasUsuarios() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Usuarios", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prUsuarioBorrar(_numi As String, ByRef _mensaje As String) As Boolean
+
+        Dim _resultado As Boolean
+
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", -1))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Usuarios", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _resultado = True
+            'L_prTipoCambioGrabarHistorial(_numi, _fecha, _dolar, _ufv, "TIPO DE CAMBIO", 3)
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function L_prUsuarioModificar(_numi As String, _RolId As Integer, _NombreUsuario As String,
+                                                _Contrasena As String, _estado As Integer,
+ _sucursalId As Integer, _IdEmpresa As Integer) As Boolean
+        Dim _resultado As Boolean
+
+        'INSERT INTO Usuarios  VALUES(@RolId ,@NombreUsuario ,@Contrasena ,@Estado 
+        ',@SucursalId ,@newFecha,@newHora,@usuario,@IdEmpresa  )
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("RolId", _RolId))
+        _listParam.Add(New Datos.DParametro("@NombreUsuario", _NombreUsuario))
+        _listParam.Add(New Datos.DParametro("@Contrasena", _Contrasena))
+        _listParam.Add(New Datos.DParametro("@Estado", _estado))
+        _listParam.Add(New Datos.DParametro("@SucursalId", _sucursalId))
+        _listParam.Add(New Datos.DParametro("@IdEmpresa", _IdEmpresa))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+
+        _Tabla = D_ProcedimientoConParam("MAM_Usuarios", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function L_prUsuarioInsertar(ByRef _numi As String, _RolId As Integer, _NombreUsuario As String,
+                                                _Contrasena As String, _estado As Integer,
+ _sucursalId As Integer, _IdEmpresa As Integer) As Boolean
+        Dim _resultado As Boolean
+
+        'INSERT INTO Usuarios  VALUES(@RolId ,@NombreUsuario ,@Contrasena ,@Estado 
+        ',@SucursalId ,@newFecha,@newHora,@usuario,@IdEmpresa  )
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("RolId", _RolId))
+        _listParam.Add(New Datos.DParametro("@NombreUsuario", _NombreUsuario))
+        _listParam.Add(New Datos.DParametro("@Contrasena", _Contrasena))
+        _listParam.Add(New Datos.DParametro("@Estado", _estado))
+        _listParam.Add(New Datos.DParametro("@SucursalId", _sucursalId))
+        _listParam.Add(New Datos.DParametro("@IdEmpresa", _IdEmpresa))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+
+        _Tabla = D_ProcedimientoConParam("MAM_Usuarios", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _numi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+#End Region
+#Region "ROLES TecBrinc"
 
     Public Shared Function L_prRolGeneral() As DataTable
         Dim _Tabla As DataTable

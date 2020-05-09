@@ -489,7 +489,7 @@ Public Class Tec_Roles
         Dim res As Boolean = L_prRolModificar(tbNumi.Text, tbRol.Text, dtDetalle)
         If res Then
 
-            ToastNotification.Show(Me, "Codigo de Personal ".ToUpper + tbNumi.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, "Codigo de Rol ".ToUpper + tbNumi.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
             _PSalirRegistro()
         End If
         Return res

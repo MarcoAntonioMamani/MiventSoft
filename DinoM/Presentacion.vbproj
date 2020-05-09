@@ -380,6 +380,12 @@
     <Compile Include="Modulo Configuracion\Tec_Roles.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modulo Configuracion\Tec_Users.Designer.vb">
+      <DependentUpon>Tec_Users.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo Configuracion\Tec_Users.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Programas Principales\Tec_Login.Designer.vb">
       <DependentUpon>Tec_Login.vb</DependentUpon>
     </Compile>
@@ -837,6 +843,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo Configuracion\Tec_Roles.resx">
       <DependentUpon>Tec_Roles.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo Configuracion\Tec_Users.resx">
+      <DependentUpon>Tec_Users.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Programas Principales\Tec_Login.resx">
       <DependentUpon>Tec_Login.vb</DependentUpon>
