@@ -513,9 +513,9 @@ Public Class TecCategorias
             Dim im As New Bitmap(My.Resources.pantalla)
             UsImg.pbImage.Image = im
         Else
-            If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Categoria" + Name)) Then
+            If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Categoria" + Img)) Then
                 Dim Bin As New MemoryStream
-                Dim im As New Bitmap(New Bitmap(RutaGlobal + "\Imagenes\Imagenes Categoria" + Img))
+                Dim im As New Bitmap(New Bitmap(RutaGlobal + "\Imagenes\Imagenes Categoria" + Img), 50, 70)
                 im.Save(Bin, System.Drawing.Imaging.ImageFormat.Jpeg)
                 UsImg.pbImage.SizeMode = PictureBoxSizeMode.StretchImage
                 UsImg.pbImage.Image = Image.FromStream(Bin)

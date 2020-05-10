@@ -96,6 +96,7 @@ Partial Class Tec_Principal
         Me.btnSalir = New DevComponents.DotNetBar.ButtonX()
         Me.PanelLine = New System.Windows.Forms.Panel()
         Me.imguser = New System.Windows.Forms.PictureBox()
+        Me.btnConfCategoria = New DevComponents.DotNetBar.Metro.MetroTileItem()
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlMenu.SuspendLayout()
         Me.SuperTabControlPanel3.SuspendLayout()
@@ -198,7 +199,7 @@ Partial Class Tec_Principal
         Me.ItemContainerVentTransacciones.ItemSpacing = 10
         Me.ItemContainerVentTransacciones.MultiLine = True
         Me.ItemContainerVentTransacciones.Name = "ItemContainerVentTransacciones"
-        Me.ItemContainerVentTransacciones.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btConfRoles, Me.btConfUsuarios, Me.btConfCliente, Me.btConfProducto, Me.btConfPrecio, Me.btConfLibreria, Me.btConfDosificacion, Me.btComProveedor, Me.btComVendedor})
+        Me.ItemContainerVentTransacciones.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btConfRoles, Me.btConfUsuarios, Me.btConfCliente, Me.btConfProducto, Me.btConfPrecio, Me.btConfLibreria, Me.btConfDosificacion, Me.btComProveedor, Me.btComVendedor, Me.btnConfCategoria})
         '
         '
         '
@@ -1531,6 +1532,29 @@ Partial Class Tec_Principal
         Me.imguser.TabIndex = 1
         Me.imguser.TabStop = False
         '
+        'btnConfCategoria
+        '
+        Me.btnConfCategoria.Image = Global.DinoM.My.Resources.Resources._14
+        Me.btnConfCategoria.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnConfCategoria.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnConfCategoria.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnConfCategoria.Name = "btnConfCategoria"
+        Me.btnConfCategoria.SymbolColor = System.Drawing.Color.Black
+        Me.btnConfCategoria.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnConfCategoria.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btnConfCategoria.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnConfCategoria.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
+        Me.btnConfCategoria.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnConfCategoria.TileStyle.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnConfCategoria.TileStyle.PaddingRight = 30
+        Me.btnConfCategoria.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnConfCategoria.TitleText = "Gestion De" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & " Categorias"
+        Me.btnConfCategoria.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnConfCategoria.TitleTextColor = System.Drawing.Color.White
+        '
         'Tec_Principal
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -1631,4 +1655,5 @@ Partial Class Tec_Principal
     Friend WithEvents Reportes As DevComponents.DotNetBar.ItemContainer
     Friend WithEvents MetroTileItem1 As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents MetroTileItem2 As DevComponents.DotNetBar.Metro.MetroTileItem
+    Friend WithEvents btnConfCategoria As DevComponents.DotNetBar.Metro.MetroTileItem
 End Class
