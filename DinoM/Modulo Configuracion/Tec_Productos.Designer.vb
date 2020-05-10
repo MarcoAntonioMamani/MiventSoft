@@ -24,6 +24,10 @@ Partial Class Tec_Productos
     Private Sub InitializeComponent()
         Dim cbEmpresa_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbCategoria_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim MultiColumnCombo1_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim MultiColumnCombo2_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim MultiColumnCombo3_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim MultiColumnCombo4_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tec_Productos))
         Me.SuperTabControl1 = New DevComponents.DotNetBar.SuperTabControl()
         Me.SuperTabControlPanel1 = New DevComponents.DotNetBar.SuperTabControlPanel()
@@ -83,6 +87,16 @@ Partial Class Tec_Productos
         Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
         Me.swEstado = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.LabelX6 = New DevComponents.DotNetBar.LabelX()
+        Me.tbStockMinimo = New DevComponents.Editors.IntegerInput()
+        Me.LabelX8 = New DevComponents.DotNetBar.LabelX()
+        Me.MultiColumnCombo1 = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.LabelX9 = New DevComponents.DotNetBar.LabelX()
+        Me.MultiColumnCombo2 = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.LabelX10 = New DevComponents.DotNetBar.LabelX()
+        Me.MultiColumnCombo3 = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.LabelX11 = New DevComponents.DotNetBar.LabelX()
+        Me.MultiColumnCombo4 = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.LabelX12 = New DevComponents.DotNetBar.LabelX()
         CType(Me.SuperTabControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControl1.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -110,6 +124,11 @@ Partial Class Tec_Productos
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbEmpresa, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbCategoria, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbStockMinimo, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.MultiColumnCombo1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.MultiColumnCombo2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.MultiColumnCombo3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.MultiColumnCombo4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'SuperTabControl1
@@ -297,6 +316,16 @@ Partial Class Tec_Productos
         'Panel9
         '
         Me.Panel9.BackColor = System.Drawing.Color.White
+        Me.Panel9.Controls.Add(Me.MultiColumnCombo4)
+        Me.Panel9.Controls.Add(Me.LabelX12)
+        Me.Panel9.Controls.Add(Me.MultiColumnCombo3)
+        Me.Panel9.Controls.Add(Me.LabelX11)
+        Me.Panel9.Controls.Add(Me.MultiColumnCombo2)
+        Me.Panel9.Controls.Add(Me.LabelX10)
+        Me.Panel9.Controls.Add(Me.MultiColumnCombo1)
+        Me.Panel9.Controls.Add(Me.LabelX9)
+        Me.Panel9.Controls.Add(Me.LabelX8)
+        Me.Panel9.Controls.Add(Me.tbStockMinimo)
         Me.Panel9.Controls.Add(Me.swEstado)
         Me.Panel9.Controls.Add(Me.LabelX6)
         Me.Panel9.Controls.Add(Me.cbCategoria)
@@ -729,7 +758,7 @@ Partial Class Tec_Productos
         Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX2.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX2.Location = New System.Drawing.Point(17, 55)
+        Me.LabelX2.Location = New System.Drawing.Point(10, 15)
         Me.LabelX2.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX2.Name = "LabelX2"
         Me.LabelX2.SingleLineColor = System.Drawing.SystemColors.Control
@@ -746,7 +775,7 @@ Partial Class Tec_Productos
         Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX3.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX3.Location = New System.Drawing.Point(17, 91)
+        Me.LabelX3.Location = New System.Drawing.Point(10, 51)
         Me.LabelX3.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX3.Name = "LabelX3"
         Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
@@ -762,7 +791,7 @@ Partial Class Tec_Productos
         Me.tbCodigo.Border.Class = "TextBoxBorder"
         Me.tbCodigo.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbCodigo.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbCodigo.Location = New System.Drawing.Point(203, 55)
+        Me.tbCodigo.Location = New System.Drawing.Point(196, 15)
         Me.tbCodigo.Margin = New System.Windows.Forms.Padding(4)
         Me.tbCodigo.Name = "tbCodigo"
         Me.tbCodigo.PreventEnterBeep = True
@@ -778,7 +807,7 @@ Partial Class Tec_Productos
         Me.tbCodigoExterno.Border.Class = "TextBoxBorder"
         Me.tbCodigoExterno.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbCodigoExterno.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbCodigoExterno.Location = New System.Drawing.Point(203, 90)
+        Me.tbCodigoExterno.Location = New System.Drawing.Point(196, 50)
         Me.tbCodigoExterno.Margin = New System.Windows.Forms.Padding(4)
         Me.tbCodigoExterno.Name = "tbCodigoExterno"
         Me.tbCodigoExterno.PreventEnterBeep = True
@@ -794,7 +823,7 @@ Partial Class Tec_Productos
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX1.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX1.Location = New System.Drawing.Point(17, 128)
+        Me.LabelX1.Location = New System.Drawing.Point(10, 88)
         Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
@@ -810,7 +839,7 @@ Partial Class Tec_Productos
         Me.TextBoxX1.Border.Class = "TextBoxBorder"
         Me.TextBoxX1.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.TextBoxX1.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBoxX1.Location = New System.Drawing.Point(203, 127)
+        Me.TextBoxX1.Location = New System.Drawing.Point(196, 87)
         Me.TextBoxX1.Margin = New System.Windows.Forms.Padding(4)
         Me.TextBoxX1.Name = "TextBoxX1"
         Me.TextBoxX1.PreventEnterBeep = True
@@ -825,7 +854,7 @@ Partial Class Tec_Productos
         Me.tbDescripcion.Border.Class = "TextBoxBorder"
         Me.tbDescripcion.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbDescripcion.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbDescripcion.Location = New System.Drawing.Point(203, 175)
+        Me.tbDescripcion.Location = New System.Drawing.Point(196, 123)
         Me.tbDescripcion.Margin = New System.Windows.Forms.Padding(4)
         Me.tbDescripcion.Multiline = True
         Me.tbDescripcion.Name = "tbDescripcion"
@@ -842,7 +871,7 @@ Partial Class Tec_Productos
         Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX4.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX4.Location = New System.Drawing.Point(18, 175)
+        Me.LabelX4.Location = New System.Drawing.Point(11, 123)
         Me.LabelX4.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX4.Name = "LabelX4"
         Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
@@ -855,7 +884,7 @@ Partial Class Tec_Productos
         cbEmpresa_DesignTimeLayout.LayoutString = resources.GetString("cbEmpresa_DesignTimeLayout.LayoutString")
         Me.cbEmpresa.DesignTimeLayout = cbEmpresa_DesignTimeLayout
         Me.cbEmpresa.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbEmpresa.Location = New System.Drawing.Point(203, 254)
+        Me.cbEmpresa.Location = New System.Drawing.Point(196, 202)
         Me.cbEmpresa.Margin = New System.Windows.Forms.Padding(4)
         Me.cbEmpresa.Name = "cbEmpresa"
         Me.cbEmpresa.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
@@ -876,7 +905,7 @@ Partial Class Tec_Productos
         Me.LabelX7.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX7.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX7.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX7.Location = New System.Drawing.Point(17, 254)
+        Me.LabelX7.Location = New System.Drawing.Point(10, 202)
         Me.LabelX7.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX7.Name = "LabelX7"
         Me.LabelX7.SingleLineColor = System.Drawing.SystemColors.Control
@@ -889,7 +918,7 @@ Partial Class Tec_Productos
         cbCategoria_DesignTimeLayout.LayoutString = resources.GetString("cbCategoria_DesignTimeLayout.LayoutString")
         Me.cbCategoria.DesignTimeLayout = cbCategoria_DesignTimeLayout
         Me.cbCategoria.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbCategoria.Location = New System.Drawing.Point(203, 290)
+        Me.cbCategoria.Location = New System.Drawing.Point(196, 238)
         Me.cbCategoria.Margin = New System.Windows.Forms.Padding(4)
         Me.cbCategoria.Name = "cbCategoria"
         Me.cbCategoria.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
@@ -910,7 +939,7 @@ Partial Class Tec_Productos
         Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX5.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX5.Location = New System.Drawing.Point(17, 290)
+        Me.LabelX5.Location = New System.Drawing.Point(10, 238)
         Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX5.Name = "LabelX5"
         Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
@@ -925,7 +954,7 @@ Partial Class Tec_Productos
         '
         Me.swEstado.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.swEstado.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.swEstado.Location = New System.Drawing.Point(203, 326)
+        Me.swEstado.Location = New System.Drawing.Point(196, 274)
         Me.swEstado.Margin = New System.Windows.Forms.Padding(4)
         Me.swEstado.Name = "swEstado"
         Me.swEstado.OffBackColor = System.Drawing.Color.Red
@@ -951,13 +980,182 @@ Partial Class Tec_Productos
         Me.LabelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX6.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX6.Location = New System.Drawing.Point(18, 330)
+        Me.LabelX6.Location = New System.Drawing.Point(11, 278)
         Me.LabelX6.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX6.Name = "LabelX6"
         Me.LabelX6.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX6.Size = New System.Drawing.Size(55, 23)
         Me.LabelX6.TabIndex = 48
         Me.LabelX6.Text = "Estado:"
+        '
+        'tbStockMinimo
+        '
+        '
+        '
+        '
+        Me.tbStockMinimo.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbStockMinimo.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbStockMinimo.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.tbStockMinimo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbStockMinimo.Location = New System.Drawing.Point(196, 309)
+        Me.tbStockMinimo.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbStockMinimo.Name = "tbStockMinimo"
+        Me.tbStockMinimo.Size = New System.Drawing.Size(168, 24)
+        Me.tbStockMinimo.TabIndex = 49
+        '
+        'LabelX8
+        '
+        Me.LabelX8.AutoSize = True
+        Me.LabelX8.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX8.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX8.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX8.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX8.Location = New System.Drawing.Point(11, 310)
+        Me.LabelX8.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX8.Name = "LabelX8"
+        Me.LabelX8.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX8.Size = New System.Drawing.Size(105, 23)
+        Me.LabelX8.TabIndex = 50
+        Me.LabelX8.Text = "Stock Minimo:"
+        '
+        'MultiColumnCombo1
+        '
+        MultiColumnCombo1_DesignTimeLayout.LayoutString = resources.GetString("MultiColumnCombo1_DesignTimeLayout.LayoutString")
+        Me.MultiColumnCombo1.DesignTimeLayout = MultiColumnCombo1_DesignTimeLayout
+        Me.MultiColumnCombo1.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MultiColumnCombo1.Location = New System.Drawing.Point(196, 339)
+        Me.MultiColumnCombo1.Margin = New System.Windows.Forms.Padding(4)
+        Me.MultiColumnCombo1.Name = "MultiColumnCombo1"
+        Me.MultiColumnCombo1.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.MultiColumnCombo1.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.MultiColumnCombo1.SelectedIndex = -1
+        Me.MultiColumnCombo1.SelectedItem = Nothing
+        Me.MultiColumnCombo1.Size = New System.Drawing.Size(219, 28)
+        Me.MultiColumnCombo1.TabIndex = 51
+        Me.MultiColumnCombo1.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'LabelX9
+        '
+        Me.LabelX9.AutoSize = True
+        Me.LabelX9.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX9.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX9.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX9.Location = New System.Drawing.Point(10, 339)
+        Me.LabelX9.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX9.Name = "LabelX9"
+        Me.LabelX9.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX9.Size = New System.Drawing.Size(81, 23)
+        Me.LabelX9.TabIndex = 52
+        Me.LabelX9.Text = "Proveedor:"
+        '
+        'MultiColumnCombo2
+        '
+        MultiColumnCombo2_DesignTimeLayout.LayoutString = resources.GetString("MultiColumnCombo2_DesignTimeLayout.LayoutString")
+        Me.MultiColumnCombo2.DesignTimeLayout = MultiColumnCombo2_DesignTimeLayout
+        Me.MultiColumnCombo2.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MultiColumnCombo2.Location = New System.Drawing.Point(196, 371)
+        Me.MultiColumnCombo2.Margin = New System.Windows.Forms.Padding(4)
+        Me.MultiColumnCombo2.Name = "MultiColumnCombo2"
+        Me.MultiColumnCombo2.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.MultiColumnCombo2.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.MultiColumnCombo2.SelectedIndex = -1
+        Me.MultiColumnCombo2.SelectedItem = Nothing
+        Me.MultiColumnCombo2.Size = New System.Drawing.Size(219, 28)
+        Me.MultiColumnCombo2.TabIndex = 53
+        Me.MultiColumnCombo2.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'LabelX10
+        '
+        Me.LabelX10.AutoSize = True
+        Me.LabelX10.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX10.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX10.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX10.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX10.Location = New System.Drawing.Point(10, 371)
+        Me.LabelX10.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX10.Name = "LabelX10"
+        Me.LabelX10.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX10.Size = New System.Drawing.Size(52, 23)
+        Me.LabelX10.TabIndex = 54
+        Me.LabelX10.Text = "Marca:"
+        '
+        'MultiColumnCombo3
+        '
+        MultiColumnCombo3_DesignTimeLayout.LayoutString = resources.GetString("MultiColumnCombo3_DesignTimeLayout.LayoutString")
+        Me.MultiColumnCombo3.DesignTimeLayout = MultiColumnCombo3_DesignTimeLayout
+        Me.MultiColumnCombo3.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MultiColumnCombo3.Location = New System.Drawing.Point(196, 402)
+        Me.MultiColumnCombo3.Margin = New System.Windows.Forms.Padding(4)
+        Me.MultiColumnCombo3.Name = "MultiColumnCombo3"
+        Me.MultiColumnCombo3.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.MultiColumnCombo3.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.MultiColumnCombo3.SelectedIndex = -1
+        Me.MultiColumnCombo3.SelectedItem = Nothing
+        Me.MultiColumnCombo3.Size = New System.Drawing.Size(219, 28)
+        Me.MultiColumnCombo3.TabIndex = 55
+        Me.MultiColumnCombo3.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'LabelX11
+        '
+        Me.LabelX11.AutoSize = True
+        Me.LabelX11.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX11.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX11.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX11.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX11.Location = New System.Drawing.Point(10, 402)
+        Me.LabelX11.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX11.Name = "LabelX11"
+        Me.LabelX11.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX11.Size = New System.Drawing.Size(67, 23)
+        Me.LabelX11.TabIndex = 56
+        Me.LabelX11.Text = "Atributo:"
+        '
+        'MultiColumnCombo4
+        '
+        MultiColumnCombo4_DesignTimeLayout.LayoutString = resources.GetString("MultiColumnCombo4_DesignTimeLayout.LayoutString")
+        Me.MultiColumnCombo4.DesignTimeLayout = MultiColumnCombo4_DesignTimeLayout
+        Me.MultiColumnCombo4.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MultiColumnCombo4.Location = New System.Drawing.Point(196, 434)
+        Me.MultiColumnCombo4.Margin = New System.Windows.Forms.Padding(4)
+        Me.MultiColumnCombo4.Name = "MultiColumnCombo4"
+        Me.MultiColumnCombo4.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.MultiColumnCombo4.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.MultiColumnCombo4.SelectedIndex = -1
+        Me.MultiColumnCombo4.SelectedItem = Nothing
+        Me.MultiColumnCombo4.Size = New System.Drawing.Size(219, 28)
+        Me.MultiColumnCombo4.TabIndex = 57
+        Me.MultiColumnCombo4.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'LabelX12
+        '
+        Me.LabelX12.AutoSize = True
+        Me.LabelX12.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX12.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX12.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX12.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX12.Location = New System.Drawing.Point(10, 434)
+        Me.LabelX12.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX12.Name = "LabelX12"
+        Me.LabelX12.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX12.Size = New System.Drawing.Size(58, 23)
+        Me.LabelX12.TabIndex = 58
+        Me.LabelX12.Text = "Familia:"
         '
         'Tec_Productos
         '
@@ -995,6 +1193,11 @@ Partial Class Tec_Productos
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbEmpresa, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbCategoria, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbStockMinimo, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.MultiColumnCombo1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.MultiColumnCombo2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.MultiColumnCombo3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.MultiColumnCombo4, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1057,4 +1260,14 @@ Partial Class Tec_Productos
     Friend WithEvents LabelX7 As DevComponents.DotNetBar.LabelX
     Friend WithEvents swEstado As DevComponents.DotNetBar.Controls.SwitchButton
     Friend WithEvents LabelX6 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents LabelX8 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbStockMinimo As DevComponents.Editors.IntegerInput
+    Friend WithEvents MultiColumnCombo4 As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents LabelX12 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents MultiColumnCombo3 As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents LabelX11 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents MultiColumnCombo2 As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents LabelX10 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents MultiColumnCombo1 As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents LabelX9 As DevComponents.DotNetBar.LabelX
 End Class
