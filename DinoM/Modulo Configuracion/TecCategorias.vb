@@ -1,9 +1,11 @@
-﻿Imports Logica.AccesoLogica
-Imports Janus.Windows.GridEX
+﻿
+Imports Logica.AccesoLogica
 Imports DevComponents.DotNetBar
+Imports Janus.Windows.GridEX
+Imports System.IO
+Imports DevComponents.DotNetBar.SuperGrid
 Imports DevComponents.DotNetBar.Controls
-Public Class Tec_Users
-
+Public Class TecCategorias
 
 #Region "Atributos"
     Public _nameButton As String
@@ -14,6 +16,11 @@ Public Class Tec_Users
     Public _MPos As Integer
     Public _MNuevo As Boolean
     Public _MModificar As Boolean
+
+    Dim RutaGlobal As String = gs_CarpetaRaiz
+    Dim RutaTemporal As String = "C:\Temporal"
+    Dim Modificado As Boolean = False
+    Dim nameImg As String = "Default.jpg"
 
 #End Region
 
@@ -136,7 +143,7 @@ Public Class Tec_Users
         btnEliminar.Visible = False
         btnGrabar.Visible = True
         PanelNavegacion.Enabled = False
-        tbNombreUsuario.Focus()
+        tbNombreCategoria.Focus()
 
 
         '_PMOLimpiar()
@@ -216,47 +223,73 @@ Public Class Tec_Users
 
     Private Sub _prIniciarTodo()
         'L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
-        Me.Text = "Gestion De Usuarios"
-        _prCargarComboLibreriaRoles(cbRol)
-        _prCargarComboLibreriaEmpresa(cbEmpresa)
+        Me.Text = "Gestion De Categorias"
         _PMIniciarTodo()
         _prAsignarPermisos()
 
-        Dim blah As New Bitmap(New Bitmap(My.Resources.ic_a), 20, 20)
+        Dim blah As New Bitmap(New Bitmap(My.Resources.ic_c), 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         Me.Icon = ico
 
     End Sub
-    Private Sub _prCargarComboLibreriaRoles(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
-        Dim dt As New DataTable
-        dt = L_prListaRolesUsuarios()
-        With mCombo
-            .DropDownList.Columns.Clear()
-            .DropDownList.Columns.Add("Id").Width = 60
-            .DropDownList.Columns("Id").Caption = "Codigo"
-            .DropDownList.Columns.Add("NombreRol").Width = 500
-            .DropDownList.Columns("NombreRol").Caption = "Roles"
-            .ValueMember = "Id"
-            .DisplayMember = "NombreRol"
-            .DataSource = dt
-            .Refresh()
-        End With
+
+    Private Sub _prCrearCarpetaTemporal()
+
+        If System.IO.Directory.Exists(RutaTemporal) = False Then
+            System.IO.Directory.CreateDirectory(RutaTemporal)
+        Else
+            Try
+                My.Computer.FileSystem.DeleteDirectory(RutaTemporal, FileIO.DeleteDirectoryOption.DeleteAllContents)
+                My.Computer.FileSystem.CreateDirectory(RutaTemporal)
+                'My.Computer.FileSystem.DeleteDirectory(RutaTemporal, FileIO.UIOption.AllDialogs, FileIO.RecycleOption.SendToRecycleBin)
+                'System.IO.Directory.CreateDirectory(RutaTemporal)
+
+            Catch ex As Exception
+
+            End Try
+
+        End If
+
+    End Sub
+    Private Sub _prCrearCarpetaImagenes()
+        Dim rutaDestino As String = RutaGlobal + "\Imagenes\Imagenes Categoria\"
+
+        If System.IO.Directory.Exists(RutaGlobal + "\Imagenes\Imagenes Categoria\") = False Then
+            If System.IO.Directory.Exists(RutaGlobal + "\Imagenes") = False Then
+                System.IO.Directory.CreateDirectory(RutaGlobal + "\Imagenes")
+                If System.IO.Directory.Exists(RutaGlobal + "\Imagenes\Imagenes Categoria") = False Then
+                    System.IO.Directory.CreateDirectory(RutaGlobal + "\Imagenes\Imagenes Categoria")
+                End If
+            Else
+                If System.IO.Directory.Exists(RutaGlobal + "\Imagenes\Imagenes Categoria") = False Then
+                    System.IO.Directory.CreateDirectory(RutaGlobal + "\Imagenes\Imagenes Categoria")
+
+                End If
+            End If
+        End If
     End Sub
 
-    Private Sub _prCargarComboLibreriaEmpresa(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
-        Dim dt As New DataTable
-        dt = L_prListaEmpresasUsuarios()
-        With mCombo
-            .DropDownList.Columns.Clear()
-            .DropDownList.Columns.Add("Id").Width = 60
-            .DropDownList.Columns("Id").Caption = "Codigo"
-            .DropDownList.Columns.Add("Nombre").Width = 500
-            .DropDownList.Columns("Nombre").Caption = "Empresa"
-            .ValueMember = "Id"
-            .DisplayMember = "Nombre"
-            .DataSource = dt
-            .Refresh()
-        End With
+
+    Private Sub _fnMoverImagenRuta(Folder As String, name As String)
+        'copio la imagen en la carpeta del sistema
+        If (Not name.Equals("Default.jpg") And File.Exists(RutaTemporal + name)) Then
+
+            Dim img As New Bitmap(New Bitmap(RutaTemporal + name), 500, 300)
+
+            UsImg.pbImage.Image.Dispose()
+            UsImg.pbImage.Image = Nothing
+            Try
+                My.Computer.FileSystem.CopyFile(RutaTemporal + name,
+     Folder + name, overwrite:=True)
+
+            Catch ex As System.IO.IOException
+
+
+            End Try
+
+
+
+        End If
     End Sub
 
     Private Sub _prAsignarPermisos()
@@ -291,34 +324,32 @@ Public Class Tec_Users
 
     Public Sub _PMOHabilitar()
 
-        tbNombreUsuario.ReadOnly = False
-        tbContrasena.ReadOnly = False
-        cbEmpresa.ReadOnly = False
-        cbRol.ReadOnly = False
+        tbNombreCategoria.ReadOnly = False
+        tbDescripcion.ReadOnly = False
         swEstado.IsReadOnly = False
+        btnImage.Visible = True
+        swApp.IsReadOnly = False
+        _prCrearCarpetaImagenes()
+        _prCrearCarpetaTemporal()
     End Sub
 
     Public Sub _PMOInhabilitar()
         tbCodigo.ReadOnly = True
-        tbNombreUsuario.ReadOnly = True
-        tbContrasena.ReadOnly = True
-        cbEmpresa.ReadOnly = True
-        cbRol.ReadOnly = True
+        tbNombreCategoria.ReadOnly = True
+        tbDescripcion.ReadOnly = True
         swEstado.IsReadOnly = True
+        btnImage.Visible = False
+        swApp.IsReadOnly = True
     End Sub
 
     Public Sub _PMOLimpiar()
         tbCodigo.Text = ""
-        tbNombreUsuario.Text = ""
-        tbContrasena.Text = ""
+        tbNombreCategoria.Text = ""
+        tbDescripcion.Text = ""
+        swApp.Value = True
         swEstado.Value = True
-        If (ObtenerLongitudCombo(cbRol) > 0) Then
-            cbRol.SelectedIndex = 0
-        End If
-        If (ObtenerLongitudCombo(cbEmpresa) > 0) Then
-            cbEmpresa.SelectedIndex = 0
-        End If
-        tbNombreUsuario.Focus()
+        UsImg.pbImage.Image = My.Resources.pantalla
+        tbNombreCategoria.Focus()
     End Sub
     Public Function ObtenerLongitudCombo(cb As EditControls.MultiColumnCombo) As Integer
         Return CType(cb.DataSource, DataTable).Rows.Count
@@ -327,17 +358,21 @@ Public Class Tec_Users
 
     Public Sub _PMOLimpiarErrores()
         MEP.Clear()
-        tbNombreUsuario.BackColor = Color.White
-        tbContrasena.BackColor = Color.White
-        cbEmpresa.BackColor = Color.White
-        cbRol.BackColor = Color.White
+        tbNombreCategoria.BackColor = Color.White
+        tbDescripcion.BackColor = Color.White
+
     End Sub
 
     Public Function _PMOGrabarRegistro() As Boolean
 
-        Dim res As Boolean = L_prUsuarioInsertar(tbCodigo.Text, cbRol.Value, tbNombreUsuario.Text,
-                                                  tbContrasena.Text, IIf(swEstado.Value = True, 1, 0), 1, cbEmpresa.Value)
+        Dim res As Boolean = L_prCategoriaInsertar(tbCodigo.Text, tbNombreCategoria.Text, tbDescripcion.Text,
+                                                   IIf(swEstado.Value = True, 1, 0), nameImg, IIf(swApp.Value = True, 1, 0))
+
         If res Then
+
+            Modificado = False
+            _fnMoverImagenRuta(RutaGlobal + "\Imagenes\Imagenes Categoria", nameImg)
+            nameImg = "Default.jpg"
             ToastNotification.Show(Me, "Codigo de Usuario ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
         End If
         Return res
@@ -345,16 +380,44 @@ Public Class Tec_Users
     End Function
 
     Public Function _PMOModificarRegistro() As Boolean
+        Dim Res As Boolean
+        Dim nameImage As String = JGrM_Buscador.GetValue("yfimg")
+        If (Modificado = False) Then
+            Res = L_prCategoriaModificar(tbCodigo.Text, tbNombreCategoria.Text, tbDescripcion.Text,
+                                                   IIf(swEstado.Value = True, 1, 0), nameImage, IIf(swApp.Value = True, 1, 0))
+        Else
+            Res = L_prCategoriaModificar(tbCodigo.Text, tbNombreCategoria.Text, tbDescripcion.Text,
+                                                   IIf(swEstado.Value = True, 1, 0), nameImg, IIf(swApp.Value = True, 1, 0))
+        End If
 
-        Dim res As Boolean = L_prUsuarioModificar(tbCodigo.Text, cbRol.Value, tbNombreUsuario.Text,
-                                                  tbContrasena.Text, IIf(swEstado.Value = True, 1, 0), 1, cbEmpresa.Value)
-        If res Then
-
+        If Res Then
+            If (Modificado = True) Then
+                _fnMoverImagenRuta(RutaGlobal + "\Imagenes\Imagenes Categoria", nameImg)
+                Modificado = False
+            End If
+            nameImg = "Default.jpg"
             ToastNotification.Show(Me, "Codigo de Usuario ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
             _PSalirRegistro()
         End If
         Return res
     End Function
+    Public Function _fnActionNuevo() As Boolean
+        Return tbCodigo.Text = String.Empty And tbDescripcion.ReadOnly = False
+    End Function
+    Public Sub _PrEliminarImage()
+
+        If (Not (_fnActionNuevo()) And (File.Exists(RutaGlobal + "\Imagenes\Imagenes Categoria\Imagen_" + tbCodigo.Text + ".jpg"))) Then
+            UsImg.pbImage.Image.Dispose()
+            UsImg.pbImage.Image = Nothing
+            Try
+                My.Computer.FileSystem.DeleteFile(RutaGlobal + "\Imagenes\Imagenes Categoria\Imagen_" + tbCodigo.Text + ".jpg")
+            Catch ex As Exception
+
+            End Try
+
+
+        End If
+    End Sub
 
     Public Sub _PMOEliminarRegistro()
 
@@ -364,15 +427,16 @@ Public Class Tec_Users
 
         ef.tipo = 3
         ef.titulo = "Confirmación de Eliminación"
-        ef.descripcion = "¿Esta Seguro de Eliminar el Usuario " + tbNombreUsuario.Text + " ?"
+        ef.descripcion = "¿Esta Seguro de Eliminar la Categoria " + tbNombreCategoria.Text + " ?"
         ef.ShowDialog()
         Dim bandera As Boolean = False
         bandera = ef.band
         If (bandera = True) Then
             Dim mensajeError As String = ""
-            Dim res As Boolean = L_prUsuarioBorrar(tbCodigo.Text, mensajeError)
+            Dim res As Boolean = L_prCategoriaBorrar(tbCodigo.Text, mensajeError)
             If res Then
-                ToastNotification.Show(Me, "Codigo de Usuario ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                _PrEliminarImage()
+                ToastNotification.Show(Me, "Codigo de Categoria ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                 _PMFiltrar()
             Else
                 ToastNotification.Show(Me, mensajeError, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
@@ -385,84 +449,45 @@ Public Class Tec_Users
         Dim _ok As Boolean = True
         MEP.Clear()
 
-        If tbNombreUsuario.Text = String.Empty Then
-            tbNombreUsuario.BackColor = Color.Red
-            MEP.SetError(tbNombreUsuario, "Ingrese Nombre de Usuario")
+        If tbNombreCategoria.Text = String.Empty Then
+            tbNombreCategoria.BackColor = Color.Red
+            MEP.SetError(tbNombreCategoria, "Ingrese Nombre de Usuario")
             _ok = False
         Else
-            tbNombreUsuario.BackColor = Color.White
-            MEP.SetError(tbNombreUsuario, "")
+            tbNombreCategoria.BackColor = Color.White
+            MEP.SetError(tbNombreCategoria, "")
         End If
 
-        If tbContrasena.Text = String.Empty Then
-            tbContrasena.BackColor = Color.Red
-            MEP.SetError(tbContrasena, "Ingrese una Contraseña")
-            _ok = False
-        Else
-            tbContrasena.BackColor = Color.White
-            MEP.SetError(tbContrasena, "")
-        End If
-        If cbEmpresa.SelectedIndex < 0 Then
-            cbEmpresa.BackColor = Color.Red
-            MEP.SetError(cbEmpresa, "Seleccione Una Empresa")
-            _ok = False
-        Else
-            cbEmpresa.BackColor = Color.White
-            MEP.SetError(cbEmpresa, "")
-        End If
-        If cbRol.SelectedIndex < 0 Then
-            cbRol.BackColor = Color.Red
-            MEP.SetError(cbRol, "Seleccione Una Rol")
-            _ok = False
-        Else
-            cbRol.BackColor = Color.White
-            MEP.SetError(cbRol, "")
-        End If
 
         MHighlighterFocus.UpdateHighlights()
 
-        If tbNombreUsuario.Text = String.Empty Then
-            tbNombreUsuario.Focus()
+        If tbNombreCategoria.Text = String.Empty Then
+            tbNombreCategoria.Focus()
             Return _ok
         End If
 
-        If tbContrasena.Text = String.Empty Then
-            tbContrasena.Focus()
-            Return _ok
-        End If
-        If cbEmpresa.SelectedIndex < 0 Then
-            cbEmpresa.Focus()
-            Return _ok
-        End If
-        If cbRol.SelectedIndex < 0 Then
-            cbRol.Focus()
-            Return _ok
-        End If
 
         Return _ok
     End Function
 
     Public Function _PMOGetTablaBuscador() As DataTable
 
-        Dim dtBuscador As DataTable = L_prUsuarioGeneral()
+        Dim dtBuscador As DataTable = L_prCategoriaGeneral()
         Return dtBuscador
     End Function
 
     Public Function _PMOGetListEstructuraBuscador() As List(Of Modelo.Celda)
 
-        'u.Id, u.NombreUsuario, u.Contrasena, cast(u.Estado As bit)  As estado, u.RolId,
-        'r.NombreRol, u.SucursalId, u.IdEmpresa, em.Nombre as Empresa
+        'a.Id , a.NombreCategoria, a.DescripcionCategoria, cast(a.Estado As bit) As Estado 
+        '    , a.Imagen, cast(a.VisibleApp As bit) as App  
         Dim listEstCeldas As New List(Of Modelo.Celda)
         listEstCeldas.Add(New Modelo.Celda("Id", True, "ID", 40))
-        listEstCeldas.Add(New Modelo.Celda("NombreUsuario", True, "ROL", 100))
-        listEstCeldas.Add(New Modelo.Celda("Contrasena", False))
-        listEstCeldas.Add(New Modelo.Celda("estado", True, "Estado", 60))
-        listEstCeldas.Add(New Modelo.Celda("RolId", False))
+        listEstCeldas.Add(New Modelo.Celda("NombreCategoria", True, "Categoria", 90))
+        listEstCeldas.Add(New Modelo.Celda("Estado", True, "Estado", 70))
+        listEstCeldas.Add(New Modelo.Celda("DescripcionCategoria", True, "Descripcion", 150))
+        listEstCeldas.Add(New Modelo.Celda("Imagen", False))
 
-        listEstCeldas.Add(New Modelo.Celda("NombreRol", True, "Rol", 90))
-        listEstCeldas.Add(New Modelo.Celda("SucursalId", False))
-        listEstCeldas.Add(New Modelo.Celda("IdEmpresa", False))
-        listEstCeldas.Add(New Modelo.Celda("Empresa", True, "Empresa", 120))
+        listEstCeldas.Add(New Modelo.Celda("App", True, "App", 90))
 
 
         Return listEstCeldas
@@ -470,22 +495,85 @@ Public Class Tec_Users
 
     Public Sub _PMOMostrarRegistro(_N As Integer)
         JGrM_Buscador.Row = _MPos
-        'u.Id, u.NombreUsuario, u.Contrasena, cast(u.Estado As bit)  As estado, u.RolId,
-        'r.NombreRol, u.SucursalId, u.IdEmpresa, em.Nombre as Empresa
+        'a.Id , a.NombreCategoria, a.DescripcionCategoria, cast(a.Estado As bit) As Estado 
+        '    , a.Imagen, cast(a.VisibleApp As bit) as App  
         With JGrM_Buscador
             tbCodigo.Text = .GetValue("Id").ToString
-            tbNombreUsuario.Text = .GetValue("NombreUsuario").ToString
-            tbContrasena.Text = .GetValue("Contrasena").ToString
-            swEstado.Value = .GetValue("estado")
-            cbRol.Value = .GetValue("RolId")
-            cbEmpresa.Value = .GetValue("IdEmpresa")
+            tbNombreCategoria.Text = .GetValue("NombreCategoria").ToString
+            tbDescripcion.Text = .GetValue("DescripcionCategoria").ToString
+            swEstado.Value = .GetValue("Estado")
+            swApp.Value = .GetValue("App")
+
 
 
         End With
+        Dim Img As String = JGrM_Buscador.GetValue("Imagen")
+        If Img.Equals("Default.jpg") Or Not File.Exists(RutaGlobal + "\Imagenes\Imagenes Categoria" + Img) Then
+
+            Dim im As New Bitmap(My.Resources.pantalla)
+            UsImg.pbImage.Image = im
+        Else
+            If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Categoria" + Name)) Then
+                Dim Bin As New MemoryStream
+                Dim im As New Bitmap(New Bitmap(RutaGlobal + "\Imagenes\Imagenes Categoria" + Img))
+                im.Save(Bin, System.Drawing.Imaging.ImageFormat.Jpeg)
+                UsImg.pbImage.SizeMode = PictureBoxSizeMode.StretchImage
+                UsImg.pbImage.Image = Image.FromStream(Bin)
+                Bin.Dispose()
+
+            End If
+        End If
 
         LblPaginacion.Text = Str(_MPos + 1) + "/" + JGrM_Buscador.RowCount.ToString
 
     End Sub
+    Private Function _fnCopiarImagenRutaDefinida() As String
+        'copio la imagen en la carpeta del sistema
+
+        Dim file As New OpenFileDialog()
+        file.Filter = "Ficheros JPG o JPEG o PNG|*.jpg;*.jpeg;*.png" &
+                      "|Ficheros GIF|*.gif" &
+                      "|Ficheros BMP|*.bmp" &
+                      "|Ficheros PNG|*.png" &
+                      "|Ficheros TIFF|*.tif"
+        If file.ShowDialog() = DialogResult.OK Then
+            Dim ruta As String = file.FileName
+
+
+            If file.CheckFileExists = True Then
+                Dim img As New Bitmap(New Bitmap(ruta))
+                Dim imgM As New Bitmap(New Bitmap(ruta), 200, 300)
+                Dim Bin As New MemoryStream
+                imgM.Save(Bin, System.Drawing.Imaging.ImageFormat.Jpeg)
+                Dim a As Object = file.GetType.ToString
+                If (_fnActionNuevo()) Then
+
+                    Dim mayor As Integer
+                    mayor = JGrM_Buscador.GetTotal(JGrM_Buscador.RootTable.Columns("Id"), AggregateFunction.Max)
+                    nameImg = "\Imagen_" + Str(mayor + 1).Trim + ".jpg"
+                    UsImg.pbImage.SizeMode = PictureBoxSizeMode.StretchImage
+                    UsImg.pbImage.Image = Image.FromStream(Bin)
+
+                    img.Save(RutaTemporal + nameImg, System.Drawing.Imaging.ImageFormat.Jpeg)
+                    img.Dispose()
+                Else
+
+                    nameImg = "\Imagen_" + Str(tbCodigo.Text).Trim + ".jpg"
+
+
+                    UsImg.pbImage.Image = Image.FromStream(Bin)
+                    img.Save(RutaTemporal + nameImg, System.Drawing.Imaging.ImageFormat.Jpeg)
+                    Modificado = True
+                    img.Dispose()
+
+                End If
+            End If
+
+            Return nameImg
+        End If
+
+        Return "default.jpg"
+    End Function
 
 
     Private Sub _PSalirRegistro()
@@ -546,5 +634,11 @@ Public Class Tec_Users
         _PMUltimoRegistro()
     End Sub
 
+    Private Sub btnImage_Click(sender As Object, e As EventArgs) Handles btnImage.Click
+        _fnCopiarImagenRutaDefinida()
+        btnGrabar.Focus()
+    End Sub
+
 #End Region
+
 End Class

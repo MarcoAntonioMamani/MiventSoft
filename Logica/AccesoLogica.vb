@@ -3105,6 +3105,111 @@ Public Class AccesoLogica
     End Function
 #End Region
 
+#Region "Categoria TecBrinc"
+
+    Public Shared Function L_prCategoriaGeneral() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Categorias", _listParam)
+
+        Return _Tabla
+    End Function
+    Public Shared Function L_prCategoriaBorrar(_numi As String, ByRef _mensaje As String) As Boolean
+
+        Dim _resultado As Boolean
+
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", -1))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Categorias", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _resultado = True
+            'L_prTipoCambioGrabarHistorial(_numi, _fecha, _dolar, _ufv, "TIPO DE CAMBIO", 3)
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+    Public Shared Function L_prCategoriaInsertar(ByRef _numi As String, _NombreCategoria As String,
+        _Descripcion As String, _estado As Integer, _Imagen As String, _VisibleApp As Integer) As Boolean
+        Dim _resultado As Boolean
+
+        '     INSERT INTO Categorias  VALUES(@Id,@NombreCategoria ,@DescripcionCategoria ,@Estado ,
+        '@Imagen ,@VisibleApp ,@newFecha,@newHora,@usuario )
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@NombreCategoria", _NombreCategoria))
+        _listParam.Add(New Datos.DParametro("@DescripcionCategoria", _Descripcion))
+        _listParam.Add(New Datos.DParametro("@Estado", _estado))
+        _listParam.Add(New Datos.DParametro("@Imagen", _Imagen))
+        _listParam.Add(New Datos.DParametro("@VisibleApp", _VisibleApp))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+
+        _Tabla = D_ProcedimientoConParam("MAM_Categorias", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _numi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function L_prCategoriaModificar(ByRef _numi As String, _NombreCategoria As String,
+        _Descripcion As String, _estado As Integer, _Imagen As String, _VisibleApp As Integer) As Boolean
+        Dim _resultado As Boolean
+
+        '     INSERT INTO Categorias  VALUES(@Id,@NombreCategoria ,@DescripcionCategoria ,@Estado ,
+        '@Imagen ,@VisibleApp ,@newFecha,@newHora,@usuario )
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@NombreCategoria", _NombreCategoria))
+        _listParam.Add(New Datos.DParametro("@DescripcionCategoria", _Descripcion))
+        _listParam.Add(New Datos.DParametro("@Estado", _estado))
+        _listParam.Add(New Datos.DParametro("@Imagen", _Imagen))
+        _listParam.Add(New Datos.DParametro("@VisibleApp", _VisibleApp))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+
+        _Tabla = D_ProcedimientoConParam("MAM_Categorias", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+#End Region
+
 #Region "Usuarios TecBrinc"
     Public Shared Function L_prUsuarioGeneral() As DataTable
         Dim _Tabla As DataTable
@@ -3181,7 +3286,7 @@ Public Class AccesoLogica
 
         _listParam.Add(New Datos.DParametro("@tipo", 2))
         _listParam.Add(New Datos.DParametro("@Id", _numi))
-        _listParam.Add(New Datos.DParametro("RolId", _RolId))
+        _listParam.Add(New Datos.DParametro("@RolId", _RolId))
         _listParam.Add(New Datos.DParametro("@NombreUsuario", _NombreUsuario))
         _listParam.Add(New Datos.DParametro("@Contrasena", _Contrasena))
         _listParam.Add(New Datos.DParametro("@Estado", _estado))
@@ -3215,7 +3320,7 @@ Public Class AccesoLogica
 
         _listParam.Add(New Datos.DParametro("@tipo", 1))
         _listParam.Add(New Datos.DParametro("@Id", _numi))
-        _listParam.Add(New Datos.DParametro("RolId", _RolId))
+        _listParam.Add(New Datos.DParametro("@RolId", _RolId))
         _listParam.Add(New Datos.DParametro("@NombreUsuario", _NombreUsuario))
         _listParam.Add(New Datos.DParametro("@Contrasena", _Contrasena))
         _listParam.Add(New Datos.DParametro("@Estado", _estado))
