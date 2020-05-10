@@ -38,6 +38,7 @@ Partial Class Tec_Principal
         Me.btConfDosificacion = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btComProveedor = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btComVendedor = New DevComponents.DotNetBar.Metro.MetroTileItem()
+        Me.btnConfCategoria = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.tab_configuraciones = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel5 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel_Ventas = New DevComponents.DotNetBar.Metro.MetroTilePanel()
@@ -96,7 +97,6 @@ Partial Class Tec_Principal
         Me.btnSalir = New DevComponents.DotNetBar.ButtonX()
         Me.PanelLine = New System.Windows.Forms.Panel()
         Me.imguser = New System.Windows.Forms.PictureBox()
-        Me.btnConfCategoria = New DevComponents.DotNetBar.Metro.MetroTileItem()
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlMenu.SuspendLayout()
         Me.SuperTabControlPanel3.SuspendLayout()
@@ -416,6 +416,29 @@ Partial Class Tec_Principal
         Me.btComVendedor.TitleText = "Gestion De" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Vendedores"
         Me.btComVendedor.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
         Me.btComVendedor.TitleTextColor = System.Drawing.Color.White
+        '
+        'btnConfCategoria
+        '
+        Me.btnConfCategoria.Image = Global.DinoM.My.Resources.Resources._14
+        Me.btnConfCategoria.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnConfCategoria.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnConfCategoria.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnConfCategoria.Name = "btnConfCategoria"
+        Me.btnConfCategoria.SymbolColor = System.Drawing.Color.Black
+        Me.btnConfCategoria.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnConfCategoria.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btnConfCategoria.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnConfCategoria.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
+        Me.btnConfCategoria.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnConfCategoria.TileStyle.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnConfCategoria.TileStyle.PaddingRight = 30
+        Me.btnConfCategoria.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnConfCategoria.TitleText = "Gestion De" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & " Categorias"
+        Me.btnConfCategoria.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnConfCategoria.TitleTextColor = System.Drawing.Color.White
         '
         'tab_configuraciones
         '
@@ -1531,29 +1554,6 @@ Partial Class Tec_Principal
         Me.imguser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.imguser.TabIndex = 1
         Me.imguser.TabStop = False
-        '
-        'btnConfCategoria
-        '
-        Me.btnConfCategoria.Image = Global.DinoM.My.Resources.Resources._14
-        Me.btnConfCategoria.ImageIndent = New System.Drawing.Point(-50, 0)
-        Me.btnConfCategoria.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
-        Me.btnConfCategoria.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
-        Me.btnConfCategoria.Name = "btnConfCategoria"
-        Me.btnConfCategoria.SymbolColor = System.Drawing.Color.Black
-        Me.btnConfCategoria.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
-        Me.btnConfCategoria.TileSize = New System.Drawing.Size(250, 135)
-        '
-        '
-        '
-        Me.btnConfCategoria.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.btnConfCategoria.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
-        Me.btnConfCategoria.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
-        Me.btnConfCategoria.TileStyle.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnConfCategoria.TileStyle.PaddingRight = 30
-        Me.btnConfCategoria.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
-        Me.btnConfCategoria.TitleText = "Gestion De" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & " Categorias"
-        Me.btnConfCategoria.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
-        Me.btnConfCategoria.TitleTextColor = System.Drawing.Color.White
         '
         'Tec_Principal
         '

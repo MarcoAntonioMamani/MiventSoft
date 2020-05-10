@@ -230,19 +230,20 @@ Public Class Tec_Productos
     Private Sub _prIniciarTodo()
         'L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
         Me.Text = "Gestion De Productos"
-        _PMIniciarTodo()
-        _prAsignarPermisos()
-
         P_Global._prCargarComboGenerico(cbEmpresa, L_prListaEmpresasUsuarios(), "Id", "Codigo", "Nombre", "Empresa")
         P_Global._prCargarComboGenerico(cbCategoria, L_prListaCategorias(), "Id", "Codigo", "NombreCategoria", "Categoria")
 
-        P_Global._prCargarComboGenerico(cbProveedor, L_prLibreriaDetalleGeneral(2), "cnnum", "Codigo", "Descripcion", "Categoria")
-        P_Global._prCargarComboGenerico(cbMarca, L_prLibreriaDetalleGeneral(3), "cnnum", "Codigo", "Descripcion", "Categoria")
-        P_Global._prCargarComboGenerico(cbAtributo, L_prLibreriaDetalleGeneral(4), "cnnum", "Codigo", "Descripcion", "Categoria")
-        P_Global._prCargarComboGenerico(cbFamilia, L_prLibreriaDetalleGeneral(5), "cnnum", "Codigo", "Descripcion", "Categoria")
+        P_Global._prCargarComboGenerico(cbProveedor, L_prLibreriaDetalleGeneral(2), "cnnum", "Codigo", "cndesc1", "Proveedor")
+        P_Global._prCargarComboGenerico(cbMarca, L_prLibreriaDetalleGeneral(3), "cnnum", "Codigo", "cndesc1", "Marca")
+        P_Global._prCargarComboGenerico(cbAtributo, L_prLibreriaDetalleGeneral(4), "cnnum", "Codigo", "cndesc1", "Attributo")
+        P_Global._prCargarComboGenerico(cbFamilia, L_prLibreriaDetalleGeneral(5), "cnnum", "Codigo", "cndesc1", "Familia")
 
-        P_Global._prCargarComboGenerico(cbUniVenta, L_prLibreriaDetalleGeneral(6), "cnnum", "Codigo", "Descripcion", "Unidad Venta")
-        P_Global._prCargarComboGenerico(cbUnidMaxima, L_prLibreriaDetalleGeneral(7), "cnnum", "Codigo", "Descripcion", "Unidad Maxima")
+        P_Global._prCargarComboGenerico(cbUniVenta, L_prLibreriaDetalleGeneral(6), "cnnum", "Codigo", "cndesc1", "Unidad Venta")
+        P_Global._prCargarComboGenerico(cbUnidMaxima, L_prLibreriaDetalleGeneral(7), "cnnum", "Codigo", "cndesc1", "Unidad Maxima")
+
+        _PMIniciarTodo()
+        _prAsignarPermisos()
+
 
         Dim blah As New Bitmap(New Bitmap(My.Resources.ic_c), 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
