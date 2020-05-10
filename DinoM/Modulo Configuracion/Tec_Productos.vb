@@ -752,5 +752,53 @@ Public Class Tec_Productos
         End If
     End Sub
 
+    Private Sub cbProveedor_ValueChanged(sender As Object, e As EventArgs) Handles cbProveedor.ValueChanged
+        If cbProveedor.SelectedIndex < 0 And cbProveedor.Text <> String.Empty Then
+            btnProveedor.Visible = True
+        Else
+            btnProveedor.Visible = False
+        End If
+    End Sub
+
+    Private Sub cbMarca_ValueChanged(sender As Object, e As EventArgs) Handles cbMarca.ValueChanged
+        If cbMarca.SelectedIndex < 0 And cbMarca.Text <> String.Empty Then
+            btnMarca.Visible = True
+        Else
+            btnMarca.Visible = False
+        End If
+    End Sub
+
+    Private Sub cbAtributo_ValueChanged(sender As Object, e As EventArgs) Handles cbAtributo.ValueChanged
+        If cbAtributo.SelectedIndex < 0 And cbAtributo.Text <> String.Empty Then
+            btnAtributo.Visible = True
+        Else
+            btnAtributo.Visible = False
+        End If
+    End Sub
+
+    Private Sub cbFamilia_ValueChanged(sender As Object, e As EventArgs) Handles cbFamilia.ValueChanged
+        If cbFamilia.SelectedIndex < 0 And cbFamilia.Text <> String.Empty Then
+            btnFamilia.Visible = True
+        Else
+            btnFamilia.Visible = False
+        End If
+    End Sub
+
+    Private Sub cbUniVenta_ValueChanged(sender As Object, e As EventArgs) Handles cbUniVenta.ValueChanged
+        If cbUniVenta.SelectedIndex < 0 And cbUniVenta.Text <> String.Empty Then
+            btUniVenta.Visible = True
+        Else
+            btUniVenta.Visible = False
+        End If
+    End Sub
+
+    Private Sub cbUnidMaxima_ValueChanged(sender As Object, e As EventArgs) Handles cbUnidMaxima.ValueChanged
+        If cbUnidMaxima.SelectedIndex < 0 And cbUnidMaxima.Text <> String.Empty Then
+            btUniMaxima.Visible = True
+        Else
+            btUniMaxima.Visible = False
+        End If
+    End Sub
+
 #End Region
 End Class
