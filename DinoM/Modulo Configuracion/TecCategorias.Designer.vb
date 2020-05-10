@@ -32,7 +32,6 @@ Partial Class TecCategorias
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.JGrM_Buscador = New Janus.Windows.GridEX.GridEX()
         Me.PanelCampos = New System.Windows.Forms.Panel()
-        Me.UsImg = New DinoM.UCImg()
         Me.btnImage = New DevComponents.DotNetBar.ButtonX()
         Me.swApp = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.tbDescripcion = New DevComponents.DotNetBar.Controls.TextBoxX()
@@ -65,6 +64,7 @@ Partial Class TecCategorias
         Me.btnPrimero = New DevComponents.DotNetBar.ButtonX()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.UsImg = New System.Windows.Forms.PictureBox()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelLEft.SuspendLayout()
@@ -81,6 +81,7 @@ Partial Class TecCategorias
         Me.PanelToolBar1.SuspendLayout()
         Me.PanelNavegacion.SuspendLayout()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.UsImg, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
@@ -208,6 +209,7 @@ Partial Class TecCategorias
         Me.JGrM_Buscador.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.Empty
         Me.JGrM_Buscador.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.JGrM_Buscador.HeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.JGrM_Buscador.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
         Me.JGrM_Buscador.Location = New System.Drawing.Point(0, 0)
         Me.JGrM_Buscador.Margin = New System.Windows.Forms.Padding(4)
         Me.JGrM_Buscador.Name = "JGrM_Buscador"
@@ -221,6 +223,7 @@ Partial Class TecCategorias
         Me.JGrM_Buscador.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.JGrM_Buscador.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.JGrM_Buscador.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
+        Me.JGrM_Buscador.SelectedInactiveFormatStyle.BackColor = System.Drawing.Color.WhiteSmoke
         Me.JGrM_Buscador.Size = New System.Drawing.Size(667, 584)
         Me.JGrM_Buscador.TabIndex = 3
         Me.JGrM_Buscador.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -250,16 +253,6 @@ Partial Class TecCategorias
         Me.PanelCampos.Name = "PanelCampos"
         Me.PanelCampos.Size = New System.Drawing.Size(517, 611)
         Me.PanelCampos.TabIndex = 0
-        '
-        'UsImg
-        '
-        Me.UsImg.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.UsImg.BackColor = System.Drawing.Color.Transparent
-        Me.UsImg.Location = New System.Drawing.Point(214, 290)
-        Me.UsImg.Margin = New System.Windows.Forms.Padding(5)
-        Me.UsImg.Name = "UsImg"
-        Me.UsImg.Size = New System.Drawing.Size(287, 236)
-        Me.UsImg.TabIndex = 223
         '
         'btnImage
         '
@@ -743,6 +736,14 @@ Partial Class TecCategorias
         '
         Me.MEP.ContainerControl = Me
         '
+        'UsImg
+        '
+        Me.UsImg.Location = New System.Drawing.Point(214, 290)
+        Me.UsImg.Name = "UsImg"
+        Me.UsImg.Size = New System.Drawing.Size(277, 161)
+        Me.UsImg.TabIndex = 41
+        Me.UsImg.TabStop = False
+        '
         'TecCategorias
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -769,6 +770,7 @@ Partial Class TecCategorias
         Me.PanelToolBar1.ResumeLayout(False)
         Me.PanelNavegacion.ResumeLayout(False)
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.UsImg, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -812,7 +814,7 @@ Partial Class TecCategorias
     Friend WithEvents tbDescripcion As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents swApp As DevComponents.DotNetBar.Controls.SwitchButton
     Friend WithEvents btnImage As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents UsImg As UCImg
     Protected WithEvents MHighlighterFocus As DevComponents.DotNetBar.Validator.Highlighter
     Protected WithEvents MEP As ErrorProvider
+    Friend WithEvents UsImg As PictureBox
 End Class

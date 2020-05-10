@@ -15,6 +15,8 @@ Public Class Tec_Users
     Public _MNuevo As Boolean
     Public _MModificar As Boolean
 
+    Public Selected As Boolean = False
+
 #End Region
 
 #Region "Metodos Overrides"
@@ -468,8 +470,14 @@ Public Class Tec_Users
         Return listEstCeldas
     End Function
 
-    Public Sub _PMOMostrarRegistro(_N As Integer)
-        JGrM_Buscador.Row = _MPos
+    Public Sub _PMOMostrarRegistro(_N As Integer, Optional bandera As Boolean = False)
+
+        If (bandera = False) Then
+            Selected = True
+            JGrM_Buscador.Row = _MPos
+            Selected = False
+        End If
+
         'u.Id, u.NombreUsuario, u.Contrasena, cast(u.Estado As bit)  As estado, u.RolId,
         'r.NombreRol, u.SucursalId, u.IdEmpresa, em.Nombre as Empresa
         With JGrM_Buscador
@@ -544,6 +552,14 @@ Public Class Tec_Users
 
     Private Sub btnUltimo_Click(sender As Object, e As EventArgs) Handles btnUltimo.Click
         _PMUltimoRegistro()
+    End Sub
+
+    Private Sub JGrM_Buscador_SelectionChanged(sender As Object, e As EventArgs) Handles JGrM_Buscador.SelectionChanged
+        If (JGrM_Buscador.Row >= 0 And Selected = False) Then
+            _MPos = JGrM_Buscador.Row
+            _PMOMostrarRegistro(JGrM_Buscador.Row, True)
+        End If
+
     End Sub
 
 #End Region

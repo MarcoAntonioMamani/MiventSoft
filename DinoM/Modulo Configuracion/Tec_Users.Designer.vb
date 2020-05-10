@@ -33,7 +33,6 @@ Partial Class Tec_Users
         Me.PanelDatos = New System.Windows.Forms.Panel()
         Me.GroupPanel4 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.JGrM_Buscador = New Janus.Windows.GridEX.GridEX()
         Me.PanelCampos = New System.Windows.Forms.Panel()
         Me.cbRol = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.LabelX6 = New DevComponents.DotNetBar.LabelX()
@@ -67,6 +66,7 @@ Partial Class Tec_Users
         Me.btnPrimero = New DevComponents.DotNetBar.ButtonX()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.JGrM_Buscador = New Janus.Windows.GridEX.GridEX()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelLEft.SuspendLayout()
@@ -74,7 +74,6 @@ Partial Class Tec_Users
         Me.PanelDatos.SuspendLayout()
         Me.GroupPanel4.SuspendLayout()
         Me.Panel5.SuspendLayout()
-        CType(Me.JGrM_Buscador, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelCampos.SuspendLayout()
         CType(Me.cbRol, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbEmpresa, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -85,6 +84,7 @@ Partial Class Tec_Users
         Me.PanelToolBar1.SuspendLayout()
         Me.PanelNavegacion.SuspendLayout()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.JGrM_Buscador, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
@@ -193,47 +193,6 @@ Partial Class Tec_Users
         Me.Panel5.Size = New System.Drawing.Size(755, 569)
         Me.Panel5.TabIndex = 0
         '
-        'JGrM_Buscador
-        '
-        Me.JGrM_Buscador.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
-        Me.JGrM_Buscador.AlternatingColors = True
-        Me.JGrM_Buscador.BackColor = System.Drawing.Color.White
-        Me.JGrM_Buscador.BorderStyle = Janus.Windows.GridEX.BorderStyle.Raised
-        Me.JGrM_Buscador.ColumnAutoResize = True
-        Me.JGrM_Buscador.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.JGrM_Buscador.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
-        Me.JGrM_Buscador.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.JGrM_Buscador.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.JGrM_Buscador.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.JGrM_Buscador.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
-        Me.JGrM_Buscador.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.JGrM_Buscador.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
-        Me.JGrM_Buscador.HeaderFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
-        Me.JGrM_Buscador.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.Empty
-        Me.JGrM_Buscador.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.JGrM_Buscador.HeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
-        Me.JGrM_Buscador.Location = New System.Drawing.Point(0, 0)
-        Me.JGrM_Buscador.Margin = New System.Windows.Forms.Padding(4)
-        Me.JGrM_Buscador.Name = "JGrM_Buscador"
-        Me.JGrM_Buscador.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.JGrM_Buscador.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.JGrM_Buscador.RecordNavigator = True
-        Me.JGrM_Buscador.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.JGrM_Buscador.RowHeaderFormatStyle.BackColor = System.Drawing.Color.DodgerBlue
-        Me.JGrM_Buscador.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.JGrM_Buscador.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
-        Me.JGrM_Buscador.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
-        Me.JGrM_Buscador.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.JGrM_Buscador.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.JGrM_Buscador.Size = New System.Drawing.Size(755, 569)
-        Me.JGrM_Buscador.TabIndex = 3
-        Me.JGrM_Buscador.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.JGrM_Buscador.TableSpacing = 9
-        Me.JGrM_Buscador.TreeLineColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.JGrM_Buscador.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        Me.JGrM_Buscador.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        Me.JGrM_Buscador.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        '
         'PanelCampos
         '
         Me.PanelCampos.Controls.Add(Me.cbRol)
@@ -341,9 +300,8 @@ Partial Class Tec_Users
         Me.swEstado.Size = New System.Drawing.Size(133, 27)
         Me.swEstado.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.swEstado.TabIndex = 37
-        Me.swEstado.Value = True
         Me.swEstado.ValueFalse = "0"
-        Me.swEstado.ValueObject = "1"
+        Me.swEstado.ValueObject = "0"
         Me.swEstado.ValueTrue = "1"
         '
         'LabelX4
@@ -727,6 +685,49 @@ Partial Class Tec_Users
         '
         Me.MEP.ContainerControl = Me
         '
+        'JGrM_Buscador
+        '
+        Me.JGrM_Buscador.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
+        Me.JGrM_Buscador.AlternatingColors = True
+        Me.JGrM_Buscador.BackColor = System.Drawing.Color.White
+        Me.JGrM_Buscador.BorderStyle = Janus.Windows.GridEX.BorderStyle.Raised
+        Me.JGrM_Buscador.ColumnAutoResize = True
+        Me.JGrM_Buscador.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.JGrM_Buscador.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
+        Me.JGrM_Buscador.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.JGrM_Buscador.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.JGrM_Buscador.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.JGrM_Buscador.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
+        Me.JGrM_Buscador.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.JGrM_Buscador.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
+        Me.JGrM_Buscador.HeaderFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
+        Me.JGrM_Buscador.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.Empty
+        Me.JGrM_Buscador.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.JGrM_Buscador.HeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.JGrM_Buscador.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
+        Me.JGrM_Buscador.Location = New System.Drawing.Point(0, 0)
+        Me.JGrM_Buscador.Margin = New System.Windows.Forms.Padding(4)
+        Me.JGrM_Buscador.Name = "JGrM_Buscador"
+        Me.JGrM_Buscador.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.JGrM_Buscador.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.JGrM_Buscador.RecordNavigator = True
+        Me.JGrM_Buscador.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.JGrM_Buscador.RowHeaderFormatStyle.BackColor = System.Drawing.Color.DodgerBlue
+        Me.JGrM_Buscador.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.JGrM_Buscador.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.JGrM_Buscador.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
+        Me.JGrM_Buscador.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.JGrM_Buscador.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
+        Me.JGrM_Buscador.SelectedInactiveFormatStyle.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.JGrM_Buscador.Size = New System.Drawing.Size(755, 569)
+        Me.JGrM_Buscador.TabIndex = 4
+        Me.JGrM_Buscador.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.JGrM_Buscador.TableSpacing = 9
+        Me.JGrM_Buscador.TreeLineColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.JGrM_Buscador.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.JGrM_Buscador.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.JGrM_Buscador.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
         'Tec_Users
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -743,7 +744,6 @@ Partial Class Tec_Users
         Me.PanelDatos.ResumeLayout(False)
         Me.GroupPanel4.ResumeLayout(False)
         Me.Panel5.ResumeLayout(False)
-        CType(Me.JGrM_Buscador, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelCampos.ResumeLayout(False)
         Me.PanelCampos.PerformLayout()
         CType(Me.cbRol, System.ComponentModel.ISupportInitialize).EndInit()
@@ -755,6 +755,7 @@ Partial Class Tec_Users
         Me.PanelToolBar1.ResumeLayout(False)
         Me.PanelNavegacion.ResumeLayout(False)
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.JGrM_Buscador, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -797,7 +798,7 @@ Partial Class Tec_Users
     Friend WithEvents cbEmpresa As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents cbRol As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents LabelX6 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents JGrM_Buscador As Janus.Windows.GridEX.GridEX
     Protected WithEvents MHighlighterFocus As DevComponents.DotNetBar.Validator.Highlighter
     Protected WithEvents MEP As ErrorProvider
+    Friend WithEvents JGrM_Buscador As Janus.Windows.GridEX.GridEX
 End Class

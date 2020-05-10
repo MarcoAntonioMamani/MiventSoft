@@ -11,6 +11,7 @@ Public Class TecCategorias
     Public _nameButton As String
     Public _tab As SuperTabItem
     Public _modulo As SideNavItem
+    Public FilaSeleccionada As Boolean = False
 
     Public _MListEstBuscador As List(Of Modelo.Celda)
     Public _MPos As Integer
@@ -99,6 +100,7 @@ Public Class TecCategorias
         _PMCargarBuscador()
         If JGrM_Buscador.RowCount > 0 Then
             _MPos = 0
+            JGrM_Buscador.Row = _MPos
             _PMOMostrarRegistro(_MPos)
         Else
             _PMOLimpiar()
@@ -109,24 +111,28 @@ Public Class TecCategorias
     Public Sub _PMPrimerRegistro()
         If JGrM_Buscador.RowCount > 0 Then
             _MPos = 0
+
             _PMOMostrarRegistro(_MPos)
         End If
     End Sub
     Private Sub _PMAnteriorRegistro()
         If _MPos > 0 And JGrM_Buscador.RowCount > 0 Then
             _MPos = _MPos - 1
+
             _PMOMostrarRegistro(_MPos)
         End If
     End Sub
     Private Sub _PMSiguienteRegistro()
         If _MPos < JGrM_Buscador.RowCount - 1 Then
             _MPos = _MPos + 1
+
             _PMOMostrarRegistro(_MPos)
         End If
     End Sub
     Private Sub _PMUltimoRegistro()
         If JGrM_Buscador.RowCount > 0 Then
             _MPos = JGrM_Buscador.RowCount - 1
+
             _PMOMostrarRegistro(_MPos)
         End If
     End Sub
@@ -274,16 +280,16 @@ Public Class TecCategorias
         'copio la imagen en la carpeta del sistema
         If (Not name.Equals("Default.jpg") And File.Exists(RutaTemporal + name)) Then
 
-            Dim img As New Bitmap(New Bitmap(RutaTemporal + name), 500, 300)
+            Dim img As New Bitmap(New Bitmap(RutaTemporal + name), 200, 120)
 
-            UsImg.pbImage.Image.Dispose()
-            UsImg.pbImage.Image = Nothing
+            UsImg.Image.Dispose()
+            UsImg.Image = Nothing
             Try
                 My.Computer.FileSystem.CopyFile(RutaTemporal + name,
      Folder + name, overwrite:=True)
 
             Catch ex As System.IO.IOException
-
+                MsgBox("Error: " + ex.Message)
 
             End Try
 
@@ -348,7 +354,7 @@ Public Class TecCategorias
         tbDescripcion.Text = ""
         swApp.Value = True
         swEstado.Value = True
-        UsImg.pbImage.Image = My.Resources.pantalla
+        UsImg.Image = My.Resources.pantalla
         tbNombreCategoria.Focus()
     End Sub
     Public Function ObtenerLongitudCombo(cb As EditControls.MultiColumnCombo) As Integer
@@ -381,7 +387,7 @@ Public Class TecCategorias
 
     Public Function _PMOModificarRegistro() As Boolean
         Dim Res As Boolean
-        Dim nameImage As String = JGrM_Buscador.GetValue("yfimg")
+        Dim nameImage As String = JGrM_Buscador.GetValue("Imagen")
         If (Modificado = False) Then
             Res = L_prCategoriaModificar(tbCodigo.Text, tbNombreCategoria.Text, tbDescripcion.Text,
                                                    IIf(swEstado.Value = True, 1, 0), nameImage, IIf(swApp.Value = True, 1, 0))
@@ -406,11 +412,11 @@ Public Class TecCategorias
     End Function
     Public Sub _PrEliminarImage()
 
-        If (Not (_fnActionNuevo()) And (File.Exists(RutaGlobal + "\Imagenes\Imagenes Categoria\Imagen_" + tbCodigo.Text + ".jpg"))) Then
-            UsImg.pbImage.Image.Dispose()
-            UsImg.pbImage.Image = Nothing
+        If (Not (_fnActionNuevo()) And (File.Exists(RutaGlobal + "\Imagenes\Imagenes Categoria" + nameImg))) Then
+            UsImg.Image.Dispose()
+            UsImg.Image = Nothing
             Try
-                My.Computer.FileSystem.DeleteFile(RutaGlobal + "\Imagenes\Imagenes Categoria\Imagen_" + tbCodigo.Text + ".jpg")
+                My.Computer.FileSystem.DeleteFile(RutaGlobal + "\Imagenes\Imagenes Categoria" + nameImg)
             Catch ex As Exception
 
             End Try
@@ -493,10 +499,16 @@ Public Class TecCategorias
         Return listEstCeldas
     End Function
 
-    Public Sub _PMOMostrarRegistro(_N As Integer)
-        JGrM_Buscador.Row = _MPos
+    Public Sub _PMOMostrarRegistro(_N As Integer, Optional selected As Boolean = False)
+
         'a.Id , a.NombreCategoria, a.DescripcionCategoria, cast(a.Estado As bit) As Estado 
         '    , a.Imagen, cast(a.VisibleApp As bit) as App  
+        If (selected = False) Then
+            FilaSeleccionada = True
+            JGrM_Buscador.Row = _MPos
+            FilaSeleccionada = False
+        End If
+
         With JGrM_Buscador
             tbCodigo.Text = .GetValue("Id").ToString
             tbNombreCategoria.Text = .GetValue("NombreCategoria").ToString
@@ -508,18 +520,17 @@ Public Class TecCategorias
 
         End With
         Dim Img As String = JGrM_Buscador.GetValue("Imagen")
-        If Img.Equals("Default.jpg") Or Not File.Exists(RutaGlobal + "\Imagenes\Imagenes Categoria" + Img) Then
+        nameImg = Img
+        Dim ExisteImagen As Boolean = File.Exists(RutaGlobal + "\Imagenes\Imagenes Categoria" + Img)
+
+        If Img.Equals("Default.jpg") Or Not ExisteImagen Then
 
             Dim im As New Bitmap(My.Resources.pantalla)
-            UsImg.pbImage.Image = im
+            UsImg.Image = im
         Else
-            If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Categoria" + Img)) Then
-                Dim Bin As New MemoryStream
-                Dim im As New Bitmap(New Bitmap(RutaGlobal + "\Imagenes\Imagenes Categoria" + Img), 50, 70)
-                im.Save(Bin, System.Drawing.Imaging.ImageFormat.Jpeg)
-                UsImg.pbImage.SizeMode = PictureBoxSizeMode.StretchImage
-                UsImg.pbImage.Image = Image.FromStream(Bin)
-                Bin.Dispose()
+            If (ExisteImagen) Then
+                UsImg.SizeMode = PictureBoxSizeMode.StretchImage
+                UsImg.Image = Image.FromFile(RutaGlobal + "\Imagenes\Imagenes Categoria" + Img)
 
             End If
         End If
@@ -542,26 +553,22 @@ Public Class TecCategorias
 
             If file.CheckFileExists = True Then
                 Dim img As New Bitmap(New Bitmap(ruta))
-                Dim imgM As New Bitmap(New Bitmap(ruta), 200, 300)
-                Dim Bin As New MemoryStream
-                imgM.Save(Bin, System.Drawing.Imaging.ImageFormat.Jpeg)
+
                 Dim a As Object = file.GetType.ToString
                 If (_fnActionNuevo()) Then
 
                     Dim mayor As Integer
                     mayor = JGrM_Buscador.GetTotal(JGrM_Buscador.RootTable.Columns("Id"), AggregateFunction.Max)
-                    nameImg = "\Imagen_" + Str(mayor + 1).Trim + ".jpg"
-                    UsImg.pbImage.SizeMode = PictureBoxSizeMode.StretchImage
-                    UsImg.pbImage.Image = Image.FromStream(Bin)
+                    nameImg = "\Imagen_" + P_fnObtenerID() + ".jpg"
+                    UsImg.SizeMode = PictureBoxSizeMode.StretchImage
 
+                    UsImg.Image = Image.FromFile(ruta)
                     img.Save(RutaTemporal + nameImg, System.Drawing.Imaging.ImageFormat.Jpeg)
                     img.Dispose()
                 Else
 
-                    nameImg = "\Imagen_" + Str(tbCodigo.Text).Trim + ".jpg"
-
-
-                    UsImg.pbImage.Image = Image.FromStream(Bin)
+                    nameImg = "\Imagen_" + P_fnObtenerID() + ".jpg"
+                    UsImg.Image = Image.FromFile(ruta)
                     img.Save(RutaTemporal + nameImg, System.Drawing.Imaging.ImageFormat.Jpeg)
                     Modificado = True
                     img.Dispose()
@@ -574,7 +581,12 @@ Public Class TecCategorias
 
         Return "default.jpg"
     End Function
-
+    Private Function P_fnObtenerID() As String
+        Dim res As String = ""
+        res = res + Now.Hour.ToString("00") + Now.Minute.ToString("00") + Now.Second.ToString("00") + "_" _
+            + Now.Day.ToString("00") + Now.Month.ToString("00") + Now.Year.ToString("0000")
+        Return res
+    End Function
 
     Private Sub _PSalirRegistro()
         If btnGrabar.Enabled = True Then
@@ -637,6 +649,15 @@ Public Class TecCategorias
     Private Sub btnImage_Click(sender As Object, e As EventArgs) Handles btnImage.Click
         _fnCopiarImagenRutaDefinida()
         btnGrabar.Focus()
+    End Sub
+
+    Private Sub JGrM_Buscador_SelectionChanged(sender As Object, e As EventArgs) Handles JGrM_Buscador.SelectionChanged
+        If (JGrM_Buscador.Row >= 0 And FilaSeleccionada = False) Then
+            _MPos = JGrM_Buscador.Row
+
+            _PMOMostrarRegistro(_MPos, True)
+
+        End If
     End Sub
 
 #End Region
