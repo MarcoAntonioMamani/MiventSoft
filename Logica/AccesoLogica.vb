@@ -3143,7 +3143,8 @@ Public Class AccesoLogica
         Return _resultado
     End Function
     Public Shared Function L_prCategoriaInsertar(ByRef _numi As String, _NombreCategoria As String,
-        _Descripcion As String, _estado As Integer, _Imagen As String, _VisibleApp As Integer) As Boolean
+        _Descripcion As String, _estado As Integer, _Imagen As String, _VisibleApp As Integer,
+                                                 _Empresa As Integer) As Boolean
         Dim _resultado As Boolean
 
         '     INSERT INTO Categorias  VALUES(@Id,@NombreCategoria ,@DescripcionCategoria ,@Estado ,
@@ -3159,6 +3160,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@Estado", _estado))
         _listParam.Add(New Datos.DParametro("@Imagen", _Imagen))
         _listParam.Add(New Datos.DParametro("@VisibleApp", _VisibleApp))
+        _listParam.Add(New Datos.DParametro("@EmpresaId", _Empresa))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
 
@@ -3176,7 +3178,7 @@ Public Class AccesoLogica
     End Function
 
     Public Shared Function L_prCategoriaModificar(ByRef _numi As String, _NombreCategoria As String,
-        _Descripcion As String, _estado As Integer, _Imagen As String, _VisibleApp As Integer) As Boolean
+        _Descripcion As String, _estado As Integer, _Imagen As String, _VisibleApp As Integer, _Empresa As Integer) As Boolean
         Dim _resultado As Boolean
 
         '     INSERT INTO Categorias  VALUES(@Id,@NombreCategoria ,@DescripcionCategoria ,@Estado ,
@@ -3193,7 +3195,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@Imagen", _Imagen))
         _listParam.Add(New Datos.DParametro("@VisibleApp", _VisibleApp))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
-
+        _listParam.Add(New Datos.DParametro("@EmpresaId", _Empresa))
 
         _Tabla = D_ProcedimientoConParam("MAM_Categorias", _listParam)
 

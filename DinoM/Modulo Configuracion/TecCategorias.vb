@@ -232,13 +232,27 @@ Public Class TecCategorias
         Me.Text = "Gestion De Categorias"
         _PMIniciarTodo()
         _prAsignarPermisos()
-
+        _prCargarComboLibreriaEmpresa(cbEmpresa)
         Dim blah As New Bitmap(New Bitmap(My.Resources.ic_c), 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         Me.Icon = ico
 
     End Sub
-
+    Private Sub _prCargarComboLibreriaEmpresa(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
+        Dim dt As New DataTable
+        dt = L_prListaEmpresasUsuarios()
+        With mCombo
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("Id").Width = 60
+            .DropDownList.Columns("Id").Caption = "Codigo"
+            .DropDownList.Columns.Add("Nombre").Width = 500
+            .DropDownList.Columns("Nombre").Caption = "Empresa"
+            .ValueMember = "Id"
+            .DisplayMember = "Nombre"
+            .DataSource = dt
+            .Refresh()
+        End With
+    End Sub
     Private Sub _prCrearCarpetaTemporal()
 
         If System.IO.Directory.Exists(RutaTemporal) = False Then
@@ -335,6 +349,7 @@ Public Class TecCategorias
         swEstado.IsReadOnly = False
         btnImage.Visible = True
         swApp.IsReadOnly = False
+        cbEmpresa.ReadOnly = False
         _prCrearCarpetaImagenes()
         _prCrearCarpetaTemporal()
     End Sub
@@ -346,6 +361,7 @@ Public Class TecCategorias
         swEstado.IsReadOnly = True
         btnImage.Visible = False
         swApp.IsReadOnly = True
+        cbEmpresa.ReadOnly = True
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -356,23 +372,24 @@ Public Class TecCategorias
         swEstado.Value = True
         UsImg.Image = My.Resources.pantalla
         tbNombreCategoria.Focus()
-    End Sub
-    Public Function ObtenerLongitudCombo(cb As EditControls.MultiColumnCombo) As Integer
-        Return CType(cb.DataSource, DataTable).Rows.Count
+        If (CType(cbEmpresa.DataSource, DataTable).Rows.Count > 0) Then
+            cbEmpresa.SelectedIndex = 0
+        End If
 
-    End Function
+    End Sub
+
 
     Public Sub _PMOLimpiarErrores()
         MEP.Clear()
         tbNombreCategoria.BackColor = Color.White
         tbDescripcion.BackColor = Color.White
-
+        cbEmpresa.BackColor = Color.White
     End Sub
 
     Public Function _PMOGrabarRegistro() As Boolean
 
         Dim res As Boolean = L_prCategoriaInsertar(tbCodigo.Text, tbNombreCategoria.Text, tbDescripcion.Text,
-                                                   IIf(swEstado.Value = True, 1, 0), nameImg, IIf(swApp.Value = True, 1, 0))
+                                                   IIf(swEstado.Value = True, 1, 0), nameImg, IIf(swApp.Value = True, 1, 0), cbEmpresa.Value)
 
         If res Then
 
@@ -390,10 +407,10 @@ Public Class TecCategorias
         Dim nameImage As String = JGrM_Buscador.GetValue("Imagen")
         If (Modificado = False) Then
             Res = L_prCategoriaModificar(tbCodigo.Text, tbNombreCategoria.Text, tbDescripcion.Text,
-                                                   IIf(swEstado.Value = True, 1, 0), nameImage, IIf(swApp.Value = True, 1, 0))
+                                                   IIf(swEstado.Value = True, 1, 0), nameImage, IIf(swApp.Value = True, 1, 0), cbEmpresa.Value)
         Else
             Res = L_prCategoriaModificar(tbCodigo.Text, tbNombreCategoria.Text, tbDescripcion.Text,
-                                                   IIf(swEstado.Value = True, 1, 0), nameImg, IIf(swApp.Value = True, 1, 0))
+                                                   IIf(swEstado.Value = True, 1, 0), nameImg, IIf(swApp.Value = True, 1, 0), cbEmpresa.Value)
         End If
 
         If Res Then
@@ -454,21 +471,39 @@ Public Class TecCategorias
     Public Function _PMOValidarCampos() As Boolean
         Dim _ok As Boolean = True
         MEP.Clear()
-
+        Dim Mensaje As String = "Los Siguientes Campos Son Requeridos: "
         If tbNombreCategoria.Text = String.Empty Then
             tbNombreCategoria.BackColor = Color.Red
             MEP.SetError(tbNombreCategoria, "Ingrese Nombre de Usuario")
+            Mensaje = Mensaje + " Nombre Usuarios"
             _ok = False
         Else
             tbNombreCategoria.BackColor = Color.White
             MEP.SetError(tbNombreCategoria, "")
         End If
+        If (cbEmpresa.SelectedIndex < 0) Then
+            cbEmpresa.BackColor = Color.Red
+            MEP.SetError(cbEmpresa, "Seleccione una Empresa")
+            Mensaje = Mensaje + Chr(13) + Chr(10) + " Empresa"
+            _ok = False
+        Else
+            cbEmpresa.BackColor = Color.White
+            MEP.SetError(cbEmpresa, "")
+        End If
+
 
 
         MHighlighterFocus.UpdateHighlights()
 
         If tbNombreCategoria.Text = String.Empty Then
             tbNombreCategoria.Focus()
+            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Return _ok
+        End If
+
+        If (cbEmpresa.SelectedIndex < 0) Then
+            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            cbEmpresa.Focus()
             Return _ok
         End If
 
@@ -492,8 +527,10 @@ Public Class TecCategorias
         listEstCeldas.Add(New Modelo.Celda("Estado", True, "Estado", 70))
         listEstCeldas.Add(New Modelo.Celda("DescripcionCategoria", True, "Descripcion", 150))
         listEstCeldas.Add(New Modelo.Celda("Imagen", False))
+        listEstCeldas.Add(New Modelo.Celda("EmpresaId", False))
 
         listEstCeldas.Add(New Modelo.Celda("App", True, "App", 90))
+        listEstCeldas.Add(New Modelo.Celda("Empresa", True, "Empresa", 100))
 
 
         Return listEstCeldas
@@ -515,7 +552,7 @@ Public Class TecCategorias
             tbDescripcion.Text = .GetValue("DescripcionCategoria").ToString
             swEstado.Value = .GetValue("Estado")
             swApp.Value = .GetValue("App")
-
+            cbEmpresa.Value = .GetValue("Empresa")
 
 
         End With

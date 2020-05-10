@@ -23,6 +23,8 @@ Partial Class TecCategorias
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim cbEmpresa_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(TecCategorias))
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.PanelSuperior = New System.Windows.Forms.Panel()
         Me.PanelLEft = New System.Windows.Forms.Panel()
@@ -65,6 +67,8 @@ Partial Class TecCategorias
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.UsImg = New System.Windows.Forms.PictureBox()
+        Me.LabelX7 = New DevComponents.DotNetBar.LabelX()
+        Me.cbEmpresa = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelLEft.SuspendLayout()
@@ -82,6 +86,7 @@ Partial Class TecCategorias
         Me.PanelNavegacion.SuspendLayout()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.UsImg, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbEmpresa, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
@@ -235,6 +240,8 @@ Partial Class TecCategorias
         '
         'PanelCampos
         '
+        Me.PanelCampos.Controls.Add(Me.cbEmpresa)
+        Me.PanelCampos.Controls.Add(Me.LabelX7)
         Me.PanelCampos.Controls.Add(Me.UsImg)
         Me.PanelCampos.Controls.Add(Me.btnImage)
         Me.PanelCampos.Controls.Add(Me.swApp)
@@ -262,14 +269,14 @@ Partial Class TecCategorias
         Me.btnImage.Image = Global.DinoM.My.Resources.Resources.addimg
         Me.btnImage.ImageFixedSize = New System.Drawing.Size(40, 40)
         Me.btnImage.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnImage.Location = New System.Drawing.Point(29, 301)
+        Me.btnImage.Location = New System.Drawing.Point(29, 322)
         Me.btnImage.Margin = New System.Windows.Forms.Padding(4)
         Me.btnImage.Name = "btnImage"
         Me.btnImage.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(4)
         Me.btnImage.Size = New System.Drawing.Size(98, 95)
         Me.btnImage.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
         Me.btnImage.SubItemsExpandWidth = 10
-        Me.btnImage.TabIndex = 4
+        Me.btnImage.TabIndex = 5
         Me.btnImage.Text = "Seleccionar Imagen"
         Me.btnImage.TextColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
         '
@@ -322,7 +329,7 @@ Partial Class TecCategorias
         Me.LabelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX6.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX6.Location = New System.Drawing.Point(28, 270)
+        Me.LabelX6.Location = New System.Drawing.Point(28, 291)
         Me.LabelX6.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX6.Name = "LabelX6"
         Me.LabelX6.SingleLineColor = System.Drawing.SystemColors.Control
@@ -657,9 +664,10 @@ Partial Class TecCategorias
         '
         'LblPaginacion
         '
+        Me.LblPaginacion.BackColor = System.Drawing.Color.White
         Me.LblPaginacion.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.LblPaginacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblPaginacion.ForeColor = System.Drawing.Color.White
+        Me.LblPaginacion.Font = New System.Drawing.Font("Arial", 16.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblPaginacion.ForeColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.LblPaginacion.Location = New System.Drawing.Point(280, 0)
         Me.LblPaginacion.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblPaginacion.Name = "LblPaginacion"
@@ -738,11 +746,45 @@ Partial Class TecCategorias
         '
         'UsImg
         '
-        Me.UsImg.Location = New System.Drawing.Point(214, 290)
+        Me.UsImg.Location = New System.Drawing.Point(214, 311)
         Me.UsImg.Name = "UsImg"
         Me.UsImg.Size = New System.Drawing.Size(277, 161)
         Me.UsImg.TabIndex = 41
         Me.UsImg.TabStop = False
+        '
+        'LabelX7
+        '
+        Me.LabelX7.AutoSize = True
+        Me.LabelX7.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX7.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX7.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX7.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX7.Location = New System.Drawing.Point(28, 264)
+        Me.LabelX7.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX7.Name = "LabelX7"
+        Me.LabelX7.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX7.Size = New System.Drawing.Size(68, 23)
+        Me.LabelX7.TabIndex = 42
+        Me.LabelX7.Text = "Empresa:"
+        '
+        'cbEmpresa
+        '
+        cbEmpresa_DesignTimeLayout.LayoutString = resources.GetString("cbEmpresa_DesignTimeLayout.LayoutString")
+        Me.cbEmpresa.DesignTimeLayout = cbEmpresa_DesignTimeLayout
+        Me.cbEmpresa.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbEmpresa.Location = New System.Drawing.Point(214, 264)
+        Me.cbEmpresa.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbEmpresa.Name = "cbEmpresa"
+        Me.cbEmpresa.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbEmpresa.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.cbEmpresa.SelectedIndex = -1
+        Me.cbEmpresa.SelectedItem = Nothing
+        Me.cbEmpresa.Size = New System.Drawing.Size(219, 28)
+        Me.cbEmpresa.TabIndex = 4
+        Me.cbEmpresa.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'TecCategorias
         '
@@ -771,6 +813,7 @@ Partial Class TecCategorias
         Me.PanelNavegacion.ResumeLayout(False)
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.UsImg, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbEmpresa, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -817,4 +860,6 @@ Partial Class TecCategorias
     Protected WithEvents MHighlighterFocus As DevComponents.DotNetBar.Validator.Highlighter
     Protected WithEvents MEP As ErrorProvider
     Friend WithEvents UsImg As PictureBox
+    Friend WithEvents LabelX7 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents cbEmpresa As Janus.Windows.GridEX.EditControls.MultiColumnCombo
 End Class
