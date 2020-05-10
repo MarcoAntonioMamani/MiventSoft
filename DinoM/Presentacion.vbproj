@@ -380,6 +380,12 @@
     <Compile Include="Modulo Configuracion\TecCategorias.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modulo Configuracion\Tec_Productos.Designer.vb">
+      <DependentUpon>Tec_Productos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo Configuracion\Tec_Productos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Modulo Configuracion\Tec_Roles.Designer.vb">
       <DependentUpon>Tec_Roles.vb</DependentUpon>
     </Compile>
@@ -849,6 +855,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo Configuracion\TecCategorias.resx">
       <DependentUpon>TecCategorias.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo Configuracion\Tec_Productos.resx">
+      <DependentUpon>Tec_Productos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo Configuracion\Tec_Roles.resx">
       <DependentUpon>Tec_Roles.vb</DependentUpon>
