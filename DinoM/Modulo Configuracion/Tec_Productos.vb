@@ -800,5 +800,59 @@ Public Class Tec_Productos
         End If
     End Sub
 
+    Private Sub btnProveedor_Click(sender As Object, e As EventArgs) Handles btnProveedor.Click
+        Dim numi As String = ""
+
+        If L_prClasificadorGrabar(numi, 2, cbProveedor.Text) Then
+            P_Global._prCargarComboGenerico(cbProveedor, L_prLibreriaDetalleGeneral(2), "cnnum", "Codigo", "cndesc1", "Proveedor")
+            cbProveedor.SelectedIndex = CType(cbProveedor.DataSource, DataTable).Rows.Count - 1
+        End If
+    End Sub
+
+    Private Sub btnMarca_Click(sender As Object, e As EventArgs) Handles btnMarca.Click
+        Dim numi As String = ""
+
+        If L_prClasificadorGrabar(numi, 3, cbMarca.Text) Then
+            P_Global._prCargarComboGenerico(cbMarca, L_prLibreriaDetalleGeneral(3), "cnnum", "Codigo", "cndesc1", "Marca")
+            cbMarca.SelectedIndex = CType(cbMarca.DataSource, DataTable).Rows.Count - 1
+        End If
+    End Sub
+
+    Private Sub btnAtributo_Click(sender As Object, e As EventArgs) Handles btnAtributo.Click
+        Dim numi As String = ""
+
+        If L_prClasificadorGrabar(numi, 4, cbAtributo.Text) Then
+            P_Global._prCargarComboGenerico(cbAtributo, L_prLibreriaDetalleGeneral(4), "cnnum", "Codigo", "cndesc1", "Atributo")
+            cbAtributo.SelectedIndex = CType(cbAtributo.DataSource, DataTable).Rows.Count - 1
+        End If
+    End Sub
+
+    Private Sub btnFamilia_Click(sender As Object, e As EventArgs) Handles btnFamilia.Click
+        Dim numi As String = ""
+
+        If L_prClasificadorGrabar(numi, 5, cbFamilia.Text) Then
+            P_Global._prCargarComboGenerico(cbFamilia, L_prLibreriaDetalleGeneral(5), "cnnum", "Codigo", "cndesc1", "Familia")
+            cbFamilia.SelectedIndex = CType(cbFamilia.DataSource, DataTable).Rows.Count - 1
+        End If
+    End Sub
+
+    Private Sub btUniVenta_Click(sender As Object, e As EventArgs) Handles btUniVenta.Click
+        Dim numi As String = ""
+
+        If L_prClasificadorGrabar(numi, 6, cbUniVenta.Text) Then
+            P_Global._prCargarComboGenerico(cbUniVenta, L_prLibreriaDetalleGeneral(6), "cnnum", "Codigo", "cndesc1", "Uni Venta")
+            cbUniVenta.SelectedIndex = CType(cbUniVenta.DataSource, DataTable).Rows.Count - 1
+        End If
+    End Sub
+
+    Private Sub btUniMaxima_Click(sender As Object, e As EventArgs) Handles btUniMaxima.Click
+        Dim numi As String = ""
+
+        If L_prClasificadorGrabar(numi, 7, cbUnidMaxima.Text) Then
+            P_Global._prCargarComboGenerico(cbUnidMaxima, L_prLibreriaDetalleGeneral(7), "cnnum", "Codigo", "cndesc1", "Uni Max")
+            cbUnidMaxima.SelectedIndex = CType(cbUnidMaxima.DataSource, DataTable).Rows.Count - 1
+        End If
+    End Sub
+
 #End Region
 End Class

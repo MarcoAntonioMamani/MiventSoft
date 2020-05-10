@@ -59,6 +59,29 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
+    Public Shared Function L_prClasificadorGrabar(ByRef _numi As String, IdClasificador As Integer, _desc1 As String) As Boolean
+        Dim _Error As Boolean
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@IdClasificador", IdClasificador))
+        _listParam.Add(New Datos.DParametro("@descripcion", _desc1))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Clasificadores", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _numi = _Tabla.Rows(0).Item(0)
+            _Error = False
+        Else
+            _Error = True
+        End If
+        Return Not _Error
+    End Function
+
 
 #End Region
 
