@@ -232,27 +232,14 @@ Public Class TecCategorias
         Me.Text = "Gestion De Categorias"
         _PMIniciarTodo()
         _prAsignarPermisos()
-        _prCargarComboLibreriaEmpresa(cbEmpresa)
+
+        P_Global._prCargarComboGenerico(cbEmpresa, L_prListaEmpresasUsuarios(), "Id", "Codigo", "Nombre", "Empresa")
         Dim blah As New Bitmap(New Bitmap(My.Resources.ic_c), 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         Me.Icon = ico
 
     End Sub
-    Private Sub _prCargarComboLibreriaEmpresa(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
-        Dim dt As New DataTable
-        dt = L_prListaEmpresasUsuarios()
-        With mCombo
-            .DropDownList.Columns.Clear()
-            .DropDownList.Columns.Add("Id").Width = 60
-            .DropDownList.Columns("Id").Caption = "Codigo"
-            .DropDownList.Columns.Add("Nombre").Width = 500
-            .DropDownList.Columns("Nombre").Caption = "Empresa"
-            .ValueMember = "Id"
-            .DisplayMember = "Nombre"
-            .DataSource = dt
-            .Refresh()
-        End With
-    End Sub
+
     Private Sub _prCrearCarpetaTemporal()
 
         If System.IO.Directory.Exists(RutaTemporal) = False Then

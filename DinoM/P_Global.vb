@@ -164,4 +164,22 @@ Module P_Global
 
 #End Region
 
+#Region "Metodos Globales"
+    Public Sub _prCargarComboGenerico(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo, dt As DataTable,
+                                              id As String, nameId As String, descripcionId As String, descripcion As String)
+
+        With mCombo
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add(id).Width = 60
+            .DropDownList.Columns(id).Caption = nameId
+            .DropDownList.Columns.Add(descripcionId).Width = 500
+            .DropDownList.Columns(descripcionId).Caption = descripcion
+            .ValueMember = id
+            .DisplayMember = descripcionId
+            .DataSource = dt
+            .Refresh()
+        End With
+    End Sub
+#End Region
+
 End Module
