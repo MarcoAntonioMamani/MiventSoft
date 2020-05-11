@@ -18,10 +18,16 @@ Public Class Tec_Productos
     Public _MNuevo As Boolean
     Public _MModificar As Boolean
 
-    Dim RutaGlobal As String = gs_CarpetaRaiz
-    Dim RutaTemporal As String = "C:\Temporal"
     Dim Modificado As Boolean = False
     Dim nameImg As String = "Default.jpg"
+
+
+    Dim TablaImagenes As DataTable
+    Dim TablaInventario As DataTable
+    Dim RutaGlobal As String = gs_CarpetaRaiz
+    Dim RutaTemporal As String = "C:\Temporal"
+    Dim gs_DirPrograma As String = ""
+    Dim gs_RutaImg As String = ""
 
 #End Region
 
@@ -248,12 +254,54 @@ Public Class Tec_Productos
         Dim blah As New Bitmap(New Bitmap(My.Resources.ic_c), 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         Me.Icon = ico
-
+        _prEliminarContenidoImage()
     End Sub
 
 
+    Private Sub _prCrearCarpetaImagenes(carpetaFinal As String)
+        Dim rutaDestino As String = RutaGlobal + "\Imagenes\Imagenes Productos\" + carpetaFinal + "\"
 
+        If System.IO.Directory.Exists(RutaGlobal + "\Imagenes\Imagenes Productos\" + carpetaFinal) = False Then
+            If System.IO.Directory.Exists(RutaGlobal + "\Imagenes") = False Then
+                System.IO.Directory.CreateDirectory(RutaGlobal + "\Imagenes")
+                If System.IO.Directory.Exists(RutaGlobal + "\Imagenes\Imagenes Productos") = False Then
+                    System.IO.Directory.CreateDirectory(RutaGlobal + "\Imagenes\Imagenes Productos")
+                    System.IO.Directory.CreateDirectory(RutaGlobal + "\Imagenes\Imagenes Productos\" + carpetaFinal + "\")
+                End If
+            Else
+                If System.IO.Directory.Exists(RutaGlobal + "\Imagenes\Imagenes Productos") = False Then
+                    System.IO.Directory.CreateDirectory(RutaGlobal + "\Imagenes\Imagenes Productos")
+                    System.IO.Directory.CreateDirectory(RutaGlobal + "\Imagenes\Imagenes Productos\" + carpetaFinal + "\")
+                Else
+                    If System.IO.Directory.Exists(RutaGlobal + "\Imagenes\Imagenes Productos\" + carpetaFinal) = False Then
+                        System.IO.Directory.CreateDirectory(RutaGlobal + "\Imagenes\Imagenes Productos\" + carpetaFinal + "\")
+                    End If
 
+                End If
+            End If
+        End If
+    End Sub
+
+    Private Sub _prCrearCarpetaTemporal()
+
+        If System.IO.Directory.Exists(RutaTemporal) = False Then
+            System.IO.Directory.CreateDirectory(RutaTemporal)
+        Else
+
+            My.Computer.FileSystem.DeleteDirectory(RutaTemporal, FileIO.DeleteDirectoryOption.DeleteAllContents)
+            My.Computer.FileSystem.CreateDirectory(RutaTemporal)
+
+        End If
+
+    End Sub
+    Sub _prEliminarContenidoImage()
+        Try
+            My.Computer.FileSystem.DeleteDirectory(gs_RutaImg, FileIO.DeleteDirectoryOption.DeleteAllContents)
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
 
 
     Private Sub _prAsignarPermisos()
@@ -279,7 +327,176 @@ Public Class Tec_Productos
 
 
 
+    Public Function _fnObtenerNumeroFilasActivas() As Integer
+        Dim n As Integer = -1
+        For i As Integer = 0 To TablaImagenes.Rows.Count - 1 Step 1
+            Dim estado As Integer = TablaImagenes.Rows(i).Item("estado")
+            If (estado = 0 Or estado = 1) Then
+                n += 1
 
+            End If
+        Next
+        Return n
+    End Function
+
+    Public Sub _prCargarImagen()
+        PanelListImagenes.Controls.Clear()
+
+        pbImgProdu.Image = Nothing
+
+        Dim i As Integer = 0
+        For Each fila As DataRow In TablaImagenes.Rows
+            Dim elemImg As UCLavadero = New UCLavadero
+            Dim rutImg = fila.Item("lhima").ToString
+            Dim estado As Integer = fila.Item("estado")
+
+            If (estado = 0) Then
+                elemImg.pbImg.SizeMode = PictureBoxSizeMode.StretchImage
+                Dim bm As Bitmap = Nothing
+                Dim by As Byte() = fila.Item("img")
+                Dim ms As New MemoryStream(by)
+                bm = New Bitmap(ms)
+
+
+                elemImg.pbImg.Image = bm
+
+                pbImgProdu.SizeMode = PictureBoxSizeMode.StretchImage
+                pbImgProdu.Image = bm
+                elemImg.pbImg.Tag = i
+                elemImg.Dock = DockStyle.Top
+                pbImgProdu.Tag = i
+                AddHandler elemImg.pbImg.MouseEnter, AddressOf pbImg_MouseEnter
+
+                PanelListImagenes.Controls.Add(elemImg)
+                ms.Dispose()
+
+            Else
+                If (estado = 1) Then
+                    If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Productos\ProductosTodos" + rutImg)) Then
+                        Dim bm As Bitmap = New Bitmap(RutaGlobal + "\Imagenes\Imagenes Productos\ProductosTodos" + rutImg)
+                        elemImg.pbImg.SizeMode = PictureBoxSizeMode.StretchImage
+                        elemImg.pbImg.Image = bm
+                        pbImgProdu.SizeMode = PictureBoxSizeMode.StretchImage
+                        pbImgProdu.Image = bm
+                        elemImg.pbImg.Tag = i
+                        elemImg.Dock = DockStyle.Top
+                        pbImgProdu.Tag = i
+                        AddHandler elemImg.pbImg.MouseEnter, AddressOf pbImg_MouseEnter
+
+                        PanelListImagenes.Controls.Add(elemImg)
+                    End If
+
+                End If
+            End If
+
+
+
+
+            i += 1
+        Next
+
+    End Sub
+    Private Sub pbImg_MouseEnter(sender As Object, e As EventArgs)
+        Dim pb As PictureBox = CType(sender, PictureBox)
+        pbImgProdu.Image = pb.Image
+        pbImgProdu.Tag = pb.Tag
+
+    End Sub
+
+    Private Function _fnCopiarImagenRutaDefinida() As String
+        'copio la imagen en la carpeta del sistema
+
+        Dim file As New OpenFileDialog()
+        'file.InitialDirectory = gs_RutaImg
+        file.Filter = "Ficheros JPG o JPEG o PNG|*.jpg;*.jpeg;*.png" &
+                      "|Ficheros GIF|*.gif" &
+                      "|Ficheros BMP|*.bmp" &
+                      "|Ficheros PNG|*.png" &
+                      "|Ficheros TIFF|*.tif"
+        If file.ShowDialog() = DialogResult.OK Then
+            Dim ruta As String = file.FileName
+            Dim nombre As String = ""
+
+            If file.CheckFileExists = True Then
+                Dim img As New Bitmap(New Bitmap(ruta), 1000, 800)
+                Dim a As Object = file.GetType.ToString
+
+                Dim da As String = Str(Now.Day).Trim + Str(Now.Month).Trim + Str(Now.Year).Trim + Str(Now.Hour).Trim + Str(Now.Minute).Trim + Str(Now.Second).Trim
+
+                nombre = "\Imagen_" + da + ".jpg".Trim
+
+
+                If (_fnActionNuevo()) Then
+                    Dim mstream = New MemoryStream()
+
+                    img.Save(mstream, System.Drawing.Imaging.ImageFormat.Jpeg)
+
+                    TablaImagenes.Rows.Add(0, 0, nombre, mstream.ToArray(), 0)
+                    mstream.Dispose()
+                    img.Dispose()
+
+                Else
+                    Dim mstream = New MemoryStream()
+
+                    img.Save(mstream, System.Drawing.Imaging.ImageFormat.Jpeg)
+                    TablaImagenes.Rows.Add(0, tbCodigo.Text, nombre, mstream.ToArray(), 0)
+                    mstream.Dispose()
+
+                End If
+
+                'img.Save(RutaTemporal + nombre, System.Drawing.Imaging.ImageFormat.Jpeg)
+
+
+
+
+            End If
+            Return nombre
+        End If
+
+        Return "default.jpg"
+    End Function
+
+    Public Sub _prGuardarImagenes(_ruta As String)
+        PanelListImagenes.Controls.Clear()
+
+
+        For i As Integer = 0 To TablaImagenes.Rows.Count - 1 Step 1
+            Dim estado As Integer = TablaImagenes.Rows(i).Item("estado")
+            If (estado = 0) Then
+
+                Dim bm As Bitmap = Nothing
+                Dim by As Byte() = TablaImagenes.Rows(i).Item("img")
+                Dim ms As New MemoryStream(by)
+                bm = New Bitmap(ms)
+                Try
+                    bm.Save(_ruta + TablaImagenes.Rows(i).Item("lhima"), System.Drawing.Imaging.ImageFormat.Jpeg)
+                Catch ex As Exception
+
+                End Try
+
+
+
+
+            End If
+            If (estado = -1) Then
+                Try
+                    Me.pbImgProdu.Image.Dispose()
+                    Me.pbImgProdu.Image = Nothing
+                    Application.DoEvents()
+                    TablaImagenes.Rows(i).Item("img") = Nothing
+
+
+
+                    If (File.Exists(_ruta + TablaImagenes.Rows(i).Item("lhima"))) Then
+                        My.Computer.FileSystem.DeleteFile(_ruta + TablaImagenes.Rows(i).Item("lhima"))
+                    End If
+
+                Catch ex As Exception
+
+                End Try
+            End If
+        Next
+    End Sub
 
 #End Region
 
@@ -305,8 +522,8 @@ Public Class Tec_Productos
         cbUniVenta.ReadOnly = False
         cbUnidMaxima.ReadOnly = False
         tbConversion.IsInputReadOnly = False
-
-
+        btnDelete.Visible = True
+        btnImagen.Visible = True
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -324,6 +541,8 @@ Public Class Tec_Productos
         cbFamilia.ReadOnly = True
         cbUniVenta.ReadOnly = True
         cbUnidMaxima.ReadOnly = True
+        btnDelete.Visible = False
+        btnImagen.Visible = False
         tbConversion.IsInputReadOnly = True
     End Sub
 
@@ -344,8 +563,9 @@ Public Class Tec_Productos
         seleccionarPrimerItemCombo(cbUniVenta)
         seleccionarPrimerItemCombo(cbUnidMaxima)
         tbNombreProducto.Focus()
-
-
+        TablaImagenes = L_prCargarImagenesRecepcion(-1)
+        _prCargarImagen()
+        _prEliminarContenidoImage()
     End Sub
     Public Sub seleccionarPrimerItemCombo(cb As EditControls.MultiColumnCombo)
         If (CType(cb.DataSource, DataTable).Rows.Count > 0) Then
@@ -385,10 +605,12 @@ Public Class Tec_Productos
             res = L_prProductoInsertar(tbCodigo.Text, tbCodigoExterno.Text, "", tbNombreProducto.Text,
                                                  tbDescripcion.Text, tbStockMinimo.Value, IIf(swEstado.Value = True, 1, 0),
                                                  cbCategoria.Value, cbEmpresa.Value, cbProveedor.Value, cbMarca.Value,
-                                                 cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value)
+                                                 cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes)
 
             If res Then
 
+                _prCrearCarpetaImagenes("ProductosTodos")
+                _prGuardarImagenes(RutaGlobal + "\Imagenes\Imagenes Productos\" + "ProductosTodos" + "\")
 
                 ToastNotification.Show(Me, "Codigo de Producto ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
 
@@ -400,7 +622,7 @@ Public Class Tec_Productos
             ToastNotification.Show(Me, "Error al guardar el producto".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
         End Try
-
+        _prEliminarContenidoImage()
         Return res
 
     End Function
@@ -411,10 +633,12 @@ Public Class Tec_Productos
             Res = L_prProductoModificar(tbCodigo.Text, tbCodigoExterno.Text, "", tbNombreProducto.Text,
                                                 tbDescripcion.Text, tbStockMinimo.Value, IIf(swEstado.Value = True, 1, 0),
                                                 cbCategoria.Value, cbEmpresa.Value, cbProveedor.Value, cbMarca.Value,
-                                                cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value)
+                                                cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes)
 
 
             If Res Then
+                _prCrearCarpetaImagenes("ProductosTodos")
+                _prGuardarImagenes(RutaGlobal + "\Imagenes\Imagenes Productos\" + "ProductosTodos" + "\")
 
                 ToastNotification.Show(Me, "Codigo de Producto ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                 _PSalirRegistro()
@@ -426,7 +650,7 @@ Public Class Tec_Productos
             ToastNotification.Show(Me, "Error al modificar el producto".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
         End Try
-
+        _prEliminarContenidoImage()
         Return Res
     End Function
     Public Function _fnActionNuevo() As Boolean
@@ -670,8 +894,8 @@ Public Class Tec_Productos
             cbUnidMaxima.Value = .GetValue("UnidadMaximaId")
             tbConversion.Value = .GetValue("Conversion")
         End With
-
-
+        TablaImagenes = L_prCargarImagenesRecepcion(tbCodigo.Text)
+        _prCargarImagen()
         LblPaginacion.Text = Str(_MPos + 1) + "/" + JGrM_Buscador.RowCount.ToString
 
     End Sub
@@ -854,5 +1078,37 @@ Public Class Tec_Productos
         End If
     End Sub
 
+    Private Sub btnImagen_Click(sender As Object, e As EventArgs) Handles btnImagen.Click
+        _fnCopiarImagenRutaDefinida()
+        _prCargarImagen()
+    End Sub
+
+    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+        Dim pos As Integer = CType(pbImgProdu.Tag, Integer)
+        If (IsDBNull(TablaImagenes)) Then
+            Return
+
+        End If
+        If (pos >= 0 And TablaImagenes.Rows.Count > 0) Then
+            TablaImagenes.Rows(pos).Item("estado") = -1
+            _prCargarImagen()
+        End If
+    End Sub
+    Public Sub _prEliminarDirectorio(numi As String)
+
+        '_prGuardarImagenes(RutaGlobal + "\Imagenes\Imagenes RecepcionVehiculo\" + "Recepcion_" + tbNumeroOrden.Text.Trim + "\")
+        If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Productos\ProductosTodos")) Then
+
+            Try
+                My.Computer.FileSystem.DeleteDirectory(RutaGlobal + "\Imagenes\Imagenes Productos\ProductosTodos", FileIO.UIOption.AllDialogs, FileIO.RecycleOption.SendToRecycleBin)
+            Catch ex As Exception
+
+            End Try
+
+
+        End If
+
+
+    End Sub
 #End Region
 End Class

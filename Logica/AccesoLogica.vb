@@ -3142,6 +3142,20 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+
+    Public Shared Function L_prCargarImagenesRecepcion(ProductoId As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@Id", ProductoId))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Productos", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_prProductoBorrar(_numi As String, ByRef _mensaje As String) As Boolean
 
         Dim _resultado As Boolean
@@ -3169,7 +3183,7 @@ Public Class AccesoLogica
                                                 _CodigoBarra As String, _NombreProducto As String,
         _Descripcion As String, _stockMinimo As Decimal, _estado As Integer, _CategoriaId As Integer, _EmpresaId As Integer, _ProveedorId As Integer, _MarcaId As Integer,
         _AttributoId As Integer, _FamiliaId As Integer, _UnidadVentaId As Integer, _UnidadMaximaId As Integer,
-        _conversion As Double) As Boolean
+        _conversion As Double, _dtImagenes As DataTable) As Boolean
         Dim _resultado As Boolean
 
         '(@Id,@CodigoExterno ,@CodigoBarras ,@NombreProducto ,@DescripcionProducto ,
@@ -3198,6 +3212,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@UnidadMaximaId", _UnidadMaximaId))
         _listParam.Add(New Datos.DParametro("@Conversion", _conversion))
 
+        _listParam.Add(New Datos.DParametro("@TCL0064", "", _dtImagenes))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
 
@@ -3218,7 +3233,7 @@ Public Class AccesoLogica
                                                 _CodigoBarra As String, _NombreProducto As String,
         _Descripcion As String, _stockMinimo As Decimal, _estado As Integer, _CategoriaId As Integer, _EmpresaId As Integer, _ProveedorId As Integer, _MarcaId As Integer,
         _AttributoId As Integer, _FamiliaId As Integer, _UnidadVentaId As Integer, _UnidadMaximaId As Integer,
-        _conversion As Double) As Boolean
+        _conversion As Double, _dtImagenes As DataTable) As Boolean
         Dim _resultado As Boolean
 
         '(@Id,@CodigoExterno ,@CodigoBarras ,@NombreProducto ,@DescripcionProducto ,
@@ -3246,7 +3261,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@UnidadVentaId", _UnidadVentaId))
         _listParam.Add(New Datos.DParametro("@UnidadMaximaId", _UnidadMaximaId))
         _listParam.Add(New Datos.DParametro("@Conversion", _conversion))
-
+        _listParam.Add(New Datos.DParametro("@TCL0064", "", _dtImagenes))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
 

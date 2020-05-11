@@ -186,6 +186,12 @@
     <Compile Include="Control\UCImg.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Control\UCLavadero.Designer.vb">
+      <DependentUpon>UCLavadero.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Control\UCLavadero.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="CustomersRow.vb" />
     <Compile Include="F0_AnularFactura.Designer.vb">
       <DependentUpon>F0_AnularFactura.vb</DependentUpon>
@@ -759,6 +765,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Control\UCImg.resx">
       <DependentUpon>UCImg.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\UCLavadero.resx">
+      <DependentUpon>UCLavadero.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F0_AnularFactura.resx">
       <DependentUpon>F0_AnularFactura.vb</DependentUpon>
