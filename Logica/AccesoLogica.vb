@@ -1067,8 +1067,8 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@tipo", 2))
         _listParam.Add(New Datos.DParametro("@almacen", _almacen))
         _listParam.Add(New Datos.DParametro("@TY007", "", _precio))
-        _listParam.Add(New Datos.DParametro("@yguact", L_Usuario))
-        _Tabla = D_ProcedimientoConParam("sp_Mam_TY006", _listParam)
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Precios", _listParam)
 
 
         If _Tabla.Rows.Count > 0 Then
@@ -1605,25 +1605,23 @@ Public Class AccesoLogica
 
     Public Shared Function L_fnEliminarCategoria(numi As String, ByRef mensaje As String) As Boolean
         Dim _resultado As Boolean
-        If L_fnbValidarEliminacion(numi, "TY006", "ygnumi", mensaje) = True Then
-            Dim _Tabla As DataTable
+
+        Dim _Tabla As DataTable
             Dim _listParam As New List(Of Datos.DParametro)
 
             _listParam.Add(New Datos.DParametro("@tipo", -1))
-            _listParam.Add(New Datos.DParametro("@ygnumi", numi))
-            _listParam.Add(New Datos.DParametro("@yguact", L_Usuario))
+            _listParam.Add(New Datos.DParametro("@Id", numi))
+            _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
-            _Tabla = D_ProcedimientoConParam("sp_Mam_TY006", _listParam)
+            _Tabla = D_ProcedimientoConParam("sp_Mam_Precios", _listParam)
 
             If _Tabla.Rows.Count > 0 Then
                 _resultado = True
             Else
                 _resultado = False
             End If
-        Else
-            _resultado = False
-        End If
-        Return _resultado
+
+            Return _resultado
     End Function
 #End Region
 

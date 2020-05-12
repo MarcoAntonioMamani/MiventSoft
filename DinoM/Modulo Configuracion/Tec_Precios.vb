@@ -106,8 +106,8 @@ Public Class Tec_Precios
 
             'a.yfcprod ,a.yfnumi ,a.yfcdprod1,gr3.ycdes3 as Laboratorio,gr4.ycdes3 as Presentacion 
             With grprecio.RootTable.Columns("yfcprod")
-                .Caption = "Cod P"
-                .Width = 60
+                .Caption = "Cod"
+                .Width = 40
                 .Visible = True
             End With
             With grprecio.RootTable.Columns("yfnumi")
@@ -117,12 +117,12 @@ Public Class Tec_Precios
             End With
             With grprecio.RootTable.Columns("yfcdprod1")
                 .Caption = "Producto"
-                .Width = 190
+                .Width = 200
                 .Visible = True
             End With
             With grprecio.RootTable.Columns("NombreCategoria")
                 .Caption = "Categoria"
-                .Width = 150
+                .Width = 120
                 .Visible = True
             End With
             With grprecio.RootTable.Columns("proveedor")
@@ -166,8 +166,8 @@ Public Class Tec_Precios
     Private Sub _prInhabiliitar()
 
         GPanelAddCategoria.Visible = False
-        btnModificar.Enabled = True
-        btnGrabar.Enabled = False
+        btnModificar.Visible = True
+        btnGrabar.Visible = False
         _prCargarTablaPrecios(True)
 
         grcategoria.ContextMenuStrip = Nothing
@@ -176,7 +176,7 @@ Public Class Tec_Precios
         grcategoria.ContextMenuStrip = msModulos
         GPanelAddCategoria.Visible = True
         tbDescripcion.Focus()
-        btnGrabar.Enabled = True
+        btnGrabar.Visible = True
     End Sub
 
     Private Sub _prCargarTablaCategorias()
@@ -189,21 +189,21 @@ Public Class Tec_Precios
         'dar formato a las columnas
         'a.ygnumi, a.ygcod, a.ygdesc, a.ygpcv, a.ygfact, a.yghact, a.yguact
         With grcategoria.RootTable.Columns("ygnumi")
-            .Width = 100
-            .Caption = "CODIGO"
+            .Width = 70
+            .Caption = "Cod"
             .Visible = False
 
         End With
 
         With grcategoria.RootTable.Columns("ygcod")
-            .Width = 80
+            .Width = 40
             .Visible = True
-            .Caption = "CODIGO"
+            .Caption = "Cod"
         End With
 
         With grcategoria.RootTable.Columns("ygdesc")
-            .Caption = "DESCRIPCION"
-            .Width = 200
+            .Caption = "Descripcion"
+            .Width = 150
             .Visible = True
 
 
@@ -221,7 +221,7 @@ Public Class Tec_Precios
             .Width = 80
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .Visible = True
-            .Caption = "ESTADO"
+            .Caption = "Tipo"
 
         End With
 
@@ -361,8 +361,11 @@ Public Class Tec_Precios
 
             Else
                 'Fila encontrada
-                dr.GetValue(0).Item("yhprecio") = r.Item("yhprecio")
-                dr.GetValue(0).Item("estado") = r.Item("estado")
+                If (dr.Length > 0) Then
+                    dr.GetValue(0).Item("yhprecio") = r.Item("yhprecio")
+                    dr.GetValue(0).Item("estado") = r.Item("estado")
+                End If
+
 
             End If
 
@@ -434,7 +437,7 @@ Public Class Tec_Precios
     End Sub
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
         _prhabilitar()
-        btnModificar.Enabled = False
+        btnModificar.Visible = False
 
     End Sub
 
@@ -442,7 +445,7 @@ Public Class Tec_Precios
         If (_fnAccesible()) Then
             _prInhabiliitar()
         Else
-            _modulo.Select()
+            '_modulo.Select()
             _tab.Close()
         End If
     End Sub
@@ -460,7 +463,7 @@ Public Class Tec_Precios
             MEP.SetError(tb, "")
         End If
     End Sub
-    Private Sub grprecio_CellEdited(sender As Object, e As ColumnActionEventArgs) Handles grprecio.CellEdited
+    Private Sub grprecio_CellEdited(sender As Object, e As ColumnActionEventArgs)
         If (_fnAccesible()) Then
             'Habilitar solo las columnas de Precio, %, Monto y Observación
             If (e.Column.Index > 1) Then
@@ -483,9 +486,9 @@ Public Class Tec_Precios
         End If
     End Sub
 
-    Private Sub grprecio_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grprecio.EditingCell
+    Private Sub grprecio_EditingCell(sender As Object, e As EditingCellEventArgs)
 
-        If btnGrabar.Enabled = False Then
+        If btnGrabar.Visible = False Then
             Return
         End If
         If (_fnAccesible() And IsNothing(grprecio.DataSource) = False) Then
@@ -526,8 +529,98 @@ Public Class Tec_Precios
         _prCargarTablaPrecios(True) ''Si el selecciona otra sucursal cambia sus precio por sucursales
     End Sub
 
-    Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
+    Private Sub btnEliminar_Click(sender As Object, e As EventArgs)
 
+    End Sub
+
+    Private Sub SELECCIONARTODOSDELToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SELECCIONARTODOSDELToolStripMenuItem.Click
+        Dim img As Bitmap
+        If (grcategoria.RowCount > 0) Then
+            If (grcategoria.Row > 1) Then
+                Dim pos As Integer = grcategoria.Row
+                Dim dt As DataTable = CType(grcategoria.DataSource, DataTable)
+                Dim mensajeError As String = ""
+                Dim res As Boolean = L_fnEliminarCategoria(dt.Rows(pos).Item("ygnumi"), mensajeError)
+                If res Then
+
+
+                    img = New Bitmap(My.Resources.checked, 50, 50)
+
+                    ToastNotification.Show(Me, "Código de Categoria ".ToUpper + Str(dt.Rows(pos).Item("ygnumi")) + " eliminado con Exito.".ToUpper,
+                                              img, 2000,
+                                              eToastGlowColor.Green,
+                                              eToastPosition.TopCenter)
+
+                    _prLimpiar()
+
+                    _prCargarTablaCategorias()
+
+                    _prCargarDatosTablaPrecios()
+
+
+                Else
+                    img = New Bitmap(My.Resources.cancel, 50, 50)
+                    ToastNotification.Show(Me, mensajeError, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                End If
+
+            Else
+                img = New Bitmap(My.Resources.cancel, 50, 50)
+                ToastNotification.Show(Me, "CODIGO DE CATEGORIA DEL SISTEMA NO PUEDE SER ELIMINADA", img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub grprecio_EditingCell_1(sender As Object, e As EditingCellEventArgs) Handles grprecio.EditingCell
+        If btnGrabar.Visible = False Then
+            e.Cancel = True
+            Return
+        End If
+        If (_fnAccesible() And IsNothing(grprecio.DataSource) = False) Then
+            'Deshabilitar la columna de Productos y solo habilitar la de los precios
+            If (e.Column.Index = grprecio.RootTable.Columns("yfcdprod1").Index Or
+                e.Column.Index = grprecio.RootTable.Columns("NombreCategoria").Index Or
+                e.Column.Index = grprecio.RootTable.Columns("proveedor").Index Or
+                e.Column.Index = grprecio.RootTable.Columns("yfcprod").Index Or
+                e.Column.Index = grprecio.RootTable.Columns("yfnumi").Index) Then 'Or e.Column.Index = grprecio.RootTable.Columns("73").Index
+                e.Cancel = True
+            Else
+                e.Cancel = False
+            End If
+        Else
+            e.Cancel = True
+        End If
+    End Sub
+
+    Private Sub grprecio_CellEdited_1(sender As Object, e As ColumnActionEventArgs) Handles grprecio.CellEdited
+        If (_fnAccesible()) Then
+            'Habilitar solo las columnas de Precio, %, Monto y Observación
+            If (e.Column.Index > 1) Then
+                Dim data As String = grprecio.GetValue(e.Column.Index - 1).ToString.Trim 'En esta columna obtengo un protocolo que me indica el estado del precio 0= no insertado 1= ya insertado , a la ves con un '-' me indica la posicion de ese dato en el Datatable que envio para grabarlo que esta en 'precio' Ejemplo:1-15 -> estado=1 posicion=15
+                Dim estado As String = data.Substring(0, 1).Trim
+                Dim pos As String = data.Substring(2, data.Length - 2)
+                If (estado = 1 Or estado = 2) Then
+                    precio.Rows(pos).Item("estado") = 2
+                    precio.Rows(pos).Item("yhprecio") = grprecio.GetValue(e.Column.Index)
+                Else
+                    If (estado = 0 Or estado = 3) Then
+                        If (IsNumeric(grprecio.GetValue(e.Column.Index))) Then
+                            precio.Rows(pos).Item("estado") = 3
+                            precio.Rows(pos).Item("yhprecio") = grprecio.GetValue(e.Column.Index)
+                        Else
+                            precio.Rows(pos).Item("estado") = 3
+                            precio.Rows(pos).Item("yhprecio") = 0
+                            grprecio.SetValue(e.Column.Index, 0)
+
+
+                        End If
+                    End If
+                End If
+
+
+            End If
+
+        End If
     End Sub
 #End Region
 

@@ -386,6 +386,12 @@
     <Compile Include="Modulo Configuracion\TecCategorias.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modulo Configuracion\Tec_Precios.Designer.vb">
+      <DependentUpon>Tec_Precios.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo Configuracion\Tec_Precios.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Modulo Configuracion\Tec_Productos.Designer.vb">
       <DependentUpon>Tec_Productos.vb</DependentUpon>
     </Compile>
@@ -864,6 +870,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo Configuracion\TecCategorias.resx">
       <DependentUpon>TecCategorias.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo Configuracion\Tec_Precios.resx">
+      <DependentUpon>Tec_Precios.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo Configuracion\Tec_Productos.resx">
       <DependentUpon>Tec_Productos.vb</DependentUpon>

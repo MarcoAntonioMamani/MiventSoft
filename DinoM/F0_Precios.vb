@@ -359,7 +359,7 @@ Public Class F0_Precios
 
             End If
 
-            Dim grabar As Boolean = L_fnGrabarCategorias("", letra, tbDescripcion.Text, IIf(swEstado.Value = True, 1, 0), TbMargen.Text)
+            Dim grabar As Boolean = L_fnGrabarCategorias("", letra, tbDescripcion.Text, IIf(swEstado.Value = True, 1, 0))
             If (grabar) Then
                 Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
                 ToastNotification.Show(Me, "categoria Grabado con Exito.".ToUpper,
