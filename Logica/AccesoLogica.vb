@@ -1120,9 +1120,9 @@ Public Class AccesoLogica
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 4))
-        _listParam.Add(New Datos.DParametro("@zanumi", _zanumi))
-        _listParam.Add(New Datos.DParametro("@zauact", L_Usuario))
-        _Tabla = D_ProcedimientoConParam("sp_Mam_TZ001", _listParam)
+        _listParam.Add(New Datos.DParametro("@Id", _zanumi))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Zonas", _listParam)
 
         Return _Tabla
     End Function
@@ -3122,6 +3122,88 @@ Public Class AccesoLogica
         _Tabla = D_ProcedimientoConParam("sp_Mam_TI002", _listParam)
 
         Return _Tabla
+    End Function
+#End Region
+
+#Region "Tec Zonas"
+    Public Shared Function InsertarZona(_Id As String,
+        _Nombre As String, _Descripcion As String, _zacolor As String, point As DataTable) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        ''(@Id,@NombreZona  ,@DescripcionZona  ,@Color ,@newFecha,@newHora,@Usuario)
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", _Id))
+        _listParam.Add(New Datos.DParametro("@NombreZona", _Nombre))
+        _listParam.Add(New Datos.DParametro("@DescripcionZona", _Descripcion))
+        _listParam.Add(New Datos.DParametro("@Color", _zacolor))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@ZonasPuntos", "", point))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Zonas", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _Id = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+    Public Shared Function GeneralZona() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Zonas", _listParam)
+
+        Return _Tabla
+    End Function
+    Public Shared Function EliminarZona(numi As String, ByRef mensaje As String) As Boolean
+        Dim _resultado As Boolean
+        Dim _Tabla As DataTable
+            Dim _listParam As New List(Of Datos.DParametro)
+
+            _listParam.Add(New Datos.DParametro("@tipo", -1))
+        _listParam.Add(New Datos.DParametro("@Id", numi))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Zonas", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+                _resultado = True
+            Else
+                _resultado = False
+            End If
+
+            Return _resultado
+    End Function
+    Public Shared Function ActualizarZona(_Id As String,
+        _Nombre As String, _Descripcion As String, _zacolor As String, point As DataTable) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        ''(@Id,@NombreZona  ,@DescripcionZona  ,@Color ,@newFecha,@newHora,@Usuario)
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@Id", _Id))
+        _listParam.Add(New Datos.DParametro("@NombreZona", _Nombre))
+        _listParam.Add(New Datos.DParametro("@DescripcionZona", _Descripcion))
+        _listParam.Add(New Datos.DParametro("@Color", _zacolor))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@ZonasPuntos", "", point))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Zonas", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
     End Function
 #End Region
 

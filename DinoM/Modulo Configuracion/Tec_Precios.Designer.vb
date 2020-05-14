@@ -33,6 +33,7 @@ Partial Class Tec_Precios
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel18 = New System.Windows.Forms.Panel()
+        Me.grprecio = New Janus.Windows.GridEX.GridEX()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.lbprivilegio = New System.Windows.Forms.Label()
@@ -44,6 +45,7 @@ Partial Class Tec_Precios
         Me.Panel9 = New System.Windows.Forms.Panel()
         Me.GroupPanel2 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel16 = New System.Windows.Forms.Panel()
+        Me.grcategoria = New Janus.Windows.GridEX.GridEX()
         Me.GPanelAddCategoria = New System.Windows.Forms.Panel()
         Me.btnAgregar = New DevComponents.DotNetBar.ButtonX()
         Me.tbDescripcion = New DevComponents.DotNetBar.Controls.TextBoxX()
@@ -77,8 +79,6 @@ Partial Class Tec_Precios
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.Highlighter1 = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.ErrorProvider1 = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.grcategoria = New Janus.Windows.GridEX.GridEX()
-        Me.grprecio = New Janus.Windows.GridEX.GridEX()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -87,6 +87,7 @@ Partial Class Tec_Precios
         Me.Panel4.SuspendLayout()
         Me.GroupPanel1.SuspendLayout()
         Me.Panel18.SuspendLayout()
+        CType(Me.grprecio, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
         Me.Panel6.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -95,6 +96,7 @@ Partial Class Tec_Precios
         Me.Panel9.SuspendLayout()
         Me.GroupPanel2.SuspendLayout()
         Me.Panel16.SuspendLayout()
+        CType(Me.grcategoria, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GPanelAddCategoria.SuspendLayout()
         Me.Panel10.SuspendLayout()
         Me.Panel11.SuspendLayout()
@@ -112,8 +114,6 @@ Partial Class Tec_Precios
         Me.msModulos.SuspendLayout()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.grcategoria, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.grprecio, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
@@ -232,6 +232,51 @@ Partial Class Tec_Precios
         Me.Panel18.Name = "Panel18"
         Me.Panel18.Size = New System.Drawing.Size(829, 405)
         Me.Panel18.TabIndex = 0
+        '
+        'grprecio
+        '
+        Me.grprecio.AlternatingColors = True
+        Me.grprecio.BackColor = System.Drawing.Color.White
+        Me.grprecio.BorderStyle = Janus.Windows.GridEX.BorderStyle.Raised
+        Me.grprecio.ColumnAutoResize = True
+        Me.grprecio.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grprecio.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.NextCell
+        Me.grprecio.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
+        Me.grprecio.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grprecio.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grprecio.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grprecio.FocusCellFormatStyle.BackColor = System.Drawing.Color.DarkTurquoise
+        Me.grprecio.FocusCellFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grprecio.FocusCellFormatStyle.ForeColor = System.Drawing.Color.Black
+        Me.grprecio.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grprecio.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
+        Me.grprecio.HeaderFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
+        Me.grprecio.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.Empty
+        Me.grprecio.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grprecio.HeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.grprecio.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
+        Me.grprecio.Location = New System.Drawing.Point(0, 0)
+        Me.grprecio.Margin = New System.Windows.Forms.Padding(4)
+        Me.grprecio.Name = "grprecio"
+        Me.grprecio.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.grprecio.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.grprecio.RecordNavigator = True
+        Me.grprecio.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grprecio.RowHeaderFormatStyle.BackColor = System.Drawing.Color.DodgerBlue
+        Me.grprecio.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grprecio.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.grprecio.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
+        Me.grprecio.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grprecio.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
+        Me.grprecio.SelectedInactiveFormatStyle.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.grprecio.Size = New System.Drawing.Size(829, 405)
+        Me.grprecio.TabIndex = 4
+        Me.grprecio.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grprecio.TableSpacing = 9
+        Me.grprecio.TreeLineColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.grprecio.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.grprecio.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.grprecio.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'Panel5
         '
@@ -385,6 +430,49 @@ Partial Class Tec_Precios
         Me.Panel16.Name = "Panel16"
         Me.Panel16.Size = New System.Drawing.Size(342, 259)
         Me.Panel16.TabIndex = 0
+        '
+        'grcategoria
+        '
+        Me.grcategoria.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
+        Me.grcategoria.AlternatingColors = True
+        Me.grcategoria.BackColor = System.Drawing.Color.White
+        Me.grcategoria.BorderStyle = Janus.Windows.GridEX.BorderStyle.Raised
+        Me.grcategoria.ColumnAutoResize = True
+        Me.grcategoria.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grcategoria.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
+        Me.grcategoria.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grcategoria.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grcategoria.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grcategoria.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
+        Me.grcategoria.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grcategoria.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
+        Me.grcategoria.HeaderFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
+        Me.grcategoria.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.Empty
+        Me.grcategoria.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grcategoria.HeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.grcategoria.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
+        Me.grcategoria.Location = New System.Drawing.Point(0, 0)
+        Me.grcategoria.Margin = New System.Windows.Forms.Padding(4)
+        Me.grcategoria.Name = "grcategoria"
+        Me.grcategoria.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.grcategoria.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.grcategoria.RecordNavigator = True
+        Me.grcategoria.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grcategoria.RowHeaderFormatStyle.BackColor = System.Drawing.Color.DodgerBlue
+        Me.grcategoria.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grcategoria.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.grcategoria.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
+        Me.grcategoria.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grcategoria.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
+        Me.grcategoria.SelectedInactiveFormatStyle.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.grcategoria.Size = New System.Drawing.Size(342, 259)
+        Me.grcategoria.TabIndex = 4
+        Me.grcategoria.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grcategoria.TableSpacing = 9
+        Me.grcategoria.TreeLineColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.grcategoria.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.grcategoria.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.grcategoria.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'GPanelAddCategoria
         '
@@ -792,94 +880,6 @@ Partial Class Tec_Precios
         '
         Me.ErrorProvider1.ContainerControl = Me
         '
-        'grcategoria
-        '
-        Me.grcategoria.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
-        Me.grcategoria.AlternatingColors = True
-        Me.grcategoria.BackColor = System.Drawing.Color.White
-        Me.grcategoria.BorderStyle = Janus.Windows.GridEX.BorderStyle.Raised
-        Me.grcategoria.ColumnAutoResize = True
-        Me.grcategoria.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grcategoria.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
-        Me.grcategoria.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grcategoria.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.grcategoria.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.grcategoria.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
-        Me.grcategoria.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grcategoria.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
-        Me.grcategoria.HeaderFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
-        Me.grcategoria.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.Empty
-        Me.grcategoria.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grcategoria.HeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
-        Me.grcategoria.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
-        Me.grcategoria.Location = New System.Drawing.Point(0, 0)
-        Me.grcategoria.Margin = New System.Windows.Forms.Padding(4)
-        Me.grcategoria.Name = "grcategoria"
-        Me.grcategoria.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.grcategoria.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.grcategoria.RecordNavigator = True
-        Me.grcategoria.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grcategoria.RowHeaderFormatStyle.BackColor = System.Drawing.Color.DodgerBlue
-        Me.grcategoria.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grcategoria.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
-        Me.grcategoria.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
-        Me.grcategoria.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grcategoria.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grcategoria.SelectedInactiveFormatStyle.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.grcategoria.Size = New System.Drawing.Size(342, 259)
-        Me.grcategoria.TabIndex = 4
-        Me.grcategoria.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.grcategoria.TableSpacing = 9
-        Me.grcategoria.TreeLineColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.grcategoria.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        Me.grcategoria.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        Me.grcategoria.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        '
-        'grprecio
-        '
-        Me.grprecio.AlternatingColors = True
-        Me.grprecio.BackColor = System.Drawing.Color.White
-        Me.grprecio.BorderStyle = Janus.Windows.GridEX.BorderStyle.Raised
-        Me.grprecio.ColumnAutoResize = True
-        Me.grprecio.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grprecio.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.NextCell
-        Me.grprecio.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
-        Me.grprecio.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grprecio.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.grprecio.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.grprecio.FocusCellFormatStyle.BackColor = System.Drawing.Color.DarkTurquoise
-        Me.grprecio.FocusCellFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grprecio.FocusCellFormatStyle.ForeColor = System.Drawing.Color.Black
-        Me.grprecio.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grprecio.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
-        Me.grprecio.HeaderFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
-        Me.grprecio.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.Empty
-        Me.grprecio.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grprecio.HeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
-        Me.grprecio.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
-        Me.grprecio.Location = New System.Drawing.Point(0, 0)
-        Me.grprecio.Margin = New System.Windows.Forms.Padding(4)
-        Me.grprecio.Name = "grprecio"
-        Me.grprecio.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.grprecio.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.grprecio.RecordNavigator = True
-        Me.grprecio.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grprecio.RowHeaderFormatStyle.BackColor = System.Drawing.Color.DodgerBlue
-        Me.grprecio.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grprecio.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
-        Me.grprecio.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
-        Me.grprecio.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grprecio.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grprecio.SelectedInactiveFormatStyle.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.grprecio.Size = New System.Drawing.Size(829, 405)
-        Me.grprecio.TabIndex = 4
-        Me.grprecio.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.grprecio.TableSpacing = 9
-        Me.grprecio.TreeLineColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.grprecio.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        Me.grprecio.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        Me.grprecio.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        '
         'Tec_Precios
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -897,6 +897,7 @@ Partial Class Tec_Precios
         Me.Panel4.ResumeLayout(False)
         Me.GroupPanel1.ResumeLayout(False)
         Me.Panel18.ResumeLayout(False)
+        CType(Me.grprecio, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel5.ResumeLayout(False)
         Me.Panel6.ResumeLayout(False)
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
@@ -905,6 +906,7 @@ Partial Class Tec_Precios
         Me.Panel9.ResumeLayout(False)
         Me.GroupPanel2.ResumeLayout(False)
         Me.Panel16.ResumeLayout(False)
+        CType(Me.grcategoria, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GPanelAddCategoria.ResumeLayout(False)
         Me.Panel10.ResumeLayout(False)
         Me.Panel11.ResumeLayout(False)
@@ -923,8 +925,6 @@ Partial Class Tec_Precios
         Me.msModulos.ResumeLayout(False)
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.grcategoria, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.grprecio, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

@@ -626,7 +626,6 @@ Public Class Tec_Roles
         Dim estado As Integer = grDetalle.GetValue("estado")
         If estado = 1 Then
             grDetalle.SetValue("estado", 2)
-
         End If
 
     End Sub
