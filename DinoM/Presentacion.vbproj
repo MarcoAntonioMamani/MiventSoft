@@ -368,6 +368,12 @@
     <Compile Include="Modulo Configuracion\TecCategorias.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modulo Configuracion\Tec_Clientes.Designer.vb">
+      <DependentUpon>Tec_Clientes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo Configuracion\Tec_Clientes.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Modulo Configuracion\Tec_Mapa.Designer.vb">
       <DependentUpon>Tec_Mapa.vb</DependentUpon>
     </Compile>
@@ -837,6 +843,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo Configuracion\TecCategorias.resx">
       <DependentUpon>TecCategorias.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo Configuracion\Tec_Clientes.resx">
+      <DependentUpon>Tec_Clientes.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo Configuracion\Tec_Mapa.resx">
       <DependentUpon>Tec_Mapa.vb</DependentUpon>
