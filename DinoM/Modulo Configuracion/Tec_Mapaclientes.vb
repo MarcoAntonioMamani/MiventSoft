@@ -1,4 +1,5 @@
-﻿Imports Logica.AccesoLogica
+﻿
+Imports Logica.AccesoLogica
 Imports Janus.Windows.GridEX
 Imports DevComponents.DotNetBar
 Imports System.IO
@@ -11,7 +12,8 @@ Imports GMap.NET.WindowsForms
 Imports GMap.NET.WindowsForms.ToolTips
 Imports System.Drawing
 Imports System.Threading
-Public Class F1_MapaCLientes
+Public Class Tec_Mapaclientes
+
     Dim RutaGlobal As String = gs_CarpetaRaiz
     Dim _Punto As Integer
     Dim _ListPuntos As List(Of PointLatLng)
@@ -29,39 +31,18 @@ Public Class F1_MapaCLientes
         _prInicarMapa()
         _prObtenerDatatableClientes()
         _prCargarClientesJanus(TableCliente)
-        _prCargarComboLibreriaZona(cbZona)
-        slpanelInfo.Width = 0
-        Panel1.Visible = True
-        btnz1.Visible = True
-        btnz2.Visible = True
-        pbmap.Visible = True
-        lbmap.Visible = True
 
-        Dim blah As New Bitmap(New Bitmap(My.Resources.ic_c), 20, 20)
-        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
-        Me.Icon = ico
-        Me.Text = "Ubicacion Clientes"
+        P_Global._prCargarComboGenerico(cbZona, L_prListarZonas(), "Id", "Codigo", "NombreZona", "Zonas")
+
+
+
         Gmc_Cliente.Zoom = Gmc_Cliente.Zoom - 2
         cbZona.ReadOnly = True
         checkTodos.CheckValue = True
         cbZona.Enabled = False
 
     End Sub
-    Private Sub _prCargarComboLibreriaZona(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
-        Dim dt As New DataTable
-        dt = L_prLibreriaClienteLGeneralZonas()
-        With mCombo
-            .DropDownList.Columns.Clear()
-            .DropDownList.Columns.Add("yccod3").Width = 60
-            .DropDownList.Columns("yccod3").Caption = "COD"
-            .DropDownList.Columns.Add("ycdes3").Width = 500
-            .DropDownList.Columns("ycdes3").Caption = "DESCRIPCION"
-            .ValueMember = "yccod3"
-            .DisplayMember = "ycdes3"
-            .DataSource = dt
-            .Refresh()
-        End With
-    End Sub
+
 
 
     Public Sub _prCargarClientesJanus(Cliente As DataTable)
@@ -72,46 +53,34 @@ Public Class F1_MapaCLientes
         grCliente.DataSource = dt
         grCliente.RetrieveStructure()
 
+        'a.id , a.NombreCliente, a.Telefono, a.Latitud, a.Longitud 
 
-        'dar formato a las columnas
-        ''a.ccnumi ,a.ccdesc ,a.cctelf2 ,a.ccobs ,a.cclat ,a.cclongi 
-
-        With grCliente.RootTable.Columns("ccnumi")
+        With grCliente.RootTable.Columns("id")
             .Width = 60
             .Caption = "CODIGO"
 
-            .Visible = False
+            .Visible = True
 
         End With
 
-        With grCliente.RootTable.Columns("ccdesc")
-            .Width = 327
-            .Caption = "DESCRIPCION"
+        With grCliente.RootTable.Columns("NombreCliente")
+            .Width = 300
+            .Caption = "CLIENTE"
             .Visible = True
         End With
-        With grCliente.RootTable.Columns("cctelf2")
+        With grCliente.RootTable.Columns("Telefono")
             .Width = 90
             .Caption = "TELEFONO"
 
-            .Visible = False
+            .Visible = True
         End With
-        With grCliente.RootTable.Columns("ccobs")
+        With grCliente.RootTable.Columns("Latitud")
             .Width = 90
-            .Caption = "OBSERVACION"
             .Visible = False
         End With
-        With grCliente.RootTable.Columns("cclat")
+        With grCliente.RootTable.Columns("Longitud")
             .Width = 90
-
             .Visible = False
-        End With
-        With grCliente.RootTable.Columns("cclongi")
-            .Caption = "NOMBRE"
-
-            .Width = 110
-            .Visible = False
-
-
         End With
 
 
@@ -125,7 +94,7 @@ Public Class F1_MapaCLientes
             .FilterMode = FilterMode.Automatic
             .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
             .RecordNavigator = True
-            .RecordNavigatorText = "Movimiento"
+            .RecordNavigatorText = "CLIENTES"
             .RowHeaders = InheritableBoolean.True
         End With
 
@@ -141,8 +110,8 @@ Public Class F1_MapaCLientes
     End Sub
     Public Sub _prDibujarMarketCliente(n As Integer, Cliente As DataTable)
         For i As Integer = 0 To n Step 1
-            Dim lat As Double = Cliente.Rows(i).Item("cclat")
-            Dim longitud As Double = Cliente.Rows(i).Item("cclongi")
+            Dim lat As Double = Cliente.Rows(i).Item("Latitud")
+            Dim longitud As Double = Cliente.Rows(i).Item("Longitud")
             If (lat <> 0 And longitud <> 0) Then
                 Dim plg As PointLatLng = New PointLatLng(lat, longitud)
                 _latitud = plg.Lat
@@ -187,14 +156,14 @@ Public Class F1_MapaCLientes
 
     End Sub
 
-   
+
 
     Private Sub P_AgregarPunto(pointLatLng As PointLatLng, _nombre As String, _ci As String, data As System.Data.DataRow)
 
         If (Not IsNothing(_Overlay)) Then
             'añadir puntos
             'Dim markersOverlay As New GMapOverlay("markers")
-            Dim marker As New GMarkerGoogle(pointLatLng, My.Resources.mark)
+            Dim marker As New GMarkerGoogle(pointLatLng, My.Resources.iconunselected)
 
             'añadir tooltip
             Dim mode As MarkerTooltipMode = MarkerTooltipMode.OnMouseOver
@@ -222,31 +191,16 @@ Public Class F1_MapaCLientes
 
         End If
 
+
         Dim i As DataRow = CType(item.Tag, DataRow)
-        Dim lat As String = i.Item("cclat")
+        Dim lat As String = i.Item("Latitud")
         Dim tags As Object = item.Tag
-        Dim longit As String = i.Item("cclongi")
-        lbcliente.Text = i.Item("ccdesc")
-
-
-        If (IsDBNull(i.Item("ccobs")) Or IsNothing(i.Item("ccobs"))) Then
-            lbdireccion.Text = ""
-
-        Else
-            lbdireccion.Text = i.Item("ccobs")
-        End If
-
-
-
-        lbtelefono.Text = i.Item("cctelf2")
-
-
-
+        Dim longit As String = i.Item("Longitud")
 
 
 
         'Dim markersOverlay As New GMapOverlay("markers")
-        Dim marker As New GMarkerGoogle(New PointLatLng(lat, longit), My.Resources.markerA)
+        Dim marker As New GMarkerGoogle(New PointLatLng(lat, longit), My.Resources.iconselected)
 
         'añadir tooltip
         Dim mode As MarkerTooltipMode = MarkerTooltipMode.OnMouseOver
@@ -262,12 +216,8 @@ Public Class F1_MapaCLientes
         _Overlay.Markers.Add(marker)
 
         Gmc_Cliente.Position = New PointLatLng(lat, longit)
-        While (slpanelInfo.Width < 358)
-            slpanelInfo.Width += 2
-            'Thread.Sleep(0.1)
-        End While
 
-        _prHabilitarLAbel()
+
 
 
 
@@ -278,57 +228,9 @@ Public Class F1_MapaCLientes
 
 
     End Sub
-    Public Sub _prHabilitarLAbel()
-        lb1.Visible = True
-        lb2.Visible = True
-        lb3.Visible = True
-        lb4.Visible = True
-        lbcliente.Visible = True
-        lbdireccion.Visible = True
-        lbtelefono.Visible = True
-        btn1.Visible = True
-
-    End Sub
-
-    Public Sub _prInhabilitarHabilitarLAbel()
-        lb1.Visible = False
-        lb2.Visible = False
-        lb3.Visible = False
-        lb4.Visible = False
-        lbcliente.Visible = False
-        lbdireccion.Visible = False
-        lbtelefono.Visible = False
-        btn1.Visible = False
-
-    End Sub
 
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btn1.Click
-        Panel1.Visible = True
-        While (slpanelInfo.Width > 0)
-            slpanelInfo.Width -= 2
-            'Thread.Sleep(0.2)
-        End While
-        _prInhabilitarHabilitarLAbel()
-        If (Not IsNothing(Markers)) Then
-            _Overlay.Markers.Remove(Markers)
 
-        End If
-        Dim lat As Double = IIf(IsDBNull(grCliente.GetValue("cclat")), 0, grCliente.GetValue("cclat"))
-        Dim longi As Double = IIf(IsDBNull(grCliente.GetValue("cclongi")), 0, grCliente.GetValue("cclongi"))
-        If (lat.ToString.Length > 1 And longi.ToString.Length > 1) Then
-            Gmc_Cliente.Position = New PointLatLng(lat, longi)
-        Else
-            Gmc_Cliente.Position = New PointLatLng(-17.4120653, -66.1825898)
-        End If
-
-        Gmc_Cliente.Zoom = 13
-
-    End Sub
-
-    Private Sub PanelSuperior_Paint(sender As Object, e As PaintEventArgs) Handles PanelSuperior.Paint
-
-    End Sub
 
     Private Sub ButtonX3_Click(sender As Object, e As EventArgs) Handles btnz1.Click
         If (Gmc_Cliente.Zoom <= Gmc_Cliente.MaxZoom) Then
@@ -347,31 +249,22 @@ Public Class F1_MapaCLientes
         Dim _MPos As Integer
         If grCliente.Row >= 0 Then
             _MPos = grCliente.Row
-            Panel1.Visible = False
-            slpanelInfo.Visible = True
-
-            Dim longit As String = grCliente.GetValue("cclongi")
-            lbcliente.Text = grCliente.GetValue("ccdesc").ToString
-            If (IsDBNull(grCliente.GetValue("ccobs")) Or IsNothing(grCliente.GetValue("ccobs"))) Then
-                lbdireccion.Text = ""
-
-            Else
-                lbdireccion.Text = grCliente.GetValue("ccobs").ToString
-            End If
-
-            lbtelefono.Text = grCliente.GetValue("cctelf2")
 
 
-            While (slpanelInfo.Width < 358)
-                slpanelInfo.Width += 2
-                'Thread.Sleep(0.1)
-            End While
-            _prHabilitarLAbel()
+
+            Dim longit As String = grCliente.GetValue("Latitud")
+
+
+
             Dim gma As GMapMarker
-            _prRecorreMArket(grCliente.GetValue("cclat"), grCliente.GetValue("cclongi"), gma)
+            _prRecorreMArket(grCliente.GetValue("Latitud"), grCliente.GetValue("Longitud"), gma)
             If (Not IsNothing(gma)) Then
 
-                Dim marker As New GMarkerGoogle(New PointLatLng(grCliente.GetValue("cclat"), grCliente.GetValue("cclongi")), My.Resources.markerA)
+                If (Not IsNothing(Markers)) Then
+                    _Overlay.Markers.Remove(Markers)
+
+                End If
+                Dim marker As New GMarkerGoogle(New PointLatLng(grCliente.GetValue("Latitud"), grCliente.GetValue("Longitud")), My.Resources.iconselected)
 
                 'añadir tooltip
                 Dim mode As MarkerTooltipMode = MarkerTooltipMode.OnMouseOver
@@ -385,11 +278,11 @@ Public Class F1_MapaCLientes
                 Markers = marker
 
                 _Overlay.Markers.Add(marker)
-                Gmc_Cliente.Position = New PointLatLng(grCliente.GetValue("cclat"), grCliente.GetValue("cclongi"))
+                Gmc_Cliente.Position = New PointLatLng(grCliente.GetValue("Latitud"), grCliente.GetValue("Longitud"))
             Else
 
 
-                ToastNotification.Show(Me, "NO EXISTE UBICACION PARA ESTE CLIENTE", My.Resources.WARNING, 4000, eToastGlowColor.Red, eToastPosition.MiddleCenter)
+                ToastNotification.Show(Me, "NO EXISTE DATOS PARA ESTE CLIENTE", My.Resources.WARNING, 4000, eToastGlowColor.Red, eToastPosition.MiddleCenter)
             End If
 
         End If
@@ -399,8 +292,8 @@ Public Class F1_MapaCLientes
         For k = 0 To a.Count - 1 Step 1
             Dim mark As GMapMarker = a(k)
             Dim i As DataRow = CType(mark.Tag, DataRow)
-            Dim lat As String = i.Item("cclat")
-            Dim longit As String = i.Item("cclongi")
+            Dim lat As String = i.Item("Latitud")
+            Dim longit As String = i.Item("Longitud")
             If (lat.Equals(latitud) And longit.Equals(longitud)) Then
                 ma = mark
                 Return
@@ -418,31 +311,16 @@ Public Class F1_MapaCLientes
             Dim _MPos As Integer
             If grCliente.Row >= 0 Then
                 _MPos = grCliente.Row
-                Panel1.Visible = False
-                slpanelInfo.Visible = True
-
-                Dim longit As String = grCliente.GetValue("cclongi")
-                lbcliente.Text = grCliente.GetValue("ccdesc").ToString
-                If (IsDBNull(grCliente.GetValue("ccobs")) Or IsNothing(grCliente.GetValue("ccobs"))) Then
-                    lbdireccion.Text = ""
-
-                Else
-                    lbdireccion.Text = grCliente.GetValue("ccobs").ToString
-                End If
-
-                lbtelefono.Text = grCliente.GetValue("cctelf2")
 
 
-                While (slpanelInfo.Width < 358)
-                    slpanelInfo.Width += 2
-                    'Thread.Sleep(0.1)
-                End While
-                _prHabilitarLAbel()
+
+                Dim longit As String = grCliente.GetValue("Longitud")
+
                 Dim gma As GMapMarker
-                _prRecorreMArket(grCliente.GetValue("cclat"), grCliente.GetValue("cclongi"), gma)
+                _prRecorreMArket(grCliente.GetValue("Latitud"), grCliente.GetValue("Longitud"), gma)
                 If (Not IsNothing(gma)) Then
 
-                    Dim marker As New GMarkerGoogle(New PointLatLng(grCliente.GetValue("cclat"), grCliente.GetValue("cclongi")), My.Resources.markerA)
+                    Dim marker As New GMarkerGoogle(New PointLatLng(grCliente.GetValue("Latitud"), grCliente.GetValue("Longitud")), My.Resources.iconselected)
 
                     'añadir tooltip
                     Dim mode As MarkerTooltipMode = MarkerTooltipMode.OnMouseOver
@@ -456,11 +334,11 @@ Public Class F1_MapaCLientes
                     Markers = marker
 
                     _Overlay.Markers.Add(marker)
-                    Gmc_Cliente.Position = New PointLatLng(grCliente.GetValue("cclat"), grCliente.GetValue("cclongi"))
+                    Gmc_Cliente.Position = New PointLatLng(grCliente.GetValue("Latitud"), grCliente.GetValue("Longitud"))
                 Else
 
 
-                    ToastNotification.Show(Me, "NO EXISTE UBICACION PARA ESTE CLIENTE", My.Resources.WARNING, 4000, eToastGlowColor.Red, eToastPosition.MiddleCenter)
+                    ToastNotification.Show(Me, "NO EXISTE DATOS PARA ESTE CLIENTE", My.Resources.WARNING, 4000, eToastGlowColor.Red, eToastPosition.MiddleCenter)
                 End If
 
             End If
@@ -483,12 +361,12 @@ Public Class F1_MapaCLientes
         If (checkTodos.Checked = True) Then
             cbZona.Enabled = False
             cbZona.ReadOnly = True
-           
-                Dim dt As DataTable = L_prMapaCLienteGeneral()
-                _prCargarClientesJanus(dt)
+
+            Dim dt As DataTable = L_prMapaCLienteGeneral()
+            _prCargarClientesJanus(dt)
             _Overlay.Markers.Clear()
             _prDibujarMarketCliente(dt.Rows.Count - 1, dt)
-            End If
+        End If
     End Sub
 
     Private Sub cbZona_ValueChanged(sender As Object, e As EventArgs) Handles cbZona.ValueChanged
@@ -498,6 +376,9 @@ Public Class F1_MapaCLientes
             _Overlay.Markers.Clear()
             _prDibujarMarketCliente(dt.Rows.Count - 1, dt)
         End If
-        
+
     End Sub
+
+
+
 End Class

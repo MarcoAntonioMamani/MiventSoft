@@ -343,12 +343,6 @@
     <Compile Include="F1_Deposito.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="F1_Clientes.Designer.vb">
-      <DependentUpon>F1_Clientes.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F1_Clientes.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="F1_Dosificacion.Designer.vb">
       <DependentUpon>F1_Dosificacion.vb</DependentUpon>
     </Compile>
@@ -378,6 +372,12 @@
       <DependentUpon>Tec_Mapa.vb</DependentUpon>
     </Compile>
     <Compile Include="Modulo Configuracion\Tec_Mapa.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo Configuracion\Tec_Mapaclientes.Designer.vb">
+      <DependentUpon>Tec_Mapaclientes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo Configuracion\Tec_Mapaclientes.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Modulo Configuracion\Tec_Precios.Designer.vb">
@@ -832,9 +832,6 @@
     <EmbeddedResource Include="F1_Deposito.resx">
       <DependentUpon>F1_Deposito.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="F1_Clientes.resx">
-      <DependentUpon>F1_Clientes.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="F1_Dosificacion.resx">
       <DependentUpon>F1_Dosificacion.vb</DependentUpon>
     </EmbeddedResource>
@@ -849,6 +846,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo Configuracion\Tec_Mapa.resx">
       <DependentUpon>Tec_Mapa.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo Configuracion\Tec_Mapaclientes.resx">
+      <DependentUpon>Tec_Mapaclientes.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo Configuracion\Tec_Precios.resx">
       <DependentUpon>Tec_Precios.vb</DependentUpon>
@@ -1396,6 +1396,8 @@
     <None Include="Resources\iconeliminar.png" />
     <None Include="Resources\iconatras.png" />
     <None Include="Resources\iconmarker.png" />
+    <None Include="Resources\iconunselected.png" />
+    <None Include="Resources\iconselected.png" />
     <Content Include="Resources\man.png" />
     <None Include="Resources\pdf.png" />
     <None Include="Resources\txt.png" />
