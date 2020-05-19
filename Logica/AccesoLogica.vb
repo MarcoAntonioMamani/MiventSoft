@@ -3625,7 +3625,18 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+    Public Shared Function L_prListarDepositos() As DataTable
+        Dim _Tabla As DataTable
 
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Almacenes", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_prListaCategoriasPrecios() As DataTable
         Dim _Tabla As DataTable
 
@@ -3737,6 +3748,101 @@ Public Class AccesoLogica
             _numi = _Tabla.Rows(0).Item(0)
             _resultado = True
 
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+#End Region
+
+#Region "TecSucursales"
+    Public Shared Function L_prSucursalInsertar(ByRef _numi As String, DepositoId As Integer,
+           NombreAlmacen As String, Direccion As String, Descripcion As String, telefono As String,
+                                                estado As Integer) As Boolean
+        Dim _resultado As Boolean
+
+        '   @Id,@DepositoId ,@NombreAlmacen ,@Direccion ,@Descripcion ,
+        '@telefono ,@latitud ,@longitud ,@estado ,'',@newFecha,@newHora,@usuario 
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@DepositoId", DepositoId))
+        _listParam.Add(New Datos.DParametro("@NombreAlmacen", NombreAlmacen))
+        _listParam.Add(New Datos.DParametro("@Direccion", Direccion))
+        _listParam.Add(New Datos.DParametro("@estado", estado))
+        _listParam.Add(New Datos.DParametro("@Descripcion", Descripcion))
+        _listParam.Add(New Datos.DParametro("@telefono", telefono))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+
+        _Tabla = D_ProcedimientoConParam("MAM_Almacenes", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _numi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function L_prSucursalActualizar(ByRef _numi As String, DepositoId As Integer,
+           NombreAlmacen As String, Direccion As String, Descripcion As String, telefono As String, estado As Integer) As Boolean
+        Dim _resultado As Boolean
+
+        '   @Id,@DepositoId ,@NombreAlmacen ,@Direccion ,@Descripcion ,
+        '@telefono ,@latitud ,@longitud ,@estado ,'',@newFecha,@newHora,@usuario 
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@DepositoId", DepositoId))
+        _listParam.Add(New Datos.DParametro("@NombreAlmacen", NombreAlmacen))
+        _listParam.Add(New Datos.DParametro("@Direccion", Direccion))
+        _listParam.Add(New Datos.DParametro("@estado", estado))
+        _listParam.Add(New Datos.DParametro("@Descripcion", Descripcion))
+        _listParam.Add(New Datos.DParametro("@telefono", telefono))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+
+        _Tabla = D_ProcedimientoConParam("MAM_Almacenes", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _numi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function L_prSucursalBorrar(_numi As String, ByRef _mensaje As String) As Boolean
+
+        Dim _resultado As Boolean
+
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", -1))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Almacenes", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _resultado = True
+            'L_prTipoCambioGrabarHistorial(_numi, _fecha, _dolar, _ufv, "TIPO DE CAMBIO", 3)
         Else
             _resultado = False
         End If
