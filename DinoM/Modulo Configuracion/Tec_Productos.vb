@@ -234,6 +234,9 @@ Public Class Tec_Productos
 #Region "METODOS PRIVADOS"
 
     Private Sub _prIniciarTodo()
+
+
+
         'L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
         Me.Text = "Gestion De Productos"
         P_Global._prCargarComboGenerico(cbEmpresa, L_prListaEmpresasUsuarios(), "Id", "Codigo", "Nombre", "Empresa")

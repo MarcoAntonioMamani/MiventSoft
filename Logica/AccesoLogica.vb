@@ -3125,6 +3125,112 @@ Public Class AccesoLogica
     End Function
 #End Region
 
+#Region "Clientes Tec"
+
+    Public Shared Function InsertarCliente(_Id As String, IdZona As Integer, IdPrecio As Integer, CodigoExterno As String, NombreCliente As String,
+                                           Direccion As String, Telefono As String, TipoDocumento As Integer, NroDocumento As String,
+                                           RazonSocial As String, nit As String, estado As Integer, FechaIngreso As String, Latitud As Double,
+                                           Longitud As Double) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '@Id,@ZonaId ,@PrecioCategoriaId ,@CodigoExterno ,@NombreCliente ,@DireccionCliente ,@Telefono ,
+        '@Observacion ,@TipoDocumento ,@NroDocumento ,@RazonSocial ,@nit ,@estado ,@FechaIngreso ,@FechaUltimaVenta ,@ImagenCliente ,
+        '@Latitud ,@Longitud ,@newFecha ,@newHora ,@usuario
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", _Id))
+        _listParam.Add(New Datos.DParametro("@ZonaId", IdZona))
+        _listParam.Add(New Datos.DParametro("@IdPrecio", IdPrecio))
+        _listParam.Add(New Datos.DParametro("@CodigoExterno", CodigoExterno))
+        _listParam.Add(New Datos.DParametro("@NombreCliente", NombreCliente))
+        _listParam.Add(New Datos.DParametro("@DireccionCliente", Direccion))
+        _listParam.Add(New Datos.DParametro("@Telefono", Telefono))
+        _listParam.Add(New Datos.DParametro("@Observacion", ""))
+        _listParam.Add(New Datos.DParametro("@TipoDocumento", TipoDocumento))
+        _listParam.Add(New Datos.DParametro("@NroDocumento", NroDocumento))
+        _listParam.Add(New Datos.DParametro("@RazonSocial", RazonSocial))
+        _listParam.Add(New Datos.DParametro("@nit", nit))
+        _listParam.Add(New Datos.DParametro("@FechaIngreso", FechaIngreso))
+        _listParam.Add(New Datos.DParametro("@Latitud", Latitud))
+        _listParam.Add(New Datos.DParametro("@Longitud", Longitud))
+        _Tabla = D_ProcedimientoConParam("MAM_Clientes", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _Id = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function L_prClienteBorrar(_numi As String, ByRef _mensaje As String) As Boolean
+
+        Dim _resultado As Boolean
+
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", -1))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Clientes", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function ModificarCliente(_Id As String, IdZona As Integer, IdPrecio As Integer, CodigoExterno As String, NombreCliente As String,
+                                           Direccion As String, Telefono As String, TipoDocumento As Integer, NroDocumento As String,
+                                           RazonSocial As String, nit As String, estado As Integer, FechaIngreso As String, Latitud As Double,
+                                           Longitud As Double) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '@Id,@ZonaId ,@PrecioCategoriaId ,@CodigoExterno ,@NombreCliente ,@DireccionCliente ,@Telefono ,
+        '@Observacion ,@TipoDocumento ,@NroDocumento ,@RazonSocial ,@nit ,@estado ,@FechaIngreso ,@FechaUltimaVenta ,@ImagenCliente ,
+        '@Latitud ,@Longitud ,@newFecha ,@newHora ,@usuario
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@Id", _Id))
+        _listParam.Add(New Datos.DParametro("@ZonaId", IdZona))
+        _listParam.Add(New Datos.DParametro("@IdPrecio", IdPrecio))
+        _listParam.Add(New Datos.DParametro("@CodigoExterno", CodigoExterno))
+        _listParam.Add(New Datos.DParametro("@NombreCliente", NombreCliente))
+        _listParam.Add(New Datos.DParametro("@DireccionCliente", Direccion))
+        _listParam.Add(New Datos.DParametro("@Telefono", Telefono))
+        _listParam.Add(New Datos.DParametro("@Observacion", ""))
+        _listParam.Add(New Datos.DParametro("@TipoDocumento", TipoDocumento))
+        _listParam.Add(New Datos.DParametro("@NroDocumento", NroDocumento))
+        _listParam.Add(New Datos.DParametro("@RazonSocial", RazonSocial))
+        _listParam.Add(New Datos.DParametro("@nit", nit))
+        _listParam.Add(New Datos.DParametro("@FechaIngreso", FechaIngreso))
+        _listParam.Add(New Datos.DParametro("@Latitud", Latitud))
+        _listParam.Add(New Datos.DParametro("@Longitud", Longitud))
+        _Tabla = D_ProcedimientoConParam("MAM_Clientes", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _Id = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+#End Region
+
+
 #Region "Tec Zonas"
     Public Shared Function InsertarZona(_Id As String,
         _Nombre As String, _Descripcion As String, _zacolor As String, point As DataTable) As Boolean
@@ -3512,6 +3618,31 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("MAM_Productos", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prListaCategoriasPrecios() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Clientes", _listParam)
+
+        Return _Tabla
+    End Function
+    Public Shared Function L_prListarZonas() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Clientes", _listParam)
 
         Return _Tabla
     End Function
