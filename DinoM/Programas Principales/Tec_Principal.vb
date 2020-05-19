@@ -366,4 +366,25 @@ Public Class Tec_Principal
         tab3.Text = frm.Text
         tab3.Icon = frm.Icon
     End Sub
+
+    Private Sub btInvAmacen_Click(sender As Object, e As EventArgs) Handles btInvAmacen.Click
+        SuperTabControlMenu.SelectedTab = tab_ventana
+        'Dim frm As New F0_Roles
+        Dim frm As New Tec_Sucursales
+        frm._nameButton = btZona.Name
+        'frm._modulo = Panel_Configuracion
+
+        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
+        tab3.RecalcSize()
+        tab3.ThemeAware = True
+        tab3.ShowSubItems = True
+        tab3.UpdateBindings()
+        frm._tab = tab3
+        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
+        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
+        tab3.AttachedControl.Controls.Add(panel)
+        frm.Show()
+        tab3.Text = frm.Text
+        tab3.Icon = frm.Icon
+    End Sub
 End Class
