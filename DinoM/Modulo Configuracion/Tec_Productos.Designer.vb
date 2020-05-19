@@ -179,8 +179,8 @@ Partial Class Tec_Productos
         Me.TabControlPrincipal.ControlBox.MenuBox.Name = ""
         Me.TabControlPrincipal.ControlBox.Name = ""
         Me.TabControlPrincipal.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.TabControlPrincipal.ControlBox.MenuBox, Me.TabControlPrincipal.ControlBox.CloseBox})
-        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel1)
         Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel2)
+        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel1)
         Me.TabControlPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControlPrincipal.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.Location = New System.Drawing.Point(0, 0)
@@ -1079,7 +1079,7 @@ Partial Class Tec_Productos
         Me.JGrM_Buscador.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
         Me.JGrM_Buscador.AlternatingColors = True
         Me.JGrM_Buscador.BackColor = System.Drawing.Color.White
-        Me.JGrM_Buscador.BorderStyle = Janus.Windows.GridEX.BorderStyle.Raised
+        Me.JGrM_Buscador.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
         Me.JGrM_Buscador.ColumnAutoResize = True
         Me.JGrM_Buscador.Dock = System.Windows.Forms.DockStyle.Fill
         Me.JGrM_Buscador.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
@@ -1087,7 +1087,8 @@ Partial Class Tec_Productos
         Me.JGrM_Buscador.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
         Me.JGrM_Buscador.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
         Me.JGrM_Buscador.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
-        Me.JGrM_Buscador.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.JGrM_Buscador.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.JGrM_Buscador.GridLines = Janus.Windows.GridEX.GridLines.None
         Me.JGrM_Buscador.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
         Me.JGrM_Buscador.HeaderFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.JGrM_Buscador.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.Empty

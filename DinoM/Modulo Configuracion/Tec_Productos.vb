@@ -81,6 +81,7 @@ Public Class Tec_Productos
             .GroupByBoxVisible = False
             'diseño de la grilla
             .VisualStyle = VisualStyle.Office2007
+            .Height = 200
         End With
 
 
@@ -93,12 +94,12 @@ Public Class Tec_Productos
         For i As Integer = 0 To n - 1 Step 1
             If (dt.Rows(i).Item("estado") = 1) Then
                 Dim Bin As New MemoryStream
-                Dim img As New Bitmap(My.Resources.activo, 110, 20)
+                Dim img As New Bitmap(My.Resources.activo, 110, 30)
                 img.Save(Bin, Imaging.ImageFormat.Png)
                 CType(JGrM_Buscador.DataSource, DataTable).Rows(i).Item("imgEstado") = Bin.GetBuffer
             Else
                 Dim Bin As New MemoryStream
-                Dim img As New Bitmap(My.Resources.pasivo, 110, 20)
+                Dim img As New Bitmap(My.Resources.pasivo, 110, 30)
                 img.Save(Bin, Imaging.ImageFormat.Png)
                 CType(JGrM_Buscador.DataSource, DataTable).Rows(i).Item("imgEstado") = Bin.GetBuffer
             End If
