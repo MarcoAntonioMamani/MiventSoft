@@ -33,21 +33,21 @@ Partial Class Tec_Mapaclientes
         Me.PanelZona = New System.Windows.Forms.Panel()
         Me.Zonas = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.PanelTable = New System.Windows.Forms.Panel()
-        Me.grCliente = New Janus.Windows.GridEX.GridEX()
         Me.GroupPanel3 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.checkTodos = New DevComponents.DotNetBar.Controls.CheckBoxX()
         Me.cbZona = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.PanelMapa = New System.Windows.Forms.Panel()
-        Me.btnz2 = New DevComponents.DotNetBar.ButtonX()
-        Me.btnz1 = New DevComponents.DotNetBar.ButtonX()
         Me.Gmc_Cliente = New GMap.NET.WindowsForms.GMapControl()
         Me.Panel10 = New System.Windows.Forms.Panel()
         Me.Panel11 = New System.Windows.Forms.Panel()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel12 = New System.Windows.Forms.Panel()
-        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.PanelButton = New System.Windows.Forms.Panel()
+        Me.btnz2 = New DevComponents.DotNetBar.ButtonX()
+        Me.btnz1 = New DevComponents.DotNetBar.ButtonX()
+        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
+        Me.grCliente = New Janus.Windows.GridEX.GridEX()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelLEft.SuspendLayout()
@@ -57,7 +57,6 @@ Partial Class Tec_Mapaclientes
         Me.PanelZona.SuspendLayout()
         Me.Zonas.SuspendLayout()
         Me.PanelTable.SuspendLayout()
-        CType(Me.grCliente, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupPanel3.SuspendLayout()
         Me.Panel4.SuspendLayout()
         CType(Me.cbZona, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -65,6 +64,7 @@ Partial Class Tec_Mapaclientes
         Me.Panel10.SuspendLayout()
         Me.Panel11.SuspendLayout()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grCliente, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
@@ -199,29 +199,6 @@ Partial Class Tec_Mapaclientes
         Me.PanelTable.Size = New System.Drawing.Size(511, 519)
         Me.PanelTable.TabIndex = 0
         '
-        'grCliente
-        '
-        Me.grCliente.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
-        Me.grCliente.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grCliente.FlatBorderColor = System.Drawing.Color.DodgerBlue
-        Me.grCliente.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
-        Me.grCliente.FocusStyle = Janus.Windows.GridEX.FocusStyle.Solid
-        Me.grCliente.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grCliente.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
-        Me.grCliente.GroupRowVisualStyle = Janus.Windows.GridEX.GroupRowVisualStyle.UseRowStyle
-        Me.grCliente.HeaderFormatStyle.Font = New System.Drawing.Font("Georgia", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grCliente.HeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.grCliente.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
-        Me.grCliente.Location = New System.Drawing.Point(0, 0)
-        Me.grCliente.Margin = New System.Windows.Forms.Padding(4)
-        Me.grCliente.Name = "grCliente"
-        Me.grCliente.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.grCliente.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.grCliente.SelectedFormatStyle.BackColor = System.Drawing.Color.Gold
-        Me.grCliente.Size = New System.Drawing.Size(511, 519)
-        Me.grCliente.TabIndex = 0
-        Me.grCliente.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        '
         'GroupPanel3
         '
         Me.GroupPanel3.CanvasColor = System.Drawing.SystemColors.Control
@@ -324,33 +301,6 @@ Partial Class Tec_Mapaclientes
         Me.PanelMapa.Size = New System.Drawing.Size(780, 625)
         Me.PanelMapa.TabIndex = 21
         '
-        'btnz2
-        '
-        Me.btnz2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnz2.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground
-        Me.btnz2.Image = Global.DinoM.My.Resources.Resources.iconalejar
-        Me.btnz2.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.btnz2.Location = New System.Drawing.Point(9, 57)
-        Me.btnz2.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnz2.Name = "btnz2"
-        Me.btnz2.Size = New System.Drawing.Size(53, 49)
-        Me.btnz2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnz2.TabIndex = 7
-        '
-        'btnz1
-        '
-        Me.btnz1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnz1.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground
-        Me.btnz1.Image = Global.DinoM.My.Resources.Resources.iconacercar
-        Me.btnz1.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.btnz1.Location = New System.Drawing.Point(9, 6)
-        Me.btnz1.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnz1.Name = "btnz1"
-        Me.btnz1.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
-        Me.btnz1.Size = New System.Drawing.Size(53, 49)
-        Me.btnz1.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
-        Me.btnz1.TabIndex = 6
-        '
         'Gmc_Cliente
         '
         Me.Gmc_Cliente.AutoScroll = True
@@ -427,6 +377,42 @@ Partial Class Tec_Mapaclientes
         Me.Panel12.Size = New System.Drawing.Size(1, 25)
         Me.Panel12.TabIndex = 1
         '
+        'PanelButton
+        '
+        Me.PanelButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.PanelButton.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.PanelButton.Location = New System.Drawing.Point(0, 666)
+        Me.PanelButton.Name = "PanelButton"
+        Me.PanelButton.Size = New System.Drawing.Size(1319, 23)
+        Me.PanelButton.TabIndex = 3
+        '
+        'btnz2
+        '
+        Me.btnz2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnz2.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground
+        Me.btnz2.Image = Global.DinoM.My.Resources.Resources.iconalejar
+        Me.btnz2.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.btnz2.Location = New System.Drawing.Point(9, 57)
+        Me.btnz2.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnz2.Name = "btnz2"
+        Me.btnz2.Size = New System.Drawing.Size(53, 49)
+        Me.btnz2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnz2.TabIndex = 7
+        '
+        'btnz1
+        '
+        Me.btnz1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnz1.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground
+        Me.btnz1.Image = Global.DinoM.My.Resources.Resources.iconacercar
+        Me.btnz1.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.btnz1.Location = New System.Drawing.Point(9, 6)
+        Me.btnz1.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnz1.Name = "btnz1"
+        Me.btnz1.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
+        Me.btnz1.Size = New System.Drawing.Size(53, 49)
+        Me.btnz1.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
+        Me.btnz1.TabIndex = 6
+        '
         'PictureBox3
         '
         Me.PictureBox3.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
@@ -440,14 +426,48 @@ Partial Class Tec_Mapaclientes
         Me.PictureBox3.TabIndex = 0
         Me.PictureBox3.TabStop = False
         '
-        'PanelButton
+        'grCliente
         '
-        Me.PanelButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.PanelButton.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PanelButton.Location = New System.Drawing.Point(0, 666)
-        Me.PanelButton.Name = "PanelButton"
-        Me.PanelButton.Size = New System.Drawing.Size(1319, 23)
-        Me.PanelButton.TabIndex = 3
+        Me.grCliente.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
+        Me.grCliente.AlternatingColors = True
+        Me.grCliente.BackColor = System.Drawing.Color.White
+        Me.grCliente.BorderStyle = Janus.Windows.GridEX.BorderStyle.Raised
+        Me.grCliente.ColumnAutoResize = True
+        Me.grCliente.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grCliente.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
+        Me.grCliente.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grCliente.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grCliente.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grCliente.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
+        Me.grCliente.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grCliente.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
+        Me.grCliente.HeaderFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
+        Me.grCliente.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.Empty
+        Me.grCliente.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grCliente.HeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.grCliente.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
+        Me.grCliente.Location = New System.Drawing.Point(0, 0)
+        Me.grCliente.Margin = New System.Windows.Forms.Padding(4)
+        Me.grCliente.Name = "grCliente"
+        Me.grCliente.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.grCliente.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.grCliente.RecordNavigator = True
+        Me.grCliente.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grCliente.RowHeaderFormatStyle.BackColor = System.Drawing.Color.DodgerBlue
+        Me.grCliente.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grCliente.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.grCliente.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
+        Me.grCliente.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grCliente.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
+        Me.grCliente.SelectedInactiveFormatStyle.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.grCliente.Size = New System.Drawing.Size(511, 519)
+        Me.grCliente.TabIndex = 5
+        Me.grCliente.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grCliente.TableSpacing = 9
+        Me.grCliente.TreeLineColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.grCliente.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.grCliente.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.grCliente.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'Tec_Mapaclientes
         '
@@ -466,7 +486,6 @@ Partial Class Tec_Mapaclientes
         Me.PanelZona.ResumeLayout(False)
         Me.Zonas.ResumeLayout(False)
         Me.PanelTable.ResumeLayout(False)
-        CType(Me.grCliente, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupPanel3.ResumeLayout(False)
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
@@ -476,6 +495,7 @@ Partial Class Tec_Mapaclientes
         Me.Panel10.ResumeLayout(False)
         Me.Panel11.ResumeLayout(False)
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grCliente, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -489,7 +509,6 @@ Partial Class Tec_Mapaclientes
     Friend WithEvents PanelZona As Panel
     Friend WithEvents Zonas As DevComponents.DotNetBar.Controls.GroupPanel
     Friend WithEvents PanelTable As Panel
-    Friend WithEvents grCliente As Janus.Windows.GridEX.GridEX
     Friend WithEvents GroupPanel3 As DevComponents.DotNetBar.Controls.GroupPanel
     Friend WithEvents Panel4 As Panel
     Friend WithEvents PanelMapa As Panel
@@ -504,4 +523,5 @@ Partial Class Tec_Mapaclientes
     Friend WithEvents PanelButton As Panel
     Friend WithEvents checkTodos As DevComponents.DotNetBar.Controls.CheckBoxX
     Friend WithEvents cbZona As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents grCliente As Janus.Windows.GridEX.GridEX
 End Class

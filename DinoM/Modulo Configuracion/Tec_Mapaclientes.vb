@@ -41,6 +41,12 @@ Public Class Tec_Mapaclientes
         checkTodos.CheckValue = True
         cbZona.Enabled = False
 
+        Dim blah As New Bitmap(New Bitmap(My.Resources.ic_c), 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        Me.Icon = ico
+
+        Me.Text = "Mapa Clientes"
+
     End Sub
 
 
@@ -217,6 +223,22 @@ Public Class Tec_Mapaclientes
 
         Gmc_Cliente.Position = New PointLatLng(lat, longit)
 
+        Dim posicion As Integer = -1
+        Dim k As Integer = 0
+        Dim n As Integer = CType(grCliente.DataSource, DataTable).Rows.Count
+        While (k < n)
+            If (CType(grCliente.DataSource, DataTable).Rows(k).Item("id") = i.Item("Id")) Then
+                posicion = k
+            End If
+            k += 1
+        End While
+
+
+
+        If (posicion >= 0) Then
+            grCliente.Row = posicion
+        End If
+
 
 
 
@@ -245,7 +267,7 @@ Public Class Tec_Mapaclientes
     End Sub
 
 
-    Private Sub grCliente_DoubleClick(sender As Object, e As EventArgs) Handles grCliente.DoubleClick
+    Private Sub grCliente_DoubleClick(sender As Object, e As EventArgs)
         Dim _MPos As Integer
         If grCliente.Row >= 0 Then
             _MPos = grCliente.Row
@@ -306,7 +328,7 @@ Public Class Tec_Mapaclientes
 
 
     End Sub
-    Private Sub grCliente_KeyDown(sender As Object, e As KeyEventArgs) Handles grCliente.KeyDown
+    Private Sub grCliente_KeyDown(sender As Object, e As KeyEventArgs)
         If (e.KeyData = Keys.Enter) Then
             Dim _MPos As Integer
             If grCliente.Row >= 0 Then
@@ -379,6 +401,85 @@ Public Class Tec_Mapaclientes
 
     End Sub
 
+    Private Sub grCliente_DoubleClick_1(sender As Object, e As EventArgs) Handles grCliente.DoubleClick
+        Dim _MPos As Integer
+        If grCliente.Row >= 0 Then
+            _MPos = grCliente.Row
 
 
+
+            Dim longit As String = grCliente.GetValue("Latitud")
+
+
+
+            Dim gma As GMapMarker
+            _prRecorreMArket(grCliente.GetValue("Latitud"), grCliente.GetValue("Longitud"), gma)
+            If (Not IsNothing(gma)) Then
+
+                If (Not IsNothing(Markers)) Then
+                    _Overlay.Markers.Remove(Markers)
+
+                End If
+                Dim marker As New GMarkerGoogle(New PointLatLng(grCliente.GetValue("Latitud"), grCliente.GetValue("Longitud")), My.Resources.iconselected)
+
+                'añadir tooltip
+                Dim mode As MarkerTooltipMode = MarkerTooltipMode.OnMouseOver
+                marker.ToolTip = New GMapBaloonToolTip(marker)
+                marker.ToolTipMode = mode
+                Dim ToolTipBackColor As New SolidBrush(Color.Blue)
+                marker.ToolTip.Fill = ToolTipBackColor
+                marker.ToolTip.Foreground = Brushes.White
+                marker.Tag = gma.Tag
+
+                Markers = marker
+
+                _Overlay.Markers.Add(marker)
+                Gmc_Cliente.Position = New PointLatLng(grCliente.GetValue("Latitud"), grCliente.GetValue("Longitud"))
+            Else
+
+
+                ToastNotification.Show(Me, "NO EXISTE DATOS PARA ESTE CLIENTE", My.Resources.WARNING, 4000, eToastGlowColor.Red, eToastPosition.MiddleCenter)
+            End If
+
+        End If
+    End Sub
+
+    Private Sub grCliente_KeyDown_1(sender As Object, e As KeyEventArgs) Handles grCliente.KeyDown
+        If (e.KeyData = Keys.Enter) Then
+            Dim _MPos As Integer
+            If grCliente.Row >= 0 Then
+                _MPos = grCliente.Row
+
+
+
+                Dim longit As String = grCliente.GetValue("Longitud")
+
+                Dim gma As GMapMarker
+                _prRecorreMArket(grCliente.GetValue("Latitud"), grCliente.GetValue("Longitud"), gma)
+                If (Not IsNothing(gma)) Then
+
+                    Dim marker As New GMarkerGoogle(New PointLatLng(grCliente.GetValue("Latitud"), grCliente.GetValue("Longitud")), My.Resources.iconselected)
+
+                    'añadir tooltip
+                    Dim mode As MarkerTooltipMode = MarkerTooltipMode.OnMouseOver
+                    marker.ToolTip = New GMapBaloonToolTip(marker)
+                    marker.ToolTipMode = mode
+                    Dim ToolTipBackColor As New SolidBrush(Color.Blue)
+                    marker.ToolTip.Fill = ToolTipBackColor
+                    marker.ToolTip.Foreground = Brushes.White
+                    marker.Tag = gma.Tag
+
+                    Markers = marker
+
+                    _Overlay.Markers.Add(marker)
+                    Gmc_Cliente.Position = New PointLatLng(grCliente.GetValue("Latitud"), grCliente.GetValue("Longitud"))
+                Else
+
+
+                    ToastNotification.Show(Me, "NO EXISTE DATOS PARA ESTE CLIENTE", My.Resources.WARNING, 4000, eToastGlowColor.Red, eToastPosition.MiddleCenter)
+                End If
+
+            End If
+        End If
+    End Sub
 End Class
