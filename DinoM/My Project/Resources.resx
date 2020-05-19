@@ -502,4 +502,10 @@
   <data name="iconunselected" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\iconunselected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="activo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\activo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pasivo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pasivo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

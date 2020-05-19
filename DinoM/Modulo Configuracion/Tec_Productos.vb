@@ -68,6 +68,10 @@ Public Class Tec_Productos
                 End If
             End With
         Next
+        With JGrM_Buscador.RootTable.Columns("imgEstado")
+            .LineAlignment = TextAlignment.Center
+
+        End With
 
         'Habilitar Filtradores
         With JGrM_Buscador
@@ -79,8 +83,29 @@ Public Class Tec_Productos
             .VisualStyle = VisualStyle.Office2007
         End With
 
-    End Sub
 
+        CargarIconEstado()
+    End Sub
+    Public Sub CargarIconEstado()
+
+        Dim dt As DataTable = CType(JGrM_Buscador.DataSource, DataTable)
+        Dim n As Integer = dt.Rows.Count
+        For i As Integer = 0 To n - 1 Step 1
+            If (dt.Rows(i).Item("estado") = 1) Then
+                Dim Bin As New MemoryStream
+                Dim img As New Bitmap(My.Resources.activo, 110, 20)
+                img.Save(Bin, Imaging.ImageFormat.Png)
+                CType(JGrM_Buscador.DataSource, DataTable).Rows(i).Item("imgEstado") = Bin.GetBuffer
+            Else
+                Dim Bin As New MemoryStream
+                Dim img As New Bitmap(My.Resources.pasivo, 110, 20)
+                img.Save(Bin, Imaging.ImageFormat.Png)
+                CType(JGrM_Buscador.DataSource, DataTable).Rows(i).Item("imgEstado") = Bin.GetBuffer
+            End If
+
+        Next
+
+    End Sub
 
 
     Public Sub _PMInhabilitar()
@@ -846,10 +871,11 @@ Public Class Tec_Productos
         listEstCeldas.Add(New Modelo.Celda("Id", True, "ID", 40))
         listEstCeldas.Add(New Modelo.Celda("CodigoExterno", False))
         listEstCeldas.Add(New Modelo.Celda("CodigoBarras", False))
-        listEstCeldas.Add(New Modelo.Celda("NombreProducto", True, " NombreProducto", 100))
+        listEstCeldas.Add(New Modelo.Celda("NombreProducto", True, " NombreProducto", 200))
         listEstCeldas.Add(New Modelo.Celda("DescripcionProducto", True, " Descripcion Producto", 100))
-        listEstCeldas.Add(New Modelo.Celda("StockMinimo", True, "Stock Minimo", 90))
-        listEstCeldas.Add(New Modelo.Celda("estado", True, "Estado", 70))
+        listEstCeldas.Add(New Modelo.Celda("StockMinimo", True, "Stock Minimo", 90, "0.00"))
+        listEstCeldas.Add(New Modelo.Celda("estado", False, "Estado", 70))
+        listEstCeldas.Add(New Modelo.Celda("imgEstado", True, "Estado", 150))
         listEstCeldas.Add(New Modelo.Celda("CategoriaId", False))
         listEstCeldas.Add(New Modelo.Celda("NombreCategoria", True, "Categoria", 80))
         listEstCeldas.Add(New Modelo.Celda("EmpresaId", False))
@@ -950,6 +976,7 @@ Public Class Tec_Productos
 
     Private Sub Tec_Users_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         _prIniciarTodo()
+        TabControlPrincipal.SelectedTabIndex = 1
     End Sub
 
     Private Sub btnPrimero_Click(sender As Object, e As EventArgs) Handles btnPrimero.Click

@@ -307,12 +307,6 @@
     <Compile Include="F0_Ventas.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="F1_Almacen.Designer.vb">
-      <DependentUpon>F1_Almacen.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F1_Almacen.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="F1_Proveedor.Designer.vb">
       <DependentUpon>F1_Proveedor.vb</DependentUpon>
     </Compile>
@@ -329,12 +323,6 @@
       <DependentUpon>F1_Vendedor.vb</DependentUpon>
     </Compile>
     <Compile Include="F1_Vendedor.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F1_Deposito.Designer.vb">
-      <DependentUpon>F1_Deposito.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F1_Deposito.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="F1_Dosificacion.Designer.vb">
@@ -814,9 +802,6 @@
     <EmbeddedResource Include="F0_Ventas.resx">
       <DependentUpon>F0_Ventas.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="F1_Almacen.resx">
-      <DependentUpon>F1_Almacen.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="F1_Proveedor.resx">
       <DependentUpon>F1_Proveedor.vb</DependentUpon>
     </EmbeddedResource>
@@ -825,9 +810,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F1_Vendedor.resx">
       <DependentUpon>F1_Vendedor.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F1_Deposito.resx">
-      <DependentUpon>F1_Deposito.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F1_Dosificacion.resx">
       <DependentUpon>F1_Dosificacion.vb</DependentUpon>
@@ -1352,6 +1334,7 @@
     <None Include="Resources\trash.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\pasivo.png" />
     <None Include="Resources\pointcliente.png" />
     <None Include="Resources\puntofinal.png" />
     <None Include="Resources\puntoinicial.png" />
@@ -1372,6 +1355,7 @@
     <None Include="Resources\add.png" />
     <None Include="Resources\at1.png" />
     <None Include="Resources\at2.png" />
+    <None Include="Resources\activo.png" />
     <Content Include="Resources\atras1.png" />
     <None Include="Resources\back-1.png" />
     <Content Include="Resources\check-mark.png" />
