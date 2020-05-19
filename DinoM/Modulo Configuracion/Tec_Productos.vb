@@ -1141,5 +1141,19 @@ Public Class Tec_Productos
 
 
     End Sub
+
+    Private Sub Panel1_MouseHover(sender As Object, e As EventArgs) Handles btnSi.MouseHover
+        btnSi.BackColor = Color.FromArgb(30, 199, 165)
+    End Sub
+
+    Private Sub Panel1_MouseLeave(sender As Object, e As EventArgs) Handles btnSi.MouseLeave
+        btnSi.BackColor = Color.FromArgb(26, 179, 148)
+    End Sub
+
+    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
+        TabControlPrincipal.SelectedTabIndex = 0
+        btnNuevo.PerformClick()
+
+    End Sub
 #End Region
 End Class
