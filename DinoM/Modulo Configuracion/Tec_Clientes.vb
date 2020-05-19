@@ -249,7 +249,7 @@ Public Class Tec_Clientes
         'L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
         _prInicarMapa()
         Me.Text = "Gestion De Clientes"
-        P_Global._prCargarComboGenerico(cbTipoDocumento, L_prLibreriaDetalleGeneral(8), "Id", "Codigo", "Nombre", "TipoDocumento")
+        P_Global._prCargarComboGenerico(cbTipoDocumento, L_prLibreriaDetalleGeneral(8), "cnnum", "Codigo", "cndesc1", "TipoDocumento")
         P_Global._prCargarComboGenerico(cbPrecios, L_prListaCategoriasPrecios(), "Id", "Codigo", "Descripcion", "CategoriaPrecio")
         P_Global._prCargarComboGenerico(cbZona, L_prListarZonas(), "Id", "Codigo", "NombreZona", "Zonas")
 
@@ -342,7 +342,8 @@ Public Class Tec_Clientes
         tbRazonSocial.ReadOnly = False
         tbnit.ReadOnly = False
         swEstado.IsReadOnly = False
-
+        cbZona.ReadOnly = False
+        cbPrecios.ReadOnly = False
 
 
     End Sub
@@ -358,6 +359,8 @@ Public Class Tec_Clientes
         tbTelefono.ReadOnly = True
         tbNroDocumento.ReadOnly = True
         cbTipoDocumento.ReadOnly = True
+        cbZona.ReadOnly = True
+        cbPrecios.ReadOnly = True
         tbRazonSocial.ReadOnly = True
         tbnit.ReadOnly = True
         swEstado.IsReadOnly = True
@@ -366,13 +369,20 @@ Public Class Tec_Clientes
     Public Sub _PMOLimpiar()
         tbCodigo.Text = ""
         tbCodigoExterno.Text = ""
+        tbNombreCliente.Text = ""
+        tbDireccionCliente.Text = ""
+        tbTelefono.Text = ""
+        tbNroDocumento.Text = ""
+        tbRazonSocial.Text = ""
+        tbnit.Text = ""
+
         swEstado.Value = True
         seleccionarPrimerItemCombo(cbTipoDocumento)
         seleccionarPrimerItemCombo(cbZona)
         seleccionarPrimerItemCombo(cbPrecios)
         _latitud = 0
         _longitud = 0
-
+        _Overlay.Markers.Clear()
     End Sub
     Public Sub seleccionarPrimerItemCombo(cb As EditControls.MultiColumnCombo)
         If (CType(cb.DataSource, DataTable).Rows.Count > 0) Then
@@ -462,7 +472,7 @@ Public Class Tec_Clientes
             Dim mensajeError As String = ""
             Dim res As Boolean
             Try
-                res = L_prProductoBorrar(tbCodigo.Text, mensajeError)
+                res = L_prClienteBorrar(tbCodigo.Text, mensajeError)
                 If res Then
 
                     ToastNotification.Show(Me, "Codigo de Cliente ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
@@ -532,6 +542,8 @@ Public Class Tec_Clientes
         listEstCeldas.Add(New Modelo.Celda("ImagenCliente", False))
         listEstCeldas.Add(New Modelo.Celda("Latitud", False))
         listEstCeldas.Add(New Modelo.Celda("Longitud", False))
+        listEstCeldas.Add(New Modelo.Celda("PrecioCategoriaId", False))
+        listEstCeldas.Add(New Modelo.Celda("ZonaId", False))
 
 
         Return listEstCeldas
@@ -553,10 +565,12 @@ Public Class Tec_Clientes
             tbNombreCliente.Text = .GetValue("NombreCliente").ToString
             tbDireccionCliente.Text = .GetValue("DireccionCliente").ToString
             cbTipoDocumento.Value = .GetValue("TipoDocumento")
+            cbPrecios.Value = .GetValue("PrecioCategoriaId")
+            cbZona.Value = .GetValue("ZonaId")
             tbNroDocumento.Text = .GetValue("NroDocumento")
             tbRazonSocial.Text = .GetValue("RazonSocial").ToString
             tbnit.Text = .GetValue("Nit").ToString
-            swEstado.Value = .GetValue("Estado")
+            swEstado.Value = .GetValue("estado")
             _latitud = .GetValue("Latitud")
             _longitud = .GetValue("Longitud")
         End With
@@ -582,7 +596,7 @@ Public Class Tec_Clientes
         If (Not IsNothing(_Overlay)) Then
             'añadir puntos
             'Dim markersOverlay As New GMapOverlay("markers")
-            Dim marker As New GMarkerGoogle(pointLatLng, My.Resources.markerIcono)
+            Dim marker As New GMarkerGoogle(pointLatLng, My.Resources.iconmarker)
             'añadir tooltip
             Dim mode As MarkerTooltipMode = MarkerTooltipMode.OnMouseOver
             marker.ToolTip = New GMapBaloonToolTip(marker)

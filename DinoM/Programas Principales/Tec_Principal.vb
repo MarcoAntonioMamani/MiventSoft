@@ -186,36 +186,27 @@ Public Class Tec_Principal
     End Sub
 
     Private Sub MetroTileItem2_Click(sender As Object, e As EventArgs) Handles btConfCliente.Click
+        SuperTabControlMenu.SelectedTab = tab_ventana
+        'Dim frm As New F0_Roles
+        Dim frm As New Tec_Clientes
+        frm._nameButton = btConfCliente.Name
+        'frm._modulo = Panel_Configuracion
 
+        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
+        tab3.RecalcSize()
+        tab3.ThemeAware = True
+        tab3.ShowSubItems = True
+        tab3.UpdateBindings()
+        frm._tab = tab3
+        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
+        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
+        tab3.AttachedControl.Controls.Add(panel)
+        frm.Show()
+        tab3.Text = frm.Text
+        tab3.Icon = frm.Icon
     End Sub
 
-    Private Sub MetroTileItem2_Click_1(sender As Object, e As EventArgs)
 
-    End Sub
-
-    Private Sub MetroTileItem5_Click(sender As Object, e As EventArgs) Handles btComProveedor.Click
-
-    End Sub
-
-    Private Sub btnFecha_Click(sender As Object, e As EventArgs) Handles btnFecha.Click
-
-    End Sub
-
-    Private Sub MetroTileItem34_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub MetroTileItem29_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub MetroTileItem29_Click_1(sender As Object, e As EventArgs) Handles btZonaMapaCliente.Click
-
-    End Sub
-
-    Private Sub btInvSaldo_Click(sender As Object, e As EventArgs) Handles btInvSaldo.Click
-
-    End Sub
 
     Private Sub Tec_Principal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         imguser.Width = tab_compraventa.Size.Width

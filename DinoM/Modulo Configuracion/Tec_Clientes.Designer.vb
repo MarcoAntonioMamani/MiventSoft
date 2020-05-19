@@ -157,7 +157,7 @@ Partial Class Tec_Clientes
         Me.SuperTabControl1.ReorderTabsEnabled = True
         Me.SuperTabControl1.SelectedTabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControl1.SelectedTabIndex = 0
-        Me.SuperTabControl1.Size = New System.Drawing.Size(1204, 651)
+        Me.SuperTabControl1.Size = New System.Drawing.Size(1204, 723)
         Me.SuperTabControl1.TabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Bottom
         Me.SuperTabControl1.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControl1.TabIndex = 2
@@ -173,7 +173,7 @@ Partial Class Tec_Clientes
         Me.SuperTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
-        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1204, 620)
+        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1204, 692)
         Me.SuperTabControlPanel1.TabIndex = 1
         Me.SuperTabControlPanel1.TabItem = Me.SuperTabItem1
         '
@@ -184,7 +184,7 @@ Partial Class Tec_Clientes
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1204, 620)
+        Me.Panel1.Size = New System.Drawing.Size(1204, 692)
         Me.Panel1.TabIndex = 0
         '
         'PanelSuperior
@@ -195,16 +195,16 @@ Partial Class Tec_Clientes
         Me.PanelSuperior.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelSuperior.Location = New System.Drawing.Point(0, 0)
         Me.PanelSuperior.Name = "PanelSuperior"
-        Me.PanelSuperior.Size = New System.Drawing.Size(1204, 560)
+        Me.PanelSuperior.Size = New System.Drawing.Size(1204, 632)
         Me.PanelSuperior.TabIndex = 1
         '
         'PanelRight
         '
         Me.PanelRight.Controls.Add(Me.Panel2)
         Me.PanelRight.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelRight.Location = New System.Drawing.Point(694, 0)
+        Me.PanelRight.Location = New System.Drawing.Point(597, 0)
         Me.PanelRight.Name = "PanelRight"
-        Me.PanelRight.Size = New System.Drawing.Size(510, 560)
+        Me.PanelRight.Size = New System.Drawing.Size(607, 632)
         Me.PanelRight.TabIndex = 1
         '
         'Panel2
@@ -216,7 +216,7 @@ Partial Class Tec_Clientes
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel2.Size = New System.Drawing.Size(510, 560)
+        Me.Panel2.Size = New System.Drawing.Size(607, 632)
         Me.Panel2.TabIndex = 1
         '
         'PanelImagenes
@@ -228,7 +228,7 @@ Partial Class Tec_Clientes
         Me.PanelImagenes.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelImagenes.Location = New System.Drawing.Point(3, 30)
         Me.PanelImagenes.Name = "PanelImagenes"
-        Me.PanelImagenes.Size = New System.Drawing.Size(504, 527)
+        Me.PanelImagenes.Size = New System.Drawing.Size(601, 599)
         Me.PanelImagenes.TabIndex = 2
         '
         'ButtonX4
@@ -280,7 +280,7 @@ Partial Class Tec_Clientes
         Me.Gmc_Cliente.ScaleMode = GMap.NET.WindowsForms.ScaleModes.[Integer]
         Me.Gmc_Cliente.SelectedAreaFillColor = System.Drawing.Color.FromArgb(CType(CType(33, Byte), Integer), CType(CType(65, Byte), Integer), CType(CType(105, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.Gmc_Cliente.ShowTileGridLines = False
-        Me.Gmc_Cliente.Size = New System.Drawing.Size(504, 527)
+        Me.Gmc_Cliente.Size = New System.Drawing.Size(601, 599)
         Me.Gmc_Cliente.TabIndex = 6
         Me.Gmc_Cliente.Zoom = 0R
         '
@@ -292,7 +292,7 @@ Partial Class Tec_Clientes
         Me.Panel5.Location = New System.Drawing.Point(3, 3)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel5.Size = New System.Drawing.Size(504, 27)
+        Me.Panel5.Size = New System.Drawing.Size(601, 27)
         Me.Panel5.TabIndex = 1
         '
         'Panel6
@@ -304,7 +304,7 @@ Partial Class Tec_Clientes
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel6.Location = New System.Drawing.Point(1, 1)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(502, 25)
+        Me.Panel6.Size = New System.Drawing.Size(599, 25)
         Me.Panel6.TabIndex = 0
         '
         'lbprivilegio
@@ -315,7 +315,7 @@ Partial Class Tec_Clientes
         Me.lbprivilegio.Location = New System.Drawing.Point(59, 0)
         Me.lbprivilegio.Name = "lbprivilegio"
         Me.lbprivilegio.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
-        Me.lbprivilegio.Size = New System.Drawing.Size(443, 25)
+        Me.lbprivilegio.Size = New System.Drawing.Size(540, 25)
         Me.lbprivilegio.TabIndex = 2
         Me.lbprivilegio.Text = "Ubicacion del Cliente"
         Me.lbprivilegio.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -345,9 +345,9 @@ Partial Class Tec_Clientes
         'Panel13
         '
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Panel13.Location = New System.Drawing.Point(684, 0)
+        Me.Panel13.Location = New System.Drawing.Point(587, 0)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(10, 560)
+        Me.Panel13.Size = New System.Drawing.Size(10, 632)
         Me.Panel13.TabIndex = 3
         '
         'PanelLEft
@@ -356,7 +356,7 @@ Partial Class Tec_Clientes
         Me.PanelLEft.Dock = System.Windows.Forms.DockStyle.Left
         Me.PanelLEft.Location = New System.Drawing.Point(0, 0)
         Me.PanelLEft.Name = "PanelLEft"
-        Me.PanelLEft.Size = New System.Drawing.Size(684, 560)
+        Me.PanelLEft.Size = New System.Drawing.Size(587, 632)
         Me.PanelLEft.TabIndex = 0
         '
         'Panel8
@@ -368,7 +368,7 @@ Partial Class Tec_Clientes
         Me.Panel8.Location = New System.Drawing.Point(0, 0)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel8.Size = New System.Drawing.Size(684, 560)
+        Me.Panel8.Size = New System.Drawing.Size(587, 632)
         Me.Panel8.TabIndex = 1
         '
         'Panel9
@@ -402,7 +402,7 @@ Partial Class Tec_Clientes
         Me.Panel9.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel9.Location = New System.Drawing.Point(3, 30)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(678, 527)
+        Me.Panel9.Size = New System.Drawing.Size(581, 599)
         Me.Panel9.TabIndex = 2
         '
         'btnTipoDocumento
@@ -450,7 +450,7 @@ Partial Class Tec_Clientes
         Me.tbnit.Name = "tbnit"
         Me.tbnit.PreventEnterBeep = True
         Me.tbnit.Size = New System.Drawing.Size(133, 29)
-        Me.tbnit.TabIndex = 216
+        Me.tbnit.TabIndex = 6
         Me.tbnit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'LabelX8
@@ -484,7 +484,7 @@ Partial Class Tec_Clientes
         Me.tbRazonSocial.Name = "tbRazonSocial"
         Me.tbRazonSocial.PreventEnterBeep = True
         Me.tbRazonSocial.Size = New System.Drawing.Size(206, 29)
-        Me.tbRazonSocial.TabIndex = 214
+        Me.tbRazonSocial.TabIndex = 5
         '
         'LabelX11
         '
@@ -517,7 +517,7 @@ Partial Class Tec_Clientes
         Me.tbNroDocumento.Name = "tbNroDocumento"
         Me.tbNroDocumento.PreventEnterBeep = True
         Me.tbNroDocumento.Size = New System.Drawing.Size(133, 29)
-        Me.tbNroDocumento.TabIndex = 212
+        Me.tbNroDocumento.TabIndex = 4
         Me.tbNroDocumento.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'LabelX10
@@ -550,7 +550,7 @@ Partial Class Tec_Clientes
         Me.tbTelefono.Name = "tbTelefono"
         Me.tbTelefono.PreventEnterBeep = True
         Me.tbTelefono.Size = New System.Drawing.Size(206, 29)
-        Me.tbTelefono.TabIndex = 210
+        Me.tbTelefono.TabIndex = 2
         Me.tbTelefono.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'cbZona
@@ -566,7 +566,7 @@ Partial Class Tec_Clientes
         Me.cbZona.SelectedIndex = -1
         Me.cbZona.SelectedItem = Nothing
         Me.cbZona.Size = New System.Drawing.Size(219, 28)
-        Me.cbZona.TabIndex = 51
+        Me.cbZona.TabIndex = 8
         Me.cbZona.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'LabelX9
@@ -605,7 +605,7 @@ Partial Class Tec_Clientes
         Me.swEstado.OnTextColor = System.Drawing.Color.White
         Me.swEstado.Size = New System.Drawing.Size(133, 27)
         Me.swEstado.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.swEstado.TabIndex = 47
+        Me.swEstado.TabIndex = 9
         Me.swEstado.ValueFalse = "0"
         Me.swEstado.ValueObject = "0"
         Me.swEstado.ValueTrue = "1"
@@ -641,7 +641,7 @@ Partial Class Tec_Clientes
         Me.cbPrecios.SelectedIndex = -1
         Me.cbPrecios.SelectedItem = Nothing
         Me.cbPrecios.Size = New System.Drawing.Size(219, 28)
-        Me.cbPrecios.TabIndex = 45
+        Me.cbPrecios.TabIndex = 7
         Me.cbPrecios.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'LabelX5
@@ -675,7 +675,7 @@ Partial Class Tec_Clientes
         Me.cbTipoDocumento.SelectedIndex = -1
         Me.cbTipoDocumento.SelectedItem = Nothing
         Me.cbTipoDocumento.Size = New System.Drawing.Size(206, 28)
-        Me.cbTipoDocumento.TabIndex = 43
+        Me.cbTipoDocumento.TabIndex = 3
         Me.cbTipoDocumento.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'LabelX7
@@ -710,7 +710,7 @@ Partial Class Tec_Clientes
         Me.tbDireccionCliente.Name = "tbDireccionCliente"
         Me.tbDireccionCliente.PreventEnterBeep = True
         Me.tbDireccionCliente.Size = New System.Drawing.Size(324, 48)
-        Me.tbDireccionCliente.TabIndex = 40
+        Me.tbDireccionCliente.TabIndex = 1
         '
         'LabelX4
         '
@@ -759,7 +759,7 @@ Partial Class Tec_Clientes
         Me.tbNombreCliente.Name = "tbNombreCliente"
         Me.tbNombreCliente.PreventEnterBeep = True
         Me.tbNombreCliente.Size = New System.Drawing.Size(324, 29)
-        Me.tbNombreCliente.TabIndex = 38
+        Me.tbNombreCliente.TabIndex = 0
         '
         'LabelX2
         '
@@ -834,7 +834,7 @@ Partial Class Tec_Clientes
         Me.Panel10.Location = New System.Drawing.Point(3, 3)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel10.Size = New System.Drawing.Size(678, 27)
+        Me.Panel10.Size = New System.Drawing.Size(581, 27)
         Me.Panel10.TabIndex = 1
         '
         'Panel11
@@ -846,7 +846,7 @@ Partial Class Tec_Clientes
         Me.Panel11.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel11.Location = New System.Drawing.Point(1, 1)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(676, 25)
+        Me.Panel11.Size = New System.Drawing.Size(579, 25)
         Me.Panel11.TabIndex = 0
         '
         'Label3
@@ -891,7 +891,7 @@ Partial Class Tec_Clientes
         Me.PanelButton.Controls.Add(Me.PanelToolBar1)
         Me.PanelButton.Controls.Add(Me.PanelNavegacion)
         Me.PanelButton.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PanelButton.Location = New System.Drawing.Point(0, 560)
+        Me.PanelButton.Location = New System.Drawing.Point(0, 632)
         Me.PanelButton.Name = "PanelButton"
         Me.PanelButton.Size = New System.Drawing.Size(1204, 60)
         Me.PanelButton.TabIndex = 3
@@ -992,7 +992,7 @@ Partial Class Tec_Clientes
         Me.btnNuevo.Name = "btnNuevo"
         Me.btnNuevo.Size = New System.Drawing.Size(120, 60)
         Me.btnNuevo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnNuevo.TabIndex = 6
+        Me.btnNuevo.TabIndex = 0
         Me.btnNuevo.Text = "NUEVO"
         Me.btnNuevo.TextColor = System.Drawing.Color.White
         '
@@ -1237,7 +1237,7 @@ Partial Class Tec_Clientes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1204, 651)
+        Me.ClientSize = New System.Drawing.Size(1204, 723)
         Me.Controls.Add(Me.SuperTabControl1)
         Me.Name = "Tec_Clientes"
         Me.Text = "Tec_Clientes"

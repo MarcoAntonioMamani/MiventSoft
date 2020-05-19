@@ -1352,6 +1352,7 @@
     <None Include="Resources\trash.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\pointcliente.png" />
     <None Include="Resources\puntofinal.png" />
     <None Include="Resources\puntoinicial.png" />
     <None Include="Resources\tecbrin.png" />
@@ -1394,6 +1395,7 @@
     <None Include="Resources\iconguardar.png" />
     <None Include="Resources\iconeliminar.png" />
     <None Include="Resources\iconatras.png" />
+    <None Include="Resources\iconmarker.png" />
     <Content Include="Resources\man.png" />
     <None Include="Resources\pdf.png" />
     <None Include="Resources\txt.png" />
