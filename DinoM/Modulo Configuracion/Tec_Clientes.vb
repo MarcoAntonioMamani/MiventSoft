@@ -90,10 +90,29 @@ Public Class Tec_Clientes
             'diseño de la grilla
             .VisualStyle = VisualStyle.Office2007
         End With
-
+        CargarIconEstado()
     End Sub
 
+    Public Sub CargarIconEstado()
 
+        Dim dt As DataTable = CType(JGrM_Buscador.DataSource, DataTable)
+        Dim n As Integer = dt.Rows.Count
+        For i As Integer = 0 To n - 1 Step 1
+            If (dt.Rows(i).Item("estado") = 1) Then
+                Dim Bin As New MemoryStream
+                Dim img As New Bitmap(My.Resources.activo, 110, 30)
+                img.Save(Bin, Imaging.ImageFormat.Png)
+                CType(JGrM_Buscador.DataSource, DataTable).Rows(i).Item("imgEstado") = Bin.GetBuffer
+            Else
+                Dim Bin As New MemoryStream
+                Dim img As New Bitmap(My.Resources.pasivo, 110, 30)
+                img.Save(Bin, Imaging.ImageFormat.Png)
+                CType(JGrM_Buscador.DataSource, DataTable).Rows(i).Item("imgEstado") = Bin.GetBuffer
+            End If
+
+        Next
+
+    End Sub
 
     Public Sub _PMInhabilitar()
         btnNuevo.Visible = True
@@ -383,6 +402,8 @@ Public Class Tec_Clientes
         _latitud = 0
         _longitud = 0
         _Overlay.Markers.Clear()
+
+        tbNombreCliente.Focus()
     End Sub
     Public Sub seleccionarPrimerItemCombo(cb As EditControls.MultiColumnCombo)
         If (CType(cb.DataSource, DataTable).Rows.Count > 0) Then
@@ -529,14 +550,15 @@ Public Class Tec_Clientes
         Dim listEstCeldas As New List(Of Modelo.Celda)
         listEstCeldas.Add(New Modelo.Celda("Id", True, "ID", 40))
         listEstCeldas.Add(New Modelo.Celda("CodigoExterno", False))
-        listEstCeldas.Add(New Modelo.Celda("NombreCliente", True, " NombreCliente", 120))
+        listEstCeldas.Add(New Modelo.Celda("NombreCliente", True, " NombreCliente", 200))
         listEstCeldas.Add(New Modelo.Celda("DireccionCliente", True, " Direccion", 120))
         listEstCeldas.Add(New Modelo.Celda("Telefono", True, "Telefono", 90))
         listEstCeldas.Add(New Modelo.Celda("TipoDocumento", False))
         listEstCeldas.Add(New Modelo.Celda("NroDocumento", True, " NroDocumento", 120))
         listEstCeldas.Add(New Modelo.Celda("RazonSocial", False, "Razon Social", 80))
         listEstCeldas.Add(New Modelo.Celda("Nit", False, "nit", 70))
-        listEstCeldas.Add(New Modelo.Celda("Estado", True, "Estado", 60))
+        listEstCeldas.Add(New Modelo.Celda("Estado", False, "Estado", 60))
+        listEstCeldas.Add(New Modelo.Celda("imgEstado", True, "Estado", 80))
         listEstCeldas.Add(New Modelo.Celda("FechaIngreso", True, "FechaIngreso", 90))
         listEstCeldas.Add(New Modelo.Celda("FechaUltimaVenta", False))
         listEstCeldas.Add(New Modelo.Celda("ImagenCliente", False))
@@ -704,14 +726,7 @@ Public Class Tec_Clientes
 
 
 
-    Private Sub JGrM_Buscador_SelectionChanged(sender As Object, e As EventArgs) Handles JGrM_Buscador.SelectionChanged
-        If (JGrM_Buscador.Row >= 0 And FilaSeleccionada = False) Then
-            _MPos = JGrM_Buscador.Row
 
-            _PMOMostrarRegistro(_MPos, True)
-
-        End If
-    End Sub
 
     Private Sub cbTipoDocumento_ValueChanged(sender As Object, e As EventArgs) Handles cbTipoDocumento.ValueChanged
 
@@ -732,6 +747,28 @@ Public Class Tec_Clientes
         End If
     End Sub
 
+    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
+        TabControlPrincipal.SelectedTabIndex = 0
+        btnNuevo.PerformClick()
+        tbNombreCliente.Focus()
+    End Sub
+
+    Private Sub JGrM_Buscador_KeyDown(sender As Object, e As KeyEventArgs) Handles JGrM_Buscador.KeyDown
+        If (e.KeyCode = Keys.Enter) Then
+
+            TabControlPrincipal.SelectedTabIndex = 0
+
+        End If
+    End Sub
+
+    Private Sub JGrM_Buscador_SelectionChanged(sender As Object, e As EventArgs) Handles JGrM_Buscador.SelectionChanged
+        If (JGrM_Buscador.Row >= 0 And FilaSeleccionada = False) Then
+            _MPos = JGrM_Buscador.Row
+
+            _PMOMostrarRegistro(_MPos, True)
+
+        End If
+    End Sub
 
 
 

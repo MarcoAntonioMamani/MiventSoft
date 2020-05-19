@@ -37,7 +37,9 @@ Partial Class Tec_Productos
         Me.Panel17 = New System.Windows.Forms.Panel()
         Me.JGrM_Buscador = New Janus.Windows.GridEX.GridEX()
         Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.btnSi = New System.Windows.Forms.Panel()
+        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.Panel14 = New System.Windows.Forms.Panel()
         Me.Panel15 = New System.Windows.Forms.Panel()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -123,14 +125,13 @@ Partial Class Tec_Productos
         Me.SuperTabItem1 = New DevComponents.DotNetBar.SuperTabItem()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel2.SuspendLayout()
         Me.Panel17.SuspendLayout()
         CType(Me.JGrM_Buscador, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel4.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
         Me.btnSi.SuspendLayout()
         Me.Panel14.SuspendLayout()
         Me.Panel15.SuspendLayout()
@@ -168,7 +169,6 @@ Partial Class Tec_Productos
         Me.PanelToolBar1.SuspendLayout()
         Me.PanelNavegacion.SuspendLayout()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControlPrincipal
@@ -194,8 +194,8 @@ Partial Class Tec_Productos
         Me.TabControlPrincipal.Name = "TabControlPrincipal"
         Me.TabControlPrincipal.ReorderTabsEnabled = True
         Me.TabControlPrincipal.SelectedTabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TabControlPrincipal.SelectedTabIndex = 0
-        Me.TabControlPrincipal.Size = New System.Drawing.Size(1188, 918)
+        Me.TabControlPrincipal.SelectedTabIndex = 1
+        Me.TabControlPrincipal.Size = New System.Drawing.Size(1188, 952)
         Me.TabControlPrincipal.TabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Bottom
         Me.TabControlPrincipal.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.TabIndex = 0
@@ -210,7 +210,7 @@ Partial Class Tec_Productos
         Me.SuperTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel2.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel2.Name = "SuperTabControlPanel2"
-        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1188, 887)
+        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1188, 921)
         Me.SuperTabControlPanel2.TabIndex = 2
         Me.SuperTabControlPanel2.TabItem = Me.SuperTabItem2
         '
@@ -223,7 +223,7 @@ Partial Class Tec_Productos
         Me.Panel17.Location = New System.Drawing.Point(0, 0)
         Me.Panel17.Name = "Panel17"
         Me.Panel17.Padding = New System.Windows.Forms.Padding(5)
-        Me.Panel17.Size = New System.Drawing.Size(1188, 887)
+        Me.Panel17.Size = New System.Drawing.Size(1188, 921)
         Me.Panel17.TabIndex = 4
         '
         'JGrM_Buscador
@@ -234,6 +234,7 @@ Partial Class Tec_Productos
         Me.JGrM_Buscador.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
         Me.JGrM_Buscador.ColumnAutoResize = True
         Me.JGrM_Buscador.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.JGrM_Buscador.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None
         Me.JGrM_Buscador.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
         Me.JGrM_Buscador.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.JGrM_Buscador.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -267,7 +268,7 @@ Partial Class Tec_Productos
         Me.JGrM_Buscador.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.JGrM_Buscador.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.JGrM_Buscador.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.JGrM_Buscador.Size = New System.Drawing.Size(1178, 777)
+        Me.JGrM_Buscador.Size = New System.Drawing.Size(1178, 811)
         Me.JGrM_Buscador.TabIndex = 2
         Me.JGrM_Buscador.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.JGrM_Buscador.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -287,6 +288,21 @@ Partial Class Tec_Productos
         Me.Panel4.Size = New System.Drawing.Size(1178, 64)
         Me.Panel4.TabIndex = 4
         '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.ColumnCount = 2
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 84.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.btnSi, 1, 0)
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.Padding = New System.Windows.Forms.Padding(30, 10, 5, 5)
+        Me.TableLayoutPanel1.RowCount = 1
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1178, 64)
+        Me.TableLayoutPanel1.TabIndex = 5
+        '
         'btnSi
         '
         Me.btnSi.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(179, Byte), Integer), CType(CType(148, Byte), Integer))
@@ -297,6 +313,24 @@ Partial Class Tec_Productos
         Me.btnSi.Name = "btnSi"
         Me.btnSi.Size = New System.Drawing.Size(177, 43)
         Me.btnSi.TabIndex = 4
+        '
+        'ButtonX1
+        '
+        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX1.BackColor = System.Drawing.Color.Transparent
+        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.ButtonX1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ButtonX1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX1.Image = Global.DinoM.My.Resources.Resources.iconadd
+        Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(45, 45)
+        Me.ButtonX1.Location = New System.Drawing.Point(0, 0)
+        Me.ButtonX1.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX1.Name = "ButtonX1"
+        Me.ButtonX1.Size = New System.Drawing.Size(175, 41)
+        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX1.TabIndex = 7
+        Me.ButtonX1.Text = "Nuevo Producto"
+        Me.ButtonX1.TextColor = System.Drawing.Color.White
         '
         'Panel14
         '
@@ -374,7 +408,7 @@ Partial Class Tec_Productos
         Me.SuperTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
-        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1188, 887)
+        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1188, 921)
         Me.SuperTabControlPanel1.TabIndex = 1
         Me.SuperTabControlPanel1.TabItem = Me.SuperTabItem1
         '
@@ -385,7 +419,7 @@ Partial Class Tec_Productos
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1188, 887)
+        Me.Panel1.Size = New System.Drawing.Size(1188, 921)
         Me.Panel1.TabIndex = 0
         '
         'PanelSuperior
@@ -396,7 +430,7 @@ Partial Class Tec_Productos
         Me.PanelSuperior.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelSuperior.Location = New System.Drawing.Point(0, 0)
         Me.PanelSuperior.Name = "PanelSuperior"
-        Me.PanelSuperior.Size = New System.Drawing.Size(1188, 827)
+        Me.PanelSuperior.Size = New System.Drawing.Size(1188, 861)
         Me.PanelSuperior.TabIndex = 1
         '
         'PanelRight
@@ -405,7 +439,7 @@ Partial Class Tec_Productos
         Me.PanelRight.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelRight.Location = New System.Drawing.Point(694, 0)
         Me.PanelRight.Name = "PanelRight"
-        Me.PanelRight.Size = New System.Drawing.Size(494, 827)
+        Me.PanelRight.Size = New System.Drawing.Size(494, 861)
         Me.PanelRight.TabIndex = 1
         '
         'Panel2
@@ -417,7 +451,7 @@ Partial Class Tec_Productos
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel2.Size = New System.Drawing.Size(494, 827)
+        Me.Panel2.Size = New System.Drawing.Size(494, 861)
         Me.Panel2.TabIndex = 1
         '
         'PanelImagenes
@@ -428,7 +462,7 @@ Partial Class Tec_Productos
         Me.PanelImagenes.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelImagenes.Location = New System.Drawing.Point(3, 30)
         Me.PanelImagenes.Name = "PanelImagenes"
-        Me.PanelImagenes.Size = New System.Drawing.Size(488, 794)
+        Me.PanelImagenes.Size = New System.Drawing.Size(488, 828)
         Me.PanelImagenes.TabIndex = 2
         '
         'PanelVerImagen
@@ -441,7 +475,7 @@ Partial Class Tec_Productos
         Me.PanelVerImagen.Location = New System.Drawing.Point(209, 0)
         Me.PanelVerImagen.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelVerImagen.Name = "PanelVerImagen"
-        Me.PanelVerImagen.Size = New System.Drawing.Size(279, 794)
+        Me.PanelVerImagen.Size = New System.Drawing.Size(279, 828)
         Me.PanelVerImagen.TabIndex = 2
         '
         'btnImagen
@@ -487,7 +521,7 @@ Partial Class Tec_Productos
         Me.pbImgProdu.Location = New System.Drawing.Point(0, 0)
         Me.pbImgProdu.Margin = New System.Windows.Forms.Padding(4)
         Me.pbImgProdu.Name = "pbImgProdu"
-        Me.pbImgProdu.Size = New System.Drawing.Size(279, 794)
+        Me.pbImgProdu.Size = New System.Drawing.Size(279, 828)
         Me.pbImgProdu.TabIndex = 0
         Me.pbImgProdu.TabStop = False
         '
@@ -499,7 +533,7 @@ Partial Class Tec_Productos
         Me.PanelListImagenes.Location = New System.Drawing.Point(0, 0)
         Me.PanelListImagenes.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelListImagenes.Name = "PanelListImagenes"
-        Me.PanelListImagenes.Size = New System.Drawing.Size(209, 794)
+        Me.PanelListImagenes.Size = New System.Drawing.Size(209, 828)
         Me.PanelListImagenes.TabIndex = 3
         '
         'Panel5
@@ -565,7 +599,7 @@ Partial Class Tec_Productos
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel13.Location = New System.Drawing.Point(684, 0)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(10, 827)
+        Me.Panel13.Size = New System.Drawing.Size(10, 861)
         Me.Panel13.TabIndex = 3
         '
         'PanelLEft
@@ -574,7 +608,7 @@ Partial Class Tec_Productos
         Me.PanelLEft.Dock = System.Windows.Forms.DockStyle.Left
         Me.PanelLEft.Location = New System.Drawing.Point(0, 0)
         Me.PanelLEft.Name = "PanelLEft"
-        Me.PanelLEft.Size = New System.Drawing.Size(684, 827)
+        Me.PanelLEft.Size = New System.Drawing.Size(684, 861)
         Me.PanelLEft.TabIndex = 0
         '
         'Panel8
@@ -586,7 +620,7 @@ Partial Class Tec_Productos
         Me.Panel8.Location = New System.Drawing.Point(0, 0)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel8.Size = New System.Drawing.Size(684, 827)
+        Me.Panel8.Size = New System.Drawing.Size(684, 861)
         Me.Panel8.TabIndex = 1
         '
         'Panel9
@@ -624,7 +658,7 @@ Partial Class Tec_Productos
         Me.Panel9.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel9.Location = New System.Drawing.Point(3, 30)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(678, 794)
+        Me.Panel9.Size = New System.Drawing.Size(678, 828)
         Me.Panel9.TabIndex = 2
         '
         'btnFamilia
@@ -1323,7 +1357,7 @@ Partial Class Tec_Productos
         Me.PanelButton.Controls.Add(Me.PanelToolBar1)
         Me.PanelButton.Controls.Add(Me.PanelNavegacion)
         Me.PanelButton.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PanelButton.Location = New System.Drawing.Point(0, 827)
+        Me.PanelButton.Location = New System.Drawing.Point(0, 861)
         Me.PanelButton.Name = "PanelButton"
         Me.PanelButton.Size = New System.Drawing.Size(1188, 60)
         Me.PanelButton.TabIndex = 3
@@ -1534,44 +1568,11 @@ Partial Class Tec_Productos
         '
         Me.MEP.ContainerControl = Me
         '
-        'TableLayoutPanel1
-        '
-        Me.TableLayoutPanel1.ColumnCount = 2
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 84.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.btnSi, 1, 0)
-        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.Padding = New System.Windows.Forms.Padding(30, 10, 5, 5)
-        Me.TableLayoutPanel1.RowCount = 1
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1178, 64)
-        Me.TableLayoutPanel1.TabIndex = 5
-        '
-        'ButtonX1
-        '
-        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX1.BackColor = System.Drawing.Color.Transparent
-        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
-        Me.ButtonX1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ButtonX1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX1.Image = Global.DinoM.My.Resources.Resources.iconadd
-        Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(45, 45)
-        Me.ButtonX1.Location = New System.Drawing.Point(0, 0)
-        Me.ButtonX1.Margin = New System.Windows.Forms.Padding(4)
-        Me.ButtonX1.Name = "ButtonX1"
-        Me.ButtonX1.Size = New System.Drawing.Size(175, 41)
-        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX1.TabIndex = 7
-        Me.ButtonX1.Text = "Nuevo Producto"
-        Me.ButtonX1.TextColor = System.Drawing.Color.White
-        '
         'Tec_Productos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1188, 918)
+        Me.ClientSize = New System.Drawing.Size(1188, 952)
         Me.Controls.Add(Me.TabControlPrincipal)
         Me.Name = "Tec_Productos"
         Me.Text = "Tec_Productos"
@@ -1581,6 +1582,7 @@ Partial Class Tec_Productos
         Me.Panel17.ResumeLayout(False)
         CType(Me.JGrM_Buscador, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel4.ResumeLayout(False)
+        Me.TableLayoutPanel1.ResumeLayout(False)
         Me.btnSi.ResumeLayout(False)
         Me.Panel14.ResumeLayout(False)
         Me.Panel15.ResumeLayout(False)
@@ -1621,7 +1623,6 @@ Partial Class Tec_Productos
         Me.PanelToolBar1.ResumeLayout(False)
         Me.PanelNavegacion.ResumeLayout(False)
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TableLayoutPanel1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub

@@ -1155,5 +1155,13 @@ Public Class Tec_Productos
         btnNuevo.PerformClick()
 
     End Sub
+
+    Private Sub JGrM_Buscador_KeyDown(sender As Object, e As KeyEventArgs) Handles JGrM_Buscador.KeyDown
+        If (e.KeyCode = Keys.Enter) Then
+
+            TabControlPrincipal.SelectedTabIndex = 0
+
+        End If
+    End Sub
 #End Region
 End Class
