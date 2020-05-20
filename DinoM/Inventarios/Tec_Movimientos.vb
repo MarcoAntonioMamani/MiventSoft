@@ -371,36 +371,27 @@ Public Class Tec_Movimientos
     End Sub
 
     Public Function _PMOGrabarRegistro() As Boolean
-        'ByRef _numi As String, _CodigoExterno As String,
-        '                                        _CodigoBarra As String, _NombreProducto As String,
-        '_Descripcion As String, _stockMinimo As Decimal, _estado As Integer, _CategoriaId As Integer,
-        '_EmpresaId As Integer, _ProveedorId As Integer, _MarcaId As Integer,
-        ''_AttributoId As Integer, _FamiliaId As Integer, _UnidadVentaId As Integer,
-        '_UnidadMaximaId As Integer,
-        ''_conversion As Double
+        'ByRef _numi As String, ConceptoId As Integer, DepositoId As Integer,Observacion as String,
+        'Estado as integer, FechaDocumento As String, _dtDetalle As DataTable
         Dim res As Boolean
         Try
-            res = L_prProductoInsertar(tbCodigo.Text, tbCodigoExterno.Text, "", tbNombreProducto.Text,
-                                                 tbDescripcion.Text, tbStockMinimo.Value, IIf(swEstado.Value = True, 1, 0),
-                                                 cbCategoria.Value, cbEmpresa.Value, cbProveedor.Value, cbMarca.Value,
-                                                 cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes)
+            res = L_prMovimientoInsertar(tbCodigo.Text, cbTipoMovimiento.Value, cbDepositos.Value, tbDescripcion.Text,
+                                         1, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), CType(grDetalle.DataSource, DataTable))
 
             If res Then
 
-                _prCrearCarpetaImagenes("ProductosTodos")
-                _prGuardarImagenes(RutaGlobal + "\Imagenes\Imagenes Productos\" + "ProductosTodos" + "\")
 
-                ToastNotification.Show(Me, "Codigo de Producto ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Codigo de Movimiento ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
 
             Else
-                ToastNotification.Show(Me, "Error al guardar el producto".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Error al guardar el Movimiento".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End If
         Catch ex As Exception
-            ToastNotification.Show(Me, "Error al guardar el producto".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, "Error al guardar el Movimiento".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
         End Try
-        _prEliminarContenidoImage()
+
         Return res
 
     End Function
@@ -408,27 +399,23 @@ Public Class Tec_Movimientos
     Public Function _PMOModificarRegistro() As Boolean
         Dim Res As Boolean
         Try
-            Res = L_prProductoModificar(tbCodigo.Text, tbCodigoExterno.Text, "", tbNombreProducto.Text,
-                                                tbDescripcion.Text, tbStockMinimo.Value, IIf(swEstado.Value = True, 1, 0),
-                                                cbCategoria.Value, cbEmpresa.Value, cbProveedor.Value, cbMarca.Value,
-                                                cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes)
+            Res = L_prMovimientoActualizar(tbCodigo.Text, cbTipoMovimiento.Value, cbDepositos.Value, tbDescripcion.Text,
+                                         1, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), CType(grDetalle.DataSource, DataTable))
 
 
             If Res Then
-                _prCrearCarpetaImagenes("ProductosTodos")
-                _prGuardarImagenes(RutaGlobal + "\Imagenes\Imagenes Productos\" + "ProductosTodos" + "\")
 
-                ToastNotification.Show(Me, "Codigo de Producto ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Codigo de Movimiento ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                 _PSalirRegistro()
             Else
-                ToastNotification.Show(Me, "Error al guardar el producto".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Error al guardar el Movimiento".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End If
         Catch ex As Exception
-            ToastNotification.Show(Me, "Error al modificar el producto".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, "Error al modificar el Movimiento".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
         End Try
-        _prEliminarContenidoImage()
+
         Return Res
     End Function
     Public Function _fnActionNuevo() As Boolean
@@ -444,7 +431,7 @@ Public Class Tec_Movimientos
 
         ef.tipo = 3
         ef.titulo = "Confirmación de Eliminación"
-        ef.descripcion = "¿Esta Seguro de Eliminar el Producto " + tbNombreProducto.Text + " ?"
+        ef.descripcion = "¿Esta Seguro de Eliminar el Movimiento " + tbDescripcion.Text + " ?"
         ef.ShowDialog()
         Dim bandera As Boolean = False
         bandera = ef.band
@@ -452,16 +439,16 @@ Public Class Tec_Movimientos
             Dim mensajeError As String = ""
             Dim res As Boolean
             Try
-                res = L_prProductoBorrar(tbCodigo.Text, mensajeError)
+                res = L_prBorrarRegistro(tbCodigo.Text, mensajeError, "MAM_Movimientos")
                 If res Then
 
-                    ToastNotification.Show(Me, "Codigo de Categoria ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                    ToastNotification.Show(Me, "Codigo de Movimiento ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                     _PMFiltrar()
                 Else
                     ToastNotification.Show(Me, mensajeError, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
                 End If
             Catch ex As Exception
-                ToastNotification.Show(Me, "Error al eliminar el producto".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Error al eliminar el Movimiento".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End Try
 
@@ -473,171 +460,80 @@ Public Class Tec_Movimientos
         Dim _ok As Boolean = True
         MEP.Clear()
         Dim Mensaje As String = "Los Siguientes Campos Son Requeridos: "
-        If tbNombreProducto.Text = String.Empty Then
-            tbNombreProducto.BackColor = Color.Red
-            MEP.SetError(tbNombreProducto, "Ingrese Nombre de Producto")
-            Mensaje = Mensaje + " Nombre Producto"
-            _ok = False
-        Else
-            tbNombreProducto.BackColor = Color.White
-            MEP.SetError(tbNombreProducto, "")
-        End If
-        If (cbEmpresa.SelectedIndex < 0) Then
-            cbEmpresa.BackColor = Color.Red
-            MEP.SetError(cbEmpresa, "Seleccione una Empresa")
+
+        If (cbTipoMovimiento.SelectedIndex < 0) Then
+            cbTipoMovimiento.BackColor = Color.Red
+            MEP.SetError(cbTipoMovimiento, "Seleccione un Tipo Movimiento")
             Mensaje = Mensaje + Chr(13) + Chr(10) + " Empresa"
             _ok = False
         Else
-            cbEmpresa.BackColor = Color.White
-            MEP.SetError(cbEmpresa, "")
+            cbTipoMovimiento.BackColor = Color.White
+            MEP.SetError(cbTipoMovimiento, "")
         End If
 
-        If (cbCategoria.SelectedIndex < 0) Then
-            cbCategoria.BackColor = Color.Red
-            MEP.SetError(cbCategoria, "Seleccione una Categoria")
+        If (cbDepositos.SelectedIndex < 0) Then
+            cbDepositos.BackColor = Color.Red
+            MEP.SetError(cbDepositos, "Seleccione un Deposito")
             Mensaje = Mensaje + Chr(13) + Chr(10) + " Categoria"
             _ok = False
         Else
-            cbCategoria.BackColor = Color.White
-            MEP.SetError(cbCategoria, "")
+            cbDepositos.BackColor = Color.White
+            MEP.SetError(cbDepositos, "")
         End If
 
-        If (tbStockMinimo.Text.Length <= 0) Then
-            tbStockMinimo.BackColor = Color.Red
-            MEP.SetError(tbStockMinimo, "Ingrese valor Stock Minimo")
+        If (tbFechaTransaccion.Text.Length <= 0) Then
+            tbFechaTransaccion.BackColor = Color.Red
+            MEP.SetError(tbFechaTransaccion, "Ingrese una Fecha Valida")
             Mensaje = Mensaje + Chr(13) + Chr(10) + " Stock Minimo"
             _ok = False
         Else
-            tbStockMinimo.BackColor = Color.White
-            MEP.SetError(tbStockMinimo, "")
-        End If
-        If (tbConversion.Text.Length <= 0) Then
-            tbConversion.BackColor = Color.Red
-            MEP.SetError(tbConversion, "Ingrese Valor en Conversion")
-            Mensaje = Mensaje + Chr(13) + Chr(10) + " Conversion"
-            _ok = False
-        Else
-            tbConversion.BackColor = Color.White
-            MEP.SetError(tbConversion, "")
-        End If
-        If (cbProveedor.SelectedIndex < 0) Then
-            cbProveedor.BackColor = Color.Red
-            MEP.SetError(cbProveedor, "Seleccione un Proveedor")
-            Mensaje = Mensaje + Chr(13) + Chr(10) + " Proveedor"
-            _ok = False
-        Else
-            cbProveedor.BackColor = Color.White
-            MEP.SetError(cbProveedor, "")
-        End If
-        If (cbMarca.SelectedIndex < 0) Then
-            cbMarca.BackColor = Color.Red
-            MEP.SetError(cbMarca, "Seleccione una Marca")
-            Mensaje = Mensaje + Chr(13) + Chr(10) + " Marca"
-            _ok = False
-        Else
-            cbMarca.BackColor = Color.White
-            MEP.SetError(cbMarca, "")
-        End If
-        If (cbAtributo.SelectedIndex < 0) Then
-            cbAtributo.BackColor = Color.Red
-            MEP.SetError(cbAtributo, "Seleccione un Atributo")
-            Mensaje = Mensaje + Chr(13) + Chr(10) + " Attributo"
-            _ok = False
-        Else
-            cbAtributo.BackColor = Color.White
-            MEP.SetError(cbAtributo, "")
-        End If
-        If (cbFamilia.SelectedIndex < 0) Then
-            cbFamilia.BackColor = Color.Red
-            MEP.SetError(cbFamilia, "Seleccione una Familia")
-            Mensaje = Mensaje + Chr(13) + Chr(10) + " Familia"
-            _ok = False
-        Else
-            cbFamilia.BackColor = Color.White
-            MEP.SetError(cbFamilia, "")
+            tbFechaTransaccion.BackColor = Color.White
+            MEP.SetError(tbFechaTransaccion, "")
         End If
 
         MHighlighterFocus.UpdateHighlights()
 
-        If tbNombreProducto.Text = String.Empty Then
-            tbNombreProducto.Focus()
+
+
+        If (cbTipoMovimiento.SelectedIndex < 0) Then
             ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            cbTipoMovimiento.Focus()
+            Return _ok
+        End If
+        If (cbDepositos.SelectedIndex < 0) Then
+            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            cbDepositos.Focus()
+            Return _ok
+        End If
+        If (tbFechaTransaccion.Text.Length <= 0) Then
+            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            tbFechaTransaccion.Focus()
             Return _ok
         End If
 
-        If (cbEmpresa.SelectedIndex < 0) Then
-            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-            cbEmpresa.Focus()
-            Return _ok
-        End If
-        If (cbCategoria.SelectedIndex < 0) Then
-            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-            cbCategoria.Focus()
-            Return _ok
-        End If
-        If (tbStockMinimo.Text.Length <= 0) Then
-            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-            tbStockMinimo.Focus()
-            Return _ok
-        End If
 
-        If (cbProveedor.SelectedIndex < 0) Then
-            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-            cbProveedor.Focus()
-            Return _ok
-        End If
-        If (cbMarca.SelectedIndex < 0) Then
-            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-            cbMarca.Focus()
-            Return _ok
-        End If
-        If (cbAtributo.SelectedIndex < 0) Then
-            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-            cbAtributo.Focus()
-            Return _ok
-        End If
-        If (tbConversion.Text.Length <= 0) Then
-            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-            tbConversion.Focus()
-            Return _ok
-        End If
         Return _ok
     End Function
 
     Public Function _PMOGetTablaBuscador() As DataTable
 
-        Dim dtBuscador As DataTable = L_prListarGeneral("MAM_Productos")
+        Dim dtBuscador As DataTable = L_prListarGeneral("MAM_Movimientos")
         Return dtBuscador
     End Function
 
     Public Function _PMOGetListEstructuraBuscador() As List(Of Modelo.Celda)
 
-        'Select Case a.Id ,a.CodigoExterno ,a.CodigoBarras ,a.NombreProducto ,a.DescripcionProducto 
-        ',a.StockMinimo ,a.Estado ,
-        '    a.CategoriaId , cat.NombreCategoria, a.EmpresaId, em.Nombre As Empresa, a.ProveedorId, 
-        'a.MarcaId,
-        '    a.AttributoId, a.FamiliaId, a.UnidadVentaId, a.UnidadMaximaId, a.Conversion  
+        'a.Id  as id, a.FechaDocumento  As fdoc, a.ConceptoId  As concep, b.Descripcion  As nconcep, a.Observacion  As obs, 
+        '           a.Estado  as est, a.DepositoId  as alm 
         Dim listEstCeldas As New List(Of Modelo.Celda)
         listEstCeldas.Add(New Modelo.Celda("Id", True, "ID", 40))
-        listEstCeldas.Add(New Modelo.Celda("CodigoExterno", False))
-        listEstCeldas.Add(New Modelo.Celda("CodigoBarras", False))
-        listEstCeldas.Add(New Modelo.Celda("NombreProducto", True, " NombreProducto", 200))
-        listEstCeldas.Add(New Modelo.Celda("DescripcionProducto", True, " Descripcion Producto", 100))
-        listEstCeldas.Add(New Modelo.Celda("StockMinimo", True, "Stock Minimo", 90, "0.00"))
-        listEstCeldas.Add(New Modelo.Celda("estado", False, "Estado", 70))
-        listEstCeldas.Add(New Modelo.Celda("imgEstado", True, "Estado", 150))
-        listEstCeldas.Add(New Modelo.Celda("CategoriaId", False))
-        listEstCeldas.Add(New Modelo.Celda("NombreCategoria", True, "Categoria", 80))
-        listEstCeldas.Add(New Modelo.Celda("EmpresaId", False))
-        listEstCeldas.Add(New Modelo.Celda("Empresa", True, "Empresa", 80))
+        listEstCeldas.Add(New Modelo.Celda("FechaDocumento", True, "Fecha Transaccion", 100))
+        listEstCeldas.Add(New Modelo.Celda("concep", False))
+        listEstCeldas.Add(New Modelo.Celda("nconcep", True, " Tipo Movimiento", 120))
+        listEstCeldas.Add(New Modelo.Celda("obs", True, " Descripcion Movimiento", 250))
 
-        listEstCeldas.Add(New Modelo.Celda("ProveedorId", False))
-        listEstCeldas.Add(New Modelo.Celda("MarcaId", False))
-        listEstCeldas.Add(New Modelo.Celda("AttributoId", False))
-        listEstCeldas.Add(New Modelo.Celda("FamiliaId", False))
-        listEstCeldas.Add(New Modelo.Celda("UnidadVentaId", False))
-        listEstCeldas.Add(New Modelo.Celda("UnidadMaximaId", False))
-        listEstCeldas.Add(New Modelo.Celda("Conversion", False))
+        listEstCeldas.Add(New Modelo.Celda("est", False, "Estado", 70))
+        listEstCeldas.Add(New Modelo.Celda("alm", True, "Estado", 150))
 
 
         Return listEstCeldas
@@ -645,11 +541,8 @@ Public Class Tec_Movimientos
 
     Public Sub _PMOMostrarRegistro(_N As Integer, Optional selected As Boolean = False)
 
-        'Select Case a.Id ,a.CodigoExterno ,a.CodigoBarras ,a.NombreProducto ,a.DescripcionProducto 
-        ',a.StockMinimo ,a.Estado ,
-        '    a.CategoriaId , cat.NombreCategoria, a.EmpresaId, em.Nombre As Empresa, a.ProveedorId, 
-        'a.MarcaId,
-        '    a.AttributoId, a.FamiliaId, a.UnidadVentaId, a.UnidadMaximaId, a.Conversion  
+        'a.Id  as id, a.FechaDocumento  As fdoc, a.ConceptoId  As concep, b.Descripcion  As nconcep, a.Observacion  As obs, 
+        '           a.Estado  as est, a.DepositoId  as alm   
         If (selected = False) Then
             FilaSeleccionada = True
             JGrM_Buscador.Row = _MPos
@@ -658,33 +551,19 @@ Public Class Tec_Movimientos
 
         With JGrM_Buscador
             tbCodigo.Text = .GetValue("Id").ToString
-            tbCodigoExterno.Text = .GetValue("CodigoExterno").ToString
-            tbNombreProducto.Text = .GetValue("NombreProducto").ToString
-            tbDescripcion.Text = .GetValue("DescripcionProducto").ToString
-            tbStockMinimo.Value = .GetValue("StockMinimo")
-            swEstado.Value = .GetValue("estado")
-            cbCategoria.Value = .GetValue("CategoriaId")
-            cbEmpresa.Value = .GetValue("EmpresaId")
-            cbProveedor.Value = .GetValue("ProveedorId")
-            cbMarca.Value = .GetValue("MarcaId")
-            cbAtributo.Value = .GetValue("AttributoId")
-            cbFamilia.Value = .GetValue("FamiliaId")
-            cbUniVenta.Value = .GetValue("UnidadVentaId")
-            cbUnidMaxima.Value = .GetValue("UnidadMaximaId")
-            tbConversion.Value = .GetValue("Conversion")
+            tbFechaTransaccion.Value = .GetValue("FechaDocumento")
+            cbTipoMovimiento.Value = .GetValue("concep")
+            tbDescripcion.Text = .GetValue("obs").ToString
+            cbDepositos.Value = .GetValue("alm")
+
+
         End With
-        TablaImagenes = L_prCargarImagenesRecepcion(tbCodigo.Text)
-        _prCargarImagen()
+
         LblPaginacion.Text = Str(_MPos + 1) + "/" + JGrM_Buscador.RowCount.ToString
 
     End Sub
 
-    Private Function P_fnObtenerID() As String
-        Dim res As String = ""
-        res = res + Now.Hour.ToString("00") + Now.Minute.ToString("00") + Now.Second.ToString("00") + "_" _
-            + Now.Day.ToString("00") + Now.Month.ToString("00") + Now.Year.ToString("0000")
-        Return res
-    End Function
+
 
     Private Sub _PSalirRegistro()
         If btnGrabar.Enabled = True Then
@@ -756,140 +635,6 @@ Public Class Tec_Movimientos
         End If
     End Sub
 
-    Private Sub cbProveedor_ValueChanged(sender As Object, e As EventArgs) Handles cbProveedor.ValueChanged
-        If cbProveedor.SelectedIndex < 0 And cbProveedor.Text <> String.Empty Then
-            btnProveedor.Visible = True
-        Else
-            btnProveedor.Visible = False
-        End If
-    End Sub
-
-    Private Sub cbMarca_ValueChanged(sender As Object, e As EventArgs) Handles cbMarca.ValueChanged
-        If cbMarca.SelectedIndex < 0 And cbMarca.Text <> String.Empty Then
-            btnMarca.Visible = True
-        Else
-            btnMarca.Visible = False
-        End If
-    End Sub
-
-    Private Sub cbAtributo_ValueChanged(sender As Object, e As EventArgs) Handles cbAtributo.ValueChanged
-        If cbAtributo.SelectedIndex < 0 And cbAtributo.Text <> String.Empty Then
-            btnAtributo.Visible = True
-        Else
-            btnAtributo.Visible = False
-        End If
-    End Sub
-
-    Private Sub cbFamilia_ValueChanged(sender As Object, e As EventArgs) Handles cbFamilia.ValueChanged
-        If cbFamilia.SelectedIndex < 0 And cbFamilia.Text <> String.Empty Then
-            btnFamilia.Visible = True
-        Else
-            btnFamilia.Visible = False
-        End If
-    End Sub
-
-    Private Sub cbUniVenta_ValueChanged(sender As Object, e As EventArgs) Handles cbUniVenta.ValueChanged
-        If cbUniVenta.SelectedIndex < 0 And cbUniVenta.Text <> String.Empty Then
-            btUniVenta.Visible = True
-        Else
-            btUniVenta.Visible = False
-        End If
-    End Sub
-
-    Private Sub cbUnidMaxima_ValueChanged(sender As Object, e As EventArgs) Handles cbUnidMaxima.ValueChanged
-        If cbUnidMaxima.SelectedIndex < 0 And cbUnidMaxima.Text <> String.Empty Then
-            btUniMaxima.Visible = True
-        Else
-            btUniMaxima.Visible = False
-        End If
-    End Sub
-
-    Private Sub btnProveedor_Click(sender As Object, e As EventArgs) Handles btnProveedor.Click
-        Dim numi As String = ""
-
-        If L_prClasificadorGrabar(numi, 2, cbProveedor.Text) Then
-            P_Global._prCargarComboGenerico(cbProveedor, L_prLibreriaDetalleGeneral(2), "cnnum", "Codigo", "cndesc1", "Proveedor")
-            cbProveedor.SelectedIndex = CType(cbProveedor.DataSource, DataTable).Rows.Count - 1
-        End If
-    End Sub
-
-    Private Sub btnMarca_Click(sender As Object, e As EventArgs) Handles btnMarca.Click
-        Dim numi As String = ""
-
-        If L_prClasificadorGrabar(numi, 3, cbMarca.Text) Then
-            P_Global._prCargarComboGenerico(cbMarca, L_prLibreriaDetalleGeneral(3), "cnnum", "Codigo", "cndesc1", "Marca")
-            cbMarca.SelectedIndex = CType(cbMarca.DataSource, DataTable).Rows.Count - 1
-        End If
-    End Sub
-
-    Private Sub btnAtributo_Click(sender As Object, e As EventArgs) Handles btnAtributo.Click
-        Dim numi As String = ""
-
-        If L_prClasificadorGrabar(numi, 4, cbAtributo.Text) Then
-            P_Global._prCargarComboGenerico(cbAtributo, L_prLibreriaDetalleGeneral(4), "cnnum", "Codigo", "cndesc1", "Atributo")
-            cbAtributo.SelectedIndex = CType(cbAtributo.DataSource, DataTable).Rows.Count - 1
-        End If
-    End Sub
-
-    Private Sub btnFamilia_Click(sender As Object, e As EventArgs) Handles btnFamilia.Click
-        Dim numi As String = ""
-
-        If L_prClasificadorGrabar(numi, 5, cbFamilia.Text) Then
-            P_Global._prCargarComboGenerico(cbFamilia, L_prLibreriaDetalleGeneral(5), "cnnum", "Codigo", "cndesc1", "Familia")
-            cbFamilia.SelectedIndex = CType(cbFamilia.DataSource, DataTable).Rows.Count - 1
-        End If
-    End Sub
-
-    Private Sub btUniVenta_Click(sender As Object, e As EventArgs) Handles btUniVenta.Click
-        Dim numi As String = ""
-
-        If L_prClasificadorGrabar(numi, 6, cbUniVenta.Text) Then
-            P_Global._prCargarComboGenerico(cbUniVenta, L_prLibreriaDetalleGeneral(6), "cnnum", "Codigo", "cndesc1", "Uni Venta")
-            cbUniVenta.SelectedIndex = CType(cbUniVenta.DataSource, DataTable).Rows.Count - 1
-        End If
-    End Sub
-
-    Private Sub btUniMaxima_Click(sender As Object, e As EventArgs) Handles btUniMaxima.Click
-        Dim numi As String = ""
-
-        If L_prClasificadorGrabar(numi, 7, cbUnidMaxima.Text) Then
-            P_Global._prCargarComboGenerico(cbUnidMaxima, L_prLibreriaDetalleGeneral(7), "cnnum", "Codigo", "cndesc1", "Uni Max")
-            cbUnidMaxima.SelectedIndex = CType(cbUnidMaxima.DataSource, DataTable).Rows.Count - 1
-        End If
-    End Sub
-
-    Private Sub btnImagen_Click(sender As Object, e As EventArgs) Handles btnImagen.Click
-        _fnCopiarImagenRutaDefinida()
-        _prCargarImagen()
-    End Sub
-
-    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
-        Dim pos As Integer = CType(pbImgProdu.Tag, Integer)
-        If (IsDBNull(TablaImagenes)) Then
-            Return
-
-        End If
-        If (pos >= 0 And TablaImagenes.Rows.Count > 0) Then
-            TablaImagenes.Rows(pos).Item("estado") = -1
-            _prCargarImagen()
-        End If
-    End Sub
-    Public Sub _prEliminarDirectorio(numi As String)
-
-        '_prGuardarImagenes(RutaGlobal + "\Imagenes\Imagenes RecepcionVehiculo\" + "Recepcion_" + tbNumeroOrden.Text.Trim + "\")
-        If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Productos\ProductosTodos")) Then
-
-            Try
-                My.Computer.FileSystem.DeleteDirectory(RutaGlobal + "\Imagenes\Imagenes Productos\ProductosTodos", FileIO.UIOption.AllDialogs, FileIO.RecycleOption.SendToRecycleBin)
-            Catch ex As Exception
-
-            End Try
-
-
-        End If
-
-
-    End Sub
 
     Private Sub Panel1_MouseHover(sender As Object, e As EventArgs) Handles btnSi.MouseHover
         btnSi.BackColor = Color.FromArgb(30, 199, 165)

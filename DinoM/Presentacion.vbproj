@@ -332,6 +332,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Font\Custom.vb" />
+    <Compile Include="Inventarios\Tec_Movimientos.Designer.vb">
+      <DependentUpon>Tec_Movimientos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Inventarios\Tec_Movimientos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Inventarios\Tec_Sucursales.Designer.vb">
       <DependentUpon>Tec_Sucursales.vb</DependentUpon>
     </Compile>
@@ -813,6 +819,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F1_Dosificacion.resx">
       <DependentUpon>F1_Dosificacion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventarios\Tec_Movimientos.resx">
+      <DependentUpon>Tec_Movimientos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\Tec_Sucursales.resx">
       <DependentUpon>Tec_Sucursales.vb</DependentUpon>
