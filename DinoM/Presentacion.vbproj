@@ -265,12 +265,6 @@
     <Compile Include="F0_Libreria.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="F0_Precios.Designer.vb">
-      <DependentUpon>F0_Precios.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F0_Precios.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="F0_Compra.Designer.vb">
       <DependentUpon>F0_Compra.vb</DependentUpon>
     </Compile>
@@ -281,12 +275,6 @@
       <DependentUpon>F0_Factura.vb</DependentUpon>
     </Compile>
     <Compile Include="F0_Factura.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F0_Roles.Designer.vb">
-      <DependentUpon>F0_Roles.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F0_Roles.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="F0_RotacionProductos.Designer.vb">
@@ -787,17 +775,11 @@
     <EmbeddedResource Include="F0_Libreria.resx">
       <DependentUpon>F0_Libreria.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="F0_Precios.resx">
-      <DependentUpon>F0_Precios.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="F0_Compra.resx">
       <DependentUpon>F0_Compra.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F0_Factura.resx">
       <DependentUpon>F0_Factura.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F0_Roles.resx">
-      <DependentUpon>F0_Roles.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F0_RotacionProductos.resx">
       <DependentUpon>F0_RotacionProductos.vb</DependentUpon>
@@ -1343,6 +1325,7 @@
     <None Include="Resources\trash.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\rowdelete.png" />
     <None Include="Resources\pasivo.png" />
     <None Include="Resources\pointcliente.png" />
     <None Include="Resources\puntofinal.png" />

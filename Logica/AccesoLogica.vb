@@ -3407,6 +3407,46 @@ Public Class AccesoLogica
 
         Return _resultado
     End Function
+
+    Public Shared Function L_prListarDetalleMovimiento(MovimientoId As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@id", MovimientoId))
+        _Tabla = D_ProcedimientoConParam("MAM_Movimientos", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prListarProductosLote(_deposito As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 7))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@DepositoId", _deposito))
+        _Tabla = D_ProcedimientoConParam("MAM_Movimientos", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function LotesPorProducto(_almacen As Integer, _codproducto As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 8))
+        _listParam.Add(New Datos.DParametro("@DepositoId", _almacen))
+        _listParam.Add(New Datos.DParametro("@ProductoId", _codproducto))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_Movimientos", _listParam)
+
+        Return _Tabla
+    End Function
 #End Region
 
 #Region "Producto TecBrinc"
@@ -3666,6 +3706,9 @@ Public Class AccesoLogica
 
 #End Region
 
+
+
+
 #Region "Usuarios TecBrinc"
     Public Shared Function L_prUsuarioGeneral() As DataTable
         Dim _Tabla As DataTable
@@ -3723,6 +3766,19 @@ Public Class AccesoLogica
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Movimientos", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prLeerConfiguracion() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 6))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("MAM_Movimientos", _listParam)
