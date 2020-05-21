@@ -16,6 +16,11 @@ Public Class Efecto
     Public SeleclCol As Integer = -1
     Public titulo As String
     Public descripcion As String
+    Public NombreProducto As String
+    Public StockActual As Double
+    Public CantidadTransaccion As Double
+    Public TipoMovimiento As Integer
+
 
 
 
@@ -34,6 +39,8 @@ Public Class Efecto
                 _prMostrarFormAyuda()
             Case 4
                 _prLogin()
+            Case 5
+                _prMostrarFormularioCantidad()
         End Select
     End Sub
     Public Sub _prLogin()
@@ -100,6 +107,24 @@ Public Class Efecto
             band = False
             Me.Close()
 
+        End If
+    End Sub
+
+    Sub _prMostrarFormularioCantidad()
+        Dim frmAyuda As FormularioCantidadProductos
+        frmAyuda = New FormularioCantidadProductos
+        frmAyuda.NombreProducto = NombreProducto
+        frmAyuda.CantidadTotal = StockActual
+        frmAyuda.TipoMovimiento = TipoMovimiento
+        frmAyuda.ShowDialog()
+        If frmAyuda.respuesta = True Then
+
+            CantidadTransaccion = frmAyuda.CantidadVenta
+            band = True
+            Me.Close()
+        Else
+            band = False
+            Me.Close()
         End If
     End Sub
 End Class

@@ -717,10 +717,10 @@ Public Class Tec_Movimientos
         Dim pos As Integer = -1
         grDetalle.Row = grDetalle.RowCount - 1
         _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"))
-        grProducto.Row = 0
-        Dim existe As Boolean = _fnExisteProducto(grProducto.GetValue("ProductoId"))
+
+        Dim existe As Boolean = _fnExisteProducto(grProducto.GetValue("Id"))
         If ((pos >= 0) And (Not existe)) Then
-            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = grProducto.GetValue("ProductoId")
+            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = grProducto.GetValue("Id")
             CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = grProducto.GetValue("NombreProducto")
             CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("stock")
             CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
@@ -759,7 +759,7 @@ Public Class Tec_Movimientos
 
 
         If (grProducto.GetValue("stock") > 0) Then
-            _prCargarLotesDeProductos(grProducto.GetValue("ProductoId"), grProducto.GetValue("Producto"))
+            _prCargarLotesDeProductos(grProducto.GetValue("Id"), grProducto.GetValue("NombreProducto"))
         Else
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
             ToastNotification.Show(Me, "El Producto: ".ToUpper + grProducto.GetValue("NombreProducto") + " NO CUENTA CON STOCK DISPONIBLE", img, 5000, eToastGlowColor.Red, eToastPosition.BottomCenter)
@@ -868,7 +868,21 @@ salirIf:
                     If (Lote = True) Then
                         If (cbTipoMovimiento.Value = 4) Then ''' Aqui pregunto si es con lote y tambien si es una 
                             ''entrada debe solo insertar solo el producto y no seguir con los lotes 
-                            InsertarProductosSinLote()
+                            Dim ef = New Efecto
+
+
+                            ef.tipo = 5
+                            ef.NombreProducto = grProducto.GetValue("NombreProducto")
+                            ef.StockActual = grProducto.GetValue("stock")
+                            ef.TipoMovimiento = cbTipoMovimiento.Value
+                            ef.ShowDialog()
+                            Dim bandera As Boolean = False
+                            bandera = ef.band
+                            If (bandera = True) Then
+                                InsertarProductosSinLote(ef.CantidadTransaccion)
+
+                            End If
+
 
                         Else
                             InsertarProductosConLote()
@@ -876,18 +890,25 @@ salirIf:
 
                     Else
 
-                        InsertarProductosSinLote()
+                        Dim ef = New Efecto
+
+
+                        ef.tipo = 5
+                        ef.NombreProducto = grProducto.GetValue("NombreProducto")
+                        ef.StockActual = grProducto.GetValue("stock")
+                        ef.TipoMovimiento = cbTipoMovimiento.Value
+                        ef.ShowDialog()
+                        Dim bandera As Boolean = False
+                        bandera = ef.band
+                        If (bandera = True) Then
+                            InsertarProductosSinLote(ef.CantidadTransaccion)
+
+                        End If
                     End If
                     '''''''''''''''
                 Else
 
-                    '      a.Id ,a.icibid ,a.iccprod ,b.yfcdprod1  as producto,a.Cantidad ,
-                    'a.iclot ,a.icfvenc ,Cast(null as image ) as img,1 as estado,
-                    '(Sum(inv.iccven )+a.Cantidad  ) as stock
 
-                    'a.yfnumi  ,a.yfcdprod1  ,a.yfcdprod2,Sum(b.iccven ) as stock 
-                    '_fnExisteProductoConLote()
-                    'b.yfcdprod1 ,a.iclot ,a.icfven  ,Sum(a.iccven)as stock 
                     Dim pos As Integer = -1
                     grDetalle.Row = grDetalle.RowCount - 1
                     _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"))
@@ -895,10 +916,26 @@ salirIf:
                     Dim lote As String = grProducto.GetValue("Lote")
                     Dim FechaVenc As Date = grProducto.GetValue("FechaVencimiento")
                     If (Not _fnExisteProductoConLote(numiProd, lote, FechaVenc)) Then
+                        Dim ef = New Efecto
+
+
+                        ef.tipo = 5
+                        ef.titulo = grProducto.GetValue("NombreProducto")
+                        ef.descripcion = grProducto.GetValue("stock")
+                        ef.TipoMovimiento = cbTipoMovimiento.Value
+                        ef.ShowDialog()
+                        Dim bandera As Boolean = False
+                        bandera = ef.band
+                        Dim CantidadVenta As Double = 0
+                        If (bandera = True) Then
+                            CantidadVenta = ef.CantidadTransaccion
+
+                        End If
+
                         'b.yfcdprod1, a.iclot, a.icfven, a.iccven
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = FilaSelectLote.Item("Id")
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = FilaSelectLote.Item("NombreProducto")
-                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = CantidadVenta
 
 
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("stock")
@@ -1404,6 +1441,12 @@ salirIf:
     End Sub
 
     Private Sub tbNombreProducto_KeyDown(sender As Object, e As KeyEventArgs) Handles tbNombreProducto.KeyDown
+        If grProducto.RowCount < 0 Then
+            Return
+
+        End If
+        grProducto.Row = 0
+
         If (e.KeyData = Keys.Enter) Then
 
             If (Not _fnAccesible()) Then
@@ -1420,7 +1463,20 @@ salirIf:
                         If (Lote = True) Then
                             If (cbTipoMovimiento.Value = 4) Then ''' Aqui pregunto si es con lote y tambien si es una 
                                 ''entrada debe solo insertar solo el producto y no seguir con los lotes 
-                                InsertarProductosSinLote()
+                                Dim ef = New Efecto
+
+
+                                ef.tipo = 5
+                                ef.NombreProducto = grProducto.GetValue("NombreProducto")
+                                ef.StockActual = grProducto.GetValue("stock")
+                                ef.TipoMovimiento = cbTipoMovimiento.Value
+                                ef.ShowDialog()
+                                Dim bandera As Boolean = False
+                                bandera = ef.band
+                                If (bandera = True) Then
+                                    InsertarProductosSinLote(ef.CantidadTransaccion)
+
+                                End If
 
                             Else
                                 InsertarProductosConLote()
@@ -1428,7 +1484,20 @@ salirIf:
 
                         Else
 
-                            InsertarProductosSinLote()
+                            Dim ef = New Efecto
+
+
+                            ef.tipo = 5
+                            ef.NombreProducto = grProducto.GetValue("NombreProducto")
+                            ef.StockActual = grProducto.GetValue("stock")
+                            ef.TipoMovimiento = cbTipoMovimiento.Value
+                            ef.ShowDialog()
+                            Dim bandera As Boolean = False
+                            bandera = ef.band
+                            If (bandera = True) Then
+                                InsertarProductosSinLote(ef.CantidadTransaccion)
+
+                            End If
                         End If
                         '''''''''''''''
 

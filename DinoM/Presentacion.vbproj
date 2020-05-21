@@ -332,6 +332,12 @@
     <Compile Include="Inventarios\Tec_Sucursales.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modulo Configuracion\FormularioCantidadProductos.Designer.vb">
+      <DependentUpon>FormularioCantidadProductos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo Configuracion\FormularioCantidadProductos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Modulo Configuracion\Formulario_Eliminar.Designer.vb">
       <DependentUpon>Formulario_Eliminar.vb</DependentUpon>
     </Compile>
@@ -807,6 +813,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\Tec_Sucursales.resx">
       <DependentUpon>Tec_Sucursales.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo Configuracion\FormularioCantidadProductos.resx">
+      <DependentUpon>FormularioCantidadProductos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo Configuracion\Formulario_Eliminar.resx">
       <DependentUpon>Formulario_Eliminar.vb</DependentUpon>
