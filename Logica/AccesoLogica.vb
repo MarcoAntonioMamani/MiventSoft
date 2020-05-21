@@ -3396,7 +3396,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@Id", _numi))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
-        _Tabla = D_ProcedimientoConParam("sp", _listParam)
+        _Tabla = D_ProcedimientoConParam(sp, _listParam)
 
         If _Tabla.Rows.Count > 0 Then
             _resultado = True

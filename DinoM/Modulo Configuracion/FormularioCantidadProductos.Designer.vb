@@ -160,6 +160,7 @@ Partial Class FormularioCantidadProductos
         Me.Controls.Add(Me.txtTitulo)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "FormularioCantidadProductos"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FormularioCantidadProductos"
         Me.btnNo.ResumeLayout(False)
         Me.btnNo.PerformLayout()

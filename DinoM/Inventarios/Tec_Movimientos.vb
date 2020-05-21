@@ -102,6 +102,20 @@ Public Class Tec_Movimientos
     Private Sub _PMHabilitar()
         JGrM_Buscador.Enabled = False
         _PMOHabilitar()
+        tbNombreProducto.Focus()
+    End Sub
+
+    Public Sub ActualizarProductos()
+
+        For i As Integer = 0 To CType(grDetalle.DataSource, DataTable).Rows.Count - 1 Step 1
+            If (CType(grDetalle.DataSource, DataTable).Rows(i).Item("estado") >= 0) Then
+                CambiarEstado(CType(grDetalle.DataSource, DataTable).Rows(i).Item("ProductoId"), 0)
+
+            End If
+
+
+        Next
+
     End Sub
     Public Sub _PMFiltrar()
         'cargo el buscador
@@ -237,7 +251,7 @@ Public Class Tec_Movimientos
 
     Private Sub _prIniciarTodo()
 
-
+        LeerConfiguracion()
 
         'L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
         Me.Text = "Gestion De Movimientos"
@@ -251,7 +265,7 @@ Public Class Tec_Movimientos
         Dim blah As New Bitmap(New Bitmap(My.Resources.ic_c), 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         Me.Icon = ico
-        LeerConfiguracion()
+
 
 
     End Sub
@@ -300,7 +314,7 @@ Public Class Tec_Movimientos
 
         End With
         With grDetalle.RootTable.Columns("ProductoId")
-            .Width = 90
+            .Width = 50
             .Visible = True
             .Caption = "Cod Producto"
         End With
@@ -311,14 +325,14 @@ Public Class Tec_Movimientos
 
 
         With grDetalle.RootTable.Columns("Producto")
-            .Width = 130
+            .Width = 150
             .Caption = "Producto"
             .Visible = True
         End With
 
 
         With grDetalle.RootTable.Columns("Cantidad")
-            .Width = 160
+            .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0"
@@ -338,13 +352,13 @@ Public Class Tec_Movimientos
         End With
         If (Lote = True) Then
             With grDetalle.RootTable.Columns("Lote")
-                .Width = 120
+                .Width = 100
                 .Caption = "lote".ToUpper
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
                 .Visible = True
             End With
             With grDetalle.RootTable.Columns("FechaVencimiento")
-                .Width = 120
+                .Width = 100
                 .Caption = "FECHA VENC.".ToUpper
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
                 .FormatString = "yyyy/MM/dd"
@@ -389,8 +403,8 @@ Public Class Tec_Movimientos
         For i As Integer = 0 To n - 1 Step 1
 
             Dim Bin As New MemoryStream
-                Dim img As New Bitmap(My.Resources.rowdelete, 110, 30)
-                img.Save(Bin, Imaging.ImageFormat.Png)
+            Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
+            img.Save(Bin, Imaging.ImageFormat.Png)
                 CType(grDetalle.DataSource, DataTable).Rows(i).Item("img") = Bin.GetBuffer
 
 
@@ -405,7 +419,7 @@ Public Class Tec_Movimientos
         Dim _dtDetalle As DataTable = CType(grDetalle.DataSource, DataTable)
         For i As Integer = 0 To dt.Rows.Count - 1 Step 1
             Dim sum As Integer = 0
-            Dim codProducto As Integer = dt.Rows(i).Item("ProductoId")
+            Dim codProducto As Integer = dt.Rows(i).Item("Id")
             For j As Integer = 0 To _dtDetalle.Rows.Count - 1 Step 1
 
                 Dim estado As Integer = _dtDetalle.Rows(j).Item("estado")
@@ -423,7 +437,7 @@ Public Class Tec_Movimientos
         Dim dt As New DataTable
 
 
-        If (Lote = True And cbTipoMovimiento.Value = 2) Then '' es Salida Productos
+        If (Lote = True And cbTipoMovimiento.Value = 3) Then '' es Salida Productos
             dt = L_prListarProductosLote(cbDepositos.Value)  ''1=Almacen
             actualizarSaldoSinLote(dt)
         Else
@@ -444,6 +458,12 @@ Public Class Tec_Movimientos
         With grProducto.RootTable.Columns("CodigoExterno")
             .Width = 100
             .Caption = "CODIGOP"
+            .Visible = False
+
+        End With
+
+        With grProducto.RootTable.Columns("estado")
+            .Width = 100
             .Visible = False
 
         End With
@@ -579,11 +599,15 @@ Public Class Tec_Movimientos
         grProducto.RootTable.FormatConditions.Add(fc)
 
         Dim fc2 As GridEXFormatCondition
-        fc2 = New GridEXFormatCondition(grProducto.RootTable.Columns("icfven"), ConditionOperator.LessThanOrEqualTo, Now.Date)
+        fc2 = New GridEXFormatCondition(grProducto.RootTable.Columns("FechaVencimiento"), ConditionOperator.LessThanOrEqualTo, Now.Date)
         fc2.FormatStyle.BackColor = Color.Red
         fc2.FormatStyle.FontBold = TriState.True
         fc2.FormatStyle.ForeColor = Color.White
         grProducto.RootTable.FormatConditions.Add(fc2)
+
+        grProducto.Select()
+        grProducto.Col = 1
+        grProducto.Row = grProducto.RowCount - 1
     End Sub
 
     Private Sub _prAddDetalleVenta()
@@ -620,6 +644,7 @@ Public Class Tec_Movimientos
     End Sub
     Private Sub _DesHabilitarProductos()
 
+        tbNombreProducto.Clear()
 
         grDetalle.Select()
         grDetalle.Col = 4
@@ -653,11 +678,13 @@ Public Class Tec_Movimientos
 
     Public Sub _prEliminarFila()
         If (grDetalle.Row >= 0) Then
-            If (grDetalle.RowCount >= 2) Then
+            If (grDetalle.RowCount >= 1) Then
                 Dim estado As Integer = grDetalle.GetValue("estado")
                 Dim pos As Integer = -1
                 Dim lin As Integer = grDetalle.GetValue("Id")
                 _fnObtenerFilaDetalle(pos, lin)
+
+                CambiarEstado(grDetalle.GetValue("ProductoId"), 1)
                 If (estado = 0) Then
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = -2
 
@@ -665,11 +692,10 @@ Public Class Tec_Movimientos
                 If (estado = 1) Then
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = -1
                 End If
+
                 grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
 
-                grDetalle.Select()
-                grDetalle.Col = 4
-                grDetalle.Row = grDetalle.RowCount - 1
+
             End If
         End If
 
@@ -711,27 +737,52 @@ Public Class Tec_Movimientos
         Return True
     End Function
 
+    Public Sub CambiarEstado(ProductoId As Integer, Estado As Integer)
+
+        For i As Integer = 0 To CType(grProducto.DataSource, DataTable).Rows.Count - 1 Step 1
+            If (CType(grProducto.DataSource, DataTable).Rows(i).Item("Id") = ProductoId) Then
+                CType(grProducto.DataSource, DataTable).Rows(i).Item("estado") = Estado
+            End If
+
+        Next
+        grProducto.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grProducto.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.Equal, 1))
+    End Sub
+
+
     Public Sub InsertarProductosSinLote(cantidad As Double)
         'a.id , a.MovimientoId, a.ProductoId, b.NombreProducto  As Producto, a.Cantidad,
         '    a.Lote, a.FechaVencimiento, CAST('' as image ) as img, 1 as estado ,Sum(stock .Cantidad )as stock
         Dim pos As Integer = -1
-        grDetalle.Row = grDetalle.RowCount - 1
-        _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"))
+        If (grDetalle.Row < 0) Then
+            _prAddDetalleVenta()
+        End If
+
+
 
         Dim existe As Boolean = _fnExisteProducto(grProducto.GetValue("Id"))
-        If ((pos >= 0) And (Not existe)) Then
-            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = grProducto.GetValue("Id")
-            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = grProducto.GetValue("NombreProducto")
-            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("stock")
-            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
+        If ((Not existe)) Then
+            If (grDetalle.GetValue("ProductoId") > 0) Then
+                _prAddDetalleVenta()
+            End If
+            grDetalle.Row = grDetalle.RowCount - 1
+            _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"))
+            If ((pos >= 0)) Then
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = grProducto.GetValue("Id")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = grProducto.GetValue("NombreProducto")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("stock")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
 
-            ''    _DesHabilitarProductos()
+                ''    _DesHabilitarProductos()
 
-            _prAddDetalleVenta()
 
-            _prCargarProductos()
-            'grproducto.RemoveFilters()
-            tbNombreProducto.Focus()
+                CambiarEstado(grProducto.GetValue("Id"), 0)
+                'grproducto.RemoveFilters()
+                tbNombreProducto.Clear()
+                tbNombreProducto.Focus()
+            End If
+
+
+
 
         Else
             If (existe) Then
@@ -745,6 +796,10 @@ Public Class Tec_Movimientos
     End Sub
 
     Public Sub InsertarProductosConLote()
+
+        If (grDetalle.Row < 0) Then
+            _prAddDetalleVenta()
+        End If
 
         '      a.Id ,a.icibid ,a.iccprod ,b.yfcdprod1  as producto,a.Cantidad ,
         'a.iclot ,a.icfvenc ,Cast(null as image ) as img,1 as estado,
@@ -816,7 +871,7 @@ Public Class Tec_Movimientos
 
             If (grDetalle.Col = grDetalle.RootTable.Columns("Cantidad").Index) Then
                 If (grDetalle.GetValue("Producto") <> String.Empty) Then
-                    _prAddDetalleVenta()
+
                     tbNombreProducto.Focus()
                 Else
                     ToastNotification.Show(Me, "Seleccione Producto", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
@@ -825,7 +880,7 @@ Public Class Tec_Movimientos
             End If
             If (grDetalle.Col = grDetalle.RootTable.Columns("Producto").Index) Then
                 If (grDetalle.GetValue("Producto") <> String.Empty) Then
-                    _prAddDetalleVenta()
+
                     tbNombreProducto.Focus()
                 Else
                     ToastNotification.Show(Me, "Seleccione un Producto", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
@@ -909,10 +964,8 @@ salirIf:
                 Else
 
 
-                    Dim pos As Integer = -1
-                    grDetalle.Row = grDetalle.RowCount - 1
-                    _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"))
-                    Dim numiProd As Integer = FilaSelectLote.Item("ProductoId")
+
+                    Dim numiProd As Integer = FilaSelectLote.Item("Id")
                     Dim lote As String = grProducto.GetValue("Lote")
                     Dim FechaVenc As Date = grProducto.GetValue("FechaVencimiento")
                     If (Not _fnExisteProductoConLote(numiProd, lote, FechaVenc)) Then
@@ -920,8 +973,8 @@ salirIf:
 
 
                         ef.tipo = 5
-                        ef.titulo = grProducto.GetValue("NombreProducto")
-                        ef.descripcion = grProducto.GetValue("stock")
+                        ef.NombreProducto = grProducto.GetValue("NombreProducto")
+                        ef.StockActual = grProducto.GetValue("stock")
                         ef.TipoMovimiento = cbTipoMovimiento.Value
                         ef.ShowDialog()
                         Dim bandera As Boolean = False
@@ -930,22 +983,34 @@ salirIf:
                         If (bandera = True) Then
                             CantidadVenta = ef.CantidadTransaccion
 
+                            If (grDetalle.GetValue("ProductoId") > 0) Then
+                                _prAddDetalleVenta()
+                            End If
+                            Dim pos As Integer = -1
+                            grDetalle.Row = grDetalle.RowCount - 1
+                            _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"))
+                            'b.yfcdprod1, a.iclot, a.icfven, a.iccven
+                            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = FilaSelectLote.Item("Id")
+                            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = FilaSelectLote.Item("NombreProducto")
+                            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = CantidadVenta
+
+
+                            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("stock")
+
+                            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Lote") = grProducto.GetValue("Lote")
+                            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("FechaVencimiento") = grProducto.GetValue("FechaVencimiento")
+
+
+                            FilaSelectLote = Nothing
+                            _DesHabilitarProductos()
+                            tbNombreProducto.Focus()
+                            _prCargarProductos()
+
+
                         End If
 
-                        'b.yfcdprod1, a.iclot, a.icfven, a.iccven
-                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = FilaSelectLote.Item("Id")
-                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = FilaSelectLote.Item("NombreProducto")
-                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = CantidadVenta
 
 
-                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("stock")
-
-                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Lote") = grProducto.GetValue("Lote")
-                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("FechaVencimiento") = grProducto.GetValue("FechaVencimiento")
-
-
-                        FilaSelectLote = Nothing
-                        _DesHabilitarProductos()
 
                     Else
                         Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
@@ -1046,7 +1111,7 @@ salirIf:
             Return
         End If
 
-        If (grDetalle.RowCount >= 2) Then
+        If (grDetalle.RowCount >= 1) Then
             If (grDetalle.CurrentColumn.Index = grDetalle.RootTable.Columns("img").Index) Then
                 _prEliminarFila()
             End If
@@ -1070,7 +1135,7 @@ salirIf:
         If (_fnAccesible() And tbCodigo.Text = String.Empty And Not IsNothing(grDetalle.DataSource)) Then
 
             CType(grDetalle.DataSource, DataTable).Rows.Clear()
-            _prAddDetalleVenta()
+
 
         End If
 
@@ -1267,7 +1332,23 @@ salirIf:
 
         MHighlighterFocus.UpdateHighlights()
 
+        If (grDetalle.RowCount <= 0) Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Por Favor Inserte un Detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            grDetalle.Focus()
 
+            Return False
+
+        End If
+        If (grDetalle.RowCount = 1) Then
+            If (CType(grDetalle.DataSource, DataTable).Rows(0).Item("iccprod") = 0) Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "Por Favor Inserte un Detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                grDetalle.Focus()
+
+                Return False
+            End If
+        End If
 
         If (cbTipoMovimiento.SelectedIndex < 0) Then
             ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
@@ -1307,8 +1388,8 @@ salirIf:
         listEstCeldas.Add(New Modelo.Celda("obs", True, " Descripcion Movimiento", 250))
 
         listEstCeldas.Add(New Modelo.Celda("est", False, "Estado", 70))
-        listEstCeldas.Add(New Modelo.Celda("alm", True, "Estado", 150))
-
+        listEstCeldas.Add(New Modelo.Celda("alm", False, "Estado", 150))
+        listEstCeldas.Add(New Modelo.Celda("NombreDeposito", True, "Deposito", 150))
 
         Return listEstCeldas
     End Function
@@ -1325,14 +1406,14 @@ salirIf:
 
         With JGrM_Buscador
             tbCodigo.Text = .GetValue("Id").ToString
-            tbFechaTransaccion.Value = .GetValue("FechaDocumento")
+            tbFechaTransaccion.Value = .GetValue("fdoc")
             cbTipoMovimiento.Value = .GetValue("concep")
             tbDescripcion.Text = .GetValue("obs").ToString
             cbDepositos.Value = .GetValue("alm")
 
 
         End With
-
+        _prCargarDetalleVenta(tbCodigo.Text)
         LblPaginacion.Text = Str(_MPos + 1) + "/" + JGrM_Buscador.RowCount.ToString
 
     End Sub
@@ -1358,7 +1439,7 @@ salirIf:
 
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
         _PMModificar()
-
+        ActualizarProductos()
     End Sub
 
     Private Sub btnGrabar_Click(sender As Object, e As EventArgs) Handles btnGrabar.Click
@@ -1435,18 +1516,27 @@ salirIf:
     Private Sub tbNombreProducto_TextChanged(sender As Object, e As EventArgs) Handles tbNombreProducto.TextChanged
         If (tbNombreProducto.Text = String.Empty) Then
             grProducto.RootTable.RemoveFilter()
+            grProducto.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grProducto.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.Equal, 1))
+
+
+
+
         Else
-            grProducto.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grProducto.RootTable.Columns("NombreProducto"), Janus.Windows.GridEX.ConditionOperator.Contains, tbNombreProducto.Text))
+            'grProducto.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grProducto.RootTable.Columns("NombreProducto"), Janus.Windows.GridEX.ConditionOperator.Contains, tbNombreProducto.Text))
+            Dim Filter As GridEXFilterCondition
+            Filter = New GridEXFilterCondition(grProducto.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.Equal, 1)
+            Filter.AddCondition(LogicalOperator.And, New GridEXFilterCondition(grProducto.RootTable.Columns("NombreProducto"), Janus.Windows.GridEX.ConditionOperator.Contains, tbNombreProducto.Text))
+            grProducto.RootTable.FilterCondition = Filter
         End If
     End Sub
 
     Private Sub tbNombreProducto_KeyDown(sender As Object, e As KeyEventArgs) Handles tbNombreProducto.KeyDown
-        If grProducto.RowCount < 0 Then
+        If grProducto.RowCount <= 0 Then
             Return
 
         End If
-        grProducto.Row = 0
 
+        grProducto.Row = 0
         If (e.KeyData = Keys.Enter) Then
 
             If (Not _fnAccesible()) Then
