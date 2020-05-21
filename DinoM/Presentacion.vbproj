@@ -500,6 +500,12 @@
     <Compile Include="Pr_VentasAtendidas.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ReporteSmartApps\R_ReporteSaldoFamilia.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_ReporteSaldoFamilia.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reporte\R_SaldosPorLinea.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -903,6 +909,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pr_VentasAtendidas.resx">
       <DependentUpon>Pr_VentasAtendidas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\R_ReporteSaldoFamilia.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_ReporteSaldoFamilia.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reporte\R_SaldosPorLinea.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

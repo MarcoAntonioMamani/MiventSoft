@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Reporte_SaldoProductos
+Partial Class Rep_SaldosProductosvb
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
@@ -24,13 +24,13 @@ Partial Class Reporte_SaldoProductos
     Private Sub InitializeComponent()
         Me.SuspendLayout()
         '
-        'Reporte_SaldoProductos
+        'Rep_SaldosProductosvb
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(727, 663)
-        Me.Name = "Reporte_SaldoProductos"
-        Me.Text = "Reporte_SaldoProductos"
+        Me.ClientSize = New System.Drawing.Size(911, 606)
+        Me.Name = "Rep_SaldosProductosvb"
+        Me.Text = "Rep_SaldosProductosvb"
         Me.ResumeLayout(False)
 
     End Sub
