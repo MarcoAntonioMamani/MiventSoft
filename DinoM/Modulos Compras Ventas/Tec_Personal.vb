@@ -1,12 +1,12 @@
-﻿Imports Logica.AccesoLogica
+﻿
+Imports Logica.AccesoLogica
 Imports DevComponents.DotNetBar
 Imports Janus.Windows.GridEX
 Imports System.IO
 Imports DevComponents.DotNetBar.SuperGrid
 Imports DevComponents.DotNetBar.Controls
+Public Class Tec_Personal
 
-
-Public Class Frm_Proveedor
 #Region "Atributos"
 
 
@@ -257,9 +257,10 @@ Public Class Frm_Proveedor
     Private Sub _prIniciarTodo()
         'L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
 
-        Me.Text = "Gestion De Proveedores"
+        Me.Text = "Gestion De Personal"
         P_Global._prCargarComboGenerico(cbTipoDocumento, L_prLibreriaDetalleGeneral(8), "cnnum", "Codigo", "cndesc1", "TipoDocumento")
-
+        P_Global._prCargarComboGenerico(cbEmpresa, L_prListaEmpresasUsuarios(), "Id", "Codigo", "Nombre", "Empresa")
+        P_Global._prCargarComboGenerico(cbTipoPersonal, L_prLibreriaDetalleGeneral(9), "cnnum", "Codigo", "cndesc1", "TipoPersonal")
         _PMIniciarTodo()
         _prAsignarPermisos()
 
@@ -314,7 +315,8 @@ Public Class Frm_Proveedor
         tbNombreProveedor.ReadOnly = False
         tbDireccion.ReadOnly = False
         tbTelefono01.ReadOnly = False
-        tbTelefono02.ReadOnly = False
+        cbTipoPersonal.ReadOnly = False
+        cbEmpresa.ReadOnly = False
 
         tbNroDocumento.ReadOnly = False
         cbTipoDocumento.ReadOnly = False
@@ -330,7 +332,8 @@ Public Class Frm_Proveedor
         tbNombreProveedor.ReadOnly = True
         tbDireccion.ReadOnly = True
         tbTelefono01.ReadOnly = True
-        tbTelefono02.ReadOnly = True
+        cbTipoPersonal.ReadOnly = True
+        cbEmpresa.ReadOnly = True
 
         tbNroDocumento.ReadOnly = True
         cbTipoDocumento.ReadOnly = True
@@ -346,11 +349,13 @@ Public Class Frm_Proveedor
         tbCodigo.Text = ""
         tbDireccion.Text = ""
         tbTelefono01.Text = ""
-        tbTelefono02.Text = ""
+
 
 
         swEstado.Value = True
         seleccionarPrimerItemCombo(cbTipoDocumento)
+        seleccionarPrimerItemCombo(cbTipoPersonal)
+        seleccionarPrimerItemCombo(cbEmpresa)
 
     End Sub
     Public Sub seleccionarPrimerItemCombo(cb As EditControls.MultiColumnCombo)
@@ -366,28 +371,32 @@ Public Class Frm_Proveedor
 
         tbNombreProveedor.BackColor = Color.White
         cbTipoDocumento.BackColor = Color.White
+        cbTipoPersonal.BackColor = Color.White
+        cbEmpresa.BackColor = Color.White
 
     End Sub
 
     Public Function _PMOGrabarRegistro() As Boolean
-        '     @Id ,@NombreProveedor ,@DireccionProveedor ,@Telefono01 ,@Telefono02 ,
-        '@Descripcion ,@TipoDocumento ,@NroDocumento ,@estado ,@newFecha ,@newHora ,@usuario
+        '_Id As String, NombrePersonal As String, Direccion As String,
+        '                   Telefono01 As String, TipoDocumento As Integer,
+        '                                     NroDocumento As String, TipoPersonal As Integer,
+        '                                     Estado As Integer, EmpresaId As Integer
         Dim res As Boolean
         Try
-            res = InsertarProveedor(tbCodigo.Text, tbNombreProveedor.Text, tbDireccion.Text, tbTelefono01.Text, tbTelefono02.Text,
-                                    "", cbTipoDocumento.Value, tbNroDocumento.Text, IIf(swEstado.Value = True, 1, 0))
+            res = InsertarPersonal(tbCodigo.Text, tbNombreProveedor.Text, tbDireccion.Text, tbTelefono01.Text,
+                                   cbTipoDocumento.Value, tbNroDocumento.Text, cbTipoPersonal.Value, IIf(swEstado.Value = True, 1, 0), cbEmpresa.Value)
 
             If res Then
 
 
-                ToastNotification.Show(Me, "Codigo de Proveedor ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Codigo de Personal ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
 
             Else
-                ToastNotification.Show(Me, "Error al guardar el Proveedor".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Error al guardar el Personal".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End If
         Catch ex As Exception
-            ToastNotification.Show(Me, "Error al guardar el Proveedor".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, "Error al guardar el Personal".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
         End Try
 
@@ -398,18 +407,18 @@ Public Class Frm_Proveedor
     Public Function _PMOModificarRegistro() As Boolean
         Dim Res As Boolean
         Try
-            Res = ModificarProveedor(tbCodigo.Text, tbNombreProveedor.Text, tbDireccion.Text, tbTelefono01.Text, tbTelefono02.Text,
-                                    "", cbTipoDocumento.Value, tbNroDocumento.Text, IIf(swEstado.Value = True, 1, 0))
+            Res = ModificarPersonal(tbCodigo.Text, tbNombreProveedor.Text, tbDireccion.Text, tbTelefono01.Text,
+                                   cbTipoDocumento.Value, tbNroDocumento.Text, cbTipoPersonal.Value, IIf(swEstado.Value = True, 1, 0), cbEmpresa.Value)
             If Res Then
 
-                ToastNotification.Show(Me, "Codigo de Proveedor ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Codigo de Personal ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                 _PSalirRegistro()
             Else
-                ToastNotification.Show(Me, "Error al guardar el Proveedor".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Error al guardar el Personal".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End If
         Catch ex As Exception
-            ToastNotification.Show(Me, "Error al modificar Proveedor".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, "Error al modificar Personal".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
         End Try
 
@@ -428,7 +437,7 @@ Public Class Frm_Proveedor
 
         ef.tipo = 3
         ef.titulo = "Confirmación de Eliminación"
-        ef.descripcion = "¿Esta Seguro de Eliminar el Proveedor " + tbNombreProveedor.Text + " ?"
+        ef.descripcion = "¿Esta Seguro de Eliminar el Personal " + tbNombreProveedor.Text + " ?"
         ef.ShowDialog()
         Dim bandera As Boolean = False
         bandera = ef.band
@@ -436,16 +445,16 @@ Public Class Frm_Proveedor
             Dim mensajeError As String = ""
             Dim res As Boolean
             Try
-                res = L_prBorrarRegistro(tbCodigo.Text, mensajeError, "MAM_Proveedores")
+                res = L_prBorrarRegistro(tbCodigo.Text, mensajeError, "MAM_Personal")
                 If res Then
 
-                    ToastNotification.Show(Me, "Codigo de Proveedor ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                    ToastNotification.Show(Me, "Codigo de Personal ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                     _PMFiltrar()
                 Else
                     ToastNotification.Show(Me, mensajeError, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
                 End If
             Catch ex As Exception
-                ToastNotification.Show(Me, "Error al eliminar el Proveedor".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Error al eliminar el Personal".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End Try
 
@@ -460,14 +469,41 @@ Public Class Frm_Proveedor
 
         If tbNombreProveedor.Text = String.Empty Then
             tbNombreProveedor.BackColor = Color.Red
-            MEP.SetError(tbNombreProveedor, "Ingrese Nombre de Proveedor")
-            Mensaje = Mensaje + " Nombre Proveedor"
+            MEP.SetError(tbNombreProveedor, "Ingrese Nombre de Personal")
+            Mensaje = Mensaje + " Nombre Personal"
             _ok = False
         Else
             tbNombreProveedor.BackColor = Color.White
             MEP.SetError(tbNombreProveedor, "")
         End If
+        If (cbEmpresa.SelectedIndex < 0) Then
+            cbEmpresa.BackColor = Color.Red
+            MEP.SetError(cbEmpresa, "Seleccione una Empresa")
+            Mensaje = Mensaje + Chr(13) + Chr(10) + " Empresa"
+            _ok = False
+        Else
+            cbEmpresa.BackColor = Color.White
+            MEP.SetError(cbEmpresa, "")
+        End If
+        If (cbTipoPersonal.SelectedIndex < 0) Then
+            cbTipoPersonal.BackColor = Color.Red
+            MEP.SetError(cbTipoPersonal, "Seleccione un Tipo Personal")
+            Mensaje = Mensaje + Chr(13) + Chr(10) + " Tipo Personal"
+            _ok = False
+        Else
+            cbTipoPersonal.BackColor = Color.White
+            MEP.SetError(cbTipoPersonal, "")
+        End If
 
+        If (cbTipoDocumento.SelectedIndex < 0) Then
+            cbTipoDocumento.BackColor = Color.Red
+            MEP.SetError(cbTipoDocumento, "Seleccione un Tipo Documento")
+            Mensaje = Mensaje + Chr(13) + Chr(10) + " Tipo Documento"
+            _ok = False
+        Else
+            cbTipoDocumento.BackColor = Color.White
+            MEP.SetError(cbTipoDocumento, "")
+        End If
         MHighlighterFocus.UpdateHighlights()
 
         If tbNombreProveedor.Text = String.Empty Then
@@ -475,8 +511,21 @@ Public Class Frm_Proveedor
             ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
             Return _ok
         End If
-
-
+        If (cbEmpresa.SelectedIndex < 0) Then
+            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            cbEmpresa.Focus()
+            Return _ok
+        End If
+        If (cbTipoPersonal.SelectedIndex < 0) Then
+            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            cbTipoPersonal.Focus()
+            Return _ok
+        End If
+        If (cbTipoDocumento.SelectedIndex < 0) Then
+            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            cbTipoDocumento.Focus()
+            Return _ok
+        End If
         Return _ok
     End Function
 
@@ -488,17 +537,17 @@ Public Class Frm_Proveedor
 
     Public Function _PMOGetListEstructuraBuscador() As List(Of Modelo.Celda)
 
-        'p.Id , p.NombreProveedor, p.Direccion, p.Telefono01, p.Telefono02, p.Descripcion, p.TipoDocumento,
-        '    p.NroDocumento, p.Estado, img
+        'p.id , p.NombrePersonal, p.Direccion, p.Telefono01, p.TipoDocumento, p.NroDocumento,
+        '    p.TipoPersonal, p.Estado, p.EmpresaId 
         Dim listEstCeldas As New List(Of Modelo.Celda)
         listEstCeldas.Add(New Modelo.Celda("Id", True, "ID", 40))
 
-        listEstCeldas.Add(New Modelo.Celda("NombreProveedor", True, " NombreProveedor", 200))
+        listEstCeldas.Add(New Modelo.Celda("NombrePersonal", True, " NombrePersonal", 200))
         listEstCeldas.Add(New Modelo.Celda("Direccion", False, " Direccion", 120))
         listEstCeldas.Add(New Modelo.Celda("Telefono01", True, "Telefono01", 90))
-        listEstCeldas.Add(New Modelo.Celda("Telefono02", False))
-        listEstCeldas.Add(New Modelo.Celda("Descripcion", False))
         listEstCeldas.Add(New Modelo.Celda("TipoDocumento", False))
+        listEstCeldas.Add(New Modelo.Celda("TipoPersonal", False))
+        listEstCeldas.Add(New Modelo.Celda("EmpresaId", False))
         listEstCeldas.Add(New Modelo.Celda("NroDocumento", True, "Nro Documento", 90))
         listEstCeldas.Add(New Modelo.Celda("Estado", False))
         listEstCeldas.Add(New Modelo.Celda("img", True, "Estado", 90))
@@ -509,8 +558,8 @@ Public Class Frm_Proveedor
 
     Public Sub _PMOMostrarRegistro(_N As Integer, Optional selected As Boolean = False)
 
-        'p.Id , p.NombreProveedor, p.Direccion, p.Telefono01, p.Telefono02, p.Descripcion, p.TipoDocumento,
-        '    p.NroDocumento, p.Estado, img  
+        'p.id , p.NombrePersonal, p.Direccion, p.Telefono01, p.TipoDocumento, p.NroDocumento,
+        '    p.TipoPersonal, p.Estado, p.EmpresaId 
         If (selected = False) Then
             FilaSeleccionada = True
             JGrM_Buscador.Row = _MPos
@@ -519,14 +568,15 @@ Public Class Frm_Proveedor
 
         With JGrM_Buscador
             tbCodigo.Text = .GetValue("Id").ToString
-            tbNombreProveedor.Text = .GetValue("NombreProveedor").ToString
+            tbNombreProveedor.Text = .GetValue("NombrePersonal").ToString
             tbDireccion.Text = .GetValue("Direccion").ToString
             cbTipoDocumento.Value = .GetValue("TipoDocumento")
 
             tbNroDocumento.Text = .GetValue("NroDocumento")
             tbTelefono01.Text = .GetValue("Telefono01").ToString
-            tbTelefono02.Text = .GetValue("Telefono02").ToString
             swEstado.Value = .GetValue("Estado")
+            cbTipoPersonal.Value = .GetValue("TipoPersonal")
+            cbEmpresa.Value = .GetValue("EmpresaId")
 
         End With
         TablaImagenes = L_prCargarImagenesRecepcion(tbCodigo.Text)
@@ -637,4 +687,5 @@ Public Class Frm_Proveedor
 
 
 #End Region
+
 End Class
