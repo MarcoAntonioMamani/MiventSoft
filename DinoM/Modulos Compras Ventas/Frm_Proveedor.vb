@@ -261,7 +261,7 @@ Public Class Frm_Proveedor
     Private Sub _prIniciarTodo()
         'L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
 
-        Me.Text = "Gestion De Clientes"
+        Me.Text = "Gestion De Proveedores"
         P_Global._prCargarComboGenerico(cbTipoDocumento, L_prLibreriaDetalleGeneral(8), "cnnum", "Codigo", "cndesc1", "TipoDocumento")
 
         _PMIniciarTodo()

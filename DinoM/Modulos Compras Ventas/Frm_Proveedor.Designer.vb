@@ -309,7 +309,7 @@ Partial Class Frm_Proveedor
         Me.tbNroDocumento.Name = "tbNroDocumento"
         Me.tbNroDocumento.PreventEnterBeep = True
         Me.tbNroDocumento.Size = New System.Drawing.Size(133, 29)
-        Me.tbNroDocumento.TabIndex = 220
+        Me.tbNroDocumento.TabIndex = 5
         Me.tbNroDocumento.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'cbTipoDocumento
@@ -325,7 +325,7 @@ Partial Class Frm_Proveedor
         Me.cbTipoDocumento.SelectedIndex = -1
         Me.cbTipoDocumento.SelectedItem = Nothing
         Me.cbTipoDocumento.Size = New System.Drawing.Size(206, 28)
-        Me.cbTipoDocumento.TabIndex = 219
+        Me.cbTipoDocumento.TabIndex = 4
         Me.cbTipoDocumento.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'LabelX7
@@ -376,7 +376,7 @@ Partial Class Frm_Proveedor
         Me.tbTelefono02.Name = "tbTelefono02"
         Me.tbTelefono02.PreventEnterBeep = True
         Me.tbTelefono02.Size = New System.Drawing.Size(206, 29)
-        Me.tbTelefono02.TabIndex = 45
+        Me.tbTelefono02.TabIndex = 3
         '
         'LabelX6
         '
@@ -408,7 +408,7 @@ Partial Class Frm_Proveedor
         Me.tbTelefono01.Name = "tbTelefono01"
         Me.tbTelefono01.PreventEnterBeep = True
         Me.tbTelefono01.Size = New System.Drawing.Size(206, 29)
-        Me.tbTelefono01.TabIndex = 43
+        Me.tbTelefono01.TabIndex = 2
         '
         'tbDireccion
         '
@@ -444,7 +444,7 @@ Partial Class Frm_Proveedor
         Me.swEstado.OnTextColor = System.Drawing.Color.White
         Me.swEstado.Size = New System.Drawing.Size(133, 27)
         Me.swEstado.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.swEstado.TabIndex = 2
+        Me.swEstado.TabIndex = 6
         Me.swEstado.ValueFalse = "0"
         Me.swEstado.ValueObject = "0"
         Me.swEstado.ValueTrue = "1"
@@ -821,6 +821,7 @@ Partial Class Frm_Proveedor
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(865, 596)
         Me.Controls.Add(Me.Panel1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Frm_Proveedor"
         Me.Text = "Frm_Proveedor"
         Me.Panel1.ResumeLayout(False)
