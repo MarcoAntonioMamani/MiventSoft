@@ -285,7 +285,7 @@ Partial Class Tec_Personal
         Me.cbTipoPersonal.SelectedIndex = -1
         Me.cbTipoPersonal.SelectedItem = Nothing
         Me.cbTipoPersonal.Size = New System.Drawing.Size(219, 28)
-        Me.cbTipoPersonal.TabIndex = 226
+        Me.cbTipoPersonal.TabIndex = 6
         Me.cbTipoPersonal.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'LabelX8
@@ -319,7 +319,7 @@ Partial Class Tec_Personal
         Me.cbEmpresa.SelectedIndex = -1
         Me.cbEmpresa.SelectedItem = Nothing
         Me.cbEmpresa.Size = New System.Drawing.Size(219, 28)
-        Me.cbEmpresa.TabIndex = 224
+        Me.cbEmpresa.TabIndex = 5
         Me.cbEmpresa.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'LabelX5
@@ -385,7 +385,7 @@ Partial Class Tec_Personal
         Me.tbNroDocumento.Name = "tbNroDocumento"
         Me.tbNroDocumento.PreventEnterBeep = True
         Me.tbNroDocumento.Size = New System.Drawing.Size(133, 29)
-        Me.tbNroDocumento.TabIndex = 5
+        Me.tbNroDocumento.TabIndex = 4
         Me.tbNroDocumento.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'cbTipoDocumento
@@ -401,7 +401,7 @@ Partial Class Tec_Personal
         Me.cbTipoDocumento.SelectedIndex = -1
         Me.cbTipoDocumento.SelectedItem = Nothing
         Me.cbTipoDocumento.Size = New System.Drawing.Size(206, 28)
-        Me.cbTipoDocumento.TabIndex = 4
+        Me.cbTipoDocumento.TabIndex = 3
         Me.cbTipoDocumento.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'LabelX7
@@ -488,7 +488,7 @@ Partial Class Tec_Personal
         Me.swEstado.OnTextColor = System.Drawing.Color.White
         Me.swEstado.Size = New System.Drawing.Size(133, 27)
         Me.swEstado.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.swEstado.TabIndex = 6
+        Me.swEstado.TabIndex = 7
         Me.swEstado.ValueFalse = "0"
         Me.swEstado.ValueObject = "0"
         Me.swEstado.ValueTrue = "1"
@@ -865,6 +865,7 @@ Partial Class Tec_Personal
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1212, 625)
         Me.Controls.Add(Me.Panel1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Tec_Personal"
         Me.Text = "Tec_Personal"
         Me.Panel1.ResumeLayout(False)
