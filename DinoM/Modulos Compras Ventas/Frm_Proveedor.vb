@@ -96,12 +96,12 @@ Public Class Frm_Proveedor
                 Dim Bin As New MemoryStream
                 Dim img As New Bitmap(My.Resources.activo, 110, 30)
                 img.Save(Bin, Imaging.ImageFormat.Png)
-                CType(JGrM_Buscador.DataSource, DataTable).Rows(i).Item("imgEstado") = Bin.GetBuffer
+                CType(JGrM_Buscador.DataSource, DataTable).Rows(i).Item("img") = Bin.GetBuffer
             Else
                 Dim Bin As New MemoryStream
                 Dim img As New Bitmap(My.Resources.pasivo, 110, 30)
                 img.Save(Bin, Imaging.ImageFormat.Png)
-                CType(JGrM_Buscador.DataSource, DataTable).Rows(i).Item("imgEstado") = Bin.GetBuffer
+                CType(JGrM_Buscador.DataSource, DataTable).Rows(i).Item("img") = Bin.GetBuffer
             End If
 
         Next
@@ -180,7 +180,7 @@ Public Class Frm_Proveedor
         btnEliminar.Visible = False
         btnGrabar.Visible = True
         PanelNavegacion.Enabled = False
-        tbNombreCliente.Focus()
+        tbNombreProveedor.Focus()
 
 
         '_PMOLimpiar()
@@ -260,7 +260,7 @@ Public Class Frm_Proveedor
 
     Private Sub _prIniciarTodo()
         'L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
-        _prInicarMapa()
+
         Me.Text = "Gestion De Clientes"
         P_Global._prCargarComboGenerico(cbTipoDocumento, L_prLibreriaDetalleGeneral(8), "cnnum", "Codigo", "cndesc1", "TipoDocumento")
 
@@ -368,33 +368,30 @@ Public Class Frm_Proveedor
         MEP.Clear()
 
 
-        tbNombreCliente.BackColor = Color.White
-
+        tbNombreProveedor.BackColor = Color.White
+        cbTipoDocumento.BackColor = Color.White
 
     End Sub
 
     Public Function _PMOGrabarRegistro() As Boolean
-        '_Id As String, IdZona As Integer, IdPrecio As Integer, CodigoExterno As String, NombreCliente As String,
-        '                                   Direccion As String, Telefono As String, TipoDocumento As Integer, NroDocumento As String,
-        '                                   RazonSocial As String, nit As String, estado As Integer, FechaIngreso As String, Latitud As Double,
-        '                                   Longitud As Double
+        '     @Id ,@NombreProveedor ,@DireccionProveedor ,@Telefono01 ,@Telefono02 ,
+        '@Descripcion ,@TipoDocumento ,@NroDocumento ,@estado ,@newFecha ,@newHora ,@usuario
         Dim res As Boolean
         Try
-            res = InsertarCliente(tbCodigo.Text, cbZona.Value, cbPrecios.Value, tbCodigoExterno.Text, tbNombreCliente.Text,
-                                  tbDireccionCliente.Text, tbTelefono.Text, cbTipoDocumento.Value, tbNroDocumento.Text,
-                                  tbRazonSocial.Text, tbnit.Text, IIf(swEstado.Value = True, 1, 0), Now.Date.ToString("dd/MM/yyyy"), _latitud, _longitud)
+            res = InsertarProveedor(tbCodigo.Text, tbNombreProveedor.Text, tbDireccion.Text, tbTelefono01.Text, tbTelefono02.Text,
+                                    "", cbTipoDocumento.Value, tbNroDocumento.Text, IIf(swEstado.Value = True, 1, 0))
 
             If res Then
 
 
-                ToastNotification.Show(Me, "Codigo de Cliente ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Codigo de Proveedor ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
 
             Else
-                ToastNotification.Show(Me, "Error al guardar el Cliente".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Error al guardar el Proveedor".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End If
         Catch ex As Exception
-            ToastNotification.Show(Me, "Error al guardar el Cliente".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, "Error al guardar el Proveedor".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
         End Try
 
@@ -405,27 +402,25 @@ Public Class Frm_Proveedor
     Public Function _PMOModificarRegistro() As Boolean
         Dim Res As Boolean
         Try
-            Res = ModificarCliente(tbCodigo.Text, cbZona.Value, cbPrecios.Value, tbCodigoExterno.Text, tbNombreCliente.Text,
-                                  tbDireccionCliente.Text, tbTelefono.Text, cbTipoDocumento.Value, tbNroDocumento.Text,
-                                  tbRazonSocial.Text, tbnit.Text, IIf(swEstado.Value = True, 1, 0), Now.Date.ToString("dd/MM/yyyy"), _latitud, _longitud)
-
+            Res = ModificarProveedor(tbCodigo.Text, tbNombreProveedor.Text, tbDireccion.Text, tbTelefono01.Text, tbTelefono02.Text,
+                                    "", cbTipoDocumento.Value, tbNroDocumento.Text, IIf(swEstado.Value = True, 1, 0))
             If Res Then
 
-                ToastNotification.Show(Me, "Codigo de cliente ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Codigo de Proveedor ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                 _PSalirRegistro()
             Else
-                ToastNotification.Show(Me, "Error al guardar el cliente".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Error al guardar el Proveedor".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End If
         Catch ex As Exception
-            ToastNotification.Show(Me, "Error al modificar cliente".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, "Error al modificar Proveedor".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
         End Try
 
         Return Res
     End Function
     Public Function _fnActionNuevo() As Boolean
-        Return tbCodigo.Text = String.Empty And tbNombreCliente.ReadOnly = False
+        Return tbCodigo.Text = String.Empty And tbNombreProveedor.ReadOnly = False
     End Function
 
 
@@ -437,7 +432,7 @@ Public Class Frm_Proveedor
 
         ef.tipo = 3
         ef.titulo = "Confirmación de Eliminación"
-        ef.descripcion = "¿Esta Seguro de Eliminar el cliente " + tbNombreCliente.Text + " ?"
+        ef.descripcion = "¿Esta Seguro de Eliminar el Proveedor " + tbNombreProveedor.Text + " ?"
         ef.ShowDialog()
         Dim bandera As Boolean = False
         bandera = ef.band
@@ -445,16 +440,16 @@ Public Class Frm_Proveedor
             Dim mensajeError As String = ""
             Dim res As Boolean
             Try
-                res = L_prClienteBorrar(tbCodigo.Text, mensajeError)
+                res = L_prBorrarRegistro(tbCodigo.Text, mensajeError, "MAM_Proveedores")
                 If res Then
 
-                    ToastNotification.Show(Me, "Codigo de Cliente ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                    ToastNotification.Show(Me, "Codigo de Proveedor ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                     _PMFiltrar()
                 Else
                     ToastNotification.Show(Me, mensajeError, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
                 End If
             Catch ex As Exception
-                ToastNotification.Show(Me, "Error al eliminar el cliente".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Error al eliminar el Proveedor".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End Try
 
@@ -467,20 +462,20 @@ Public Class Frm_Proveedor
         MEP.Clear()
         Dim Mensaje As String = "Los Siguientes Campos Son Requeridos: "
 
-        If tbNombreCliente.Text = String.Empty Then
-            tbNombreCliente.BackColor = Color.Red
-            MEP.SetError(tbNombreCliente, "Ingrese Nombre de cliente")
-            Mensaje = Mensaje + " Nombre Cliente"
+        If tbNombreProveedor.Text = String.Empty Then
+            tbNombreProveedor.BackColor = Color.Red
+            MEP.SetError(tbNombreProveedor, "Ingrese Nombre de Proveedor")
+            Mensaje = Mensaje + " Nombre Proveedor"
             _ok = False
         Else
-            tbNombreCliente.BackColor = Color.White
-            MEP.SetError(tbNombreCliente, "")
+            tbNombreProveedor.BackColor = Color.White
+            MEP.SetError(tbNombreProveedor, "")
         End If
 
         MHighlighterFocus.UpdateHighlights()
 
-        If tbNombreCliente.Text = String.Empty Then
-            tbNombreCliente.Focus()
+        If tbNombreProveedor.Text = String.Empty Then
+            tbNombreProveedor.Focus()
             ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
             Return _ok
         End If
@@ -491,33 +486,26 @@ Public Class Frm_Proveedor
 
     Public Function _PMOGetTablaBuscador() As DataTable
 
-        Dim dtBuscador As DataTable = L_prListarGeneral("[MAM_Clientes]")
+        Dim dtBuscador As DataTable = L_prListarGeneral("MAM_Proveedores")
         Return dtBuscador
     End Function
 
     Public Function _PMOGetListEstructuraBuscador() As List(Of Modelo.Celda)
 
-        'a.id , a.CodigoExterno, a.NombreCliente, a.DireccionCliente, a.Telefono, a.Observacion, a.TipoDocumento, a.NroDocumento,
-        '    a.RazonSocial, a.Nit, a.Estado, a.FechaIngreso, a.FechaUltimaVenta, a.ImagenCliente, a.Latitud, a.Longitud  
+        'p.Id , p.NombreProveedor, p.Direccion, p.Telefono01, p.Telefono02, p.Descripcion, p.TipoDocumento,
+        '    p.NroDocumento, p.Estado, img
         Dim listEstCeldas As New List(Of Modelo.Celda)
         listEstCeldas.Add(New Modelo.Celda("Id", True, "ID", 40))
-        listEstCeldas.Add(New Modelo.Celda("CodigoExterno", False))
-        listEstCeldas.Add(New Modelo.Celda("NombreCliente", True, " NombreCliente", 200))
-        listEstCeldas.Add(New Modelo.Celda("DireccionCliente", True, " Direccion", 120))
-        listEstCeldas.Add(New Modelo.Celda("Telefono", True, "Telefono", 90))
+
+        listEstCeldas.Add(New Modelo.Celda("NombreProveedor", True, " NombreProveedor", 200))
+        listEstCeldas.Add(New Modelo.Celda("Direccion", False, " Direccion", 120))
+        listEstCeldas.Add(New Modelo.Celda("Telefono01", True, "Telefono01", 90))
+        listEstCeldas.Add(New Modelo.Celda("Telefono02", False))
+        listEstCeldas.Add(New Modelo.Celda("Descripcion", False))
         listEstCeldas.Add(New Modelo.Celda("TipoDocumento", False))
-        listEstCeldas.Add(New Modelo.Celda("NroDocumento", True, " NroDocumento", 120))
-        listEstCeldas.Add(New Modelo.Celda("RazonSocial", False, "Razon Social", 80))
-        listEstCeldas.Add(New Modelo.Celda("Nit", False, "nit", 70))
-        listEstCeldas.Add(New Modelo.Celda("Estado", False, "Estado", 60))
-        listEstCeldas.Add(New Modelo.Celda("imgEstado", True, "Estado", 80))
-        listEstCeldas.Add(New Modelo.Celda("FechaIngreso", True, "FechaIngreso", 90))
-        listEstCeldas.Add(New Modelo.Celda("FechaUltimaVenta", False))
-        listEstCeldas.Add(New Modelo.Celda("ImagenCliente", False))
-        listEstCeldas.Add(New Modelo.Celda("Latitud", False))
-        listEstCeldas.Add(New Modelo.Celda("Longitud", False))
-        listEstCeldas.Add(New Modelo.Celda("PrecioCategoriaId", False))
-        listEstCeldas.Add(New Modelo.Celda("ZonaId", False))
+        listEstCeldas.Add(New Modelo.Celda("NroDocumento", True, "Nro Documento", 90))
+        listEstCeldas.Add(New Modelo.Celda("Estado", False))
+        listEstCeldas.Add(New Modelo.Celda("img", True, "Estado", 90))
 
 
         Return listEstCeldas
@@ -525,8 +513,8 @@ Public Class Frm_Proveedor
 
     Public Sub _PMOMostrarRegistro(_N As Integer, Optional selected As Boolean = False)
 
-        'a.id , a.CodigoExterno, a.NombreCliente, a.DireccionCliente, a.Telefono, a.Observacion, a.TipoDocumento, a.NroDocumento,
-        '    a.RazonSocial, a.Nit, a.Estado, a.FechaIngreso, a.FechaUltimaVenta, a.ImagenCliente, a.Latitud, a.Longitud   
+        'p.Id , p.NombreProveedor, p.Direccion, p.Telefono01, p.Telefono02, p.Descripcion, p.TipoDocumento,
+        '    p.NroDocumento, p.Estado, img  
         If (selected = False) Then
             FilaSeleccionada = True
             JGrM_Buscador.Row = _MPos
@@ -535,88 +523,23 @@ Public Class Frm_Proveedor
 
         With JGrM_Buscador
             tbCodigo.Text = .GetValue("Id").ToString
-            tbCodigoExterno.Text = .GetValue("CodigoExterno").ToString
-            tbNombreCliente.Text = .GetValue("NombreCliente").ToString
-            tbDireccionCliente.Text = .GetValue("DireccionCliente").ToString
+            tbNombreProveedor.Text = .GetValue("NombreProveedor").ToString
+            tbDireccion.Text = .GetValue("Direccion").ToString
             cbTipoDocumento.Value = .GetValue("TipoDocumento")
-            cbPrecios.Value = .GetValue("PrecioCategoriaId")
-            cbZona.Value = .GetValue("ZonaId")
+
             tbNroDocumento.Text = .GetValue("NroDocumento")
-            tbRazonSocial.Text = .GetValue("RazonSocial").ToString
-            tbnit.Text = .GetValue("Nit").ToString
-            swEstado.Value = .GetValue("estado")
-            _latitud = .GetValue("Latitud")
-            _longitud = .GetValue("Longitud")
+            tbTelefono01.Text = .GetValue("Telefono01").ToString
+            tbTelefono02.Text = .GetValue("Telefono02").ToString
+            swEstado.Value = .GetValue("Estado")
+
         End With
         TablaImagenes = L_prCargarImagenesRecepcion(tbCodigo.Text)
         LblPaginacion.Text = Str(_MPos + 1) + "/" + JGrM_Buscador.RowCount.ToString
 
-        _dibujarUbicacion(JGrM_Buscador.GetValue("NombreCliente").ToString, JGrM_Buscador.GetValue("Id").ToString)
-
-    End Sub
-    Public Sub _dibujarUbicacion(_nombre As String, _ci As String)
-        If (_latitud <> 0 And _longitud <> 0) Then
-            Dim plg As PointLatLng = New PointLatLng(_latitud, _longitud)
-            _Overlay.Markers.Clear()
-            P_AgregarPunto(plg, _nombre, _ci)
-        Else
-
-
-            _Overlay.Markers.Clear()
-            Gmc_Cliente.Position = New PointLatLng(-17.3931784, -66.1738852)
-        End If
-    End Sub
-    Private Sub P_AgregarPunto(pointLatLng As PointLatLng, _nombre As String, _ci As String)
-        If (Not IsNothing(_Overlay)) Then
-            'añadir puntos
-            'Dim markersOverlay As New GMapOverlay("markers")
-            Dim marker As New GMarkerGoogle(pointLatLng, My.Resources.iconmarker)
-            'añadir tooltip
-            Dim mode As MarkerTooltipMode = MarkerTooltipMode.OnMouseOver
-            marker.ToolTip = New GMapBaloonToolTip(marker)
-            marker.ToolTipMode = mode
-            Dim ToolTipBackColor As New SolidBrush(Color.Blue)
-            marker.ToolTip.Fill = ToolTipBackColor
-            marker.ToolTip.Foreground = Brushes.White
-            'If (Not _nombre.ToString = String.Empty) Then
-            '    marker.ToolTipText = "CLIENTE: " + _nombre & vbNewLine & " CI:" + _ci
-            'End If
-            _Overlay.Markers.Add(marker)
-            'mapa.Overlays.Add(markersOverlay)
-            Gmc_Cliente.Position = pointLatLng
-        End If
     End Sub
 
-    Private Sub ButtonX3_Click(sender As Object, e As EventArgs) Handles ButtonX3.Click
-        If (Gmc_Cliente.Zoom >= Gmc_Cliente.MinZoom) Then
-            Gmc_Cliente.Zoom = Gmc_Cliente.Zoom - 1
-        End If
-    End Sub
-
-    Private Sub ButtonX4_Click(sender As Object, e As EventArgs) Handles ButtonX4.Click
-        If (Gmc_Cliente.Zoom <= Gmc_Cliente.MaxZoom) Then
-            Gmc_Cliente.Zoom = Gmc_Cliente.Zoom + 1
-        End If
-    End Sub
-    Private Sub Gmc_Cliente_DoubleClick(sender As Object, e As EventArgs) Handles Gmc_Cliente.DoubleClick
-        If (btnGrabar.Enabled = True) Then
 
 
-            _Overlay.Markers.Clear()
-
-            Dim gm As GMapControl = CType(sender, GMapControl)
-            Dim hj As MouseEventArgs = CType(e, MouseEventArgs)
-            Dim plg As PointLatLng = gm.FromLocalToLatLng(hj.X, hj.Y)
-            _latitud = plg.Lat
-            _longitud = plg.Lng
-            ''  MsgBox("latitud:" + Str(plg.Lat) + "   Logitud:" + Str(plg.Lng))
-
-            P_AgregarPunto(plg, "", "")
-
-            '' _ListPuntos.Add(plg)
-            'Btnx_ChekGetPoint.Visible = False
-        End If
-    End Sub
 
     Private Sub _PSalirRegistro()
         If btnGrabar.Enabled = True Then
@@ -699,19 +622,7 @@ Public Class Frm_Proveedor
         End If
     End Sub
 
-    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
-        TabControlPrincipal.SelectedTabIndex = 0
-        btnNuevo.PerformClick()
-        tbNombreCliente.Focus()
-    End Sub
 
-    Private Sub JGrM_Buscador_KeyDown(sender As Object, e As KeyEventArgs) Handles JGrM_Buscador.KeyDown
-        If (e.KeyCode = Keys.Enter) Then
-
-            TabControlPrincipal.SelectedTabIndex = 0
-
-        End If
-    End Sub
 
     Private Sub JGrM_Buscador_SelectionChanged(sender As Object, e As EventArgs) Handles JGrM_Buscador.SelectionChanged
         If (JGrM_Buscador.Row >= 0 And FilaSeleccionada = False) Then

@@ -539,7 +539,7 @@ Public Class Tec_Clientes
 
     Public Function _PMOGetTablaBuscador() As DataTable
 
-        Dim dtBuscador As DataTable = L_prListarGeneral("[MAM_Clientes]")
+        Dim dtBuscador As DataTable = L_prListarGeneral("MAM_Clientes")
         Return dtBuscador
     End Function
 

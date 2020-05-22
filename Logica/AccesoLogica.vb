@@ -3127,6 +3127,72 @@ Public Class AccesoLogica
     End Function
 #End Region
 
+#Region "Proveedor Tec"
+
+    Public Shared Function InsertarProveedor(_Id As String, NombreProveedor As String, Direccion As String,
+                           Telefono01 As String, Telefono02 As String, Descripcion As String, TipoDocumento As Integer,
+                                             NroDocumento As String, Estado As Integer) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '     @Id ,@NombreProveedor ,@DireccionProveedor ,@Telefono01 ,@Telefono02 ,
+        '@Descripcion ,@TipoDocumento ,@NroDocumento ,@estado ,@newFecha ,@newHora ,@usuario
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", _Id))
+        _listParam.Add(New Datos.DParametro("@NombreProveedor", NombreProveedor))
+        _listParam.Add(New Datos.DParametro("@DireccionProveedor", Direccion))
+        _listParam.Add(New Datos.DParametro("@Telefono01", Telefono01))
+        _listParam.Add(New Datos.DParametro("@Telefono02", Telefono02))
+        _listParam.Add(New Datos.DParametro("@Descripcion", Descripcion))
+        _listParam.Add(New Datos.DParametro("@TipoDocumento", TipoDocumento))
+        _listParam.Add(New Datos.DParametro("@estado", Estado))
+        _listParam.Add(New Datos.DParametro("@NroDocumento", NroDocumento))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Proveedores", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _Id = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function ModificarProveedor(_Id As String, NombreProveedor As String, Direccion As String,
+                           Telefono01 As String, Telefono02 As String, Descripcion As String, TipoDocumento As Integer,
+                                             NroDocumento As String, Estado As Integer) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '     @Id ,@NombreProveedor ,@DireccionProveedor ,@Telefono01 ,@Telefono02 ,
+        '@Descripcion ,@TipoDocumento ,@NroDocumento ,@estado ,@newFecha ,@newHora ,@usuario
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@Id", _Id))
+        _listParam.Add(New Datos.DParametro("@NombreProveedor", NombreProveedor))
+        _listParam.Add(New Datos.DParametro("@DireccionProveedor", Direccion))
+        _listParam.Add(New Datos.DParametro("@Telefono01", Telefono01))
+        _listParam.Add(New Datos.DParametro("@Telefono02", Telefono02))
+        _listParam.Add(New Datos.DParametro("@Descripcion", Descripcion))
+        _listParam.Add(New Datos.DParametro("@TipoDocumento", TipoDocumento))
+        _listParam.Add(New Datos.DParametro("@estado", Estado))
+        _listParam.Add(New Datos.DParametro("@NroDocumento", NroDocumento))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Proveedores", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _Id = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+#End Region
 #Region "Clientes Tec"
 
     Public Shared Function InsertarCliente(_Id As String, IdZona As Integer, IdPrecio As Integer, CodigoExterno As String, NombreCliente As String,
