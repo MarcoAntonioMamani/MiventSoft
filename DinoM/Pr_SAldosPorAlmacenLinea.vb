@@ -57,7 +57,9 @@ Public Class Pr_SAldosPorAlmacenLinea
         'L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
         _prCargarComboLibreriaSucursal(cbAlmacen)
         _prCargarComboGrupos(cbGrupos)
-        _PMIniciarTodo()
+
+        Me.WindowState = FormWindowState.Maximized
+        Me.SupTabItemBusqueda.Visible = False
         Me.Text = "SALDOS DE PRODUCTOS"
         MReportViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
         _IniciarComponentes()

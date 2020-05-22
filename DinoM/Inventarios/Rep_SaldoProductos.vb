@@ -1,81 +1,33 @@
-﻿Public Class Rep_SaldoProductos
+﻿Imports Logica.AccesoLogica
+Imports DevComponents.DotNetBar
+Imports System.Data.OleDb
+Public Class Rep_SaldoProductos
+
+    Public Sub _prIniciarTodo()
+        'L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
+        '_prCargarComboLibreriaSucursal(cbAlmacen)
+        '_prCargarComboGrupos(cbGrupos)
+        P_Global._prCargarComboGenerico(cbAlmacen, L_prListarDepositos(), "Id", "Codigo", "NombreDeposito", "NombreDeposito")
+
+        Me.WindowState = FormWindowState.Maximized
+
+        Me.Text = "REPORTE DE SALDOS"
+        MReportViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
+        Dim blah As New Bitmap(New Bitmap(My.Resources.ic_c), 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        Me.Icon = ico
+        If (CType(cbAlmacen.DataSource, DataTable).Rows.Count > 0) Then
+            cbAlmacen.SelectedIndex = 0
+        End If
+
+    End Sub
     Private Sub Rep_SaldoProductos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         _prIniciarTodo()
     End Sub
-    Private Sub _prCargarComboLibreriaSucursal(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
-        Dim dt As New DataTable
-        dt = L_fnListarSucursales()
-        With mCombo
-            .DropDownList.Columns.Clear()
-            .DropDownList.Columns.Add("aanumi").Width = 60
-            .DropDownList.Columns("aanumi").Caption = "COD"
-            .DropDownList.Columns.Add("aabdes").Width = 300
-            .DropDownList.Columns("aabdes").Caption = "SUCURSAL"
-            .ValueMember = "aanumi"
-            .DisplayMember = "aabdes"
-            .DataSource = dt
-            .Refresh()
-        End With
-        If (dt.Rows.Count > 0) Then
-            cbAlmacen.SelectedIndex = 0
-        End If
-    End Sub
-    Private Sub _prCargarComboGrupos(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
-        Dim dt As New DataTable
-        dt = L_fnObtenerGruposLibreria()
-        'a.ylcod2,yldes2
-        With mCombo
-            .DropDownList.Columns.Clear()
-            .DropDownList.Columns.Add("yccod3").Width = 60
-            .DropDownList.Columns("yccod3").Caption = "COD"
-            .DropDownList.Columns.Add("yldes2").Width = 250
-            .DropDownList.Columns("yldes2").Caption = "GRUPOS"
-            .ValueMember = "yccod3"
-            .DisplayMember = "yldes2"
-            .DataSource = dt
-            .Refresh()
-        End With
-        If (dt.Rows.Count > 0) Then
-            cbGrupos.SelectedIndex = 0
-        End If
-    End Sub
-    Private Sub _prCargarComboLibreriaPrecioCosto(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
-        Dim dt As New DataTable
-        dt = L_prListarPrecioCosto()
-        With mCombo
-            .DropDownList.Columns.Clear()
-            .DropDownList.Columns.Add("ygnumi").Width = 60
-            .DropDownList.Columns("ygnumi").Caption = "COD"
-            .DropDownList.Columns.Add("ygdesc").Width = 500
-            .DropDownList.Columns("ygdesc").Caption = "SUCURSAL"
-            .ValueMember = "ygnumi"
-            .DisplayMember = "ygdesc"
-            .DataSource = dt
-            .Refresh()
-        End With
-        If (dt.Rows.Count > 0) Then
-            cbGrupos.SelectedIndex = 0
-        End If
-    End Sub
 
-    Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
 
-        _tab.Close()
 
-    End Sub
 
-    Private Sub swTipoVenta_ValueChanged(sender As Object, e As EventArgs)
-        If (bandera = False) Then
-            Return
-        End If
-        'If (swTipoVenta.Value = True) Then
-        '    _prCargarComboLibreriaPrecioVenta(cbGrupos)
-        'Else
-        '    _prCargarComboLibreriaPrecioCosto(cbGrupos)
-
-        'End If
-
-    End Sub
 
     Sub _prInhabilitarAlmacen()
         cbAlmacen.Enabled = False
@@ -84,12 +36,7 @@
         cbAlmacen.Enabled = True
     End Sub
 
-    Sub _prInhabilitarGrupos()
-        cbGrupos.Enabled = False
-    End Sub
-    Sub _prhabilitarGrupos()
-        cbGrupos.Enabled = True
-    End Sub
+
     Private Sub CheckTodosVendedor_CheckValueChanged(sender As Object, e As EventArgs) Handles CheckTodosAlmacen.CheckValueChanged
         If (CheckTodosAlmacen.Checked) Then
             _prInhabilitarAlmacen()
@@ -98,18 +45,63 @@
         End If
 
     End Sub
-    'grup panel stock mayor a cero o todos
-
-
-    Private Sub checkTodosGrupos_CheckValueChanged(sender As Object, e As EventArgs) Handles checkTodosGrupos.CheckValueChanged
-        If (checkTodosGrupos.Checked) Then
-            _prInhabilitarGrupos()
-        Else
-            _prhabilitarGrupos()
-        End If
-    End Sub
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
         _prCargarReporte()
     End Sub
+
+    Public Sub _prInterpretarDatos(ByRef _dt As DataTable)
+        If (CheckTodosAlmacen.Checked And CheckMayorCero.Checked) Then
+
+            _dt = ReporteSaldosTodosAlmacenesMayorA0()
+
+
+        End If
+        If (CheckTodosAlmacen.Checked And CheckTodos.Checked) Then
+
+            _dt = ReporteSaldosTodosAlmacenesTodos()
+
+
+        End If
+        If (checkUnaAlmacen.Checked And CheckTodos.Checked) Then
+            _dt = ReporteSaldosUnAlmacenTodosCantidad(cbAlmacen.Value)
+        End If
+        'un almacen todos mayor a 0
+        If (checkUnaAlmacen.Checked And CheckMayorCero.Checked) Then
+            _dt = ReporteSaldosUnAlmacenCantidadMayor0(cbAlmacen.Value)
+        End If
+
+
+    End Sub
+    'grup panel stock mayor a cero o todos
+    Private Sub _prCargarReporte()
+        Dim _dt As New DataTable
+        _prInterpretarDatos(_dt)
+        If (_dt.Rows.Count > 0) Then
+
+            Dim objrep As New R_ReporteSaldoFamilia
+            objrep.SetDataSource(_dt)
+
+            objrep.SetParameterValue("usuario", L_Usuario)
+            MReportViewer.ReportSource = objrep
+            MReportViewer.Show()
+            MReportViewer.BringToFront()
+
+
+
+        Else
+            ToastNotification.Show(Me, "NO HAY DATOS PARA LOS PARAMETROS SELECCIONADOS..!!!",
+                                       My.Resources.INFORMATION, 2000,
+                                       eToastGlowColor.Blue,
+                                       eToastPosition.BottomLeft)
+            MReportViewer.ReportSource = Nothing
+        End If
+
+
+
+
+
+    End Sub
+
+
 End Class

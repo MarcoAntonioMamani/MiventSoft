@@ -3234,6 +3234,58 @@ Public Class AccesoLogica
     End Function
 #End Region
 
+#Region "Tec Reporte Inventario"
+
+    Public Shared Function ReporteSaldosTodosAlmacenesMayorA0() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 9))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_Movimientos", _listParam)
+
+        Return _Tabla
+    End Function
+    Public Shared Function ReporteSaldosTodosAlmacenesTodos() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 10))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_Movimientos", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function ReporteSaldosUnAlmacenTodosCantidad(depositoId As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 11))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@DepositoId", depositoId))
+        _Tabla = D_ProcedimientoConParam("MAM_Movimientos", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function ReporteSaldosUnAlmacenCantidadMayor0(depositoId As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 12))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@DepositoId", depositoId))
+        _Tabla = D_ProcedimientoConParam("MAM_Movimientos", _listParam)
+
+        Return _Tabla
+    End Function
+#End Region
+
 
 #Region "Tec Zonas"
     Public Shared Function InsertarZona(_Id As String,
@@ -5463,6 +5515,8 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+
+
     Public Shared Function L_fnUnaAlmacenTodosLineas(numialmacen As Integer) As DataTable
         Dim _Tabla As DataTable
 

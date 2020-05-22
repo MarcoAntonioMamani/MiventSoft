@@ -229,12 +229,6 @@
     <Compile Include="F0_MCompras.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="F0_Movimiento.Designer.vb">
-      <DependentUpon>F0_Movimiento.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F0_Movimiento.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="F0_PagosInicial.Designer.vb">
       <DependentUpon>F0_PagosInicial.vb</DependentUpon>
     </Compile>
@@ -320,6 +314,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Font\Custom.vb" />
+    <Compile Include="Inventarios\Rep_SaldoProductos.Designer.vb">
+      <DependentUpon>Rep_SaldoProductos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Inventarios\Rep_SaldoProductos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Inventarios\Tec_Movimientos.Designer.vb">
       <DependentUpon>Tec_Movimientos.vb</DependentUpon>
     </Compile>
@@ -775,9 +775,6 @@
     <EmbeddedResource Include="F0_MCompras.resx">
       <DependentUpon>F0_MCompras.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="F0_Movimiento.resx">
-      <DependentUpon>F0_Movimiento.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="F0_PagosInicial.resx">
       <DependentUpon>F0_PagosInicial.vb</DependentUpon>
     </EmbeddedResource>
@@ -819,6 +816,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F1_Dosificacion.resx">
       <DependentUpon>F1_Dosificacion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventarios\Rep_SaldoProductos.resx">
+      <DependentUpon>Rep_SaldoProductos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\Tec_Movimientos.resx">
       <DependentUpon>Tec_Movimientos.vb</DependentUpon>
