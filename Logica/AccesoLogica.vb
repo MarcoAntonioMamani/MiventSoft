@@ -1464,6 +1464,7 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
+
     Public Shared Function L_fnListarProductosCompra(_almacen As String, _catCosto As String, detalle As DataTable) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
@@ -3524,6 +3525,16 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+
+    Public Shared Function ListarProveedores() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 6))
+        _Tabla = D_ProcedimientoConParam("MAM_Compras", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_prListarProductosCompras(_deposito As Integer) As DataTable
         Dim _Tabla As DataTable
 
@@ -3540,7 +3551,8 @@ Public Class AccesoLogica
     Public Shared Function ComprasInsertar(ByRef _numi As String, AlmacenId As Integer,
                                            FechaTransacccion As String, ProveedorId As Integer, TipoVenta As Integer,
        FechaVencCredito As String, Moneda As Integer, estado As Integer, glosa As String,
-                                           TotalCompra As Double, EmpresaId As Integer, _dtDetalle As DataTable) As Boolean
+                                           TotalCompra As Double, EmpresaId As Integer, _dtDetalle As DataTable,
+                                           Descuento As Double) As Boolean
         Dim _resultado As Boolean
 
         '     @Id ,@AlmacenId,@FechaTransaccion ,@Proveedor  ,@TipoVenta,
@@ -3562,7 +3574,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@Glosa", glosa))
         _listParam.Add(New Datos.DParametro("@TotalCompra", TotalCompra))
         _listParam.Add(New Datos.DParametro("@EmpresaId", EmpresaId))
-
+        _listParam.Add(New Datos.DParametro("@Descuento", Descuento))
         _listParam.Add(New Datos.DParametro("@detalle", "", _dtDetalle))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
@@ -3583,7 +3595,8 @@ Public Class AccesoLogica
     Public Shared Function ComprasModificar(ByRef _numi As String, AlmacenId As Integer,
                                            FechaTransacccion As String, ProveedorId As Integer, TipoVenta As Integer,
        FechaVencCredito As String, Moneda As Integer, estado As Integer, glosa As String,
-                                           TotalCompra As Double, EmpresaId As Integer, _dtDetalle As DataTable) As Boolean
+                                           TotalCompra As Double, EmpresaId As Integer, _dtDetalle As DataTable,
+                                            Descuento As Double) As Boolean
         Dim _resultado As Boolean
 
         '     @Id ,@AlmacenId,@FechaTransaccion ,@Proveedor  ,@TipoVenta,
@@ -3599,7 +3612,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@Proveedor", ProveedorId))
         _listParam.Add(New Datos.DParametro("@TipoVenta", TipoVenta))
         _listParam.Add(New Datos.DParametro("@FechaVencimientoCredito", FechaVencCredito))
-
+        _listParam.Add(New Datos.DParametro("@Descuento", Descuento))
         _listParam.Add(New Datos.DParametro("@Moneda", Moneda))
         _listParam.Add(New Datos.DParametro("@Estado", estado))
         _listParam.Add(New Datos.DParametro("@Glosa", glosa))

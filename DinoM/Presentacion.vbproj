@@ -728,6 +728,7 @@
       <DependentUpon>R_VentasVendedor12Meses.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Utils\Celda.vb" />
     <Compile Include="Utils\Efecto.Designer.vb">
       <DependentUpon>Efecto.vb</DependentUpon>
     </Compile>
@@ -758,6 +759,12 @@
     </Compile>
     <Compile Include="P_Encrypt.vb" />
     <Compile Include="P_Global.vb" />
+    <Compile Include="Utils\FormularioAyuda.Designer.vb">
+      <DependentUpon>FormularioAyuda.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\FormularioAyuda.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Visualizador.Designer.vb">
       <DependentUpon>Visualizador.vb</DependentUpon>
     </Compile>
@@ -1089,6 +1096,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utils\FormularioAyuda.resx">
+      <DependentUpon>FormularioAyuda.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Visualizador.resx">
       <DependentUpon>Visualizador.vb</DependentUpon>

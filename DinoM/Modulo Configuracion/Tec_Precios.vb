@@ -153,7 +153,7 @@ Public Class Tec_Precios
             .DropDownList.Columns.Add("aanumi").Width = 70
             .DropDownList.Columns("aanumi").Caption = "COD"
             .DropDownList.Columns.Add("aabdes").Width = 200
-            .DropDownList.Columns("aabdes").Caption = "DESCRIPCION"
+            .DropDownList.Columns("").Caption = "DESCRIPCION"
             .ValueMember = "aanumi"
             .DisplayMember = "aabdes"
             .DataSource = dt
