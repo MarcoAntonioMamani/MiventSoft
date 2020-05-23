@@ -84,6 +84,10 @@ Partial Class Tec_Compras
         Me.cbSucursal = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.tbProveedor = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.swTipoVenta = New DevComponents.DotNetBar.Controls.SwitchButton()
+        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
+        Me.tbFechaVencimientoCredito = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
+        Me.LabelX6 = New DevComponents.DotNetBar.LabelX()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -118,6 +122,7 @@ Partial Class Tec_Compras
         CType(Me.tbFechaTransaccion, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel3.SuspendLayout()
         CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbFechaVencimientoCredito, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TabControlPrincipal
@@ -846,7 +851,7 @@ Partial Class Tec_Compras
         Me.LabelX7.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX7.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX7.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX7.Location = New System.Drawing.Point(380, 11)
+        Me.LabelX7.Location = New System.Drawing.Point(339, 20)
         Me.LabelX7.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX7.Name = "LabelX7"
         Me.LabelX7.SingleLineColor = System.Drawing.SystemColors.Control
@@ -862,12 +867,12 @@ Partial Class Tec_Compras
         Me.tbGlosa.Border.Class = "TextBoxBorder"
         Me.tbGlosa.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbGlosa.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbGlosa.Location = New System.Drawing.Point(97, 86)
+        Me.tbGlosa.Location = New System.Drawing.Point(97, 94)
         Me.tbGlosa.Margin = New System.Windows.Forms.Padding(4)
         Me.tbGlosa.Multiline = True
         Me.tbGlosa.Name = "tbGlosa"
         Me.tbGlosa.PreventEnterBeep = True
-        Me.tbGlosa.Size = New System.Drawing.Size(270, 71)
+        Me.tbGlosa.Size = New System.Drawing.Size(229, 71)
         Me.tbGlosa.TabIndex = 0
         '
         'LabelX4
@@ -899,7 +904,7 @@ Partial Class Tec_Compras
         Me.tbFechaTransaccion.ButtonDropDown.Visible = True
         Me.tbFechaTransaccion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbFechaTransaccion.IsPopupCalendarOpen = False
-        Me.tbFechaTransaccion.Location = New System.Drawing.Point(517, 43)
+        Me.tbFechaTransaccion.Location = New System.Drawing.Point(476, 52)
         Me.tbFechaTransaccion.Margin = New System.Windows.Forms.Padding(4)
         '
         '
@@ -944,7 +949,7 @@ Partial Class Tec_Compras
         Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX2.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX2.Location = New System.Drawing.Point(16, 12)
+        Me.LabelX2.Location = New System.Drawing.Point(16, 20)
         Me.LabelX2.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX2.Name = "LabelX2"
         Me.LabelX2.SingleLineColor = System.Drawing.SystemColors.Control
@@ -962,7 +967,7 @@ Partial Class Tec_Compras
         Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX3.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX3.Location = New System.Drawing.Point(381, 46)
+        Me.LabelX3.Location = New System.Drawing.Point(340, 55)
         Me.LabelX3.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX3.Name = "LabelX3"
         Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
@@ -978,7 +983,7 @@ Partial Class Tec_Compras
         Me.tbCodigo.Border.Class = "TextBoxBorder"
         Me.tbCodigo.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbCodigo.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbCodigo.Location = New System.Drawing.Point(97, 9)
+        Me.tbCodigo.Location = New System.Drawing.Point(97, 17)
         Me.tbCodigo.Margin = New System.Windows.Forms.Padding(4)
         Me.tbCodigo.Name = "tbCodigo"
         Me.tbCodigo.PreventEnterBeep = True
@@ -988,6 +993,10 @@ Partial Class Tec_Compras
         '
         'Panel3
         '
+        Me.Panel3.Controls.Add(Me.LabelX6)
+        Me.Panel3.Controls.Add(Me.tbFechaVencimientoCredito)
+        Me.Panel3.Controls.Add(Me.LabelX5)
+        Me.Panel3.Controls.Add(Me.swTipoVenta)
         Me.Panel3.Controls.Add(Me.LabelX1)
         Me.Panel3.Controls.Add(Me.tbProveedor)
         Me.Panel3.Controls.Add(Me.tbCodigo)
@@ -1009,7 +1018,7 @@ Partial Class Tec_Compras
         cbSucursal_DesignTimeLayout.LayoutString = resources.GetString("cbSucursal_DesignTimeLayout.LayoutString")
         Me.cbSucursal.DesignTimeLayout = cbSucursal_DesignTimeLayout
         Me.cbSucursal.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbSucursal.Location = New System.Drawing.Point(517, 11)
+        Me.cbSucursal.Location = New System.Drawing.Point(476, 20)
         Me.cbSucursal.Margin = New System.Windows.Forms.Padding(4)
         Me.cbSucursal.Name = "cbSucursal"
         Me.cbSucursal.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
@@ -1030,7 +1039,7 @@ Partial Class Tec_Compras
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX1.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX1.Location = New System.Drawing.Point(16, 50)
+        Me.LabelX1.Location = New System.Drawing.Point(16, 58)
         Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
@@ -1046,12 +1055,115 @@ Partial Class Tec_Compras
         Me.tbProveedor.Border.Class = "TextBoxBorder"
         Me.tbProveedor.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbProveedor.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbProveedor.Location = New System.Drawing.Point(97, 46)
+        Me.tbProveedor.Location = New System.Drawing.Point(97, 54)
         Me.tbProveedor.Margin = New System.Windows.Forms.Padding(4)
         Me.tbProveedor.Name = "tbProveedor"
         Me.tbProveedor.PreventEnterBeep = True
         Me.tbProveedor.Size = New System.Drawing.Size(206, 29)
         Me.tbProveedor.TabIndex = 51
+        '
+        'swTipoVenta
+        '
+        '
+        '
+        '
+        Me.swTipoVenta.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.swTipoVenta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.swTipoVenta.Location = New System.Drawing.Point(476, 83)
+        Me.swTipoVenta.Margin = New System.Windows.Forms.Padding(4)
+        Me.swTipoVenta.Name = "swTipoVenta"
+        Me.swTipoVenta.OffBackColor = System.Drawing.Color.LawnGreen
+        Me.swTipoVenta.OffText = "CREDITO"
+        Me.swTipoVenta.OnBackColor = System.Drawing.Color.Gold
+        Me.swTipoVenta.OnText = "CONTADO"
+        Me.swTipoVenta.Size = New System.Drawing.Size(180, 27)
+        Me.swTipoVenta.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.swTipoVenta.TabIndex = 53
+        Me.swTipoVenta.Value = True
+        Me.swTipoVenta.ValueObject = "Y"
+        '
+        'LabelX5
+        '
+        Me.LabelX5.AutoSize = True
+        Me.LabelX5.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX5.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX5.Location = New System.Drawing.Point(339, 87)
+        Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX5.Name = "LabelX5"
+        Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX5.Size = New System.Drawing.Size(97, 23)
+        Me.LabelX5.TabIndex = 54
+        Me.LabelX5.Text = "Tipo Compra:"
+        '
+        'tbFechaVencimientoCredito
+        '
+        '
+        '
+        '
+        Me.tbFechaVencimientoCredito.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbFechaVencimientoCredito.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaVencimientoCredito.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
+        Me.tbFechaVencimientoCredito.ButtonDropDown.Visible = True
+        Me.tbFechaVencimientoCredito.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFechaVencimientoCredito.IsPopupCalendarOpen = False
+        Me.tbFechaVencimientoCredito.Location = New System.Drawing.Point(476, 118)
+        Me.tbFechaVencimientoCredito.Margin = New System.Windows.Forms.Padding(4)
+        '
+        '
+        '
+        '
+        '
+        '
+        Me.tbFechaVencimientoCredito.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaVencimientoCredito.MonthCalendar.CalendarDimensions = New System.Drawing.Size(1, 1)
+        Me.tbFechaVencimientoCredito.MonthCalendar.ClearButtonVisible = True
+        '
+        '
+        '
+        Me.tbFechaVencimientoCredito.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2
+        Me.tbFechaVencimientoCredito.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90
+        Me.tbFechaVencimientoCredito.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground
+        Me.tbFechaVencimientoCredito.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.tbFechaVencimientoCredito.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder
+        Me.tbFechaVencimientoCredito.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1
+        Me.tbFechaVencimientoCredito.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaVencimientoCredito.MonthCalendar.DisplayMonth = New Date(2017, 2, 1, 0, 0, 0, 0)
+        Me.tbFechaVencimientoCredito.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday
+        '
+        '
+        '
+        Me.tbFechaVencimientoCredito.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2
+        Me.tbFechaVencimientoCredito.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90
+        Me.tbFechaVencimientoCredito.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
+        Me.tbFechaVencimientoCredito.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaVencimientoCredito.MonthCalendar.TodayButtonVisible = True
+        Me.tbFechaVencimientoCredito.Name = "tbFechaVencimientoCredito"
+        Me.tbFechaVencimientoCredito.Size = New System.Drawing.Size(160, 26)
+        Me.tbFechaVencimientoCredito.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.tbFechaVencimientoCredito.TabIndex = 55
+        '
+        'LabelX6
+        '
+        Me.LabelX6.AutoSize = True
+        Me.LabelX6.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX6.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX6.Location = New System.Drawing.Point(340, 118)
+        Me.LabelX6.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX6.Name = "LabelX6"
+        Me.LabelX6.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX6.Size = New System.Drawing.Size(102, 23)
+        Me.LabelX6.TabIndex = 56
+        Me.LabelX6.Text = "Venc. Credito:"
         '
         'Tec_Compras
         '
@@ -1096,6 +1208,7 @@ Partial Class Tec_Compras
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
         CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbFechaVencimientoCredito, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1160,4 +1273,8 @@ Partial Class Tec_Compras
     Friend WithEvents tbGlosa As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX7 As DevComponents.DotNetBar.LabelX
     Friend WithEvents cbSucursal As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents swTipoVenta As DevComponents.DotNetBar.Controls.SwitchButton
+    Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbFechaVencimientoCredito As DevComponents.Editors.DateTimeAdv.DateTimeInput
+    Friend WithEvents LabelX6 As DevComponents.DotNetBar.LabelX
 End Class
