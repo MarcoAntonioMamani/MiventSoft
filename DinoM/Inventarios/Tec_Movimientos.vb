@@ -335,7 +335,7 @@ Public Class Tec_Movimientos
             .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
-            .FormatString = "0"
+            .FormatString = "0.00"
             .Caption = "Cantidad".ToUpper
         End With
 

@@ -3510,6 +3510,118 @@ Public Class AccesoLogica
 #End Region
 
 
+
+#Region "Compras TecBrinc"
+    Public Shared Function ListaComprasDetalles(CompraId As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@id", CompraId))
+        _Tabla = D_ProcedimientoConParam("MAM_Compras", _listParam)
+
+        Return _Tabla
+    End Function
+    Public Shared Function L_prListarProductosCompras(_deposito As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@AlmacenId", _deposito))
+        _Tabla = D_ProcedimientoConParam("MAM_Compras", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function ComprasInsertar(ByRef _numi As String, AlmacenId As Integer,
+                                           FechaTransacccion As String, ProveedorId As Integer, TipoVenta As Integer,
+       FechaVencCredito As String, Moneda As Integer, estado As Integer, glosa As String,
+                                           TotalCompra As Double, EmpresaId As Integer, _dtDetalle As DataTable) As Boolean
+        Dim _resultado As Boolean
+
+        '     @Id ,@AlmacenId,@FechaTransaccion ,@Proveedor  ,@TipoVenta,
+        '@FechaVencimientoCredito,@Moneda ,@Estado  ,@Glosa  ,@TotalCompra ,@EmpresaId
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@AlmacenId", AlmacenId))
+        _listParam.Add(New Datos.DParametro("@FechaTransaccion", FechaTransacccion))
+        _listParam.Add(New Datos.DParametro("@Proveedor", ProveedorId))
+        _listParam.Add(New Datos.DParametro("@TipoVenta", TipoVenta))
+        _listParam.Add(New Datos.DParametro("@FechaVencimientoCredito", FechaVencCredito))
+
+        _listParam.Add(New Datos.DParametro("@Moneda", Moneda))
+        _listParam.Add(New Datos.DParametro("@Estado", estado))
+        _listParam.Add(New Datos.DParametro("@Glosa", glosa))
+        _listParam.Add(New Datos.DParametro("@TotalCompra", TotalCompra))
+        _listParam.Add(New Datos.DParametro("@EmpresaId", EmpresaId))
+
+        _listParam.Add(New Datos.DParametro("@detalle", "", _dtDetalle))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Compras", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _numi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+
+    Public Shared Function ComprasModificar(ByRef _numi As String, AlmacenId As Integer,
+                                           FechaTransacccion As String, ProveedorId As Integer, TipoVenta As Integer,
+       FechaVencCredito As String, Moneda As Integer, estado As Integer, glosa As String,
+                                           TotalCompra As Double, EmpresaId As Integer, _dtDetalle As DataTable) As Boolean
+        Dim _resultado As Boolean
+
+        '     @Id ,@AlmacenId,@FechaTransaccion ,@Proveedor  ,@TipoVenta,
+        '@FechaVencimientoCredito,@Moneda ,@Estado  ,@Glosa  ,@TotalCompra ,@EmpresaId
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@AlmacenId", AlmacenId))
+        _listParam.Add(New Datos.DParametro("@FechaTransaccion", FechaTransacccion))
+        _listParam.Add(New Datos.DParametro("@Proveedor", ProveedorId))
+        _listParam.Add(New Datos.DParametro("@TipoVenta", TipoVenta))
+        _listParam.Add(New Datos.DParametro("@FechaVencimientoCredito", FechaVencCredito))
+
+        _listParam.Add(New Datos.DParametro("@Moneda", Moneda))
+        _listParam.Add(New Datos.DParametro("@Estado", estado))
+        _listParam.Add(New Datos.DParametro("@Glosa", glosa))
+        _listParam.Add(New Datos.DParametro("@TotalCompra", TotalCompra))
+        _listParam.Add(New Datos.DParametro("@EmpresaId", EmpresaId))
+
+        _listParam.Add(New Datos.DParametro("@detalle", "", _dtDetalle))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Compras", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _numi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+#End Region
 #Region "Movimientos TecBrinc"
 
     Public Shared Function L_prMovimientoInsertar(ByRef _numi As String, ConceptoId As Integer, DepositoId As Integer, Observacion As String, Estado As Integer, FechaDocumento As String, _dtDetalle As DataTable) As Boolean
