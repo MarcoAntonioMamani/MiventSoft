@@ -1447,9 +1447,9 @@ salirIf:
                             ef.tipo = 5
                             ef.NombreProducto = grProducto.GetValue("NombreProducto")
                             ef.StockActual = grProducto.GetValue("stock")
-                        ef.TipoMovimiento = cbSucursal.Value
+                        ef.TipoMovimiento = 4
                         ef.ShowDialog()
-                            Dim bandera As Boolean = False
+                        Dim bandera As Boolean = False
                             bandera = ef.band
                             If (bandera = True) Then
                                 InsertarProductosSinLote(ef.CantidadTransaccion)
