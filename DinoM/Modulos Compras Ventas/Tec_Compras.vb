@@ -383,12 +383,22 @@ Public Class Tec_Compras
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .Visible = False
         End With
-        With grDetalle.RootTable.Columns("img")
-            .Width = 80
-            .Caption = "Eliminar".ToUpper
-            .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
-            .Visible = True
-        End With
+        If (tbGlosa.ReadOnly = False) Then
+            With grDetalle.RootTable.Columns("img")
+                .Width = 80
+                .Caption = "Eliminar".ToUpper
+                .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
+                .Visible = True
+            End With
+        Else
+            With grDetalle.RootTable.Columns("img")
+                .Width = 80
+                .Caption = "Eliminar".ToUpper
+                .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
+                .Visible = False
+            End With
+
+        End If
 
 
         If (Lote = True) Then
@@ -435,18 +445,21 @@ Public Class Tec_Compras
     End Sub
     Public Sub CargarIconEstado()
 
+
         Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
-        Dim n As Integer = dt.Rows.Count
-        For i As Integer = 0 To n - 1 Step 1
+            Dim n As Integer = dt.Rows.Count
+            For i As Integer = 0 To n - 1 Step 1
 
-            Dim Bin As New MemoryStream
-            Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
-            img.Save(Bin, Imaging.ImageFormat.Png)
-            CType(grDetalle.DataSource, DataTable).Rows(i).Item("img") = Bin.GetBuffer
+                Dim Bin As New MemoryStream
+                Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
+                img.Save(Bin, Imaging.ImageFormat.Png)
+                CType(grDetalle.DataSource, DataTable).Rows(i).Item("img") = Bin.GetBuffer
 
 
-        Next
-        grDetalle.RootTable.Columns("img").Visible = True
+            Next
+
+
+
     End Sub
     Private Sub _prCargarProductos()
         Dim dt As New DataTable
@@ -496,6 +509,12 @@ Public Class Tec_Compras
         With grProducto.RootTable.Columns("PrecioCosto")
             .Width = 150
             .Visible = False
+            .FormatString = "0.00"
+        End With
+        With grProducto.RootTable.Columns("stock")
+            .Width = 150
+            .Visible = True
+            .Caption = "Stock"
             .FormatString = "0.00"
         End With
         With grProducto.RootTable.Columns("PrecioVenta")

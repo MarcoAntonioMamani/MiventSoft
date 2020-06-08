@@ -223,12 +223,6 @@
     <Compile Include="F0_LibroVenta.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="F0_MCompras.Designer.vb">
-      <DependentUpon>F0_MCompras.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F0_MCompras.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="F0_PagosInicial.Designer.vb">
       <DependentUpon>F0_PagosInicial.vb</DependentUpon>
     </Compile>
@@ -257,12 +251,6 @@
       <DependentUpon>F0_Libreria.vb</DependentUpon>
     </Compile>
     <Compile Include="F0_Libreria.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F0_Compra.Designer.vb">
-      <DependentUpon>F0_Compra.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F0_Compra.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="F0_Factura.Designer.vb">
@@ -797,9 +785,6 @@
     <EmbeddedResource Include="F0_LibroVenta.resx">
       <DependentUpon>F0_LibroVenta.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="F0_MCompras.resx">
-      <DependentUpon>F0_MCompras.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="F0_PagosInicial.resx">
       <DependentUpon>F0_PagosInicial.vb</DependentUpon>
     </EmbeddedResource>
@@ -814,9 +799,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F0_Libreria.resx">
       <DependentUpon>F0_Libreria.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F0_Compra.resx">
-      <DependentUpon>F0_Compra.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F0_Factura.resx">
       <DependentUpon>F0_Factura.vb</DependentUpon>
