@@ -22,6 +22,7 @@ Partial Class Tec_Ventas
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim cbSucursal_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tec_Ventas))
         Me.TabControlPrincipal = New DevComponents.DotNetBar.SuperTabControl()
@@ -105,6 +106,8 @@ Partial Class Tec_Ventas
         Me.Panel16 = New System.Windows.Forms.Panel()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
+        Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
+        Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -148,6 +151,7 @@ Partial Class Tec_Ventas
         Me.Panel14.SuspendLayout()
         Me.Panel15.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TabControlPrincipal
@@ -1567,6 +1571,10 @@ Partial Class Tec_Ventas
         Me.SuperTabItem2.Text = "Lista De Datos"
         Me.SuperTabItem2.TextAlignment = DevComponents.DotNetBar.eItemAlignment.Center
         '
+        'MEP
+        '
+        Me.MEP.ContainerControl = Me
+        '
         'Tec_Ventas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -1622,6 +1630,7 @@ Partial Class Tec_Ventas
         Me.Panel14.ResumeLayout(False)
         Me.Panel15.ResumeLayout(False)
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1707,4 +1716,6 @@ Partial Class Tec_Ventas
     Friend WithEvents btnCliente As DevComponents.DotNetBar.ButtonX
     Friend WithEvents LabelX11 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbCliente As DevComponents.DotNetBar.Controls.TextBoxX
+    Protected WithEvents MHighlighterFocus As DevComponents.DotNetBar.Validator.Highlighter
+    Protected WithEvents MEP As ErrorProvider
 End Class

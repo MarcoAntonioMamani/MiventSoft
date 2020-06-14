@@ -12,7 +12,7 @@ Public Class Tec_Ventas
     Public _modulo As SideNavItem
     Public FilaSeleccionada As Boolean = False
 
-    Public _MListEstBuscador As List(Of Modelo.Celda)
+    Public _MListEstBuscador As List(Of Celda)
     Public _MPos As Integer
     Public _MNuevo As Boolean
     Public _MModificar As Boolean
@@ -1199,7 +1199,7 @@ salirIf:
 
         tbVendedor.BackColor = Color.White
         cbSucursal.BackColor = Color.White
-
+        tbCliente.BackColor = Color.White
 
     End Sub
 
@@ -1209,21 +1209,21 @@ salirIf:
         'tbFechaTransaccion.Value.ToString("yyyy/MM/dd")   CType(grDetalle.DataSource, DataTable)
         Dim res As Boolean
         Try
-            res = ComprasInsertar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), IdVendedor,
-                                  IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                  1, 1, tbGlosa.Text, tbTotal.Value, 1, CType(grDetalle.DataSource, DataTable), tbMdesc.Value)
+            res = VentaInsertar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
+                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
+                                1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value)
 
             If res Then
 
 
-                ToastNotification.Show(Me, "Codigo de Compra ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
 
             Else
-                ToastNotification.Show(Me, "Error al guardar la Compra".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Error al guardar la Venta".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End If
         Catch ex As Exception
-            ToastNotification.Show(Me, "Error al guardar el Compra".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, "Error al guardar la Venta".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
         End Try
 
@@ -1234,19 +1234,19 @@ salirIf:
     Public Function _PMOModificarRegistro() As Boolean
         Dim Res As Boolean
         Try
-            Res = ComprasModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), IdVendedor,
-                                  IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                  1, 1, tbGlosa.Text, tbTotal.Value, 1, CType(grDetalle.DataSource, DataTable), tbMdesc.Value)
+            Res = VentaModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
+                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
+                                1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value)
             If Res Then
 
-                ToastNotification.Show(Me, "Codigo de Movimiento ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                 _PSalirRegistro()
             Else
-                ToastNotification.Show(Me, "Error al guardar el Movimiento".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Error al guardar La Venta".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End If
         Catch ex As Exception
-            ToastNotification.Show(Me, "Error al modificar el Movimiento".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, "Error al modificar La Venta".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
         End Try
 
@@ -1265,7 +1265,7 @@ salirIf:
 
         ef.tipo = 3
         ef.titulo = "Confirmación de Eliminación"
-        ef.descripcion = "¿Esta Seguro de Eliminar la Compra " + tbCodigo.Text + " ?"
+        ef.descripcion = "¿Esta Seguro de Eliminar la Venta " + tbCodigo.Text + " ?"
         ef.ShowDialog()
         Dim bandera As Boolean = False
         bandera = ef.band
@@ -1273,16 +1273,16 @@ salirIf:
             Dim mensajeError As String = ""
             Dim res As Boolean
             Try
-                res = L_prBorrarRegistro(tbCodigo.Text, mensajeError, "MAM_Compras")
+                res = L_prBorrarRegistro(tbCodigo.Text, mensajeError, "MAM_Ventas")
                 If res Then
 
-                    ToastNotification.Show(Me, "Codigo de Compra ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                    ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                     _PMFiltrar()
                 Else
                     ToastNotification.Show(Me, mensajeError, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
                 End If
             Catch ex As Exception
-                ToastNotification.Show(Me, "Error al eliminar el Compra".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Error al eliminar la Venta".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End Try
 
@@ -1305,20 +1305,28 @@ salirIf:
             MEP.SetError(cbSucursal, "")
         End If
         If (IdVendedor <= 0) Then
-            tbProveedor.BackColor = Color.Red
-            MEP.SetError(tbProveedor, "Seleccione un Proveedor")
-            Mensaje = Mensaje + Chr(13) + Chr(10) + " Empresa"
+            tbVendedor.BackColor = Color.Red
+            MEP.SetError(tbVendedor, "Seleccione un Personal")
+            Mensaje = Mensaje + Chr(13) + Chr(10) + " Personal"
             _ok = False
         Else
-            tbProveedor.BackColor = Color.White
-            MEP.SetError(tbProveedor, "")
+            tbVendedor.BackColor = Color.White
+            MEP.SetError(tbVendedor, "")
         End If
-
+        If (IdCliente <= 0) Then
+            tbCliente.BackColor = Color.Red
+            MEP.SetError(tbCliente, "Seleccione un Cliente")
+            Mensaje = Mensaje + Chr(13) + Chr(10) + " Cliente"
+            _ok = False
+        Else
+            tbCliente.BackColor = Color.White
+            MEP.SetError(tbCliente, "")
+        End If
 
         If (tbFechaTransaccion.Text.Length <= 0) Then
             tbFechaTransaccion.BackColor = Color.Red
             MEP.SetError(tbFechaTransaccion, "Ingrese una Fecha Valida")
-            Mensaje = Mensaje + Chr(13) + Chr(10) + " Stock Minimo"
+            Mensaje = Mensaje + Chr(13) + Chr(10) + " Fecha Venta"
             _ok = False
         Else
             tbFechaTransaccion.BackColor = Color.White
@@ -1358,48 +1366,57 @@ salirIf:
         End If
         If (IdVendedor <= 0) Then
             ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-            tbProveedor.Focus()
+            tbVendedor.Focus()
             Return _ok
         End If
-
+        If (IdCliente <= 0) Then
+            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            tbCliente.Focus()
+            Return _ok
+        End If
         Return _ok
     End Function
 
     Public Function _PMOGetTablaBuscador() As DataTable
 
-        Dim dtBuscador As DataTable = L_prListarGeneral("MAM_Compras")
+        Dim dtBuscador As DataTable = L_prListarGeneral("MAM_Ventas")
         Return dtBuscador
     End Function
 
-    Public Function _PMOGetListEstructuraBuscador() As List(Of Modelo.Celda)
+    Public Function _PMOGetListEstructuraBuscador() As List(Of Celda)
 
-        'a.Id , a.AlmacenId, a.FechaTransaccion, a.ProveedorId, p.NombreProveedor, a.TipoVenta, a.FechaVencimientoCredito,
-        'a.Moneda, IIf(a.Moneda = 1,'Boliviano','Dolar')as TituloMoneda,a.Estado ,a.Glosa ,a.TotalCompra ,a.EmpresaId
-        Dim listEstCeldas As New List(Of Modelo.Celda)
-        listEstCeldas.Add(New Modelo.Celda("Id", True, "ID", 40))
-        listEstCeldas.Add(New Modelo.Celda("AlmacenId", False))
-        listEstCeldas.Add(New Modelo.Celda("ProveedorId", False, "Estado", 150))
-        listEstCeldas.Add(New Modelo.Celda("FechaTransaccion", True, "Fecha Transaccion", 100))
-        listEstCeldas.Add(New Modelo.Celda("NombreProveedor", True, "Proveedor", 260))
-        listEstCeldas.Add(New Modelo.Celda("TipoVenta", False, "Estado", 70))
-        listEstCeldas.Add(New Modelo.Celda("FechaVencimientoCredito", False, "Estado", 70))
-        listEstCeldas.Add(New Modelo.Celda("Moneda", False, "Estado", 70))
-        listEstCeldas.Add(New Modelo.Celda("TituloMoneda", True, "Moneda", 70))
-        listEstCeldas.Add(New Modelo.Celda("Estado", False, "Estado", 70))
+        'a.Id , a.SucursalId, a.FechaVenta, a.PersonalId, p.NombrePersonal As Personal,
+        'a.TipoVenta, IIf(a.TipoVenta = 1,'Contado','Credito')as TVenta,a.FechaVencimientoCredito ,
+        'a.ClienteId, c.NombreCliente, a.MonedaVenta, a.Estado, a.Glosa, a.Descuento, a.TotalVenta 
 
-        listEstCeldas.Add(New Modelo.Celda("Glosa", True, " Glosa", 250))
-        listEstCeldas.Add(New Modelo.Celda("TotalCompra", True, "TotalCompra", 150, "0.00"))
-        listEstCeldas.Add(New Modelo.Celda("Estado", False, "Estado", 70))
-        listEstCeldas.Add(New Modelo.Celda("descuento", False, "", 70))
-        listEstCeldas.Add(New Modelo.Celda("EmpresaId", False, "", 150))
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("Id", True, "ID", 40))
+        listEstCeldas.Add(New Celda("SucursalId", False))
+        listEstCeldas.Add(New Celda("FechaVenta", True, "Fecha Venta", 100))
+        listEstCeldas.Add(New Celda("PersonalId", False, "Estado", 150))
+        listEstCeldas.Add(New Celda("NombrePersonal", True, "Personal", 150))
+        listEstCeldas.Add(New Celda("TipoVenta", False, "", 70))
+        listEstCeldas.Add(New Celda("NombreCliente", True, "Cliente", 150))
+        listEstCeldas.Add(New Celda("TVenta", True, "Tipo Venta", 70))
+        listEstCeldas.Add(New Celda("FechaVencimientoCredito", False, "Estado", 70))
+        listEstCeldas.Add(New Celda("ClienteId", False))
+
+        listEstCeldas.Add(New Celda("MonedaVenta", False))
+        listEstCeldas.Add(New Celda("Estado", False))
+
+        listEstCeldas.Add(New Celda("Glosa", True, " Glosa", 250))
+        listEstCeldas.Add(New Celda("TotalVenta", True, "Total Venta", 150, "0.00"))
+        listEstCeldas.Add(New Celda("Descuento", False))
 
         Return listEstCeldas
     End Function
 
     Public Sub _PMOMostrarRegistro(_N As Integer, Optional selected As Boolean = False)
 
-        'a.Id , a.AlmacenId, a.FechaTransaccion, a.ProveedorId, p.NombreProveedor, a.TipoVenta, a.FechaVencimientoCredito,
-        'a.Moneda, IIf(a.Moneda = 1,'Boliviano','Dolar')as TituloMoneda,a.Estado ,a.Glosa ,a.TotalCompra ,a.EmpresaId
+        'a.Id , a.SucursalId, a.FechaVenta, a.PersonalId, p.NombrePersonal As Personal,
+        'a.TipoVenta, IIf(a.TipoVenta = 1,'Contado','Credito')as TVenta,a.FechaVencimientoCredito ,
+        'a.ClienteId, c.NombreCliente, a.MonedaVenta, a.Estado, a.Glosa, a.Descuento, a.TotalVenta 
+
         If (selected = False) Then
             FilaSeleccionada = True
             JGrM_Buscador.Row = _MPos
@@ -1408,14 +1425,16 @@ salirIf:
 
         With JGrM_Buscador
             tbCodigo.Text = .GetValue("Id").ToString
-            tbFechaTransaccion.Value = .GetValue("FechaTransaccion")
-            cbSucursal.Value = .GetValue("AlmacenId")
-            tbGlosa.Text = .GetValue("Glosa").ToString
-            IdVendedor = .GetValue("ProveedorId")
-            tbProveedor.Text = .GetValue("NombreProveedor").ToString
+            cbSucursal.Value = .GetValue("SucursalId")
+            tbFechaTransaccion.Value = .GetValue("FechaVenta")
+            IdVendedor = .GetValue("PersonalId")
+            tbVendedor.Text = .GetValue("Personal").ToString
             swTipoVenta.Value = .GetValue("TipoVenta")
+            IdCliente = .GetValue("ClienteId")
             tbFechaVencimientoCredito.Value = .GetValue("FechaVencimientoCredito")
+            tbCliente.Text = .GetValue("NombreCliente").ToString
 
+            tbGlosa.Text = .GetValue("Glosa").ToString
             tbMdesc.Value = .GetValue("descuento")
         End With
 
@@ -1588,7 +1607,7 @@ salirIf:
 
     End Sub
 
-    Private Sub tbProveedor_KeyDown(sender As Object, e As KeyEventArgs) Handles tbProveedor.KeyDown
+    Private Sub tbProveedor_KeyDown(sender As Object, e As KeyEventArgs) Handles tbVendedor.KeyDown
         If (_fnAccesible()) Then
             If e.KeyData = Keys.Control + Keys.Enter Then
 
@@ -1617,8 +1636,8 @@ salirIf:
                     Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
 
                     IdVendedor = Row.Cells("Id").Value
-                    tbProveedor.Text = Row.Cells("NombreProveedor").Value
-                    tbGlosa.Focus()
+                    tbVendedor.Text = Row.Cells("NombreProveedor").Value
+                    tbCliente.Focus()
 
                 End If
 
@@ -1629,7 +1648,7 @@ salirIf:
 
     End Sub
 
-    Private Sub btnProveedor_Click(sender As Object, e As EventArgs) Handles btnProveedor.Click
+    Private Sub btnProveedor_Click(sender As Object, e As EventArgs) Handles btnVendedor.Click
         If (_fnAccesible()) Then
 
 
@@ -1658,7 +1677,7 @@ salirIf:
                 Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
 
                 IdVendedor = Row.Cells("Id").Value
-                tbProveedor.Text = Row.Cells("NombreProveedor").Value
+                tbVendedor.Text = Row.Cells("NombreProveedor").Value
                 tbGlosa.Focus()
 
             End If
@@ -1689,9 +1708,9 @@ salirIf:
                 Else
 
                     Dim porcdesc As Double = tbPdesc.Value
-                    Dim montodesc As Double = (grDetalle.GetTotal(grDetalle.RootTable.Columns("TotalCompra"), AggregateFunction.Sum) * (porcdesc / 100))
+                    Dim montodesc As Double = (grDetalle.GetTotal(grDetalle.RootTable.Columns("Total"), AggregateFunction.Sum) * (porcdesc / 100))
                     tbMdesc.Value = montodesc
-                    tbTotal.Value = grDetalle.GetTotal(grDetalle.RootTable.Columns("TotalCompra"), AggregateFunction.Sum) - montodesc
+                    tbTotal.Value = grDetalle.GetTotal(grDetalle.RootTable.Columns("Total"), AggregateFunction.Sum) - montodesc
                 End If
 
 
@@ -1714,9 +1733,9 @@ salirIf:
                     _prCalcularPrecioTotal()
                 Else
                     Dim montodesc As Double = tbMdesc.Value
-                    Dim pordesc As Double = ((montodesc * 100) / grDetalle.GetTotal(grDetalle.RootTable.Columns("TotalCompra"), AggregateFunction.Sum))
+                    Dim pordesc As Double = ((montodesc * 100) / grDetalle.GetTotal(grDetalle.RootTable.Columns("Total"), AggregateFunction.Sum))
                     tbPdesc.Value = pordesc
-                    tbTotal.Value = grDetalle.GetTotal(grDetalle.RootTable.Columns("TotalCompra"), AggregateFunction.Sum) - montodesc
+                    tbTotal.Value = grDetalle.GetTotal(grDetalle.RootTable.Columns("Total"), AggregateFunction.Sum) - montodesc
 
                 End If
 

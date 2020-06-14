@@ -1139,14 +1139,14 @@ salirIf:
                                   1, 1, tbGlosa.Text, tbTotal.Value, 1, CType(grDetalle.DataSource, DataTable), tbMdesc.Value)
             If Res Then
 
-                ToastNotification.Show(Me, "Codigo de Movimiento ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Codigo de Compra ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                 _PSalirRegistro()
             Else
-                ToastNotification.Show(Me, "Error al guardar el Movimiento".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Error al guardar la Compra".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End If
         Catch ex As Exception
-            ToastNotification.Show(Me, "Error al modificar el Movimiento".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, "Error al modificar la Compra".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
         End Try
 
