@@ -410,6 +410,12 @@
     <Compile Include="Modulos Compras Ventas\Tec_Personal.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modulos Compras Ventas\Tec_Ventas.Designer.vb">
+      <DependentUpon>Tec_Ventas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos Compras Ventas\Tec_Ventas.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Programas Principales\Tec_Login.Designer.vb">
       <DependentUpon>Tec_Login.vb</DependentUpon>
     </Compile>
@@ -877,6 +883,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modulos Compras Ventas\Tec_Personal.resx">
       <DependentUpon>Tec_Personal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulos Compras Ventas\Tec_Ventas.resx">
+      <DependentUpon>Tec_Ventas.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Programas Principales\Tec_Login.resx">
       <DependentUpon>Tec_Login.vb</DependentUpon>

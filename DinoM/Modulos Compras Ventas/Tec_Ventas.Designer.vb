@@ -53,6 +53,9 @@ Partial Class Tec_Ventas
         Me.Panel18 = New System.Windows.Forms.Panel()
         Me.grProducto = New Janus.Windows.GridEX.GridEX()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.btnCliente = New DevComponents.DotNetBar.ButtonX()
+        Me.LabelX11 = New DevComponents.DotNetBar.LabelX()
+        Me.tbCliente = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.btnVendedor = New DevComponents.DotNetBar.ButtonX()
         Me.lbNombreProductos = New DevComponents.DotNetBar.LabelX()
         Me.tbNombreProducto = New DevComponents.DotNetBar.Controls.TextBoxX()
@@ -102,9 +105,6 @@ Partial Class Tec_Ventas
         Me.Panel16 = New System.Windows.Forms.Panel()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
-        Me.btnCliente = New DevComponents.DotNetBar.ButtonX()
-        Me.LabelX11 = New DevComponents.DotNetBar.LabelX()
-        Me.TextBoxX1 = New DevComponents.DotNetBar.Controls.TextBoxX()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -399,7 +399,7 @@ Partial Class Tec_Ventas
         Me.LabelX9.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX9.Name = "LabelX9"
         Me.LabelX9.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX9.Size = New System.Drawing.Size(134, 23)
+        Me.LabelX9.Size = New System.Drawing.Size(119, 21)
         Me.LabelX9.TabIndex = 51
         Me.LabelX9.Text = "Monto Descuento:"
         '
@@ -443,7 +443,7 @@ Partial Class Tec_Ventas
         Me.LabelX8.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX8.Name = "LabelX8"
         Me.LabelX8.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX8.Size = New System.Drawing.Size(162, 23)
+        Me.LabelX8.Size = New System.Drawing.Size(143, 21)
         Me.LabelX8.TabIndex = 49
         Me.LabelX8.Text = "Porcentaje Descuento:"
         '
@@ -675,7 +675,7 @@ Partial Class Tec_Ventas
         Me.Panel3.AutoScroll = True
         Me.Panel3.Controls.Add(Me.btnCliente)
         Me.Panel3.Controls.Add(Me.LabelX11)
-        Me.Panel3.Controls.Add(Me.TextBoxX1)
+        Me.Panel3.Controls.Add(Me.tbCliente)
         Me.Panel3.Controls.Add(Me.btnVendedor)
         Me.Panel3.Controls.Add(Me.lbNombreProductos)
         Me.Panel3.Controls.Add(Me.tbNombreProducto)
@@ -698,6 +698,53 @@ Partial Class Tec_Ventas
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(750, 236)
         Me.Panel3.TabIndex = 49
+        '
+        'btnCliente
+        '
+        Me.btnCliente.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnCliente.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnCliente.Image = Global.DinoM.My.Resources.Resources.search
+        Me.btnCliente.ImageFixedSize = New System.Drawing.Size(28, 28)
+        Me.btnCliente.Location = New System.Drawing.Point(311, 85)
+        Me.btnCliente.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnCliente.Name = "btnCliente"
+        Me.btnCliente.Size = New System.Drawing.Size(35, 31)
+        Me.btnCliente.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnCliente.TabIndex = 213
+        Me.btnCliente.Visible = False
+        '
+        'LabelX11
+        '
+        Me.LabelX11.AutoSize = True
+        Me.LabelX11.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX11.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX11.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX11.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX11.Location = New System.Drawing.Point(16, 93)
+        Me.LabelX11.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX11.Name = "LabelX11"
+        Me.LabelX11.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX11.Size = New System.Drawing.Size(57, 23)
+        Me.LabelX11.TabIndex = 212
+        Me.LabelX11.Text = "Cliente:"
+        '
+        'tbCliente
+        '
+        '
+        '
+        '
+        Me.tbCliente.Border.Class = "TextBoxBorder"
+        Me.tbCliente.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCliente.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbCliente.Location = New System.Drawing.Point(97, 89)
+        Me.tbCliente.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbCliente.Name = "tbCliente"
+        Me.tbCliente.PreventEnterBeep = True
+        Me.tbCliente.Size = New System.Drawing.Size(206, 29)
+        Me.tbCliente.TabIndex = 211
         '
         'btnVendedor
         '
@@ -1239,7 +1286,7 @@ Partial Class Tec_Ventas
         '
         Me.LblPaginacion.BackColor = System.Drawing.Color.White
         Me.LblPaginacion.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.LblPaginacion.Font = New System.Drawing.Font("Arial", 22.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblPaginacion.Font = New System.Drawing.Font("Arial", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblPaginacion.ForeColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.LblPaginacion.Location = New System.Drawing.Point(280, 0)
         Me.LblPaginacion.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
@@ -1520,61 +1567,15 @@ Partial Class Tec_Ventas
         Me.SuperTabItem2.Text = "Lista De Datos"
         Me.SuperTabItem2.TextAlignment = DevComponents.DotNetBar.eItemAlignment.Center
         '
-        'btnCliente
-        '
-        Me.btnCliente.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnCliente.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.btnCliente.Image = Global.DinoM.My.Resources.Resources.search
-        Me.btnCliente.ImageFixedSize = New System.Drawing.Size(28, 28)
-        Me.btnCliente.Location = New System.Drawing.Point(311, 85)
-        Me.btnCliente.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnCliente.Name = "btnCliente"
-        Me.btnCliente.Size = New System.Drawing.Size(35, 31)
-        Me.btnCliente.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnCliente.TabIndex = 213
-        Me.btnCliente.Visible = False
-        '
-        'LabelX11
-        '
-        Me.LabelX11.AutoSize = True
-        Me.LabelX11.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX11.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX11.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX11.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX11.Location = New System.Drawing.Point(16, 93)
-        Me.LabelX11.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX11.Name = "LabelX11"
-        Me.LabelX11.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX11.Size = New System.Drawing.Size(57, 23)
-        Me.LabelX11.TabIndex = 212
-        Me.LabelX11.Text = "Cliente:"
-        '
-        'TextBoxX1
-        '
-        '
-        '
-        '
-        Me.TextBoxX1.Border.Class = "TextBoxBorder"
-        Me.TextBoxX1.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.TextBoxX1.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBoxX1.Location = New System.Drawing.Point(97, 89)
-        Me.TextBoxX1.Margin = New System.Windows.Forms.Padding(4)
-        Me.TextBoxX1.Name = "TextBoxX1"
-        Me.TextBoxX1.PreventEnterBeep = True
-        Me.TextBoxX1.Size = New System.Drawing.Size(206, 29)
-        Me.TextBoxX1.TabIndex = 211
-        '
         'Tec_Ventas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1089, 677)
         Me.Controls.Add(Me.TabControlPrincipal)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Tec_Ventas"
-        Me.Text = "Tec_Ventas"
+        Me.Text = "Gestion Ventas"
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabControlPrincipal.ResumeLayout(False)
         Me.SuperTabControlPanel1.ResumeLayout(False)
@@ -1705,5 +1706,5 @@ Partial Class Tec_Ventas
     Friend WithEvents SuperTabItem2 As DevComponents.DotNetBar.SuperTabItem
     Friend WithEvents btnCliente As DevComponents.DotNetBar.ButtonX
     Friend WithEvents LabelX11 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents TextBoxX1 As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents tbCliente As DevComponents.DotNetBar.Controls.TextBoxX
 End Class
