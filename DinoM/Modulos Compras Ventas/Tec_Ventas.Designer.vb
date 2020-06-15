@@ -81,6 +81,7 @@ Partial Class Tec_Ventas
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.PanelButton = New System.Windows.Forms.Panel()
         Me.PanelToolBar1 = New System.Windows.Forms.Panel()
+        Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
         Me.btnSalir = New DevComponents.DotNetBar.ButtonX()
         Me.btnEliminar = New DevComponents.DotNetBar.ButtonX()
         Me.btnGrabar = New DevComponents.DotNetBar.ButtonX()
@@ -108,7 +109,6 @@ Partial Class Tec_Ventas
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -1185,6 +1185,24 @@ Partial Class Tec_Ventas
         Me.PanelToolBar1.Size = New System.Drawing.Size(753, 51)
         Me.PanelToolBar1.TabIndex = 7
         '
+        'ButtonX2
+        '
+        Me.ButtonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX2.AutoSize = True
+        Me.ButtonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Magenta
+        Me.ButtonX2.Dock = System.Windows.Forms.DockStyle.Left
+        Me.ButtonX2.Font = New System.Drawing.Font("Arial", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX2.Image = Global.DinoM.My.Resources.Resources.tec_print
+        Me.ButtonX2.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.ButtonX2.Location = New System.Drawing.Point(599, 0)
+        Me.ButtonX2.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX2.Name = "ButtonX2"
+        Me.ButtonX2.Size = New System.Drawing.Size(97, 51)
+        Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX2.TabIndex = 11
+        Me.ButtonX2.Text = "RECIBO"
+        Me.ButtonX2.TextColor = System.Drawing.Color.White
+        '
         'btnSalir
         '
         Me.btnSalir.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
@@ -1576,24 +1594,6 @@ Partial Class Tec_Ventas
         'MEP
         '
         Me.MEP.ContainerControl = Me
-        '
-        'ButtonX2
-        '
-        Me.ButtonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX2.AutoSize = True
-        Me.ButtonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Magenta
-        Me.ButtonX2.Dock = System.Windows.Forms.DockStyle.Left
-        Me.ButtonX2.Font = New System.Drawing.Font("Arial", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX2.Image = Global.DinoM.My.Resources.Resources.printee
-        Me.ButtonX2.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.ButtonX2.Location = New System.Drawing.Point(599, 0)
-        Me.ButtonX2.Margin = New System.Windows.Forms.Padding(4)
-        Me.ButtonX2.Name = "ButtonX2"
-        Me.ButtonX2.Size = New System.Drawing.Size(97, 51)
-        Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX2.TabIndex = 11
-        Me.ButtonX2.Text = "RECIBO"
-        Me.ButtonX2.TextColor = System.Drawing.Color.White
         '
         'Tec_Ventas
         '

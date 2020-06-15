@@ -1390,6 +1390,7 @@
     <None Include="Resources\trash.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\tec_print.png" />
     <None Include="Resources\rowdelete.png" />
     <None Include="Resources\pasivo.png" />
     <None Include="Resources\pointcliente.png" />
