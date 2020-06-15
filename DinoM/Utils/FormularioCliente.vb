@@ -15,6 +15,10 @@ Public Class FormularioCliente
     Public Columna As Integer = -1
     Public filaSelect As Janus.Windows.GridEX.GridEXRow
 
+    Public IdCliente As Integer = 0
+    Public NombreCliente As String = ""
+    Public NuevoCliente As Boolean = False
+
     Public listEstrucGrilla As List(Of Celda)
 #End Region
 
@@ -186,8 +190,12 @@ Public Class FormularioCliente
     End Function
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
-        If (_PMOValidarCampos())
-
+        If (_PMOValidarCampos()) Then
+            Dim dt As DataTable = InsertarClienteFormularioExterno("", tbNombreCliente.Text, cbTipoDocumento.Value, tbNroDocumento.Text, tbNombreCliente.Text, tbNroDocumento.Text, cbPrecios.Value)
+            NuevoCliente = True
+            IdCliente = dt.Rows(0).Item("Id")
+            NombreCliente = dt.Rows(0).Item("NombreCliente")
+            Me.Close()
         End If
 
 

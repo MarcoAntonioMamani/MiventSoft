@@ -1135,8 +1135,7 @@ salirIf:
         gPanelProductos.Visible = True
 
         tbGlosa.ReadOnly = False
-        tbVendedor.ReadOnly = False
-        tbCliente.ReadOnly = False
+
         cbSucursal.ReadOnly = False
         swTipoVenta.IsReadOnly = False
         tbFechaVencimientoCredito.IsInputReadOnly = False
@@ -1145,6 +1144,9 @@ salirIf:
 
         tbMdesc.IsInputReadOnly = False
         tbPdesc.IsInputReadOnly = False
+
+        btnVendedor.Visible = True
+        btnCliente.Visible = True
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -1164,6 +1166,9 @@ salirIf:
         tbMdesc.IsInputReadOnly = True
         tbPdesc.IsInputReadOnly = True
         grDetalle.RootTable.Columns("img").Visible = False
+        btnVendedor.Visible = False
+        btnCliente.Visible = False
+
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -1654,7 +1659,7 @@ salirIf:
 
             Dim dt As DataTable
 
-            dt = ListarProveedores()
+            dt = ListarPersonal()
             'a.Id ,a.NombreProveedor ,a.Direccion ,a.Telefono01
 
             Dim listEstCeldas As New List(Of Celda)
@@ -1669,7 +1674,7 @@ salirIf:
             ef.listEstCeldasNew = listEstCeldas
             ef.alto = 50
             ef.ancho = 350
-            ef.Context = "Seleccione Proveedor".ToUpper
+            ef.Context = "Seleccione Personal".ToUpper
             ef.ShowDialog()
             Dim bandera As Boolean = False
             bandera = ef.band
@@ -1746,6 +1751,84 @@ salirIf:
 
             End If
         End If
+    End Sub
+
+    Private Sub tbCliente_KeyDown(sender As Object, e As KeyEventArgs) Handles tbCliente.KeyDown
+        If (Not _fnAccesible()) Then
+            Return
+        End If
+        If (e.KeyData = Keys.Control + Keys.Enter) Then '
+
+            Dim dt As DataTable
+
+            dt = ListarPersonal()
+            'a.Id ,a.NombreProveedor ,a.Direccion ,a.Telefono01
+
+            Dim listEstCeldas As New List(Of Celda)
+            listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
+            listEstCeldas.Add(New Celda("NombreProveedor", True, "NOMBRE", 350))
+            listEstCeldas.Add(New Celda("Direccion", True, "DIRECCION", 180))
+            listEstCeldas.Add(New Celda("Telefono01", True, "Telefono".ToUpper, 200))
+
+
+
+
+            Dim frmAyuda As FormularioCliente
+            frmAyuda = New FormularioCliente(50, 350, dt, "Seleccione Cliente", listEstCeldas)
+
+            frmAyuda.ShowDialog()
+            If frmAyuda.seleccionado = True Then
+                Dim Row As Janus.Windows.GridEX.GridEXRow = frmAyuda.filaSelect
+                IdCliente = Row.Cells("ID").Value
+                tbCliente.Text = Row.Cells("NombreProveedor").Value.ToString
+            Else
+                If (frmAyuda.NuevoCliente) Then
+                    IdCliente = frmAyuda.IdCliente
+                    tbCliente.Text = frmAyuda.NombreCliente
+                End If
+
+            End If
+
+        End If
+
+    End Sub
+
+    Private Sub btnCliente_Click(sender As Object, e As EventArgs) Handles btnCliente.Click
+        If (Not _fnAccesible()) Then
+            Return
+        End If
+
+
+        Dim dt As DataTable
+
+            dt = ListarPersonal()
+            'a.Id ,a.NombreProveedor ,a.Direccion ,a.Telefono01
+
+            Dim listEstCeldas As New List(Of Celda)
+            listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
+            listEstCeldas.Add(New Celda("NombreProveedor", True, "NOMBRE", 350))
+            listEstCeldas.Add(New Celda("Direccion", True, "DIRECCION", 180))
+            listEstCeldas.Add(New Celda("Telefono01", True, "Telefono".ToUpper, 200))
+
+
+
+
+            Dim frmAyuda As FormularioCliente
+            frmAyuda = New FormularioCliente(50, 350, dt, "Seleccione Cliente", listEstCeldas)
+
+            frmAyuda.ShowDialog()
+            If frmAyuda.seleccionado = True Then
+                Dim Row As Janus.Windows.GridEX.GridEXRow = frmAyuda.filaSelect
+                IdCliente = Row.Cells("ID").Value
+                tbCliente.Text = Row.Cells("NombreProveedor").Value.ToString
+            Else
+                If (frmAyuda.NuevoCliente) Then
+                    IdCliente = frmAyuda.IdCliente
+                    tbCliente.Text = frmAyuda.NombreCliente
+                End If
+
+            End If
+
     End Sub
 #End Region
 End Class

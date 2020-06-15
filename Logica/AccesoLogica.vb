@@ -3310,6 +3310,23 @@ Public Class AccesoLogica
         Return _resultado
     End Function
 
+    Public Shared Function InsertarClienteFormularioExterno(_Id As String, NombreCliente As String, TipoDocumento As Integer, NroDocumento As String,
+                                           RazonSocial As String, nit As String, CategoriaPrecioId As Integer) As DataTable
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 8))
+        _listParam.Add(New Datos.DParametro("@Id", _Id))
+        _listParam.Add(New Datos.DParametro("@NombreCliente", NombreCliente))
+        _listParam.Add(New Datos.DParametro("@Observacion", ""))
+        _listParam.Add(New Datos.DParametro("@TipoDocumento", TipoDocumento))
+        _listParam.Add(New Datos.DParametro("@NroDocumento", NroDocumento))
+        _listParam.Add(New Datos.DParametro("@RazonSocial", RazonSocial))
+        _listParam.Add(New Datos.DParametro("@PrecioCategoriaId", CategoriaPrecioId))
+        _listParam.Add(New Datos.DParametro("@nit", nit))
+        _Tabla = D_ProcedimientoConParam("MAM_Clientes", _listParam)
+        Return _Tabla
+    End Function
+
     Public Shared Function L_prClienteBorrar(_numi As String, ByRef _mensaje As String) As Boolean
 
         Dim _resultado As Boolean

@@ -546,8 +546,9 @@ Partial Class FormularioCliente
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1050, 633)
         Me.Controls.Add(Me.PanelPrincipal)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "FormularioCliente"
-        Me.Text = "FormularioCliente"
+        Me.Text = "CREAR NUEVO CLIENTE"
         Me.PanelPrincipal.ResumeLayout(False)
         Me.PanelBuscador.ResumeLayout(False)
         Me.Panel17.ResumeLayout(False)
