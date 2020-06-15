@@ -32,17 +32,19 @@ Partial Class FormularioAyuda
         Me.lbTitulo = New System.Windows.Forms.Label()
         Me.Panel16 = New System.Windows.Forms.Panel()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel17.SuspendLayout()
         CType(Me.grJBuscador, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel4.SuspendLayout()
         Me.Panel14.SuspendLayout()
         Me.Panel15.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel17
         '
-        Me.Panel17.Controls.Add(Me.grJBuscador)
+        Me.Panel17.Controls.Add(Me.Panel1)
         Me.Panel17.Controls.Add(Me.Panel4)
         Me.Panel17.Controls.Add(Me.Panel14)
         Me.Panel17.Dock = System.Windows.Forms.DockStyle.Fill
@@ -50,7 +52,7 @@ Partial Class FormularioAyuda
         Me.Panel17.Name = "Panel17"
         Me.Panel17.Padding = New System.Windows.Forms.Padding(5)
         Me.Panel17.Size = New System.Drawing.Size(844, 506)
-        Me.Panel17.TabIndex = 5
+        Me.Panel17.TabIndex = 0
         '
         'grJBuscador
         '
@@ -77,7 +79,7 @@ Partial Class FormularioAyuda
         Me.grJBuscador.HeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
         Me.grJBuscador.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grJBuscador.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
-        Me.grJBuscador.Location = New System.Drawing.Point(5, 105)
+        Me.grJBuscador.Location = New System.Drawing.Point(0, 0)
         Me.grJBuscador.Margin = New System.Windows.Forms.Padding(4)
         Me.grJBuscador.Name = "grJBuscador"
         Me.grJBuscador.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
@@ -95,7 +97,7 @@ Partial Class FormularioAyuda
         Me.grJBuscador.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grJBuscador.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
         Me.grJBuscador.Size = New System.Drawing.Size(834, 396)
-        Me.grJBuscador.TabIndex = 2
+        Me.grJBuscador.TabIndex = 1
         Me.grJBuscador.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grJBuscador.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
         Me.grJBuscador.TableSpacing = 9
@@ -113,7 +115,7 @@ Partial Class FormularioAyuda
         Me.Panel4.Location = New System.Drawing.Point(5, 41)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(834, 64)
-        Me.Panel4.TabIndex = 4
+        Me.Panel4.TabIndex = 1
         '
         'lbNombreProductos
         '
@@ -152,7 +154,7 @@ Partial Class FormularioAyuda
         Me.tbNombre.Name = "tbNombre"
         Me.tbNombre.PreventEnterBeep = True
         Me.tbNombre.Size = New System.Drawing.Size(360, 36)
-        Me.tbNombre.TabIndex = 59
+        Me.tbNombre.TabIndex = 1
         '
         'Panel14
         '
@@ -175,7 +177,7 @@ Partial Class FormularioAyuda
         Me.Panel15.Location = New System.Drawing.Point(1, 1)
         Me.Panel15.Name = "Panel15"
         Me.Panel15.Size = New System.Drawing.Size(832, 34)
-        Me.Panel15.TabIndex = 0
+        Me.Panel15.TabIndex = 4
         '
         'lbTitulo
         '
@@ -187,7 +189,7 @@ Partial Class FormularioAyuda
         Me.lbTitulo.Name = "lbTitulo"
         Me.lbTitulo.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
         Me.lbTitulo.Size = New System.Drawing.Size(254, 34)
-        Me.lbTitulo.TabIndex = 2
+        Me.lbTitulo.TabIndex = 10
         Me.lbTitulo.Text = "LISTADO DE MOVIMIENTOS"
         Me.lbTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -198,7 +200,7 @@ Partial Class FormularioAyuda
         Me.Panel16.Location = New System.Drawing.Point(58, 0)
         Me.Panel16.Name = "Panel16"
         Me.Panel16.Size = New System.Drawing.Size(1, 34)
-        Me.Panel16.TabIndex = 1
+        Me.Panel16.TabIndex = 11
         '
         'PictureBox4
         '
@@ -212,6 +214,15 @@ Partial Class FormularioAyuda
         Me.PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox4.TabIndex = 0
         Me.PictureBox4.TabStop = False
+        '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.grJBuscador)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel1.Location = New System.Drawing.Point(5, 105)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(834, 396)
+        Me.Panel1.TabIndex = 2
         '
         'FormularioAyuda
         '
@@ -230,6 +241,7 @@ Partial Class FormularioAyuda
         Me.Panel14.ResumeLayout(False)
         Me.Panel15.ResumeLayout(False)
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -244,4 +256,5 @@ Partial Class FormularioAyuda
     Friend WithEvents PictureBox4 As PictureBox
     Friend WithEvents lbNombreProductos As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbNombre As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents Panel1 As Panel
 End Class

@@ -67,7 +67,8 @@ Public Class FormularioCantidadProductos
             Else
                 If (CantidadActual > CantidadTotal) Then
 
-                    tbCantidad.Text = Str(CantidadTotal)
+                    tbCantidad.Clear()
+                    tbCantidad.Text = Str(CantidadTotal).Trim
                     ToastNotification.Show(Me, "La cantidad es Superior Al Stock Disponible = " + Str(CantidadTotal), My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
                     tbCantidad.Focus()
                 Else
@@ -77,7 +78,7 @@ Public Class FormularioCantidadProductos
                         respuesta = True
                         Me.Close()
                     Else
-
+                        tbCantidad.Clear()
                         tbCantidad.Text = "0".Trim
                         ToastNotification.Show(Me, "La Cantidad debe ser Mayor o igual a 1", My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
                         tbCantidad.Focus()
@@ -102,6 +103,14 @@ Public Class FormularioCantidadProductos
     Private Sub tbCantidad_KeyDown(sender As Object, e As KeyEventArgs) Handles tbCantidad.KeyDown
         If (e.KeyData = Keys.Enter) Then
             ValidarStock()
+        End If
+    End Sub
+
+    Private Sub FormularioCantidadProductos_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        If (e.KeyData = Keys.Escape) Then
+            respuesta = False
+            Me.Close()
+
         End If
     End Sub
 #End Region

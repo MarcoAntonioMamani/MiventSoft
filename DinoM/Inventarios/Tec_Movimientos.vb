@@ -738,7 +738,10 @@ Public Class Tec_Movimientos
     End Function
 
     Public Sub CambiarEstado(ProductoId As Integer, Estado As Integer)
+        If (IsNothing(grProducto.DataSource)) Then
+            Return
 
+        End If
         For i As Integer = 0 To CType(grProducto.DataSource, DataTable).Rows.Count - 1 Step 1
             If (CType(grProducto.DataSource, DataTable).Rows(i).Item("Id") = ProductoId) Then
                 CType(grProducto.DataSource, DataTable).Rows(i).Item("estado") = Estado

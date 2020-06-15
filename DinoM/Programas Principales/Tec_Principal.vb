@@ -432,11 +432,8 @@ Public Class Tec_Principal
 
     Private Sub btnProveedores_Click(sender As Object, e As EventArgs) Handles btnProveedores.Click
         SuperTabControlMenu.SelectedTab = tab_ventana
-        'Dim frm As New F0_Roles
         Dim frm As New Frm_Proveedor
         frm._nameButton = btnProveedores.Name
-        'frm._modulo = Panel_Configuracion
-
         Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
         tab3.RecalcSize()
         tab3.ThemeAware = True
@@ -453,10 +450,8 @@ Public Class Tec_Principal
 
     Private Sub btnPersonal_Click(sender As Object, e As EventArgs) Handles btnPersonal.Click
         SuperTabControlMenu.SelectedTab = tab_ventana
-        'Dim frm As New F0_Roles
         Dim frm As New Tec_Personal
         frm._nameButton = btnProveedores.Name
-        'frm._modulo = Panel_Configuracion
 
         Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
         tab3.RecalcSize()
@@ -474,10 +469,25 @@ Public Class Tec_Principal
 
     Private Sub btnCompras_Click(sender As Object, e As EventArgs) Handles btnCompras.Click
         SuperTabControlMenu.SelectedTab = tab_ventana
-        'Dim frm As New F0_Roles
         Dim frm As New Tec_Compras
-        'frm._nameButton = btnProveedores.Name
-        'frm._modulo = Panel_Configuracion
+
+        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
+        tab3.RecalcSize()
+        tab3.ThemeAware = True
+        tab3.ShowSubItems = True
+        tab3.UpdateBindings()
+        'frm._tab = tab3
+        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
+        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
+        tab3.AttachedControl.Controls.Add(panel)
+        frm.Show()
+        tab3.Text = frm.Text
+        tab3.Icon = frm.Icon
+    End Sub
+
+    Private Sub btVentVenta_Click(sender As Object, e As EventArgs) Handles btVentVenta.Click
+        SuperTabControlMenu.SelectedTab = tab_ventana
+        Dim frm As New Tec_Ventas
 
         Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
         tab3.RecalcSize()

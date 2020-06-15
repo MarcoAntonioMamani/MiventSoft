@@ -21,6 +21,9 @@ Public Class Efecto
     Public StockActual As Double
     Public CantidadTransaccion As Double
     Public TipoMovimiento As Integer
+    Public NewCliente As Boolean = False
+    Public IdCliente As Integer
+    Public NombreCliente As String
 
 
 
@@ -44,6 +47,8 @@ Public Class Efecto
                 _prMostrarFormularioCantidad()
             Case 6
                 MostrarFormularioContenido()
+            Case 7
+                MostrarFormularioClientesContenido()
 
         End Select
     End Sub
@@ -98,6 +103,28 @@ Public Class Efecto
             band = True
             Me.Close()
         Else
+            band = False
+            Me.Close()
+        End If
+    End Sub
+
+    Sub MostrarFormularioClientesContenido()
+        Dim frmAyuda As FormularioCliente
+        frmAyuda = New FormularioCliente(alto, ancho, dt, Context.ToUpper, listEstCeldasNew)
+        If (SeleclCol >= 0) Then
+            frmAyuda.Columna = SeleclCol
+            frmAyuda._prSeleccionar()
+
+        End If
+        frmAyuda.ShowDialog()
+        If frmAyuda.seleccionado = True Then
+            Row = frmAyuda.filaSelect
+            band = True
+            Me.Close()
+        Else
+            NewCliente = frmAyuda.NuevoCliente
+            IdCliente = frmAyuda.IdCliente
+            NombreCliente = frmAyuda.NombreCliente
             band = False
             Me.Close()
         End If

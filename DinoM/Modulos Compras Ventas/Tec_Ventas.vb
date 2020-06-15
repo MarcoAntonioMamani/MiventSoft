@@ -97,7 +97,7 @@ Public Class Tec_Ventas
     Private Sub _PMHabilitar()
         JGrM_Buscador.Enabled = False
         _PMOHabilitar()
-        tbNombreProducto.Focus()
+        tbVendedor.Focus()
     End Sub
 
     Public Sub ActualizarProductos()
@@ -237,7 +237,9 @@ Public Class Tec_Ventas
         Else
             '  Public _modulo As SideNavItem
             '_modulo.Select()
-            _tab.Close()
+            '_tab.Close()
+            Me.Close()
+
         End If
     End Sub
 #End Region
@@ -317,7 +319,7 @@ Public Class Tec_Ventas
 
 
         With grDetalle.RootTable.Columns("ProductoId")
-            .Width = 50
+            .Width = 30
             .Visible = True
             .Caption = "Cod Producto"
         End With
@@ -392,11 +394,13 @@ Public Class Tec_Ventas
             .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .FormatString = "0.00"
+            .Visible = False
         End With
         With grDetalle.RootTable.Columns("stock")
             .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .FormatString = "0.00"
+            .Visible = False
         End With
 
 
@@ -486,6 +490,11 @@ Public Class Tec_Ventas
     Private Sub _prCargarProductos()
         Dim dt As New DataTable
 
+        If (cbSucursal.Value < 0 Or IdCliente = 0) Then
+            Return
+
+        End If
+
         dt = L_prListarProductosVentas(cbSucursal.Value, IdCliente)  ''1=Almacen
 
         'a.Id , a.NombreProducto, PCosto.Precio As PrecioCosto,
@@ -550,7 +559,15 @@ Public Class Tec_Ventas
             'diseño de la grilla
             .VisualStyle = VisualStyle.Office2007
         End With
-
+        _prAplicarCondiccionJanusSinLote()
+    End Sub
+    Public Sub _prAplicarCondiccionJanusSinLote()
+        Dim fc As GridEXFormatCondition
+        fc = New GridEXFormatCondition(grProducto.RootTable.Columns("stock"), ConditionOperator.Equal, 0)
+        'fc.FormatStyle.FontBold = TriState.True
+        fc.FormatStyle.ForeColor = Color.White
+        fc.FormatStyle.BackColor = Color.Red
+        grProducto.RootTable.FormatConditions.Add(fc)
     End Sub
 
 
@@ -586,7 +603,7 @@ Public Class Tec_Ventas
 
     Private Sub _HabilitarProductos()
         gPanelProductos.Visible = True
-        _prCargarProductos()
+
         grProducto.Focus()
         grProducto.MoveTo(grProducto.FilterRow)
         grProducto.Col = 1
@@ -694,7 +711,10 @@ Public Class Tec_Ventas
     End Function
 
     Public Sub CambiarEstado(ProductoId As Integer, Estado As Integer)
+        If (IsNothing(grProducto.DataSource)) Then
+            Return
 
+        End If
         For i As Integer = 0 To CType(grProducto.DataSource, DataTable).Rows.Count - 1 Step 1
             If (CType(grProducto.DataSource, DataTable).Rows(i).Item("Id") = ProductoId) Then
                 CType(grProducto.DataSource, DataTable).Rows(i).Item("estado") = Estado
@@ -727,8 +747,8 @@ Public Class Tec_Ventas
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = grProducto.GetValue("PrecioVenta")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = grProducto.GetValue("PrecioVenta") * cantidad
-                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = grProducto.GetValue("PrecioVenta") * cantidad
-                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = grProducto.GetValue("PrecioCosto")
+
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = grProducto.GetValue("PrecioVenta") * cantidad
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCosto") = grProducto.GetValue("PrecioCosto")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("Stock")
 
@@ -854,7 +874,12 @@ salirIf:
 
                 If (IsNothing(FilaSelectLote)) Then
                     ''''''''''''''''''''''''
+                    If (grProducto.GetValue("stock") <= 0) Then
 
+                        ToastNotification.Show(Me, "No Existe Stock del Producto Para Proceder con la Venta".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                        Return
+
+                    End If
 
                     Dim ef = New Efecto
                     ef.tipo = 5
@@ -900,6 +925,14 @@ salirIf:
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio")
                 Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
 
+                grDetalle.SetValue("Cantidad", 1)
+                grDetalle.SetValue("ProcentajeDescuento", 0)
+                grDetalle.SetValue("MontoDescuento", 0)
+                grDetalle.SetValue("SubTotal", grDetalle.GetValue("Precio"))
+                grDetalle.SetValue("Total", grDetalle.GetValue("Precio"))
+
+
+
                 If (estado = 1) Then
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
                 End If
@@ -907,22 +940,54 @@ salirIf:
             Else
                 If (grDetalle.GetValue("Cantidad") > 0) Then
 
-                    Dim porcdesc As Double = grDetalle.GetValue("ProcentajeDescuento")
-                    Dim montodesc As Double = ((grDetalle.GetValue("Precio") * grDetalle.GetValue("Cantidad")) * (porcdesc / 100))
-                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = montodesc
-                    grDetalle.SetValue("MontoDescuento", montodesc)
-                    Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
-                    Dim rowIndex As Integer = grDetalle.Row
-                    P_PonerTotal(rowIndex)
-                    If (estado = 1) Then
-                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                    If (grDetalle.GetValue("Cantidad") <= grDetalle.GetValue("Stock")) Then
+                        Dim porcdesc As Double = grDetalle.GetValue("ProcentajeDescuento")
+                        Dim montodesc As Double = ((grDetalle.GetValue("Precio") * grDetalle.GetValue("Cantidad")) * (porcdesc / 100))
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = montodesc
+                        grDetalle.SetValue("MontoDescuento", montodesc)
+                        Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+                        Dim rowIndex01 As Integer = grDetalle.Row
+                        P_PonerTotal(rowIndex01)
+                        If (estado = 1) Then
+                            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                        End If
+
+                    Else
+                        ToastNotification.Show(Me, "La Cantidad = " + Str(grDetalle.GetValue("Cantidad")) + " es mayor al Stock del Producto = " + Str(grDetalle.GetValue("Stock")), My.Resources.WARNING, 6000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = 0
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = 0
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio")
+                        Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+
+                        grDetalle.SetValue("Cantidad", 1)
+                        grDetalle.SetValue("ProcentajeDescuento", 0)
+                        grDetalle.SetValue("MontoDescuento", 0)
+                        grDetalle.SetValue("SubTotal", grDetalle.GetValue("Precio"))
+                        grDetalle.SetValue("Total", grDetalle.GetValue("Precio"))
+
+
+
+                        If (estado = 1) Then
+                            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                        End If
+
                     End If
+
 
                 Else
 
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = 0
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = 0
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio")
                     Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
 
+                    grDetalle.SetValue("Cantidad", 1)
+                    grDetalle.SetValue("ProcentajeDescuento", 0)
+                    grDetalle.SetValue("MontoDescuento", 0)
+                    grDetalle.SetValue("SubTotal", grDetalle.GetValue("Precio"))
+                    grDetalle.SetValue("Total", grDetalle.GetValue("Precio"))
                     If (estado = 1) Then
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
                     End If
@@ -955,8 +1020,6 @@ salirIf:
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = montodesc
                     grDetalle.SetValue("MontoDescuento", montodesc)
 
-                    Dim rowIndex As Integer = grDetalle.Row
-                    P_PonerTotal(rowIndex)
 
                 Else
                     lin = grDetalle.GetValue("Id")
@@ -1004,8 +1067,7 @@ salirIf:
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = pordesc
 
                     grDetalle.SetValue("ProcentajeDescuento", pordesc)
-                    Dim rowIndex As Integer = grDetalle.Row
-                    P_PonerTotal(rowIndex)
+
 
                 Else
                     lin = grDetalle.GetValue("Id")
@@ -1024,7 +1086,8 @@ salirIf:
                 End If
             End If
         End If
-
+        Dim rowIndex As Integer = grDetalle.Row
+        P_PonerTotal(rowIndex)
     End Sub
     Public Sub P_PonerTotal(rowIndex As Integer)
         If (rowIndex < grDetalle.RowCount) Then
@@ -1112,9 +1175,23 @@ salirIf:
 
 
         If (_fnAccesible() And tbCodigo.Text = String.Empty And Not IsNothing(grDetalle.DataSource)) Then
-
+            _prCargarProductos()
             CType(grDetalle.DataSource, DataTable).Rows.Clear()
 
+        Else
+            If (_fnAccesible() And tbCodigo.Text <> String.Empty And Not IsNothing(grDetalle.DataSource)) Then
+
+                For i As Integer = 0 To CType(grDetalle.DataSource, DataTable).Rows.Count - 1 Step 1
+                    If (CType(grDetalle.DataSource, DataTable).Rows(i).Item("Estado") > 0) Then
+                        CType(grDetalle.DataSource, DataTable).Rows(i).Item("Estado") = -1
+                    Else
+                        CType(grDetalle.DataSource, DataTable).Rows(i).Item("Estado") = -2
+                    End If
+
+
+                Next
+
+            End If
 
         End If
 
@@ -1185,12 +1262,13 @@ salirIf:
         seleccionarPrimerItemCombo(cbSucursal)
 
 
-        tbVendedor.Focus()
+
 
         tbMdesc.Value = 0
         tbPdesc.Value = 0
         tbTotal.Value = 0
         _prCargarDetalleVenta(-1)
+        tbVendedor.Focus()
     End Sub
     Public Sub seleccionarPrimerItemCombo(cb As EditControls.MultiColumnCombo)
         If (CType(cb.DataSource, DataTable).Rows.Count > 0) Then
@@ -1399,7 +1477,7 @@ salirIf:
         listEstCeldas.Add(New Celda("SucursalId", False))
         listEstCeldas.Add(New Celda("FechaVenta", True, "Fecha Venta", 100))
         listEstCeldas.Add(New Celda("PersonalId", False, "Estado", 150))
-        listEstCeldas.Add(New Celda("NombrePersonal", True, "Personal", 150))
+        listEstCeldas.Add(New Celda("Personal", True, "Personal", 150))
         listEstCeldas.Add(New Celda("TipoVenta", False, "", 70))
         listEstCeldas.Add(New Celda("NombreCliente", True, "Cliente", 150))
         listEstCeldas.Add(New Celda("TVenta", True, "Tipo Venta", 70))
@@ -1471,6 +1549,8 @@ salirIf:
 
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
         _PMModificar()
+        _prCargarProductos()
+
         ActualizarProductos()
     End Sub
 
@@ -1582,7 +1662,12 @@ salirIf:
 
                     If (IsNothing(FilaSelectLote)) Then
                         ''''''''''''''''''''''''
+                        If (grProducto.GetValue("stock") <= 0) Then
 
+                            ToastNotification.Show(Me, "No Existe Stock del Producto Para Proceder con la Venta".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                            Return
+
+                        End If
 
                         Dim ef = New Efecto
 
@@ -1590,7 +1675,7 @@ salirIf:
                         ef.tipo = 5
                         ef.NombreProducto = grProducto.GetValue("NombreProducto")
                         ef.StockActual = grProducto.GetValue("stock")
-                        ef.TipoMovimiento = 4
+                        ef.TipoMovimiento = 3
                         ef.ShowDialog()
                         Dim bandera As Boolean = False
                         bandera = ef.band
@@ -1608,17 +1693,22 @@ salirIf:
             End If
 
         End If
-
-
+        If (e.KeyData = Keys.Tab Or e.KeyData = Keys.Right) Then
+            grProducto.Focus()
+        End If
+        If (e.KeyData = Keys.Down) Then
+            grDetalle.Focus()
+        End If
     End Sub
 
     Private Sub tbProveedor_KeyDown(sender As Object, e As KeyEventArgs) Handles tbVendedor.KeyDown
         If (_fnAccesible()) Then
             If e.KeyData = Keys.Control + Keys.Enter Then
 
+
                 Dim dt As DataTable
 
-                dt = ListarProveedores()
+                dt = ListarPersonal()
                 'a.Id ,a.NombreProveedor ,a.Direccion ,a.Telefono01
 
                 Dim listEstCeldas As New List(Of Celda)
@@ -1633,7 +1723,7 @@ salirIf:
                 ef.listEstCeldasNew = listEstCeldas
                 ef.alto = 50
                 ef.ancho = 350
-                ef.Context = "Seleccione Proveedor".ToUpper
+                ef.Context = "Seleccione Personal".ToUpper
                 ef.ShowDialog()
                 Dim bandera As Boolean = False
                 bandera = ef.band
@@ -1683,7 +1773,7 @@ salirIf:
 
                 IdVendedor = Row.Cells("Id").Value
                 tbVendedor.Text = Row.Cells("NombreProveedor").Value
-                tbGlosa.Focus()
+                tbCliente.Focus()
 
             End If
 
@@ -1761,33 +1851,43 @@ salirIf:
 
             Dim dt As DataTable
 
-            dt = ListarPersonal()
-            'a.Id ,a.NombreProveedor ,a.Direccion ,a.Telefono01
+            dt = ListarCliente()
+            'a.Id ,a.NombreCliente  as NombreProveedor ,a.DireccionCliente  ,a.Telefono
 
             Dim listEstCeldas As New List(Of Celda)
             listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
-            listEstCeldas.Add(New Celda("NombreProveedor", True, "NOMBRE", 350))
-            listEstCeldas.Add(New Celda("Direccion", True, "DIRECCION", 180))
-            listEstCeldas.Add(New Celda("Telefono01", True, "Telefono".ToUpper, 200))
+            listEstCeldas.Add(New Celda("NombreCliente", True, "NOMBRE", 350))
+            listEstCeldas.Add(New Celda("DireccionCliente", True, "DIRECCION", 180))
+            listEstCeldas.Add(New Celda("Telefono", True, "Telefono".ToUpper, 200))
 
 
+            Dim ef = New Efecto
+            ef.tipo = 7
+            ef.dt = dt
+            ef.SeleclCol = 0
+            ef.listEstCeldasNew = listEstCeldas
+            ef.alto = 80
+            ef.ancho = 800
+            ef.Context = "Seleccione Cliente".ToUpper
+            ef.ShowDialog()
+            Dim bandera As Boolean = False
+            bandera = ef.band
+            If (bandera = True) Then
+                Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
 
-
-            Dim frmAyuda As FormularioCliente
-            frmAyuda = New FormularioCliente(50, 350, dt, "Seleccione Cliente", listEstCeldas)
-
-            frmAyuda.ShowDialog()
-            If frmAyuda.seleccionado = True Then
-                Dim Row As Janus.Windows.GridEX.GridEXRow = frmAyuda.filaSelect
                 IdCliente = Row.Cells("ID").Value
                 tbCliente.Text = Row.Cells("NombreProveedor").Value.ToString
+                _prCargarProductos()
+                tbGlosa.Focus()
             Else
-                If (frmAyuda.NuevoCliente) Then
-                    IdCliente = frmAyuda.IdCliente
-                    tbCliente.Text = frmAyuda.NombreCliente
+                If (ef.NewCliente) Then
+                    IdCliente = ef.IdCliente
+                    tbCliente.Text = ef.NombreCliente
+                    _prCargarProductos()
+                    tbGlosa.Focus()
                 End If
-
             End If
+
 
         End If
 
@@ -1801,33 +1901,43 @@ salirIf:
 
         Dim dt As DataTable
 
-            dt = ListarPersonal()
-            'a.Id ,a.NombreProveedor ,a.Direccion ,a.Telefono01
 
-            Dim listEstCeldas As New List(Of Celda)
-            listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
-            listEstCeldas.Add(New Celda("NombreProveedor", True, "NOMBRE", 350))
-            listEstCeldas.Add(New Celda("Direccion", True, "DIRECCION", 180))
-            listEstCeldas.Add(New Celda("Telefono01", True, "Telefono".ToUpper, 200))
+        dt = ListarCliente()
+        'a.Id ,a.NombreCliente  as NombreProveedor ,a.DireccionCliente  ,a.Telefono
+
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
+        listEstCeldas.Add(New Celda("NombreCliente", True, "NOMBRE", 350))
+        listEstCeldas.Add(New Celda("DireccionCliente", True, "DIRECCION", 180))
+        listEstCeldas.Add(New Celda("Telefono", True, "Telefono".ToUpper, 200))
 
 
+        Dim ef = New Efecto
+        ef.tipo = 7
+        ef.dt = dt
+        ef.SeleclCol = 0
+        ef.listEstCeldasNew = listEstCeldas
+        ef.alto = 80
+        ef.ancho = 800
+        ef.Context = "Seleccione Cliente".ToUpper
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
 
-
-            Dim frmAyuda As FormularioCliente
-            frmAyuda = New FormularioCliente(50, 350, dt, "Seleccione Cliente", listEstCeldas)
-
-            frmAyuda.ShowDialog()
-            If frmAyuda.seleccionado = True Then
-                Dim Row As Janus.Windows.GridEX.GridEXRow = frmAyuda.filaSelect
-                IdCliente = Row.Cells("ID").Value
-                tbCliente.Text = Row.Cells("NombreProveedor").Value.ToString
-            Else
-                If (frmAyuda.NuevoCliente) Then
-                    IdCliente = frmAyuda.IdCliente
-                    tbCliente.Text = frmAyuda.NombreCliente
-                End If
-
+            IdCliente = Row.Cells("ID").Value
+            tbCliente.Text = Row.Cells("NombreProveedor").Value.ToString
+            _prCargarProductos()
+            tbGlosa.Focus()
+        Else
+            If (ef.NewCliente) Then
+                IdCliente = ef.IdCliente
+                tbCliente.Text = ef.NombreCliente
+                _prCargarProductos()
+                tbGlosa.Focus()
             End If
+        End If
 
     End Sub
 #End Region

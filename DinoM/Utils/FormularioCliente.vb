@@ -31,26 +31,27 @@ Public Class FormularioCliente
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        Me.StartPosition = FormStartPosition.Manual
-        Me.Location = New Point(posX, posY)
+
         lbTitulo.Text = titulo
 
         listEstrucGrilla = listEst
 
         seleccionado = False
 
-        _PMCargarBuscador()
+
         'grJBuscador.Row = grJBuscador.FilterRow.RowIndex
         'grJBuscador.Col = 1
         Columna = 2
+        tbNombre.Focus()
+        Me.Width = 1000
     End Sub
     Public Sub _prSeleccionar()
-        If (Columna >= 0) Then
-            grJBuscador.Select()
-            ''  grJBuscador.Focus()
-            grJBuscador.MoveTo(grJBuscador.FilterRow)
-            grJBuscador.Col = Columna
-        End If
+        'If (Columna >= 0) Then
+        '    grJBuscador.Select()
+        '    ''  grJBuscador.Focus()
+        '    grJBuscador.MoveTo(grJBuscador.FilterRow)
+        '    grJBuscador.Col = Columna
+        'End If
     End Sub
 
 
@@ -98,7 +99,7 @@ Public Class FormularioCliente
 
 
         'adaptar el tamaño de la ventana
-        Me.Width = anchoVentana + 50
+
     End Sub
 #End Region
 
@@ -127,7 +128,16 @@ Public Class FormularioCliente
         P_Global._prCargarComboGenerico(cbTipoDocumento, L_prLibreriaDetalleGeneral(8), "cnnum", "Codigo", "cndesc1", "TipoDocumento")
         P_Global._prCargarComboGenerico(cbPrecios, L_prListaCategoriasPrecios(), "Id", "Codigo", "Descripcion", "CategoriaPrecio")
 
+        If (CType(cbTipoDocumento.DataSource, DataTable).Rows.Count > 0) Then
+            cbTipoDocumento.SelectedIndex = 0
+        End If
+        If (CType(cbPrecios.DataSource, DataTable).Rows.Count > 0) Then
+            cbPrecios.SelectedIndex = 0
+        End If
+        _PMCargarBuscador()
         tbNombre.Focus()
+
+
     End Sub
 
     Private Sub tbNombre_TextChanged(sender As Object, e As EventArgs) Handles tbNombre.TextChanged
@@ -138,8 +148,8 @@ Public Class FormularioCliente
 
 
         Else
-            'grProducto.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grProducto.RootTable.Columns("NombreProducto"), Janus.Windows.GridEX.ConditionOperator.Contains, tbNombreProducto.Text))
-            grJBuscador.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grJBuscador.RootTable.Columns("NombreCliente"), Janus.Windows.GridEX.ConditionOperator.Contains, tbNombre.Text))
+
+            grJBuscador.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grJBuscador.RootTable.Columns("NombreProveedor"), Janus.Windows.GridEX.ConditionOperator.Contains, tbNombre.Text))
 
         End If
     End Sub
@@ -147,6 +157,10 @@ Public Class FormularioCliente
     Private Sub tbNombre_KeyDown(sender As Object, e As KeyEventArgs) Handles tbNombre.KeyDown
         If e.KeyData = Keys.Escape Then
             Me.Close()
+        End If
+
+        If (e.KeyData = Keys.Down) Then
+            grJBuscador.Focus()
         End If
     End Sub
 
@@ -200,5 +214,12 @@ Public Class FormularioCliente
 
 
 
+    End Sub
+
+    Private Sub FormularioCliente_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        If (e.KeyData = Keys.Escape) Then
+            Me.Close()
+
+        End If
     End Sub
 End Class

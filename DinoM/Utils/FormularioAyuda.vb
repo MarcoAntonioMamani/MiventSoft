@@ -14,6 +14,9 @@ Public Class FormularioAyuda
     Public listEstrucGrilla As List(Of Celda)
 #End Region
 
+    '''El Tab Index Sirve para establecer cual sera el primer campo de Focus
+
+
 #Region "METODOS PRIVADOS"
     Public Sub New(ByVal x As Integer, y As Integer, dt1 As DataTable, titulo As String, listEst As List(Of Celda))
         dtBuscador = dt1
@@ -23,7 +26,7 @@ Public Class FormularioAyuda
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        Me.StartPosition = FormStartPosition.Manual
+        Me.StartPosition = FormStartPosition.CenterScreen
         Me.Location = New Point(posX, posY)
         lbTitulo.Text = titulo
 
@@ -35,14 +38,15 @@ Public Class FormularioAyuda
         'grJBuscador.Row = grJBuscador.FilterRow.RowIndex
         'grJBuscador.Col = 1
         Columna = 2
+        tbNombre.Focus()
     End Sub
     Public Sub _prSeleccionar()
-        If (Columna >= 0) Then
-            grJBuscador.Select()
-            ''  grJBuscador.Focus()
-            grJBuscador.MoveTo(grJBuscador.FilterRow)
-            grJBuscador.Col = Columna
-        End If
+        'If (Columna >= 0) Then
+        '    grJBuscador.Select()
+        '    ''  grJBuscador.Focus()
+        '    grJBuscador.MoveTo(grJBuscador.FilterRow)
+        '    grJBuscador.Col = Columna
+        'End If
     End Sub
 
 
@@ -136,6 +140,9 @@ Public Class FormularioAyuda
     Private Sub tbNombre_KeyDown(sender As Object, e As KeyEventArgs) Handles tbNombre.KeyDown
         If e.KeyData = Keys.Escape Then
             Me.Close()
+        End If
+        If (e.KeyData = Keys.Down) Then
+            grJBuscador.Focus()
         End If
     End Sub
 End Class

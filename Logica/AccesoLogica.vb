@@ -3584,7 +3584,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@Glosa", glosa))
         _listParam.Add(New Datos.DParametro("@TotalVenta", TotalCompra))
         _listParam.Add(New Datos.DParametro("@Descuento", Descuento))
-        _listParam.Add(New Datos.DParametro("@detalle", "", _dtDetalle))
+        _listParam.Add(New Datos.DParametro("@VentaDetalleType", "", _dtDetalle))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
@@ -3629,7 +3629,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@Glosa", glosa))
         _listParam.Add(New Datos.DParametro("@TotalVenta", TotalCompra))
         _listParam.Add(New Datos.DParametro("@Descuento", Descuento))
-        _listParam.Add(New Datos.DParametro("@detalle", "", _dtDetalle))
+        _listParam.Add(New Datos.DParametro("@VentaDetalleType", "", _dtDetalle))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
@@ -3667,6 +3667,25 @@ Public Class AccesoLogica
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 6))
         _Tabla = D_ProcedimientoConParam("MAM_Compras", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function ListarPersonal() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 9))
+        _Tabla = D_ProcedimientoConParam("MAM_Clientes", _listParam)
+
+        Return _Tabla
+    End Function
+    Public Shared Function ListarCliente() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 10))
+        _Tabla = D_ProcedimientoConParam("MAM_Clientes", _listParam)
 
         Return _Tabla
     End Function

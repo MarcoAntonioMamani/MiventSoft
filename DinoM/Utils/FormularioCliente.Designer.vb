@@ -74,22 +74,24 @@ Partial Class FormularioCliente
         '
         'PanelPrincipal
         '
+        Me.PanelPrincipal.BackColor = System.Drawing.Color.MediumSeaGreen
         Me.PanelPrincipal.Controls.Add(Me.PanelBuscador)
         Me.PanelPrincipal.Controls.Add(Me.PanelCrear)
         Me.PanelPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelPrincipal.Location = New System.Drawing.Point(0, 0)
         Me.PanelPrincipal.Name = "PanelPrincipal"
-        Me.PanelPrincipal.Size = New System.Drawing.Size(1050, 633)
+        Me.PanelPrincipal.Padding = New System.Windows.Forms.Padding(5)
+        Me.PanelPrincipal.Size = New System.Drawing.Size(1247, 633)
         Me.PanelPrincipal.TabIndex = 0
         '
         'PanelBuscador
         '
         Me.PanelBuscador.Controls.Add(Me.Panel17)
         Me.PanelBuscador.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelBuscador.Location = New System.Drawing.Point(0, 0)
+        Me.PanelBuscador.Location = New System.Drawing.Point(5, 5)
         Me.PanelBuscador.Name = "PanelBuscador"
-        Me.PanelBuscador.Size = New System.Drawing.Size(520, 633)
-        Me.PanelBuscador.TabIndex = 1
+        Me.PanelBuscador.Size = New System.Drawing.Size(707, 623)
+        Me.PanelBuscador.TabIndex = 0
         '
         'Panel17
         '
@@ -100,8 +102,8 @@ Partial Class FormularioCliente
         Me.Panel17.Location = New System.Drawing.Point(0, 0)
         Me.Panel17.Name = "Panel17"
         Me.Panel17.Padding = New System.Windows.Forms.Padding(5)
-        Me.Panel17.Size = New System.Drawing.Size(520, 633)
-        Me.Panel17.TabIndex = 6
+        Me.Panel17.Size = New System.Drawing.Size(707, 623)
+        Me.Panel17.TabIndex = 0
         '
         'grJBuscador
         '
@@ -117,7 +119,7 @@ Partial Class FormularioCliente
         Me.grJBuscador.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
         Me.grJBuscador.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
         Me.grJBuscador.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
-        Me.grJBuscador.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grJBuscador.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grJBuscador.GridLines = Janus.Windows.GridEX.GridLines.None
         Me.grJBuscador.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
         Me.grJBuscador.HeaderFormatStyle.Alpha = 0
@@ -126,7 +128,7 @@ Partial Class FormularioCliente
         Me.grJBuscador.HeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
         Me.grJBuscador.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
         Me.grJBuscador.HeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
-        Me.grJBuscador.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grJBuscador.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grJBuscador.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
         Me.grJBuscador.Location = New System.Drawing.Point(5, 105)
         Me.grJBuscador.Margin = New System.Windows.Forms.Padding(4)
@@ -134,7 +136,7 @@ Partial Class FormularioCliente
         Me.grJBuscador.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.grJBuscador.Office2007CustomColor = System.Drawing.Color.DodgerBlue
         Me.grJBuscador.RecordNavigator = True
-        Me.grJBuscador.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grJBuscador.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grJBuscador.RowHeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
         Me.grJBuscador.RowHeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.Transparent
         Me.grJBuscador.RowHeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
@@ -145,8 +147,8 @@ Partial Class FormularioCliente
         Me.grJBuscador.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.grJBuscador.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grJBuscador.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grJBuscador.Size = New System.Drawing.Size(510, 523)
-        Me.grJBuscador.TabIndex = 2
+        Me.grJBuscador.Size = New System.Drawing.Size(697, 513)
+        Me.grJBuscador.TabIndex = 1
         Me.grJBuscador.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grJBuscador.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
         Me.grJBuscador.TableSpacing = 9
@@ -163,8 +165,8 @@ Partial Class FormularioCliente
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel4.Location = New System.Drawing.Point(5, 41)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(510, 64)
-        Me.Panel4.TabIndex = 4
+        Me.Panel4.Size = New System.Drawing.Size(697, 64)
+        Me.Panel4.TabIndex = 0
         '
         'lbNombreProductos
         '
@@ -198,12 +200,12 @@ Partial Class FormularioCliente
         Me.tbNombre.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbNombre.FocusHighlightEnabled = True
         Me.tbNombre.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbNombre.Location = New System.Drawing.Point(225, 17)
+        Me.tbNombre.Location = New System.Drawing.Point(229, 21)
         Me.tbNombre.Margin = New System.Windows.Forms.Padding(4)
         Me.tbNombre.Name = "tbNombre"
         Me.tbNombre.PreventEnterBeep = True
         Me.tbNombre.Size = New System.Drawing.Size(270, 32)
-        Me.tbNombre.TabIndex = 59
+        Me.tbNombre.TabIndex = 1
         '
         'Panel14
         '
@@ -213,7 +215,7 @@ Partial Class FormularioCliente
         Me.Panel14.Location = New System.Drawing.Point(5, 5)
         Me.Panel14.Name = "Panel14"
         Me.Panel14.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel14.Size = New System.Drawing.Size(510, 36)
+        Me.Panel14.Size = New System.Drawing.Size(697, 36)
         Me.Panel14.TabIndex = 3
         '
         'Panel15
@@ -225,7 +227,7 @@ Partial Class FormularioCliente
         Me.Panel15.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel15.Location = New System.Drawing.Point(1, 1)
         Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(508, 34)
+        Me.Panel15.Size = New System.Drawing.Size(695, 34)
         Me.Panel15.TabIndex = 0
         '
         'lbTitulo
@@ -268,6 +270,7 @@ Partial Class FormularioCliente
         '
         Me.PanelCrear.BackColor = System.Drawing.Color.White
         Me.PanelCrear.Controls.Add(Me.btnSi)
+        Me.PanelCrear.Controls.Add(Me.tbNombreCliente)
         Me.PanelCrear.Controls.Add(Me.LabelX11)
         Me.PanelCrear.Controls.Add(Me.tbNroDocumento)
         Me.PanelCrear.Controls.Add(Me.LabelX10)
@@ -277,13 +280,13 @@ Partial Class FormularioCliente
         Me.PanelCrear.Controls.Add(Me.cbTipoDocumento)
         Me.PanelCrear.Controls.Add(Me.LabelX7)
         Me.PanelCrear.Controls.Add(Me.LabelX1)
-        Me.PanelCrear.Controls.Add(Me.tbNombreCliente)
         Me.PanelCrear.Controls.Add(Me.PanelCabezeraTitulo)
         Me.PanelCrear.Dock = System.Windows.Forms.DockStyle.Right
-        Me.PanelCrear.Location = New System.Drawing.Point(520, 0)
+        Me.PanelCrear.Location = New System.Drawing.Point(712, 5)
         Me.PanelCrear.Name = "PanelCrear"
-        Me.PanelCrear.Size = New System.Drawing.Size(530, 633)
-        Me.PanelCrear.TabIndex = 0
+        Me.PanelCrear.Padding = New System.Windows.Forms.Padding(5)
+        Me.PanelCrear.Size = New System.Drawing.Size(530, 623)
+        Me.PanelCrear.TabIndex = 1
         '
         'btnSi
         '
@@ -301,7 +304,7 @@ Partial Class FormularioCliente
         Me.ButtonX1.BackColor = System.Drawing.Color.Transparent
         Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
         Me.ButtonX1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ButtonX1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX1.Font = New System.Drawing.Font("Arial", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonX1.Image = Global.DinoM.My.Resources.Resources.iconguardar
         Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(40, 40)
         Me.ButtonX1.Location = New System.Drawing.Point(0, 0)
@@ -309,7 +312,7 @@ Partial Class FormularioCliente
         Me.ButtonX1.Name = "ButtonX1"
         Me.ButtonX1.Size = New System.Drawing.Size(178, 52)
         Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX1.TabIndex = 7
+        Me.ButtonX1.TabIndex = 8
         Me.ButtonX1.Text = "Guardar Cliente"
         Me.ButtonX1.TextColor = System.Drawing.Color.White
         '
@@ -323,7 +326,7 @@ Partial Class FormularioCliente
         Me.LabelX11.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX11.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX11.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX11.Location = New System.Drawing.Point(17, 180)
+        Me.LabelX11.Location = New System.Drawing.Point(22, 185)
         Me.LabelX11.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX11.Name = "LabelX11"
         Me.LabelX11.SingleLineColor = System.Drawing.SystemColors.Control
@@ -339,16 +342,17 @@ Partial Class FormularioCliente
         Me.tbNroDocumento.Border.Class = "TextBoxBorder"
         Me.tbNroDocumento.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbNroDocumento.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbNroDocumento.Location = New System.Drawing.Point(168, 181)
+        Me.tbNroDocumento.Location = New System.Drawing.Point(174, 181)
         Me.tbNroDocumento.Margin = New System.Windows.Forms.Padding(4)
         Me.tbNroDocumento.Name = "tbNroDocumento"
         Me.tbNroDocumento.PreventEnterBeep = True
         Me.tbNroDocumento.Size = New System.Drawing.Size(171, 28)
-        Me.tbNroDocumento.TabIndex = 217
+        Me.tbNroDocumento.TabIndex = 6
         Me.tbNroDocumento.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'LabelX10
         '
+        Me.LabelX10.AutoSize = True
         Me.LabelX10.BackColor = System.Drawing.Color.Transparent
         '
         '
@@ -356,7 +360,7 @@ Partial Class FormularioCliente
         Me.LabelX10.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX10.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX10.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX10.Location = New System.Drawing.Point(17, 118)
+        Me.LabelX10.Location = New System.Drawing.Point(22, 118)
         Me.LabelX10.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX10.Name = "LabelX10"
         Me.LabelX10.SingleLineColor = System.Drawing.SystemColors.Control
@@ -372,12 +376,12 @@ Partial Class FormularioCliente
         Me.tbTelefono.Border.Class = "TextBoxBorder"
         Me.tbTelefono.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbTelefono.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbTelefono.Location = New System.Drawing.Point(168, 113)
+        Me.tbTelefono.Location = New System.Drawing.Point(174, 113)
         Me.tbTelefono.Margin = New System.Windows.Forms.Padding(4)
         Me.tbTelefono.Name = "tbTelefono"
         Me.tbTelefono.PreventEnterBeep = True
         Me.tbTelefono.Size = New System.Drawing.Size(206, 28)
-        Me.tbTelefono.TabIndex = 215
+        Me.tbTelefono.TabIndex = 4
         Me.tbTelefono.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'cbPrecios
@@ -385,7 +389,7 @@ Partial Class FormularioCliente
         cbPrecios_DesignTimeLayout.LayoutString = resources.GetString("cbPrecios_DesignTimeLayout.LayoutString")
         Me.cbPrecios.DesignTimeLayout = cbPrecios_DesignTimeLayout
         Me.cbPrecios.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbPrecios.Location = New System.Drawing.Point(168, 213)
+        Me.cbPrecios.Location = New System.Drawing.Point(174, 213)
         Me.cbPrecios.Margin = New System.Windows.Forms.Padding(4)
         Me.cbPrecios.Name = "cbPrecios"
         Me.cbPrecios.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
@@ -393,7 +397,7 @@ Partial Class FormularioCliente
         Me.cbPrecios.SelectedIndex = -1
         Me.cbPrecios.SelectedItem = Nothing
         Me.cbPrecios.Size = New System.Drawing.Size(219, 26)
-        Me.cbPrecios.TabIndex = 218
+        Me.cbPrecios.TabIndex = 7
         Me.cbPrecios.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'LabelX5
@@ -406,7 +410,7 @@ Partial Class FormularioCliente
         Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX5.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX5.Location = New System.Drawing.Point(17, 216)
+        Me.LabelX5.Location = New System.Drawing.Point(22, 221)
         Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX5.Name = "LabelX5"
         Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
@@ -419,7 +423,7 @@ Partial Class FormularioCliente
         cbTipoDocumento_DesignTimeLayout.LayoutString = resources.GetString("cbTipoDocumento_DesignTimeLayout.LayoutString")
         Me.cbTipoDocumento.DesignTimeLayout = cbTipoDocumento_DesignTimeLayout
         Me.cbTipoDocumento.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbTipoDocumento.Location = New System.Drawing.Point(168, 146)
+        Me.cbTipoDocumento.Location = New System.Drawing.Point(174, 146)
         Me.cbTipoDocumento.Margin = New System.Windows.Forms.Padding(4)
         Me.cbTipoDocumento.Name = "cbTipoDocumento"
         Me.cbTipoDocumento.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
@@ -427,7 +431,7 @@ Partial Class FormularioCliente
         Me.cbTipoDocumento.SelectedIndex = -1
         Me.cbTipoDocumento.SelectedItem = Nothing
         Me.cbTipoDocumento.Size = New System.Drawing.Size(206, 28)
-        Me.cbTipoDocumento.TabIndex = 216
+        Me.cbTipoDocumento.TabIndex = 5
         Me.cbTipoDocumento.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'LabelX7
@@ -440,7 +444,7 @@ Partial Class FormularioCliente
         Me.LabelX7.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX7.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX7.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX7.Location = New System.Drawing.Point(17, 149)
+        Me.LabelX7.Location = New System.Drawing.Point(22, 154)
         Me.LabelX7.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX7.Name = "LabelX7"
         Me.LabelX7.SingleLineColor = System.Drawing.SystemColors.Control
@@ -458,7 +462,7 @@ Partial Class FormularioCliente
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX1.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX1.Location = New System.Drawing.Point(17, 76)
+        Me.LabelX1.Location = New System.Drawing.Point(22, 81)
         Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
@@ -474,22 +478,22 @@ Partial Class FormularioCliente
         Me.tbNombreCliente.Border.Class = "TextBoxBorder"
         Me.tbNombreCliente.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbNombreCliente.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbNombreCliente.Location = New System.Drawing.Point(168, 71)
+        Me.tbNombreCliente.Location = New System.Drawing.Point(175, 76)
         Me.tbNombreCliente.Margin = New System.Windows.Forms.Padding(4)
         Me.tbNombreCliente.Name = "tbNombreCliente"
         Me.tbNombreCliente.PreventEnterBeep = True
         Me.tbNombreCliente.Size = New System.Drawing.Size(324, 28)
-        Me.tbNombreCliente.TabIndex = 214
+        Me.tbNombreCliente.TabIndex = 0
         '
         'PanelCabezeraTitulo
         '
         Me.PanelCabezeraTitulo.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.PanelCabezeraTitulo.Controls.Add(Me.Panel2)
         Me.PanelCabezeraTitulo.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelCabezeraTitulo.Location = New System.Drawing.Point(0, 0)
+        Me.PanelCabezeraTitulo.Location = New System.Drawing.Point(5, 5)
         Me.PanelCabezeraTitulo.Name = "PanelCabezeraTitulo"
         Me.PanelCabezeraTitulo.Padding = New System.Windows.Forms.Padding(1)
-        Me.PanelCabezeraTitulo.Size = New System.Drawing.Size(530, 36)
+        Me.PanelCabezeraTitulo.Size = New System.Drawing.Size(520, 36)
         Me.PanelCabezeraTitulo.TabIndex = 4
         '
         'Panel2
@@ -501,7 +505,7 @@ Partial Class FormularioCliente
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(1, 1)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(528, 34)
+        Me.Panel2.Size = New System.Drawing.Size(518, 34)
         Me.Panel2.TabIndex = 0
         '
         'Label1
@@ -544,11 +548,12 @@ Partial Class FormularioCliente
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1050, 633)
+        Me.ClientSize = New System.Drawing.Size(1247, 633)
         Me.Controls.Add(Me.PanelPrincipal)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "FormularioCliente"
-        Me.Text = "CREAR NUEVO CLIENTE"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "0"
         Me.PanelPrincipal.ResumeLayout(False)
         Me.PanelBuscador.ResumeLayout(False)
         Me.Panel17.ResumeLayout(False)
