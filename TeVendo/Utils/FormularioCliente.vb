@@ -1,6 +1,6 @@
 ﻿
 Imports Janus.Windows.GridEX
-Imports Logica.AccesoLogica
+Imports Negocio.AccesoLogica
 Imports DevComponents.DotNetBar
 Imports System.IO
 Imports DevComponents.DotNetBar.SuperGrid

@@ -824,9 +824,9 @@
       <Project>{49d8fccb-6e29-4320-ad90-ab16f88b84d8}</Project>
       <Name>Facturacion</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Logica\Logica.vbproj">
+    <ProjectReference Include="..\Negocio\Negocio.vbproj">
       <Project>{9b559fe0-7390-4846-b80f-0bc7826d2561}</Project>
-      <Name>Logica</Name>
+      <Name>Negocio</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

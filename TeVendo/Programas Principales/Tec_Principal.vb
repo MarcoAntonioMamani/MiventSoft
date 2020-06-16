@@ -1,5 +1,4 @@
-﻿Imports Logica.AccesoLogica
-Imports Modelo.MGlobal
+﻿Imports Negocio.AccesoLogica
 Imports DevComponents.DotNetBar.Controls
 Imports DevComponents.DotNetBar.Metro
 Imports DevComponents.DotNetBar

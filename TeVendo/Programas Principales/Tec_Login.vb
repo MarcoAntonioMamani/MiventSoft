@@ -9,7 +9,7 @@ Imports System.Linq
 Imports System.Text
 Imports System.Threading.Tasks
 Imports System.Windows.Forms
-Imports Logica.AccesoLogica
+Imports Negocio.AccesoLogica
 Imports Janus.Windows.GridEX
 Public Class Tec_Login
 

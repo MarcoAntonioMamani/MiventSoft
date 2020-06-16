@@ -10,7 +10,7 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Presentacion", "TeVendo\Pre
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Datos", "Datos\Datos.vbproj", "{EF9CB732-4B0B-43F4-B777-C8BF22CD323B}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Logica", "Logica\Logica.vbproj", "{9B559FE0-7390-4846-B80F-0BC7826D2561}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Negocio", "Negocio\Negocio.vbproj", "{9B559FE0-7390-4846-B80F-0BC7826D2561}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Facturacion", "Facturacion\Facturacion.vbproj", "{49D8FCCB-6E29-4320-AD90-AB16F88B84D8}"
 EndProject

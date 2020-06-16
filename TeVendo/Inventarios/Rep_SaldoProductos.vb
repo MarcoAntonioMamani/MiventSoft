@@ -1,4 +1,4 @@
-﻿Imports Logica.AccesoLogica
+﻿Imports Negocio.AccesoLogica
 Imports DevComponents.DotNetBar
 Imports System.Data.OleDb
 Public Class Rep_SaldoProductos

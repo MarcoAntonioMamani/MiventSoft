@@ -1,5 +1,5 @@
 ﻿
-Imports Logica.AccesoLogica
+Imports Negocio.AccesoLogica
 Imports Janus.Windows.GridEX
 Imports DevComponents.DotNetBar
 Imports System.IO
