@@ -45,7 +45,7 @@ Public Class R_ReporteSaldoFamilia
     
     Public Overrides Property FullResourceName() As String
         Get
-            Return "DinoM.R_ReporteSaldoFamilia.rpt"
+            Return "TeVendo.R_ReporteSaldoFamilia.rpt"
         End Get
         Set
             'Do nothing
