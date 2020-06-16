@@ -125,7 +125,7 @@ Partial Class Tec_Login
         'PictureBox1
         '
         Me.PictureBox1.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox1.Image = Global.DinoM.My.Resources.Resources.tecbrin
+        Me.PictureBox1.Image = Global.DinoM.My.Resources.Resources.icono_sistema
         Me.PictureBox1.Location = New System.Drawing.Point(67, 41)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(294, 272)

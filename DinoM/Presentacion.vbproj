@@ -1440,6 +1440,8 @@
     <None Include="Resources\iconmarker.png" />
     <None Include="Resources\iconunselected.png" />
     <None Include="Resources\iconselected.png" />
+    <None Include="Resources\icono_sistema.png" />
+    <None Include="Resources\icono_sistema02.png" />
     <Content Include="Resources\man.png" />
     <None Include="Resources\pdf.png" />
     <None Include="Resources\txt.png" />

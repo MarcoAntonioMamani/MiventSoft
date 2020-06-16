@@ -36,6 +36,7 @@ Public Class Tec_Principal
         _prLeerArchivoConfig()
         L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
         Me.WindowState = FormWindowState.Maximized
+        btnUser.Text = "Bienvenido: " + L_Usuario
     End Sub
 
 
@@ -203,7 +204,9 @@ Public Class Tec_Principal
         tab3.AttachedControl.Controls.Add(panel)
         frm.Show()
         tab3.Text = frm.Text
-        tab3.Icon = frm.Icon
+        Dim blah As New Bitmap(btConfCliente.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
     End Sub
 
 
@@ -238,7 +241,9 @@ Public Class Tec_Principal
         tab3.AttachedControl.Controls.Add(panel)
         frm.Show()
         tab3.Text = frm.Text
-        tab3.Icon = frm.Icon
+        Dim blah As New Bitmap(btConfRoles.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
     End Sub
 
     Private Sub btConfUsuarios_Click(sender As Object, e As EventArgs) Handles btConfUsuarios.Click
@@ -259,7 +264,9 @@ Public Class Tec_Principal
         tab3.AttachedControl.Controls.Add(panel)
         frm.Show()
         tab3.Text = frm.Text
-        tab3.Icon = frm.Icon
+        Dim blah As New Bitmap(btConfUsuarios.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
     End Sub
 
     Private Sub btnConfCategoria_Click(sender As Object, e As EventArgs) Handles btnConfCategoria.Click
@@ -280,7 +287,9 @@ Public Class Tec_Principal
         tab3.AttachedControl.Controls.Add(panel)
         frm.Show()
         tab3.Text = frm.Text
-        tab3.Icon = frm.Icon
+        Dim blah As New Bitmap(btnConfCategoria.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
     End Sub
 
     Private Sub btConfProducto_Click(sender As Object, e As EventArgs) Handles btConfProducto.Click
@@ -301,7 +310,9 @@ Public Class Tec_Principal
         tab3.AttachedControl.Controls.Add(panel)
         frm.Show()
         tab3.Text = frm.Text
-        tab3.Icon = frm.Icon
+        Dim blah As New Bitmap(btConfProducto.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
     End Sub
 
     Private Sub btConfPrecio_Click(sender As Object, e As EventArgs) Handles btConfPrecio.Click
@@ -322,7 +333,9 @@ Public Class Tec_Principal
         tab3.AttachedControl.Controls.Add(panel)
         frm.Show()
         tab3.Text = frm.Text
-        tab3.Icon = frm.Icon
+        Dim blah As New Bitmap(btConfPrecio.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
     End Sub
 
     Private Sub btZona_Click(sender As Object, e As EventArgs) Handles btZona.Click
@@ -343,7 +356,9 @@ Public Class Tec_Principal
         tab3.AttachedControl.Controls.Add(panel)
         frm.Show()
         tab3.Text = frm.Text
-        tab3.Icon = frm.Icon
+        Dim blah As New Bitmap(btZona.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
     End Sub
 
     Private Sub btZonaMapaCliente_Click(sender As Object, e As EventArgs) Handles btZonaMapaCliente.Click
@@ -364,7 +379,9 @@ Public Class Tec_Principal
         tab3.AttachedControl.Controls.Add(panel)
         frm.Show()
         tab3.Text = frm.Text
-        tab3.Icon = frm.Icon
+        Dim blah As New Bitmap(btZonaMapaCliente.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
     End Sub
 
     Private Sub btInvAmacen_Click(sender As Object, e As EventArgs) Handles btInvAmacen.Click
@@ -385,7 +402,9 @@ Public Class Tec_Principal
         tab3.AttachedControl.Controls.Add(panel)
         frm.Show()
         tab3.Text = frm.Text
-        tab3.Icon = frm.Icon
+        Dim blah As New Bitmap(btInvAmacen.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
     End Sub
 
     Private Sub btInvMovimiento_Click(sender As Object, e As EventArgs) Handles btInvMovimiento.Click
@@ -406,7 +425,9 @@ Public Class Tec_Principal
         tab3.AttachedControl.Controls.Add(panel)
         frm.Show()
         tab3.Text = frm.Text
-        tab3.Icon = frm.Icon
+        Dim blah As New Bitmap(btInvMovimiento.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
     End Sub
 
     Private Sub btInvSaldo_Click(sender As Object, e As EventArgs) Handles btInvSaldo.Click
@@ -427,7 +448,9 @@ Public Class Tec_Principal
         tab3.AttachedControl.Controls.Add(panel)
         frm.Show()
         tab3.Text = frm.Text
-        tab3.Icon = frm.Icon
+        Dim blah As New Bitmap(btInvSaldo.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
     End Sub
 
     Private Sub btnProveedores_Click(sender As Object, e As EventArgs) Handles btnProveedores.Click
@@ -445,7 +468,9 @@ Public Class Tec_Principal
         tab3.AttachedControl.Controls.Add(panel)
         frm.Show()
         tab3.Text = frm.Text
-        tab3.Icon = frm.Icon
+        Dim blah As New Bitmap(btnProveedores.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
     End Sub
 
     Private Sub btnPersonal_Click(sender As Object, e As EventArgs) Handles btnPersonal.Click
@@ -464,7 +489,9 @@ Public Class Tec_Principal
         tab3.AttachedControl.Controls.Add(panel)
         frm.Show()
         tab3.Text = frm.Text
-        tab3.Icon = frm.Icon
+        Dim blah As New Bitmap(btnPersonal.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
     End Sub
 
     Private Sub btnCompras_Click(sender As Object, e As EventArgs) Handles btnCompras.Click
@@ -482,7 +509,9 @@ Public Class Tec_Principal
         tab3.AttachedControl.Controls.Add(panel)
         frm.Show()
         tab3.Text = frm.Text
-        tab3.Icon = frm.Icon
+        Dim blah As New Bitmap(btnCompras.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
     End Sub
 
     Private Sub btVentVenta_Click(sender As Object, e As EventArgs) Handles btVentVenta.Click
@@ -500,6 +529,8 @@ Public Class Tec_Principal
         tab3.AttachedControl.Controls.Add(panel)
         frm.Show()
         tab3.Text = frm.Text
-        tab3.Icon = frm.Icon
+        Dim blah As New Bitmap(btVentVenta.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
     End Sub
 End Class

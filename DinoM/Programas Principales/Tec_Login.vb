@@ -50,6 +50,10 @@ Public Class Tec_Login
         Timer1.Interval = 10
         Timer1.Enabled = True
         tbUsuario.Focus()
+
+        Dim blah As New Bitmap(New Bitmap(My.Resources.user), 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        Me.Icon = ico
         _prLeerArchivoConfig()
 
         L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
@@ -81,6 +85,7 @@ Public Class Tec_Login
             tbUsuario.SelectAll()
             tbUsuario.Focus()
         Else
+            L_Usuario = tbUsuario.Text
             gs_user = tbUsuario.Text
             gi_userFuente = 13
             gi_userNumi = dtUsuario.Rows(0).Item("Id")
