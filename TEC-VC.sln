@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Presentacion", "DinoM\Presentacion.vbproj", "{5FF432C8-DA23-4D3C-824D-06597034AC77}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Presentacion", "TeVendo\Presentacion.vbproj", "{5FF432C8-DA23-4D3C-824D-06597034AC77}"
 	ProjectSection(ProjectDependencies) = postProject
 		{49D8FCCB-6E29-4320-AD90-AB16F88B84D8} = {49D8FCCB-6E29-4320-AD90-AB16F88B84D8}
 	EndProjectSection
@@ -57,9 +57,9 @@ Global
 		SccProjectUniqueName1 = Datos\\Datos.vbproj
 		SccProjectName1 = Datos
 		SccLocalPath1 = Datos
-		SccProjectUniqueName2 = DinoM\\Presentacion.vbproj
-		SccProjectName2 = DinoM
-		SccLocalPath2 = DinoM
+		SccProjectUniqueName2 = TeVendo\\Presentacion.vbproj
+		SccProjectName2 = TeVendo
+		SccLocalPath2 = TeVendo
 		SccProjectUniqueName3 = Facturacion\\Facturacion.vbproj
 		SccProjectName3 = Facturacion
 		SccLocalPath3 = Facturacion
