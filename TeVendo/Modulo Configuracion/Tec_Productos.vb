@@ -13,7 +13,7 @@ Public Class Tec_Productos
     Public _modulo As SideNavItem
     Public FilaSeleccionada As Boolean = False
 
-    Public _MListEstBuscador As List(Of Modelo.Celda)
+    Public _MListEstBuscador As List(Of Celda)
     Public _MPos As Integer
     Public _MNuevo As Boolean
     Public _MModificar As Boolean
@@ -861,34 +861,34 @@ Public Class Tec_Productos
         Return dtBuscador
     End Function
 
-    Public Function _PMOGetListEstructuraBuscador() As List(Of Modelo.Celda)
+    Public Function _PMOGetListEstructuraBuscador() As List(Of Celda)
 
         'Select Case a.Id ,a.CodigoExterno ,a.CodigoBarras ,a.NombreProducto ,a.DescripcionProducto 
         ',a.StockMinimo ,a.Estado ,
         '    a.CategoriaId , cat.NombreCategoria, a.EmpresaId, em.Nombre As Empresa, a.ProveedorId, 
         'a.MarcaId,
         '    a.AttributoId, a.FamiliaId, a.UnidadVentaId, a.UnidadMaximaId, a.Conversion  
-        Dim listEstCeldas As New List(Of Modelo.Celda)
-        listEstCeldas.Add(New Modelo.Celda("Id", True, "ID", 40))
-        listEstCeldas.Add(New Modelo.Celda("CodigoExterno", False))
-        listEstCeldas.Add(New Modelo.Celda("CodigoBarras", False))
-        listEstCeldas.Add(New Modelo.Celda("NombreProducto", True, " NombreProducto", 200))
-        listEstCeldas.Add(New Modelo.Celda("DescripcionProducto", True, " Descripcion Producto", 100))
-        listEstCeldas.Add(New Modelo.Celda("StockMinimo", True, "Stock Minimo", 90, "0.00"))
-        listEstCeldas.Add(New Modelo.Celda("estado", False, "Estado", 70))
-        listEstCeldas.Add(New Modelo.Celda("imgEstado", True, "Estado", 150))
-        listEstCeldas.Add(New Modelo.Celda("CategoriaId", False))
-        listEstCeldas.Add(New Modelo.Celda("NombreCategoria", True, "Categoria", 80))
-        listEstCeldas.Add(New Modelo.Celda("EmpresaId", False))
-        listEstCeldas.Add(New Modelo.Celda("Empresa", True, "Empresa", 80))
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("Id", True, "ID", 40))
+        listEstCeldas.Add(New Celda("CodigoExterno", False))
+        listEstCeldas.Add(New Celda("CodigoBarras", False))
+        listEstCeldas.Add(New Celda("NombreProducto", True, " NombreProducto", 200))
+        listEstCeldas.Add(New Celda("DescripcionProducto", True, " Descripcion Producto", 100))
+        listEstCeldas.Add(New Celda("StockMinimo", True, "Stock Minimo", 90, "0.00"))
+        listEstCeldas.Add(New Celda("estado", False, "Estado", 70))
+        listEstCeldas.Add(New Celda("imgEstado", True, "Estado", 150))
+        listEstCeldas.Add(New Celda("CategoriaId", False))
+        listEstCeldas.Add(New Celda("NombreCategoria", True, "Categoria", 80))
+        listEstCeldas.Add(New Celda("EmpresaId", False))
+        listEstCeldas.Add(New Celda("Empresa", True, "Empresa", 80))
 
-        listEstCeldas.Add(New Modelo.Celda("ProveedorId", False))
-        listEstCeldas.Add(New Modelo.Celda("MarcaId", False))
-        listEstCeldas.Add(New Modelo.Celda("AttributoId", False))
-        listEstCeldas.Add(New Modelo.Celda("FamiliaId", False))
-        listEstCeldas.Add(New Modelo.Celda("UnidadVentaId", False))
-        listEstCeldas.Add(New Modelo.Celda("UnidadMaximaId", False))
-        listEstCeldas.Add(New Modelo.Celda("Conversion", False))
+        listEstCeldas.Add(New Celda("ProveedorId", False))
+        listEstCeldas.Add(New Celda("MarcaId", False))
+        listEstCeldas.Add(New Celda("AttributoId", False))
+        listEstCeldas.Add(New Celda("FamiliaId", False))
+        listEstCeldas.Add(New Celda("UnidadVentaId", False))
+        listEstCeldas.Add(New Celda("UnidadMaximaId", False))
+        listEstCeldas.Add(New Celda("Conversion", False))
 
 
         Return listEstCeldas

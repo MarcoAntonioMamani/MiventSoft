@@ -11,7 +11,7 @@ Public Class Tec_Movimientos
     Public _modulo As SideNavItem
     Public FilaSeleccionada As Boolean = False
 
-    Public _MListEstBuscador As List(Of Modelo.Celda)
+    Public _MListEstBuscador As List(Of Celda)
     Public _MPos As Integer
     Public _MNuevo As Boolean
     Public _MModificar As Boolean
@@ -1379,20 +1379,20 @@ salirIf:
         Return dtBuscador
     End Function
 
-    Public Function _PMOGetListEstructuraBuscador() As List(Of Modelo.Celda)
+    Public Function _PMOGetListEstructuraBuscador() As List(Of Celda)
 
         'a.Id  as id, a.FechaDocumento  As fdoc, a.ConceptoId  As concep, b.Descripcion  As nconcep, a.Observacion  As obs, 
         '           a.Estado  as est, a.DepositoId  as alm 
-        Dim listEstCeldas As New List(Of Modelo.Celda)
-        listEstCeldas.Add(New Modelo.Celda("Id", True, "ID", 40))
-        listEstCeldas.Add(New Modelo.Celda("fdoc", True, "Fecha Transaccion", 100))
-        listEstCeldas.Add(New Modelo.Celda("concep", False))
-        listEstCeldas.Add(New Modelo.Celda("nconcep", True, " Tipo Movimiento", 120))
-        listEstCeldas.Add(New Modelo.Celda("obs", True, " Descripcion Movimiento", 250))
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("Id", True, "ID", 40))
+        listEstCeldas.Add(New Celda("fdoc", True, "Fecha Transaccion", 100))
+        listEstCeldas.Add(New Celda("concep", False))
+        listEstCeldas.Add(New Celda("nconcep", True, " Tipo Movimiento", 120))
+        listEstCeldas.Add(New Celda("obs", True, " Descripcion Movimiento", 250))
 
-        listEstCeldas.Add(New Modelo.Celda("est", False, "Estado", 70))
-        listEstCeldas.Add(New Modelo.Celda("alm", False, "Estado", 150))
-        listEstCeldas.Add(New Modelo.Celda("NombreDeposito", True, "Deposito", 150))
+        listEstCeldas.Add(New Celda("est", False, "Estado", 70))
+        listEstCeldas.Add(New Celda("alm", False, "Estado", 150))
+        listEstCeldas.Add(New Celda("NombreDeposito", True, "Deposito", 150))
 
         Return listEstCeldas
     End Function

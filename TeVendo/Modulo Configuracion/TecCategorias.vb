@@ -13,7 +13,7 @@ Public Class TecCategorias
     Public _modulo As SideNavItem
     Public FilaSeleccionada As Boolean = False
 
-    Public _MListEstBuscador As List(Of Modelo.Celda)
+    Public _MListEstBuscador As List(Of Celda)
     Public _MPos As Integer
     Public _MNuevo As Boolean
     Public _MModificar As Boolean
@@ -409,7 +409,7 @@ Public Class TecCategorias
             ToastNotification.Show(Me, "Codigo de Usuario ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
             _PSalirRegistro()
         End If
-        Return res
+        Return Res
     End Function
     Public Function _fnActionNuevo() As Boolean
         Return tbCodigo.Text = String.Empty And tbDescripcion.ReadOnly = False
@@ -504,20 +504,20 @@ Public Class TecCategorias
         Return dtBuscador
     End Function
 
-    Public Function _PMOGetListEstructuraBuscador() As List(Of Modelo.Celda)
+    Public Function _PMOGetListEstructuraBuscador() As List(Of Celda)
 
         'a.Id , a.NombreCategoria, a.DescripcionCategoria, cast(a.Estado As bit) As Estado 
         '    , a.Imagen, cast(a.VisibleApp As bit) as App  
-        Dim listEstCeldas As New List(Of Modelo.Celda)
-        listEstCeldas.Add(New Modelo.Celda("Id", True, "ID", 40))
-        listEstCeldas.Add(New Modelo.Celda("NombreCategoria", True, "Categoria", 90))
-        listEstCeldas.Add(New Modelo.Celda("Estado", True, "Estado", 70))
-        listEstCeldas.Add(New Modelo.Celda("DescripcionCategoria", True, "Descripcion", 150))
-        listEstCeldas.Add(New Modelo.Celda("Imagen", False))
-        listEstCeldas.Add(New Modelo.Celda("EmpresaId", False))
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("Id", True, "ID", 40))
+        listEstCeldas.Add(New Celda("NombreCategoria", True, "Categoria", 90))
+        listEstCeldas.Add(New Celda("Estado", True, "Estado", 70))
+        listEstCeldas.Add(New Celda("DescripcionCategoria", True, "Descripcion", 150))
+        listEstCeldas.Add(New Celda("Imagen", False))
+        listEstCeldas.Add(New Celda("EmpresaId", False))
 
-        listEstCeldas.Add(New Modelo.Celda("App", True, "App", 90))
-        listEstCeldas.Add(New Modelo.Celda("Empresa", True, "Empresa", 100))
+        listEstCeldas.Add(New Celda("App", True, "App", 90))
+        listEstCeldas.Add(New Celda("Empresa", True, "Empresa", 100))
 
 
         Return listEstCeldas

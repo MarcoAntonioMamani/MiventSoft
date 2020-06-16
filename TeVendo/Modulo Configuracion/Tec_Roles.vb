@@ -13,7 +13,7 @@ Public Class Tec_Roles
     Public _MNuevo As Boolean
     Public _MModificar As Boolean
 
-    Public _MListEstBuscador As List(Of Modelo.Celda)
+    Public _MListEstBuscador As List(Of Celda)
 #End Region
 
 #Region "Metodos Overrides"
@@ -363,7 +363,7 @@ Public Class Tec_Roles
         End With
 
         With grDetalle.RootTable.Columns("RolId")
-   
+
             .Width = 200
             .Visible = False
             .EditType = EditType.NoEdit
@@ -554,13 +554,13 @@ Public Class Tec_Roles
         Return dtBuscador
     End Function
 
-    Public Function _PMOGetListEstructuraBuscador() As List(Of Modelo.Celda)
-        Dim listEstCeldas As New List(Of Modelo.Celda)
-        listEstCeldas.Add(New Modelo.Celda("Id", True, "ID", 100))
-        listEstCeldas.Add(New Modelo.Celda("NombreRol", True, "ROL", 400))
-        listEstCeldas.Add(New Modelo.Celda("FechaRegistro", False))
-        listEstCeldas.Add(New Modelo.Celda("HoraRegistro", False))
-        listEstCeldas.Add(New Modelo.Celda("UsuarioRegistro", False))
+    Public Function _PMOGetListEstructuraBuscador() As List(Of Celda)
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("Id", True, "ID", 100))
+        listEstCeldas.Add(New Celda("NombreRol", True, "ROL", 400))
+        listEstCeldas.Add(New Celda("FechaRegistro", False))
+        listEstCeldas.Add(New Celda("HoraRegistro", False))
+        listEstCeldas.Add(New Celda("UsuarioRegistro", False))
         Return listEstCeldas
     End Function
 

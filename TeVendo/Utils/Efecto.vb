@@ -8,7 +8,7 @@ Public Class Efecto
     Public Header As String = ""
     Public tipo As Integer = 0
     Public Context As String = ""
-    Public listEstCeldas As List(Of Modelo.Celda)
+    Public listEstCeldas As List(Of Celda)
     Public listEstCeldasNew As List(Of Celda)
     Public dt As DataTable
     Public alto As Integer

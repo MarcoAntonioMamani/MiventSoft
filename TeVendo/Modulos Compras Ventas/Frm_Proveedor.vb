@@ -15,7 +15,7 @@ Public Class Frm_Proveedor
     Public _modulo As SideNavItem
     Public FilaSeleccionada As Boolean = False
 
-    Public _MListEstBuscador As List(Of Modelo.Celda)
+    Public _MListEstBuscador As List(Of Celda)
     Public _MPos As Integer
     Public _MNuevo As Boolean
     Public _MModificar As Boolean
@@ -486,22 +486,22 @@ Public Class Frm_Proveedor
         Return dtBuscador
     End Function
 
-    Public Function _PMOGetListEstructuraBuscador() As List(Of Modelo.Celda)
+    Public Function _PMOGetListEstructuraBuscador() As List(Of Celda)
 
         'p.Id , p.NombreProveedor, p.Direccion, p.Telefono01, p.Telefono02, p.Descripcion, p.TipoDocumento,
         '    p.NroDocumento, p.Estado, img
-        Dim listEstCeldas As New List(Of Modelo.Celda)
-        listEstCeldas.Add(New Modelo.Celda("Id", True, "ID", 40))
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("Id", True, "ID", 40))
 
-        listEstCeldas.Add(New Modelo.Celda("NombreProveedor", True, " NombreProveedor", 200))
-        listEstCeldas.Add(New Modelo.Celda("Direccion", False, " Direccion", 120))
-        listEstCeldas.Add(New Modelo.Celda("Telefono01", True, "Telefono01", 90))
-        listEstCeldas.Add(New Modelo.Celda("Telefono02", False))
-        listEstCeldas.Add(New Modelo.Celda("Descripcion", False))
-        listEstCeldas.Add(New Modelo.Celda("TipoDocumento", False))
-        listEstCeldas.Add(New Modelo.Celda("NroDocumento", True, "Nro Documento", 90))
-        listEstCeldas.Add(New Modelo.Celda("Estado", False))
-        listEstCeldas.Add(New Modelo.Celda("img", True, "Estado", 90))
+        listEstCeldas.Add(New Celda("NombreProveedor", True, " NombreProveedor", 200))
+        listEstCeldas.Add(New Celda("Direccion", False, " Direccion", 120))
+        listEstCeldas.Add(New Celda("Telefono01", True, "Telefono01", 90))
+        listEstCeldas.Add(New Celda("Telefono02", False))
+        listEstCeldas.Add(New Celda("Descripcion", False))
+        listEstCeldas.Add(New Celda("TipoDocumento", False))
+        listEstCeldas.Add(New Celda("NroDocumento", True, "Nro Documento", 90))
+        listEstCeldas.Add(New Celda("Estado", False))
+        listEstCeldas.Add(New Celda("img", True, "Estado", 90))
 
 
         Return listEstCeldas

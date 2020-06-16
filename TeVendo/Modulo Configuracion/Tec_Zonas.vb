@@ -23,7 +23,7 @@ Public Class Tec_Zonas
     Public FilaSeleccionada As Boolean = False
 #End Region
 
-    Public _MListEstBuscador As List(Of Modelo.Celda)
+    Public _MListEstBuscador As List(Of Celda)
     Public _MPos As Integer
     Public _MNuevo As Boolean
     Public _MModificar As Boolean
@@ -521,13 +521,13 @@ Public Class Tec_Zonas
         Return dtBuscador
     End Function
 
-    Public Function _PMOGetListEstructuraBuscador() As List(Of Modelo.Celda)
-        Dim listEstCeldas As New List(Of Modelo.Celda)
+    Public Function _PMOGetListEstructuraBuscador() As List(Of Celda)
+        Dim listEstCeldas As New List(Of Celda)
         'id, NombreZona, DescripcionZona, Color 
-        listEstCeldas.Add(New Modelo.Celda("Id", True, "Id".ToUpper, 40))
-        listEstCeldas.Add(New Modelo.Celda("Color", False))
-        listEstCeldas.Add(New Modelo.Celda("NombreZona", True, "NombreZona".ToUpper, 250))
-        listEstCeldas.Add(New Modelo.Celda("DescripcionZona", True, "Descripcion".ToUpper, 350))
+        listEstCeldas.Add(New Celda("Id", True, "Id".ToUpper, 40))
+        listEstCeldas.Add(New Celda("Color", False))
+        listEstCeldas.Add(New Celda("NombreZona", True, "NombreZona".ToUpper, 250))
+        listEstCeldas.Add(New Celda("DescripcionZona", True, "Descripcion".ToUpper, 350))
 
 
         Return listEstCeldas

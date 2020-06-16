@@ -10,7 +10,7 @@ Public Class Tec_Users
     Public _tab As SuperTabItem
     Public _modulo As SideNavItem
 
-    Public _MListEstBuscador As List(Of Modelo.Celda)
+    Public _MListEstBuscador As List(Of Celda)
     Public _MPos As Integer
     Public _MNuevo As Boolean
     Public _MModificar As Boolean
@@ -450,21 +450,21 @@ Public Class Tec_Users
         Return dtBuscador
     End Function
 
-    Public Function _PMOGetListEstructuraBuscador() As List(Of Modelo.Celda)
+    Public Function _PMOGetListEstructuraBuscador() As List(Of Celda)
 
         'u.Id, u.NombreUsuario, u.Contrasena, cast(u.Estado As bit)  As estado, u.RolId,
         'r.NombreRol, u.SucursalId, u.IdEmpresa, em.Nombre as Empresa
-        Dim listEstCeldas As New List(Of Modelo.Celda)
-        listEstCeldas.Add(New Modelo.Celda("Id", True, "ID", 40))
-        listEstCeldas.Add(New Modelo.Celda("NombreUsuario", True, "ROL", 100))
-        listEstCeldas.Add(New Modelo.Celda("Contrasena", False))
-        listEstCeldas.Add(New Modelo.Celda("estado", True, "Estado", 60))
-        listEstCeldas.Add(New Modelo.Celda("RolId", False))
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("Id", True, "ID", 40))
+        listEstCeldas.Add(New Celda("NombreUsuario", True, "ROL", 100))
+        listEstCeldas.Add(New Celda("Contrasena", False))
+        listEstCeldas.Add(New Celda("estado", True, "Estado", 60))
+        listEstCeldas.Add(New Celda("RolId", False))
 
-        listEstCeldas.Add(New Modelo.Celda("NombreRol", True, "Rol", 90))
-        listEstCeldas.Add(New Modelo.Celda("SucursalId", False))
-        listEstCeldas.Add(New Modelo.Celda("IdEmpresa", False))
-        listEstCeldas.Add(New Modelo.Celda("Empresa", True, "Empresa", 120))
+        listEstCeldas.Add(New Celda("NombreRol", True, "Rol", 90))
+        listEstCeldas.Add(New Celda("SucursalId", False))
+        listEstCeldas.Add(New Celda("IdEmpresa", False))
+        listEstCeldas.Add(New Celda("Empresa", True, "Empresa", 120))
 
 
         Return listEstCeldas

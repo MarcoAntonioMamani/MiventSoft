@@ -194,114 +194,6 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="CustomersRow.vb" />
-    <Compile Include="F0_AnularFactura.Designer.vb">
-      <DependentUpon>F0_AnularFactura.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F0_AnularFactura.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F0_Cobrar_Cliente.Designer.vb">
-      <DependentUpon>F0_Cobrar_Cliente.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F0_Cobrar_Cliente.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F0_Cobrar_Vendedor.Designer.vb">
-      <DependentUpon>F0_Cobrar_Vendedor.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F0_Cobrar_Vendedor.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F0_KardexMovimiento.Designer.vb">
-      <DependentUpon>F0_KardexMovimiento.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F0_KardexMovimiento.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F0_LibroVenta.Designer.vb">
-      <DependentUpon>F0_LibroVenta.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F0_LibroVenta.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F0_PagosInicial.Designer.vb">
-      <DependentUpon>F0_PagosInicial.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F0_PagosInicial.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F0_PagosCreditoCompraUlt.Designer.vb">
-      <DependentUpon>F0_PagosCreditoCompraUlt.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F0_PagosCreditoCompraUlt.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F0_PagosCreditoCompra.Designer.vb">
-      <DependentUpon>F0_PagosCreditoCompra.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F0_PagosCreditoCompra.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F0_PagosCredito.Designer.vb">
-      <DependentUpon>F0_PagosCredito.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F0_PagosCredito.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F0_Libreria.Designer.vb">
-      <DependentUpon>F0_Libreria.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F0_Libreria.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F0_Factura.Designer.vb">
-      <DependentUpon>F0_Factura.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F0_Factura.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F0_RotacionProductos.Designer.vb">
-      <DependentUpon>F0_RotacionProductos.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F0_RotacionProductos.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F0_Proforma.Designer.vb">
-      <DependentUpon>F0_Proforma.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F0_Proforma.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F0_Ventas.Designer.vb">
-      <DependentUpon>F0_Ventas.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F0_Ventas.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F1_Proveedor.Designer.vb">
-      <DependentUpon>F1_Proveedor.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F1_Proveedor.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F1_CobrosCobranzas.Designer.vb">
-      <DependentUpon>F1_CobrosCobranzas.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F1_CobrosCobranzas.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F1_Vendedor.Designer.vb">
-      <DependentUpon>F1_Vendedor.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F1_Vendedor.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F1_Dosificacion.Designer.vb">
-      <DependentUpon>F1_Dosificacion.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F1_Dosificacion.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Font\Custom.vb" />
     <Compile Include="Inventarios\Rep_SaldoProductos.Designer.vb">
       <DependentUpon>Rep_SaldoProductos.vb</DependentUpon>
@@ -427,90 +319,6 @@
       <DependentUpon>Tec_Principal.vb</DependentUpon>
     </Compile>
     <Compile Include="Programas Principales\Tec_Principal.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Pr_SAldosPorAlmacenLinea.Designer.vb">
-      <DependentUpon>Pr_SAldosPorAlmacenLinea.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Pr_SAldosPorAlmacenLinea.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Pr_StockMinimo.Designer.vb">
-      <DependentUpon>Pr_StockMinimo.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Pr_StockMinimo.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Pr_Ventas12Meses.Designer.vb">
-      <DependentUpon>Pr_Ventas12Meses.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Pr_Ventas12Meses.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Pr_ReporteVentasGrafico.Designer.vb">
-      <DependentUpon>Pr_ReporteVentasGrafico.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Pr_ReporteVentasGrafico.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PR_StockActualProductosLotes.Designer.vb">
-      <DependentUpon>PR_StockActualProductosLotes.vb</DependentUpon>
-    </Compile>
-    <Compile Include="PR_StockActualProductosLotes.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Pr_StockUtilidad.Designer.vb">
-      <DependentUpon>Pr_StockUtilidad.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Pr_StockUtilidad.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PR_StockActualProductos.Designer.vb">
-      <DependentUpon>PR_StockActualProductos.vb</DependentUpon>
-    </Compile>
-    <Compile Include="PR_StockActualProductos.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Pr_HojaRuta.Designer.vb">
-      <DependentUpon>Pr_HojaRuta.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Pr_HojaRuta.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Pr_KardexProductos.Designer.vb">
-      <DependentUpon>Pr_KardexProductos.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Pr_KardexProductos.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Pr_ProductosVentas.Designer.vb">
-      <DependentUpon>Pr_ProductosVentas.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Pr_ProductosVentas.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Pr_KardexCredito.Designer.vb">
-      <DependentUpon>Pr_KardexCredito.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Pr_KardexCredito.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Pr_ReporteMorosidadGeneral.Designer.vb">
-      <DependentUpon>Pr_ReporteMorosidadGeneral.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Pr_ReporteMorosidadGeneral.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Pr_VentasVsCostos.Designer.vb">
-      <DependentUpon>Pr_VentasVsCostos.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Pr_VentasVsCostos.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Pr_VentasAtendidas.Designer.vb">
-      <DependentUpon>Pr_VentasAtendidas.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Pr_VentasAtendidas.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ReporteSmartApps\R_ReporteSaldoFamilia.vb">
@@ -730,13 +538,6 @@
     <Compile Include="Utils\Efecto.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.vb">
-      <DependentUpon>Form1.vb</DependentUpon>
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -782,60 +583,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Control\UCLavadero.resx">
       <DependentUpon>UCLavadero.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F0_AnularFactura.resx">
-      <DependentUpon>F0_AnularFactura.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F0_Cobrar_Cliente.resx">
-      <DependentUpon>F0_Cobrar_Cliente.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F0_Cobrar_Vendedor.resx">
-      <DependentUpon>F0_Cobrar_Vendedor.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F0_KardexMovimiento.resx">
-      <DependentUpon>F0_KardexMovimiento.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F0_LibroVenta.resx">
-      <DependentUpon>F0_LibroVenta.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F0_PagosInicial.resx">
-      <DependentUpon>F0_PagosInicial.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F0_PagosCreditoCompraUlt.resx">
-      <DependentUpon>F0_PagosCreditoCompraUlt.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F0_PagosCreditoCompra.resx">
-      <DependentUpon>F0_PagosCreditoCompra.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F0_PagosCredito.resx">
-      <DependentUpon>F0_PagosCredito.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F0_Libreria.resx">
-      <DependentUpon>F0_Libreria.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F0_Factura.resx">
-      <DependentUpon>F0_Factura.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F0_RotacionProductos.resx">
-      <DependentUpon>F0_RotacionProductos.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F0_Proforma.resx">
-      <DependentUpon>F0_Proforma.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F0_Ventas.resx">
-      <DependentUpon>F0_Ventas.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F1_Proveedor.resx">
-      <DependentUpon>F1_Proveedor.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F1_CobrosCobranzas.resx">
-      <DependentUpon>F1_CobrosCobranzas.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F1_Vendedor.resx">
-      <DependentUpon>F1_Vendedor.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F1_Dosificacion.resx">
-      <DependentUpon>F1_Dosificacion.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\Rep_SaldoProductos.resx">
       <DependentUpon>Rep_SaldoProductos.vb</DependentUpon>
@@ -899,48 +646,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Programas Principales\Tec_Principal.resx">
       <DependentUpon>Tec_Principal.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Pr_SAldosPorAlmacenLinea.resx">
-      <DependentUpon>Pr_SAldosPorAlmacenLinea.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Pr_StockMinimo.resx">
-      <DependentUpon>Pr_StockMinimo.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Pr_Ventas12Meses.resx">
-      <DependentUpon>Pr_Ventas12Meses.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Pr_ReporteVentasGrafico.resx">
-      <DependentUpon>Pr_ReporteVentasGrafico.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PR_StockActualProductosLotes.resx">
-      <DependentUpon>PR_StockActualProductosLotes.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Pr_StockUtilidad.resx">
-      <DependentUpon>Pr_StockUtilidad.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PR_StockActualProductos.resx">
-      <DependentUpon>PR_StockActualProductos.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Pr_HojaRuta.resx">
-      <DependentUpon>Pr_HojaRuta.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Pr_KardexProductos.resx">
-      <DependentUpon>Pr_KardexProductos.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Pr_ProductosVentas.resx">
-      <DependentUpon>Pr_ProductosVentas.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Pr_KardexCredito.resx">
-      <DependentUpon>Pr_KardexCredito.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Pr_ReporteMorosidadGeneral.resx">
-      <DependentUpon>Pr_ReporteMorosidadGeneral.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Pr_VentasVsCostos.resx">
-      <DependentUpon>Pr_VentasVsCostos.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Pr_VentasAtendidas.resx">
-      <DependentUpon>Pr_VentasAtendidas.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\R_ReporteSaldoFamilia.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -1085,9 +790,6 @@
     <EmbeddedResource Include="Utils\Efecto.resx">
       <DependentUpon>Efecto.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -1125,10 +827,6 @@
     <ProjectReference Include="..\Logica\Logica.vbproj">
       <Project>{9b559fe0-7390-4846-b80f-0bc7826d2561}</Project>
       <Name>Logica</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Modelo\Modelo.vbproj">
-      <Project>{c4004973-be46-410b-82d3-4b6b36f5b877}</Project>
-      <Name>Modelo</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

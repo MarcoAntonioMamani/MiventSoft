@@ -9,7 +9,7 @@ Public Class Tec_Sucursales
     Public _tab As SuperTabItem
     Public _modulo As SideNavItem
 
-    Public _MListEstBuscador As List(Of Modelo.Celda)
+    Public _MListEstBuscador As List(Of Celda)
     Public _MPos As Integer
     Public _MNuevo As Boolean
     Public _MModificar As Boolean
@@ -402,22 +402,22 @@ Public Class Tec_Sucursales
         Return dtBuscador
     End Function
 
-    Public Function _PMOGetListEstructuraBuscador() As List(Of Modelo.Celda)
+    Public Function _PMOGetListEstructuraBuscador() As List(Of Celda)
 
         'a.id , a.DepositoId, b.NombreDeposito, a.NombreAlmacen, a.Direccion, isnull(a.Descripcion,'') as Descripcion ,a.Telefono ,
         'a.Latitud, a.Longitud, a.Estado 
-        Dim listEstCeldas As New List(Of Modelo.Celda)
-        listEstCeldas.Add(New Modelo.Celda("Id", True, "ID", 40))
-        listEstCeldas.Add(New Modelo.Celda("DepositoId", False))
-        listEstCeldas.Add(New Modelo.Celda("NombreAlmacen", True, "Almacen", 120))
-        listEstCeldas.Add(New Modelo.Celda("NombreDeposito", True, "Depositos", 90))
-        listEstCeldas.Add(New Modelo.Celda("Direccion", True, "Direccion", 90))
-        listEstCeldas.Add(New Modelo.Celda("Descripcion", False))
-        listEstCeldas.Add(New Modelo.Celda("Telefono", False))
-        listEstCeldas.Add(New Modelo.Celda("Longitud", False))
-        listEstCeldas.Add(New Modelo.Celda("Latitud", False))
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("Id", True, "ID", 40))
+        listEstCeldas.Add(New Celda("DepositoId", False))
+        listEstCeldas.Add(New Celda("NombreAlmacen", True, "Almacen", 120))
+        listEstCeldas.Add(New Celda("NombreDeposito", True, "Depositos", 90))
+        listEstCeldas.Add(New Celda("Direccion", True, "Direccion", 90))
+        listEstCeldas.Add(New Celda("Descripcion", False))
+        listEstCeldas.Add(New Celda("Telefono", False))
+        listEstCeldas.Add(New Celda("Longitud", False))
+        listEstCeldas.Add(New Celda("Latitud", False))
 
-        listEstCeldas.Add(New Modelo.Celda("estado", True, "Estado", 60))
+        listEstCeldas.Add(New Celda("estado", True, "Estado", 60))
 
         Return listEstCeldas
     End Function

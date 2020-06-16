@@ -62,7 +62,7 @@ Public Class Tec_Principal
         'If (dt.Rows.Count > 0) Then
         '    Modelo.MGlobal.gs_mayusuculas = dt.Rows(0).Item("mayusculas")
         'End If
-        Modelo.MGlobal.gs_mayusuculas = 0
+
     End Sub
 
     Private Sub P_prCargarParametros()
@@ -220,6 +220,8 @@ Public Class Tec_Principal
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         Me.Close()
+        Close()
+
 
     End Sub
 

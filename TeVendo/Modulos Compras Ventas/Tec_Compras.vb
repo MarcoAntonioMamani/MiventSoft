@@ -12,7 +12,7 @@ Public Class Tec_Compras
     Public _modulo As SideNavItem
     Public FilaSeleccionada As Boolean = False
 
-    Public _MListEstBuscador As List(Of Modelo.Celda)
+    Public _MListEstBuscador As List(Of Celda)
     Public _MPos As Integer
     Public _MNuevo As Boolean
     Public _MModificar As Boolean
@@ -447,16 +447,16 @@ Public Class Tec_Compras
 
 
         Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
-            Dim n As Integer = dt.Rows.Count
-            For i As Integer = 0 To n - 1 Step 1
+        Dim n As Integer = dt.Rows.Count
+        For i As Integer = 0 To n - 1 Step 1
 
-                Dim Bin As New MemoryStream
-                Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
-                img.Save(Bin, Imaging.ImageFormat.Png)
-                CType(grDetalle.DataSource, DataTable).Rows(i).Item("img") = Bin.GetBuffer
+            Dim Bin As New MemoryStream
+            Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
+            img.Save(Bin, Imaging.ImageFormat.Png)
+            CType(grDetalle.DataSource, DataTable).Rows(i).Item("img") = Bin.GetBuffer
 
 
-            Next
+        Next
 
 
 
@@ -840,17 +840,17 @@ salirIf:
                     Dim ef = New Efecto
 
 
-                        ef.tipo = 5
-                        ef.NombreProducto = grProducto.GetValue("NombreProducto")
-                        ef.StockActual = grProducto.GetValue("stock")
+                    ef.tipo = 5
+                    ef.NombreProducto = grProducto.GetValue("NombreProducto")
+                    ef.StockActual = grProducto.GetValue("stock")
                     ef.TipoMovimiento = 4
                     ef.ShowDialog()
-                        Dim bandera As Boolean = False
-                        bandera = ef.band
-                        If (bandera = True) Then
-                            InsertarProductosSinLote(ef.CantidadTransaccion)
+                    Dim bandera As Boolean = False
+                    bandera = ef.band
+                    If (bandera = True) Then
+                        InsertarProductosSinLote(ef.CantidadTransaccion)
 
-                        End If
+                    End If
 
                     '''''''''''''''
 
@@ -1274,27 +1274,27 @@ salirIf:
         Return dtBuscador
     End Function
 
-    Public Function _PMOGetListEstructuraBuscador() As List(Of Modelo.Celda)
+    Public Function _PMOGetListEstructuraBuscador() As List(Of Celda)
 
         'a.Id , a.AlmacenId, a.FechaTransaccion, a.ProveedorId, p.NombreProveedor, a.TipoVenta, a.FechaVencimientoCredito,
         'a.Moneda, IIf(a.Moneda = 1,'Boliviano','Dolar')as TituloMoneda,a.Estado ,a.Glosa ,a.TotalCompra ,a.EmpresaId
-        Dim listEstCeldas As New List(Of Modelo.Celda)
-        listEstCeldas.Add(New Modelo.Celda("Id", True, "ID", 40))
-        listEstCeldas.Add(New Modelo.Celda("AlmacenId", False))
-        listEstCeldas.Add(New Modelo.Celda("ProveedorId", False, "Estado", 150))
-        listEstCeldas.Add(New Modelo.Celda("FechaTransaccion", True, "Fecha Transaccion", 100))
-        listEstCeldas.Add(New Modelo.Celda("NombreProveedor", True, "Proveedor", 260))
-        listEstCeldas.Add(New Modelo.Celda("TipoVenta", False, "Estado", 70))
-        listEstCeldas.Add(New Modelo.Celda("FechaVencimientoCredito", False, "Estado", 70))
-        listEstCeldas.Add(New Modelo.Celda("Moneda", False, "Estado", 70))
-        listEstCeldas.Add(New Modelo.Celda("TituloMoneda", True, "Moneda", 70))
-        listEstCeldas.Add(New Modelo.Celda("Estado", False, "Estado", 70))
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("Id", True, "ID", 40))
+        listEstCeldas.Add(New Celda("AlmacenId", False))
+        listEstCeldas.Add(New Celda("ProveedorId", False, "Estado", 150))
+        listEstCeldas.Add(New Celda("FechaTransaccion", True, "Fecha Transaccion", 100))
+        listEstCeldas.Add(New Celda("NombreProveedor", True, "Proveedor", 260))
+        listEstCeldas.Add(New Celda("TipoVenta", False, "Estado", 70))
+        listEstCeldas.Add(New Celda("FechaVencimientoCredito", False, "Estado", 70))
+        listEstCeldas.Add(New Celda("Moneda", False, "Estado", 70))
+        listEstCeldas.Add(New Celda("TituloMoneda", True, "Moneda", 70))
+        listEstCeldas.Add(New Celda("Estado", False, "Estado", 70))
 
-        listEstCeldas.Add(New Modelo.Celda("Glosa", True, " Glosa", 250))
-        listEstCeldas.Add(New Modelo.Celda("TotalCompra", True, "TotalCompra", 150, "0.00"))
-        listEstCeldas.Add(New Modelo.Celda("Estado", False, "Estado", 70))
-        listEstCeldas.Add(New Modelo.Celda("descuento", False, "", 70))
-        listEstCeldas.Add(New Modelo.Celda("EmpresaId", False, "", 150))
+        listEstCeldas.Add(New Celda("Glosa", True, " Glosa", 250))
+        listEstCeldas.Add(New Celda("TotalCompra", True, "TotalCompra", 150, "0.00"))
+        listEstCeldas.Add(New Celda("Estado", False, "Estado", 70))
+        listEstCeldas.Add(New Celda("descuento", False, "", 70))
+        listEstCeldas.Add(New Celda("EmpresaId", False, "", 150))
 
         Return listEstCeldas
     End Function

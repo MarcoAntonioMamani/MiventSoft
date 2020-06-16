@@ -25,7 +25,7 @@ Public Class Tec_Clientes
     Public _modulo As SideNavItem
     Public FilaSeleccionada As Boolean = False
 
-    Public _MListEstBuscador As List(Of Modelo.Celda)
+    Public _MListEstBuscador As List(Of Celda)
     Public _MPos As Integer
     Public _MNuevo As Boolean
     Public _MModificar As Boolean
@@ -543,29 +543,29 @@ Public Class Tec_Clientes
         Return dtBuscador
     End Function
 
-    Public Function _PMOGetListEstructuraBuscador() As List(Of Modelo.Celda)
+    Public Function _PMOGetListEstructuraBuscador() As List(Of Celda)
 
         'a.id , a.CodigoExterno, a.NombreCliente, a.DireccionCliente, a.Telefono, a.Observacion, a.TipoDocumento, a.NroDocumento,
         '    a.RazonSocial, a.Nit, a.Estado, a.FechaIngreso, a.FechaUltimaVenta, a.ImagenCliente, a.Latitud, a.Longitud  
-        Dim listEstCeldas As New List(Of Modelo.Celda)
-        listEstCeldas.Add(New Modelo.Celda("Id", True, "ID", 40))
-        listEstCeldas.Add(New Modelo.Celda("CodigoExterno", False))
-        listEstCeldas.Add(New Modelo.Celda("NombreCliente", True, " NombreCliente", 200))
-        listEstCeldas.Add(New Modelo.Celda("DireccionCliente", True, " Direccion", 120))
-        listEstCeldas.Add(New Modelo.Celda("Telefono", True, "Telefono", 90))
-        listEstCeldas.Add(New Modelo.Celda("TipoDocumento", False))
-        listEstCeldas.Add(New Modelo.Celda("NroDocumento", True, " NroDocumento", 120))
-        listEstCeldas.Add(New Modelo.Celda("RazonSocial", False, "Razon Social", 80))
-        listEstCeldas.Add(New Modelo.Celda("Nit", False, "nit", 70))
-        listEstCeldas.Add(New Modelo.Celda("Estado", False, "Estado", 60))
-        listEstCeldas.Add(New Modelo.Celda("imgEstado", True, "Estado", 80))
-        listEstCeldas.Add(New Modelo.Celda("FechaIngreso", True, "FechaIngreso", 90))
-        listEstCeldas.Add(New Modelo.Celda("FechaUltimaVenta", False))
-        listEstCeldas.Add(New Modelo.Celda("ImagenCliente", False))
-        listEstCeldas.Add(New Modelo.Celda("Latitud", False))
-        listEstCeldas.Add(New Modelo.Celda("Longitud", False))
-        listEstCeldas.Add(New Modelo.Celda("PrecioCategoriaId", False))
-        listEstCeldas.Add(New Modelo.Celda("ZonaId", False))
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("Id", True, "ID", 40))
+        listEstCeldas.Add(New Celda("CodigoExterno", False))
+        listEstCeldas.Add(New Celda("NombreCliente", True, " NombreCliente", 200))
+        listEstCeldas.Add(New Celda("DireccionCliente", True, " Direccion", 120))
+        listEstCeldas.Add(New Celda("Telefono", True, "Telefono", 90))
+        listEstCeldas.Add(New Celda("TipoDocumento", False))
+        listEstCeldas.Add(New Celda("NroDocumento", True, " NroDocumento", 120))
+        listEstCeldas.Add(New Celda("RazonSocial", False, "Razon Social", 80))
+        listEstCeldas.Add(New Celda("Nit", False, "nit", 70))
+        listEstCeldas.Add(New Celda("Estado", False, "Estado", 60))
+        listEstCeldas.Add(New Celda("imgEstado", True, "Estado", 80))
+        listEstCeldas.Add(New Celda("FechaIngreso", True, "FechaIngreso", 90))
+        listEstCeldas.Add(New Celda("FechaUltimaVenta", False))
+        listEstCeldas.Add(New Celda("ImagenCliente", False))
+        listEstCeldas.Add(New Celda("Latitud", False))
+        listEstCeldas.Add(New Celda("Longitud", False))
+        listEstCeldas.Add(New Celda("PrecioCategoriaId", False))
+        listEstCeldas.Add(New Celda("ZonaId", False))
 
 
         Return listEstCeldas
