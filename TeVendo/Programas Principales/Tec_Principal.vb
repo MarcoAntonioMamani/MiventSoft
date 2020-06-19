@@ -218,8 +218,14 @@ Public Class Tec_Principal
     End Sub
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
+
+        superTabControl3.Tabs.Clear()
+        superTabControl3.Controls.Clear()
+
+
+
+
         Me.Close()
-        Close()
 
 
     End Sub

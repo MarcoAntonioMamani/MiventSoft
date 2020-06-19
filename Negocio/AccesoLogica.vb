@@ -7,30 +7,7 @@ Public Class AccesoLogica
 
     Public Shared L_Usuario As String = "DEFAULT"
 
-#Region "CONFIGURACION DEL SISTEMA"
 
-    Public Shared Function L_fnConfSistemaGeneral() As DataTable
-        Dim _Tabla As DataTable
-        Dim _Where, _campos As String
-        Dim _dtConfSist As DataTable = D_Datos_Tabla("cnumi", "TC000", "1=1")
-
-        _Where = "ccctc0=" + _dtConfSist.Rows(0).Item("cnumi").ToString
-        _campos = "*"
-        _Tabla = D_Datos_Tabla(_campos, "TC0001", _Where)
-        Return _Tabla
-    End Function
-    Public Shared Function L_fnConfSistemaModificar(ByRef _numi As String) As Boolean
-        Dim _Error As Boolean
-        Dim Sql, _where As String
-
-        Sql = "cnumi =" + _numi
-
-        _where = "1=1"
-        _Error = D_Modificar_Datos("TC000", Sql, _where)
-        Return Not _Error
-    End Function
-
-#End Region
 
 #Region "METODOS PRIVADOS"
     Public Shared Sub L_prAbrirConexion(Optional Ip As String = "", Optional UsuarioSql As String = "", Optional ClaveSql As String = "", Optional NombreBD As String = "")
@@ -1001,19 +978,7 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
-    Public Shared Function L_fnListarLotesPorProductoVenta(_almacen As Integer, _codproducto As Integer) As DataTable
-        Dim _Tabla As DataTable
 
-        Dim _listParam As New List(Of Datos.DParametro)
-
-        _listParam.Add(New Datos.DParametro("@tipo", 8))
-        _listParam.Add(New Datos.DParametro("@almacen", _almacen))
-        _listParam.Add(New Datos.DParametro("@producto", _codproducto))
-        _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
-        _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
-
-        Return _Tabla
-    End Function
     Public Shared Function L_fnListarCategorias() As DataTable
         Dim _Tabla As DataTable
 
