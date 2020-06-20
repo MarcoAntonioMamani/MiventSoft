@@ -321,6 +321,12 @@
     <Compile Include="Programas Principales\Tec_Principal.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ReporteSmartApps\Recibo.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Recibo.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ReporteSmartApps\R_ReporteSaldoFamilia.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -646,6 +652,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Programas Principales\Tec_Principal.resx">
       <DependentUpon>Tec_Principal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\Recibo.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Recibo.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\R_ReporteSaldoFamilia.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
