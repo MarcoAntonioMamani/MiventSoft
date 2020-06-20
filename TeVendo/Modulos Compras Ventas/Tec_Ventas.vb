@@ -1292,14 +1292,15 @@ salirIf:
         'Estado as integer, FechaDocumento As String, _dtDetalle As DataTable
         'tbFechaTransaccion.Value.ToString("yyyy/MM/dd")   CType(grDetalle.DataSource, DataTable)
         Dim res As Boolean
+        Dim Id As String = "0"
         Try
-            res = VentaInsertar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
+            res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                 IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
                                 1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value)
 
             If res Then
 
-
+                ReporteVenta(Id)
                 ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
 
             Else
@@ -1322,7 +1323,7 @@ salirIf:
                                 IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
                                 1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value)
             If Res Then
-
+                ReporteVenta(tbCodigo.Text)
                 ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                 _PSalirRegistro()
             Else
@@ -1339,7 +1340,23 @@ salirIf:
     Public Function _fnActionNuevo() As Boolean
         Return tbCodigo.Text = String.Empty And tbGlosa.ReadOnly = False
     End Function
+    Public Sub ReporteVenta(Id As String)
+        Dim ef = New Efecto
 
+
+        ef.tipo = 8
+        ef.titulo = "Comprobante de Venta"
+        ef.descripcion = "¿Desea Generar el Reporte de la Venta #" + tbCodigo.Text + " ?"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            P_GenerarReporte(Id)
+
+
+        End If
+
+    End Sub
 
     Public Sub _PMOEliminarRegistro()
 
@@ -1976,7 +1993,7 @@ salirIf:
         P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
         P_Global.Visualizador.CrGeneral.Zoom(130)
         P_Global.Visualizador.Show() 'Comentar
-            P_Global.Visualizador.BringToFront() 'Comentar
+        ''P_Global.Visualizador.BringToFront() 'Comentar
 
 
     End Sub

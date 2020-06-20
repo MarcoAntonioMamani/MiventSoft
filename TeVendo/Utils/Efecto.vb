@@ -49,6 +49,8 @@ Public Class Efecto
                 MostrarFormularioContenido()
             Case 7
                 MostrarFormularioClientesContenido()
+            Case 8
+                ReporteVenta()
 
         End Select
     End Sub
@@ -87,6 +89,22 @@ Public Class Efecto
             Me.Close()
         End If
 
+    End Sub
+
+    Public Sub ReporteVenta()
+        Dim frmAyuda As Formulario_Reportevb
+        frmAyuda = New Formulario_Reportevb
+        frmAyuda.Titulo = titulo
+        frmAyuda.Descripcion = descripcion
+        frmAyuda.ShowDialog()
+        If frmAyuda.respuesta = True Then
+
+            band = True
+            Me.Close()
+        Else
+            band = False
+            Me.Close()
+        End If
     End Sub
 
     Sub MostrarFormularioContenido()
