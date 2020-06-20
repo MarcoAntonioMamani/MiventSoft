@@ -4,6 +4,7 @@ Imports Janus.Windows.GridEX
 Imports System.IO
 Imports DevComponents.DotNetBar.SuperGrid
 Imports DevComponents.DotNetBar.Controls
+Imports Facturacion
 
 Public Class Tec_Ventas
 #Region "Atributos"
@@ -378,10 +379,11 @@ Public Class Tec_Ventas
 
         With grDetalle.RootTable.Columns("Total")
             .Width = 90
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
-            .FormatString = "0.00"
             .Caption = "Total".ToUpper
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
         End With
 
         With grDetalle.RootTable.Columns("Detalle")
@@ -466,6 +468,12 @@ Public Class Tec_Ventas
             .VisualStyle = VisualStyle.Office2007
             .BoundMode = Janus.Data.BoundMode.Bound
             .RowHeaders = InheritableBoolean.True
+            .TotalRow = InheritableBoolean.True
+            .TotalRowFormatStyle.BackColor = Color.Gold
+            .TotalRowFormatStyle.ForeColor = Color.Black
+            .TotalRowFormatStyle.FontBold = TriState.True
+            .TotalRowFormatStyle.FontSize = 11
+            .TotalRowPosition = TotalRowPosition.BottomFixed
         End With
         CargarIconEstado()
     End Sub
@@ -1962,7 +1970,8 @@ salirIf:
         Dim dt As DataTable = ListarVentaRecibo(numi)
 
         Dim total As Decimal = dt.Compute("SUM(Total)", "")
-
+        total = total - dt.Rows(0).Item("DescuentoVenta")
+        Dim fechaven As String = dt.Rows(0).Item("FechaVenta")
         For i As Integer = 0 To dt.Rows.Count - 1
             ''imageEmpresa
             Dim Bin As New MemoryStream
@@ -1970,7 +1979,13 @@ salirIf:
             img.Save(Bin, Imaging.ImageFormat.Png)
             dt.Rows(i).Item("imageEmpresa") = Bin.GetBuffer
         Next
-
+        Dim _FechaAct As String
+        Dim _Fecha() As String
+        Dim _FechaPar As String
+        Dim _Meses() As String = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"}
+        _FechaAct = fechaven
+        _Fecha = Split(_FechaAct, "-")
+        _FechaPar = "Santa Cruz, " + _Fecha(0).Trim + " De " + _Meses(_Fecha(1) - 1).Trim + " Del " + _Fecha(2).Trim
 
         If Not IsNothing(P_Global.Visualizador) Then
             P_Global.Visualizador.Close()
@@ -1990,6 +2005,8 @@ salirIf:
 
         objrep.SetDataSource(dt)
         objrep.SetParameterValue("Monto", li)
+        objrep.SetParameterValue("Fecha", _FechaPar)
+        objrep.SetParameterValue("Total", Str(total))
         P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
         P_Global.Visualizador.CrGeneral.Zoom(130)
         P_Global.Visualizador.Show() 'Comentar
@@ -1998,7 +2015,14 @@ salirIf:
 
     End Sub
     Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles BtnImprimir.Click
-        If (Not _fnAccesible()) Then
+        If (Not _fnAccesible() And tbCodigo.Text <> String.Empty) Then
+            P_GenerarReporte(tbCodigo.Text)
+
+        End If
+    End Sub
+
+    Private Sub ButtonX2_Click_1(sender As Object, e As EventArgs) Handles ButtonX2.Click
+        If (Not _fnAccesible() And tbCodigo.Text <> String.Empty) Then
             P_GenerarReporte(tbCodigo.Text)
 
         End If

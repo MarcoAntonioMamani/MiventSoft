@@ -195,7 +195,7 @@ Partial Class Tec_Productos
         Me.TabControlPrincipal.ReorderTabsEnabled = True
         Me.TabControlPrincipal.SelectedTabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.SelectedTabIndex = 1
-        Me.TabControlPrincipal.Size = New System.Drawing.Size(1188, 984)
+        Me.TabControlPrincipal.Size = New System.Drawing.Size(1188, 1013)
         Me.TabControlPrincipal.TabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Bottom
         Me.TabControlPrincipal.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.TabIndex = 0
@@ -210,7 +210,7 @@ Partial Class Tec_Productos
         Me.SuperTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel2.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel2.Name = "SuperTabControlPanel2"
-        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1188, 953)
+        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1188, 982)
         Me.SuperTabControlPanel2.TabIndex = 2
         Me.SuperTabControlPanel2.TabItem = Me.SuperTabItem2
         '
@@ -223,7 +223,7 @@ Partial Class Tec_Productos
         Me.Panel17.Location = New System.Drawing.Point(0, 0)
         Me.Panel17.Name = "Panel17"
         Me.Panel17.Padding = New System.Windows.Forms.Padding(5)
-        Me.Panel17.Size = New System.Drawing.Size(1188, 953)
+        Me.Panel17.Size = New System.Drawing.Size(1188, 982)
         Me.Panel17.TabIndex = 4
         '
         'JGrM_Buscador
@@ -251,6 +251,7 @@ Partial Class Tec_Productos
         Me.JGrM_Buscador.HeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
         Me.JGrM_Buscador.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.JGrM_Buscador.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
+        Me.JGrM_Buscador.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
         Me.JGrM_Buscador.Location = New System.Drawing.Point(5, 105)
         Me.JGrM_Buscador.Margin = New System.Windows.Forms.Padding(4)
         Me.JGrM_Buscador.Name = "JGrM_Buscador"
@@ -268,7 +269,7 @@ Partial Class Tec_Productos
         Me.JGrM_Buscador.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.JGrM_Buscador.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.JGrM_Buscador.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.JGrM_Buscador.Size = New System.Drawing.Size(1178, 843)
+        Me.JGrM_Buscador.Size = New System.Drawing.Size(1178, 872)
         Me.JGrM_Buscador.TabIndex = 2
         Me.JGrM_Buscador.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.JGrM_Buscador.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -408,7 +409,7 @@ Partial Class Tec_Productos
         Me.SuperTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
-        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1188, 953)
+        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1188, 982)
         Me.SuperTabControlPanel1.TabIndex = 1
         Me.SuperTabControlPanel1.TabItem = Me.SuperTabItem1
         '
@@ -419,7 +420,7 @@ Partial Class Tec_Productos
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1188, 953)
+        Me.Panel1.Size = New System.Drawing.Size(1188, 982)
         Me.Panel1.TabIndex = 0
         '
         'PanelSuperior
@@ -430,7 +431,7 @@ Partial Class Tec_Productos
         Me.PanelSuperior.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelSuperior.Location = New System.Drawing.Point(0, 0)
         Me.PanelSuperior.Name = "PanelSuperior"
-        Me.PanelSuperior.Size = New System.Drawing.Size(1188, 893)
+        Me.PanelSuperior.Size = New System.Drawing.Size(1188, 922)
         Me.PanelSuperior.TabIndex = 1
         '
         'PanelRight
@@ -439,7 +440,7 @@ Partial Class Tec_Productos
         Me.PanelRight.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelRight.Location = New System.Drawing.Point(694, 0)
         Me.PanelRight.Name = "PanelRight"
-        Me.PanelRight.Size = New System.Drawing.Size(494, 893)
+        Me.PanelRight.Size = New System.Drawing.Size(494, 922)
         Me.PanelRight.TabIndex = 1
         '
         'Panel2
@@ -451,7 +452,7 @@ Partial Class Tec_Productos
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel2.Size = New System.Drawing.Size(494, 893)
+        Me.Panel2.Size = New System.Drawing.Size(494, 922)
         Me.Panel2.TabIndex = 1
         '
         'PanelImagenes
@@ -462,7 +463,7 @@ Partial Class Tec_Productos
         Me.PanelImagenes.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelImagenes.Location = New System.Drawing.Point(3, 30)
         Me.PanelImagenes.Name = "PanelImagenes"
-        Me.PanelImagenes.Size = New System.Drawing.Size(488, 860)
+        Me.PanelImagenes.Size = New System.Drawing.Size(488, 889)
         Me.PanelImagenes.TabIndex = 2
         '
         'PanelVerImagen
@@ -475,7 +476,7 @@ Partial Class Tec_Productos
         Me.PanelVerImagen.Location = New System.Drawing.Point(209, 0)
         Me.PanelVerImagen.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelVerImagen.Name = "PanelVerImagen"
-        Me.PanelVerImagen.Size = New System.Drawing.Size(279, 860)
+        Me.PanelVerImagen.Size = New System.Drawing.Size(279, 889)
         Me.PanelVerImagen.TabIndex = 2
         '
         'btnImagen
@@ -521,7 +522,7 @@ Partial Class Tec_Productos
         Me.pbImgProdu.Location = New System.Drawing.Point(0, 0)
         Me.pbImgProdu.Margin = New System.Windows.Forms.Padding(4)
         Me.pbImgProdu.Name = "pbImgProdu"
-        Me.pbImgProdu.Size = New System.Drawing.Size(279, 860)
+        Me.pbImgProdu.Size = New System.Drawing.Size(279, 889)
         Me.pbImgProdu.TabIndex = 0
         Me.pbImgProdu.TabStop = False
         '
@@ -533,7 +534,7 @@ Partial Class Tec_Productos
         Me.PanelListImagenes.Location = New System.Drawing.Point(0, 0)
         Me.PanelListImagenes.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelListImagenes.Name = "PanelListImagenes"
-        Me.PanelListImagenes.Size = New System.Drawing.Size(209, 860)
+        Me.PanelListImagenes.Size = New System.Drawing.Size(209, 889)
         Me.PanelListImagenes.TabIndex = 3
         '
         'Panel5
@@ -599,7 +600,7 @@ Partial Class Tec_Productos
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel13.Location = New System.Drawing.Point(684, 0)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(10, 893)
+        Me.Panel13.Size = New System.Drawing.Size(10, 922)
         Me.Panel13.TabIndex = 3
         '
         'PanelLEft
@@ -608,7 +609,7 @@ Partial Class Tec_Productos
         Me.PanelLEft.Dock = System.Windows.Forms.DockStyle.Left
         Me.PanelLEft.Location = New System.Drawing.Point(0, 0)
         Me.PanelLEft.Name = "PanelLEft"
-        Me.PanelLEft.Size = New System.Drawing.Size(684, 893)
+        Me.PanelLEft.Size = New System.Drawing.Size(684, 922)
         Me.PanelLEft.TabIndex = 0
         '
         'Panel8
@@ -620,7 +621,7 @@ Partial Class Tec_Productos
         Me.Panel8.Location = New System.Drawing.Point(0, 0)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel8.Size = New System.Drawing.Size(684, 893)
+        Me.Panel8.Size = New System.Drawing.Size(684, 922)
         Me.Panel8.TabIndex = 1
         '
         'Panel9
@@ -658,7 +659,7 @@ Partial Class Tec_Productos
         Me.Panel9.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel9.Location = New System.Drawing.Point(3, 30)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(678, 860)
+        Me.Panel9.Size = New System.Drawing.Size(678, 889)
         Me.Panel9.TabIndex = 2
         '
         'btnFamilia
@@ -1357,7 +1358,7 @@ Partial Class Tec_Productos
         Me.PanelButton.Controls.Add(Me.PanelToolBar1)
         Me.PanelButton.Controls.Add(Me.PanelNavegacion)
         Me.PanelButton.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PanelButton.Location = New System.Drawing.Point(0, 893)
+        Me.PanelButton.Location = New System.Drawing.Point(0, 922)
         Me.PanelButton.Name = "PanelButton"
         Me.PanelButton.Size = New System.Drawing.Size(1188, 60)
         Me.PanelButton.TabIndex = 3
@@ -1572,7 +1573,7 @@ Partial Class Tec_Productos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1188, 984)
+        Me.ClientSize = New System.Drawing.Size(1188, 1013)
         Me.Controls.Add(Me.TabControlPrincipal)
         Me.Name = "Tec_Productos"
         Me.Text = "Tec_Productos"
