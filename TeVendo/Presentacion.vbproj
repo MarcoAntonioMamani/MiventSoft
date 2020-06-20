@@ -1099,6 +1099,7 @@
     <None Include="Resources\trash.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\sistema_tevendo.png" />
     <None Include="Resources\tec_print.png" />
     <None Include="Resources\rowdelete.png" />
     <None Include="Resources\pasivo.png" />

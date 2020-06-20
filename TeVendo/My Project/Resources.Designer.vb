@@ -1193,6 +1193,16 @@ Namespace My.Resources
         '''<summary>
         '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property sistema_tevendo() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("sistema_tevendo", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property street_map() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("street_map", resourceCulture)

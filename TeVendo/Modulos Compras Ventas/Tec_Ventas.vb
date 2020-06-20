@@ -1224,6 +1224,7 @@ salirIf:
 
         btnVendedor.Visible = True
         btnCliente.Visible = True
+        BtnImprimir.Visible = False
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -1245,7 +1246,7 @@ salirIf:
         grDetalle.RootTable.Columns("img").Visible = False
         btnVendedor.Visible = False
         btnCliente.Visible = False
-
+        BtnImprimir.Visible = True
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -1939,6 +1940,51 @@ salirIf:
             End If
         End If
 
+    End Sub
+    Private Sub P_GenerarReporte(numi As String)
+        Dim dt As DataTable = ListarVentaRecibo(numi)
+
+        Dim total As Decimal = dt.Compute("SUM(Total)", "")
+
+        For i As Integer = 0 To dt.Rows.Count - 1
+            ''imageEmpresa
+            Dim Bin As New MemoryStream
+            Dim img As New Bitmap(My.Resources.icono_sistema02)
+            img.Save(Bin, Imaging.ImageFormat.Png)
+            dt.Rows(i).Item("imageEmpresa") = Bin.GetBuffer
+        Next
+
+
+        If Not IsNothing(P_Global.Visualizador) Then
+            P_Global.Visualizador.Close()
+        End If
+        Dim ParteEntera As Long
+        Dim ParteDecimal As Decimal
+        ParteEntera = Int(total)
+        ParteDecimal = Math.Round(total - ParteEntera, 2)
+        Dim li As String = Facturacion.ConvertirLiteral.A_fnConvertirLiteral(CDbl(ParteEntera)) + " con " +
+        IIf(ParteDecimal.ToString.Equals("0"), "00", ParteDecimal.ToString) + "/100 Bolivianos"
+
+
+
+        P_Global.Visualizador = New Visualizador
+
+        Dim objrep As New Recibo
+
+        objrep.SetDataSource(dt)
+        objrep.SetParameterValue("Monto", li)
+        P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+        P_Global.Visualizador.CrGeneral.Zoom(130)
+        P_Global.Visualizador.Show() 'Comentar
+            P_Global.Visualizador.BringToFront() 'Comentar
+
+
+    End Sub
+    Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles BtnImprimir.Click
+        If (Not _fnAccesible()) Then
+            P_GenerarReporte(tbCodigo.Text)
+
+        End If
     End Sub
 #End Region
 End Class
