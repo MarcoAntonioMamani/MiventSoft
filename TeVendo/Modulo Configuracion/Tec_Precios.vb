@@ -94,7 +94,7 @@ Public Class Tec_Precios
                 End With
 
                 With grprecio.RootTable.Columns(columnprecio)
-                    .Caption = fc.Item("ygcod").ToString
+                    .Caption = fc.Item("ygdesc").ToString
                     .Width = 90
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
                     .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
@@ -152,7 +152,7 @@ Public Class Tec_Precios
             .DropDownList.Columns.Clear()
             .DropDownList.Columns.Add("aanumi").Width = 70
             .DropDownList.Columns("aanumi").Caption = "COD"
-            .DropDownList.Columns.Add("aabdes").Width = 200
+            .DropDownList.Columns.Add("aabdes").Width = mCombo.Size.Width
             .DropDownList.Columns("aabdes").Caption = "DESCRIPCION"
             .ValueMember = "aanumi"
             .DisplayMember = "aabdes"
@@ -168,13 +168,15 @@ Public Class Tec_Precios
         GPanelAddCategoria.Visible = False
         btnModificar.Visible = True
         btnGrabar.Visible = False
+        btnCategoria.Visible = True
+        PanelCategoria.Visible = False
         _prCargarTablaPrecios(True)
 
         grcategoria.ContextMenuStrip = Nothing
     End Sub
     Private Sub _prhabilitar()
         grcategoria.ContextMenuStrip = msModulos
-        GPanelAddCategoria.Visible = True
+
         tbDescripcion.Focus()
         btnGrabar.Visible = True
     End Sub
@@ -239,7 +241,7 @@ Public Class Tec_Precios
     End Sub
 
     Public Function _fnAccesible()
-        Return GPanelAddCategoria.Visible = True
+        Return btnGrabar.Visible = True Or PanelCategoria.Visible = True
     End Function
 
     Private Function _FSiguienteLetra(palabra As String) As String
@@ -436,7 +438,9 @@ Public Class Tec_Precios
         _prInhabiliitar()
     End Sub
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
+        PanelCategoria.Visible = False
         _prhabilitar()
+        btnCategoria.Visible = False
         btnModificar.Visible = False
 
     End Sub
@@ -621,6 +625,14 @@ Public Class Tec_Precios
             End If
 
         End If
+    End Sub
+
+    Private Sub btnCategoria_Click(sender As Object, e As EventArgs) Handles btnCategoria.Click
+        btnCategoria.Visible = False
+        btnModificar.Visible = False
+        btnGrabar.Visible = False
+        PanelCategoria.Visible = True
+        GPanelAddCategoria.Visible = True
     End Sub
 #End Region
 
