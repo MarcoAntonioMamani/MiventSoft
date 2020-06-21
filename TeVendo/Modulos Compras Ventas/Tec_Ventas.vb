@@ -1739,7 +1739,7 @@ salirIf:
 
                 Dim listEstCeldas As New List(Of Celda)
                 listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
-                listEstCeldas.Add(New Celda("NombreProveedor", True, "NOMBRE", 350))
+                listEstCeldas.Add(New Celda("Nombre", True, "NOMBRE", 350))
                 listEstCeldas.Add(New Celda("Direccion", True, "DIRECCION", 180))
                 listEstCeldas.Add(New Celda("Telefono01", True, "Telefono".ToUpper, 200))
                 Dim ef = New Efecto
@@ -1780,7 +1780,7 @@ salirIf:
 
             Dim listEstCeldas As New List(Of Celda)
             listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
-            listEstCeldas.Add(New Celda("NombreProveedor", True, "NOMBRE", 350))
+            listEstCeldas.Add(New Celda("Nombre", True, "NOMBRE", 350))
             listEstCeldas.Add(New Celda("Direccion", True, "DIRECCION", 180))
             listEstCeldas.Add(New Celda("Telefono01", True, "Telefono".ToUpper, 200))
             Dim ef = New Efecto

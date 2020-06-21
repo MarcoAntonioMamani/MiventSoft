@@ -179,6 +179,10 @@ Module P_Global
             .DataSource = dt
             .Refresh()
         End With
+        If (CType(mCombo.DataSource, DataTable).Rows.Count > 0) Then
+            mCombo.SelectedIndex = 0
+        End If
+
     End Sub
 #End Region
 

@@ -348,7 +348,7 @@ Public Class Tec_Movimientos
             .Width = 80
             .Caption = "Eliminar".ToUpper
             .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
-            .Visible = True
+            .Visible = False
         End With
         If (Lote = True) Then
             With grDetalle.RootTable.Columns("Lote")
@@ -1601,7 +1601,9 @@ salirIf:
             End If
 
         End If
-
+        If (e.KeyData = Keys.Down) Then
+            grProducto.Focus()
+        End If
 
     End Sub
 #End Region

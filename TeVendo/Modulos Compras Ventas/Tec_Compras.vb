@@ -238,7 +238,8 @@ Public Class Tec_Compras
         Else
             '  Public _modulo As SideNavItem
             '_modulo.Select()
-            _tab.Close()
+            Me.Close()
+
         End If
     End Sub
 #End Region
@@ -1488,7 +1489,12 @@ salirIf:
 
         End If
 
-
+        If (e.KeyData = Keys.Right) Then
+            grProducto.Focus()
+        End If
+        If (e.KeyData = Keys.Down) Then
+            grDetalle.Focus()
+        End If
     End Sub
 
     Private Sub tbProveedor_KeyDown(sender As Object, e As KeyEventArgs) Handles tbProveedor.KeyDown
@@ -1502,7 +1508,7 @@ salirIf:
 
                 Dim listEstCeldas As New List(Of Celda)
                 listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
-                listEstCeldas.Add(New Celda("NombreProveedor", True, "NOMBRE", 350))
+                listEstCeldas.Add(New Celda("Nombre", True, "NOMBRE", 350))
                 listEstCeldas.Add(New Celda("Direccion", True, "DIRECCION", 180))
                 listEstCeldas.Add(New Celda("Telefono01", True, "Telefono".ToUpper, 200))
                 Dim ef = New Efecto
@@ -1520,7 +1526,7 @@ salirIf:
                     Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
 
                     IdProveedor = Row.Cells("Id").Value
-                    tbProveedor.Text = Row.Cells("NombreProveedor").Value
+                    tbProveedor.Text = Row.Cells("Nombre").Value
                     tbGlosa.Focus()
 
                 End If
@@ -1543,8 +1549,8 @@ salirIf:
 
             Dim listEstCeldas As New List(Of Celda)
                 listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
-                listEstCeldas.Add(New Celda("NombreProveedor", True, "NOMBRE", 350))
-                listEstCeldas.Add(New Celda("Direccion", True, "DIRECCION", 180))
+            listEstCeldas.Add(New Celda("Nombre", True, "NOMBRE", 350))
+            listEstCeldas.Add(New Celda("Direccion", True, "DIRECCION", 180))
                 listEstCeldas.Add(New Celda("Telefono01", True, "Telefono".ToUpper, 200))
                 Dim ef = New Efecto
             ef.tipo = 6
@@ -1561,8 +1567,8 @@ salirIf:
                     Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
 
                     IdProveedor = Row.Cells("Id").Value
-                    tbProveedor.Text = Row.Cells("NombreProveedor").Value
-                    tbGlosa.Focus()
+                tbProveedor.Text = Row.Cells("Nombre").Value
+                tbGlosa.Focus()
 
                 End If
 

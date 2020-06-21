@@ -26,6 +26,10 @@ Partial Class Tec_Principal
         Dim SuperTabLinearGradientColorTable1 As DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable = New DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tec_Principal))
         Me.SuperTabControlMenu = New DevComponents.DotNetBar.SuperTabControl()
+        Me.SuperTabControlPanel8 = New DevComponents.DotNetBar.SuperTabControlPanel()
+        Me.superTabControl3 = New DevComponents.DotNetBar.SuperTabControl()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.tab_ventana = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel_Configuracion = New DevComponents.DotNetBar.Metro.MetroTilePanel()
         Me.ItemContainerVentTransacciones = New DevComponents.DotNetBar.ItemContainer()
@@ -88,10 +92,6 @@ Partial Class Tec_Principal
         Me.btVentReporteProducto = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btInvKardexReporte = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.tab_ingresoproducto = New DevComponents.DotNetBar.SuperTabItem()
-        Me.SuperTabControlPanel8 = New DevComponents.DotNetBar.SuperTabControlPanel()
-        Me.superTabControl3 = New DevComponents.DotNetBar.SuperTabControl()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.tab_ventana = New DevComponents.DotNetBar.SuperTabItem()
         Me.PanelPrincipal = New System.Windows.Forms.Panel()
         Me.PanelContentSuperior = New System.Windows.Forms.Panel()
         Me.btnUser = New DevComponents.DotNetBar.ButtonX()
@@ -101,15 +101,15 @@ Partial Class Tec_Principal
         Me.imguser = New System.Windows.Forms.PictureBox()
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlMenu.SuspendLayout()
+        Me.SuperTabControlPanel8.SuspendLayout()
+        CType(Me.superTabControl3, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.superTabControl3.SuspendLayout()
         Me.SuperTabControlPanel3.SuspendLayout()
         Me.SuperTabControlPanel5.SuspendLayout()
         Me.SuperTabControlPanel7.SuspendLayout()
         Me.SuperTabControlPanel2.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
         Me.SuperTabControlPanel6.SuspendLayout()
-        Me.SuperTabControlPanel8.SuspendLayout()
-        CType(Me.superTabControl3, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.superTabControl3.SuspendLayout()
         Me.PanelPrincipal.SuspendLayout()
         Me.PanelContentSuperior.SuspendLayout()
         CType(Me.imguser, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -131,13 +131,13 @@ Partial Class Tec_Principal
         Me.SuperTabControlMenu.ControlBox.MenuBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControlMenu.ControlBox.MenuBox, Me.SuperTabControlMenu.ControlBox.CloseBox})
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel8)
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel6)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel3)
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel8)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel7)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel2)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel1)
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel6)
         Me.SuperTabControlMenu.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlMenu.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControlMenu.ForeColor = System.Drawing.Color.Black
@@ -156,6 +156,72 @@ Partial Class Tec_Principal
         Me.SuperTabControlMenu.TabStripColor = SuperTabColorTable1
         Me.SuperTabControlMenu.TabStyle = DevComponents.DotNetBar.eSuperTabStyle.Office2010BackstageBlue
         Me.SuperTabControlMenu.Text = "SuperTabControl1"
+        '
+        'SuperTabControlPanel8
+        '
+        Me.SuperTabControlPanel8.Controls.Add(Me.superTabControl3)
+        Me.SuperTabControlPanel8.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SuperTabControlPanel8.Location = New System.Drawing.Point(208, 0)
+        Me.SuperTabControlPanel8.Name = "SuperTabControlPanel8"
+        Me.SuperTabControlPanel8.Size = New System.Drawing.Size(1250, 690)
+        Me.SuperTabControlPanel8.TabIndex = 8
+        Me.SuperTabControlPanel8.TabItem = Me.tab_ventana
+        '
+        'superTabControl3
+        '
+        Me.superTabControl3.CloseButtonOnTabsAlwaysDisplayed = False
+        Me.superTabControl3.CloseButtonOnTabsVisible = True
+        '
+        '
+        '
+        '
+        '
+        '
+        Me.superTabControl3.ControlBox.CloseBox.Name = ""
+        '
+        '
+        '
+        Me.superTabControl3.ControlBox.MenuBox.Name = ""
+        Me.superTabControl3.ControlBox.Name = ""
+        Me.superTabControl3.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.superTabControl3.ControlBox.MenuBox, Me.superTabControl3.ControlBox.CloseBox})
+        Me.superTabControl3.Controls.Add(Me.Panel1)
+        Me.superTabControl3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.superTabControl3.Location = New System.Drawing.Point(0, 0)
+        Me.superTabControl3.Margin = New System.Windows.Forms.Padding(4)
+        Me.superTabControl3.Name = "superTabControl3"
+        Me.superTabControl3.ReorderTabsEnabled = True
+        Me.superTabControl3.SelectedTabFont = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.superTabControl3.SelectedTabIndex = 0
+        Me.superTabControl3.Size = New System.Drawing.Size(1250, 690)
+        Me.superTabControl3.TabFont = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.superTabControl3.TabIndex = 6
+        Me.superTabControl3.TabLayoutType = DevComponents.DotNetBar.eSuperTabLayoutType.MultiLineFit
+        Me.superTabControl3.TabStyle = DevComponents.DotNetBar.eSuperTabStyle.Office2010BackstageBlue
+        Me.superTabControl3.TabVerticalSpacing = 3
+        Me.superTabControl3.Text = "superTabControl3"
+        '
+        'Panel1
+        '
+        Me.Panel1.BackColor = System.Drawing.SystemColors.Control
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel1.Location = New System.Drawing.Point(0, 0)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(4)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(1250, 690)
+        Me.Panel1.TabIndex = 1
+        '
+        'tab_ventana
+        '
+        Me.tab_ventana.AttachedControl = Me.SuperTabControlPanel8
+        Me.tab_ventana.GlobalItem = False
+        Me.tab_ventana.Image = CType(resources.GetObject("tab_ventana.Image"), System.Drawing.Image)
+        Me.tab_ventana.Name = "tab_ventana"
+        Me.tab_ventana.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Teal
+        Me.tab_ventana.SelectedTabFont = New System.Drawing.Font("Calibri", 10.2!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tab_ventana.SymbolColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tab_ventana.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tab_ventana.Text = "Programas Abiertos"
+        Me.tab_ventana.TextAlignment = DevComponents.DotNetBar.eItemAlignment.Near
         '
         'SuperTabControlPanel3
         '
@@ -1256,7 +1322,7 @@ Partial Class Tec_Principal
         Me.SuperTabControlPanel6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel6.Location = New System.Drawing.Point(208, 0)
         Me.SuperTabControlPanel6.Name = "SuperTabControlPanel6"
-        Me.SuperTabControlPanel6.Size = New System.Drawing.Size(1250, 673)
+        Me.SuperTabControlPanel6.Size = New System.Drawing.Size(1250, 690)
         Me.SuperTabControlPanel6.TabIndex = 6
         Me.SuperTabControlPanel6.TabItem = Me.tab_ingresoproducto
         '
@@ -1281,7 +1347,7 @@ Partial Class Tec_Principal
         Me.Panel_ingresos.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel_ingresos.MultiLine = True
         Me.Panel_ingresos.Name = "Panel_ingresos"
-        Me.Panel_ingresos.Size = New System.Drawing.Size(1250, 673)
+        Me.Panel_ingresos.Size = New System.Drawing.Size(1250, 690)
         Me.Panel_ingresos.TabIndex = 6
         Me.Panel_ingresos.Text = "mtp2Logistica"
         '
@@ -1432,72 +1498,6 @@ Partial Class Tec_Principal
         Me.tab_ingresoproducto.Text = "Ingreso y" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Salida De Productos"
         Me.tab_ingresoproducto.TextAlignment = DevComponents.DotNetBar.eItemAlignment.Near
         '
-        'SuperTabControlPanel8
-        '
-        Me.SuperTabControlPanel8.Controls.Add(Me.superTabControl3)
-        Me.SuperTabControlPanel8.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel8.Location = New System.Drawing.Point(208, 0)
-        Me.SuperTabControlPanel8.Name = "SuperTabControlPanel8"
-        Me.SuperTabControlPanel8.Size = New System.Drawing.Size(1250, 690)
-        Me.SuperTabControlPanel8.TabIndex = 8
-        Me.SuperTabControlPanel8.TabItem = Me.tab_ventana
-        '
-        'superTabControl3
-        '
-        Me.superTabControl3.CloseButtonOnTabsAlwaysDisplayed = False
-        Me.superTabControl3.CloseButtonOnTabsVisible = True
-        '
-        '
-        '
-        '
-        '
-        '
-        Me.superTabControl3.ControlBox.CloseBox.Name = ""
-        '
-        '
-        '
-        Me.superTabControl3.ControlBox.MenuBox.Name = ""
-        Me.superTabControl3.ControlBox.Name = ""
-        Me.superTabControl3.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.superTabControl3.ControlBox.MenuBox, Me.superTabControl3.ControlBox.CloseBox})
-        Me.superTabControl3.Controls.Add(Me.Panel1)
-        Me.superTabControl3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.superTabControl3.Location = New System.Drawing.Point(0, 0)
-        Me.superTabControl3.Margin = New System.Windows.Forms.Padding(4)
-        Me.superTabControl3.Name = "superTabControl3"
-        Me.superTabControl3.ReorderTabsEnabled = True
-        Me.superTabControl3.SelectedTabFont = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.superTabControl3.SelectedTabIndex = 0
-        Me.superTabControl3.Size = New System.Drawing.Size(1250, 690)
-        Me.superTabControl3.TabFont = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.superTabControl3.TabIndex = 6
-        Me.superTabControl3.TabLayoutType = DevComponents.DotNetBar.eSuperTabLayoutType.MultiLineFit
-        Me.superTabControl3.TabStyle = DevComponents.DotNetBar.eSuperTabStyle.Office2010BackstageBlue
-        Me.superTabControl3.TabVerticalSpacing = 3
-        Me.superTabControl3.Text = "superTabControl3"
-        '
-        'Panel1
-        '
-        Me.Panel1.BackColor = System.Drawing.SystemColors.Control
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(0, 0)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(4)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1250, 690)
-        Me.Panel1.TabIndex = 1
-        '
-        'tab_ventana
-        '
-        Me.tab_ventana.AttachedControl = Me.SuperTabControlPanel8
-        Me.tab_ventana.GlobalItem = False
-        Me.tab_ventana.Image = CType(resources.GetObject("tab_ventana.Image"), System.Drawing.Image)
-        Me.tab_ventana.Name = "tab_ventana"
-        Me.tab_ventana.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Teal
-        Me.tab_ventana.SelectedTabFont = New System.Drawing.Font("Calibri", 10.2!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tab_ventana.SymbolColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tab_ventana.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tab_ventana.Text = "Programas Abiertos"
-        Me.tab_ventana.TextAlignment = DevComponents.DotNetBar.eItemAlignment.Near
-        '
         'PanelPrincipal
         '
         Me.PanelPrincipal.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
@@ -1616,15 +1616,15 @@ Partial Class Tec_Principal
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuperTabControlMenu.ResumeLayout(False)
+        Me.SuperTabControlPanel8.ResumeLayout(False)
+        CType(Me.superTabControl3, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.superTabControl3.ResumeLayout(False)
         Me.SuperTabControlPanel3.ResumeLayout(False)
         Me.SuperTabControlPanel5.ResumeLayout(False)
         Me.SuperTabControlPanel7.ResumeLayout(False)
         Me.SuperTabControlPanel2.ResumeLayout(False)
         Me.SuperTabControlPanel1.ResumeLayout(False)
         Me.SuperTabControlPanel6.ResumeLayout(False)
-        Me.SuperTabControlPanel8.ResumeLayout(False)
-        CType(Me.superTabControl3, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.superTabControl3.ResumeLayout(False)
         Me.PanelPrincipal.ResumeLayout(False)
         Me.PanelContentSuperior.ResumeLayout(False)
         CType(Me.imguser, System.ComponentModel.ISupportInitialize).EndInit()
