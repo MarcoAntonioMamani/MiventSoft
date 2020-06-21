@@ -621,7 +621,9 @@ Public Class Tec_Compras
                 If (estado = 1) Then
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = -1
                 End If
-
+                If (estado = 2) Then
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = -1
+                End If
                 grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
                 _prCalcularPrecioTotal()
 
@@ -1494,6 +1496,9 @@ salirIf:
         End If
         If (e.KeyData = Keys.Down) Then
             grDetalle.Focus()
+        End If
+        If (e.KeyData = Keys.Control + Keys.A) Then
+            btnGrabar.Focus()
         End If
     End Sub
 

@@ -1757,7 +1757,7 @@ salirIf:
                     Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
 
                     IdVendedor = Row.Cells("Id").Value
-                    tbVendedor.Text = Row.Cells("NombreProveedor").Value
+                    tbVendedor.Text = Row.Cells("Nombre").Value
                     tbCliente.Focus()
 
                 End If
@@ -1798,7 +1798,7 @@ salirIf:
                 Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
 
                 IdVendedor = Row.Cells("Id").Value
-                tbVendedor.Text = Row.Cells("NombreProveedor").Value
+                tbVendedor.Text = Row.Cells("Nombre").Value
                 tbCliente.Focus()
 
             End If

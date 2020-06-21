@@ -31,7 +31,7 @@ Partial Class Tec_KardexProductos
         Me.PanelDatos = New System.Windows.Forms.Panel()
         Me.GroupPanel4 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.JGrM_Buscador = New Janus.Windows.GridEX.GridEX()
+        Me.grMovimientos = New Janus.Windows.GridEX.GridEX()
         Me.Panel10 = New System.Windows.Forms.Panel()
         Me.Panel11 = New System.Windows.Forms.Panel()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -40,7 +40,7 @@ Partial Class Tec_KardexProductos
         Me.PanelButton = New System.Windows.Forms.Panel()
         Me.PanelNavegacion = New System.Windows.Forms.Panel()
         Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
-        Me.NumericEditBox1 = New Janus.Windows.GridEX.EditControls.NumericEditBox()
+        Me.tbSaldo = New Janus.Windows.GridEX.EditControls.NumericEditBox()
         Me.cbFechaHasta = New Janus.Windows.CalendarCombo.CalendarCombo()
         Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
         Me.cbFechaDesde = New Janus.Windows.CalendarCombo.CalendarCombo()
@@ -50,7 +50,7 @@ Partial Class Tec_KardexProductos
         Me.LabelX3 = New DevComponents.DotNetBar.LabelX()
         Me.tbProducto = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.PanelToolBar1 = New System.Windows.Forms.Panel()
-        Me.btnNuevo = New DevComponents.DotNetBar.ButtonX()
+        Me.btGenerarKardex = New DevComponents.DotNetBar.ButtonX()
         Me.btnProveedor = New DevComponents.DotNetBar.ButtonX()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
@@ -59,7 +59,7 @@ Partial Class Tec_KardexProductos
         Me.PanelDatos.SuspendLayout()
         Me.GroupPanel4.SuspendLayout()
         Me.Panel5.SuspendLayout()
-        CType(Me.JGrM_Buscador, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grMovimientos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel10.SuspendLayout()
         Me.Panel11.SuspendLayout()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -167,7 +167,7 @@ Partial Class Tec_KardexProductos
         'Panel5
         '
         Me.Panel5.BackColor = System.Drawing.Color.White
-        Me.Panel5.Controls.Add(Me.JGrM_Buscador)
+        Me.Panel5.Controls.Add(Me.grMovimientos)
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel5.Location = New System.Drawing.Point(0, 0)
         Me.Panel5.Margin = New System.Windows.Forms.Padding(4)
@@ -175,48 +175,48 @@ Partial Class Tec_KardexProductos
         Me.Panel5.Size = New System.Drawing.Size(1255, 362)
         Me.Panel5.TabIndex = 0
         '
-        'JGrM_Buscador
+        'grMovimientos
         '
-        Me.JGrM_Buscador.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
-        Me.JGrM_Buscador.AlternatingColors = True
-        Me.JGrM_Buscador.BackColor = System.Drawing.Color.White
-        Me.JGrM_Buscador.BorderStyle = Janus.Windows.GridEX.BorderStyle.Raised
-        Me.JGrM_Buscador.ColumnAutoResize = True
-        Me.JGrM_Buscador.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.JGrM_Buscador.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
-        Me.JGrM_Buscador.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.JGrM_Buscador.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.JGrM_Buscador.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.JGrM_Buscador.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
-        Me.JGrM_Buscador.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.JGrM_Buscador.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
-        Me.JGrM_Buscador.HeaderFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
-        Me.JGrM_Buscador.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.Empty
-        Me.JGrM_Buscador.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.JGrM_Buscador.HeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
-        Me.JGrM_Buscador.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
-        Me.JGrM_Buscador.Location = New System.Drawing.Point(0, 0)
-        Me.JGrM_Buscador.Margin = New System.Windows.Forms.Padding(4)
-        Me.JGrM_Buscador.Name = "JGrM_Buscador"
-        Me.JGrM_Buscador.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.JGrM_Buscador.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.JGrM_Buscador.RecordNavigator = True
-        Me.JGrM_Buscador.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.JGrM_Buscador.RowHeaderFormatStyle.BackColor = System.Drawing.Color.DodgerBlue
-        Me.JGrM_Buscador.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.JGrM_Buscador.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
-        Me.JGrM_Buscador.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
-        Me.JGrM_Buscador.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.JGrM_Buscador.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.JGrM_Buscador.SelectedInactiveFormatStyle.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.JGrM_Buscador.Size = New System.Drawing.Size(1255, 362)
-        Me.JGrM_Buscador.TabIndex = 4
-        Me.JGrM_Buscador.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.JGrM_Buscador.TableSpacing = 9
-        Me.JGrM_Buscador.TreeLineColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.JGrM_Buscador.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        Me.JGrM_Buscador.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        Me.JGrM_Buscador.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.grMovimientos.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
+        Me.grMovimientos.AlternatingColors = True
+        Me.grMovimientos.BackColor = System.Drawing.Color.White
+        Me.grMovimientos.BorderStyle = Janus.Windows.GridEX.BorderStyle.Raised
+        Me.grMovimientos.ColumnAutoResize = True
+        Me.grMovimientos.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grMovimientos.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
+        Me.grMovimientos.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grMovimientos.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grMovimientos.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grMovimientos.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
+        Me.grMovimientos.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grMovimientos.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
+        Me.grMovimientos.HeaderFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
+        Me.grMovimientos.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.Empty
+        Me.grMovimientos.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grMovimientos.HeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.grMovimientos.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
+        Me.grMovimientos.Location = New System.Drawing.Point(0, 0)
+        Me.grMovimientos.Margin = New System.Windows.Forms.Padding(4)
+        Me.grMovimientos.Name = "grMovimientos"
+        Me.grMovimientos.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.grMovimientos.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.grMovimientos.RecordNavigator = True
+        Me.grMovimientos.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grMovimientos.RowHeaderFormatStyle.BackColor = System.Drawing.Color.DodgerBlue
+        Me.grMovimientos.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grMovimientos.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.grMovimientos.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
+        Me.grMovimientos.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grMovimientos.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
+        Me.grMovimientos.SelectedInactiveFormatStyle.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.grMovimientos.Size = New System.Drawing.Size(1255, 362)
+        Me.grMovimientos.TabIndex = 4
+        Me.grMovimientos.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grMovimientos.TableSpacing = 9
+        Me.grMovimientos.TreeLineColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.grMovimientos.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.grMovimientos.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.grMovimientos.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'Panel10
         '
@@ -292,7 +292,7 @@ Partial Class Tec_KardexProductos
         '
         Me.PanelNavegacion.Controls.Add(Me.btnProveedor)
         Me.PanelNavegacion.Controls.Add(Me.LabelX5)
-        Me.PanelNavegacion.Controls.Add(Me.NumericEditBox1)
+        Me.PanelNavegacion.Controls.Add(Me.tbSaldo)
         Me.PanelNavegacion.Controls.Add(Me.cbFechaHasta)
         Me.PanelNavegacion.Controls.Add(Me.LabelX4)
         Me.PanelNavegacion.Controls.Add(Me.cbFechaDesde)
@@ -326,19 +326,19 @@ Partial Class Tec_KardexProductos
         Me.LabelX5.TabIndex = 43
         Me.LabelX5.Text = "Saldo:"
         '
-        'NumericEditBox1
+        'tbSaldo
         '
-        Me.NumericEditBox1.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NumericEditBox1.Location = New System.Drawing.Point(750, 7)
-        Me.NumericEditBox1.Name = "NumericEditBox1"
-        Me.NumericEditBox1.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.NumericEditBox1.Office2007CustomColor = System.Drawing.Color.DarkSlateGray
-        Me.NumericEditBox1.ReadOnly = True
-        Me.NumericEditBox1.Size = New System.Drawing.Size(100, 26)
-        Me.NumericEditBox1.TabIndex = 42
-        Me.NumericEditBox1.Text = "0.00"
-        Me.NumericEditBox1.Value = New Decimal(New Integer() {0, 0, 0, 131072})
-        Me.NumericEditBox1.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.tbSaldo.Font = New System.Drawing.Font("Calibri", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbSaldo.Location = New System.Drawing.Point(750, 7)
+        Me.tbSaldo.Name = "tbSaldo"
+        Me.tbSaldo.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.tbSaldo.Office2007CustomColor = System.Drawing.Color.DarkSlateGray
+        Me.tbSaldo.ReadOnly = True
+        Me.tbSaldo.Size = New System.Drawing.Size(172, 36)
+        Me.tbSaldo.TabIndex = 42
+        Me.tbSaldo.Text = "0.00"
+        Me.tbSaldo.Value = New Decimal(New Integer() {0, 0, 0, 131072})
+        Me.tbSaldo.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'cbFechaHasta
         '
@@ -531,7 +531,7 @@ Partial Class Tec_KardexProductos
         '
         Me.PanelToolBar1.AutoSize = True
         Me.PanelToolBar1.BackColor = System.Drawing.Color.White
-        Me.PanelToolBar1.Controls.Add(Me.btnNuevo)
+        Me.PanelToolBar1.Controls.Add(Me.btGenerarKardex)
         Me.PanelToolBar1.Dock = System.Windows.Forms.DockStyle.Right
         Me.PanelToolBar1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.PanelToolBar1.Location = New System.Drawing.Point(1019, 0)
@@ -540,24 +540,24 @@ Partial Class Tec_KardexProductos
         Me.PanelToolBar1.Size = New System.Drawing.Size(248, 83)
         Me.PanelToolBar1.TabIndex = 7
         '
-        'btnNuevo
+        'btGenerarKardex
         '
-        Me.btnNuevo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnNuevo.BackColor = System.Drawing.Color.Transparent
-        Me.btnNuevo.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
-        Me.btnNuevo.DisabledImagesGrayScale = False
-        Me.btnNuevo.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnNuevo.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnNuevo.Image = Global.TeVendo.My.Resources.Resources.facturacion
-        Me.btnNuevo.ImageFixedSize = New System.Drawing.Size(40, 40)
-        Me.btnNuevo.Location = New System.Drawing.Point(0, 0)
-        Me.btnNuevo.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnNuevo.Name = "btnNuevo"
-        Me.btnNuevo.Size = New System.Drawing.Size(248, 83)
-        Me.btnNuevo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnNuevo.TabIndex = 0
-        Me.btnNuevo.Text = "Generar Kardex"
-        Me.btnNuevo.TextColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.btGenerarKardex.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btGenerarKardex.BackColor = System.Drawing.Color.Transparent
+        Me.btGenerarKardex.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.btGenerarKardex.DisabledImagesGrayScale = False
+        Me.btGenerarKardex.Dock = System.Windows.Forms.DockStyle.Left
+        Me.btGenerarKardex.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btGenerarKardex.Image = Global.TeVendo.My.Resources.Resources.facturacion
+        Me.btGenerarKardex.ImageFixedSize = New System.Drawing.Size(40, 40)
+        Me.btGenerarKardex.Location = New System.Drawing.Point(0, 0)
+        Me.btGenerarKardex.Margin = New System.Windows.Forms.Padding(4)
+        Me.btGenerarKardex.Name = "btGenerarKardex"
+        Me.btGenerarKardex.Size = New System.Drawing.Size(248, 83)
+        Me.btGenerarKardex.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btGenerarKardex.TabIndex = 0
+        Me.btGenerarKardex.Text = "Generar Kardex"
+        Me.btGenerarKardex.TextColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
         '
         'btnProveedor
         '
@@ -571,7 +571,6 @@ Partial Class Tec_KardexProductos
         Me.btnProveedor.Size = New System.Drawing.Size(35, 31)
         Me.btnProveedor.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnProveedor.TabIndex = 211
-        Me.btnProveedor.Visible = False
         '
         'Tec_KardexProductos
         '
@@ -588,7 +587,7 @@ Partial Class Tec_KardexProductos
         Me.PanelDatos.ResumeLayout(False)
         Me.GroupPanel4.ResumeLayout(False)
         Me.Panel5.ResumeLayout(False)
-        CType(Me.JGrM_Buscador, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grMovimientos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel10.ResumeLayout(False)
         Me.Panel11.ResumeLayout(False)
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
@@ -609,7 +608,7 @@ Partial Class Tec_KardexProductos
     Friend WithEvents PanelDatos As Panel
     Friend WithEvents GroupPanel4 As DevComponents.DotNetBar.Controls.GroupPanel
     Friend WithEvents Panel5 As Panel
-    Friend WithEvents JGrM_Buscador As Janus.Windows.GridEX.GridEX
+    Friend WithEvents grMovimientos As Janus.Windows.GridEX.GridEX
     Friend WithEvents Panel10 As Panel
     Friend WithEvents Panel11 As Panel
     Friend WithEvents Label3 As Label
@@ -617,7 +616,7 @@ Partial Class Tec_KardexProductos
     Friend WithEvents PictureBox3 As PictureBox
     Friend WithEvents PanelButton As Panel
     Protected WithEvents PanelToolBar1 As Panel
-    Protected WithEvents btnNuevo As DevComponents.DotNetBar.ButtonX
+    Protected WithEvents btGenerarKardex As DevComponents.DotNetBar.ButtonX
     Protected WithEvents PanelNavegacion As Panel
     Friend WithEvents LabelX3 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbProducto As DevComponents.DotNetBar.Controls.TextBoxX
@@ -628,6 +627,6 @@ Partial Class Tec_KardexProductos
     Friend WithEvents cbFechaHasta As Janus.Windows.CalendarCombo.CalendarCombo
     Friend WithEvents LabelX4 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents NumericEditBox1 As Janus.Windows.GridEX.EditControls.NumericEditBox
+    Friend WithEvents tbSaldo As Janus.Windows.GridEX.EditControls.NumericEditBox
     Friend WithEvents btnProveedor As DevComponents.DotNetBar.ButtonX
 End Class
