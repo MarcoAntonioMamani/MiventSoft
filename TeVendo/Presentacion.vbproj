@@ -201,6 +201,12 @@
     <Compile Include="Inventarios\Rep_SaldoProductos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Inventarios\Tec_KardexProductos.Designer.vb">
+      <DependentUpon>Tec_KardexProductos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Inventarios\Tec_KardexProductos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Inventarios\Tec_Movimientos.Designer.vb">
       <DependentUpon>Tec_Movimientos.vb</DependentUpon>
     </Compile>
@@ -394,6 +400,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\Rep_SaldoProductos.resx">
       <DependentUpon>Rep_SaldoProductos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventarios\Tec_KardexProductos.resx">
+      <DependentUpon>Tec_KardexProductos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\Tec_Movimientos.resx">
       <DependentUpon>Tec_Movimientos.vb</DependentUpon>
