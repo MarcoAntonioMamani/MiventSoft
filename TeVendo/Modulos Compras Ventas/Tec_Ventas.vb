@@ -1354,7 +1354,7 @@ salirIf:
 
         ef.tipo = 8
         ef.titulo = "Comprobante de Venta"
-        ef.descripcion = "¿Desea Generar el Reporte de la Venta #" + tbCodigo.Text + " ?"
+        ef.descripcion = "¿Desea Generar el Reporte de la Venta #" + Id + " ?"
         ef.ShowDialog()
         Dim bandera As Boolean = False
         bandera = ef.band

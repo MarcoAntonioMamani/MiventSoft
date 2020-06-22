@@ -67,6 +67,7 @@ Public Class Tec_KardexProductos
                 tbSaldo.Value = Row.Cells("stock").Value
                 cbDeposito.Focus()
 
+                ArmarGrillaMovimientos()
             End If
 
         End If
@@ -340,9 +341,9 @@ Public Class Tec_KardexProductos
         Dim sal As Double = 0
         Dim saldoInicial As Double = 0
         'Sumar ingreso de inventario
-        ing = IIf(IsDBNull(Dt1Kardex.Compute("Sum(entrada)+Sum(salida)", "cprod = " + Str(IdProducto) + " and concep = 1 or concep=3")), 0, Dt1Kardex.Compute("Sum(entrada)+Sum(salida)", "cprod = " + Str(IdProducto) + " and concep = 2 or concep=4"))
+        ing = IIf(IsDBNull(Dt1Kardex.Compute("Sum(entrada)+Sum(salida)", "cprod = " + Str(IdProducto) + " and concep = 2 or concep=4")), 0, Dt1Kardex.Compute("Sum(entrada)+Sum(salida)", "cprod = " + Str(IdProducto) + " and concep = 2 or concep=4"))
         'Sumar salida de inventario
-        sal = IIf(IsDBNull(Dt1Kardex.Compute("Sum(entrada)+Sum(salida)", "cprod = " + Str(IdProducto) + " and concep = 2 or concep=4")), 0, Dt1Kardex.Compute("Sum(entrada)+Sum(salida)", "cprod = " + Str(IdProducto) + " and concep = 1 or concep=3"))
+        sal = IIf(IsDBNull(Dt1Kardex.Compute("Sum(entrada)+Sum(salida)", "cprod = " + Str(IdProducto) + " and concep = 1 or concep=3")), 0, Dt1Kardex.Compute("Sum(entrada)+Sum(salida)", "cprod = " + Str(IdProducto) + " and concep = 1 or concep=3"))
         'Saldo inicial al partir de la fecha indicada
         saldoInicial = saldo '+ sal + ing
         'Insertamos la primera fila con el saldo Inicial
@@ -397,13 +398,13 @@ Public Class Tec_KardexProductos
             'a.Id ,a.NombreProveedor ,a.Direccion ,a.Telefono01
 
             Dim listEstCeldas As New List(Of Celda)
-            listEstCeldas.Add(New Celda("Id,", True, "ID", 50))
-            listEstCeldas.Add(New Celda("CodigoExterno,", False))
-            listEstCeldas.Add(New Celda("estado,", False))
-            listEstCeldas.Add(New Celda("Nombre", True, "Producto", 350))
-            listEstCeldas.Add(New Celda("DescripcionProducto", True, "Descripcion", 180))
-            listEstCeldas.Add(New Celda("stock", True, "Stock Disponible".ToUpper, 120, "0.00"))
-            Dim ef = New Efecto
+        listEstCeldas.Add(New Celda("Id,", True, "ID", 50))
+        listEstCeldas.Add(New Celda("CodigoExterno,", False))
+        listEstCeldas.Add(New Celda("Nombre", True, "Producto", 350))
+        listEstCeldas.Add(New Celda("DescripcionProducto", False, "Descripcion", 180))
+        listEstCeldas.Add(New Celda("stock", True, "Stock Disponible".ToUpper, 120, "0.00"))
+        listEstCeldas.Add(New Celda("estado,", False))
+        Dim ef = New Efecto
             ef.tipo = 6
             ef.dt = dt
             ef.SeleclCol = 2
@@ -423,7 +424,14 @@ Public Class Tec_KardexProductos
 
             cbDeposito.Focus()
 
+            ArmarGrillaMovimientos()
+
         End If
+
+    End Sub
+
+    Private Sub cbDeposito_ValueChanged(sender As Object, e As EventArgs) Handles cbDeposito.ValueChanged
+
 
     End Sub
 End Class

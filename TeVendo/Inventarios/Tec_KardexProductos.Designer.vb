@@ -372,6 +372,7 @@ Partial Class Tec_KardexProductos
         Me.cbFechaHasta.TabIndex = 41
         Me.cbFechaHasta.TodayButtonText = "Hoy"
         Me.cbFechaHasta.UseCompatibleTextRendering = False
+        Me.cbFechaHasta.Value = New Date(2020, 6, 21, 0, 0, 0, 0)
         Me.cbFechaHasta.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
         Me.cbFechaHasta.YearIncrement = 10
         '
@@ -425,6 +426,7 @@ Partial Class Tec_KardexProductos
         Me.cbFechaDesde.TabIndex = 39
         Me.cbFechaDesde.TodayButtonText = "Hoy"
         Me.cbFechaDesde.UseCompatibleTextRendering = False
+        Me.cbFechaDesde.Value = New Date(2020, 6, 21, 0, 0, 0, 0)
         Me.cbFechaDesde.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
         Me.cbFechaDesde.YearIncrement = 10
         '
