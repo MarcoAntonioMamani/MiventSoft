@@ -78,14 +78,18 @@ Public Class Tec_KardexProductos
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
             ToastNotification.Show(Me, "Seleccione un Producto".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
             tbProducto.Focus()
+            Return
+
         End If
 
         ArmarGrillaMovimientos()
 
 
+
     End Sub
 
     Public Sub ArmarGrillaMovimientos()
+        PanelMovimientos.Text = "Listado de Movimientos  : " + tbProducto.Text
         Dt1Kardex = New DataTable
         Dt2KardexTotal = New DataTable
         _GenerarHistorial()
@@ -293,11 +297,9 @@ Public Class Tec_KardexProductos
                 If (Dt1Kardex.Rows.Count > 0) Then
                     P_CalcularTotalizador()
                 Else
-                    ToastNotification.Show(Me, "No Existe Movimiento Para Los Filtros Establecidos".ToUpper,
-                           My.Resources.INFORMATION,
-                           3 * 1000,
-                           eToastGlowColor.Blue,
-                           eToastPosition.BottomLeft)
+
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    ToastNotification.Show(Me, "No Existe Movimiento Para Los Filtros Establecidos".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
                 End If
                 'Else
                 'Dt1Kardex = L_fnObtenerHistorialProducto("-1", tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), cbAlmacen.Value)   Por Lote
@@ -433,5 +435,64 @@ Public Class Tec_KardexProductos
     Private Sub cbDeposito_ValueChanged(sender As Object, e As EventArgs) Handles cbDeposito.ValueChanged
 
 
+    End Sub
+
+    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
+        If (IsDBNull(Dt1Kardex)) Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "No Existe Movimiento Para Generar El Reporte".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            Return
+
+        End If
+        If (IsNothing(Dt1Kardex)) Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "No Existe Movimiento Para Generar El Reporte".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            Return
+
+        End If
+        If (Dt1Kardex.Rows.Count <= 0) Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "No Existe Movimiento Para Generar el Reporte".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            Return
+
+        End If
+        If Not IsNothing(P_Global.Visualizador) Then
+            P_Global.Visualizador.Close()
+        End If
+
+        P_Global.Visualizador = New Visualizador
+
+        Dim objrep As New R_KardexProducto
+
+        objrep.SetDataSource(Dt1Kardex)
+        objrep.SetParameterValue("Producto", tbProducto.Text)
+        objrep.SetParameterValue("FechaDesde", cbFechaDesde.Value.ToString("dd/MM/yyyy"))
+        objrep.SetParameterValue("FechaHasta", cbFechaHasta.Value.ToString("dd/MM/yyyy"))
+        objrep.SetParameterValue("Deposito", cbDeposito.Text)
+        objrep.SetParameterValue("Total", Dt1Kardex.Rows(Dt1Kardex.Rows.Count - 1).Item("Saldo"))
+        P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+        P_Global.Visualizador.CrGeneral.Zoom(110)
+        P_Global.Visualizador.Show() 'Comentar
+        ''P_Global.Visualizador.BringToFront() 'Comentar
+    End Sub
+
+    Private Sub cbFechaDesde_ValueChanged(sender As Object, e As EventArgs) Handles cbFechaDesde.ValueChanged
+        If (IdProducto <= 0) Then
+
+            Return
+
+        End If
+
+        ArmarGrillaMovimientos()
+    End Sub
+
+    Private Sub cbFechaHasta_ValueChanged(sender As Object, e As EventArgs) Handles cbFechaHasta.ValueChanged
+        If (IdProducto <= 0) Then
+
+            Return
+
+        End If
+
+        ArmarGrillaMovimientos()
     End Sub
 End Class

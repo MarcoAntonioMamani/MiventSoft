@@ -29,7 +29,7 @@ Partial Class Tec_KardexProductos
         Me.PanelLEft = New System.Windows.Forms.Panel()
         Me.Panel8 = New System.Windows.Forms.Panel()
         Me.PanelDatos = New System.Windows.Forms.Panel()
-        Me.GroupPanel4 = New DevComponents.DotNetBar.Controls.GroupPanel()
+        Me.PanelMovimientos = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.grMovimientos = New Janus.Windows.GridEX.GridEX()
         Me.Panel10 = New System.Windows.Forms.Panel()
@@ -52,12 +52,13 @@ Partial Class Tec_KardexProductos
         Me.PanelToolBar1 = New System.Windows.Forms.Panel()
         Me.btGenerarKardex = New DevComponents.DotNetBar.ButtonX()
         Me.btnProveedor = New DevComponents.DotNetBar.ButtonX()
+        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelLEft.SuspendLayout()
         Me.Panel8.SuspendLayout()
         Me.PanelDatos.SuspendLayout()
-        Me.GroupPanel4.SuspendLayout()
+        Me.PanelMovimientos.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.grMovimientos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel10.SuspendLayout()
@@ -76,7 +77,7 @@ Partial Class Tec_KardexProductos
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1267, 505)
+        Me.Panel1.Size = New System.Drawing.Size(1439, 505)
         Me.Panel1.TabIndex = 4
         '
         'PanelSuperior
@@ -85,7 +86,7 @@ Partial Class Tec_KardexProductos
         Me.PanelSuperior.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelSuperior.Location = New System.Drawing.Point(0, 0)
         Me.PanelSuperior.Name = "PanelSuperior"
-        Me.PanelSuperior.Size = New System.Drawing.Size(1267, 422)
+        Me.PanelSuperior.Size = New System.Drawing.Size(1439, 422)
         Me.PanelSuperior.TabIndex = 1
         '
         'PanelLEft
@@ -94,7 +95,7 @@ Partial Class Tec_KardexProductos
         Me.PanelLEft.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelLEft.Location = New System.Drawing.Point(0, 0)
         Me.PanelLEft.Name = "PanelLEft"
-        Me.PanelLEft.Size = New System.Drawing.Size(1267, 422)
+        Me.PanelLEft.Size = New System.Drawing.Size(1439, 422)
         Me.PanelLEft.TabIndex = 0
         '
         'Panel8
@@ -106,63 +107,63 @@ Partial Class Tec_KardexProductos
         Me.Panel8.Location = New System.Drawing.Point(0, 0)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel8.Size = New System.Drawing.Size(1267, 422)
+        Me.Panel8.Size = New System.Drawing.Size(1439, 422)
         Me.Panel8.TabIndex = 1
         '
         'PanelDatos
         '
         Me.PanelDatos.BackColor = System.Drawing.Color.White
-        Me.PanelDatos.Controls.Add(Me.GroupPanel4)
+        Me.PanelDatos.Controls.Add(Me.PanelMovimientos)
         Me.PanelDatos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelDatos.Location = New System.Drawing.Point(3, 30)
         Me.PanelDatos.Name = "PanelDatos"
-        Me.PanelDatos.Size = New System.Drawing.Size(1261, 389)
+        Me.PanelDatos.Size = New System.Drawing.Size(1433, 389)
         Me.PanelDatos.TabIndex = 2
         '
-        'GroupPanel4
+        'PanelMovimientos
         '
-        Me.GroupPanel4.BackColor = System.Drawing.Color.White
-        Me.GroupPanel4.CanvasColor = System.Drawing.SystemColors.Control
-        Me.GroupPanel4.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
-        Me.GroupPanel4.Controls.Add(Me.Panel5)
-        Me.GroupPanel4.DisabledBackColor = System.Drawing.Color.Empty
-        Me.GroupPanel4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupPanel4.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupPanel4.Location = New System.Drawing.Point(0, 0)
-        Me.GroupPanel4.Margin = New System.Windows.Forms.Padding(4)
-        Me.GroupPanel4.Name = "GroupPanel4"
-        Me.GroupPanel4.Size = New System.Drawing.Size(1261, 389)
-        '
-        '
-        '
-        Me.GroupPanel4.Style.BackColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(72, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.GroupPanel4.Style.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(72, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.GroupPanel4.Style.BackColorGradientAngle = 90
-        Me.GroupPanel4.Style.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.GroupPanel4.Style.BorderBottomWidth = 1
-        Me.GroupPanel4.Style.BorderColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(72, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.GroupPanel4.Style.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.GroupPanel4.Style.BorderLeftWidth = 1
-        Me.GroupPanel4.Style.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.GroupPanel4.Style.BorderRightWidth = 1
-        Me.GroupPanel4.Style.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.GroupPanel4.Style.BorderTopWidth = 1
-        Me.GroupPanel4.Style.CornerDiameter = 4
-        Me.GroupPanel4.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
-        Me.GroupPanel4.Style.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupPanel4.Style.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
-        Me.GroupPanel4.Style.TextColor = System.Drawing.Color.White
-        Me.GroupPanel4.Style.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Near
+        Me.PanelMovimientos.BackColor = System.Drawing.Color.White
+        Me.PanelMovimientos.CanvasColor = System.Drawing.SystemColors.Control
+        Me.PanelMovimientos.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
+        Me.PanelMovimientos.Controls.Add(Me.Panel5)
+        Me.PanelMovimientos.DisabledBackColor = System.Drawing.Color.Empty
+        Me.PanelMovimientos.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PanelMovimientos.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PanelMovimientos.Location = New System.Drawing.Point(0, 0)
+        Me.PanelMovimientos.Margin = New System.Windows.Forms.Padding(4)
+        Me.PanelMovimientos.Name = "PanelMovimientos"
+        Me.PanelMovimientos.Size = New System.Drawing.Size(1433, 389)
         '
         '
         '
-        Me.GroupPanel4.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.PanelMovimientos.Style.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.PanelMovimientos.Style.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.PanelMovimientos.Style.BackColorGradientAngle = 90
+        Me.PanelMovimientos.Style.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.PanelMovimientos.Style.BorderBottomWidth = 1
+        Me.PanelMovimientos.Style.BorderColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.PanelMovimientos.Style.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.PanelMovimientos.Style.BorderLeftWidth = 1
+        Me.PanelMovimientos.Style.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.PanelMovimientos.Style.BorderRightWidth = 1
+        Me.PanelMovimientos.Style.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.PanelMovimientos.Style.BorderTopWidth = 1
+        Me.PanelMovimientos.Style.CornerDiameter = 4
+        Me.PanelMovimientos.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.PanelMovimientos.Style.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PanelMovimientos.Style.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.PanelMovimientos.Style.TextColor = System.Drawing.Color.White
+        Me.PanelMovimientos.Style.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Near
         '
         '
         '
-        Me.GroupPanel4.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.GroupPanel4.TabIndex = 2
-        Me.GroupPanel4.Text = "Listado De Movimientos"
+        Me.PanelMovimientos.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        '
+        '
+        '
+        Me.PanelMovimientos.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.PanelMovimientos.TabIndex = 2
+        Me.PanelMovimientos.Text = "Listado De Movimientos"
         '
         'Panel5
         '
@@ -172,7 +173,7 @@ Partial Class Tec_KardexProductos
         Me.Panel5.Location = New System.Drawing.Point(0, 0)
         Me.Panel5.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(1255, 362)
+        Me.Panel5.Size = New System.Drawing.Size(1427, 362)
         Me.Panel5.TabIndex = 0
         '
         'grMovimientos
@@ -190,26 +191,26 @@ Partial Class Tec_KardexProductos
         Me.grMovimientos.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
         Me.grMovimientos.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grMovimientos.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
-        Me.grMovimientos.HeaderFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
+        Me.grMovimientos.HeaderFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.grMovimientos.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.Empty
         Me.grMovimientos.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grMovimientos.HeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.grMovimientos.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
         Me.grMovimientos.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
         Me.grMovimientos.Location = New System.Drawing.Point(0, 0)
         Me.grMovimientos.Margin = New System.Windows.Forms.Padding(4)
         Me.grMovimientos.Name = "grMovimientos"
         Me.grMovimientos.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.grMovimientos.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.grMovimientos.Office2007CustomColor = System.Drawing.Color.DimGray
         Me.grMovimientos.RecordNavigator = True
         Me.grMovimientos.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grMovimientos.RowHeaderFormatStyle.BackColor = System.Drawing.Color.DodgerBlue
         Me.grMovimientos.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grMovimientos.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
-        Me.grMovimientos.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
+        Me.grMovimientos.SelectedFormatStyle.BackColor = System.Drawing.Color.Gold
         Me.grMovimientos.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grMovimientos.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
+        Me.grMovimientos.SelectedFormatStyle.ForeColor = System.Drawing.Color.Black
         Me.grMovimientos.SelectedInactiveFormatStyle.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.grMovimientos.Size = New System.Drawing.Size(1255, 362)
+        Me.grMovimientos.Size = New System.Drawing.Size(1427, 362)
         Me.grMovimientos.TabIndex = 4
         Me.grMovimientos.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
         Me.grMovimientos.TableSpacing = 9
@@ -226,7 +227,7 @@ Partial Class Tec_KardexProductos
         Me.Panel10.Location = New System.Drawing.Point(3, 3)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel10.Size = New System.Drawing.Size(1261, 27)
+        Me.Panel10.Size = New System.Drawing.Size(1433, 27)
         Me.Panel10.TabIndex = 1
         '
         'Panel11
@@ -238,7 +239,7 @@ Partial Class Tec_KardexProductos
         Me.Panel11.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel11.Location = New System.Drawing.Point(1, 1)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(1259, 25)
+        Me.Panel11.Size = New System.Drawing.Size(1431, 25)
         Me.Panel11.TabIndex = 0
         '
         'Label3
@@ -279,13 +280,14 @@ Partial Class Tec_KardexProductos
         '
         'PanelButton
         '
+        Me.PanelButton.AutoScroll = True
         Me.PanelButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.PanelButton.Controls.Add(Me.PanelNavegacion)
         Me.PanelButton.Controls.Add(Me.PanelToolBar1)
         Me.PanelButton.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.PanelButton.Location = New System.Drawing.Point(0, 422)
         Me.PanelButton.Name = "PanelButton"
-        Me.PanelButton.Size = New System.Drawing.Size(1267, 83)
+        Me.PanelButton.Size = New System.Drawing.Size(1439, 83)
         Me.PanelButton.TabIndex = 3
         '
         'PanelNavegacion
@@ -305,7 +307,7 @@ Partial Class Tec_KardexProductos
         Me.PanelNavegacion.Location = New System.Drawing.Point(0, 0)
         Me.PanelNavegacion.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelNavegacion.Name = "PanelNavegacion"
-        Me.PanelNavegacion.Size = New System.Drawing.Size(1019, 83)
+        Me.PanelNavegacion.Size = New System.Drawing.Size(1142, 83)
         Me.PanelNavegacion.TabIndex = 21
         '
         'LabelX5
@@ -533,13 +535,14 @@ Partial Class Tec_KardexProductos
         '
         Me.PanelToolBar1.AutoSize = True
         Me.PanelToolBar1.BackColor = System.Drawing.Color.White
+        Me.PanelToolBar1.Controls.Add(Me.ButtonX1)
         Me.PanelToolBar1.Controls.Add(Me.btGenerarKardex)
         Me.PanelToolBar1.Dock = System.Windows.Forms.DockStyle.Right
         Me.PanelToolBar1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.PanelToolBar1.Location = New System.Drawing.Point(1019, 0)
+        Me.PanelToolBar1.Location = New System.Drawing.Point(1142, 0)
         Me.PanelToolBar1.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelToolBar1.Name = "PanelToolBar1"
-        Me.PanelToolBar1.Size = New System.Drawing.Size(248, 83)
+        Me.PanelToolBar1.Size = New System.Drawing.Size(297, 83)
         Me.PanelToolBar1.TabIndex = 7
         '
         'btGenerarKardex
@@ -548,14 +551,14 @@ Partial Class Tec_KardexProductos
         Me.btGenerarKardex.BackColor = System.Drawing.Color.Transparent
         Me.btGenerarKardex.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
         Me.btGenerarKardex.DisabledImagesGrayScale = False
-        Me.btGenerarKardex.Dock = System.Windows.Forms.DockStyle.Left
+        Me.btGenerarKardex.Dock = System.Windows.Forms.DockStyle.Right
         Me.btGenerarKardex.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btGenerarKardex.Image = Global.TeVendo.My.Resources.Resources.facturacion
-        Me.btGenerarKardex.ImageFixedSize = New System.Drawing.Size(40, 40)
-        Me.btGenerarKardex.Location = New System.Drawing.Point(0, 0)
+        Me.btGenerarKardex.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.btGenerarKardex.Location = New System.Drawing.Point(145, 0)
         Me.btGenerarKardex.Margin = New System.Windows.Forms.Padding(4)
         Me.btGenerarKardex.Name = "btGenerarKardex"
-        Me.btGenerarKardex.Size = New System.Drawing.Size(248, 83)
+        Me.btGenerarKardex.Size = New System.Drawing.Size(152, 83)
         Me.btGenerarKardex.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btGenerarKardex.TabIndex = 0
         Me.btGenerarKardex.Text = "Generar Kardex"
@@ -574,11 +577,30 @@ Partial Class Tec_KardexProductos
         Me.btnProveedor.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnProveedor.TabIndex = 211
         '
+        'ButtonX1
+        '
+        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX1.BackColor = System.Drawing.Color.Transparent
+        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.ButtonX1.DisabledImagesGrayScale = False
+        Me.ButtonX1.Dock = System.Windows.Forms.DockStyle.Right
+        Me.ButtonX1.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX1.Image = Global.TeVendo.My.Resources.Resources.printee
+        Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.ButtonX1.Location = New System.Drawing.Point(0, 0)
+        Me.ButtonX1.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX1.Name = "ButtonX1"
+        Me.ButtonX1.Size = New System.Drawing.Size(145, 83)
+        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX1.TabIndex = 1
+        Me.ButtonX1.Text = "Imprimir"
+        Me.ButtonX1.TextColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        '
         'Tec_KardexProductos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1267, 505)
+        Me.ClientSize = New System.Drawing.Size(1439, 505)
         Me.Controls.Add(Me.Panel1)
         Me.Name = "Tec_KardexProductos"
         Me.Text = "Tec_KardexProductos"
@@ -587,7 +609,7 @@ Partial Class Tec_KardexProductos
         Me.PanelLEft.ResumeLayout(False)
         Me.Panel8.ResumeLayout(False)
         Me.PanelDatos.ResumeLayout(False)
-        Me.GroupPanel4.ResumeLayout(False)
+        Me.PanelMovimientos.ResumeLayout(False)
         Me.Panel5.ResumeLayout(False)
         CType(Me.grMovimientos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel10.ResumeLayout(False)
@@ -608,7 +630,7 @@ Partial Class Tec_KardexProductos
     Friend WithEvents PanelLEft As Panel
     Friend WithEvents Panel8 As Panel
     Friend WithEvents PanelDatos As Panel
-    Friend WithEvents GroupPanel4 As DevComponents.DotNetBar.Controls.GroupPanel
+    Friend WithEvents PanelMovimientos As DevComponents.DotNetBar.Controls.GroupPanel
     Friend WithEvents Panel5 As Panel
     Friend WithEvents grMovimientos As Janus.Windows.GridEX.GridEX
     Friend WithEvents Panel10 As Panel
@@ -631,4 +653,5 @@ Partial Class Tec_KardexProductos
     Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbSaldo As Janus.Windows.GridEX.EditControls.NumericEditBox
     Friend WithEvents btnProveedor As DevComponents.DotNetBar.ButtonX
+    Protected WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
 End Class
