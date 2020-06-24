@@ -544,13 +544,14 @@ Public Class Tec_Personal
 
         listEstCeldas.Add(New Celda("NombrePersonal", True, " NombrePersonal", 200))
         listEstCeldas.Add(New Celda("Direccion", False, " Direccion", 120))
-        listEstCeldas.Add(New Celda("Telefono01", True, "Telefono01", 90))
+        listEstCeldas.Add(New Celda("Telefono01", False, "Telefono01", 90))
         listEstCeldas.Add(New Celda("TipoDocumento", False))
         listEstCeldas.Add(New Celda("TipoPersonal", False))
         listEstCeldas.Add(New Celda("EmpresaId", False))
         listEstCeldas.Add(New Celda("NroDocumento", True, "Nro Documento", 90))
         listEstCeldas.Add(New Celda("Estado", False))
         listEstCeldas.Add(New Celda("img", True, "Estado", 90))
+        listEstCeldas.Add(New Celda("Tipo", True, "Tipo", 90))
 
 
         Return listEstCeldas

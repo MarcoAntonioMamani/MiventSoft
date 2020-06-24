@@ -85,8 +85,18 @@ Public Class Tec_Login
             tbUsuario.SelectAll()
             tbUsuario.Focus()
         Else
-            L_Usuario = tbUsuario.Text
-            gs_user = tbUsuario.Text
+
+            Dim idPersonal As Integer = dtUsuario.Rows(0).Item("idPersonal")
+            Global_IdPersonal = idPersonal
+            Dim dt As DataTable = ListarPersonalById(idPersonal)
+            If (dt.Rows.Count > 0) Then
+                L_Usuario = dt.Rows(0).Item("Nombre")
+                gs_user = dt.Rows(0).Item("Nombre")
+            Else
+                L_Usuario = tbUsuario.Text
+                gs_user = tbUsuario.Text
+            End If
+
             gi_userFuente = 13
             gi_userNumi = dtUsuario.Rows(0).Item("Id")
             gi_userRol = dtUsuario.Rows(0).Item("RolId")

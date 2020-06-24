@@ -98,7 +98,6 @@ Public Class Tec_Ventas
     Private Sub _PMHabilitar()
         JGrM_Buscador.Enabled = False
         _PMOHabilitar()
-        tbVendedor.Focus()
     End Sub
 
     Public Sub ActualizarProductos()
@@ -1277,7 +1276,8 @@ salirIf:
         tbPdesc.Value = 0
         tbTotal.Value = 0
         _prCargarDetalleVenta(-1)
-        tbVendedor.Focus()
+
+
     End Sub
     Public Sub seleccionarPrimerItemCombo(cb As EditControls.MultiColumnCombo)
         If (CType(cb.DataSource, DataTable).Rows.Count > 0) Then
@@ -1570,7 +1570,15 @@ salirIf:
 
     Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
         _PMNuevo()
+        Dim dt As DataTable = ListarPersonalById(Global_IdPersonal)
+        If (dt.Rows.Count > 0) Then
+            IdVendedor = Global_IdPersonal
+            tbVendedor.Text = dt.Rows(0).Item("Nombre")
+            tbCliente.Focus()
 
+        Else
+            tbVendedor.Focus()
+        End If
     End Sub
 
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click

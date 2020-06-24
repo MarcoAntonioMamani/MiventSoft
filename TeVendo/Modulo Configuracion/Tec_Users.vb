@@ -16,6 +16,8 @@ Public Class Tec_Users
     Public _MModificar As Boolean
 
     Public Selected As Boolean = False
+    Public IdPersonal As Integer = 0
+
 
 #End Region
 
@@ -307,6 +309,7 @@ Public Class Tec_Users
         cbEmpresa.ReadOnly = True
         cbRol.ReadOnly = True
         swEstado.IsReadOnly = True
+        tbVendedor.ReadOnly = True
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -320,7 +323,8 @@ Public Class Tec_Users
         If (ObtenerLongitudCombo(cbEmpresa) > 0) Then
             cbEmpresa.SelectedIndex = 0
         End If
-        tbNombreUsuario.Focus()
+        tbVendedor.Focus()
+        IdPersonal = 0
     End Sub
     Public Function ObtenerLongitudCombo(cb As EditControls.MultiColumnCombo) As Integer
         Return CType(cb.DataSource, DataTable).Rows.Count
@@ -333,12 +337,13 @@ Public Class Tec_Users
         tbContrasena.BackColor = Color.White
         cbEmpresa.BackColor = Color.White
         cbRol.BackColor = Color.White
+        tbVendedor.BackColor = Color.White
     End Sub
 
     Public Function _PMOGrabarRegistro() As Boolean
 
         Dim res As Boolean = L_prUsuarioInsertar(tbCodigo.Text, cbRol.Value, tbNombreUsuario.Text,
-                                                  tbContrasena.Text, IIf(swEstado.Value = True, 1, 0), 1, cbEmpresa.Value)
+                                                  tbContrasena.Text, IIf(swEstado.Value = True, 1, 0), 1, cbEmpresa.Value, IdPersonal)
         If res Then
             ToastNotification.Show(Me, "Codigo de Usuario ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
         End If
@@ -349,7 +354,7 @@ Public Class Tec_Users
     Public Function _PMOModificarRegistro() As Boolean
 
         Dim res As Boolean = L_prUsuarioModificar(tbCodigo.Text, cbRol.Value, tbNombreUsuario.Text,
-                                                  tbContrasena.Text, IIf(swEstado.Value = True, 1, 0), 1, cbEmpresa.Value)
+                                                  tbContrasena.Text, IIf(swEstado.Value = True, 1, 0), 1, cbEmpresa.Value, IdPersonal)
         If res Then
 
             ToastNotification.Show(Me, "Codigo de Usuario ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
@@ -420,9 +425,20 @@ Public Class Tec_Users
             cbRol.BackColor = Color.White
             MEP.SetError(cbRol, "")
         End If
-
+        If IdPersonal <= 0 Then
+            tbVendedor.BackColor = Color.Red
+            MEP.SetError(tbVendedor, "Seleccione Un Personal")
+            _ok = False
+        Else
+            tbVendedor.BackColor = Color.White
+            MEP.SetError(tbVendedor, "")
+        End If
         MHighlighterFocus.UpdateHighlights()
 
+        If IdPersonal <= 0 Then
+            tbVendedor.Focus()
+            Return _ok
+        End If
         If tbNombreUsuario.Text = String.Empty Then
             tbNombreUsuario.Focus()
             Return _ok
@@ -464,9 +480,9 @@ Public Class Tec_Users
         listEstCeldas.Add(New Celda("NombreRol", True, "Rol", 90))
         listEstCeldas.Add(New Celda("SucursalId", False))
         listEstCeldas.Add(New Celda("IdEmpresa", False))
-        listEstCeldas.Add(New Celda("Empresa", True, "Empresa", 120))
-
-
+        listEstCeldas.Add(New Celda("Empresa", True, "Empresa", 80))
+        listEstCeldas.Add(New Celda("IdPersonal", False))
+        listEstCeldas.Add(New Celda("Personal", True, "Personal", 120))
         Return listEstCeldas
     End Function
 
@@ -487,8 +503,8 @@ Public Class Tec_Users
             swEstado.Value = .GetValue("estado")
             cbRol.Value = .GetValue("RolId")
             cbEmpresa.Value = .GetValue("IdEmpresa")
-
-
+            IdPersonal = .GetValue("IdPersonal")
+            tbVendedor.Text = .GetValue("Personal").ToString
         End With
 
         LblPaginacion.Text = Str(_MPos + 1) + "/" + JGrM_Buscador.RowCount.ToString
@@ -559,6 +575,87 @@ Public Class Tec_Users
             _MPos = JGrM_Buscador.Row
             _PMOMostrarRegistro(JGrM_Buscador.Row, True)
         End If
+
+    End Sub
+    Function _fnAccesible() As Boolean
+        Return tbNombreUsuario.ReadOnly = False
+    End Function
+    Private Sub tbVendedor_KeyDown(sender As Object, e As KeyEventArgs) Handles tbVendedor.KeyDown
+        If (_fnAccesible()) Then
+            If e.KeyData = Keys.Control + Keys.Enter Then
+
+
+                Dim dt As DataTable
+
+                dt = ListarPersonal()
+                'a.Id ,a.NombreProveedor ,a.Direccion ,a.Telefono01
+
+                Dim listEstCeldas As New List(Of Celda)
+                listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
+                listEstCeldas.Add(New Celda("Nombre", True, "NOMBRE", 350))
+                listEstCeldas.Add(New Celda("Direccion", True, "DIRECCION", 180))
+                listEstCeldas.Add(New Celda("Telefono01", True, "Telefono".ToUpper, 200))
+                Dim ef = New Efecto
+                ef.tipo = 6
+                ef.dt = dt
+                ef.SeleclCol = 2
+                ef.listEstCeldasNew = listEstCeldas
+                ef.alto = 50
+                ef.ancho = 350
+                ef.Context = "Seleccione Personal".ToUpper
+                ef.ShowDialog()
+                Dim bandera As Boolean = False
+                bandera = ef.band
+                If (bandera = True) Then
+                    Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+                    IdPersonal = Row.Cells("Id").Value
+                    tbVendedor.Text = Row.Cells("Nombre").Value
+                    tbNombreUsuario.Focus()
+
+                End If
+
+            End If
+
+        End If
+
+    End Sub
+
+    Private Sub btnVendedor_Click(sender As Object, e As EventArgs) Handles btnVendedor.Click
+        If (_fnAccesible()) Then
+            Dim dt As DataTable
+
+            dt = ListarPersonal()
+            'a.Id ,a.NombreProveedor ,a.Direccion ,a.Telefono01
+
+            Dim listEstCeldas As New List(Of Celda)
+            listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
+            listEstCeldas.Add(New Celda("Nombre", True, "NOMBRE", 350))
+            listEstCeldas.Add(New Celda("Direccion", True, "DIRECCION", 180))
+            listEstCeldas.Add(New Celda("Telefono01", True, "Telefono".ToUpper, 200))
+            Dim ef = New Efecto
+            ef.tipo = 6
+            ef.dt = dt
+            ef.SeleclCol = 2
+            ef.listEstCeldasNew = listEstCeldas
+            ef.alto = 50
+            ef.ancho = 350
+            ef.Context = "Seleccione Personal".ToUpper
+            ef.ShowDialog()
+            Dim bandera As Boolean = False
+            bandera = ef.band
+            If (bandera = True) Then
+                Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+                IdPersonal = Row.Cells("Id").Value
+                tbVendedor.Text = Row.Cells("Nombre").Value
+                tbNombreUsuario.Focus()
+
+            End If
+        End If
+    End Sub
+
+    Private Sub JGrM_Buscador_FormattingRow(sender As Object, e As RowLoadEventArgs) Handles JGrM_Buscador.FormattingRow
 
     End Sub
 

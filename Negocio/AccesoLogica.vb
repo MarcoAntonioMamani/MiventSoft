@@ -87,7 +87,7 @@ Public Class AccesoLogica
 
     Public Shared Function L_Validar_Usuario(_Nom As String, _Pass As String) As DataTable
         Dim _Tabla As DataTable
-        _Tabla = D_Datos_Tabla("Id,RolId,SucursalId", "Usuarios", "NombreUsuario = '" + _Nom + "' AND Contrasena = '" + _Pass + "'")
+        _Tabla = D_Datos_Tabla("Id,RolId,SucursalId,IdPersonal", "Usuarios", "NombreUsuario = '" + _Nom + "' AND Contrasena = '" + _Pass + "'")
         Return _Tabla
     End Function
 #End Region
@@ -859,6 +859,18 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+
+
+    Public Shared Function ListarPersonalById(id As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 11))
+        _listParam.Add(New Datos.DParametro("@Id", id))
+        _Tabla = D_ProcedimientoConParam("MAM_Clientes", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function ListarCliente() As DataTable
         Dim _Tabla As DataTable
 
@@ -1506,7 +1518,7 @@ Public Class AccesoLogica
 
     Public Shared Function L_prUsuarioModificar(_numi As String, _RolId As Integer, _NombreUsuario As String,
                                                 _Contrasena As String, _estado As Integer,
- _sucursalId As Integer, _IdEmpresa As Integer) As Boolean
+ _sucursalId As Integer, _IdEmpresa As Integer, IdPersonal As Integer) As Boolean
         Dim _resultado As Boolean
 
         'INSERT INTO Usuarios  VALUES(@RolId ,@NombreUsuario ,@Contrasena ,@Estado 
@@ -1524,7 +1536,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@SucursalId", _sucursalId))
         _listParam.Add(New Datos.DParametro("@IdEmpresa", _IdEmpresa))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
-
+        _listParam.Add(New Datos.DParametro("@IdPersonal", IdPersonal))
 
         _Tabla = D_ProcedimientoConParam("MAM_Usuarios", _listParam)
 
@@ -1540,7 +1552,7 @@ Public Class AccesoLogica
 
     Public Shared Function L_prUsuarioInsertar(ByRef _numi As String, _RolId As Integer, _NombreUsuario As String,
                                                 _Contrasena As String, _estado As Integer,
- _sucursalId As Integer, _IdEmpresa As Integer) As Boolean
+ _sucursalId As Integer, _IdEmpresa As Integer, IdPersonal As Integer) As Boolean
         Dim _resultado As Boolean
 
         'INSERT INTO Usuarios  VALUES(@RolId ,@NombreUsuario ,@Contrasena ,@Estado 
@@ -1558,7 +1570,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@SucursalId", _sucursalId))
         _listParam.Add(New Datos.DParametro("@IdEmpresa", _IdEmpresa))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
-
+        _listParam.Add(New Datos.DParametro("@IdPersonal", IdPersonal))
 
         _Tabla = D_ProcedimientoConParam("MAM_Usuarios", _listParam)
 
