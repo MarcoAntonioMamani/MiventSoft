@@ -30,20 +30,15 @@ Partial Class Tec_Empresas
         Me.PanelRight = New System.Windows.Forms.Panel()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.PanelImagenes = New System.Windows.Forms.Panel()
-        Me.ButtonX4 = New DevComponents.DotNetBar.ButtonX()
-        Me.ButtonX3 = New DevComponents.DotNetBar.ButtonX()
         Me.Gmc_Cliente = New GMap.NET.WindowsForms.GMapControl()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.lbprivilegio = New System.Windows.Forms.Label()
         Me.Panel7 = New System.Windows.Forms.Panel()
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.Panel13 = New System.Windows.Forms.Panel()
         Me.PanelLEft = New System.Windows.Forms.Panel()
         Me.Panel8 = New System.Windows.Forms.Panel()
         Me.Panel9 = New System.Windows.Forms.Panel()
-        Me.pbImagen = New System.Windows.Forms.PictureBox()
-        Me.btnImagen = New DevComponents.DotNetBar.ButtonX()
         Me.LabelX6 = New DevComponents.DotNetBar.LabelX()
         Me.tbDirección = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
@@ -65,20 +60,10 @@ Partial Class Tec_Empresas
         Me.Panel11 = New System.Windows.Forms.Panel()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel12 = New System.Windows.Forms.Panel()
-        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.PanelButton = New System.Windows.Forms.Panel()
         Me.PanelToolBar1 = New System.Windows.Forms.Panel()
-        Me.btnSalir = New DevComponents.DotNetBar.ButtonX()
-        Me.btnEliminar = New DevComponents.DotNetBar.ButtonX()
-        Me.btnGrabar = New DevComponents.DotNetBar.ButtonX()
-        Me.btnModificar = New DevComponents.DotNetBar.ButtonX()
-        Me.btnNuevo = New DevComponents.DotNetBar.ButtonX()
         Me.PanelNavegacion = New System.Windows.Forms.Panel()
         Me.LblPaginacion = New System.Windows.Forms.Label()
-        Me.btnUltimo = New DevComponents.DotNetBar.ButtonX()
-        Me.btnSiguiente = New DevComponents.DotNetBar.ButtonX()
-        Me.btnAnterior = New DevComponents.DotNetBar.ButtonX()
-        Me.btnPrimero = New DevComponents.DotNetBar.ButtonX()
         Me.SuperTabItem1 = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel2 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel17 = New System.Windows.Forms.Panel()
@@ -86,15 +71,30 @@ Partial Class Tec_Empresas
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.btnSi = New System.Windows.Forms.Panel()
-        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.Panel14 = New System.Windows.Forms.Panel()
         Me.Panel15 = New System.Windows.Forms.Panel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Panel16 = New System.Windows.Forms.Panel()
-        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
+        Me.ButtonX4 = New DevComponents.DotNetBar.ButtonX()
+        Me.ButtonX3 = New DevComponents.DotNetBar.ButtonX()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.pbImagen = New System.Windows.Forms.PictureBox()
+        Me.btnImagen = New DevComponents.DotNetBar.ButtonX()
+        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
+        Me.btnSalir = New DevComponents.DotNetBar.ButtonX()
+        Me.btnEliminar = New DevComponents.DotNetBar.ButtonX()
+        Me.btnGrabar = New DevComponents.DotNetBar.ButtonX()
+        Me.btnModificar = New DevComponents.DotNetBar.ButtonX()
+        Me.btnNuevo = New DevComponents.DotNetBar.ButtonX()
+        Me.btnUltimo = New DevComponents.DotNetBar.ButtonX()
+        Me.btnSiguiente = New DevComponents.DotNetBar.ButtonX()
+        Me.btnAnterior = New DevComponents.DotNetBar.ButtonX()
+        Me.btnPrimero = New DevComponents.DotNetBar.ButtonX()
+        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
+        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -105,14 +105,11 @@ Partial Class Tec_Empresas
         Me.PanelImagenes.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.Panel6.SuspendLayout()
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelLEft.SuspendLayout()
         Me.Panel8.SuspendLayout()
         Me.Panel9.SuspendLayout()
-        CType(Me.pbImagen, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel10.SuspendLayout()
         Me.Panel11.SuspendLayout()
-        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelButton.SuspendLayout()
         Me.PanelToolBar1.SuspendLayout()
         Me.PanelNavegacion.SuspendLayout()
@@ -124,8 +121,11 @@ Partial Class Tec_Empresas
         Me.btnSi.SuspendLayout()
         Me.Panel14.SuspendLayout()
         Me.Panel15.SuspendLayout()
-        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pbImagen, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TabControlPrincipal
@@ -226,32 +226,6 @@ Partial Class Tec_Empresas
         Me.PanelImagenes.Size = New System.Drawing.Size(558, 495)
         Me.PanelImagenes.TabIndex = 2
         '
-        'ButtonX4
-        '
-        Me.ButtonX4.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX4.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.ButtonX4.Image = Global.TeVendo.My.Resources.Resources.iconacercar
-        Me.ButtonX4.ImageFixedSize = New System.Drawing.Size(25, 25)
-        Me.ButtonX4.Location = New System.Drawing.Point(64, 514)
-        Me.ButtonX4.Margin = New System.Windows.Forms.Padding(4)
-        Me.ButtonX4.Name = "ButtonX4"
-        Me.ButtonX4.Size = New System.Drawing.Size(40, 37)
-        Me.ButtonX4.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX4.TabIndex = 8
-        '
-        'ButtonX3
-        '
-        Me.ButtonX3.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX3.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.ButtonX3.Image = Global.TeVendo.My.Resources.Resources.iconalejar
-        Me.ButtonX3.ImageFixedSize = New System.Drawing.Size(25, 25)
-        Me.ButtonX3.Location = New System.Drawing.Point(13, 514)
-        Me.ButtonX3.Margin = New System.Windows.Forms.Padding(4)
-        Me.ButtonX3.Name = "ButtonX3"
-        Me.ButtonX3.Size = New System.Drawing.Size(40, 37)
-        Me.ButtonX3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX3.TabIndex = 7
-        '
         'Gmc_Cliente
         '
         Me.Gmc_Cliente.Bearing = 0!
@@ -324,19 +298,6 @@ Partial Class Tec_Empresas
         Me.Panel7.Size = New System.Drawing.Size(1, 25)
         Me.Panel7.TabIndex = 1
         '
-        'PictureBox2
-        '
-        Me.PictureBox2.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.PictureBox2.Dock = System.Windows.Forms.DockStyle.Left
-        Me.PictureBox2.Image = Global.TeVendo.My.Resources.Resources.tec_triangulo_blanco
-        Me.PictureBox2.Location = New System.Drawing.Point(0, 0)
-        Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Padding = New System.Windows.Forms.Padding(15, 5, 15, 5)
-        Me.PictureBox2.Size = New System.Drawing.Size(58, 25)
-        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox2.TabIndex = 0
-        Me.PictureBox2.TabStop = False
-        '
         'Panel13
         '
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Left
@@ -394,33 +355,6 @@ Partial Class Tec_Empresas
         Me.Panel9.Name = "Panel9"
         Me.Panel9.Size = New System.Drawing.Size(581, 495)
         Me.Panel9.TabIndex = 2
-        '
-        'pbImagen
-        '
-        Me.pbImagen.Location = New System.Drawing.Point(144, 293)
-        Me.pbImagen.Name = "pbImagen"
-        Me.pbImagen.Size = New System.Drawing.Size(256, 181)
-        Me.pbImagen.TabIndex = 224
-        Me.pbImagen.TabStop = False
-        '
-        'btnImagen
-        '
-        Me.btnImagen.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnImagen.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.btnImagen.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnImagen.Image = Global.TeVendo.My.Resources.Resources.addimg
-        Me.btnImagen.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.btnImagen.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnImagen.Location = New System.Drawing.Point(9, 327)
-        Me.btnImagen.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnImagen.Name = "btnImagen"
-        Me.btnImagen.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(4)
-        Me.btnImagen.Size = New System.Drawing.Size(100, 75)
-        Me.btnImagen.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
-        Me.btnImagen.SubItemsExpandWidth = 10
-        Me.btnImagen.TabIndex = 7
-        Me.btnImagen.Text = "Seleccionar"
-        Me.btnImagen.TextColor = System.Drawing.Color.Black
         '
         'LabelX6
         '
@@ -755,19 +689,6 @@ Partial Class Tec_Empresas
         Me.Panel12.Size = New System.Drawing.Size(1, 25)
         Me.Panel12.TabIndex = 1
         '
-        'PictureBox3
-        '
-        Me.PictureBox3.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.PictureBox3.Dock = System.Windows.Forms.DockStyle.Left
-        Me.PictureBox3.Image = Global.TeVendo.My.Resources.Resources.tec_triangulo_blanco
-        Me.PictureBox3.Location = New System.Drawing.Point(0, 0)
-        Me.PictureBox3.Name = "PictureBox3"
-        Me.PictureBox3.Padding = New System.Windows.Forms.Padding(15, 5, 15, 5)
-        Me.PictureBox3.Size = New System.Drawing.Size(58, 25)
-        Me.PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox3.TabIndex = 0
-        Me.PictureBox3.TabStop = False
-        '
         'PanelButton
         '
         Me.PanelButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
@@ -792,92 +713,6 @@ Partial Class Tec_Empresas
         Me.PanelToolBar1.Name = "PanelToolBar1"
         Me.PanelToolBar1.Size = New System.Drawing.Size(664, 54)
         Me.PanelToolBar1.TabIndex = 7
-        '
-        'btnSalir
-        '
-        Me.btnSalir.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnSalir.ColorTable = DevComponents.DotNetBar.eButtonColor.Magenta
-        Me.btnSalir.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnSalir.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.btnSalir.Image = Global.TeVendo.My.Resources.Resources.iconatras
-        Me.btnSalir.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.btnSalir.Location = New System.Drawing.Point(520, 0)
-        Me.btnSalir.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnSalir.Name = "btnSalir"
-        Me.btnSalir.Size = New System.Drawing.Size(120, 54)
-        Me.btnSalir.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnSalir.TabIndex = 10
-        Me.btnSalir.Text = "SALIR"
-        Me.btnSalir.TextColor = System.Drawing.Color.White
-        '
-        'btnEliminar
-        '
-        Me.btnEliminar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnEliminar.ColorTable = DevComponents.DotNetBar.eButtonColor.Magenta
-        Me.btnEliminar.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnEliminar.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.btnEliminar.Image = Global.TeVendo.My.Resources.Resources.iconeliminar
-        Me.btnEliminar.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.btnEliminar.Location = New System.Drawing.Point(390, 0)
-        Me.btnEliminar.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnEliminar.Name = "btnEliminar"
-        Me.btnEliminar.Size = New System.Drawing.Size(130, 54)
-        Me.btnEliminar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnEliminar.TabIndex = 8
-        Me.btnEliminar.Text = "ELIMINAR"
-        Me.btnEliminar.TextColor = System.Drawing.Color.White
-        '
-        'btnGrabar
-        '
-        Me.btnGrabar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnGrabar.ColorTable = DevComponents.DotNetBar.eButtonColor.Magenta
-        Me.btnGrabar.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnGrabar.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.btnGrabar.Image = Global.TeVendo.My.Resources.Resources.iconguardar
-        Me.btnGrabar.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.btnGrabar.Location = New System.Drawing.Point(260, 0)
-        Me.btnGrabar.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnGrabar.Name = "btnGrabar"
-        Me.btnGrabar.Size = New System.Drawing.Size(130, 54)
-        Me.btnGrabar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnGrabar.TabIndex = 9
-        Me.btnGrabar.Text = "GRABAR"
-        Me.btnGrabar.TextColor = System.Drawing.Color.White
-        '
-        'btnModificar
-        '
-        Me.btnModificar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnModificar.ColorTable = DevComponents.DotNetBar.eButtonColor.Magenta
-        Me.btnModificar.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnModificar.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.btnModificar.Image = Global.TeVendo.My.Resources.Resources.iconeditar
-        Me.btnModificar.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.btnModificar.Location = New System.Drawing.Point(120, 0)
-        Me.btnModificar.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnModificar.Name = "btnModificar"
-        Me.btnModificar.Size = New System.Drawing.Size(140, 54)
-        Me.btnModificar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnModificar.TabIndex = 7
-        Me.btnModificar.Text = "MODIFICAR"
-        Me.btnModificar.TextColor = System.Drawing.Color.White
-        '
-        'btnNuevo
-        '
-        Me.btnNuevo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnNuevo.BackColor = System.Drawing.Color.Transparent
-        Me.btnNuevo.ColorTable = DevComponents.DotNetBar.eButtonColor.Magenta
-        Me.btnNuevo.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnNuevo.Font = New System.Drawing.Font("Arial", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnNuevo.Image = Global.TeVendo.My.Resources.Resources.iconadd
-        Me.btnNuevo.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.btnNuevo.Location = New System.Drawing.Point(0, 0)
-        Me.btnNuevo.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnNuevo.Name = "btnNuevo"
-        Me.btnNuevo.Size = New System.Drawing.Size(120, 54)
-        Me.btnNuevo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnNuevo.TabIndex = 0
-        Me.btnNuevo.Text = "NUEVO"
-        Me.btnNuevo.TextColor = System.Drawing.Color.White
         '
         'PanelNavegacion
         '
@@ -906,70 +741,6 @@ Partial Class Tec_Empresas
         Me.LblPaginacion.TabIndex = 22
         Me.LblPaginacion.Text = "0/0"
         Me.LblPaginacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'btnUltimo
-        '
-        Me.btnUltimo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnUltimo.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
-        Me.btnUltimo.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnUltimo.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnUltimo.Image = Global.TeVendo.My.Resources.Resources.derechaDoble
-        Me.btnUltimo.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.btnUltimo.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnUltimo.Location = New System.Drawing.Point(210, 0)
-        Me.btnUltimo.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnUltimo.Name = "btnUltimo"
-        Me.btnUltimo.Size = New System.Drawing.Size(70, 54)
-        Me.btnUltimo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnUltimo.TabIndex = 14
-        '
-        'btnSiguiente
-        '
-        Me.btnSiguiente.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnSiguiente.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
-        Me.btnSiguiente.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnSiguiente.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSiguiente.Image = Global.TeVendo.My.Resources.Resources.derechaLine
-        Me.btnSiguiente.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.btnSiguiente.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnSiguiente.Location = New System.Drawing.Point(140, 0)
-        Me.btnSiguiente.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnSiguiente.Name = "btnSiguiente"
-        Me.btnSiguiente.Size = New System.Drawing.Size(70, 54)
-        Me.btnSiguiente.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnSiguiente.TabIndex = 13
-        '
-        'btnAnterior
-        '
-        Me.btnAnterior.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnAnterior.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
-        Me.btnAnterior.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnAnterior.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnAnterior.Image = Global.TeVendo.My.Resources.Resources.back_1
-        Me.btnAnterior.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.btnAnterior.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnAnterior.Location = New System.Drawing.Point(70, 0)
-        Me.btnAnterior.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnAnterior.Name = "btnAnterior"
-        Me.btnAnterior.Size = New System.Drawing.Size(70, 54)
-        Me.btnAnterior.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnAnterior.TabIndex = 12
-        '
-        'btnPrimero
-        '
-        Me.btnPrimero.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnPrimero.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
-        Me.btnPrimero.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnPrimero.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnPrimero.Image = Global.TeVendo.My.Resources.Resources.izquierda2
-        Me.btnPrimero.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.btnPrimero.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnPrimero.Location = New System.Drawing.Point(0, 0)
-        Me.btnPrimero.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnPrimero.Name = "btnPrimero"
-        Me.btnPrimero.Size = New System.Drawing.Size(70, 54)
-        Me.btnPrimero.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnPrimero.TabIndex = 11
         '
         'SuperTabItem1
         '
@@ -1092,24 +863,6 @@ Partial Class Tec_Empresas
         Me.btnSi.Size = New System.Drawing.Size(180, 43)
         Me.btnSi.TabIndex = 4
         '
-        'ButtonX1
-        '
-        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX1.BackColor = System.Drawing.Color.Transparent
-        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
-        Me.ButtonX1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ButtonX1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX1.Image = Global.TeVendo.My.Resources.Resources.iconadd
-        Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(45, 45)
-        Me.ButtonX1.Location = New System.Drawing.Point(0, 0)
-        Me.ButtonX1.Margin = New System.Windows.Forms.Padding(4)
-        Me.ButtonX1.Name = "ButtonX1"
-        Me.ButtonX1.Size = New System.Drawing.Size(178, 41)
-        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX1.TabIndex = 7
-        Me.ButtonX1.Text = "Nuevo Cliente"
-        Me.ButtonX1.TextColor = System.Drawing.Color.White
-        '
         'Panel14
         '
         Me.Panel14.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(170, Byte), Integer))
@@ -1156,19 +909,6 @@ Partial Class Tec_Empresas
         Me.Panel16.Size = New System.Drawing.Size(1, 34)
         Me.Panel16.TabIndex = 1
         '
-        'PictureBox4
-        '
-        Me.PictureBox4.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.PictureBox4.Dock = System.Windows.Forms.DockStyle.Left
-        Me.PictureBox4.Image = Global.TeVendo.My.Resources.Resources.tec_triangulo_blanco
-        Me.PictureBox4.Location = New System.Drawing.Point(0, 0)
-        Me.PictureBox4.Name = "PictureBox4"
-        Me.PictureBox4.Padding = New System.Windows.Forms.Padding(15, 5, 15, 5)
-        Me.PictureBox4.Size = New System.Drawing.Size(58, 34)
-        Me.PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox4.TabIndex = 0
-        Me.PictureBox4.TabStop = False
-        '
         'SuperTabItem2
         '
         Me.SuperTabItem2.AttachedControl = Me.SuperTabControlPanel2
@@ -1182,6 +922,266 @@ Partial Class Tec_Empresas
         'MEP
         '
         Me.MEP.ContainerControl = Me
+        '
+        'ButtonX4
+        '
+        Me.ButtonX4.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX4.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.ButtonX4.Image = Global.TeVendo.My.Resources.Resources.iconacercar
+        Me.ButtonX4.ImageFixedSize = New System.Drawing.Size(25, 25)
+        Me.ButtonX4.Location = New System.Drawing.Point(64, 514)
+        Me.ButtonX4.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX4.Name = "ButtonX4"
+        Me.ButtonX4.Size = New System.Drawing.Size(40, 37)
+        Me.ButtonX4.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX4.TabIndex = 8
+        '
+        'ButtonX3
+        '
+        Me.ButtonX3.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX3.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.ButtonX3.Image = Global.TeVendo.My.Resources.Resources.iconalejar
+        Me.ButtonX3.ImageFixedSize = New System.Drawing.Size(25, 25)
+        Me.ButtonX3.Location = New System.Drawing.Point(13, 514)
+        Me.ButtonX3.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX3.Name = "ButtonX3"
+        Me.ButtonX3.Size = New System.Drawing.Size(40, 37)
+        Me.ButtonX3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX3.TabIndex = 7
+        '
+        'PictureBox2
+        '
+        Me.PictureBox2.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.PictureBox2.Dock = System.Windows.Forms.DockStyle.Left
+        Me.PictureBox2.Image = Global.TeVendo.My.Resources.Resources.tec_triangulo_blanco
+        Me.PictureBox2.Location = New System.Drawing.Point(0, 0)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Padding = New System.Windows.Forms.Padding(15, 5, 15, 5)
+        Me.PictureBox2.Size = New System.Drawing.Size(58, 25)
+        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox2.TabIndex = 0
+        Me.PictureBox2.TabStop = False
+        '
+        'pbImagen
+        '
+        Me.pbImagen.Location = New System.Drawing.Point(144, 293)
+        Me.pbImagen.Name = "pbImagen"
+        Me.pbImagen.Size = New System.Drawing.Size(256, 181)
+        Me.pbImagen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.pbImagen.TabIndex = 224
+        Me.pbImagen.TabStop = False
+        '
+        'btnImagen
+        '
+        Me.btnImagen.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnImagen.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnImagen.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnImagen.Image = Global.TeVendo.My.Resources.Resources.addimage
+        Me.btnImagen.ImageFixedSize = New System.Drawing.Size(70, 70)
+        Me.btnImagen.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
+        Me.btnImagen.Location = New System.Drawing.Point(9, 327)
+        Me.btnImagen.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnImagen.Name = "btnImagen"
+        Me.btnImagen.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(4)
+        Me.btnImagen.Size = New System.Drawing.Size(100, 75)
+        Me.btnImagen.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
+        Me.btnImagen.SubItemsExpandWidth = 10
+        Me.btnImagen.TabIndex = 7
+        Me.btnImagen.TextColor = System.Drawing.Color.Black
+        '
+        'PictureBox3
+        '
+        Me.PictureBox3.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.PictureBox3.Dock = System.Windows.Forms.DockStyle.Left
+        Me.PictureBox3.Image = Global.TeVendo.My.Resources.Resources.tec_triangulo_blanco
+        Me.PictureBox3.Location = New System.Drawing.Point(0, 0)
+        Me.PictureBox3.Name = "PictureBox3"
+        Me.PictureBox3.Padding = New System.Windows.Forms.Padding(15, 5, 15, 5)
+        Me.PictureBox3.Size = New System.Drawing.Size(58, 25)
+        Me.PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox3.TabIndex = 0
+        Me.PictureBox3.TabStop = False
+        '
+        'btnSalir
+        '
+        Me.btnSalir.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnSalir.ColorTable = DevComponents.DotNetBar.eButtonColor.Magenta
+        Me.btnSalir.Dock = System.Windows.Forms.DockStyle.Left
+        Me.btnSalir.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.btnSalir.Image = Global.TeVendo.My.Resources.Resources.iconatras
+        Me.btnSalir.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.btnSalir.Location = New System.Drawing.Point(520, 0)
+        Me.btnSalir.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnSalir.Name = "btnSalir"
+        Me.btnSalir.Size = New System.Drawing.Size(120, 54)
+        Me.btnSalir.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnSalir.TabIndex = 10
+        Me.btnSalir.Text = "SALIR"
+        Me.btnSalir.TextColor = System.Drawing.Color.White
+        '
+        'btnEliminar
+        '
+        Me.btnEliminar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnEliminar.ColorTable = DevComponents.DotNetBar.eButtonColor.Magenta
+        Me.btnEliminar.Dock = System.Windows.Forms.DockStyle.Left
+        Me.btnEliminar.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.btnEliminar.Image = Global.TeVendo.My.Resources.Resources.iconeliminar
+        Me.btnEliminar.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.btnEliminar.Location = New System.Drawing.Point(390, 0)
+        Me.btnEliminar.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnEliminar.Name = "btnEliminar"
+        Me.btnEliminar.Size = New System.Drawing.Size(130, 54)
+        Me.btnEliminar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnEliminar.TabIndex = 8
+        Me.btnEliminar.Text = "ELIMINAR"
+        Me.btnEliminar.TextColor = System.Drawing.Color.White
+        '
+        'btnGrabar
+        '
+        Me.btnGrabar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnGrabar.ColorTable = DevComponents.DotNetBar.eButtonColor.Magenta
+        Me.btnGrabar.Dock = System.Windows.Forms.DockStyle.Left
+        Me.btnGrabar.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.btnGrabar.Image = Global.TeVendo.My.Resources.Resources.iconguardar
+        Me.btnGrabar.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.btnGrabar.Location = New System.Drawing.Point(260, 0)
+        Me.btnGrabar.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnGrabar.Name = "btnGrabar"
+        Me.btnGrabar.Size = New System.Drawing.Size(130, 54)
+        Me.btnGrabar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnGrabar.TabIndex = 9
+        Me.btnGrabar.Text = "GRABAR"
+        Me.btnGrabar.TextColor = System.Drawing.Color.White
+        '
+        'btnModificar
+        '
+        Me.btnModificar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnModificar.ColorTable = DevComponents.DotNetBar.eButtonColor.Magenta
+        Me.btnModificar.Dock = System.Windows.Forms.DockStyle.Left
+        Me.btnModificar.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.btnModificar.Image = Global.TeVendo.My.Resources.Resources.iconeditar
+        Me.btnModificar.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.btnModificar.Location = New System.Drawing.Point(120, 0)
+        Me.btnModificar.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnModificar.Name = "btnModificar"
+        Me.btnModificar.Size = New System.Drawing.Size(140, 54)
+        Me.btnModificar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnModificar.TabIndex = 7
+        Me.btnModificar.Text = "MODIFICAR"
+        Me.btnModificar.TextColor = System.Drawing.Color.White
+        '
+        'btnNuevo
+        '
+        Me.btnNuevo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnNuevo.BackColor = System.Drawing.Color.Transparent
+        Me.btnNuevo.ColorTable = DevComponents.DotNetBar.eButtonColor.Magenta
+        Me.btnNuevo.Dock = System.Windows.Forms.DockStyle.Left
+        Me.btnNuevo.Font = New System.Drawing.Font("Arial", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnNuevo.Image = Global.TeVendo.My.Resources.Resources.iconadd
+        Me.btnNuevo.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.btnNuevo.Location = New System.Drawing.Point(0, 0)
+        Me.btnNuevo.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnNuevo.Name = "btnNuevo"
+        Me.btnNuevo.Size = New System.Drawing.Size(120, 54)
+        Me.btnNuevo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnNuevo.TabIndex = 0
+        Me.btnNuevo.Text = "NUEVO"
+        Me.btnNuevo.TextColor = System.Drawing.Color.White
+        '
+        'btnUltimo
+        '
+        Me.btnUltimo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnUltimo.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
+        Me.btnUltimo.Dock = System.Windows.Forms.DockStyle.Left
+        Me.btnUltimo.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnUltimo.Image = Global.TeVendo.My.Resources.Resources.derechaDoble
+        Me.btnUltimo.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.btnUltimo.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
+        Me.btnUltimo.Location = New System.Drawing.Point(210, 0)
+        Me.btnUltimo.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnUltimo.Name = "btnUltimo"
+        Me.btnUltimo.Size = New System.Drawing.Size(70, 54)
+        Me.btnUltimo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnUltimo.TabIndex = 14
+        '
+        'btnSiguiente
+        '
+        Me.btnSiguiente.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnSiguiente.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
+        Me.btnSiguiente.Dock = System.Windows.Forms.DockStyle.Left
+        Me.btnSiguiente.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSiguiente.Image = Global.TeVendo.My.Resources.Resources.derechaLine
+        Me.btnSiguiente.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.btnSiguiente.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
+        Me.btnSiguiente.Location = New System.Drawing.Point(140, 0)
+        Me.btnSiguiente.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnSiguiente.Name = "btnSiguiente"
+        Me.btnSiguiente.Size = New System.Drawing.Size(70, 54)
+        Me.btnSiguiente.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnSiguiente.TabIndex = 13
+        '
+        'btnAnterior
+        '
+        Me.btnAnterior.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnAnterior.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
+        Me.btnAnterior.Dock = System.Windows.Forms.DockStyle.Left
+        Me.btnAnterior.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnAnterior.Image = Global.TeVendo.My.Resources.Resources.back_1
+        Me.btnAnterior.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.btnAnterior.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
+        Me.btnAnterior.Location = New System.Drawing.Point(70, 0)
+        Me.btnAnterior.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnAnterior.Name = "btnAnterior"
+        Me.btnAnterior.Size = New System.Drawing.Size(70, 54)
+        Me.btnAnterior.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnAnterior.TabIndex = 12
+        '
+        'btnPrimero
+        '
+        Me.btnPrimero.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnPrimero.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
+        Me.btnPrimero.Dock = System.Windows.Forms.DockStyle.Left
+        Me.btnPrimero.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnPrimero.Image = Global.TeVendo.My.Resources.Resources.izquierda2
+        Me.btnPrimero.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.btnPrimero.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
+        Me.btnPrimero.Location = New System.Drawing.Point(0, 0)
+        Me.btnPrimero.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnPrimero.Name = "btnPrimero"
+        Me.btnPrimero.Size = New System.Drawing.Size(70, 54)
+        Me.btnPrimero.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnPrimero.TabIndex = 11
+        '
+        'ButtonX1
+        '
+        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX1.BackColor = System.Drawing.Color.Transparent
+        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.ButtonX1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ButtonX1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX1.Image = Global.TeVendo.My.Resources.Resources.iconadd
+        Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(45, 45)
+        Me.ButtonX1.Location = New System.Drawing.Point(0, 0)
+        Me.ButtonX1.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX1.Name = "ButtonX1"
+        Me.ButtonX1.Size = New System.Drawing.Size(178, 41)
+        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX1.TabIndex = 7
+        Me.ButtonX1.Text = "Nuevo Cliente"
+        Me.ButtonX1.TextColor = System.Drawing.Color.White
+        '
+        'PictureBox4
+        '
+        Me.PictureBox4.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.PictureBox4.Dock = System.Windows.Forms.DockStyle.Left
+        Me.PictureBox4.Image = Global.TeVendo.My.Resources.Resources.tec_triangulo_blanco
+        Me.PictureBox4.Location = New System.Drawing.Point(0, 0)
+        Me.PictureBox4.Name = "PictureBox4"
+        Me.PictureBox4.Padding = New System.Windows.Forms.Padding(15, 5, 15, 5)
+        Me.PictureBox4.Size = New System.Drawing.Size(58, 34)
+        Me.PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox4.TabIndex = 0
+        Me.PictureBox4.TabStop = False
         '
         'Tec_Empresas
         '
@@ -1201,15 +1201,12 @@ Partial Class Tec_Empresas
         Me.PanelImagenes.ResumeLayout(False)
         Me.Panel5.ResumeLayout(False)
         Me.Panel6.ResumeLayout(False)
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelLEft.ResumeLayout(False)
         Me.Panel8.ResumeLayout(False)
         Me.Panel9.ResumeLayout(False)
         Me.Panel9.PerformLayout()
-        CType(Me.pbImagen, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel10.ResumeLayout(False)
         Me.Panel11.ResumeLayout(False)
-        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelButton.ResumeLayout(False)
         Me.PanelToolBar1.ResumeLayout(False)
         Me.PanelNavegacion.ResumeLayout(False)
@@ -1221,8 +1218,11 @@ Partial Class Tec_Empresas
         Me.btnSi.ResumeLayout(False)
         Me.Panel14.ResumeLayout(False)
         Me.Panel15.ResumeLayout(False)
-        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pbImagen, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

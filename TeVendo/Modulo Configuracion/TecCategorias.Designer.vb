@@ -266,7 +266,7 @@ Partial Class TecCategorias
         Me.btnImage.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnImage.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground
         Me.btnImage.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnImage.Image = Global.TeVendo.My.Resources.Resources.addimg
+        Me.btnImage.Image = Global.TeVendo.My.Resources.Resources.addimage
         Me.btnImage.ImageFixedSize = New System.Drawing.Size(40, 40)
         Me.btnImage.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
         Me.btnImage.Location = New System.Drawing.Point(29, 322)

@@ -13,9 +13,7 @@ Public Class Rep_SaldoProductos
 
         Me.Text = "REPORTE DE SALDOS"
         MReportViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
-        Dim blah As New Bitmap(New Bitmap(My.Resources.ic_c), 20, 20)
-        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
-        Me.Icon = ico
+
         If (CType(cbAlmacen.DataSource, DataTable).Rows.Count > 0) Then
             cbAlmacen.SelectedIndex = 0
         End If

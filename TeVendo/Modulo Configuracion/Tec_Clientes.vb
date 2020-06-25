@@ -276,9 +276,7 @@ Public Class Tec_Clientes
         _prAsignarPermisos()
 
 
-        Dim blah As New Bitmap(New Bitmap(My.Resources.ic_c), 20, 20)
-        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
-        Me.Icon = ico
+
 
     End Sub
     Private Sub P_IniciarMap()

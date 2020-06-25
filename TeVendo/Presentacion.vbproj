@@ -796,6 +796,7 @@
     <None Include="Resources\trash.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\mensaje.png" />
     <None Include="Resources\sistema_tevendo.png" />
     <None Include="Resources\tec_print.png" />
     <None Include="Resources\rowdelete.png" />
@@ -810,7 +811,6 @@
     <None Include="Resources\tecfondo.jpg" />
     <None Include="Resources\pie-chart1.png" />
     <None Include="Resources\pie-chart.png" />
-    <None Include="Resources\mensaje.png" />
     <None Include="Resources\markerf.png" />
     <None Include="Resources\marker.png" />
     <None Include="Resources\search.png" />
@@ -821,8 +821,10 @@
     <None Include="Resources\at1.png" />
     <None Include="Resources\at2.png" />
     <None Include="Resources\activo.png" />
+    <None Include="Resources\addimage.png" />
     <Content Include="Resources\atras1.png" />
     <None Include="Resources\back-1.png" />
+    <None Include="Resources\camera.png" />
     <Content Include="Resources\check-mark.png" />
     <None Include="Resources\cobro.png" />
     <None Include="Resources\creditopagos.png" />
@@ -849,6 +851,7 @@
     <None Include="Resources\iconselected.png" />
     <None Include="Resources\icono_sistema.png" />
     <None Include="Resources\icono_sistema02.png" />
+    <None Include="Resources\empresa.png" />
     <Content Include="Resources\man.png" />
     <None Include="Resources\pdf.png" />
     <None Include="Resources\txt.png" />

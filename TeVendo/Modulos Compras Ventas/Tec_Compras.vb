@@ -258,9 +258,7 @@ Public Class Tec_Compras
         _prAsignarPermisos()
 
 
-        Dim blah As New Bitmap(New Bitmap(My.Resources.ic_c), 20, 20)
-        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
-        Me.Icon = ico
+
 
 
 

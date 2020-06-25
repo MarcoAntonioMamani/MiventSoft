@@ -90,29 +90,9 @@ Public Class Tec_Empresas
             'diseño de la grilla
             .VisualStyle = VisualStyle.Office2007
         End With
-        CargarIconEstado()
-    End Sub
-
-    Public Sub CargarIconEstado()
-
-        Dim dt As DataTable = CType(JGrM_Buscador.DataSource, DataTable)
-        Dim n As Integer = dt.Rows.Count
-        For i As Integer = 0 To n - 1 Step 1
-            If (dt.Rows(i).Item("estado") = 1) Then
-                Dim Bin As New MemoryStream
-                Dim img As New Bitmap(My.Resources.activo, 110, 30)
-                img.Save(Bin, Imaging.ImageFormat.Png)
-                CType(JGrM_Buscador.DataSource, DataTable).Rows(i).Item("imgEstado") = Bin.GetBuffer
-            Else
-                Dim Bin As New MemoryStream
-                Dim img As New Bitmap(My.Resources.pasivo, 110, 30)
-                img.Save(Bin, Imaging.ImageFormat.Png)
-                CType(JGrM_Buscador.DataSource, DataTable).Rows(i).Item("imgEstado") = Bin.GetBuffer
-            End If
-
-        Next
 
     End Sub
+
 
     Public Sub _PMInhabilitar()
         btnNuevo.Visible = True

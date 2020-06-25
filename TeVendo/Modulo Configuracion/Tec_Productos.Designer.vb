@@ -485,7 +485,7 @@ Partial Class Tec_Productos
         Me.btnImagen.BackColor = System.Drawing.Color.Transparent
         Me.btnImagen.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
         Me.btnImagen.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnImagen.Image = Global.TeVendo.My.Resources.Resources.addimg
+        Me.btnImagen.Image = Global.TeVendo.My.Resources.Resources.addimage
         Me.btnImagen.ImageFixedSize = New System.Drawing.Size(60, 60)
         Me.btnImagen.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
         Me.btnImagen.Location = New System.Drawing.Point(8, 10)

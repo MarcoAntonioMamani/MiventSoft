@@ -268,9 +268,7 @@ Public Class Tec_Roles
         _PMIniciarTodo()
         _prAsignarPermisos()
         grModulos.Focus()
-        Dim blah As New Bitmap(New Bitmap(My.Resources.ic_r), 20, 20)
-        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
-        Me.Icon = ico
+
         tbRol.MaxLength = 30
         If (CType(grModulos.DataSource, DataTable).Rows.Count > 0) Then
             grModulos.Row = 0

@@ -221,9 +221,7 @@ Public Class Tec_Sucursales
         _PMIniciarTodo()
         _prAsignarPermisos()
 
-        Dim blah As New Bitmap(New Bitmap(My.Resources.ic_a), 20, 20)
-        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
-        Me.Icon = ico
+
         P_Global._prCargarComboGenerico(cbDeposito, L_prListarDepositos(), "Id", "Codigo", "NombreDeposito", "NombreDeposito")
 
     End Sub

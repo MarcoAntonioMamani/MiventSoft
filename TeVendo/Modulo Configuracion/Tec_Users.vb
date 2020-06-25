@@ -226,9 +226,7 @@ Public Class Tec_Users
         _PMIniciarTodo()
         _prAsignarPermisos()
 
-        Dim blah As New Bitmap(New Bitmap(My.Resources.ic_a), 20, 20)
-        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
-        Me.Icon = ico
+
 
     End Sub
     Private Sub _prCargarComboLibreriaRoles(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
