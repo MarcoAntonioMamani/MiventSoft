@@ -411,6 +411,83 @@ Public Class AccesoLogica
         Return _resultado
     End Function
 #End Region
+
+
+#Region "Empresas TeC"
+
+
+
+    Public Shared Function InsertarEmpresa(_Id As String, Nombre As String, Descripcion As String, Latitud As Double,
+                                           Longitud As Double, Imagen As String, Propietario As String,
+         Telefono As String, Nit As String, Ciudad As String, Direccion As String) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        ' @Nombre ,@Descripcion ,@Descripcion ,@Latitud ,@Longitud ,@Imagen ,@Propietario ,@Telefono ,
+        '@Nit ,12,12,1,1,'Estoy%20interesado%20en%20sus%20productos..',@Ciudad ,@Direccion 
+
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", _Id))
+        _listParam.Add(New Datos.DParametro("@Nombre", Nombre))
+        _listParam.Add(New Datos.DParametro("@Descripcion", Descripcion))
+        _listParam.Add(New Datos.DParametro("@Latitud", Latitud))
+        _listParam.Add(New Datos.DParametro("@Longitud", Longitud))
+        _listParam.Add(New Datos.DParametro("@Imagen", Imagen))
+        _listParam.Add(New Datos.DParametro("@Propietario", Propietario))
+        _listParam.Add(New Datos.DParametro("@Telefono", Telefono))
+        _listParam.Add(New Datos.DParametro("@Nit", Nit))
+        _listParam.Add(New Datos.DParametro("@Ciudad", Ciudad))
+        _listParam.Add(New Datos.DParametro("@Direccion", Direccion))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Empresas", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _Id = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+
+    Public Shared Function ModificarEmpresa(_Id As String, Nombre As String, Descripcion As String, Latitud As Double,
+                                           Longitud As Double, Imagen As String, Propietario As String,
+         Telefono As String, Nit As String, Ciudad As String, Direccion As String) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        ' @Nombre ,@Descripcion ,@Descripcion ,@Latitud ,@Longitud ,@Imagen ,@Propietario ,@Telefono ,
+        '@Nit ,12,12,1,1,'Estoy%20interesado%20en%20sus%20productos..',@Ciudad ,@Direccion 
+
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@Id", _Id))
+        _listParam.Add(New Datos.DParametro("@Nombre", Nombre))
+        _listParam.Add(New Datos.DParametro("@Descripcion", Descripcion))
+        _listParam.Add(New Datos.DParametro("@Latitud", Latitud))
+        _listParam.Add(New Datos.DParametro("@Longitud", Longitud))
+        _listParam.Add(New Datos.DParametro("@Imagen", Imagen))
+        _listParam.Add(New Datos.DParametro("@Propietario", Propietario))
+        _listParam.Add(New Datos.DParametro("@Telefono", Telefono))
+        _listParam.Add(New Datos.DParametro("@Nit", Nit))
+        _listParam.Add(New Datos.DParametro("@Ciudad", Ciudad))
+        _listParam.Add(New Datos.DParametro("@Direccion", Direccion))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Empresas", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _Id = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+#End Region
 #Region "Clientes Tec"
 
     Public Shared Function InsertarCliente(_Id As String, IdZona As Integer, IdPrecio As Integer, CodigoExterno As String, NombreCliente As String,
