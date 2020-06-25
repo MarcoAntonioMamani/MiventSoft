@@ -44,7 +44,7 @@ Partial Class UCImg
         '
         Me.pbImage.BackColor = System.Drawing.Color.White
         Me.pbImage.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pbImage.Image = Global.TeVendo.My.Resources.Resources.pantalla
+        Me.pbImage.Image = Global.TeVendo.My.Resources.Resources.camera
         Me.pbImage.Location = New System.Drawing.Point(5, 5)
         Me.pbImage.Name = "pbImage"
         Me.pbImage.Padding = New System.Windows.Forms.Padding(2)

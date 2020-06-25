@@ -578,9 +578,6 @@
     <None Include="Resources\cuestion.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\checked.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\cancel.png" />
   </ItemGroup>
   <ItemGroup>
@@ -659,9 +656,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\eliminar.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\delete.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\markerAfondo.png" />
@@ -757,9 +751,6 @@
     <None Include="Resources\almacen.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\compra.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\vendedor.png" />
   </ItemGroup>
   <ItemGroup>
@@ -830,6 +821,9 @@
     <None Include="Resources\creditopagos.png" />
     <None Include="Resources\derechaDoble.png" />
     <None Include="Resources\derechaLine.png" />
+    <None Include="Resources\delete.png" />
+    <None Include="Resources\compra.png" />
+    <None Include="Resources\checked.png" />
     <Content Include="Resources\dinases.png" />
     <None Include="Resources\MapaClientes.png" />
     <None Include="Resources\ventasCostos.png" />

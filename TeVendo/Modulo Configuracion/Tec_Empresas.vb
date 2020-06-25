@@ -396,7 +396,7 @@ Public Class Tec_Empresas
         _latitud = 0
         _longitud = 0
         _Overlay.Markers.Clear()
-        pbImagen.Image = My.Resources.pantalla
+        pbImagen.Image = My.Resources.camera
         tbNombreEmpresa.Focus()
     End Sub
 
@@ -607,7 +607,7 @@ Public Class Tec_Empresas
         Dim name As String = JGrM_Buscador.GetValue("Imagen")
         If name.Equals("Default.jpg") Or Not File.Exists(RutaGlobal + "\Imagenes\Imagenes Empresa" + name) Then
 
-            Dim im As New Bitmap(My.Resources.pantalla)
+            Dim im As New Bitmap(My.Resources.camera)
             pbImagen.Image = im
         Else
             If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Empresa" + name)) Then

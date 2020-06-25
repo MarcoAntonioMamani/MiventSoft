@@ -355,7 +355,7 @@ Public Class TecCategorias
         tbDescripcion.Text = ""
         swApp.Value = True
         swEstado.Value = True
-        UsImg.Image = My.Resources.pantalla
+        UsImg.Image = My.Resources.camera
         tbNombreCategoria.Focus()
         If (CType(cbEmpresa.DataSource, DataTable).Rows.Count > 0) Then
             cbEmpresa.SelectedIndex = 0
@@ -547,7 +547,7 @@ Public Class TecCategorias
 
         If Img.Equals("Default.jpg") Or Not ExisteImagen Then
 
-            Dim im As New Bitmap(My.Resources.pantalla)
+            Dim im As New Bitmap(My.Resources.camera)
             UsImg.Image = im
         Else
             If (ExisteImagen) Then

@@ -44,7 +44,7 @@ Partial Class UCLavadero
         '
         Me.pbImg.BackColor = System.Drawing.Color.White
         Me.pbImg.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pbImg.Image = Global.TeVendo.My.Resources.Resources.pantalla
+        Me.pbImg.Image = Global.TeVendo.My.Resources.Resources.camera
         Me.pbImg.Location = New System.Drawing.Point(7, 6)
         Me.pbImg.Margin = New System.Windows.Forms.Padding(4)
         Me.pbImg.Name = "pbImg"
