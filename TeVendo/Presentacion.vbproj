@@ -709,9 +709,6 @@
     <None Include="Resources\save.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\printee.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\man-18.png" />
   </ItemGroup>
   <ItemGroup>
@@ -787,6 +784,7 @@
     <None Include="Resources\trash.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\printee.png" />
     <None Include="Resources\mensaje.png" />
     <None Include="Resources\sistema_tevendo.png" />
     <None Include="Resources\tec_print.png" />
@@ -833,7 +831,6 @@
     <None Include="Resources\FormatFactoryunnamed.png" />
     <None Include="Resources\grafica.png" />
     <None Include="Resources\estadistico.png" />
-    <None Include="Resources\facturacion.png" />
     <None Include="Resources\izquierda2.png" />
     <None Include="Resources\iconadd.png" />
     <None Include="Resources\iconeditar.png" />
@@ -845,6 +842,7 @@
     <None Include="Resources\iconselected.png" />
     <None Include="Resources\icono_sistema.png" />
     <None Include="Resources\icono_sistema02.png" />
+    <None Include="Resources\facturacion.png" />
     <None Include="Resources\empresa.png" />
     <Content Include="Resources\man.png" />
     <None Include="Resources\pdf.png" />
