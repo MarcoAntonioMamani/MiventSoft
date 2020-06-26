@@ -15,6 +15,8 @@ Public Class Tec_Login
 
 
 #Region "PrivateMethos"
+
+    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
     Public Sub _habilitarFocus()
         With Highlighter1
             .SetHighlightOnFocus(tbUsuario, DevComponents.DotNetBar.Validator.eHighlightColor.Red)
@@ -72,16 +74,16 @@ Public Class Tec_Login
     Private Sub btnIngresar_Click(sender As Object, e As EventArgs) Handles btnIngresar.Click
 
         If tbUsuario.Text = "" Then
-            ToastNotification.Show(Me, "Error: Debe ingresar un usuario correcto!!!", P_Global.tc_warning, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            ToastNotification.Show(Me, "Error: Debe ingresar un usuario correcto!!!", P_Global.mensaje, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
             Exit Sub
         End If
         If tbpassword.Text = "" Then
-            ToastNotification.Show(Me, "Error: Debe ingresar una contraseña correctamente..!!!", P_Global.tc_warning, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            ToastNotification.Show(Me, "Error: Debe ingresar una contraseña correctamente..!!!", P_Global.mensaje, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
             Exit Sub
         End If
         Dim dtUsuario As DataTable = L_Validar_Usuario(tbUsuario.Text.ToUpper(), tbpassword.Text.ToUpper())
         If dtUsuario.Rows.Count = 0 Then
-            ToastNotification.Show(Me, "Error: Los datos de Usuario y Contraseña son incorrectas. Por Favor ingrese con credenciales validos !!!", P_Global.tc_warning, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            ToastNotification.Show(Me, "Error: Los datos de Usuario y Contraseña son incorrectas. Por Favor ingrese con credenciales validos !!!", P_Global.mensaje, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
             tbUsuario.SelectAll()
             tbUsuario.Focus()
         Else

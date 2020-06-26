@@ -13,6 +13,7 @@ Public Class TecCategorias
     Public _modulo As SideNavItem
     Public FilaSeleccionada As Boolean = False
 
+    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
     Public _MListEstBuscador As List(Of Celda)
     Public _MPos As Integer
     Public _MNuevo As Boolean
@@ -447,7 +448,8 @@ Public Class TecCategorias
                 ToastNotification.Show(Me, "Codigo de Categoria ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                 _PMFiltrar()
             Else
-                ToastNotification.Show(Me, mensajeError, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+
+                ToastNotification.Show(Me, mensajeError, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
             End If
         End If
 
@@ -482,12 +484,12 @@ Public Class TecCategorias
 
         If tbNombreCategoria.Text = String.Empty Then
             tbNombreCategoria.Focus()
-            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
             Return _ok
         End If
 
         If (cbEmpresa.SelectedIndex < 0) Then
-            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
             cbEmpresa.Focus()
             Return _ok
         End If

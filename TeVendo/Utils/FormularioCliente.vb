@@ -187,17 +187,17 @@ Public Class FormularioCliente
 
         If tbNombreCliente.Text = String.Empty Then
             tbNombreCliente.Focus()
-            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, Mensaje, My.Resources.mensaje, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
             Return _ok
         End If
         If cbPrecios.SelectedIndex < 0 Then
             cbPrecios.Focus()
-            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, Mensaje, My.Resources.mensaje, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
             Return _ok
         End If
         If cbTipoDocumento.SelectedIndex < 0 Then
             cbTipoDocumento.Focus()
-            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, Mensaje, My.Resources.mensaje, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
             Return _ok
         End If
         Return _ok

@@ -4,7 +4,7 @@ Imports Janus.Windows.GridEX.EditControls
 Module P_Global
 #Region "Iconos"
 
-    Public tc_warning As Bitmap = New Bitmap(My.Resources.tc_warning, 50, 50)
+    Public mensaje As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
 #End Region
 #Region "Global"
 

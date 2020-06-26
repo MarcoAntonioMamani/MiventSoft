@@ -9,6 +9,7 @@ Public Class Tec_Roles
     Public _tab As SuperTabItem
     Public _modulo As SideNavItem
 
+    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
     Public _MPos As Integer
     Public _MNuevo As Boolean
     Public _MModificar As Boolean
@@ -503,7 +504,7 @@ Public Class Tec_Roles
         '        ToastNotification.Show(Me, "Codigo de Rol ".ToUpper + tbNumi.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
         '        _PMFiltrar()
         '    Else
-        '        ToastNotification.Show(Me, mensajeError, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+        '        ToastNotification.Show(Me, mensajeError, My.Resources.mensaje, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
         '    End If
         'End If
 
@@ -523,7 +524,7 @@ Public Class Tec_Roles
                 ToastNotification.Show(Me, "Codigo de Rol ".ToUpper + tbNumi.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                 _PMFiltrar()
             Else
-                ToastNotification.Show(Me, mensajeError, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, mensajeError, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
             End If
         End If
 

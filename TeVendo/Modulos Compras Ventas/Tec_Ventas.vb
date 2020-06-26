@@ -13,6 +13,7 @@ Public Class Tec_Ventas
     Public _modulo As SideNavItem
     Public FilaSeleccionada As Boolean = False
 
+    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
     Public _MListEstBuscador As List(Of Celda)
     Public _MPos As Integer
     Public _MNuevo As Boolean
@@ -674,28 +675,24 @@ Public Class Tec_Ventas
 
     Public Function _ValidarCampos() As Boolean
         If (IdVendedor <= 0) Then
-            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
             ToastNotification.Show(Me, "Seleccione Vendedor".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
             tbVendedor.Focus()
             Return False
 
         End If
         If (IdCliente <= 0) Then
-            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
             ToastNotification.Show(Me, "Seleccione Cliente".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
             tbCliente.Focus()
             Return False
 
         End If
         If (cbSucursal.SelectedIndex < 0) Then
-            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
             ToastNotification.Show(Me, "Seleccion Sucursal".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
             cbSucursal.Focus()
             Return False
         End If
 
         If (grDetalle.RowCount <= 0) Then
-            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
             ToastNotification.Show(Me, "Por Favor Inserte un Detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
             grDetalle.Focus()
 
@@ -704,7 +701,7 @@ Public Class Tec_Ventas
         End If
         If (grDetalle.RowCount = 1) Then
             If (CType(grDetalle.DataSource, DataTable).Rows(0).Item("ProductoId") = 0) Then
-                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+
                 ToastNotification.Show(Me, "Por Favor Inserte un Detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
                 grDetalle.Focus()
 
@@ -763,7 +760,6 @@ Public Class Tec_Ventas
             End If
         Else
             If (existe) Then
-                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
                 ToastNotification.Show(Me, "El producto ya existe en el detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
                 grProducto.RemoveFilters()
                 tbNombreProducto.Focus()
@@ -832,7 +828,7 @@ Public Class Tec_Ventas
 
                     tbNombreProducto.Focus()
                 Else
-                    ToastNotification.Show(Me, "Seleccione Producto", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                    ToastNotification.Show(Me, "Seleccione Producto", img, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
                 End If
 
             End If
@@ -841,7 +837,7 @@ Public Class Tec_Ventas
 
                     tbNombreProducto.Focus()
                 Else
-                    ToastNotification.Show(Me, "Seleccione un Producto", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                    ToastNotification.Show(Me, "Seleccione un Producto", img, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
                 End If
 
             End If
@@ -880,7 +876,7 @@ salirIf:
                     ''''''''''''''''''''''''
                     If (grProducto.GetValue("stock") <= 0) Then
 
-                        ToastNotification.Show(Me, "No Existe Stock del Producto Para Proceder con la Venta".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                        ToastNotification.Show(Me, "No Existe Stock del Producto Para Proceder con la Venta".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
                         Return
 
                     End If
@@ -957,7 +953,7 @@ salirIf:
                         End If
 
                     Else
-                        ToastNotification.Show(Me, "La Cantidad = " + Str(grDetalle.GetValue("Cantidad")) + " es mayor al Stock del Producto = " + Str(grDetalle.GetValue("Stock")), My.Resources.WARNING, 6000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                        ToastNotification.Show(Me, "La Cantidad = " + Str(grDetalle.GetValue("Cantidad")) + " es mayor al Stock del Producto = " + Str(grDetalle.GetValue("Stock")), img, 6000, eToastGlowColor.Red, eToastPosition.TopCenter)
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = 0
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = 0
@@ -1309,11 +1305,11 @@ salirIf:
                 ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
 
             Else
-                ToastNotification.Show(Me, "Error al guardar la Venta".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Error al guardar la Venta".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End If
         Catch ex As Exception
-            ToastNotification.Show(Me, "Error al guardar la Venta".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, "Error al guardar la Venta".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
         End Try
 
@@ -1332,11 +1328,11 @@ salirIf:
                 ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                 _PSalirRegistro()
             Else
-                ToastNotification.Show(Me, "Error al guardar La Venta".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Error al guardar La Venta".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End If
         Catch ex As Exception
-            ToastNotification.Show(Me, "Error al modificar La Venta".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, "Error al modificar La Venta".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
         End Try
 
@@ -1385,10 +1381,10 @@ salirIf:
                     ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                     _PMFiltrar()
                 Else
-                    ToastNotification.Show(Me, mensajeError, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                    ToastNotification.Show(Me, mensajeError, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
                 End If
             Catch ex As Exception
-                ToastNotification.Show(Me, "Error al eliminar la Venta".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Error al eliminar la Venta".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End Try
 
@@ -1442,7 +1438,6 @@ salirIf:
         MHighlighterFocus.UpdateHighlights()
 
         If (grDetalle.RowCount <= 0) Then
-            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
             ToastNotification.Show(Me, "Por Favor Inserte un Detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
             grDetalle.Focus()
 
@@ -1451,7 +1446,7 @@ salirIf:
         End If
         If (grDetalle.RowCount = 1) Then
             If (CType(grDetalle.DataSource, DataTable).Rows(0).Item("ProductoId") = 0) Then
-                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+
                 ToastNotification.Show(Me, "Por Favor Inserte un Detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
                 grDetalle.Focus()
 
@@ -1460,23 +1455,23 @@ salirIf:
         End If
 
         If (cbSucursal.SelectedIndex < 0) Then
-            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
             cbSucursal.Focus()
             Return _ok
         End If
 
         If (tbFechaTransaccion.Text.Length <= 0) Then
-            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
             tbFechaTransaccion.Focus()
             Return _ok
         End If
         If (IdVendedor <= 0) Then
-            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
             tbVendedor.Focus()
             Return _ok
         End If
         If (IdCliente <= 0) Then
-            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
             tbCliente.Focus()
             Return _ok
         End If
@@ -1695,7 +1690,7 @@ salirIf:
                         ''''''''''''''''''''''''
                         If (grProducto.GetValue("stock") <= 0) Then
 
-                            ToastNotification.Show(Me, "No Existe Stock del Producto Para Proceder con la Venta".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                            ToastNotification.Show(Me, "No Existe Stock del Producto Para Proceder con la Venta".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
                             Return
 
                         End If

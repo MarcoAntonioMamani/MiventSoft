@@ -19,7 +19,7 @@ Public Class Tec_Clientes
     Dim _Overlay As GMapOverlay
     Dim _latitud As Double = 0
     Dim _longitud As Double = 0
-
+    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
     Public _nameButton As String
     Public _tab As SuperTabItem
     Public _modulo As SideNavItem
@@ -436,11 +436,12 @@ Public Class Tec_Clientes
                 ToastNotification.Show(Me, "Codigo de Cliente ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
 
             Else
-                ToastNotification.Show(Me, "Error al guardar el Cliente".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+
+                ToastNotification.Show(Me, "Error al guardar el Cliente".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End If
         Catch ex As Exception
-            ToastNotification.Show(Me, "Error al guardar el Cliente".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, "Error al guardar el Cliente".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
         End Try
 
@@ -460,11 +461,11 @@ Public Class Tec_Clientes
                 ToastNotification.Show(Me, "Codigo de cliente ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                 _PSalirRegistro()
             Else
-                ToastNotification.Show(Me, "Error al guardar el cliente".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Error al guardar el cliente".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End If
         Catch ex As Exception
-            ToastNotification.Show(Me, "Error al modificar cliente".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, "Error al modificar cliente".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
         End Try
 
@@ -497,10 +498,10 @@ Public Class Tec_Clientes
                     ToastNotification.Show(Me, "Codigo de Cliente ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                     _PMFiltrar()
                 Else
-                    ToastNotification.Show(Me, mensajeError, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                    ToastNotification.Show(Me, mensajeError, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
                 End If
             Catch ex As Exception
-                ToastNotification.Show(Me, "Error al eliminar el cliente".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Error al eliminar el cliente".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End Try
 
@@ -527,7 +528,7 @@ Public Class Tec_Clientes
 
         If tbNombreCliente.Text = String.Empty Then
             tbNombreCliente.Focus()
-            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
             Return _ok
         End If
 

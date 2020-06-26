@@ -17,6 +17,7 @@ Public Class Tec_Zonas
     Dim _Punto As Integer
     Dim _ListPuntos As List(Of PointLatLng) = New List(Of PointLatLng)
 
+    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
     Dim _Overlay As GMapOverlay
     Dim _latitud As Double = 0
     Dim _longitud As Double = 0
@@ -484,10 +485,12 @@ Public Class Tec_Zonas
                     ToastNotification.Show(Me, "Codigo de Zona ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                     _PMFiltrar()
                 Else
-                    ToastNotification.Show(Me, mensajeError, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    ToastNotification.Show(Me, mensajeError, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
                 End If
             Catch ex As Exception
-                ToastNotification.Show(Me, "Error al eliminar la Zona".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Error al eliminar la Zona".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End Try
 

@@ -142,9 +142,6 @@
   <data name="FormatFactoryunnamed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FormatFactoryunnamed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ToastWarning" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ToastWarning.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="atras" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\atras.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -268,9 +265,6 @@
   <data name="img2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ToastError" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ToastError.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="img1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -346,12 +340,6 @@
   <data name="GRABACION_EXITOSA" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GRABACION_EXITOSA.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="WARNING" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WARNING.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="tc_warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\051-warning.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="man" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\man.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -405,9 +393,6 @@
   </data>
   <data name="fondoInfo3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fondoInfo3.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pie-chart1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pie-chart1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="tecfondo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tecfondo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

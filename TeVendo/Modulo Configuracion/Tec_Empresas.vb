@@ -19,6 +19,7 @@ Public Class Tec_Empresas
     Dim _Overlay As GMapOverlay
     Dim _latitud As Double = 0
     Dim _longitud As Double = 0
+    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
 
     Public _nameButton As String
     Public _tab As SuperTabItem
@@ -447,11 +448,11 @@ Public Class Tec_Empresas
                 ToastNotification.Show(Me, "Empresa con Id = ".ToUpper + tbCodigo.Text + " fue Registrada Correctamente.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
 
             Else
-                ToastNotification.Show(Me, "Existe Problema al Registrar la Empresa".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Existe Problema al Registrar la Empresa".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End If
         Catch ex As Exception
-            ToastNotification.Show(Me, "Existe Problema al Registrar la Empresa ".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, "Existe Problema al Registrar la Empresa ".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
         End Try
 
@@ -481,11 +482,11 @@ Public Class Tec_Empresas
                 ToastNotification.Show(Me, "Empresa con Codigo =  ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                 _PSalirRegistro()
             Else
-                ToastNotification.Show(Me, "Existe Problemas al modificar datos de la empresa".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Existe Problemas al modificar datos de la empresa".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End If
         Catch ex As Exception
-            ToastNotification.Show(Me, "Existe Problemas al modificar datos de la empresa".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, "Existe Problemas al modificar datos de la empresa".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
         End Try
 
@@ -518,10 +519,10 @@ Public Class Tec_Empresas
                     ToastNotification.Show(Me, "Empresa con Codigo  ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                     _PMFiltrar()
                 Else
-                    ToastNotification.Show(Me, mensajeError, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                    ToastNotification.Show(Me, mensajeError, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
                 End If
             Catch ex As Exception
-                ToastNotification.Show(Me, "Error al eliminar la Empresa".ToUpper + " " + ex.Message, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Error al eliminar la Empresa".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End Try
 
@@ -548,7 +549,7 @@ Public Class Tec_Empresas
 
         If tbNombreEmpresa.Text = String.Empty Then
             tbNombreEmpresa.Focus()
-            ToastNotification.Show(Me, Mensaje, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
             Return _ok
         End If
 

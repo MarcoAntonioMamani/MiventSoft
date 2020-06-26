@@ -10,6 +10,7 @@ Public Class Tec_Users
     Public _tab As SuperTabItem
     Public _modulo As SideNavItem
 
+    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
     Public _MListEstBuscador As List(Of Celda)
     Public _MPos As Integer
     Public _MNuevo As Boolean
@@ -380,7 +381,7 @@ Public Class Tec_Users
                 ToastNotification.Show(Me, "Codigo de Usuario ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                 _PMFiltrar()
             Else
-                ToastNotification.Show(Me, mensajeError, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, mensajeError, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
             End If
         End If
 

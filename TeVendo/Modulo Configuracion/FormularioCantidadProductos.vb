@@ -69,7 +69,8 @@ Public Class FormularioCantidadProductos
 
                     tbCantidad.Clear()
                     tbCantidad.Text = Str(CantidadTotal).Trim
-                    ToastNotification.Show(Me, "La cantidad es Superior Al Stock Disponible = " + Str(CantidadTotal), My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    ToastNotification.Show(Me, "La cantidad es Superior Al Stock Disponible = " + Str(CantidadTotal), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
                     tbCantidad.Focus()
                 Else
                     If (CantidadActual > 0) Then
@@ -80,7 +81,8 @@ Public Class FormularioCantidadProductos
                     Else
                         tbCantidad.Clear()
                         tbCantidad.Text = "0".Trim
-                        ToastNotification.Show(Me, "La Cantidad debe ser Mayor o igual a 1", My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                        Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                        ToastNotification.Show(Me, "La Cantidad debe ser Mayor o igual a 1", img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
                         tbCantidad.Focus()
                     End If
 
@@ -90,7 +92,8 @@ Public Class FormularioCantidadProductos
 
 
         Else
-            ToastNotification.Show(Me, "Ingrese Datos Validos", My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Ingrese Datos Validos", img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
 
         End If

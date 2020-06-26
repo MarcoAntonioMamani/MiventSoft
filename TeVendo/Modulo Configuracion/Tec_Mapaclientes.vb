@@ -25,7 +25,6 @@ Public Class Tec_Mapaclientes
     Dim cont As Integer = 0
 
 
-
     Private Sub _IniciarTodo()
         L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
         _prInicarMapa()
@@ -301,7 +300,8 @@ Public Class Tec_Mapaclientes
             Else
 
 
-                ToastNotification.Show(Me, "NO EXISTE DATOS PARA ESTE CLIENTE", My.Resources.WARNING, 4000, eToastGlowColor.Red, eToastPosition.MiddleCenter)
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "NO EXISTE DATOS PARA ESTE CLIENTE", img, 4000, eToastGlowColor.Red, eToastPosition.MiddleCenter)
             End If
 
         End If
@@ -357,7 +357,8 @@ Public Class Tec_Mapaclientes
                 Else
 
 
-                    ToastNotification.Show(Me, "NO EXISTE DATOS PARA ESTE CLIENTE", My.Resources.WARNING, 4000, eToastGlowColor.Red, eToastPosition.MiddleCenter)
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    ToastNotification.Show(Me, "NO EXISTE DATOS PARA ESTE CLIENTE", img, 4000, eToastGlowColor.Red, eToastPosition.MiddleCenter)
                 End If
 
             End If
@@ -435,7 +436,8 @@ Public Class Tec_Mapaclientes
             Else
 
 
-                ToastNotification.Show(Me, "NO EXISTE DATOS PARA ESTE CLIENTE", My.Resources.WARNING, 4000, eToastGlowColor.Red, eToastPosition.MiddleCenter)
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "NO EXISTE DATOS PARA ESTE CLIENTE", img, 4000, eToastGlowColor.Red, eToastPosition.MiddleCenter)
             End If
 
         End If
@@ -472,8 +474,9 @@ Public Class Tec_Mapaclientes
                     Gmc_Cliente.Position = New PointLatLng(grCliente.GetValue("Latitud"), grCliente.GetValue("Longitud"))
                 Else
 
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
 
-                    ToastNotification.Show(Me, "NO EXISTE DATOS PARA ESTE CLIENTE", My.Resources.WARNING, 4000, eToastGlowColor.Red, eToastPosition.MiddleCenter)
+                    ToastNotification.Show(Me, "NO EXISTE DATOS PARA ESTE CLIENTE", img, 4000, eToastGlowColor.Red, eToastPosition.MiddleCenter)
                 End If
 
             End If

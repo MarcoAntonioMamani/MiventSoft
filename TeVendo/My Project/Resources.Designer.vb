@@ -943,16 +943,6 @@ Namespace My.Resources
         '''<summary>
         '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property pie_chart1() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("pie-chart1", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        '''</summary>
         Friend ReadOnly Property plus() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("plus", resourceCulture)
@@ -1143,16 +1133,6 @@ Namespace My.Resources
         '''<summary>
         '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property tc_warning() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("tc_warning", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        '''</summary>
         Friend ReadOnly Property tec_print() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("tec_print", resourceCulture)
@@ -1196,26 +1176,6 @@ Namespace My.Resources
         Friend ReadOnly Property tecfondo() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("tecfondo", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property ToastError() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("ToastError", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property ToastWarning() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("ToastWarning", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -1296,16 +1256,6 @@ Namespace My.Resources
         Friend ReadOnly Property verRegistros2() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("verRegistros2", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property WARNING() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("WARNING", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
