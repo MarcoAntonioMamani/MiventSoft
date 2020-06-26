@@ -784,6 +784,7 @@
     <None Include="Resources\trash.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\shopping03.png" />
     <None Include="Resources\printee.png" />
     <None Include="Resources\mensaje.png" />
     <None Include="Resources\sistema_tevendo.png" />
