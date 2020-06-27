@@ -29,6 +29,8 @@ Partial Class Rep_MovimientosProductos
         Me.PanelLEft = New System.Windows.Forms.Panel()
         Me.Panel8 = New System.Windows.Forms.Panel()
         Me.PanelDatos = New System.Windows.Forms.Panel()
+        Me.PanelPrincipal = New System.Windows.Forms.Panel()
+        Me.MReportViewer = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
         Me.Panel10 = New System.Windows.Forms.Panel()
         Me.Panel11 = New System.Windows.Forms.Panel()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -44,13 +46,12 @@ Partial Class Rep_MovimientosProductos
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.PanelToolBar1 = New System.Windows.Forms.Panel()
         Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
-        Me.PanelPrincipal = New System.Windows.Forms.Panel()
-        Me.MReportViewer = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelLEft.SuspendLayout()
         Me.Panel8.SuspendLayout()
         Me.PanelDatos.SuspendLayout()
+        Me.PanelPrincipal.SuspendLayout()
         Me.Panel10.SuspendLayout()
         Me.Panel11.SuspendLayout()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -58,7 +59,6 @@ Partial Class Rep_MovimientosProductos
         Me.PanelNavegacion.SuspendLayout()
         CType(Me.cbDeposito, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelToolBar1.SuspendLayout()
-        Me.PanelPrincipal.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
@@ -110,6 +110,31 @@ Partial Class Rep_MovimientosProductos
         Me.PanelDatos.Name = "PanelDatos"
         Me.PanelDatos.Size = New System.Drawing.Size(1037, 359)
         Me.PanelDatos.TabIndex = 2
+        '
+        'PanelPrincipal
+        '
+        Me.PanelPrincipal.BackColor = System.Drawing.SystemColors.Control
+        Me.PanelPrincipal.Controls.Add(Me.MReportViewer)
+        Me.PanelPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PanelPrincipal.Location = New System.Drawing.Point(0, 0)
+        Me.PanelPrincipal.Margin = New System.Windows.Forms.Padding(4)
+        Me.PanelPrincipal.Name = "PanelPrincipal"
+        Me.PanelPrincipal.Size = New System.Drawing.Size(1037, 359)
+        Me.PanelPrincipal.TabIndex = 2
+        '
+        'MReportViewer
+        '
+        Me.MReportViewer.ActiveViewIndex = -1
+        Me.MReportViewer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.MReportViewer.Cursor = System.Windows.Forms.Cursors.Default
+        Me.MReportViewer.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MReportViewer.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MReportViewer.Location = New System.Drawing.Point(0, 0)
+        Me.MReportViewer.Margin = New System.Windows.Forms.Padding(4)
+        Me.MReportViewer.Name = "MReportViewer"
+        Me.MReportViewer.Size = New System.Drawing.Size(1037, 359)
+        Me.MReportViewer.TabIndex = 20
+        Me.MReportViewer.ToolPanelWidth = 267
         '
         'Panel10
         '
@@ -379,31 +404,6 @@ Partial Class Rep_MovimientosProductos
         Me.ButtonX1.Text = "Generar"
         Me.ButtonX1.TextColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
         '
-        'PanelPrincipal
-        '
-        Me.PanelPrincipal.BackColor = System.Drawing.SystemColors.Control
-        Me.PanelPrincipal.Controls.Add(Me.MReportViewer)
-        Me.PanelPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelPrincipal.Location = New System.Drawing.Point(0, 0)
-        Me.PanelPrincipal.Margin = New System.Windows.Forms.Padding(4)
-        Me.PanelPrincipal.Name = "PanelPrincipal"
-        Me.PanelPrincipal.Size = New System.Drawing.Size(1037, 359)
-        Me.PanelPrincipal.TabIndex = 2
-        '
-        'MReportViewer
-        '
-        Me.MReportViewer.ActiveViewIndex = -1
-        Me.MReportViewer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.MReportViewer.Cursor = System.Windows.Forms.Cursors.Default
-        Me.MReportViewer.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MReportViewer.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MReportViewer.Location = New System.Drawing.Point(0, 0)
-        Me.MReportViewer.Margin = New System.Windows.Forms.Padding(4)
-        Me.MReportViewer.Name = "MReportViewer"
-        Me.MReportViewer.Size = New System.Drawing.Size(1037, 359)
-        Me.MReportViewer.TabIndex = 20
-        Me.MReportViewer.ToolPanelWidth = 267
-        '
         'Rep_MovimientosProductos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -417,6 +417,7 @@ Partial Class Rep_MovimientosProductos
         Me.PanelLEft.ResumeLayout(False)
         Me.Panel8.ResumeLayout(False)
         Me.PanelDatos.ResumeLayout(False)
+        Me.PanelPrincipal.ResumeLayout(False)
         Me.Panel10.ResumeLayout(False)
         Me.Panel11.ResumeLayout(False)
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
@@ -426,7 +427,6 @@ Partial Class Rep_MovimientosProductos
         Me.PanelNavegacion.PerformLayout()
         CType(Me.cbDeposito, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelToolBar1.ResumeLayout(False)
-        Me.PanelPrincipal.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub

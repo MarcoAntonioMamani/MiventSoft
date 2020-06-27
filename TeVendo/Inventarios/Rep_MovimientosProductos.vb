@@ -85,4 +85,36 @@ Public Class Rep_MovimientosProductos
     Private Sub Rep_MovimientosProductos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         _prIniciarTodo()
     End Sub
+
+    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
+
+        If (cbDeposito.SelectedIndex < 0) Then
+
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Debe Seleccionar un Deposito".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            cbDeposito.Focus()
+            Return
+
+        End If
+
+        Dim _dt As New DataTable
+        _prObtenerKardexGeneral(_dt)
+        If (_dt.Rows.Count > 0) Then
+
+            Dim objrep As New Reporte_KardexGeneralProductos
+            objrep.SetDataSource(_dt)
+            Dim fechaI As String = cbFechaDesde.Value.ToString("dd/MM/yyyy")
+            Dim fechaF As String = cbFechaHasta.Value.ToString("dd/MM/yyyy")
+            objrep.SetParameterValue("Deposito", cbDeposito.Text)
+            objrep.SetParameterValue("FechaDesde", fechaI)
+            objrep.SetParameterValue("FechaHasta", fechaF)
+            MReportViewer.ReportSource = objrep
+            MReportViewer.Show()
+            MReportViewer.BringToFront()
+        Else
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "No Existen Datos Para Mostrar. con Los Filtros Seleccionados".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+        End If
+
+    End Sub
 End Class
