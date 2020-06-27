@@ -87,7 +87,7 @@ Partial Class Tec_Productos
         Me.cbMarca = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.LabelX10 = New DevComponents.DotNetBar.LabelX()
         Me.cbProveedor = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
-        Me.LabelX9 = New DevComponents.DotNetBar.LabelX()
+        Me.Presentacion = New DevComponents.DotNetBar.LabelX()
         Me.LabelX8 = New DevComponents.DotNetBar.LabelX()
         Me.tbStockMinimo = New DevComponents.Editors.IntegerInput()
         Me.swEstado = New DevComponents.DotNetBar.Controls.SwitchButton()
@@ -186,8 +186,8 @@ Partial Class Tec_Productos
         Me.TabControlPrincipal.ControlBox.MenuBox.Name = ""
         Me.TabControlPrincipal.ControlBox.Name = ""
         Me.TabControlPrincipal.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.TabControlPrincipal.ControlBox.MenuBox, Me.TabControlPrincipal.ControlBox.CloseBox})
-        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel2)
         Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel1)
+        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel2)
         Me.TabControlPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControlPrincipal.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.Location = New System.Drawing.Point(0, 0)
@@ -639,7 +639,7 @@ Partial Class Tec_Productos
         Me.Panel9.Controls.Add(Me.cbMarca)
         Me.Panel9.Controls.Add(Me.LabelX10)
         Me.Panel9.Controls.Add(Me.cbProveedor)
-        Me.Panel9.Controls.Add(Me.LabelX9)
+        Me.Panel9.Controls.Add(Me.Presentacion)
         Me.Panel9.Controls.Add(Me.LabelX8)
         Me.Panel9.Controls.Add(Me.tbStockMinimo)
         Me.Panel9.Controls.Add(Me.swEstado)
@@ -983,9 +983,9 @@ Partial Class Tec_Productos
         Me.LabelX10.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX10.Name = "LabelX10"
         Me.LabelX10.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX10.Size = New System.Drawing.Size(52, 23)
+        Me.LabelX10.Size = New System.Drawing.Size(159, 23)
         Me.LabelX10.TabIndex = 54
-        Me.LabelX10.Text = "Marca:"
+        Me.LabelX10.Text = "Marca / Presentación:"
         '
         'cbProveedor
         '
@@ -1003,23 +1003,23 @@ Partial Class Tec_Productos
         Me.cbProveedor.TabIndex = 51
         Me.cbProveedor.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
-        'LabelX9
+        'Presentacion
         '
-        Me.LabelX9.AutoSize = True
-        Me.LabelX9.BackColor = System.Drawing.Color.Transparent
+        Me.Presentacion.AutoSize = True
+        Me.Presentacion.BackColor = System.Drawing.Color.Transparent
         '
         '
         '
-        Me.LabelX9.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX9.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX9.Location = New System.Drawing.Point(10, 261)
-        Me.LabelX9.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX9.Name = "LabelX9"
-        Me.LabelX9.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX9.Size = New System.Drawing.Size(81, 23)
-        Me.LabelX9.TabIndex = 52
-        Me.LabelX9.Text = "Proveedor:"
+        Me.Presentacion.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.Presentacion.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Presentacion.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.Presentacion.Location = New System.Drawing.Point(10, 261)
+        Me.Presentacion.Margin = New System.Windows.Forms.Padding(4)
+        Me.Presentacion.Name = "Presentacion"
+        Me.Presentacion.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.Presentacion.Size = New System.Drawing.Size(81, 23)
+        Me.Presentacion.TabIndex = 52
+        Me.Presentacion.Text = "Proveedor:"
         '
         'LabelX8
         '
@@ -1695,7 +1695,7 @@ Partial Class Tec_Productos
     Friend WithEvents cbMarca As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents LabelX10 As DevComponents.DotNetBar.LabelX
     Friend WithEvents cbProveedor As Janus.Windows.GridEX.EditControls.MultiColumnCombo
-    Friend WithEvents LabelX9 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents Presentacion As DevComponents.DotNetBar.LabelX
     Friend WithEvents btnFamilia As DevComponents.DotNetBar.ButtonX
     Friend WithEvents btnAtributo As DevComponents.DotNetBar.ButtonX
     Friend WithEvents btnMarca As DevComponents.DotNetBar.ButtonX
