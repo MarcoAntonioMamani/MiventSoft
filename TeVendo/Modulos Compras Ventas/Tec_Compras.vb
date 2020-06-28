@@ -1114,14 +1114,15 @@ salirIf:
         'Estado as integer, FechaDocumento As String, _dtDetalle As DataTable
         'tbFechaTransaccion.Value.ToString("yyyy/MM/dd")   CType(grDetalle.DataSource, DataTable)
         Dim res As Boolean
+        Dim Id As String = "0"
         Try
-            res = ComprasInsertar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), IdProveedor,
+            res = ComprasInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), IdProveedor,
                                   IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
                                   1, 1, tbGlosa.Text, tbTotal.Value, 1, CType(grDetalle.DataSource, DataTable), tbMdesc.Value)
 
             If res Then
 
-
+                ReporteCompra(Id)
                 ToastNotification.Show(Me, "Codigo de Compra ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
 
             Else
@@ -1137,6 +1138,24 @@ salirIf:
 
     End Function
 
+    Public Sub ReporteCompra(Id As String)
+        Dim ef = New Efecto
+
+
+        ef.tipo = 8
+        ef.titulo = "Comprobante de Compra"
+        ef.descripcion = "¿Desea Generar el Reporte de la Compra #" + Id + " ?"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            P_GenerarReporte(Id)
+
+
+        End If
+
+    End Sub
+
     Public Function _PMOModificarRegistro() As Boolean
         Dim Res As Boolean
         Try
@@ -1144,7 +1163,7 @@ salirIf:
                                   IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
                                   1, 1, tbGlosa.Text, tbTotal.Value, 1, CType(grDetalle.DataSource, DataTable), tbMdesc.Value)
             If Res Then
-
+                ReporteCompra(tbCodigo.Text)
                 ToastNotification.Show(Me, "Codigo de Compra ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                 _PSalirRegistro()
             Else
@@ -1643,8 +1662,31 @@ salirIf:
         End If
     End Sub
 
-    Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles btnCompra.Click
+    Private Sub P_GenerarReporte(numi As String)
+        Dim dt As DataTable = ReporteCompras(numi)
 
+
+        If Not IsNothing(P_Global.Visualizador) Then
+            P_Global.Visualizador.Close()
+        End If
+
+
+        P_Global.Visualizador = New Visualizador
+
+        Dim objrep As New Reporte_Compras
+
+        objrep.SetDataSource(dt)
+        P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+        P_Global.Visualizador.CrGeneral.Zoom(110)
+        P_Global.Visualizador.Show() 'Comentar
+        ''P_Global.Visualizador.BringToFront() 'Comentar
+
+    End Sub
+    Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles btnCompra.Click
+        If (Not _fnAccesible() And tbCodigo.Text <> String.Empty) Then
+            P_GenerarReporte(tbCodigo.Text)
+
+        End If
     End Sub
 #End Region
 End Class
