@@ -635,21 +635,18 @@ Public Class Tec_Compras
 
     Public Function _ValidarCampos() As Boolean
         If (IdProveedor <= 0) Then
-            Dim img As Bitmap = New Bitmap(img, 50, 50)
             ToastNotification.Show(Me, "Seleccione Proveedor".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
             tbProveedor.Focus()
             Return False
 
         End If
         If (cbSucursal.SelectedIndex < 0) Then
-            Dim img As Bitmap = New Bitmap(img, 50, 50)
             ToastNotification.Show(Me, "Seleccion Sucursal".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
             cbSucursal.Focus()
             Return False
         End If
 
         If (grDetalle.RowCount <= 0) Then
-            Dim img As Bitmap = New Bitmap(img, 50, 50)
             ToastNotification.Show(Me, "Por Favor Inserte un Detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
             grDetalle.Focus()
 
@@ -1678,6 +1675,7 @@ salirIf:
         Dim objrep As New Reporte_Compras
 
         objrep.SetDataSource(dt)
+
         P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
         P_Global.Visualizador.CrGeneral.Zoom(110)
         P_Global.Visualizador.Show() 'Comentar
