@@ -315,6 +315,12 @@
     <Compile Include="Modulos Compras Ventas\Frm_Proveedor.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modulos Compras Ventas\Tec_AdministrarCuentasPorPagar.Designer.vb">
+      <DependentUpon>Tec_AdministrarCuentasPorPagar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos Compras Ventas\Tec_AdministrarCuentasPorPagar.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Modulos Compras Ventas\Tec_Compras.Designer.vb">
       <DependentUpon>Tec_Compras.vb</DependentUpon>
     </Compile>
@@ -487,6 +493,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modulos Compras Ventas\Frm_Proveedor.resx">
       <DependentUpon>Frm_Proveedor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulos Compras Ventas\Tec_AdministrarCuentasPorPagar.resx">
+      <DependentUpon>Tec_AdministrarCuentasPorPagar.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modulos Compras Ventas\Tec_Compras.resx">
       <DependentUpon>Tec_Compras.vb</DependentUpon>
@@ -813,6 +822,7 @@
     <None Include="Resources\trash.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\pagos.png" />
     <None Include="Resources\modulocompra.png" />
     <None Include="Resources\ventas.png" />
     <None Include="Resources\movimientos.png" />
@@ -856,6 +866,8 @@
     <None Include="Resources\compra.png" />
     <None Include="Resources\checked.png" />
     <None Include="Resources\credito.png" />
+    <None Include="Resources\creditopagados.png" />
+    <None Include="Resources\creditospagados.png" />
     <Content Include="Resources\dinases.png" />
     <None Include="Resources\MapaClientes.png" />
     <None Include="Resources\ventasCostos.png" />
