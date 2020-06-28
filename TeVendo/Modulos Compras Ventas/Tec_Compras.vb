@@ -88,7 +88,7 @@ Public Class Tec_Compras
         PanelNavegacion.Enabled = True
         JGrM_Buscador.Enabled = True
         btnProveedor.Visible = False
-
+        btnCompra.Visible = True
         _PMOLimpiarErrores()
 
         _PMOInhabilitar()
@@ -100,6 +100,7 @@ Public Class Tec_Compras
         _PMOHabilitar()
         btnProveedor.Visible = True
         tbNombreProducto.Focus()
+        btnCompra.Visible = False
     End Sub
 
     Public Sub ActualizarProductos()
@@ -1640,6 +1641,10 @@ salirIf:
 
             End If
         End If
+    End Sub
+
+    Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles btnCompra.Click
+
     End Sub
 #End Region
 End Class
