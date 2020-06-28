@@ -29,7 +29,7 @@ Public Class FormularioAyuda
         Me.StartPosition = FormStartPosition.CenterScreen
         Me.Location = New Point(posX, posY)
         lbTitulo.Text = titulo
-
+        Me.Width = 800
         listEstrucGrilla = listEst
 
         seleccionado = False
@@ -71,7 +71,7 @@ Public Class FormularioAyuda
                     If tipo.ToString = "System.Int32" Or tipo.ToString = "System.Decimal" Then
                         .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
                     End If
-                    If listEstrucGrilla.Item(i).formato = String.Empty Then
+                    If listEstrucGrilla.Item(i).formato <> String.Empty Then
                         .FormatString = listEstrucGrilla.Item(i).formato
                     End If
 

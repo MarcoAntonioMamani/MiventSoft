@@ -4,6 +4,8 @@ Imports DevComponents.DotNetBar
 Public Class Tec_AdministrarCuentasPorPagar
     Dim dtPendiente As DataTable
     Dim dtPagados As DataTable
+    Dim IdPersonal As Integer = 0
+    Dim IdCredito As Integer = 0
 #Region "General"
     Private Sub Tec_AdministrarCuentasPorPagar_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         IniciarProceso()
@@ -11,6 +13,14 @@ Public Class Tec_AdministrarCuentasPorPagar
     Public Sub IniciarProceso()
         _prCargarPagosPendientes()
         _prCargarCreditosPagados()
+        Dim dt As DataTable = ListarPersonalById(Global_IdPersonal)
+        If (dt.Rows.Count > 0) Then
+            IdPersonal = Global_IdPersonal
+            tbPersonal.Text = dt.Rows(0).Item("Nombre")
+
+
+
+        End If
     End Sub
 #End Region
 
@@ -19,39 +29,39 @@ Public Class Tec_AdministrarCuentasPorPagar
         Dim dt As New DataTable
         dt = L_prListarCreditosPagados()
         dtPagados = dt.Copy
-        gr_CreditoPendientes.DataSource = dt
-        gr_CreditoPendientes.RetrieveStructure()
-        gr_CreditoPendientes.AlternatingColors = True
+        grCreditoPagados.DataSource = dt
+        grCreditoPagados.RetrieveStructure()
+        grCreditoPagados.AlternatingColors = True
         'Credito Compra	NombreProveedor	Monto	Pagado		FechaVencimientoCredito	FechaUltimaPago
 
-        With gr_CreditoPendientes.RootTable.Columns("FechaUltimaPago")
+        With grCreditoPagados.RootTable.Columns("FechaUltimaPago")
             .Width = 110
             .Caption = "Ultimo Pago"
             .Visible = True
         End With
-        With gr_CreditoPendientes.RootTable.Columns("FechaVencimientoCredito")
+        With grCreditoPagados.RootTable.Columns("FechaVencimientoCredito")
             .Width = 110
             .Caption = "Venc. Credito"
             .Visible = True
         End With
 
-        With gr_CreditoPendientes.RootTable.Columns("Credito")
+        With grCreditoPagados.RootTable.Columns("Credito")
             .Width = 110
             .Visible = True
             .Caption = "Credito"
         End With
 
-        With gr_CreditoPendientes.RootTable.Columns("Compra")
+        With grCreditoPagados.RootTable.Columns("Compra")
             .Width = 110
             .Caption = "Compra"
             .Visible = True
         End With
-        With gr_CreditoPendientes.RootTable.Columns("NombreProveedor")
+        With grCreditoPagados.RootTable.Columns("NombreProveedor")
             .Width = 150
             .Caption = "Proveedor"
             .Visible = True
         End With
-        With gr_CreditoPendientes.RootTable.Columns("Monto")
+        With grCreditoPagados.RootTable.Columns("Monto")
             .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
@@ -62,7 +72,7 @@ Public Class Tec_AdministrarCuentasPorPagar
 
 
 
-        With gr_CreditoPendientes.RootTable.Columns("Pagado")
+        With grCreditoPagados.RootTable.Columns("Pagado")
             .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
@@ -72,7 +82,7 @@ Public Class Tec_AdministrarCuentasPorPagar
         End With
 
 
-        With gr_CreditoPendientes
+        With grCreditoPagados
             .GroupByBoxVisible = False
             'diseño de la grilla
             .VisualStyle = VisualStyle.Office2007
@@ -92,7 +102,6 @@ Public Class Tec_AdministrarCuentasPorPagar
 
         End With
 
-        _prAplicarCondiccionJanusCreditoPendientes()
     End Sub
 
 #End Region
@@ -268,6 +277,158 @@ Public Class Tec_AdministrarCuentasPorPagar
 
     Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles ButtonX2.Click
         P_GenerarReporteDeudasPagadas()
+    End Sub
+
+    Private Sub tbNombreProveedor_KeyDown(sender As Object, e As KeyEventArgs) Handles tbDeuda.KeyDown
+        If (e.KeyData = Keys.Control + Keys.Enter) Then
+            Dim dt As DataTable
+
+            dt = L_prListarPagosPendientesFiltros()
+
+            'Credito Compra	Nombre	Monto	abonado	Restante	FechaVencimientoCredito	DiasMora
+
+            Dim listEstCeldas As New List(Of Celda)
+            listEstCeldas.Add(New Celda("Id", False, "Credito", 50))
+            listEstCeldas.Add(New Celda("Credito", True, "Credito", 90))
+            listEstCeldas.Add(New Celda("Compra", True, "Compra", 90))
+            listEstCeldas.Add(New Celda("Nombre", True, "Proveedor", 350))
+            listEstCeldas.Add(New Celda("Monto", True, "Monto", 90, "0.00"))
+            listEstCeldas.Add(New Celda("abonado", True, "Abonado", 90, "0.00"))
+            listEstCeldas.Add(New Celda("Restante", True, "Restante", 90, "0.00"))
+            listEstCeldas.Add(New Celda("FechaVencimientoCredito", True, "Venc.Credito".ToUpper, 100, "dd/MM/yyyy"))
+            listEstCeldas.Add(New Celda("DiasMora", True, "Mora".ToUpper, 70, "0"))
+            Dim ef = New Efecto
+            ef.tipo = 6
+            ef.dt = dt
+            ef.SeleclCol = 2
+            ef.listEstCeldasNew = listEstCeldas
+            ef.alto = 90
+            ef.ancho = 900
+            ef.Context = "Seleccione Cuenta Por Pagar".ToUpper
+            ef.ShowDialog()
+            Dim bandera As Boolean = False
+            bandera = ef.band
+            If (bandera = True) Then
+                Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+                IdCredito = Row.Cells("Id").Value
+                tbDeuda.Text = Row.Cells("Compra").Value.ToString + " a Proveedor : " + Row.Cells("Nombre").Value.ToString
+                tbGlosa.Focus()
+                tbMonto.Value = Row.Cells("Monto").Value
+                tbSaldo.Value = Row.Cells("Restante").Value
+                tbGlosa.Focus()
+            End If
+        End If
+    End Sub
+
+    Private Sub TextBoxX1_KeyDown(sender As Object, e As KeyEventArgs) Handles tbPersonal.KeyDown
+        If (e.KeyData = Keys.Control + Keys.Enter) Then
+            Dim dt As DataTable
+
+            dt = ListarProveedores()
+            'a.Id ,a.NombreProveedor ,a.Direccion ,a.Telefono01
+
+            Dim listEstCeldas As New List(Of Celda)
+            listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
+            listEstCeldas.Add(New Celda("Nombre", True, "NOMBRE", 350))
+            listEstCeldas.Add(New Celda("Direccion", True, "DIRECCION", 180))
+            listEstCeldas.Add(New Celda("Telefono01", True, "Telefono".ToUpper, 200))
+            Dim ef = New Efecto
+            ef.tipo = 6
+            ef.dt = dt
+            ef.SeleclCol = 2
+            ef.listEstCeldasNew = listEstCeldas
+            ef.alto = 50
+            ef.ancho = 350
+            ef.Context = "Seleccione Proveedor".ToUpper
+            ef.ShowDialog()
+            Dim bandera As Boolean = False
+            bandera = ef.band
+            If (bandera = True) Then
+                Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+                IdPersonal = Row.Cells("Id").Value
+                tbPersonal.Text = Row.Cells("Nombre").Value
+                tbGlosa.Focus()
+
+            End If
+        End If
+    End Sub
+
+    Private Sub btnProveedor_Click(sender As Object, e As EventArgs) Handles btnProveedor.Click
+        Dim dt As DataTable
+
+        dt = ListarProveedores()
+        'a.Id ,a.NombreProveedor ,a.Direccion ,a.Telefono01
+
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
+        listEstCeldas.Add(New Celda("Nombre", True, "NOMBRE", 350))
+        listEstCeldas.Add(New Celda("Direccion", True, "DIRECCION", 180))
+        listEstCeldas.Add(New Celda("Telefono01", True, "Telefono".ToUpper, 200))
+        Dim ef = New Efecto
+        ef.tipo = 6
+        ef.dt = dt
+        ef.SeleclCol = 2
+        ef.listEstCeldasNew = listEstCeldas
+        ef.alto = 50
+        ef.ancho = 350
+        ef.Context = "Seleccione Proveedor".ToUpper
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+            IdPersonal = Row.Cells("Id").Value
+            tbPersonal.Text = Row.Cells("Nombre").Value
+            tbGlosa.Focus()
+
+        End If
+    End Sub
+
+    Private Sub ButtonX3_Click(sender As Object, e As EventArgs) Handles ButtonX3.Click
+        Dim dt As DataTable
+
+        dt = L_prListarPagosPendientesFiltros()
+
+        'Credito Compra	Nombre	Monto	abonado	Restante	FechaVencimientoCredito	DiasMora
+
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("Id", False, "Credito", 50))
+        listEstCeldas.Add(New Celda("Credito", True, "Credito", 90))
+        listEstCeldas.Add(New Celda("Compra", True, "Compra", 90))
+        listEstCeldas.Add(New Celda("Nombre", True, "Proveedor", 350))
+        listEstCeldas.Add(New Celda("Monto", True, "Monto", 90, "0.00"))
+        listEstCeldas.Add(New Celda("abonado", True, "Abonado", 90, "0.00"))
+        listEstCeldas.Add(New Celda("Restante", True, "Restante", 90, "0.00"))
+        listEstCeldas.Add(New Celda("FechaVencimientoCredito", True, "Venc.Credito".ToUpper, 100, "dd/MM/yyyy"))
+        listEstCeldas.Add(New Celda("DiasMora", True, "Mora".ToUpper, 70, "0"))
+        Dim ef = New Efecto
+        ef.tipo = 6
+        ef.dt = dt
+        ef.SeleclCol = 2
+        ef.listEstCeldasNew = listEstCeldas
+        ef.alto = 90
+        ef.ancho = 800
+        ef.Context = "Seleccione Cuenta Por Pagar".ToUpper
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+            IdCredito = Row.Cells("Id").Value
+            tbDeuda.Text = Row.Cells("Compra").Value.ToString + " a Proveedor : " + Row.Cells("Nombre").Value.ToString
+            tbGlosa.Focus()
+            tbMonto.Value = Row.Cells("Monto").Value
+            tbSaldo.Value = Row.Cells("Restante").Value
+            tbGlosa.Focus()
+        End If
+    End Sub
+
+    Private Sub tab03_Click(sender As Object, e As EventArgs) Handles tab03.Click
+        tbDeuda.Focus()
     End Sub
 #End Region
 

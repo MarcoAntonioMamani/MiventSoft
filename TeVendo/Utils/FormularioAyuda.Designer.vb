@@ -23,6 +23,7 @@ Partial Class FormularioAyuda
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.Panel17 = New System.Windows.Forms.Panel()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.grJBuscador = New Janus.Windows.GridEX.GridEX()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.lbNombreProductos = New DevComponents.DotNetBar.LabelX()
@@ -32,14 +33,13 @@ Partial Class FormularioAyuda
         Me.lbTitulo = New System.Windows.Forms.Label()
         Me.Panel16 = New System.Windows.Forms.Panel()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
-        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel17.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         CType(Me.grJBuscador, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel4.SuspendLayout()
         Me.Panel14.SuspendLayout()
         Me.Panel15.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel17
@@ -53,6 +53,15 @@ Partial Class FormularioAyuda
         Me.Panel17.Padding = New System.Windows.Forms.Padding(5)
         Me.Panel17.Size = New System.Drawing.Size(844, 506)
         Me.Panel17.TabIndex = 0
+        '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.grJBuscador)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel1.Location = New System.Drawing.Point(5, 105)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(834, 396)
+        Me.Panel1.TabIndex = 2
         '
         'grJBuscador
         '
@@ -183,12 +192,12 @@ Partial Class FormularioAyuda
         '
         Me.lbTitulo.BackColor = System.Drawing.Color.Transparent
         Me.lbTitulo.Dock = System.Windows.Forms.DockStyle.Left
-        Me.lbTitulo.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbTitulo.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbTitulo.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
         Me.lbTitulo.Location = New System.Drawing.Point(59, 0)
         Me.lbTitulo.Name = "lbTitulo"
         Me.lbTitulo.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
-        Me.lbTitulo.Size = New System.Drawing.Size(254, 34)
+        Me.lbTitulo.Size = New System.Drawing.Size(625, 34)
         Me.lbTitulo.TabIndex = 10
         Me.lbTitulo.Text = "LISTADO DE MOVIMIENTOS"
         Me.lbTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -215,15 +224,6 @@ Partial Class FormularioAyuda
         Me.PictureBox4.TabIndex = 0
         Me.PictureBox4.TabStop = False
         '
-        'Panel1
-        '
-        Me.Panel1.Controls.Add(Me.grJBuscador)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(5, 105)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(834, 396)
-        Me.Panel1.TabIndex = 2
-        '
         'FormularioAyuda
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -235,13 +235,13 @@ Partial Class FormularioAyuda
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FormularioAyuda"
         Me.Panel17.ResumeLayout(False)
+        Me.Panel1.ResumeLayout(False)
         CType(Me.grJBuscador, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
         Me.Panel14.ResumeLayout(False)
         Me.Panel15.ResumeLayout(False)
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub

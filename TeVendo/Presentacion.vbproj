@@ -867,6 +867,7 @@
     <Content Include="Resources\atras1.png" />
     <None Include="Resources\back-1.png" />
     <None Include="Resources\camera.png" />
+    <None Include="Resources\caja.png" />
     <Content Include="Resources\check-mark.png" />
     <None Include="Resources\cobro.png" />
     <None Include="Resources\creditopagos.png" />
