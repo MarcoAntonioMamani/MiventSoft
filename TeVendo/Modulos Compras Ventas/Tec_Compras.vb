@@ -1018,7 +1018,7 @@ salirIf:
         End If
     End Sub
 
-    Private Sub cbConcepto_ValueChanged(sender As Object, e As EventArgs) Handles cbSucursal.ValueChanged
+    Private Sub cbConcepto_ValueChanged(sender As Object, e As EventArgs)
 
 
 
@@ -1049,8 +1049,8 @@ salirIf:
 
         cbSucursal.ReadOnly = False
         swTipoVenta.IsReadOnly = False
-        tbFechaVencimientoCredito.IsInputReadOnly = False
-        tbFechaTransaccion.IsInputReadOnly = False
+        tbFechaVencimientoCredito.ReadOnly = False
+        tbFechaTransaccion.ReadOnly = False
         _HabilitarProductos()
 
         tbMdesc.IsInputReadOnly = False
@@ -1067,8 +1067,8 @@ salirIf:
 
         cbSucursal.ReadOnly = True
         swTipoVenta.IsReadOnly = True
-        tbFechaVencimientoCredito.IsInputReadOnly = True
-        tbFechaTransaccion.IsInputReadOnly = True
+        tbFechaVencimientoCredito.ReadOnly = True
+        tbFechaTransaccion.ReadOnly = True
         tbTotal.IsInputReadOnly = True
         tbMdesc.IsInputReadOnly = True
         tbPdesc.IsInputReadOnly = True
@@ -1603,8 +1603,10 @@ salirIf:
 
     Private Sub swTipoVenta_ValueChanged(sender As Object, e As EventArgs) Handles swTipoVenta.ValueChanged
         If (swTipoVenta.Value = True) Then
+            lbFechaVencimientoCredito.Visible = False
             tbFechaVencimientoCredito.Visible = False
         Else
+            lbFechaVencimientoCredito.Visible = True
             tbFechaVencimientoCredito.Visible = True
 
         End If

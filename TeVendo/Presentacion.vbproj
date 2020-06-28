@@ -813,6 +813,7 @@
     <None Include="Resources\trash.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\modulocompra.png" />
     <None Include="Resources\ventas.png" />
     <None Include="Resources\movimientos.png" />
     <None Include="Resources\shopping03.png" />
@@ -854,6 +855,7 @@
     <None Include="Resources\delete.png" />
     <None Include="Resources\compra.png" />
     <None Include="Resources\checked.png" />
+    <None Include="Resources\credito.png" />
     <Content Include="Resources\dinases.png" />
     <None Include="Resources\MapaClientes.png" />
     <None Include="Resources\ventasCostos.png" />
