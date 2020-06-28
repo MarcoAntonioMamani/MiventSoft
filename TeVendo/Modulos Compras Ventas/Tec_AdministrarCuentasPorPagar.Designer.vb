@@ -33,15 +33,16 @@ Partial Class Tec_AdministrarCuentasPorPagar
         Me.btZona = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btZonaMapaCliente = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.SuperTabControlMenu = New DevComponents.DotNetBar.SuperTabControl()
+        Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
+        Me.Panel17 = New System.Windows.Forms.Panel()
+        Me.gr_CreditoPendientes = New Janus.Windows.GridEX.GridEX()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
+        Me.tab_configuraciones = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel6 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.tab03 = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel5 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.tab_compraventa = New DevComponents.DotNetBar.SuperTabItem()
-        Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
-        Me.Panel17 = New System.Windows.Forms.Panel()
-        Me.JGrM_Buscador = New Janus.Windows.GridEX.GridEX()
-        Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.tab_configuraciones = New DevComponents.DotNetBar.SuperTabItem()
         Me.MetroTileItem1 = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.MetroTileItem2 = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.MetroTileItem3 = New DevComponents.DotNetBar.Metro.MetroTileItem()
@@ -59,7 +60,8 @@ Partial Class Tec_AdministrarCuentasPorPagar
         Me.SuperTabControlMenu.SuspendLayout()
         Me.SuperTabControlPanel3.SuspendLayout()
         Me.Panel17.SuspendLayout()
-        CType(Me.JGrM_Buscador, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.gr_CreditoPendientes, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel4.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Title.SuspendLayout()
@@ -229,7 +231,7 @@ Partial Class Tec_AdministrarCuentasPorPagar
         '
         'SuperTabControlMenu
         '
-        Me.SuperTabControlMenu.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.SuperTabControlMenu.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
         '
         '
         '
@@ -253,16 +255,133 @@ Partial Class Tec_AdministrarCuentasPorPagar
         Me.SuperTabControlMenu.Name = "SuperTabControlMenu"
         Me.SuperTabControlMenu.ReorderTabsEnabled = True
         Me.SuperTabControlMenu.SelectedTabFont = New System.Drawing.Font("Calibri", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SuperTabControlMenu.SelectedTabIndex = 1
+        Me.SuperTabControlMenu.SelectedTabIndex = 0
         Me.SuperTabControlMenu.Size = New System.Drawing.Size(1064, 503)
         Me.SuperTabControlMenu.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SuperTabControlMenu.TabIndex = 1
+        Me.SuperTabControlMenu.TabIndex = 0
+        Me.SuperTabControlMenu.TabLayoutType = DevComponents.DotNetBar.eSuperTabLayoutType.MultiLineFit
         Me.SuperTabControlMenu.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.tab_configuraciones, Me.tab_compraventa, Me.tab03})
-        SuperTabLinearGradientColorTable1.Colors = New System.Drawing.Color() {System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))}
+        SuperTabLinearGradientColorTable1.Colors = New System.Drawing.Color() {System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))}
         SuperTabColorTable1.Background = SuperTabLinearGradientColorTable1
         Me.SuperTabControlMenu.TabStripColor = SuperTabColorTable1
         Me.SuperTabControlMenu.TabStyle = DevComponents.DotNetBar.eSuperTabStyle.Office2010BackstageBlue
         Me.SuperTabControlMenu.Text = "SuperTabControl1"
+        '
+        'SuperTabControlPanel3
+        '
+        Me.SuperTabControlPanel3.Controls.Add(Me.Panel17)
+        Me.SuperTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SuperTabControlPanel3.Location = New System.Drawing.Point(0, 58)
+        Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
+        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(1064, 445)
+        Me.SuperTabControlPanel3.TabIndex = 3
+        Me.SuperTabControlPanel3.TabItem = Me.tab_configuraciones
+        '
+        'Panel17
+        '
+        Me.Panel17.Controls.Add(Me.gr_CreditoPendientes)
+        Me.Panel17.Controls.Add(Me.Panel4)
+        Me.Panel17.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel17.Location = New System.Drawing.Point(0, 0)
+        Me.Panel17.Name = "Panel17"
+        Me.Panel17.Padding = New System.Windows.Forms.Padding(5)
+        Me.Panel17.Size = New System.Drawing.Size(1064, 445)
+        Me.Panel17.TabIndex = 5
+        '
+        'gr_CreditoPendientes
+        '
+        Me.gr_CreditoPendientes.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
+        Me.gr_CreditoPendientes.AlternatingColors = True
+        Me.gr_CreditoPendientes.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.gr_CreditoPendientes.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
+        Me.gr_CreditoPendientes.ColumnAutoResize = True
+        Me.gr_CreditoPendientes.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.gr_CreditoPendientes.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None
+        Me.gr_CreditoPendientes.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
+        Me.gr_CreditoPendientes.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gr_CreditoPendientes.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.gr_CreditoPendientes.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.gr_CreditoPendientes.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
+        Me.gr_CreditoPendientes.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gr_CreditoPendientes.GridLines = Janus.Windows.GridEX.GridLines.None
+        Me.gr_CreditoPendientes.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
+        Me.gr_CreditoPendientes.HeaderFormatStyle.Alpha = 0
+        Me.gr_CreditoPendientes.HeaderFormatStyle.Appearance = Janus.Windows.GridEX.Appearance.Flat
+        Me.gr_CreditoPendientes.HeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
+        Me.gr_CreditoPendientes.HeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
+        Me.gr_CreditoPendientes.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
+        Me.gr_CreditoPendientes.HeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
+        Me.gr_CreditoPendientes.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gr_CreditoPendientes.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
+        Me.gr_CreditoPendientes.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
+        Me.gr_CreditoPendientes.Location = New System.Drawing.Point(5, 66)
+        Me.gr_CreditoPendientes.Margin = New System.Windows.Forms.Padding(4)
+        Me.gr_CreditoPendientes.Name = "gr_CreditoPendientes"
+        Me.gr_CreditoPendientes.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.gr_CreditoPendientes.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.gr_CreditoPendientes.RecordNavigator = True
+        Me.gr_CreditoPendientes.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gr_CreditoPendientes.RowHeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
+        Me.gr_CreditoPendientes.RowHeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.Transparent
+        Me.gr_CreditoPendientes.RowHeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
+        Me.gr_CreditoPendientes.RowHeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
+        Me.gr_CreditoPendientes.RowHeaderFormatStyle.BackgroundImageDrawMode = Janus.Windows.GridEX.BackgroundImageDrawMode.Center
+        Me.gr_CreditoPendientes.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gr_CreditoPendientes.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.gr_CreditoPendientes.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
+        Me.gr_CreditoPendientes.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gr_CreditoPendientes.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
+        Me.gr_CreditoPendientes.Size = New System.Drawing.Size(1054, 374)
+        Me.gr_CreditoPendientes.TabIndex = 2
+        Me.gr_CreditoPendientes.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
+        Me.gr_CreditoPendientes.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.gr_CreditoPendientes.TableSpacing = 9
+        Me.gr_CreditoPendientes.TreeLineColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.gr_CreditoPendientes.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.gr_CreditoPendientes.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.gr_CreditoPendientes.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.VS2005
+        '
+        'Panel4
+        '
+        Me.Panel4.BackColor = System.Drawing.Color.White
+        Me.Panel4.Controls.Add(Me.ButtonX1)
+        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel4.Location = New System.Drawing.Point(5, 5)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(1054, 61)
+        Me.Panel4.TabIndex = 4
+        '
+        'ButtonX1
+        '
+        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX1.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.ButtonX1.DisabledImagesGrayScale = False
+        Me.ButtonX1.Dock = System.Windows.Forms.DockStyle.Right
+        Me.ButtonX1.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX1.Image = Global.TeVendo.My.Resources.Resources.printee
+        Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.ButtonX1.Location = New System.Drawing.Point(827, 0)
+        Me.ButtonX1.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX1.Name = "ButtonX1"
+        Me.ButtonX1.Size = New System.Drawing.Size(227, 61)
+        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX1.TabIndex = 2
+        Me.ButtonX1.Text = "Imprimir Reporte"
+        Me.ButtonX1.TextColor = System.Drawing.Color.White
+        '
+        'tab_configuraciones
+        '
+        Me.tab_configuraciones.AttachedControl = Me.SuperTabControlPanel3
+        Me.tab_configuraciones.GlobalItem = False
+        Me.tab_configuraciones.Image = Global.TeVendo.My.Resources.Resources.creditopagados
+        Me.tab_configuraciones.Name = "tab_configuraciones"
+        Me.tab_configuraciones.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Teal
+        Me.tab_configuraciones.SelectedTabFont = New System.Drawing.Font("Calibri", 12.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tab_configuraciones.SymbolColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tab_configuraciones.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tab_configuraciones.Text = "Creditos Pendientes"
+        Me.tab_configuraciones.TextAlignment = DevComponents.DotNetBar.eItemAlignment.Near
         '
         'SuperTabControlPanel6
         '
@@ -280,7 +399,7 @@ Partial Class Tec_AdministrarCuentasPorPagar
         Me.tab03.Image = Global.TeVendo.My.Resources.Resources.pagos
         Me.tab03.Name = "tab03"
         Me.tab03.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Teal
-        Me.tab03.SelectedTabFont = New System.Drawing.Font("Calibri", 10.2!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tab03.SelectedTabFont = New System.Drawing.Font("Calibri", 12.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tab03.SymbolColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tab03.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tab03.Text = "Pagar Credito"
@@ -302,107 +421,11 @@ Partial Class Tec_AdministrarCuentasPorPagar
         Me.tab_compraventa.Image = Global.TeVendo.My.Resources.Resources.creditospagados
         Me.tab_compraventa.Name = "tab_compraventa"
         Me.tab_compraventa.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Teal
-        Me.tab_compraventa.SelectedTabFont = New System.Drawing.Font("Calibri", 10.2!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tab_compraventa.SelectedTabFont = New System.Drawing.Font("Calibri", 12.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tab_compraventa.SymbolColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tab_compraventa.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tab_compraventa.Text = "Creditos Pagados"
         Me.tab_compraventa.TextAlignment = DevComponents.DotNetBar.eItemAlignment.Near
-        '
-        'SuperTabControlPanel3
-        '
-        Me.SuperTabControlPanel3.Controls.Add(Me.Panel17)
-        Me.SuperTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel3.Location = New System.Drawing.Point(0, 58)
-        Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
-        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(1064, 445)
-        Me.SuperTabControlPanel3.TabIndex = 3
-        Me.SuperTabControlPanel3.TabItem = Me.tab_configuraciones
-        '
-        'Panel17
-        '
-        Me.Panel17.Controls.Add(Me.JGrM_Buscador)
-        Me.Panel17.Controls.Add(Me.Panel4)
-        Me.Panel17.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel17.Location = New System.Drawing.Point(0, 0)
-        Me.Panel17.Name = "Panel17"
-        Me.Panel17.Padding = New System.Windows.Forms.Padding(5)
-        Me.Panel17.Size = New System.Drawing.Size(1064, 445)
-        Me.Panel17.TabIndex = 5
-        '
-        'JGrM_Buscador
-        '
-        Me.JGrM_Buscador.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
-        Me.JGrM_Buscador.AlternatingColors = True
-        Me.JGrM_Buscador.BackColor = System.Drawing.Color.White
-        Me.JGrM_Buscador.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
-        Me.JGrM_Buscador.ColumnAutoResize = True
-        Me.JGrM_Buscador.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.JGrM_Buscador.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None
-        Me.JGrM_Buscador.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
-        Me.JGrM_Buscador.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.JGrM_Buscador.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.JGrM_Buscador.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.JGrM_Buscador.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
-        Me.JGrM_Buscador.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.JGrM_Buscador.GridLines = Janus.Windows.GridEX.GridLines.None
-        Me.JGrM_Buscador.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
-        Me.JGrM_Buscador.HeaderFormatStyle.Alpha = 0
-        Me.JGrM_Buscador.HeaderFormatStyle.Appearance = Janus.Windows.GridEX.Appearance.Flat
-        Me.JGrM_Buscador.HeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
-        Me.JGrM_Buscador.HeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
-        Me.JGrM_Buscador.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
-        Me.JGrM_Buscador.HeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
-        Me.JGrM_Buscador.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.JGrM_Buscador.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
-        Me.JGrM_Buscador.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
-        Me.JGrM_Buscador.Location = New System.Drawing.Point(5, 62)
-        Me.JGrM_Buscador.Margin = New System.Windows.Forms.Padding(4)
-        Me.JGrM_Buscador.Name = "JGrM_Buscador"
-        Me.JGrM_Buscador.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.JGrM_Buscador.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.JGrM_Buscador.RecordNavigator = True
-        Me.JGrM_Buscador.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.JGrM_Buscador.RowHeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
-        Me.JGrM_Buscador.RowHeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.Transparent
-        Me.JGrM_Buscador.RowHeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
-        Me.JGrM_Buscador.RowHeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
-        Me.JGrM_Buscador.RowHeaderFormatStyle.BackgroundImageDrawMode = Janus.Windows.GridEX.BackgroundImageDrawMode.Center
-        Me.JGrM_Buscador.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.JGrM_Buscador.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
-        Me.JGrM_Buscador.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
-        Me.JGrM_Buscador.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.JGrM_Buscador.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.JGrM_Buscador.Size = New System.Drawing.Size(1054, 378)
-        Me.JGrM_Buscador.TabIndex = 2
-        Me.JGrM_Buscador.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
-        Me.JGrM_Buscador.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.JGrM_Buscador.TableSpacing = 9
-        Me.JGrM_Buscador.TreeLineColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.JGrM_Buscador.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        Me.JGrM_Buscador.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        Me.JGrM_Buscador.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.VS2005
-        '
-        'Panel4
-        '
-        Me.Panel4.BackColor = System.Drawing.Color.White
-        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel4.Location = New System.Drawing.Point(5, 5)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(1054, 57)
-        Me.Panel4.TabIndex = 4
-        '
-        'tab_configuraciones
-        '
-        Me.tab_configuraciones.AttachedControl = Me.SuperTabControlPanel3
-        Me.tab_configuraciones.GlobalItem = False
-        Me.tab_configuraciones.Image = Global.TeVendo.My.Resources.Resources.creditopagados
-        Me.tab_configuraciones.Name = "tab_configuraciones"
-        Me.tab_configuraciones.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Teal
-        Me.tab_configuraciones.SelectedTabFont = New System.Drawing.Font("Calibri", 10.2!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tab_configuraciones.SymbolColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tab_configuraciones.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tab_configuraciones.Text = "Creditos Pendientes"
-        Me.tab_configuraciones.TextAlignment = DevComponents.DotNetBar.eItemAlignment.Near
         '
         'MetroTileItem1
         '
@@ -644,7 +667,8 @@ Partial Class Tec_AdministrarCuentasPorPagar
         Me.SuperTabControlMenu.ResumeLayout(False)
         Me.SuperTabControlPanel3.ResumeLayout(False)
         Me.Panel17.ResumeLayout(False)
-        CType(Me.JGrM_Buscador, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.gr_CreditoPendientes, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel4.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Title.ResumeLayout(False)
@@ -681,6 +705,7 @@ Partial Class Tec_AdministrarCuentasPorPagar
     Friend WithEvents Panel3 As Panel
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents Panel17 As Panel
-    Friend WithEvents JGrM_Buscador As Janus.Windows.GridEX.GridEX
+    Friend WithEvents gr_CreditoPendientes As Janus.Windows.GridEX.GridEX
     Friend WithEvents Panel4 As Panel
+    Protected WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
 End Class

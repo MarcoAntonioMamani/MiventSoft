@@ -54,6 +54,9 @@ Partial Class Tec_Compras
         Me.Panel18 = New System.Windows.Forms.Panel()
         Me.grProducto = New Janus.Windows.GridEX.GridEX()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.cbSucursal = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.tbFechaVencimientoCredito = New Janus.Windows.CalendarCombo.CalendarCombo()
+        Me.tbFechaTransaccion = New Janus.Windows.CalendarCombo.CalendarCombo()
         Me.btnProveedor = New DevComponents.DotNetBar.ButtonX()
         Me.lbNombreProductos = New DevComponents.DotNetBar.LabelX()
         Me.tbNombreProducto = New DevComponents.DotNetBar.Controls.TextBoxX()
@@ -103,9 +106,6 @@ Partial Class Tec_Compras
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
-        Me.tbFechaTransaccion = New Janus.Windows.CalendarCombo.CalendarCombo()
-        Me.tbFechaVencimientoCredito = New Janus.Windows.CalendarCombo.CalendarCombo()
-        Me.cbSucursal = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -131,6 +131,7 @@ Partial Class Tec_Compras
         Me.Panel18.SuspendLayout()
         CType(Me.grProducto, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel3.SuspendLayout()
+        CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel10.SuspendLayout()
         Me.Panel11.SuspendLayout()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -147,7 +148,6 @@ Partial Class Tec_Compras
         Me.Panel15.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TabControlPrincipal
@@ -165,8 +165,8 @@ Partial Class Tec_Compras
         Me.TabControlPrincipal.ControlBox.MenuBox.Name = ""
         Me.TabControlPrincipal.ControlBox.Name = ""
         Me.TabControlPrincipal.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.TabControlPrincipal.ControlBox.MenuBox, Me.TabControlPrincipal.ControlBox.CloseBox})
-        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel1)
         Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel2)
+        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel1)
         Me.TabControlPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControlPrincipal.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.Location = New System.Drawing.Point(0, 0)
@@ -174,7 +174,7 @@ Partial Class Tec_Compras
         Me.TabControlPrincipal.ReorderTabsEnabled = True
         Me.TabControlPrincipal.SelectedTabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.SelectedTabIndex = 1
-        Me.TabControlPrincipal.Size = New System.Drawing.Size(1494, 710)
+        Me.TabControlPrincipal.Size = New System.Drawing.Size(1494, 732)
         Me.TabControlPrincipal.TabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Bottom
         Me.TabControlPrincipal.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.TabIndex = 2
@@ -190,7 +190,7 @@ Partial Class Tec_Compras
         Me.SuperTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
-        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1494, 679)
+        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1494, 701)
         Me.SuperTabControlPanel1.TabIndex = 1
         Me.SuperTabControlPanel1.TabItem = Me.SuperTabItem1
         '
@@ -201,7 +201,7 @@ Partial Class Tec_Compras
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1494, 679)
+        Me.Panel1.Size = New System.Drawing.Size(1494, 701)
         Me.Panel1.TabIndex = 0
         '
         'PanelSuperior
@@ -211,7 +211,7 @@ Partial Class Tec_Compras
         Me.PanelSuperior.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelSuperior.Location = New System.Drawing.Point(0, 0)
         Me.PanelSuperior.Name = "PanelSuperior"
-        Me.PanelSuperior.Size = New System.Drawing.Size(1494, 628)
+        Me.PanelSuperior.Size = New System.Drawing.Size(1494, 650)
         Me.PanelSuperior.TabIndex = 1
         '
         'PanelRight
@@ -220,7 +220,7 @@ Partial Class Tec_Compras
         Me.PanelRight.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelRight.Location = New System.Drawing.Point(0, 269)
         Me.PanelRight.Name = "PanelRight"
-        Me.PanelRight.Size = New System.Drawing.Size(1494, 359)
+        Me.PanelRight.Size = New System.Drawing.Size(1494, 381)
         Me.PanelRight.TabIndex = 1
         '
         'Panel2
@@ -232,7 +232,7 @@ Partial Class Tec_Compras
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel2.Size = New System.Drawing.Size(1494, 359)
+        Me.Panel2.Size = New System.Drawing.Size(1494, 381)
         Me.Panel2.TabIndex = 1
         '
         'PanelImagenes
@@ -242,7 +242,7 @@ Partial Class Tec_Compras
         Me.PanelImagenes.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelImagenes.Location = New System.Drawing.Point(3, 30)
         Me.PanelImagenes.Name = "PanelImagenes"
-        Me.PanelImagenes.Size = New System.Drawing.Size(1488, 326)
+        Me.PanelImagenes.Size = New System.Drawing.Size(1488, 348)
         Me.PanelImagenes.TabIndex = 2
         '
         'PanelVerImagen
@@ -254,7 +254,7 @@ Partial Class Tec_Compras
         Me.PanelVerImagen.Location = New System.Drawing.Point(0, 0)
         Me.PanelVerImagen.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelVerImagen.Name = "PanelVerImagen"
-        Me.PanelVerImagen.Size = New System.Drawing.Size(1488, 326)
+        Me.PanelVerImagen.Size = New System.Drawing.Size(1488, 348)
         Me.PanelVerImagen.TabIndex = 2
         '
         'grDetalle
@@ -298,7 +298,7 @@ Partial Class Tec_Compras
         Me.grDetalle.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.grDetalle.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grDetalle.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grDetalle.Size = New System.Drawing.Size(1279, 326)
+        Me.grDetalle.Size = New System.Drawing.Size(1279, 348)
         Me.grDetalle.TabIndex = 0
         Me.grDetalle.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grDetalle.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -317,7 +317,7 @@ Partial Class Tec_Compras
         Me.PanelTotal.Location = New System.Drawing.Point(1279, 0)
         Me.PanelTotal.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelTotal.Name = "PanelTotal"
-        Me.PanelTotal.Size = New System.Drawing.Size(209, 326)
+        Me.PanelTotal.Size = New System.Drawing.Size(209, 348)
         Me.PanelTotal.TabIndex = 4
         '
         'Panel13
@@ -334,7 +334,7 @@ Partial Class Tec_Compras
         Me.Panel13.Location = New System.Drawing.Point(0, 0)
         Me.Panel13.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(209, 326)
+        Me.Panel13.Size = New System.Drawing.Size(209, 348)
         Me.Panel13.TabIndex = 39
         '
         'LabelX10
@@ -696,6 +696,103 @@ Partial Class Tec_Compras
         Me.Panel3.Size = New System.Drawing.Size(750, 236)
         Me.Panel3.TabIndex = 49
         '
+        'cbSucursal
+        '
+        Me.cbSucursal.BackColor = System.Drawing.Color.Azure
+        Me.cbSucursal.ColorScheme = ""
+        Me.cbSucursal.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.cbSucursal.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
+        Me.cbSucursal.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        cbSucursal_DesignTimeLayout.LayoutString = resources.GetString("cbSucursal_DesignTimeLayout.LayoutString")
+        Me.cbSucursal.DesignTimeLayout = cbSucursal_DesignTimeLayout
+        Me.cbSucursal.FlatBorderColor = System.Drawing.Color.Black
+        Me.cbSucursal.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbSucursal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbSucursal.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cbSucursal.Location = New System.Drawing.Point(513, 18)
+        Me.cbSucursal.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbSucursal.Name = "cbSucursal"
+        Me.cbSucursal.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbSucursal.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
+        Me.cbSucursal.SelectedIndex = -1
+        Me.cbSucursal.SelectedItem = Nothing
+        Me.cbSucursal.Size = New System.Drawing.Size(219, 28)
+        Me.cbSucursal.TabIndex = 2
+        Me.cbSucursal.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'tbFechaVencimientoCredito
+        '
+        Me.tbFechaVencimientoCredito.BackColor = System.Drawing.Color.White
+        Me.tbFechaVencimientoCredito.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.Flat
+        '
+        '
+        '
+        Me.tbFechaVencimientoCredito.DropDownCalendar.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.None
+        Me.tbFechaVencimientoCredito.DropDownCalendar.DayOfWeekAbbreviation = Janus.Windows.CalendarCombo.DayOfWeekAbbreviation.UseAbbreviatedName
+        Me.tbFechaVencimientoCredito.DropDownCalendar.DaysFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.tbFechaVencimientoCredito.DropDownCalendar.DaysFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.tbFechaVencimientoCredito.DropDownCalendar.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFechaVencimientoCredito.DropDownCalendar.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.tbFechaVencimientoCredito.DropDownCalendar.HeaderAppearance = Janus.Windows.CalendarCombo.ButtonAppearance.PopUp
+        Me.tbFechaVencimientoCredito.DropDownCalendar.HeaderFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.tbFechaVencimientoCredito.DropDownCalendar.HeaderFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.tbFechaVencimientoCredito.DropDownCalendar.Name = ""
+        Me.tbFechaVencimientoCredito.DropDownCalendar.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.tbFechaVencimientoCredito.DropDownCalendar.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.tbFechaVencimientoCredito.DropDownCalendar.TodayRectColor = System.Drawing.Color.DarkCyan
+        Me.tbFechaVencimientoCredito.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.tbFechaVencimientoCredito.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
+        Me.tbFechaVencimientoCredito.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFechaVencimientoCredito.Location = New System.Drawing.Point(513, 116)
+        Me.tbFechaVencimientoCredito.Name = "tbFechaVencimientoCredito"
+        Me.tbFechaVencimientoCredito.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.tbFechaVencimientoCredito.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.tbFechaVencimientoCredito.SecondIncrement = 10
+        Me.tbFechaVencimientoCredito.Size = New System.Drawing.Size(200, 28)
+        Me.tbFechaVencimientoCredito.TabIndex = 5
+        Me.tbFechaVencimientoCredito.TodayButtonText = "Hoy"
+        Me.tbFechaVencimientoCredito.UseCompatibleTextRendering = False
+        Me.tbFechaVencimientoCredito.Value = New Date(2020, 6, 21, 0, 0, 0, 0)
+        Me.tbFechaVencimientoCredito.Visible = False
+        Me.tbFechaVencimientoCredito.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.tbFechaVencimientoCredito.YearIncrement = 10
+        '
+        'tbFechaTransaccion
+        '
+        Me.tbFechaTransaccion.BackColor = System.Drawing.Color.White
+        Me.tbFechaTransaccion.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.Flat
+        '
+        '
+        '
+        Me.tbFechaTransaccion.DropDownCalendar.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.None
+        Me.tbFechaTransaccion.DropDownCalendar.DayOfWeekAbbreviation = Janus.Windows.CalendarCombo.DayOfWeekAbbreviation.UseAbbreviatedName
+        Me.tbFechaTransaccion.DropDownCalendar.DaysFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.tbFechaTransaccion.DropDownCalendar.DaysFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.tbFechaTransaccion.DropDownCalendar.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFechaTransaccion.DropDownCalendar.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.tbFechaTransaccion.DropDownCalendar.HeaderAppearance = Janus.Windows.CalendarCombo.ButtonAppearance.PopUp
+        Me.tbFechaTransaccion.DropDownCalendar.HeaderFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.tbFechaTransaccion.DropDownCalendar.HeaderFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.tbFechaTransaccion.DropDownCalendar.Name = ""
+        Me.tbFechaTransaccion.DropDownCalendar.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.tbFechaTransaccion.DropDownCalendar.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.tbFechaTransaccion.DropDownCalendar.TodayRectColor = System.Drawing.Color.DarkCyan
+        Me.tbFechaTransaccion.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.tbFechaTransaccion.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
+        Me.tbFechaTransaccion.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFechaTransaccion.Location = New System.Drawing.Point(513, 55)
+        Me.tbFechaTransaccion.Name = "tbFechaTransaccion"
+        Me.tbFechaTransaccion.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.tbFechaTransaccion.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.tbFechaTransaccion.SecondIncrement = 10
+        Me.tbFechaTransaccion.Size = New System.Drawing.Size(200, 28)
+        Me.tbFechaTransaccion.TabIndex = 3
+        Me.tbFechaTransaccion.TodayButtonText = "Hoy"
+        Me.tbFechaTransaccion.UseCompatibleTextRendering = False
+        Me.tbFechaTransaccion.Value = New Date(2020, 6, 21, 0, 0, 0, 0)
+        Me.tbFechaTransaccion.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.tbFechaTransaccion.YearIncrement = 10
+        '
         'btnProveedor
         '
         Me.btnProveedor.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
@@ -1001,7 +1098,7 @@ Partial Class Tec_Compras
         Me.PanelButton.Controls.Add(Me.PanelToolBar1)
         Me.PanelButton.Controls.Add(Me.PanelNavegacion)
         Me.PanelButton.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PanelButton.Location = New System.Drawing.Point(0, 628)
+        Me.PanelButton.Location = New System.Drawing.Point(0, 650)
         Me.PanelButton.Name = "PanelButton"
         Me.PanelButton.Size = New System.Drawing.Size(1494, 51)
         Me.PanelButton.TabIndex = 3
@@ -1234,7 +1331,7 @@ Partial Class Tec_Compras
         Me.SuperTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel2.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel2.Name = "SuperTabControlPanel2"
-        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1284, 646)
+        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1494, 701)
         Me.SuperTabControlPanel2.TabIndex = 2
         Me.SuperTabControlPanel2.TabItem = Me.SuperTabItem2
         '
@@ -1247,7 +1344,7 @@ Partial Class Tec_Compras
         Me.Panel17.Location = New System.Drawing.Point(0, 0)
         Me.Panel17.Name = "Panel17"
         Me.Panel17.Padding = New System.Windows.Forms.Padding(5)
-        Me.Panel17.Size = New System.Drawing.Size(1284, 646)
+        Me.Panel17.Size = New System.Drawing.Size(1494, 701)
         Me.Panel17.TabIndex = 4
         '
         'JGrM_Buscador
@@ -1293,7 +1390,7 @@ Partial Class Tec_Compras
         Me.JGrM_Buscador.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.JGrM_Buscador.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.JGrM_Buscador.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.JGrM_Buscador.Size = New System.Drawing.Size(1274, 536)
+        Me.JGrM_Buscador.Size = New System.Drawing.Size(1484, 591)
         Me.JGrM_Buscador.TabIndex = 2
         Me.JGrM_Buscador.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.JGrM_Buscador.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -1310,7 +1407,7 @@ Partial Class Tec_Compras
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel4.Location = New System.Drawing.Point(5, 41)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(1274, 64)
+        Me.Panel4.Size = New System.Drawing.Size(1484, 64)
         Me.Panel4.TabIndex = 4
         '
         'TableLayoutPanel1
@@ -1325,7 +1422,7 @@ Partial Class Tec_Compras
         Me.TableLayoutPanel1.Padding = New System.Windows.Forms.Padding(30, 10, 5, 5)
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1274, 64)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1484, 64)
         Me.TableLayoutPanel1.TabIndex = 5
         '
         'btnSi
@@ -1334,9 +1431,9 @@ Partial Class Tec_Compras
         Me.btnSi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.btnSi.Controls.Add(Me.ButtonX1)
         Me.btnSi.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnSi.Location = New System.Drawing.Point(1073, 13)
+        Me.btnSi.Location = New System.Drawing.Point(1250, 13)
         Me.btnSi.Name = "btnSi"
-        Me.btnSi.Size = New System.Drawing.Size(193, 43)
+        Me.btnSi.Size = New System.Drawing.Size(226, 43)
         Me.btnSi.TabIndex = 4
         '
         'ButtonX1
@@ -1351,7 +1448,7 @@ Partial Class Tec_Compras
         Me.ButtonX1.Location = New System.Drawing.Point(0, 0)
         Me.ButtonX1.Margin = New System.Windows.Forms.Padding(4)
         Me.ButtonX1.Name = "ButtonX1"
-        Me.ButtonX1.Size = New System.Drawing.Size(191, 41)
+        Me.ButtonX1.Size = New System.Drawing.Size(224, 41)
         Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.ButtonX1.TabIndex = 7
         Me.ButtonX1.Text = "Nueva Compra"
@@ -1365,7 +1462,7 @@ Partial Class Tec_Compras
         Me.Panel14.Location = New System.Drawing.Point(5, 5)
         Me.Panel14.Name = "Panel14"
         Me.Panel14.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel14.Size = New System.Drawing.Size(1274, 36)
+        Me.Panel14.Size = New System.Drawing.Size(1484, 36)
         Me.Panel14.TabIndex = 3
         '
         'Panel15
@@ -1377,7 +1474,7 @@ Partial Class Tec_Compras
         Me.Panel15.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel15.Location = New System.Drawing.Point(1, 1)
         Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(1272, 34)
+        Me.Panel15.Size = New System.Drawing.Size(1482, 34)
         Me.Panel15.TabIndex = 0
         '
         'Label2
@@ -1430,108 +1527,11 @@ Partial Class Tec_Compras
         '
         Me.MEP.ContainerControl = Me
         '
-        'tbFechaTransaccion
-        '
-        Me.tbFechaTransaccion.BackColor = System.Drawing.Color.White
-        Me.tbFechaTransaccion.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.Flat
-        '
-        '
-        '
-        Me.tbFechaTransaccion.DropDownCalendar.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.None
-        Me.tbFechaTransaccion.DropDownCalendar.DayOfWeekAbbreviation = Janus.Windows.CalendarCombo.DayOfWeekAbbreviation.UseAbbreviatedName
-        Me.tbFechaTransaccion.DropDownCalendar.DaysFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
-        Me.tbFechaTransaccion.DropDownCalendar.DaysFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
-        Me.tbFechaTransaccion.DropDownCalendar.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbFechaTransaccion.DropDownCalendar.ForeColor = System.Drawing.Color.DarkSlateGray
-        Me.tbFechaTransaccion.DropDownCalendar.HeaderAppearance = Janus.Windows.CalendarCombo.ButtonAppearance.PopUp
-        Me.tbFechaTransaccion.DropDownCalendar.HeaderFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
-        Me.tbFechaTransaccion.DropDownCalendar.HeaderFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
-        Me.tbFechaTransaccion.DropDownCalendar.Name = ""
-        Me.tbFechaTransaccion.DropDownCalendar.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
-        Me.tbFechaTransaccion.DropDownCalendar.Office2007CustomColor = System.Drawing.Color.Turquoise
-        Me.tbFechaTransaccion.DropDownCalendar.TodayRectColor = System.Drawing.Color.DarkCyan
-        Me.tbFechaTransaccion.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
-        Me.tbFechaTransaccion.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
-        Me.tbFechaTransaccion.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbFechaTransaccion.Location = New System.Drawing.Point(513, 55)
-        Me.tbFechaTransaccion.Name = "tbFechaTransaccion"
-        Me.tbFechaTransaccion.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
-        Me.tbFechaTransaccion.Office2007CustomColor = System.Drawing.Color.Turquoise
-        Me.tbFechaTransaccion.SecondIncrement = 10
-        Me.tbFechaTransaccion.Size = New System.Drawing.Size(200, 28)
-        Me.tbFechaTransaccion.TabIndex = 3
-        Me.tbFechaTransaccion.TodayButtonText = "Hoy"
-        Me.tbFechaTransaccion.UseCompatibleTextRendering = False
-        Me.tbFechaTransaccion.Value = New Date(2020, 6, 21, 0, 0, 0, 0)
-        Me.tbFechaTransaccion.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
-        Me.tbFechaTransaccion.YearIncrement = 10
-        '
-        'tbFechaVencimientoCredito
-        '
-        Me.tbFechaVencimientoCredito.BackColor = System.Drawing.Color.White
-        Me.tbFechaVencimientoCredito.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.Flat
-        '
-        '
-        '
-        Me.tbFechaVencimientoCredito.DropDownCalendar.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.None
-        Me.tbFechaVencimientoCredito.DropDownCalendar.DayOfWeekAbbreviation = Janus.Windows.CalendarCombo.DayOfWeekAbbreviation.UseAbbreviatedName
-        Me.tbFechaVencimientoCredito.DropDownCalendar.DaysFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
-        Me.tbFechaVencimientoCredito.DropDownCalendar.DaysFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
-        Me.tbFechaVencimientoCredito.DropDownCalendar.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbFechaVencimientoCredito.DropDownCalendar.ForeColor = System.Drawing.Color.DarkSlateGray
-        Me.tbFechaVencimientoCredito.DropDownCalendar.HeaderAppearance = Janus.Windows.CalendarCombo.ButtonAppearance.PopUp
-        Me.tbFechaVencimientoCredito.DropDownCalendar.HeaderFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
-        Me.tbFechaVencimientoCredito.DropDownCalendar.HeaderFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
-        Me.tbFechaVencimientoCredito.DropDownCalendar.Name = ""
-        Me.tbFechaVencimientoCredito.DropDownCalendar.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
-        Me.tbFechaVencimientoCredito.DropDownCalendar.Office2007CustomColor = System.Drawing.Color.Turquoise
-        Me.tbFechaVencimientoCredito.DropDownCalendar.TodayRectColor = System.Drawing.Color.DarkCyan
-        Me.tbFechaVencimientoCredito.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
-        Me.tbFechaVencimientoCredito.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
-        Me.tbFechaVencimientoCredito.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbFechaVencimientoCredito.Location = New System.Drawing.Point(513, 116)
-        Me.tbFechaVencimientoCredito.Name = "tbFechaVencimientoCredito"
-        Me.tbFechaVencimientoCredito.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
-        Me.tbFechaVencimientoCredito.Office2007CustomColor = System.Drawing.Color.Turquoise
-        Me.tbFechaVencimientoCredito.SecondIncrement = 10
-        Me.tbFechaVencimientoCredito.Size = New System.Drawing.Size(200, 28)
-        Me.tbFechaVencimientoCredito.TabIndex = 5
-        Me.tbFechaVencimientoCredito.TodayButtonText = "Hoy"
-        Me.tbFechaVencimientoCredito.UseCompatibleTextRendering = False
-        Me.tbFechaVencimientoCredito.Value = New Date(2020, 6, 21, 0, 0, 0, 0)
-        Me.tbFechaVencimientoCredito.Visible = False
-        Me.tbFechaVencimientoCredito.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
-        Me.tbFechaVencimientoCredito.YearIncrement = 10
-        '
-        'cbSucursal
-        '
-        Me.cbSucursal.BackColor = System.Drawing.Color.Azure
-        Me.cbSucursal.ColorScheme = ""
-        Me.cbSucursal.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
-        Me.cbSucursal.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
-        Me.cbSucursal.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
-        cbSucursal_DesignTimeLayout.LayoutString = resources.GetString("cbSucursal_DesignTimeLayout.LayoutString")
-        Me.cbSucursal.DesignTimeLayout = cbSucursal_DesignTimeLayout
-        Me.cbSucursal.FlatBorderColor = System.Drawing.Color.Black
-        Me.cbSucursal.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbSucursal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.cbSucursal.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.cbSucursal.Location = New System.Drawing.Point(513, 18)
-        Me.cbSucursal.Margin = New System.Windows.Forms.Padding(4)
-        Me.cbSucursal.Name = "cbSucursal"
-        Me.cbSucursal.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.cbSucursal.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
-        Me.cbSucursal.SelectedIndex = -1
-        Me.cbSucursal.SelectedItem = Nothing
-        Me.cbSucursal.Size = New System.Drawing.Size(219, 28)
-        Me.cbSucursal.TabIndex = 2
-        Me.cbSucursal.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        '
         'Tec_Compras
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1494, 710)
+        Me.ClientSize = New System.Drawing.Size(1494, 732)
         Me.Controls.Add(Me.TabControlPrincipal)
         Me.Name = "Tec_Compras"
         Me.Text = "Tec_Compras"
@@ -1562,6 +1562,7 @@ Partial Class Tec_Compras
         CType(Me.grProducto, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
+        CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel10.ResumeLayout(False)
         Me.Panel11.ResumeLayout(False)
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1578,7 +1579,6 @@ Partial Class Tec_Compras
         Me.Panel15.ResumeLayout(False)
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
