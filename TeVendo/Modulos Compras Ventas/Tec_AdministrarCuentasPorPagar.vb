@@ -2,12 +2,15 @@
 Imports Janus.Windows.GridEX
 Imports DevComponents.DotNetBar
 Imports DevComponents.DotNetBar.Controls
+Imports System.IO
 
 Public Class Tec_AdministrarCuentasPorPagar
     Dim dtPendiente As DataTable
     Dim dtPagados As DataTable
     Dim IdPersonal As Integer = 0
     Dim IdCredito As Integer = 0
+    Dim IdCreditoTodos As Integer = 0
+    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
 #Region "General"
     Private Sub Tec_AdministrarCuentasPorPagar_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         IniciarProceso()
@@ -75,7 +78,10 @@ Public Class Tec_AdministrarCuentasPorPagar
             .Visible = True
         End With
 
-
+        With grPagos.RootTable.Columns("Id")
+            .Width = 70
+            .Visible = False
+        End With
 
 
 
@@ -95,6 +101,94 @@ Public Class Tec_AdministrarCuentasPorPagar
             .GroupByBoxVisible = False
 
         End With
+
+    End Sub
+    Private Sub _prListaPagosAdministracion()
+        Dim dt As New DataTable
+        dt = L_prListarPagosCreditoCompra(IdCreditoTodos)
+
+        grPagosTodos.DataSource = dt
+        grPagosTodos.RetrieveStructure()
+        grPagosTodos.AlternatingColors = True
+        'FechaPago	Monto	Glosa	NroComprobante	NombrePersonal	img
+        With grPagosTodos.RootTable.Columns("Id")
+            .Width = 70
+            .Visible = False
+        End With
+        With grPagosTodos.RootTable.Columns("FechaPago")
+            .Width = 80
+            .Caption = "Fecha De Pago"
+            .FormatString = "dd/MM/yyyy"
+            .Visible = True
+        End With
+
+
+        With grPagosTodos.RootTable.Columns("Monto")
+            .Width = 70
+            .Visible = True
+            .Caption = "Monto Pagado"
+            .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+        With grPagosTodos.RootTable.Columns("img")
+            .Width = 70
+            .Caption = "Eliminar"
+            .Visible = True
+        End With
+
+
+        With grPagosTodos.RootTable.Columns("Glosa")
+            .Width = 120
+            .Caption = "Glosa"
+            .Visible = True
+        End With
+
+        With grPagosTodos.RootTable.Columns("NroComprobante")
+            .Width = 70
+            .Caption = "Comprobante"
+            .Visible = True
+        End With
+        With grPagosTodos.RootTable.Columns("NombrePersonal")
+            .Width = 150
+            .Caption = "Personal"
+            .Visible = True
+        End With
+
+
+
+
+
+        With grPagosTodos
+            .GroupByBoxVisible = False
+            'diseño de la grilla
+            .VisualStyle = VisualStyle.Office2007
+            .BoundMode = Janus.Data.BoundMode.Bound
+            .RowHeaders = InheritableBoolean.True
+            .TotalRow = InheritableBoolean.True
+            .TotalRowFormatStyle.BackColor = Color.Gold
+            .TotalRowFormatStyle.ForeColor = Color.Black
+            .TotalRowFormatStyle.FontBold = TriState.True
+            .TotalRowFormatStyle.FontSize = 11
+            .TotalRowPosition = TotalRowPosition.BottomFixed
+            .CellToolTipText = "Pagos"
+            .GroupByBoxVisible = False
+
+        End With
+        CargarIconEstado()
+    End Sub
+    Public Sub CargarIconEstado()
+
+        Dim dt As DataTable = CType(grPagosTodos.DataSource, DataTable)
+        Dim n As Integer = dt.Rows.Count
+        For i As Integer = 0 To n - 1 Step 1
+
+            Dim Bin As New MemoryStream
+            Dim img As New Bitmap(My.Resources.grilladelete, 40, 35)
+            img.Save(Bin, Imaging.ImageFormat.Png)
+            CType(grPagosTodos.DataSource, DataTable).Rows(i).Item("img") = Bin.GetBuffer
+
+
+        Next
 
     End Sub
 #End Region
@@ -608,6 +702,128 @@ Public Class Tec_AdministrarCuentasPorPagar
     End Sub
     Private Sub AlertClicked(ByVal alertId As Long)
 
+    End Sub
+
+    Private Sub tbDeudaTodos_KeyDown(sender As Object, e As KeyEventArgs) Handles tbDeudaTodos.KeyDown
+        If (e.KeyData = Keys.Control + Keys.Enter) Then
+            Dim dt As DataTable
+
+            dt = L_prListarPagosTodosCuentasPorPagar()
+
+            'Credito Compra	Nombre	Monto	abonado	Restante	FechaVencimientoCredito	DiasMora
+
+            Dim listEstCeldas As New List(Of Celda)
+            listEstCeldas.Add(New Celda("Id", False, "Credito", 50))
+            listEstCeldas.Add(New Celda("Credito", True, "Credito", 90))
+            listEstCeldas.Add(New Celda("Compra", True, "Compra", 90))
+            listEstCeldas.Add(New Celda("Nombre", True, "Proveedor", 350))
+            listEstCeldas.Add(New Celda("Monto", True, "Monto", 90, "0.00"))
+            listEstCeldas.Add(New Celda("abonado", True, "Abonado", 90, "0.00"))
+            listEstCeldas.Add(New Celda("Restante", True, "Restante", 90, "0.00"))
+            listEstCeldas.Add(New Celda("FechaVencimientoCredito", True, "Venc.Credito".ToUpper, 100, "dd/MM/yyyy"))
+            listEstCeldas.Add(New Celda("DiasMora", True, "Mora".ToUpper, 70, "0"))
+            Dim ef = New Efecto
+            ef.tipo = 6
+            ef.dt = dt
+            ef.SeleclCol = 2
+            ef.listEstCeldasNew = listEstCeldas
+            ef.alto = 90
+            ef.ancho = 900
+            ef.Context = "Seleccione Cuenta Por Pagar".ToUpper
+            ef.ShowDialog()
+            Dim bandera As Boolean = False
+            bandera = ef.band
+            If (bandera = True) Then
+                Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+                IdCreditoTodos = Row.Cells("Id").Value
+                tbDeudaTodos.Text = Row.Cells("Compra").Value.ToString + " a Proveedor : " + Row.Cells("Nombre").Value.ToString
+
+                tbtotalCompraTodos.Value = Row.Cells("Monto").Value
+                tbSaldoTodos.Value = Row.Cells("Restante").Value
+                _prListaPagosAdministracion()
+
+            End If
+        End If
+    End Sub
+
+    Private Sub btnDeudadTodos_Click(sender As Object, e As EventArgs) Handles btnDeudadTodos.Click
+        Dim dt As DataTable
+
+        dt = L_prListarPagosTodosCuentasPorPagar()
+
+        'Credito Compra	Nombre	Monto	abonado	Restante	FechaVencimientoCredito	DiasMora
+
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("Id", False, "Credito", 50))
+        listEstCeldas.Add(New Celda("Credito", True, "Credito", 90))
+        listEstCeldas.Add(New Celda("Compra", True, "Compra", 90))
+        listEstCeldas.Add(New Celda("Nombre", True, "Proveedor", 350))
+        listEstCeldas.Add(New Celda("Monto", True, "Monto", 90, "0.00"))
+        listEstCeldas.Add(New Celda("abonado", True, "Abonado", 90, "0.00"))
+        listEstCeldas.Add(New Celda("Restante", True, "Restante", 90, "0.00"))
+        listEstCeldas.Add(New Celda("FechaVencimientoCredito", True, "Venc.Credito".ToUpper, 100, "dd/MM/yyyy"))
+        listEstCeldas.Add(New Celda("DiasMora", True, "Mora".ToUpper, 70, "0"))
+        Dim ef = New Efecto
+        ef.tipo = 6
+        ef.dt = dt
+        ef.SeleclCol = 2
+        ef.listEstCeldasNew = listEstCeldas
+        ef.alto = 90
+        ef.ancho = 900
+        ef.Context = "Seleccione Cuenta Por Pagar".ToUpper
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+            IdCreditoTodos = Row.Cells("Id").Value
+            tbDeudaTodos.Text = Row.Cells("Compra").Value.ToString + " a Proveedor : " + Row.Cells("Nombre").Value.ToString
+
+            tbtotalCompraTodos.Value = Row.Cells("Monto").Value
+            tbSaldoTodos.Value = Row.Cells("Restante").Value
+            _prListaPagosAdministracion()
+
+        End If
+    End Sub
+
+    Private Sub SuperTabItem1_Click(sender As Object, e As EventArgs) Handles SuperTabItem1.Click
+        tbDeudaTodos.Focus()
+    End Sub
+
+    Private Sub grPagosTodos_Click(sender As Object, e As EventArgs) Handles grPagosTodos.Click
+        If (grPagosTodos.RowCount >= 1) Then
+            If (grPagosTodos.CurrentColumn.Index = grPagosTodos.RootTable.Columns("img").Index) Then
+                Dim ef = New Efecto
+
+
+                ef.tipo = 3
+                ef.titulo = "Eliminación De Pagos"
+                ef.descripcion = "¿Esta Seguro de Eliminar el Pago de Fecha " + grPagosTodos.GetValue("FechaPago") + " Con Monto de " + Str(grPagosTodos.GetValue("Monto")) + " ?"
+                ef.ShowDialog()
+                Dim bandera As Boolean = False
+                bandera = ef.band
+                If (bandera = True) Then
+                    Dim mensajeError As String = ""
+                    Dim res As Boolean
+                    Try
+                        'res = L_prBorrarRegistro(tbCodigo.Text, mensajeError, "MAM_Ventas")
+                        'If res Then
+
+                        '    ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                        '    _PMFiltrar()
+                        'Else
+                        '    ToastNotification.Show(Me, mensajeError, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                        'End If
+                    Catch ex As Exception
+                        ToastNotification.Show(Me, "Error al eliminar el Pago".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+
+                    End Try
+
+                End If
+            End If
+        End If
     End Sub
 #End Region
 

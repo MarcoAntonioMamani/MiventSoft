@@ -901,6 +901,7 @@
     <None Include="Resources\icono_sistema02.png" />
     <None Include="Resources\facturacion.png" />
     <None Include="Resources\empresa.png" />
+    <None Include="Resources\grilladelete.png" />
     <Content Include="Resources\man.png" />
     <None Include="Resources\pdf.png" />
     <None Include="Resources\txt.png" />

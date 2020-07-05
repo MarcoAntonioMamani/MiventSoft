@@ -47,14 +47,14 @@ Partial Class Formulario_Eliminar
         '
         'txtDescripcion
         '
-        Me.txtDescripcion.AutoSize = True
         Me.txtDescripcion.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtDescripcion.ForeColor = System.Drawing.Color.FromArgb(CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer))
-        Me.txtDescripcion.Location = New System.Drawing.Point(136, 199)
+        Me.txtDescripcion.Location = New System.Drawing.Point(99, 199)
         Me.txtDescripcion.Name = "txtDescripcion"
-        Me.txtDescripcion.Size = New System.Drawing.Size(328, 21)
+        Me.txtDescripcion.Size = New System.Drawing.Size(477, 56)
         Me.txtDescripcion.TabIndex = 1
         Me.txtDescripcion.Text = "Esta Seguro de Eliminar el Rol con codigo 59 ?"
+        Me.txtDescripcion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'PictureBox1
         '
