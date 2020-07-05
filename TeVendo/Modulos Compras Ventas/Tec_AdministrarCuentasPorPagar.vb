@@ -808,14 +808,17 @@ Public Class Tec_AdministrarCuentasPorPagar
                     Dim mensajeError As String = ""
                     Dim res As Boolean
                     Try
-                        'res = L_prBorrarRegistro(tbCodigo.Text, mensajeError, "MAM_Ventas")
-                        'If res Then
+                        res = L_prEliminarPagosCuentaPorPagar(grPagosTodos.GetValue("Id"))
+                        If res Then
 
-                        '    ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
-                        '    _PMFiltrar()
-                        'Else
-                        '    ToastNotification.Show(Me, mensajeError, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                        'End If
+                            Dim imgOk As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+                            ToastNotification.Show(Me, "El pago ha sido Eliminado con Exito".ToUpper, imgOk, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+
+                            tbSaldoTodos.Value = tbSaldoTodos.Value + grPagosTodos.GetValue("Monto")
+                            _prListaPagosAdministracion()
+                        Else
+                            ToastNotification.Show(Me, mensajeError, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                        End If
                     Catch ex As Exception
                         ToastNotification.Show(Me, "Error al eliminar el Pago".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
@@ -824,6 +827,15 @@ Public Class Tec_AdministrarCuentasPorPagar
                 End If
             End If
         End If
+    End Sub
+
+    Private Sub tab_configuraciones_Click(sender As Object, e As EventArgs) Handles tabCreditoPendiente.Click
+        _prCargarPagosPendientes()
+
+    End Sub
+
+    Private Sub tab_compraventa_Click(sender As Object, e As EventArgs) Handles tabCreditoPagados.Click
+        _prCargarCreditosPagados()
     End Sub
 #End Region
 

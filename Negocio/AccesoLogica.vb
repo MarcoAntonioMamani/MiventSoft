@@ -1932,6 +1932,26 @@ Public Class AccesoLogica
 
         Return _resultado
     End Function
+
+    Public Shared Function L_prEliminarPagosCuentaPorPagar(TransaccionCompraId As Integer) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 7))
+        _listParam.Add(New Datos.DParametro("@TransaccionCompraId", TransaccionCompraId))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_CreditosCompras", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
     Public Shared Function L_prListarPagosPendientesFiltros() As DataTable
         Dim _Tabla As DataTable
 

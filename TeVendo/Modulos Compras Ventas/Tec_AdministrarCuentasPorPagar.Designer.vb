@@ -79,13 +79,13 @@ Partial Class Tec_AdministrarCuentasPorPagar
         Me.grCreditoPagados = New Janus.Windows.GridEX.GridEX()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
-        Me.tab_compraventa = New DevComponents.DotNetBar.SuperTabItem()
+        Me.tabCreditoPagados = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel17 = New System.Windows.Forms.Panel()
         Me.gr_CreditoPendientes = New Janus.Windows.GridEX.GridEX()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
-        Me.tab_configuraciones = New DevComponents.DotNetBar.SuperTabItem()
+        Me.tabCreditoPendiente = New DevComponents.DotNetBar.SuperTabItem()
         Me.MetroTileItem1 = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.MetroTileItem2 = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.MetroTileItem3 = New DevComponents.DotNetBar.Metro.MetroTileItem()
@@ -309,10 +309,10 @@ Partial Class Tec_AdministrarCuentasPorPagar
         Me.SuperTabControlMenu.ControlBox.MenuBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControlMenu.ControlBox.MenuBox, Me.SuperTabControlMenu.ControlBox.CloseBox})
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel1)
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel3)
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel6)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel3)
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel1)
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel6)
         Me.SuperTabControlMenu.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlMenu.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControlMenu.ForeColor = System.Drawing.Color.Black
@@ -325,7 +325,7 @@ Partial Class Tec_AdministrarCuentasPorPagar
         Me.SuperTabControlMenu.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControlMenu.TabIndex = 0
         Me.SuperTabControlMenu.TabLayoutType = DevComponents.DotNetBar.eSuperTabLayoutType.MultiLineFit
-        Me.SuperTabControlMenu.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.tab_configuraciones, Me.tab_compraventa, Me.tab03, Me.SuperTabItem1})
+        Me.SuperTabControlMenu.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.tabCreditoPendiente, Me.tabCreditoPagados, Me.tab03, Me.SuperTabItem1})
         SuperTabLinearGradientColorTable1.Colors = New System.Drawing.Color() {System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))}
         SuperTabColorTable1.Background = SuperTabLinearGradientColorTable1
         Me.SuperTabControlMenu.TabStripColor = SuperTabColorTable1
@@ -1148,7 +1148,7 @@ Partial Class Tec_AdministrarCuentasPorPagar
         Me.SuperTabControlPanel5.Name = "SuperTabControlPanel5"
         Me.SuperTabControlPanel5.Size = New System.Drawing.Size(1064, 471)
         Me.SuperTabControlPanel5.TabIndex = 5
-        Me.SuperTabControlPanel5.TabItem = Me.tab_compraventa
+        Me.SuperTabControlPanel5.TabItem = Me.tabCreditoPagados
         '
         'Panel5
         '
@@ -1243,18 +1243,18 @@ Partial Class Tec_AdministrarCuentasPorPagar
         Me.ButtonX2.Text = "Imprimir Reporte"
         Me.ButtonX2.TextColor = System.Drawing.Color.White
         '
-        'tab_compraventa
+        'tabCreditoPagados
         '
-        Me.tab_compraventa.AttachedControl = Me.SuperTabControlPanel5
-        Me.tab_compraventa.GlobalItem = False
-        Me.tab_compraventa.Image = Global.TeVendo.My.Resources.Resources.creditospagados
-        Me.tab_compraventa.Name = "tab_compraventa"
-        Me.tab_compraventa.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Teal
-        Me.tab_compraventa.SelectedTabFont = New System.Drawing.Font("Calibri", 12.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tab_compraventa.SymbolColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tab_compraventa.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tab_compraventa.Text = "Creditos Pagados"
-        Me.tab_compraventa.TextAlignment = DevComponents.DotNetBar.eItemAlignment.Near
+        Me.tabCreditoPagados.AttachedControl = Me.SuperTabControlPanel5
+        Me.tabCreditoPagados.GlobalItem = False
+        Me.tabCreditoPagados.Image = Global.TeVendo.My.Resources.Resources.creditospagados
+        Me.tabCreditoPagados.Name = "tabCreditoPagados"
+        Me.tabCreditoPagados.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Teal
+        Me.tabCreditoPagados.SelectedTabFont = New System.Drawing.Font("Calibri", 12.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tabCreditoPagados.SymbolColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tabCreditoPagados.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tabCreditoPagados.Text = "Creditos Pagados"
+        Me.tabCreditoPagados.TextAlignment = DevComponents.DotNetBar.eItemAlignment.Near
         '
         'SuperTabControlPanel3
         '
@@ -1264,7 +1264,7 @@ Partial Class Tec_AdministrarCuentasPorPagar
         Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
         Me.SuperTabControlPanel3.Size = New System.Drawing.Size(1064, 471)
         Me.SuperTabControlPanel3.TabIndex = 3
-        Me.SuperTabControlPanel3.TabItem = Me.tab_configuraciones
+        Me.SuperTabControlPanel3.TabItem = Me.tabCreditoPendiente
         '
         'Panel17
         '
@@ -1359,18 +1359,18 @@ Partial Class Tec_AdministrarCuentasPorPagar
         Me.ButtonX1.Text = "Imprimir Reporte"
         Me.ButtonX1.TextColor = System.Drawing.Color.White
         '
-        'tab_configuraciones
+        'tabCreditoPendiente
         '
-        Me.tab_configuraciones.AttachedControl = Me.SuperTabControlPanel3
-        Me.tab_configuraciones.GlobalItem = False
-        Me.tab_configuraciones.Image = Global.TeVendo.My.Resources.Resources.creditopagados
-        Me.tab_configuraciones.Name = "tab_configuraciones"
-        Me.tab_configuraciones.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Teal
-        Me.tab_configuraciones.SelectedTabFont = New System.Drawing.Font("Calibri", 12.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tab_configuraciones.SymbolColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tab_configuraciones.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tab_configuraciones.Text = "Creditos Pendientes"
-        Me.tab_configuraciones.TextAlignment = DevComponents.DotNetBar.eItemAlignment.Near
+        Me.tabCreditoPendiente.AttachedControl = Me.SuperTabControlPanel3
+        Me.tabCreditoPendiente.GlobalItem = False
+        Me.tabCreditoPendiente.Image = Global.TeVendo.My.Resources.Resources.creditopagados
+        Me.tabCreditoPendiente.Name = "tabCreditoPendiente"
+        Me.tabCreditoPendiente.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Teal
+        Me.tabCreditoPendiente.SelectedTabFont = New System.Drawing.Font("Calibri", 12.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tabCreditoPendiente.SymbolColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tabCreditoPendiente.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tabCreditoPendiente.Text = "Creditos Pendientes"
+        Me.tabCreditoPendiente.TextAlignment = DevComponents.DotNetBar.eItemAlignment.Near
         '
         'MetroTileItem1
         '
@@ -1654,9 +1654,9 @@ Partial Class Tec_AdministrarCuentasPorPagar
     Friend WithEvents btZonaMapaCliente As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents SuperTabControlMenu As DevComponents.DotNetBar.SuperTabControl
     Friend WithEvents SuperTabControlPanel3 As DevComponents.DotNetBar.SuperTabControlPanel
-    Friend WithEvents tab_configuraciones As DevComponents.DotNetBar.SuperTabItem
+    Friend WithEvents tabCreditoPendiente As DevComponents.DotNetBar.SuperTabItem
     Friend WithEvents SuperTabControlPanel5 As DevComponents.DotNetBar.SuperTabControlPanel
-    Friend WithEvents tab_compraventa As DevComponents.DotNetBar.SuperTabItem
+    Friend WithEvents tabCreditoPagados As DevComponents.DotNetBar.SuperTabItem
     Friend WithEvents SuperTabControlPanel6 As DevComponents.DotNetBar.SuperTabControlPanel
     Friend WithEvents tab03 As DevComponents.DotNetBar.SuperTabItem
     Friend WithEvents MetroTileItem1 As DevComponents.DotNetBar.Metro.MetroTileItem
