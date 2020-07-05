@@ -1,6 +1,8 @@
 ﻿Imports Negocio.AccesoLogica
 Imports Janus.Windows.GridEX
 Imports DevComponents.DotNetBar
+Imports DevComponents.DotNetBar.Controls
+
 Public Class Tec_AdministrarCuentasPorPagar
     Dim dtPendiente As DataTable
     Dim dtPagados As DataTable
@@ -21,6 +23,79 @@ Public Class Tec_AdministrarCuentasPorPagar
 
 
         End If
+
+        tbFechaTransaccion.Value = Now.Date
+    End Sub
+
+    Private Sub _prListaPagos()
+        Dim dt As New DataTable
+        dt = L_prListarPagosCreditoCompra(IdCredito)
+
+        grPagos.DataSource = dt
+        grPagos.RetrieveStructure()
+        grPagos.AlternatingColors = True
+        'FechaPago	Monto	Glosa	NroComprobante	NombrePersonal	img
+
+        With grPagos.RootTable.Columns("FechaPago")
+            .Width = 80
+            .Caption = "Fecha De Pago"
+            .FormatString = "dd/MM/yyyy"
+            .Visible = True
+        End With
+
+
+        With grPagos.RootTable.Columns("Monto")
+            .Width = 70
+            .Visible = True
+            .Caption = "Monto Pagado"
+            .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+        With grPagos.RootTable.Columns("img")
+            .Width = 80
+            .Caption = "Eliminar"
+            .Visible = False
+        End With
+
+
+        With grPagos.RootTable.Columns("Glosa")
+            .Width = 120
+            .Caption = "Glosa"
+            .Visible = True
+        End With
+
+        With grPagos.RootTable.Columns("NroComprobante")
+            .Width = 70
+            .Caption = "Comprobante"
+            .Visible = True
+        End With
+        With grPagos.RootTable.Columns("NombrePersonal")
+            .Width = 150
+            .Caption = "Personal"
+            .Visible = True
+        End With
+
+
+
+
+
+        With grPagos
+            .GroupByBoxVisible = False
+            'diseño de la grilla
+            .VisualStyle = VisualStyle.Office2007
+            .BoundMode = Janus.Data.BoundMode.Bound
+            .RowHeaders = InheritableBoolean.True
+            .TotalRow = InheritableBoolean.True
+            .TotalRowFormatStyle.BackColor = Color.Gold
+            .TotalRowFormatStyle.ForeColor = Color.Black
+            .TotalRowFormatStyle.FontBold = TriState.True
+            .TotalRowFormatStyle.FontSize = 11
+            .TotalRowPosition = TotalRowPosition.BottomFixed
+            .CellToolTipText = "Pagos"
+            .GroupByBoxVisible = False
+
+        End With
+
     End Sub
 #End Region
 
@@ -186,7 +261,7 @@ Public Class Tec_AdministrarCuentasPorPagar
             .TotalRowFormatStyle.FontSize = 11
             .TotalRowPosition = TotalRowPosition.BottomFixed
             .CellToolTipText = "Credito"
-     .DefaultFilterRowComparison = FilterConditionOperator.Contains
+            .DefaultFilterRowComparison = FilterConditionOperator.Contains
             .FilterMode = FilterMode.Automatic
             .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
             .GroupByBoxVisible = False
@@ -316,6 +391,10 @@ Public Class Tec_AdministrarCuentasPorPagar
                 tbGlosa.Focus()
                 tbMonto.Value = Row.Cells("Monto").Value
                 tbSaldo.Value = Row.Cells("Restante").Value
+                tbGlosa.Clear()
+                tbNroComprobante.Clear()
+                tbMontoAPagar.Value = 0
+                _prListaPagos()
                 tbGlosa.Focus()
             End If
         End If
@@ -423,12 +502,112 @@ Public Class Tec_AdministrarCuentasPorPagar
             tbGlosa.Focus()
             tbMonto.Value = Row.Cells("Monto").Value
             tbSaldo.Value = Row.Cells("Restante").Value
+            tbGlosa.Clear()
+            tbNroComprobante.Clear()
+            tbMontoAPagar.Value = 0
+            _prListaPagos()
             tbGlosa.Focus()
         End If
     End Sub
 
     Private Sub tab03_Click(sender As Object, e As EventArgs) Handles tab03.Click
         tbDeuda.Focus()
+    End Sub
+
+    Private Sub tbMontoAPagar_ValueChanged(sender As Object, e As EventArgs) Handles tbMontoAPagar.ValueChanged
+        If (tbSaldo.Value > 0) Then
+            If (tbMontoAPagar.Value > tbSaldo.Value) Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "El monto Maximo para Pagar es ".ToUpper + Str(tbSaldo.Value), img, 4000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                tbMontoAPagar.Value = tbSaldo.Value
+                tbMontoAPagar.Focus()
+                Return
+            End If
+
+
+
+        End If
+    End Sub
+
+
+    Function ValidarCamposaGrabar() As Boolean
+        Dim bandera As Boolean = True
+        Dim Mensaje As String = "Los Siguientes Campos Son Requerido : "
+        If (IdCredito <= 0) Then
+            Mensaje = Mensaje + "  " + " Deuda, "
+            bandera = False
+
+        End If
+        If (tbMontoAPagar.Value <= 0) Then
+            Mensaje = Mensaje + "  " + " El monto a Pagar Debe ser Mayor a 0 "
+            bandera = False
+
+        End If
+        If (tbFechaTransaccion.ToString = String.Empty) Then
+            Mensaje = Mensaje + "  " + " Debe Seleccionar Fecha "
+            bandera = False
+
+        End If
+
+
+        If (bandera = False) Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, Mensaje, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+        End If
+
+        If (IdCredito <= 0) Then
+            tbDeuda.Focus()
+            Return bandera
+        End If
+        If (tbFechaTransaccion.ToString = String.Empty) Then
+            tbFechaTransaccion.Focus()
+            Return bandera
+        End If
+        If (tbMontoAPagar.Value <= 0) Then
+            tbMontoAPagar.Focus()
+            Return bandera
+
+        End If
+
+        Return bandera
+
+    End Function
+    Public Sub Limpiar()
+        tbGlosa.Clear()
+        tbNroComprobante.Clear()
+        tbSaldo.Value = tbSaldo.Value - tbMontoAPagar.Value
+        tbMontoAPagar.Value = 0
+
+    End Sub
+
+    Private Sub ButtonX4_Click(sender As Object, e As EventArgs) Handles ButtonX4.Click
+
+        If (ValidarCamposaGrabar()) Then
+
+            Dim id As String = ""
+            Try
+                If (L_prGrabarPagosCreditoCompras(id, IdCredito, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), IdPersonal, tbGlosa.Text, tbNroComprobante.Text, tbMontoAPagar.Value)) Then
+
+                    Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+                    ToastNotification.Show(Me, "El Pago Ha sido Registrado con Exito", img, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                    Limpiar()
+                    _prListaPagos()
+
+                End If
+            Catch ex As Exception
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "Error al Grabar el Pago : " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            End Try
+
+
+
+        End If
+
+
+
+    End Sub
+    Private Sub AlertClicked(ByVal alertId As Long)
+
     End Sub
 #End Region
 

@@ -1906,6 +1906,32 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+
+    Public Shared Function L_prGrabarPagosCreditoCompras(ByRef TransaccionCompraId As String,
+        CreditoCompraId As Integer, FechaPAgo As String, PersonalId As Integer, Glosa As String, NroComprobante As String, Pago As Double) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@CreditoCompraId", CreditoCompraId))
+        _listParam.Add(New Datos.DParametro("@FechaPago", FechaPAgo))
+        _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
+        _listParam.Add(New Datos.DParametro("@Glosa", Glosa))
+        _listParam.Add(New Datos.DParametro("@NroRecibo", NroComprobante))
+        _listParam.Add(New Datos.DParametro("@Monto", Pago))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_CreditosCompras", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
     Public Shared Function L_prListarPagosPendientesFiltros() As DataTable
         Dim _Tabla As DataTable
 
@@ -1924,6 +1950,19 @@ Public Class AccesoLogica
 
         _listParam.Add(New Datos.DParametro("@tipo", 2))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_CreditosCompras", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prListarPagosCreditoCompra(CreditoCompraId As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@CreditoCompraId", CreditoCompraId))
         _Tabla = D_ProcedimientoConParam("MAM_CreditosCompras", _listParam)
 
         Return _Tabla
