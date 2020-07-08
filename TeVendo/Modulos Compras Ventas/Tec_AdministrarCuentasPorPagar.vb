@@ -837,6 +837,28 @@ Public Class Tec_AdministrarCuentasPorPagar
     Private Sub tab_compraventa_Click(sender As Object, e As EventArgs) Handles tabCreditoPagados.Click
         _prCargarCreditosPagados()
     End Sub
+
+    Private Sub btnImprimirEstadoCuenta_Click(sender As Object, e As EventArgs) Handles btnImprimirEstadoCuenta.Click
+        If Not IsNothing(P_Global.Visualizador) Then
+            P_Global.Visualizador.Close()
+        End If
+        If (grPagosTodos.RowCount <= 0) Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "No Existen Datos Para Generar el Reporte".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            Return
+
+        End If
+        Dim dt As DataTable = L_EstadoDeCuentasPorPagar(IdCreditoTodos)
+        P_Global.Visualizador = New Visualizador
+
+        Dim objrep As New Reporte_EstadoCuentasCompras
+
+
+        objrep.SetDataSource(dt)
+        P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+        P_Global.Visualizador.CrGeneral.Zoom(110)
+        P_Global.Visualizador.Show() 'Comentar
+    End Sub
 #End Region
 
 
