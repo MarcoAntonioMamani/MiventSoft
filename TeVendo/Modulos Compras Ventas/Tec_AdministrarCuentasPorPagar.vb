@@ -413,7 +413,7 @@ Public Class Tec_AdministrarCuentasPorPagar
 
         For Each _fil As GridEXRow In grCreditoPagados.GetRows
 
-            dtPagados.Rows.Add(_fil.Cells("Credito").Value, _fil.Cells("Compra").Value, _fil.Cells("NombreProveedor").Value, _fil.Cells("Monto").Value, _fil.Cells("abonado").Value, _fil.Cells("Restante").Value, _fil.Cells("FechaVencimientoCredito").Value, _fil.Cells("DiasMora").Value)
+            dtPagados.Rows.Add(_fil.Cells("Credito").Value, _fil.Cells("Compra").Value, _fil.Cells("NombreProveedor").Value, _fil.Cells("Monto").Value, _fil.Cells("Pagado").Value, _fil.Cells("FechaVencimientoCredito").Value, _fil.Cells("FechaUltimaPago").Value)
 
         Next
         If Not IsNothing(P_Global.Visualizador) Then
@@ -426,15 +426,14 @@ Public Class Tec_AdministrarCuentasPorPagar
 
         End If
 
-        'P_Global.Visualizador = New Visualizador
+        P_Global.Visualizador = New Visualizador
 
-        'Dim objrep As New Reporte_PagosPendientes
-
-        'objrep.SetDataSource(dtPendiente)
-        'objrep.SetParameterValue("Usuario", L_Usuario)
-        'P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
-        'P_Global.Visualizador.CrGeneral.Zoom(110)
-        'P_Global.Visualizador.Show() 'Comentar
+        Dim objrep As New ReportePagosPagados
+        objrep.SetDataSource(dtPagados)
+        objrep.SetParameterValue("Usuario", L_Usuario)
+        P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+        P_Global.Visualizador.CrGeneral.Zoom(110)
+        P_Global.Visualizador.Show() 'Comentar
         '''P_Global.Visualizador.BringToFront() 'Comentar
     End Sub
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
@@ -606,6 +605,28 @@ Public Class Tec_AdministrarCuentasPorPagar
 
     Private Sub tab03_Click(sender As Object, e As EventArgs) Handles tab03.Click
         tbDeuda.Focus()
+        If (IdCredito <> 0) Then
+            Dim dt As DataTable
+            dt = L_prListarPagosPendientesFiltros()
+
+            For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+                If (IdCredito = dt.Rows(i).Item("Id")) Then
+                    IdCredito = dt.Rows(i).Item("Id")
+                    tbDeuda.Text = dt.Rows(i).Item("Compra") + " a Proveedor : " + dt.Rows(i).Item("Nombre")
+                    tbGlosa.Focus()
+                    tbMonto.Value = dt.Rows(i).Item("Monto")
+                    tbSaldo.Value = dt.Rows(i).Item("Restante")
+                    tbGlosa.Clear()
+                    tbNroComprobante.Clear()
+                    tbMontoAPagar.Value = 0
+                    _prListaPagos()
+                    tbGlosa.Focus()
+                End If
+            Next
+
+
+        End If
     End Sub
 
     Private Sub tbMontoAPagar_ValueChanged(sender As Object, e As EventArgs) Handles tbMontoAPagar.ValueChanged
@@ -790,6 +811,24 @@ Public Class Tec_AdministrarCuentasPorPagar
 
     Private Sub SuperTabItem1_Click(sender As Object, e As EventArgs) Handles SuperTabItem1.Click
         tbDeudaTodos.Focus()
+        If (IdCreditoTodos <> 0) Then
+            Dim dt As DataTable
+            dt = L_prListarPagosTodosCuentasPorPagar()
+
+            For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+                If (dt.Rows(i).Item("Id") = IdCreditoTodos) Then
+                    IdCreditoTodos = dt.Rows(i).Item("Id")
+                    tbDeudaTodos.Text = dt.Rows(i).Item("Compra") + " a Proveedor : " + dt.Rows(i).Item("Nombre")
+
+                    tbtotalCompraTodos.Value = dt.Rows(i).Item("Monto")
+                    tbSaldoTodos.Value = dt.Rows(i).Item("Restante")
+                    _prListaPagosAdministracion()
+                End If
+
+
+            Next
+        End If
+
     End Sub
 
     Private Sub grPagosTodos_Click(sender As Object, e As EventArgs) Handles grPagosTodos.Click
