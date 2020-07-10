@@ -11,7 +11,7 @@ Public Class Tec_Compras
     Public _tab As SuperTabItem
     Public _modulo As SideNavItem
     Public FilaSeleccionada As Boolean = False
-
+    Dim Transaccion As Integer = 0
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
     Public _MListEstBuscador As List(Of Celda)
     Public _MPos As Integer
@@ -1181,6 +1181,11 @@ salirIf:
 
     Public Sub _PMOEliminarRegistro()
 
+        If (Transaccion = 1) Then
+            ToastNotification.Show(Me, "No Es Posible Eliminar la Compra por que Tiene Pagos de Creditos Registrado".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Return
+
+        End If
 
         Dim ef = New Efecto
 
@@ -1314,7 +1319,7 @@ salirIf:
         listEstCeldas.Add(New Celda("Estado", False, "Estado", 70))
         listEstCeldas.Add(New Celda("descuento", False, "", 70))
         listEstCeldas.Add(New Celda("EmpresaId", False, "", 150))
-
+        listEstCeldas.Add(New Celda("transaccion", False, "", 150))
         Return listEstCeldas
     End Function
 
@@ -1329,6 +1334,7 @@ salirIf:
         End If
 
         With JGrM_Buscador
+            Transaccion = .GetValue("transaccion")
             tbCodigo.Text = .GetValue("Id").ToString
             tbFechaTransaccion.Value = .GetValue("FechaTransaccion")
             cbSucursal.Value = .GetValue("AlmacenId")
