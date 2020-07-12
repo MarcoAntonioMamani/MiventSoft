@@ -939,6 +939,16 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
+    Public Shared Function ListarPersonalCredito() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 8))
+        _Tabla = D_ProcedimientoConParam("MAM_Compras", _listParam)
+
+        Return _Tabla
+    End Function
+
     Public Shared Function ListarPersonal() As DataTable
         Dim _Tabla As DataTable
 
@@ -1907,6 +1917,18 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
+    Public Shared Function L_prListarPagosPendientesClientes() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_CreditosVentas", _listParam)
+
+        Return _Tabla
+    End Function
+
     Public Shared Function L_prGrabarPagosCreditoCompras(ByRef TransaccionCompraId As String,
         CreditoCompraId As Integer, FechaPAgo As String, PersonalId As Integer, Glosa As String, NroComprobante As String, Pago As Double) As Boolean
         Dim _Tabla As DataTable
@@ -1933,6 +1955,32 @@ Public Class AccesoLogica
         Return _resultado
     End Function
 
+
+    Public Shared Function L_prGrabarPagosCreditoVentas(ByRef TransaccionVentaId As String,
+        CreditoVentaId As Integer, FechaPAgo As String, PersonalId As Integer, Glosa As String, NroComprobante As String, Pago As Double) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@CreditoCompraId", CreditoVentaId))
+        _listParam.Add(New Datos.DParametro("@FechaPago", FechaPAgo))
+        _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
+        _listParam.Add(New Datos.DParametro("@Glosa", Glosa))
+        _listParam.Add(New Datos.DParametro("@NroRecibo", NroComprobante))
+        _listParam.Add(New Datos.DParametro("@Monto", Pago))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_CreditosVentas", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
     Public Shared Function L_prEliminarPagosCuentaPorPagar(TransaccionCompraId As Integer) As Boolean
         Dim _Tabla As DataTable
         Dim _resultado As Boolean
@@ -1942,6 +1990,26 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@TransaccionCompraId", TransaccionCompraId))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _Tabla = D_ProcedimientoConParam("MAM_CreditosCompras", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function L_prEliminarPagosCuentaPorCobrar(TransaccionCompraId As Integer) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 7))
+        _listParam.Add(New Datos.DParametro("@TransaccionVentaId", TransaccionCompraId))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_CreditosVentas", _listParam)
 
         If _Tabla.Rows.Count > 0 Then
             _resultado = True
@@ -1963,6 +2031,18 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+
+    Public Shared Function L_prListarPagosPendientesFiltrosClientes() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_CreditosVentas", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_prListarPagosTodosCuentasPorPagar() As DataTable
         Dim _Tabla As DataTable
 
@@ -1971,6 +2051,18 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@tipo", 6))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _Tabla = D_ProcedimientoConParam("MAM_CreditosCompras", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prListarPagosTodosCuentasPorCobrar() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 6))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_CreditosVentas", _listParam)
 
         Return _Tabla
     End Function
@@ -1987,6 +2079,19 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+
+    Public Shared Function L_EstadoDeCuentasPorCobrar(idCredito As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 8))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@CreditoVentaId", idCredito))
+        _Tabla = D_ProcedimientoConParam("MAM_CreditosVentas", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_prListarCreditosPagados() As DataTable
         Dim _Tabla As DataTable
 
@@ -1995,6 +2100,18 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@tipo", 2))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _Tabla = D_ProcedimientoConParam("MAM_CreditosCompras", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prListarCreditosPagadosCliente() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_CreditosVentas", _listParam)
 
         Return _Tabla
     End Function
@@ -2008,6 +2125,19 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@CreditoCompraId", CreditoCompraId))
         _Tabla = D_ProcedimientoConParam("MAM_CreditosCompras", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prListarPagosCreditoVenta(CreditoCompraId As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@CreditoVentaId", CreditoCompraId))
+        _Tabla = D_ProcedimientoConParam("MAM_CreditosVentas", _listParam)
 
         Return _Tabla
     End Function

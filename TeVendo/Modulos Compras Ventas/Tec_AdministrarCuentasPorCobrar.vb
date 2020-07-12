@@ -4,7 +4,7 @@ Imports DevComponents.DotNetBar
 Imports DevComponents.DotNetBar.Controls
 Imports System.IO
 
-Public Class Tec_AdministrarCuentasPorPagar
+Public Class Tec_AdministrarCuentasPorCobrar
     Dim dtPendiente As DataTable
     Dim dtPagados As DataTable
     Dim IdPersonal As Integer = 0
@@ -77,7 +77,11 @@ Public Class Tec_AdministrarCuentasPorPagar
             .Caption = "Personal"
             .Visible = True
         End With
-
+        With grPagos.RootTable.Columns("NombreCliente")
+            .Width = 150
+            .Caption = "Cliente"
+            .Visible = False
+        End With
         With grPagos.RootTable.Columns("Id")
             .Width = 70
             .Visible = False
@@ -105,7 +109,7 @@ Public Class Tec_AdministrarCuentasPorPagar
     End Sub
     Private Sub _prListaPagosAdministracion()
         Dim dt As New DataTable
-        dt = L_prListarPagosCreditoCompra(IdCreditoTodos)
+        dt = L_prListarPagosCreditoVenta(IdCreditoTodos)
 
         grPagosTodos.DataSource = dt
         grPagosTodos.RetrieveStructure()
@@ -196,7 +200,7 @@ Public Class Tec_AdministrarCuentasPorPagar
 #Region "Creditos Pagados"
     Private Sub _prCargarCreditosPagados()
         Dim dt As New DataTable
-        dt = L_prListarCreditosPagados()
+        dt = L_prListarCreditosPagadosCliente()
         dtPagados = dt.Copy
         grCreditoPagados.DataSource = dt
         grCreditoPagados.RetrieveStructure()
@@ -220,14 +224,14 @@ Public Class Tec_AdministrarCuentasPorPagar
             .Caption = "Credito"
         End With
 
-        With grCreditoPagados.RootTable.Columns("Compra")
+        With grCreditoPagados.RootTable.Columns("venta")
             .Width = 110
-            .Caption = "Compra"
+            .Caption = "Venta"
             .Visible = True
         End With
-        With grCreditoPagados.RootTable.Columns("NombreProveedor")
+        With grCreditoPagados.RootTable.Columns("NombreCliente")
             .Width = 150
-            .Caption = "Proveedor"
+            .Caption = "Cliente"
             .Visible = True
         End With
         With grCreditoPagados.RootTable.Columns("Monto")
@@ -279,7 +283,7 @@ Public Class Tec_AdministrarCuentasPorPagar
 
     Private Sub _prCargarPagosPendientes()
         Dim dt As New DataTable
-        dt = L_prListarPagosPendientes()
+        dt = L_prListarPagosPendientesClientes()
         dtPendiente = dt.Copy
         gr_CreditoPendientes.DataSource = dt
         gr_CreditoPendientes.RetrieveStructure()
@@ -305,14 +309,14 @@ Public Class Tec_AdministrarCuentasPorPagar
             .Caption = "Credito"
         End With
 
-        With gr_CreditoPendientes.RootTable.Columns("Compra")
+        With gr_CreditoPendientes.RootTable.Columns("venta")
             .Width = 110
             .Caption = "Compra"
             .Visible = True
         End With
-        With gr_CreditoPendientes.RootTable.Columns("NombreProveedor")
+        With gr_CreditoPendientes.RootTable.Columns("Nombrecliente")
             .Width = 150
-            .Caption = "Proveedor"
+            .Caption = "Cliente"
             .Visible = True
         End With
         With gr_CreditoPendientes.RootTable.Columns("Monto")
@@ -383,7 +387,7 @@ Public Class Tec_AdministrarCuentasPorPagar
 
         For Each _fil As GridEXRow In gr_CreditoPendientes.GetRows
 
-            dtPendiente.Rows.Add(_fil.Cells("Credito").Value, _fil.Cells("Compra").Value, _fil.Cells("NombreProveedor").Value, _fil.Cells("Monto").Value, _fil.Cells("abonado").Value, _fil.Cells("Restante").Value, _fil.Cells("FechaVencimientoCredito").Value, _fil.Cells("DiasMora").Value)
+            dtPendiente.Rows.Add(_fil.Cells("Credito").Value, _fil.Cells("venta").Value, _fil.Cells("Nombrecliente").Value, _fil.Cells("Monto").Value, _fil.Cells("abonado").Value, _fil.Cells("Restante").Value, _fil.Cells("FechaVencimientoCredito").Value, _fil.Cells("DiasMora").Value)
 
         Next
         If Not IsNothing(P_Global.Visualizador) Then
@@ -413,7 +417,7 @@ Public Class Tec_AdministrarCuentasPorPagar
 
         For Each _fil As GridEXRow In grCreditoPagados.GetRows
 
-            dtPagados.Rows.Add(_fil.Cells("Credito").Value, _fil.Cells("Compra").Value, _fil.Cells("NombreProveedor").Value, _fil.Cells("Monto").Value, _fil.Cells("Pagado").Value, _fil.Cells("FechaVencimientoCredito").Value, _fil.Cells("FechaUltimaPago").Value)
+            dtPagados.Rows.Add(_fil.Cells("Credito").Value, _fil.Cells("venta").Value, _fil.Cells("NombreCliente").Value, _fil.Cells("Monto").Value, _fil.Cells("Pagado").Value, _fil.Cells("FechaVencimientoCredito").Value, _fil.Cells("FechaUltimaPago").Value)
 
         Next
         If Not IsNothing(P_Global.Visualizador) Then
@@ -451,14 +455,14 @@ Public Class Tec_AdministrarCuentasPorPagar
         If (e.KeyData = Keys.Control + Keys.Enter) Then
             Dim dt As DataTable
 
-            dt = L_prListarPagosPendientesFiltros()
+            dt = L_prListarPagosPendientesFiltrosClientes()
 
             'Credito Compra	Nombre	Monto	abonado	Restante	FechaVencimientoCredito	DiasMora
 
             Dim listEstCeldas As New List(Of Celda)
             listEstCeldas.Add(New Celda("Id", False, "Credito", 50))
             listEstCeldas.Add(New Celda("Credito", True, "Credito", 90))
-            listEstCeldas.Add(New Celda("Compra", True, "Compra", 90))
+            listEstCeldas.Add(New Celda("Venta", True, "Compra", 90))
             listEstCeldas.Add(New Celda("Nombre", True, "Proveedor", 350))
             listEstCeldas.Add(New Celda("Monto", True, "Monto", 90, "0.00"))
             listEstCeldas.Add(New Celda("abonado", True, "Abonado", 90, "0.00"))
@@ -472,7 +476,7 @@ Public Class Tec_AdministrarCuentasPorPagar
             ef.listEstCeldasNew = listEstCeldas
             ef.alto = 90
             ef.ancho = 900
-            ef.Context = "Seleccione Cuenta Por Pagar".ToUpper
+            ef.Context = "Seleccione Cuenta Por Cobrar".ToUpper
             ef.ShowDialog()
             Dim bandera As Boolean = False
             bandera = ef.band
@@ -480,7 +484,7 @@ Public Class Tec_AdministrarCuentasPorPagar
                 Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
 
                 IdCredito = Row.Cells("Id").Value
-                tbDeuda.Text = Row.Cells("Compra").Value.ToString + " a Proveedor : " + Row.Cells("Nombre").Value.ToString
+                tbDeuda.Text = Row.Cells("Compra").Value.ToString + " a Cliente : " + Row.Cells("Nombre").Value.ToString
                 tbGlosa.Focus()
                 tbMonto.Value = Row.Cells("Monto").Value
                 tbSaldo.Value = Row.Cells("Restante").Value
@@ -512,7 +516,7 @@ Public Class Tec_AdministrarCuentasPorPagar
             ef.listEstCeldasNew = listEstCeldas
             ef.alto = 50
             ef.ancho = 350
-            ef.Context = "Seleccione Personal".ToUpper
+            ef.Context = "Seleccione Proveedor".ToUpper
             ef.ShowDialog()
             Dim bandera As Boolean = False
             bandera = ef.band
@@ -545,7 +549,7 @@ Public Class Tec_AdministrarCuentasPorPagar
         ef.listEstCeldasNew = listEstCeldas
         ef.alto = 50
         ef.ancho = 350
-        ef.Context = "Seleccione Personal".ToUpper
+        ef.Context = "Seleccione Proveedor".ToUpper
         ef.ShowDialog()
         Dim bandera As Boolean = False
         bandera = ef.band
@@ -562,14 +566,14 @@ Public Class Tec_AdministrarCuentasPorPagar
     Private Sub ButtonX3_Click(sender As Object, e As EventArgs) Handles ButtonX3.Click
         Dim dt As DataTable
 
-        dt = L_prListarPagosPendientesFiltros()
+        dt = L_prListarPagosPendientesFiltrosClientes()
 
         'Credito Compra	Nombre	Monto	abonado	Restante	FechaVencimientoCredito	DiasMora
 
         Dim listEstCeldas As New List(Of Celda)
         listEstCeldas.Add(New Celda("Id", False, "Credito", 50))
         listEstCeldas.Add(New Celda("Credito", True, "Credito", 90))
-        listEstCeldas.Add(New Celda("Compra", True, "Compra", 90))
+        listEstCeldas.Add(New Celda("Venta", True, "Compra", 90))
         listEstCeldas.Add(New Celda("Nombre", True, "Proveedor", 350))
         listEstCeldas.Add(New Celda("Monto", True, "Monto", 90, "0.00"))
         listEstCeldas.Add(New Celda("abonado", True, "Abonado", 90, "0.00"))
@@ -583,7 +587,7 @@ Public Class Tec_AdministrarCuentasPorPagar
         ef.listEstCeldasNew = listEstCeldas
         ef.alto = 90
         ef.ancho = 800
-        ef.Context = "Seleccione Cuenta Por Pagar".ToUpper
+        ef.Context = "Seleccione Cuenta Por Cobrar".ToUpper
         ef.ShowDialog()
         Dim bandera As Boolean = False
         bandera = ef.band
@@ -591,7 +595,7 @@ Public Class Tec_AdministrarCuentasPorPagar
             Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
 
             IdCredito = Row.Cells("Id").Value
-            tbDeuda.Text = Row.Cells("Compra").Value.ToString + " a Proveedor : " + Row.Cells("Nombre").Value.ToString
+            tbDeuda.Text = Row.Cells("Venta").Value.ToString + " a Cliente : " + Row.Cells("Nombre").Value.ToString
             tbGlosa.Focus()
             tbMonto.Value = Row.Cells("Monto").Value
             tbSaldo.Value = Row.Cells("Restante").Value
@@ -607,13 +611,13 @@ Public Class Tec_AdministrarCuentasPorPagar
         tbDeuda.Focus()
         If (IdCredito <> 0) Then
             Dim dt As DataTable
-            dt = L_prListarPagosPendientesFiltros()
+            dt = L_prListarPagosPendientesFiltrosClientes()
 
             For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
                 If (IdCredito = dt.Rows(i).Item("Id")) Then
                     IdCredito = dt.Rows(i).Item("Id")
-                    tbDeuda.Text = dt.Rows(i).Item("Compra") + " a Proveedor : " + dt.Rows(i).Item("Nombre")
+                    tbDeuda.Text = dt.Rows(i).Item("Venta") + " a Cliente : " + dt.Rows(i).Item("Nombre")
                     tbGlosa.Focus()
                     tbMonto.Value = dt.Rows(i).Item("Monto")
                     tbSaldo.Value = dt.Rows(i).Item("Restante")
@@ -701,7 +705,7 @@ Public Class Tec_AdministrarCuentasPorPagar
 
             Dim id As String = ""
             Try
-                If (L_prGrabarPagosCreditoCompras(id, IdCredito, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), IdPersonal, tbGlosa.Text, tbNroComprobante.Text, tbMontoAPagar.Value)) Then
+                If (L_prGrabarPagosCreditoVentas(id, IdCredito, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), IdPersonal, tbGlosa.Text, tbNroComprobante.Text, tbMontoAPagar.Value)) Then
 
                     Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
                     ToastNotification.Show(Me, "El Pago Ha sido Registrado con Exito", img, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
@@ -729,14 +733,14 @@ Public Class Tec_AdministrarCuentasPorPagar
         If (e.KeyData = Keys.Control + Keys.Enter) Then
             Dim dt As DataTable
 
-            dt = L_prListarPagosTodosCuentasPorPagar()
+            dt = L_prListarPagosTodosCuentasPorCobrar()
 
             'Credito Compra	Nombre	Monto	abonado	Restante	FechaVencimientoCredito	DiasMora
 
             Dim listEstCeldas As New List(Of Celda)
             listEstCeldas.Add(New Celda("Id", False, "Credito", 50))
             listEstCeldas.Add(New Celda("Credito", True, "Credito", 90))
-            listEstCeldas.Add(New Celda("Compra", True, "Compra", 90))
+            listEstCeldas.Add(New Celda("Venta", True, "Compra", 90))
             listEstCeldas.Add(New Celda("Nombre", True, "Proveedor", 350))
             listEstCeldas.Add(New Celda("Monto", True, "Monto", 90, "0.00"))
             listEstCeldas.Add(New Celda("abonado", True, "Abonado", 90, "0.00"))
@@ -750,7 +754,7 @@ Public Class Tec_AdministrarCuentasPorPagar
             ef.listEstCeldasNew = listEstCeldas
             ef.alto = 90
             ef.ancho = 900
-            ef.Context = "Seleccione Cuenta Por Pagar".ToUpper
+            ef.Context = "Seleccione Cuenta Por Cobrar".ToUpper
             ef.ShowDialog()
             Dim bandera As Boolean = False
             bandera = ef.band
@@ -758,7 +762,7 @@ Public Class Tec_AdministrarCuentasPorPagar
                 Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
 
                 IdCreditoTodos = Row.Cells("Id").Value
-                tbDeudaTodos.Text = Row.Cells("Compra").Value.ToString + " a Proveedor : " + Row.Cells("Nombre").Value.ToString
+                tbDeudaTodos.Text = Row.Cells("Venta").Value.ToString + " a Cliente : " + Row.Cells("Nombre").Value.ToString
 
                 tbtotalCompraTodos.Value = Row.Cells("Monto").Value
                 tbSaldoTodos.Value = Row.Cells("Restante").Value
@@ -771,14 +775,14 @@ Public Class Tec_AdministrarCuentasPorPagar
     Private Sub btnDeudadTodos_Click(sender As Object, e As EventArgs) Handles btnDeudadTodos.Click
         Dim dt As DataTable
 
-        dt = L_prListarPagosTodosCuentasPorPagar()
+        dt = L_prListarPagosTodosCuentasPorCobrar()
 
         'Credito Compra	Nombre	Monto	abonado	Restante	FechaVencimientoCredito	DiasMora
 
         Dim listEstCeldas As New List(Of Celda)
         listEstCeldas.Add(New Celda("Id", False, "Credito", 50))
         listEstCeldas.Add(New Celda("Credito", True, "Credito", 90))
-        listEstCeldas.Add(New Celda("Compra", True, "Compra", 90))
+        listEstCeldas.Add(New Celda("Venta", True, "Compra", 90))
         listEstCeldas.Add(New Celda("Nombre", True, "Proveedor", 350))
         listEstCeldas.Add(New Celda("Monto", True, "Monto", 90, "0.00"))
         listEstCeldas.Add(New Celda("abonado", True, "Abonado", 90, "0.00"))
@@ -792,7 +796,7 @@ Public Class Tec_AdministrarCuentasPorPagar
         ef.listEstCeldasNew = listEstCeldas
         ef.alto = 90
         ef.ancho = 900
-        ef.Context = "Seleccione Cuenta Por Pagar".ToUpper
+        ef.Context = "Seleccione Cuenta Por Cobrar".ToUpper
         ef.ShowDialog()
         Dim bandera As Boolean = False
         bandera = ef.band
@@ -800,7 +804,7 @@ Public Class Tec_AdministrarCuentasPorPagar
             Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
 
             IdCreditoTodos = Row.Cells("Id").Value
-            tbDeudaTodos.Text = Row.Cells("Compra").Value.ToString + " a Proveedor : " + Row.Cells("Nombre").Value.ToString
+            tbDeudaTodos.Text = Row.Cells("Venta").Value.ToString + " a Cliente : " + Row.Cells("Nombre").Value.ToString
 
             tbtotalCompraTodos.Value = Row.Cells("Monto").Value
             tbSaldoTodos.Value = Row.Cells("Restante").Value
@@ -813,12 +817,12 @@ Public Class Tec_AdministrarCuentasPorPagar
         tbDeudaTodos.Focus()
         If (IdCreditoTodos <> 0) Then
             Dim dt As DataTable
-            dt = L_prListarPagosTodosCuentasPorPagar()
+            dt = L_prListarPagosTodosCuentasPorCobrar()
 
             For i As Integer = 0 To dt.Rows.Count - 1 Step 1
                 If (dt.Rows(i).Item("Id") = IdCreditoTodos) Then
                     IdCreditoTodos = dt.Rows(i).Item("Id")
-                    tbDeudaTodos.Text = dt.Rows(i).Item("Compra") + " a Proveedor : " + dt.Rows(i).Item("Nombre")
+                    tbDeudaTodos.Text = dt.Rows(i).Item("Venta") + " a Cliente : " + dt.Rows(i).Item("Nombre")
 
                     tbtotalCompraTodos.Value = dt.Rows(i).Item("Monto")
                     tbSaldoTodos.Value = dt.Rows(i).Item("Restante")
@@ -847,7 +851,7 @@ Public Class Tec_AdministrarCuentasPorPagar
                     Dim mensajeError As String = ""
                     Dim res As Boolean
                     Try
-                        res = L_prEliminarPagosCuentaPorPagar(grPagosTodos.GetValue("Id"))
+                        res = L_prEliminarPagosCuentaPorCobrar(grPagosTodos.GetValue("Id"))
                         If res Then
 
                             Dim imgOk As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
@@ -887,7 +891,7 @@ Public Class Tec_AdministrarCuentasPorPagar
             Return
 
         End If
-        Dim dt As DataTable = L_EstadoDeCuentasPorPagar(IdCreditoTodos)
+        Dim dt As DataTable = L_EstadoDeCuentasPorCobrar(IdCreditoTodos)
         P_Global.Visualizador = New Visualizador
 
         Dim objrep As New Reporte_EstadoCuentasCompras
@@ -899,6 +903,4 @@ Public Class Tec_AdministrarCuentasPorPagar
         P_Global.Visualizador.Show() 'Comentar
     End Sub
 #End Region
-
-
 End Class
