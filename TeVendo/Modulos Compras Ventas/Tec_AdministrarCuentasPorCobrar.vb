@@ -32,7 +32,7 @@ Public Class Tec_AdministrarCuentasPorCobrar
 
     Private Sub _prListaPagos()
         Dim dt As New DataTable
-        dt = L_prListarPagosCreditoCompra(IdCredito)
+        dt = L_prListarPagosCreditoVenta(IdCredito)
 
         grPagos.DataSource = dt
         grPagos.RetrieveStructure()
@@ -311,7 +311,7 @@ Public Class Tec_AdministrarCuentasPorCobrar
 
         With gr_CreditoPendientes.RootTable.Columns("venta")
             .Width = 110
-            .Caption = "Compra"
+            .Caption = "Venta"
             .Visible = True
         End With
         With gr_CreditoPendientes.RootTable.Columns("Nombrecliente")
@@ -402,7 +402,7 @@ Public Class Tec_AdministrarCuentasPorCobrar
 
         P_Global.Visualizador = New Visualizador
 
-        Dim objrep As New Reporte_PagosPendientes
+        Dim objrep As New Reporte_CobrosPendientes
 
         objrep.SetDataSource(dtPendiente)
         objrep.SetParameterValue("Usuario", L_Usuario)
@@ -484,7 +484,7 @@ Public Class Tec_AdministrarCuentasPorCobrar
                 Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
 
                 IdCredito = Row.Cells("Id").Value
-                tbDeuda.Text = Row.Cells("Compra").Value.ToString + " a Cliente : " + Row.Cells("Nombre").Value.ToString
+                tbDeuda.Text = Row.Cells("Venta").Value.ToString + " a Cliente : " + Row.Cells("Nombre").Value.ToString
                 tbGlosa.Focus()
                 tbMonto.Value = Row.Cells("Monto").Value
                 tbSaldo.Value = Row.Cells("Restante").Value

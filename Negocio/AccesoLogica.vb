@@ -1963,7 +1963,7 @@ Public Class AccesoLogica
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 4))
-        _listParam.Add(New Datos.DParametro("@CreditoCompraId", CreditoVentaId))
+        _listParam.Add(New Datos.DParametro("@CreditoVentaId", CreditoVentaId))
         _listParam.Add(New Datos.DParametro("@FechaPago", FechaPAgo))
         _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
         _listParam.Add(New Datos.DParametro("@Glosa", Glosa))

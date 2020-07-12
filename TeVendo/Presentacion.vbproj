@@ -315,6 +315,12 @@
     <Compile Include="Modulos Compras Ventas\Frm_Proveedor.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modulos Compras Ventas\Tec_AdministrarCuentasPorCobrar.Designer.vb">
+      <DependentUpon>Tec_AdministrarCuentasPorCobrar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos Compras Ventas\Tec_AdministrarCuentasPorCobrar.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Modulos Compras Ventas\Tec_AdministrarCuentasPorPagar.Designer.vb">
       <DependentUpon>Tec_AdministrarCuentasPorPagar.vb</DependentUpon>
     </Compile>
@@ -361,6 +367,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ReportePagosPagados.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReporteSmartApps\Reporte_CobrosPendientes.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reporte_CobrosPendientes.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ReporteSmartApps\Reporte_Compras.vb">
@@ -512,6 +524,9 @@
     <EmbeddedResource Include="Modulos Compras Ventas\Frm_Proveedor.resx">
       <DependentUpon>Frm_Proveedor.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Modulos Compras Ventas\Tec_AdministrarCuentasPorCobrar.resx">
+      <DependentUpon>Tec_AdministrarCuentasPorCobrar.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Modulos Compras Ventas\Tec_AdministrarCuentasPorPagar.resx">
       <DependentUpon>Tec_AdministrarCuentasPorPagar.vb</DependentUpon>
     </EmbeddedResource>
@@ -537,6 +552,10 @@
     <EmbeddedResource Include="ReporteSmartApps\ReportePagosPagados.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReportePagosPagados.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\Reporte_CobrosPendientes.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reporte_CobrosPendientes.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\Reporte_Compras.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -899,6 +918,7 @@
     <None Include="Resources\credito.png" />
     <None Include="Resources\creditopagados.png" />
     <None Include="Resources\creditospagados.png" />
+    <None Include="Resources\cobros.png" />
     <Content Include="Resources\dinases.png" />
     <None Include="Resources\MapaClientes.png" />
     <None Include="Resources\ventasCostos.png" />
