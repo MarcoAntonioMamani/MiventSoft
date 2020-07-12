@@ -894,7 +894,7 @@ Public Class Tec_AdministrarCuentasPorCobrar
         Dim dt As DataTable = L_EstadoDeCuentasPorCobrar(IdCreditoTodos)
         P_Global.Visualizador = New Visualizador
 
-        Dim objrep As New Reporte_EstadoCuentasCompras
+        Dim objrep As New Reporte_VentaEstadoCuentas
 
 
         objrep.SetDataSource(dt)
