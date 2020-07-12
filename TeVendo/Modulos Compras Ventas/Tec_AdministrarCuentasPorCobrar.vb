@@ -432,7 +432,7 @@ Public Class Tec_AdministrarCuentasPorCobrar
 
         P_Global.Visualizador = New Visualizador
 
-        Dim objrep As New ReportePagosPagados
+        Dim objrep As New Reporte_CreditoVentaPagados
         objrep.SetDataSource(dtPagados)
         objrep.SetParameterValue("Usuario", L_Usuario)
         P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
