@@ -13,6 +13,7 @@ Public Class Tec_Ventas
     Public _modulo As SideNavItem
     Public FilaSeleccionada As Boolean = False
 
+    Dim RutaGlobal As String = gs_CarpetaRaiz
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
     Public _MListEstBuscador As List(Of Celda)
     Public _MPos As Integer
@@ -1972,13 +1973,25 @@ salirIf:
         Dim total As Decimal = dt.Compute("SUM(Total)", "")
         total = total - dt.Rows(0).Item("DescuentoVenta")
         Dim fechaven As String = dt.Rows(0).Item("FechaVenta")
-        For i As Integer = 0 To dt.Rows.Count - 1
-            ''imageEmpresa
-            Dim Bin As New MemoryStream
-            Dim img As New Bitmap(My.Resources.icono_sistema02)
-            img.Save(Bin, Imaging.ImageFormat.Png)
-            dt.Rows(i).Item("imageEmpresa") = Bin.GetBuffer
-        Next
+        Dim dtImage As DataTable = ObtenerImagenEmpresa()
+        If (dtImage.Rows.Count > 0) Then
+            Dim Name As String = dtImage.Rows(0).Item(0)
+            If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Empresa" + Name)) Then
+                Dim im As New Bitmap(New Bitmap(RutaGlobal + "\Imagenes\Imagenes Empresa" + Name))
+                Dim Bin As New MemoryStream
+                Dim img As New Bitmap(im)
+                img.Save(Bin, Imaging.ImageFormat.Png)
+                Bin.Dispose()
+                For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+
+                    dt.Rows(i).Item("imageEmpresa") = Bin.GetBuffer
+                Next
+            End If
+
+
+        End If
+
         Dim _FechaAct As String
         Dim _Fecha() As String
         Dim _FechaPar As String

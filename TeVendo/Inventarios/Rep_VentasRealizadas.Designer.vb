@@ -392,7 +392,7 @@ Partial Class Rep_VentasRealizadas
         '
         Me.swTipoReporte.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.swTipoReporte.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.swTipoReporte.Location = New System.Drawing.Point(130, 43)
+        Me.swTipoReporte.Location = New System.Drawing.Point(130, 37)
         Me.swTipoReporte.Margin = New System.Windows.Forms.Padding(4)
         Me.swTipoReporte.Name = "swTipoReporte"
         Me.swTipoReporte.OffBackColor = System.Drawing.Color.LawnGreen
@@ -416,7 +416,7 @@ Partial Class Rep_VentasRealizadas
         Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX3.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX3.ForeColor = System.Drawing.Color.White
-        Me.LabelX3.Location = New System.Drawing.Point(40, 42)
+        Me.LabelX3.Location = New System.Drawing.Point(40, 37)
         Me.LabelX3.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX3.Name = "LabelX3"
         Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control

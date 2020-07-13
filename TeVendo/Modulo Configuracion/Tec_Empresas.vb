@@ -414,7 +414,7 @@ Public Class Tec_Empresas
         'copio la imagen en la carpeta del sistema
         If (Not name.Equals("Default.jpg") And File.Exists(RutaTemporal + name)) Then
 
-            Dim img As New Bitmap(New Bitmap(RutaTemporal + name), 500, 300)
+            Dim img As New Bitmap(New Bitmap(RutaTemporal + name))
 
             pbImagen.Image.Dispose()
             pbImagen.Image = Nothing
