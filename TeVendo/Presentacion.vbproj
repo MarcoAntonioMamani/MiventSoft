@@ -195,6 +195,12 @@
     </Compile>
     <Compile Include="CustomersRow.vb" />
     <Compile Include="Font\Custom.vb" />
+    <Compile Include="Inventarios\Reporte_VentasVsCostos.Designer.vb">
+      <DependentUpon>Reporte_VentasVsCostos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Inventarios\Reporte_VentasVsCostos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Inventarios\Rep_MovimientosProductos.Designer.vb">
       <DependentUpon>Rep_MovimientosProductos.vb</DependentUpon>
     </Compile>
@@ -441,6 +447,12 @@
       <DependentUpon>R_ReporteSaldoFamilia.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ReporteSmartApps\VentasVsCostos.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VentasVsCostos.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Utils\Celda.vb" />
     <Compile Include="Utils\Efecto.Designer.vb">
       <DependentUpon>Efecto.vb</DependentUpon>
@@ -493,6 +505,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Control\UCLavadero.resx">
       <DependentUpon>UCLavadero.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventarios\Reporte_VentasVsCostos.resx">
+      <DependentUpon>Reporte_VentasVsCostos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\Rep_MovimientosProductos.resx">
       <DependentUpon>Rep_MovimientosProductos.vb</DependentUpon>
@@ -629,6 +644,10 @@
     <EmbeddedResource Include="ReporteSmartApps\R_ReporteSaldoFamilia.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_ReporteSaldoFamilia.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\VentasVsCostos.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>VentasVsCostos.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Utils\Efecto.resx">
       <DependentUpon>Efecto.vb</DependentUpon>
