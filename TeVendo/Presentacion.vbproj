@@ -207,6 +207,12 @@
     <Compile Include="Inventarios\Rep_SaldoProductos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Inventarios\Rep_VentasRealizadas.Designer.vb">
+      <DependentUpon>Rep_VentasRealizadas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Inventarios\Rep_VentasRealizadas.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Inventarios\Tec_KardexProductos.Designer.vb">
       <DependentUpon>Tec_KardexProductos.vb</DependentUpon>
     </Compile>
@@ -363,6 +369,12 @@
       <DependentUpon>Recibo.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ReporteSmartApps\ReporteGraficoVentasRealizadas.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteGraficoVentasRealizadas.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ReporteSmartApps\ReportePagosPagados.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -409,6 +421,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reporte_VentaEstadoCuentas.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReporteSmartApps\Reporte_VentasRealizadas.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reporte_VentasRealizadas.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ReporteSmartApps\R_KardexProducto.vb">
@@ -481,6 +499,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\Rep_SaldoProductos.resx">
       <DependentUpon>Rep_SaldoProductos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventarios\Rep_VentasRealizadas.resx">
+      <DependentUpon>Rep_VentasRealizadas.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\Tec_KardexProductos.resx">
       <DependentUpon>Tec_KardexProductos.vb</DependentUpon>
@@ -561,6 +582,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Recibo.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\ReporteGraficoVentasRealizadas.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteGraficoVentasRealizadas.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\ReportePagosPagados.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReportePagosPagados.vb</LastGenOutput>
@@ -592,6 +617,10 @@
     <EmbeddedResource Include="ReporteSmartApps\Reporte_VentaEstadoCuentas.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Reporte_VentaEstadoCuentas.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\Reporte_VentasRealizadas.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reporte_VentasRealizadas.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\R_KardexProducto.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
