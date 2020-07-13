@@ -983,6 +983,18 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+    Public Shared Function ReporteVentasProductosMasVendido(FechaI As String, FechaF As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 6))
+        _listParam.Add(New Datos.DParametro("@FechaI", FechaI))
+        _listParam.Add(New Datos.DParametro("@FechaF", FechaF))
+
+        _Tabla = D_ProcedimientoConParam("MAM_ReporteVentas", _listParam)
+
+        Return _Tabla
+    End Function
 
     Public Shared Function ObtenerImagenEmpresa() As DataTable
         Dim _Tabla As DataTable
