@@ -46,6 +46,8 @@ Partial Class Reporte_VentasVsCostos
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.PanelToolBar1 = New System.Windows.Forms.Panel()
         Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
+        Me.LabelX3 = New DevComponents.DotNetBar.LabelX()
+        Me.swTipoReporte = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelLEft.SuspendLayout()
@@ -208,6 +210,8 @@ Partial Class Reporte_VentasVsCostos
         '
         'PanelNavegacion
         '
+        Me.PanelNavegacion.Controls.Add(Me.LabelX3)
+        Me.PanelNavegacion.Controls.Add(Me.swTipoReporte)
         Me.PanelNavegacion.Controls.Add(Me.chkTodos)
         Me.PanelNavegacion.Controls.Add(Me.btnVendedor)
         Me.PanelNavegacion.Controls.Add(Me.tbVendedor)
@@ -426,6 +430,45 @@ Partial Class Reporte_VentasVsCostos
         Me.ButtonX1.Text = "Generar"
         Me.ButtonX1.TextColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
         '
+        'LabelX3
+        '
+        Me.LabelX3.AutoSize = True
+        Me.LabelX3.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX3.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX3.ForeColor = System.Drawing.Color.White
+        Me.LabelX3.Location = New System.Drawing.Point(40, 39)
+        Me.LabelX3.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX3.Name = "LabelX3"
+        Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX3.Size = New System.Drawing.Size(87, 21)
+        Me.LabelX3.TabIndex = 214
+        Me.LabelX3.Text = "Tipo Reporte:"
+        '
+        'swTipoReporte
+        '
+        '
+        '
+        '
+        Me.swTipoReporte.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.swTipoReporte.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.swTipoReporte.Location = New System.Drawing.Point(130, 39)
+        Me.swTipoReporte.Margin = New System.Windows.Forms.Padding(4)
+        Me.swTipoReporte.Name = "swTipoReporte"
+        Me.swTipoReporte.OffBackColor = System.Drawing.Color.LawnGreen
+        Me.swTipoReporte.OffText = "Reporte Grafico"
+        Me.swTipoReporte.OnBackColor = System.Drawing.Color.Gold
+        Me.swTipoReporte.OnText = "Reporte Datos"
+        Me.swTipoReporte.OnTextColor = System.Drawing.Color.Black
+        Me.swTipoReporte.Size = New System.Drawing.Size(180, 27)
+        Me.swTipoReporte.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.swTipoReporte.TabIndex = 213
+        Me.swTipoReporte.Value = True
+        Me.swTipoReporte.ValueObject = "Y"
+        '
         'Reporte_VentasVsCostos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -476,4 +519,6 @@ Partial Class Reporte_VentasVsCostos
     Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
     Protected WithEvents PanelToolBar1 As Panel
     Protected WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents LabelX3 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents swTipoReporte As DevComponents.DotNetBar.Controls.SwitchButton
 End Class

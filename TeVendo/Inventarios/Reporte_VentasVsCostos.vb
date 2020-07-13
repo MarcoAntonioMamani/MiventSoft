@@ -12,7 +12,7 @@ Public Class Reporte_VentasVsCostos
         cbFechaDesde.Value = Now.Date
         cbFechaHasta.Value = Now.Date
         chkTodos.CheckValue = True
-
+        swTipoReporte.Value = True
         tbVendedor.ReadOnly = True
         Me.Text = "REPORTE DE UTILIDADES VENTAS"
         MReportViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
@@ -148,8 +148,8 @@ Public Class Reporte_VentasVsCostos
     End Sub
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
-
-        Dim _dt As New DataTable
+        If (swTipoReporte.Value = True) Then ''' Generar Reporte de Datos
+            Dim _dt As New DataTable
             GenerarData(_dt)
             If (IsNothing(_dt) Or _dt.Rows.Count = 0) Then
 
@@ -163,8 +163,8 @@ Public Class Reporte_VentasVsCostos
 
             If (_dt.Rows.Count > 0) Then
 
-            Dim objrep As New VentasVsCostos
-            objrep.SetDataSource(_dt)
+                Dim objrep As New VentasVsCostos
+                objrep.SetDataSource(_dt)
                 Dim fechaI As String = cbFechaDesde.Value.ToString("dd/MM/yyyy")
                 Dim fechaF As String = cbFechaHasta.Value.ToString("dd/MM/yyyy")
                 objrep.SetParameterValue("FechaDesde", fechaI)
@@ -177,6 +177,38 @@ Public Class Reporte_VentasVsCostos
                 Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
                 ToastNotification.Show(Me, "No Existen Datos Para Mostrar. con Los Filtros Seleccionados".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
             End If
+        Else
+            Dim _dt As New DataTable
+            GenerarData(_dt)
+            If (IsNothing(_dt) Or _dt.Rows.Count = 0) Then
+
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "No Existen Datos Para Mostrar con Los Filtros Seleccionados".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+
+                Return
+
+            End If
+
+
+            If (_dt.Rows.Count > 0) Then
+
+                Dim objrep As New ReporteGraficoUtilidades
+                objrep.SetDataSource(_dt)
+                Dim fechaI As String = cbFechaDesde.Value.ToString("dd/MM/yyyy")
+                Dim fechaF As String = cbFechaHasta.Value.ToString("dd/MM/yyyy")
+                objrep.SetParameterValue("FechaDesde", fechaI)
+                objrep.SetParameterValue("FechaHasta", fechaF)
+                objrep.SetParameterValue("Usuario", L_Usuario)
+                MReportViewer.ReportSource = objrep
+                MReportViewer.Show()
+                MReportViewer.BringToFront()
+            Else
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "No Existen Datos Para Mostrar. con Los Filtros Seleccionados".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            End If
+        End If
+
+
 
     End Sub
 End Class
