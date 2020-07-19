@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Reporte_VentasVsCostos
+Partial Class Reporte_RendimientoPersonal
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
@@ -29,6 +29,10 @@ Partial Class Reporte_VentasVsCostos
         Me.PanelDatos = New System.Windows.Forms.Panel()
         Me.PanelPrincipal = New System.Windows.Forms.Panel()
         Me.MReportViewer = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
+        Me.PanelPersonal = New System.Windows.Forms.Panel()
+        Me.gr_Personal = New Janus.Windows.GridEX.GridEX()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.chkPersonal = New DevComponents.DotNetBar.Controls.CheckBoxX()
         Me.Panel10 = New System.Windows.Forms.Panel()
         Me.Panel11 = New System.Windows.Forms.Panel()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -36,16 +40,10 @@ Partial Class Reporte_VentasVsCostos
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.PanelButton = New System.Windows.Forms.Panel()
         Me.PanelNavegacion = New System.Windows.Forms.Panel()
-        Me.LabelX3 = New DevComponents.DotNetBar.LabelX()
-        Me.swTipoReporte = New DevComponents.DotNetBar.Controls.SwitchButton()
-        Me.chkTodos = New DevComponents.DotNetBar.Controls.CheckBoxX()
-        Me.btnVendedor = New DevComponents.DotNetBar.ButtonX()
-        Me.tbVendedor = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.cbFechaHasta = New Janus.Windows.CalendarCombo.CalendarCombo()
         Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
         Me.cbFechaDesde = New Janus.Windows.CalendarCombo.CalendarCombo()
         Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
-        Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.PanelToolBar1 = New System.Windows.Forms.Panel()
         Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.Panel1.SuspendLayout()
@@ -54,6 +52,9 @@ Partial Class Reporte_VentasVsCostos
         Me.Panel8.SuspendLayout()
         Me.PanelDatos.SuspendLayout()
         Me.PanelPrincipal.SuspendLayout()
+        Me.PanelPersonal.SuspendLayout()
+        CType(Me.gr_Personal, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel2.SuspendLayout()
         Me.Panel10.SuspendLayout()
         Me.Panel11.SuspendLayout()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -69,8 +70,8 @@ Partial Class Reporte_VentasVsCostos
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(979, 647)
-        Me.Panel1.TabIndex = 7
+        Me.Panel1.Size = New System.Drawing.Size(984, 463)
+        Me.Panel1.TabIndex = 9
         '
         'PanelSuperior
         '
@@ -78,7 +79,7 @@ Partial Class Reporte_VentasVsCostos
         Me.PanelSuperior.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelSuperior.Location = New System.Drawing.Point(0, 0)
         Me.PanelSuperior.Name = "PanelSuperior"
-        Me.PanelSuperior.Size = New System.Drawing.Size(979, 564)
+        Me.PanelSuperior.Size = New System.Drawing.Size(984, 380)
         Me.PanelSuperior.TabIndex = 1
         '
         'PanelLEft
@@ -87,7 +88,7 @@ Partial Class Reporte_VentasVsCostos
         Me.PanelLEft.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelLEft.Location = New System.Drawing.Point(0, 0)
         Me.PanelLEft.Name = "PanelLEft"
-        Me.PanelLEft.Size = New System.Drawing.Size(979, 564)
+        Me.PanelLEft.Size = New System.Drawing.Size(984, 380)
         Me.PanelLEft.TabIndex = 0
         '
         'Panel8
@@ -99,17 +100,18 @@ Partial Class Reporte_VentasVsCostos
         Me.Panel8.Location = New System.Drawing.Point(0, 0)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel8.Size = New System.Drawing.Size(979, 564)
+        Me.Panel8.Size = New System.Drawing.Size(984, 380)
         Me.Panel8.TabIndex = 1
         '
         'PanelDatos
         '
         Me.PanelDatos.BackColor = System.Drawing.Color.White
         Me.PanelDatos.Controls.Add(Me.PanelPrincipal)
+        Me.PanelDatos.Controls.Add(Me.PanelPersonal)
         Me.PanelDatos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelDatos.Location = New System.Drawing.Point(3, 30)
         Me.PanelDatos.Name = "PanelDatos"
-        Me.PanelDatos.Size = New System.Drawing.Size(973, 531)
+        Me.PanelDatos.Size = New System.Drawing.Size(978, 347)
         Me.PanelDatos.TabIndex = 2
         '
         'PanelPrincipal
@@ -117,10 +119,10 @@ Partial Class Reporte_VentasVsCostos
         Me.PanelPrincipal.BackColor = System.Drawing.SystemColors.Control
         Me.PanelPrincipal.Controls.Add(Me.MReportViewer)
         Me.PanelPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelPrincipal.Location = New System.Drawing.Point(0, 0)
+        Me.PanelPrincipal.Location = New System.Drawing.Point(407, 0)
         Me.PanelPrincipal.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelPrincipal.Name = "PanelPrincipal"
-        Me.PanelPrincipal.Size = New System.Drawing.Size(973, 531)
+        Me.PanelPrincipal.Size = New System.Drawing.Size(571, 347)
         Me.PanelPrincipal.TabIndex = 2
         '
         'MReportViewer
@@ -133,9 +135,95 @@ Partial Class Reporte_VentasVsCostos
         Me.MReportViewer.Location = New System.Drawing.Point(0, 0)
         Me.MReportViewer.Margin = New System.Windows.Forms.Padding(4)
         Me.MReportViewer.Name = "MReportViewer"
-        Me.MReportViewer.Size = New System.Drawing.Size(973, 531)
+        Me.MReportViewer.Size = New System.Drawing.Size(571, 347)
         Me.MReportViewer.TabIndex = 20
         Me.MReportViewer.ToolPanelWidth = 267
+        '
+        'PanelPersonal
+        '
+        Me.PanelPersonal.Controls.Add(Me.gr_Personal)
+        Me.PanelPersonal.Controls.Add(Me.Panel2)
+        Me.PanelPersonal.Dock = System.Windows.Forms.DockStyle.Left
+        Me.PanelPersonal.Location = New System.Drawing.Point(0, 0)
+        Me.PanelPersonal.Name = "PanelPersonal"
+        Me.PanelPersonal.Size = New System.Drawing.Size(407, 347)
+        Me.PanelPersonal.TabIndex = 21
+        '
+        'gr_Personal
+        '
+        Me.gr_Personal.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
+        Me.gr_Personal.AlternatingColors = True
+        Me.gr_Personal.BackColor = System.Drawing.Color.White
+        Me.gr_Personal.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
+        Me.gr_Personal.ColumnAutoResize = True
+        Me.gr_Personal.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.gr_Personal.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None
+        Me.gr_Personal.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
+        Me.gr_Personal.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gr_Personal.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.gr_Personal.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.gr_Personal.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
+        Me.gr_Personal.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gr_Personal.GridLines = Janus.Windows.GridEX.GridLines.None
+        Me.gr_Personal.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
+        Me.gr_Personal.HeaderFormatStyle.Alpha = 0
+        Me.gr_Personal.HeaderFormatStyle.Appearance = Janus.Windows.GridEX.Appearance.Flat
+        Me.gr_Personal.HeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
+        Me.gr_Personal.HeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
+        Me.gr_Personal.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
+        Me.gr_Personal.HeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
+        Me.gr_Personal.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gr_Personal.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
+        Me.gr_Personal.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
+        Me.gr_Personal.Location = New System.Drawing.Point(0, 79)
+        Me.gr_Personal.Margin = New System.Windows.Forms.Padding(4)
+        Me.gr_Personal.Name = "gr_Personal"
+        Me.gr_Personal.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.gr_Personal.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.gr_Personal.RecordNavigator = True
+        Me.gr_Personal.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gr_Personal.RowHeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
+        Me.gr_Personal.RowHeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.Transparent
+        Me.gr_Personal.RowHeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
+        Me.gr_Personal.RowHeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
+        Me.gr_Personal.RowHeaderFormatStyle.BackgroundImageDrawMode = Janus.Windows.GridEX.BackgroundImageDrawMode.Center
+        Me.gr_Personal.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gr_Personal.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.gr_Personal.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
+        Me.gr_Personal.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gr_Personal.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
+        Me.gr_Personal.Size = New System.Drawing.Size(407, 268)
+        Me.gr_Personal.TabIndex = 3
+        Me.gr_Personal.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
+        Me.gr_Personal.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.gr_Personal.TableSpacing = 9
+        Me.gr_Personal.TreeLineColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.gr_Personal.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.gr_Personal.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.gr_Personal.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.VS2005
+        '
+        'Panel2
+        '
+        Me.Panel2.Controls.Add(Me.chkPersonal)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel2.Location = New System.Drawing.Point(0, 0)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(407, 79)
+        Me.Panel2.TabIndex = 0
+        '
+        'chkPersonal
+        '
+        '
+        '
+        '
+        Me.chkPersonal.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.chkPersonal.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkPersonal.Location = New System.Drawing.Point(9, 49)
+        Me.chkPersonal.Name = "chkPersonal"
+        Me.chkPersonal.Size = New System.Drawing.Size(179, 23)
+        Me.chkPersonal.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.chkPersonal.TabIndex = 0
+        Me.chkPersonal.Text = "Todos el Personal"
         '
         'Panel10
         '
@@ -145,7 +233,7 @@ Partial Class Reporte_VentasVsCostos
         Me.Panel10.Location = New System.Drawing.Point(3, 3)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel10.Size = New System.Drawing.Size(973, 27)
+        Me.Panel10.Size = New System.Drawing.Size(978, 27)
         Me.Panel10.TabIndex = 1
         '
         'Panel11
@@ -157,7 +245,7 @@ Partial Class Reporte_VentasVsCostos
         Me.Panel11.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel11.Location = New System.Drawing.Point(1, 1)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(971, 25)
+        Me.Panel11.Size = New System.Drawing.Size(976, 25)
         Me.Panel11.TabIndex = 0
         '
         'Label3
@@ -171,7 +259,7 @@ Partial Class Reporte_VentasVsCostos
         Me.Label3.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
         Me.Label3.Size = New System.Drawing.Size(321, 25)
         Me.Label3.TabIndex = 2
-        Me.Label3.Text = "Reporte Ventas Vs Costos"
+        Me.Label3.Text = "Reporte de Rendimiento Personal"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Panel12
@@ -203,113 +291,23 @@ Partial Class Reporte_VentasVsCostos
         Me.PanelButton.Controls.Add(Me.PanelNavegacion)
         Me.PanelButton.Controls.Add(Me.PanelToolBar1)
         Me.PanelButton.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PanelButton.Location = New System.Drawing.Point(0, 564)
+        Me.PanelButton.Location = New System.Drawing.Point(0, 380)
         Me.PanelButton.Name = "PanelButton"
-        Me.PanelButton.Size = New System.Drawing.Size(979, 83)
+        Me.PanelButton.Size = New System.Drawing.Size(984, 83)
         Me.PanelButton.TabIndex = 3
         '
         'PanelNavegacion
         '
-        Me.PanelNavegacion.Controls.Add(Me.LabelX3)
-        Me.PanelNavegacion.Controls.Add(Me.swTipoReporte)
-        Me.PanelNavegacion.Controls.Add(Me.chkTodos)
-        Me.PanelNavegacion.Controls.Add(Me.btnVendedor)
-        Me.PanelNavegacion.Controls.Add(Me.tbVendedor)
         Me.PanelNavegacion.Controls.Add(Me.cbFechaHasta)
         Me.PanelNavegacion.Controls.Add(Me.LabelX4)
         Me.PanelNavegacion.Controls.Add(Me.cbFechaDesde)
         Me.PanelNavegacion.Controls.Add(Me.LabelX2)
-        Me.PanelNavegacion.Controls.Add(Me.LabelX1)
         Me.PanelNavegacion.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelNavegacion.Location = New System.Drawing.Point(0, 0)
+        Me.PanelNavegacion.Location = New System.Drawing.Point(145, 0)
         Me.PanelNavegacion.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelNavegacion.Name = "PanelNavegacion"
-        Me.PanelNavegacion.Size = New System.Drawing.Size(834, 83)
+        Me.PanelNavegacion.Size = New System.Drawing.Size(839, 83)
         Me.PanelNavegacion.TabIndex = 21
-        '
-        'LabelX3
-        '
-        Me.LabelX3.AutoSize = True
-        Me.LabelX3.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX3.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX3.ForeColor = System.Drawing.Color.White
-        Me.LabelX3.Location = New System.Drawing.Point(40, 39)
-        Me.LabelX3.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX3.Name = "LabelX3"
-        Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX3.Size = New System.Drawing.Size(87, 21)
-        Me.LabelX3.TabIndex = 214
-        Me.LabelX3.Text = "Tipo Reporte:"
-        '
-        'swTipoReporte
-        '
-        '
-        '
-        '
-        Me.swTipoReporte.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.swTipoReporte.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.swTipoReporte.Location = New System.Drawing.Point(130, 39)
-        Me.swTipoReporte.Margin = New System.Windows.Forms.Padding(4)
-        Me.swTipoReporte.Name = "swTipoReporte"
-        Me.swTipoReporte.OffBackColor = System.Drawing.Color.LawnGreen
-        Me.swTipoReporte.OffText = "Reporte Grafico"
-        Me.swTipoReporte.OnBackColor = System.Drawing.Color.Gold
-        Me.swTipoReporte.OnText = "Reporte Datos"
-        Me.swTipoReporte.OnTextColor = System.Drawing.Color.Black
-        Me.swTipoReporte.Size = New System.Drawing.Size(180, 27)
-        Me.swTipoReporte.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.swTipoReporte.TabIndex = 213
-        Me.swTipoReporte.Value = True
-        Me.swTipoReporte.ValueObject = "Y"
-        '
-        'chkTodos
-        '
-        '
-        '
-        '
-        Me.chkTodos.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
-        Me.chkTodos.CheckSignSize = New System.Drawing.Size(16, 16)
-        Me.chkTodos.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkTodos.Location = New System.Drawing.Point(386, 10)
-        Me.chkTodos.Name = "chkTodos"
-        Me.chkTodos.Size = New System.Drawing.Size(100, 23)
-        Me.chkTodos.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.chkTodos.TabIndex = 212
-        Me.chkTodos.Text = "Todos"
-        Me.chkTodos.TextColor = System.Drawing.Color.White
-        '
-        'btnVendedor
-        '
-        Me.btnVendedor.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnVendedor.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.btnVendedor.Image = Global.TeVendo.My.Resources.Resources.search
-        Me.btnVendedor.ImageFixedSize = New System.Drawing.Size(28, 28)
-        Me.btnVendedor.Location = New System.Drawing.Point(344, 5)
-        Me.btnVendedor.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnVendedor.Name = "btnVendedor"
-        Me.btnVendedor.Size = New System.Drawing.Size(35, 31)
-        Me.btnVendedor.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnVendedor.TabIndex = 211
-        Me.btnVendedor.Visible = False
-        '
-        'tbVendedor
-        '
-        '
-        '
-        '
-        Me.tbVendedor.Border.Class = "TextBoxBorder"
-        Me.tbVendedor.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbVendedor.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbVendedor.Location = New System.Drawing.Point(130, 7)
-        Me.tbVendedor.Margin = New System.Windows.Forms.Padding(4)
-        Me.tbVendedor.Name = "tbVendedor"
-        Me.tbVendedor.PreventEnterBeep = True
-        Me.tbVendedor.Size = New System.Drawing.Size(206, 29)
-        Me.tbVendedor.TabIndex = 43
         '
         'cbFechaHasta
         '
@@ -334,7 +332,7 @@ Partial Class Reporte_VentasVsCostos
         Me.cbFechaHasta.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
         Me.cbFechaHasta.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
         Me.cbFechaHasta.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbFechaHasta.Location = New System.Drawing.Point(572, 39)
+        Me.cbFechaHasta.Location = New System.Drawing.Point(65, 45)
         Me.cbFechaHasta.Name = "cbFechaHasta"
         Me.cbFechaHasta.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
         Me.cbFechaHasta.Office2007CustomColor = System.Drawing.Color.Turquoise
@@ -357,7 +355,7 @@ Partial Class Reporte_VentasVsCostos
         Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX4.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX4.ForeColor = System.Drawing.Color.White
-        Me.LabelX4.Location = New System.Drawing.Point(523, 39)
+        Me.LabelX4.Location = New System.Drawing.Point(16, 45)
         Me.LabelX4.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX4.Name = "LabelX4"
         Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
@@ -388,7 +386,7 @@ Partial Class Reporte_VentasVsCostos
         Me.cbFechaDesde.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
         Me.cbFechaDesde.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
         Me.cbFechaDesde.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbFechaDesde.Location = New System.Drawing.Point(572, 10)
+        Me.cbFechaDesde.Location = New System.Drawing.Point(65, 16)
         Me.cbFechaDesde.Name = "cbFechaDesde"
         Me.cbFechaDesde.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
         Me.cbFechaDesde.Office2007CustomColor = System.Drawing.Color.Turquoise
@@ -411,7 +409,7 @@ Partial Class Reporte_VentasVsCostos
         Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX2.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX2.ForeColor = System.Drawing.Color.White
-        Me.LabelX2.Location = New System.Drawing.Point(520, 10)
+        Me.LabelX2.Location = New System.Drawing.Point(13, 16)
         Me.LabelX2.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX2.Name = "LabelX2"
         Me.LabelX2.SingleLineColor = System.Drawing.SystemColors.Control
@@ -419,32 +417,14 @@ Partial Class Reporte_VentasVsCostos
         Me.LabelX2.TabIndex = 37
         Me.LabelX2.Text = "Desde:"
         '
-        'LabelX1
-        '
-        Me.LabelX1.AutoSize = True
-        Me.LabelX1.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX1.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX1.ForeColor = System.Drawing.Color.White
-        Me.LabelX1.Location = New System.Drawing.Point(64, 8)
-        Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX1.Name = "LabelX1"
-        Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX1.Size = New System.Drawing.Size(61, 21)
-        Me.LabelX1.TabIndex = 35
-        Me.LabelX1.Text = "Personal:"
-        '
         'PanelToolBar1
         '
         Me.PanelToolBar1.AutoSize = True
         Me.PanelToolBar1.BackColor = System.Drawing.Color.White
         Me.PanelToolBar1.Controls.Add(Me.ButtonX1)
-        Me.PanelToolBar1.Dock = System.Windows.Forms.DockStyle.Right
+        Me.PanelToolBar1.Dock = System.Windows.Forms.DockStyle.Left
         Me.PanelToolBar1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.PanelToolBar1.Location = New System.Drawing.Point(834, 0)
+        Me.PanelToolBar1.Location = New System.Drawing.Point(0, 0)
         Me.PanelToolBar1.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelToolBar1.Name = "PanelToolBar1"
         Me.PanelToolBar1.Size = New System.Drawing.Size(145, 83)
@@ -469,20 +449,23 @@ Partial Class Reporte_VentasVsCostos
         Me.ButtonX1.Text = "Generar"
         Me.ButtonX1.TextColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
         '
-        'Reporte_VentasVsCostos
+        'Reporte_RendimientoPersonal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(979, 647)
+        Me.ClientSize = New System.Drawing.Size(984, 463)
         Me.Controls.Add(Me.Panel1)
-        Me.Name = "Reporte_VentasVsCostos"
-        Me.Text = "Reporte_VentasVsCostos"
+        Me.Name = "Reporte_RendimientoPersonal"
+        Me.Text = "Reporte_RendimientoPersonal"
         Me.Panel1.ResumeLayout(False)
         Me.PanelSuperior.ResumeLayout(False)
         Me.PanelLEft.ResumeLayout(False)
         Me.Panel8.ResumeLayout(False)
         Me.PanelDatos.ResumeLayout(False)
         Me.PanelPrincipal.ResumeLayout(False)
+        Me.PanelPersonal.ResumeLayout(False)
+        CType(Me.gr_Personal, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel2.ResumeLayout(False)
         Me.Panel10.ResumeLayout(False)
         Me.Panel11.ResumeLayout(False)
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
@@ -509,16 +492,14 @@ Partial Class Reporte_VentasVsCostos
     Friend WithEvents PictureBox3 As PictureBox
     Friend WithEvents PanelButton As Panel
     Protected WithEvents PanelNavegacion As Panel
-    Friend WithEvents chkTodos As DevComponents.DotNetBar.Controls.CheckBoxX
-    Friend WithEvents btnVendedor As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents tbVendedor As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents cbFechaHasta As Janus.Windows.CalendarCombo.CalendarCombo
     Friend WithEvents LabelX4 As DevComponents.DotNetBar.LabelX
     Friend WithEvents cbFechaDesde As Janus.Windows.CalendarCombo.CalendarCombo
     Friend WithEvents LabelX2 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
     Protected WithEvents PanelToolBar1 As Panel
     Protected WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents LabelX3 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents swTipoReporte As DevComponents.DotNetBar.Controls.SwitchButton
+    Friend WithEvents PanelPersonal As Panel
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents gr_Personal As Janus.Windows.GridEX.GridEX
+    Friend WithEvents chkPersonal As DevComponents.DotNetBar.Controls.CheckBoxX
 End Class

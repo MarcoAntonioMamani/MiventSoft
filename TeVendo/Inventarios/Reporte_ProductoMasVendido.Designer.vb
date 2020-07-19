@@ -172,7 +172,7 @@ Partial Class Reporte_ProductoMasVendido
         Me.Label3.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
         Me.Label3.Size = New System.Drawing.Size(321, 25)
         Me.Label3.TabIndex = 2
-        Me.Label3.Text = "Reporte de Utilidad"
+        Me.Label3.Text = "Reporte Producto Mas Vendido"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Panel12

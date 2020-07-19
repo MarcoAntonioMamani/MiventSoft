@@ -35,7 +35,7 @@ Partial Class Tec_Principal
         Me.btVentReporteVentaVsCosto = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btInvUtilidad = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btVentProdMasVendidos = New DevComponents.DotNetBar.Metro.MetroTileItem()
-        Me.btVentEstad = New DevComponents.DotNetBar.Metro.MetroTileItem()
+        Me.btVentRendimiento = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btnCredPago = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btnPersonal = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.tab_compraventa = New DevComponents.DotNetBar.SuperTabItem()
@@ -195,7 +195,7 @@ Partial Class Tec_Principal
         Me.ItemContainer2.ItemSpacing = 10
         Me.ItemContainer2.MultiLine = True
         Me.ItemContainer2.Name = "ItemContainer2"
-        Me.ItemContainer2.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btVentVenta, Me.btVentReporteRealizada, Me.btVentGrafica, Me.btVentReporteVentaVsCosto, Me.btInvUtilidad, Me.btVentProdMasVendidos, Me.btVentEstad, Me.btnCredPago, Me.btnPersonal})
+        Me.ItemContainer2.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btVentVenta, Me.btVentReporteRealizada, Me.btVentGrafica, Me.btVentReporteVentaVsCosto, Me.btInvUtilidad, Me.btVentProdMasVendidos, Me.btVentRendimiento, Me.btnCredPago, Me.btnPersonal})
         '
         '
         '
@@ -343,28 +343,28 @@ Partial Class Tec_Principal
         Me.btVentProdMasVendidos.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
         Me.btVentProdMasVendidos.TitleTextColor = System.Drawing.Color.White
         '
-        'btVentEstad
+        'btVentRendimiento
         '
-        Me.btVentEstad.Image = CType(resources.GetObject("btVentEstad.Image"), System.Drawing.Image)
-        Me.btVentEstad.ImageIndent = New System.Drawing.Point(-50, 0)
-        Me.btVentEstad.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
-        Me.btVentEstad.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
-        Me.btVentEstad.Name = "btVentEstad"
-        Me.btVentEstad.SymbolColor = System.Drawing.Color.Black
-        Me.btVentEstad.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
-        Me.btVentEstad.TileSize = New System.Drawing.Size(250, 135)
+        Me.btVentRendimiento.Image = CType(resources.GetObject("btVentRendimiento.Image"), System.Drawing.Image)
+        Me.btVentRendimiento.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btVentRendimiento.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btVentRendimiento.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btVentRendimiento.Name = "btVentRendimiento"
+        Me.btVentRendimiento.SymbolColor = System.Drawing.Color.Black
+        Me.btVentRendimiento.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btVentRendimiento.TileSize = New System.Drawing.Size(250, 135)
         '
         '
         '
-        Me.btVentEstad.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.btVentEstad.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
-        Me.btVentEstad.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
-        Me.btVentEstad.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btVentEstad.TileStyle.PaddingRight = 20
-        Me.btVentEstad.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
-        Me.btVentEstad.TitleText = "Estadistica " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "De Ventas"
-        Me.btVentEstad.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
-        Me.btVentEstad.TitleTextColor = System.Drawing.Color.White
+        Me.btVentRendimiento.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btVentRendimiento.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
+        Me.btVentRendimiento.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btVentRendimiento.TileStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btVentRendimiento.TileStyle.PaddingRight = 20
+        Me.btVentRendimiento.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btVentRendimiento.TitleText = "Rendimiento" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & " Personal"
+        Me.btVentRendimiento.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btVentRendimiento.TitleTextColor = System.Drawing.Color.White
         '
         'btnCredPago
         '
@@ -1530,7 +1530,7 @@ Partial Class Tec_Principal
     Friend WithEvents btVentReporteVentaVsCosto As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents btInvUtilidad As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents btVentGrafica As DevComponents.DotNetBar.Metro.MetroTileItem
-    Friend WithEvents btVentEstad As DevComponents.DotNetBar.Metro.MetroTileItem
+    Friend WithEvents btVentRendimiento As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents btVentProdMasVendidos As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents btVentVenta As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents btnCredPago As DevComponents.DotNetBar.Metro.MetroTileItem
