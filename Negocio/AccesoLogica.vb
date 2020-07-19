@@ -984,6 +984,16 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
+    Public Shared Function ReporteSaldosValorados() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 9))
+        _Tabla = D_ProcedimientoConParam("MAM_ReporteVentas", _listParam)
+
+        Return _Tabla
+    End Function
+
     Public Shared Function ReporteVentasUtilidadesTodos(FechaI As String, FechaF As String) As DataTable
         Dim _Tabla As DataTable
 
