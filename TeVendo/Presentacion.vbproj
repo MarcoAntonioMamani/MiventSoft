@@ -195,6 +195,12 @@
     </Compile>
     <Compile Include="CustomersRow.vb" />
     <Compile Include="Font\Custom.vb" />
+    <Compile Include="Inventarios\F_MonitoreoProductos.Designer.vb">
+      <DependentUpon>F_MonitoreoProductos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Inventarios\F_MonitoreoProductos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Inventarios\Reporte_ProductoMasVendido.Designer.vb">
       <DependentUpon>Reporte_ProductoMasVendido.vb</DependentUpon>
     </Compile>
@@ -553,6 +559,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Control\UCLavadero.resx">
       <DependentUpon>UCLavadero.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventarios\F_MonitoreoProductos.resx">
+      <DependentUpon>F_MonitoreoProductos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\Reporte_ProductoMasVendido.resx">
       <DependentUpon>Reporte_ProductoMasVendido.vb</DependentUpon>
@@ -1016,6 +1025,10 @@
     <None Include="Resources\trash.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\monitoreo.png" />
+    <None Include="Resources\stock03.png" />
+    <None Include="Resources\stock02.png" />
+    <None Include="Resources\stock01.png" />
     <None Include="Resources\pagos.png" />
     <None Include="Resources\modulocompra.png" />
     <None Include="Resources\ventas.png" />

@@ -636,7 +636,7 @@ Public Class Tec_Principal
         tab3.AttachedControl.Controls.Add(panel)
         frm.Show()
         tab3.Text = frm.Text
-        Dim blah As New Bitmap(btnCompraCredito.Image, 20, 20)
+        Dim blah As New Bitmap(btnCredPago.Image, 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub
@@ -656,7 +656,7 @@ Public Class Tec_Principal
         tab3.AttachedControl.Controls.Add(panel)
         frm.Show()
         tab3.Text = frm.Text
-        Dim blah As New Bitmap(btnCompraCredito.Image, 20, 20)
+        Dim blah As New Bitmap(btVentReporteRealizada.Image, 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub
@@ -676,7 +676,7 @@ Public Class Tec_Principal
         tab3.AttachedControl.Controls.Add(panel)
         frm.Show()
         tab3.Text = frm.Text
-        Dim blah As New Bitmap(btnCompraCredito.Image, 20, 20)
+        Dim blah As New Bitmap(btVentReporteVentaVsCosto.Image, 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub
@@ -696,7 +696,7 @@ Public Class Tec_Principal
         tab3.AttachedControl.Controls.Add(panel)
         frm.Show()
         tab3.Text = frm.Text
-        Dim blah As New Bitmap(btnCompraCredito.Image, 20, 20)
+        Dim blah As New Bitmap(btVentProdMasVendidos.Image, 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub
@@ -716,7 +716,7 @@ Public Class Tec_Principal
         tab3.AttachedControl.Controls.Add(panel)
         frm.Show()
         tab3.Text = frm.Text
-        Dim blah As New Bitmap(btnCompraCredito.Image, 20, 20)
+        Dim blah As New Bitmap(btVentEstad.Image, 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub
@@ -736,7 +736,27 @@ Public Class Tec_Principal
         tab3.AttachedControl.Controls.Add(panel)
         frm.Show()
         tab3.Text = frm.Text
-        Dim blah As New Bitmap(btnCompraCredito.Image, 20, 20)
+        Dim blah As New Bitmap(btVentReporteProducto.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
+    End Sub
+
+    Private Sub btnInvMonitoreo_Click(sender As Object, e As EventArgs) Handles btnInvMonitoreo.Click
+        SuperTabControlMenu.SelectedTab = tab_ventana
+        Dim frm As New F_MonitoreoProductos
+
+        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
+        tab3.RecalcSize()
+        tab3.ThemeAware = True
+        tab3.ShowSubItems = True
+        tab3.UpdateBindings()
+        'frm._tab = tab3
+        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
+        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
+        tab3.AttachedControl.Controls.Add(panel)
+        frm.Show()
+        tab3.Text = frm.Text
+        Dim blah As New Bitmap(btnInvMonitoreo.Image, 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub
