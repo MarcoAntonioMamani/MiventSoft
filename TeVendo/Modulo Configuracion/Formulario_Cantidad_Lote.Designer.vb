@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Formulario_Cantidad_Lote
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class Formulario_Cantidad_Lote
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.tbCantidad = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.txtStock = New System.Windows.Forms.Label()
@@ -35,11 +35,10 @@ Partial Class Formulario_Cantidad_Lote
         Me.Label2 = New System.Windows.Forms.Label()
         Me.tbLote = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.tbFechaVencimiento = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
+        Me.cbFecha = New Janus.Windows.CalendarCombo.CalendarCombo()
         Me.btnNo.SuspendLayout()
         Me.btnSi.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.tbFechaVencimiento, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'tbCantidad
@@ -62,7 +61,7 @@ Partial Class Formulario_Cantidad_Lote
         Me.tbCantidad.Name = "tbCantidad"
         Me.tbCantidad.PreventEnterBeep = True
         Me.tbCantidad.Size = New System.Drawing.Size(206, 40)
-        Me.tbCantidad.TabIndex = 11
+        Me.tbCantidad.TabIndex = 0
         Me.tbCantidad.Text = "0"
         Me.tbCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -70,7 +69,7 @@ Partial Class Formulario_Cantidad_Lote
         '
         Me.txtStock.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtStock.ForeColor = System.Drawing.Color.DarkCyan
-        Me.txtStock.Location = New System.Drawing.Point(91, 219)
+        Me.txtStock.Location = New System.Drawing.Point(137, 202)
         Me.txtStock.Name = "txtStock"
         Me.txtStock.Size = New System.Drawing.Size(447, 24)
         Me.txtStock.TabIndex = 17
@@ -106,7 +105,7 @@ Partial Class Formulario_Cantidad_Lote
         Me.btnSi.Location = New System.Drawing.Point(344, 429)
         Me.btnSi.Name = "btnSi"
         Me.btnSi.Size = New System.Drawing.Size(156, 50)
-        Me.btnSi.TabIndex = 12
+        Me.btnSi.TabIndex = 3
         '
         'Label3
         '
@@ -122,7 +121,7 @@ Partial Class Formulario_Cantidad_Lote
         'PictureBox1
         '
         Me.PictureBox1.Image = Global.TeVendo.My.Resources.Resources.compra
-        Me.PictureBox1.Location = New System.Drawing.Point(252, 48)
+        Me.PictureBox1.Location = New System.Drawing.Point(298, 31)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(80, 76)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -133,7 +132,7 @@ Partial Class Formulario_Cantidad_Lote
         '
         Me.txtProducto.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtProducto.ForeColor = System.Drawing.Color.FromArgb(CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer))
-        Me.txtProducto.Location = New System.Drawing.Point(91, 195)
+        Me.txtProducto.Location = New System.Drawing.Point(137, 178)
         Me.txtProducto.Name = "txtProducto"
         Me.txtProducto.Size = New System.Drawing.Size(447, 24)
         Me.txtProducto.TabIndex = 15
@@ -145,7 +144,7 @@ Partial Class Formulario_Cantidad_Lote
         Me.txtTitulo.AutoSize = True
         Me.txtTitulo.Font = New System.Drawing.Font("Calibri", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTitulo.ForeColor = System.Drawing.Color.FromArgb(CType(CType(89, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(89, Byte), Integer))
-        Me.txtTitulo.Location = New System.Drawing.Point(86, 146)
+        Me.txtTitulo.Location = New System.Drawing.Point(132, 129)
         Me.txtTitulo.Name = "txtTitulo"
         Me.txtTitulo.Size = New System.Drawing.Size(462, 49)
         Me.txtTitulo.TabIndex = 14
@@ -193,7 +192,7 @@ Partial Class Formulario_Cantidad_Lote
         Me.tbLote.Name = "tbLote"
         Me.tbLote.PreventEnterBeep = True
         Me.tbLote.Size = New System.Drawing.Size(206, 40)
-        Me.tbLote.TabIndex = 19
+        Me.tbLote.TabIndex = 1
         Me.tbLote.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label5
@@ -207,52 +206,41 @@ Partial Class Formulario_Cantidad_Lote
         Me.Label5.TabIndex = 21
         Me.Label5.Text = "Fecha Venc."
         '
-        'tbFechaVencimiento
+        'cbFecha
+        '
+        Me.cbFecha.BackColor = System.Drawing.Color.White
+        Me.cbFecha.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.Flat
         '
         '
         '
-        '
-        Me.tbFechaVencimiento.BackgroundStyle.Class = "DateTimeInputBackground"
-        Me.tbFechaVencimiento.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbFechaVencimiento.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
-        Me.tbFechaVencimiento.ButtonDropDown.Visible = True
-        Me.tbFechaVencimiento.Font = New System.Drawing.Font("Calibri", 16.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbFechaVencimiento.IsPopupCalendarOpen = False
-        Me.tbFechaVencimiento.Location = New System.Drawing.Point(332, 350)
-        Me.tbFechaVencimiento.Margin = New System.Windows.Forms.Padding(4)
-        '
-        '
-        '
-        '
-        '
-        '
-        Me.tbFechaVencimiento.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbFechaVencimiento.MonthCalendar.CalendarDimensions = New System.Drawing.Size(1, 1)
-        Me.tbFechaVencimiento.MonthCalendar.ClearButtonVisible = True
-        '
-        '
-        '
-        Me.tbFechaVencimiento.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2
-        Me.tbFechaVencimiento.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90
-        Me.tbFechaVencimiento.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground
-        Me.tbFechaVencimiento.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.tbFechaVencimiento.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder
-        Me.tbFechaVencimiento.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1
-        Me.tbFechaVencimiento.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbFechaVencimiento.MonthCalendar.DisplayMonth = New Date(2017, 2, 1, 0, 0, 0, 0)
-        Me.tbFechaVencimiento.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday
-        '
-        '
-        '
-        Me.tbFechaVencimiento.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2
-        Me.tbFechaVencimiento.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90
-        Me.tbFechaVencimiento.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
-        Me.tbFechaVencimiento.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbFechaVencimiento.MonthCalendar.TodayButtonVisible = True
-        Me.tbFechaVencimiento.Name = "tbFechaVencimiento"
-        Me.tbFechaVencimiento.Size = New System.Drawing.Size(206, 40)
-        Me.tbFechaVencimiento.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.tbFechaVencimiento.TabIndex = 22
+        Me.cbFecha.DropDownCalendar.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.None
+        Me.cbFecha.DropDownCalendar.DayOfWeekAbbreviation = Janus.Windows.CalendarCombo.DayOfWeekAbbreviation.UseAbbreviatedName
+        Me.cbFecha.DropDownCalendar.DaysFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.cbFecha.DropDownCalendar.DaysFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.cbFecha.DropDownCalendar.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbFecha.DropDownCalendar.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.cbFecha.DropDownCalendar.HeaderAppearance = Janus.Windows.CalendarCombo.ButtonAppearance.PopUp
+        Me.cbFecha.DropDownCalendar.HeaderFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.cbFecha.DropDownCalendar.HeaderFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.cbFecha.DropDownCalendar.Name = ""
+        Me.cbFecha.DropDownCalendar.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.cbFecha.DropDownCalendar.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.cbFecha.DropDownCalendar.TodayRectColor = System.Drawing.Color.DarkCyan
+        Me.cbFecha.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.cbFecha.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
+        Me.cbFecha.Font = New System.Drawing.Font("Calibri", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbFecha.Location = New System.Drawing.Point(332, 352)
+        Me.cbFecha.Name = "cbFecha"
+        Me.cbFecha.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.cbFecha.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.cbFecha.SecondIncrement = 10
+        Me.cbFecha.Size = New System.Drawing.Size(206, 36)
+        Me.cbFecha.TabIndex = 2
+        Me.cbFecha.TodayButtonText = "Hoy"
+        Me.cbFecha.UseCompatibleTextRendering = False
+        Me.cbFecha.Value = New Date(2020, 6, 21, 0, 0, 0, 0)
+        Me.cbFecha.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.cbFecha.YearIncrement = 10
         '
         'Formulario_Cantidad_Lote
         '
@@ -260,7 +248,7 @@ Partial Class Formulario_Cantidad_Lote
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(671, 556)
-        Me.Controls.Add(Me.tbFechaVencimiento)
+        Me.Controls.Add(Me.cbFecha)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.tbLote)
@@ -274,13 +262,13 @@ Partial Class Formulario_Cantidad_Lote
         Me.Controls.Add(Me.txtTitulo)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Formulario_Cantidad_Lote"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Formulario_Cantidad_Lote"
         Me.btnNo.ResumeLayout(False)
         Me.btnNo.PerformLayout()
         Me.btnSi.ResumeLayout(False)
         Me.btnSi.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.tbFechaVencimiento, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -299,5 +287,5 @@ Partial Class Formulario_Cantidad_Lote
     Friend WithEvents Label2 As Label
     Friend WithEvents tbLote As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents Label5 As Label
-    Friend WithEvents tbFechaVencimiento As DevComponents.Editors.DateTimeAdv.DateTimeInput
+    Friend WithEvents cbFecha As Janus.Windows.CalendarCombo.CalendarCombo
 End Class

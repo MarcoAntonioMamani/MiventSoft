@@ -15,8 +15,15 @@ Public Class Tec_KardexProductos
         P_Global._prCargarComboGenerico(cbDeposito, L_prListarDepositos(), "Id", "Codigo", "NombreDeposito", "NombreDeposito")
         cbFechaDesde.Value = Now.Date
         cbFechaHasta.Value = Now.Date
-        tbProducto .Focus
-
+        tbProducto.Focus()
+        Me.Text = "Historial De Productos"
+        LeerConfiguracion()
+    End Sub
+    Public Sub LeerConfiguracion()
+        Dim dt As DataTable = L_prLeerConfiguracion()
+        If (dt.Rows.Count > 0) Then
+            Lote = dt.Rows(0).Item("Lote")
+        End If
     End Sub
 
     Private Sub Tec_KardexProductos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -289,7 +296,7 @@ Public Class Tec_KardexProductos
 
     End Sub
     Public Sub _GenerarHistorial()
-        If ((Lote = False)) Then
+        If ((Lote = False Or Lote = True)) Then
 
             If (IdProducto > 0 And cbDeposito.SelectedIndex >= 0) Then
                 Dt2KardexTotal = L_fnObtenerHistorialProductoGeneral(IdProducto, cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbDeposito.Value)

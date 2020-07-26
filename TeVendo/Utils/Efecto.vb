@@ -24,6 +24,8 @@ Public Class Efecto
     Public NewCliente As Boolean = False
     Public IdCliente As Integer
     Public NombreCliente As String
+    Public Lote As String
+    Public FechaVencimiento As Date
 
 
 
@@ -51,6 +53,8 @@ Public Class Efecto
                 MostrarFormularioClientesContenido()
             Case 8
                 ReporteVenta()
+            Case 9
+                _prMostrarFormularioCantidadLote()
 
         End Select
     End Sub
@@ -188,6 +192,24 @@ Public Class Efecto
         If frmAyuda.respuesta = True Then
 
             CantidadTransaccion = frmAyuda.CantidadVenta
+            band = True
+            Me.Close()
+        Else
+            band = False
+            Me.Close()
+        End If
+    End Sub
+
+    Sub _prMostrarFormularioCantidadLote()
+        Dim frmAyuda As Formulario_Cantidad_Lote
+        frmAyuda = New Formulario_Cantidad_Lote
+        frmAyuda.NombreProducto = NombreProducto
+        frmAyuda.CantidadTotal = StockActual
+        frmAyuda.ShowDialog()
+        If frmAyuda.respuesta = True Then
+            Lote = frmAyuda.Lote
+            CantidadTransaccion = frmAyuda.CantidadVenta
+            FechaVencimiento = frmAyuda.Fecha
             band = True
             Me.Close()
         Else

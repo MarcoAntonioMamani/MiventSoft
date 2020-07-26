@@ -404,31 +404,31 @@ Public Class Tec_Compras
 
         If (Lote = True) Then
             With grDetalle.RootTable.Columns("Lote")
-                .Width = 100
+                .Width = 70
                 .Caption = "lote".ToUpper
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
                 .Visible = True
             End With
             With grDetalle.RootTable.Columns("FechaVencimiento")
-                .Width = 100
+                .Width = 70
                 .Caption = "FECHA VENC.".ToUpper
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
-                .FormatString = "yyyy/MM/dd"
+                .FormatString = "dd/MM/yyyy"
                 .Visible = True
             End With
         Else
 
             With grDetalle.RootTable.Columns("Lote")
-                .Width = 120
+                .Width = 70
                 .Caption = "lote".ToUpper
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
                 .Visible = False
             End With
             With grDetalle.RootTable.Columns("FechaVencimiento")
-                .Width = 120
+                .Width = 70
                 .Caption = "FECHA VENC.".ToUpper
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
-                .FormatString = "yyyy/MM/dd"
+                .FormatString = "dd/MM/yyyy"
                 .Visible = False
             End With
 
@@ -545,7 +545,7 @@ Public Class Tec_Compras
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, 0, "20200101", CDate("2020/01/01"), 0, 0, 0, Bin.GetBuffer, 0, 0)
+        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, 0, "20200101", CDate("01/01/2020"), 0, 0, 0, Bin.GetBuffer, 0, 0)
     End Sub
     Public Function _GenerarId()
         Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
@@ -605,6 +605,20 @@ Public Class Tec_Compras
         Return False
     End Function
 
+    Public Function _fnExisteProductoLote(idprod As Integer, mLote As String, mFecha As Date) As Boolean
+        For i As Integer = 0 To CType(grDetalle.DataSource, DataTable).Rows.Count - 1 Step 1
+            Dim _idprod As Integer = CType(grDetalle.DataSource, DataTable).Rows(i).Item("ProductoId")
+            Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(i).Item("estado")
+            Dim _Lote As String = CType(grDetalle.DataSource, DataTable).Rows(i).Item("Lote")
+            Dim _FechaVenc As Date = CType(grDetalle.DataSource, DataTable).Rows(i).Item("FechaVencimiento")
+            If (_idprod = idprod And estado >= 0 And _Lote.Trim.Equals(mLote.Trim) And _FechaVenc = mFecha) Then
+
+                Return True
+            End If
+        Next
+        Return False
+    End Function
+
     Public Sub _prEliminarFila()
         If (grDetalle.Row >= 0) Then
             If (grDetalle.RowCount >= 1) Then
@@ -655,7 +669,7 @@ Public Class Tec_Compras
         End If
         If (grDetalle.RowCount = 1) Then
             If (CType(grDetalle.DataSource, DataTable).Rows(0).Item("ProductoId") = 0) Then
-                Dim img As Bitmap = New Bitmap(img, 50, 50)
+
                 ToastNotification.Show(Me, "Por Favor Inserte un Detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
                 grDetalle.Focus()
 
@@ -666,17 +680,24 @@ Public Class Tec_Compras
     End Function
 
     Public Sub CambiarEstado(ProductoId As Integer, Estado As Integer)
-        If (IsNothing(grProducto.DataSource)) Then
-            Return
+        If (Lote = False) Then
+            If (IsNothing(grProducto.DataSource)) Then
+                Return
+
+            End If
+            For i As Integer = 0 To CType(grProducto.DataSource, DataTable).Rows.Count - 1 Step 1
+                If (CType(grProducto.DataSource, DataTable).Rows(i).Item("Id") = ProductoId) Then
+                    CType(grProducto.DataSource, DataTable).Rows(i).Item("estado") = Estado
+                End If
+
+            Next
+            grProducto.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grProducto.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.Equal, 1))
+
+
 
         End If
-        For i As Integer = 0 To CType(grProducto.DataSource, DataTable).Rows.Count - 1 Step 1
-            If (CType(grProducto.DataSource, DataTable).Rows(i).Item("Id") = ProductoId) Then
-                CType(grProducto.DataSource, DataTable).Rows(i).Item("estado") = Estado
-            End If
 
-        Next
-        grProducto.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grProducto.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.Equal, 1))
+
     End Sub
 
 
@@ -722,7 +743,60 @@ Public Class Tec_Compras
 
         Else
             If (existe) Then
-                Dim img As Bitmap = New Bitmap(img, 50, 50)
+
+                ToastNotification.Show(Me, "El producto ya existe en el detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                grProducto.RemoveFilters()
+                tbNombreProducto.Focus()
+            End If
+
+        End If
+
+        _prCalcularPrecioTotal()
+    End Sub
+    Public Sub InsertarProductosConLote(cantidad As Double, mLote As String, mFechaVen As Date)
+        'd.Id , d.CompraId, d.ProductoId, p.NombreProducto As Producto, d.Cantidad, d.PrecioCosto,
+        'd.Lote, d.FechaVencimiento, d.TotalCompra, d.PrecioVenta, 1 As estado, cast('' as image) as img,
+        'd.PrecioCosto As costo, d.PrecioVenta  as venta
+        Dim pos As Integer = -1
+        If (grDetalle.Row < 0) Then
+            _prAddDetalleVenta()
+        End If
+
+
+
+        Dim existe As Boolean = _fnExisteProductoLote(grProducto.GetValue("Id"), mLote, mFechaVen)
+        If ((Not existe)) Then
+            If (grDetalle.GetValue("ProductoId") > 0) Then
+                _prAddDetalleVenta()
+            End If
+            grDetalle.Row = grDetalle.RowCount - 1
+            _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"))
+            If ((pos >= 0)) Then
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = grProducto.GetValue("Id")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = grProducto.GetValue("NombreProducto")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCosto") = grProducto.GetValue("PrecioCosto")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("TotalCompra") = grProducto.GetValue("PrecioCosto") * cantidad
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioVenta") = grProducto.GetValue("PrecioVenta")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("costo") = grProducto.GetValue("PrecioCosto")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("venta") = grProducto.GetValue("PrecioVenta")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Lote") = mLote
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("FechaVencimiento") = mFechaVen
+                ''    _DesHabilitarProductos()
+
+
+                CambiarEstado(grProducto.GetValue("Id"), 0)
+                'grproducto.RemoveFilters()
+                tbNombreProducto.Clear()
+                tbNombreProducto.Focus()
+            End If
+
+
+
+
+        Else
+            If (existe) Then
+
                 ToastNotification.Show(Me, "El producto ya existe en el detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
                 grProducto.RemoveFilters()
                 tbNombreProducto.Focus()
@@ -837,19 +911,40 @@ salirIf:
                     ''''''''''''''''''''''''
 
 
-                    Dim ef = New Efecto
+                    If (Lote = False) Then
+                        Dim ef = New Efecto
 
 
-                    ef.tipo = 5
-                    ef.NombreProducto = grProducto.GetValue("NombreProducto")
-                    ef.StockActual = grProducto.GetValue("stock")
-                    ef.TipoMovimiento = 4
-                    ef.ShowDialog()
-                    Dim bandera As Boolean = False
-                    bandera = ef.band
-                    If (bandera = True) Then
-                        InsertarProductosSinLote(ef.CantidadTransaccion)
+                        ef.tipo = 5
+                        ef.NombreProducto = grProducto.GetValue("NombreProducto")
+                        ef.StockActual = grProducto.GetValue("stock")
+                        ef.TipoMovimiento = 4
+                        ef.ShowDialog()
+                        Dim bandera As Boolean = False
+                        bandera = ef.band
+                        If (bandera = True) Then
+                            InsertarProductosSinLote(ef.CantidadTransaccion)
 
+                        End If
+
+                        '''''''''''''''
+
+                    Else
+                        Dim ef = New Efecto
+
+
+                        ef.tipo = 9
+                        ef.NombreProducto = grProducto.GetValue("NombreProducto")
+                        ef.StockActual = grProducto.GetValue("stock")
+                        ef.ShowDialog()
+                        Dim bandera As Boolean = False
+                        bandera = ef.band
+                        If (bandera = True) Then
+                            InsertarProductosConLote(ef.CantidadTransaccion, ef.Lote, ef.FechaVencimiento)
+
+                        End If
+
+                        '''''''''''''''
                     End If
 
                     '''''''''''''''
@@ -1255,7 +1350,7 @@ salirIf:
         MHighlighterFocus.UpdateHighlights()
 
         If (grDetalle.RowCount <= 0) Then
-            Dim img As Bitmap = New Bitmap(img, 50, 50)
+
             ToastNotification.Show(Me, "Por Favor Inserte un Detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
             grDetalle.Focus()
 
@@ -1264,7 +1359,7 @@ salirIf:
         End If
         If (grDetalle.RowCount = 1) Then
             If (CType(grDetalle.DataSource, DataTable).Rows(0).Item("ProductoId") = 0) Then
-                Dim img As Bitmap = New Bitmap(img, 50, 50)
+
                 ToastNotification.Show(Me, "Por Favor Inserte un Detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
                 grDetalle.Focus()
 
@@ -1486,24 +1581,43 @@ salirIf:
 
                     If (IsNothing(FilaSelectLote)) Then
                         ''''''''''''''''''''''''
-
-
-                        Dim ef = New Efecto
+                        If (Lote = False) Then
+                            Dim ef = New Efecto
 
 
                             ef.tipo = 5
                             ef.NombreProducto = grProducto.GetValue("NombreProducto")
                             ef.StockActual = grProducto.GetValue("stock")
-                        ef.TipoMovimiento = 4
-                        ef.ShowDialog()
-                        Dim bandera As Boolean = False
+                            ef.TipoMovimiento = 4
+                            ef.ShowDialog()
+                            Dim bandera As Boolean = False
                             bandera = ef.band
                             If (bandera = True) Then
                                 InsertarProductosSinLote(ef.CantidadTransaccion)
 
                             End If
 
-                        '''''''''''''''
+                            '''''''''''''''
+
+                        Else
+                            Dim ef = New Efecto
+
+
+                            ef.tipo = 9
+                            ef.NombreProducto = grProducto.GetValue("NombreProducto")
+                            ef.StockActual = grProducto.GetValue("stock")
+                            ef.ShowDialog()
+                            Dim bandera As Boolean = False
+                            bandera = ef.band
+                            If (bandera = True) Then
+                                InsertarProductosConLote(ef.CantidadTransaccion, ef.Lote, ef.FechaVencimiento)
+
+                            End If
+
+                            '''''''''''''''
+                        End If
+
+
 
 
 
