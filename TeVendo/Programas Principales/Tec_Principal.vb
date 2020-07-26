@@ -716,7 +716,7 @@ Public Class Tec_Principal
         tab3.AttachedControl.Controls.Add(panel)
         frm.Show()
         tab3.Text = frm.Text
-        Dim blah As New Bitmap(btVentEstad.Image, 20, 20)
+        Dim blah As New Bitmap(btVentRendimiento.Image, 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub
@@ -736,7 +736,7 @@ Public Class Tec_Principal
         tab3.AttachedControl.Controls.Add(panel)
         frm.Show()
         tab3.Text = frm.Text
-        Dim blah As New Bitmap(btVentReporteProducto.Image, 20, 20)
+        Dim blah As New Bitmap(btInvSaldosValorados.Image, 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub

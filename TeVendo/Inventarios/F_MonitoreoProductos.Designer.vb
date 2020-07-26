@@ -26,44 +26,36 @@ Partial Class F_MonitoreoProductos
         Dim SuperTabLinearGradientColorTable1 As DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable = New DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.SuperTabControlMenu = New DevComponents.DotNetBar.SuperTabControl()
-        Me.SuperTabControlPanel5 = New DevComponents.DotNetBar.SuperTabControlPanel()
-        Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.grProductosStockMinimo = New Janus.Windows.GridEX.GridEX()
-        Me.Panel6 = New System.Windows.Forms.Panel()
-        Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
-        Me.tabProductosStockMinimo = New DevComponents.DotNetBar.SuperTabItem()
-        Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
-        Me.Panel17 = New System.Windows.Forms.Panel()
-        Me.gr_ProductosStock0 = New Janus.Windows.GridEX.GridEX()
-        Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
-        Me.tabProductosSinStock = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel6 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.PanelDatos = New System.Windows.Forms.Panel()
         Me.Panel8 = New System.Windows.Forms.Panel()
         Me.gr_ProductosVencidos = New Janus.Windows.GridEX.GridEX()
         Me.Panel9 = New System.Windows.Forms.Panel()
-        Me.ButtonX3 = New DevComponents.DotNetBar.ButtonX()
         Me.GroupPanel4 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel7 = New System.Windows.Forms.Panel()
         Me.grPagos = New Janus.Windows.GridEX.GridEX()
-        Me.tabProductosVencidos = New DevComponents.DotNetBar.SuperTabItem()
+        Me.btnProductosVencidos = New DevComponents.DotNetBar.SuperTabItem()
+        Me.SuperTabControlPanel5 = New DevComponents.DotNetBar.SuperTabControlPanel()
+        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.grProductosStockMinimo = New Janus.Windows.GridEX.GridEX()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.tabProductosStockMinimo = New DevComponents.DotNetBar.SuperTabItem()
+        Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
+        Me.Panel17 = New System.Windows.Forms.Panel()
+        Me.gr_ProductosStock0 = New Janus.Windows.GridEX.GridEX()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.btnProductosSinStock = New DevComponents.DotNetBar.ButtonX()
+        Me.tabProductosSinStock = New DevComponents.DotNetBar.SuperTabItem()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Title = New System.Windows.Forms.Panel()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.btnStockMinimo = New DevComponents.DotNetBar.ButtonX()
+        Me.ButtonX3 = New DevComponents.DotNetBar.ButtonX()
         Me.Panel1.SuspendLayout()
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlMenu.SuspendLayout()
-        Me.SuperTabControlPanel5.SuspendLayout()
-        Me.Panel5.SuspendLayout()
-        CType(Me.grProductosStockMinimo, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel6.SuspendLayout()
-        Me.SuperTabControlPanel3.SuspendLayout()
-        Me.Panel17.SuspendLayout()
-        CType(Me.gr_ProductosStock0, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel4.SuspendLayout()
         Me.SuperTabControlPanel6.SuspendLayout()
         Me.PanelDatos.SuspendLayout()
         Me.Panel8.SuspendLayout()
@@ -72,6 +64,14 @@ Partial Class F_MonitoreoProductos
         Me.GroupPanel4.SuspendLayout()
         Me.Panel7.SuspendLayout()
         CType(Me.grPagos, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SuperTabControlPanel5.SuspendLayout()
+        Me.Panel5.SuspendLayout()
+        CType(Me.grProductosStockMinimo, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel6.SuspendLayout()
+        Me.SuperTabControlPanel3.SuspendLayout()
+        Me.Panel17.SuspendLayout()
+        CType(Me.gr_ProductosStock0, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel4.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Title.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -118,244 +118,12 @@ Partial Class F_MonitoreoProductos
         Me.SuperTabControlMenu.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControlMenu.TabIndex = 0
         Me.SuperTabControlMenu.TabLayoutType = DevComponents.DotNetBar.eSuperTabLayoutType.MultiLineFit
-        Me.SuperTabControlMenu.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.tabProductosSinStock, Me.tabProductosStockMinimo, Me.tabProductosVencidos})
+        Me.SuperTabControlMenu.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.tabProductosSinStock, Me.tabProductosStockMinimo, Me.btnProductosVencidos})
         SuperTabLinearGradientColorTable1.Colors = New System.Drawing.Color() {System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))}
         SuperTabColorTable1.Background = SuperTabLinearGradientColorTable1
         Me.SuperTabControlMenu.TabStripColor = SuperTabColorTable1
         Me.SuperTabControlMenu.TabStyle = DevComponents.DotNetBar.eSuperTabStyle.Office2010BackstageBlue
         Me.SuperTabControlMenu.Text = "SuperTabControl1"
-        '
-        'SuperTabControlPanel5
-        '
-        Me.SuperTabControlPanel5.Controls.Add(Me.Panel5)
-        Me.SuperTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel5.Location = New System.Drawing.Point(0, 58)
-        Me.SuperTabControlPanel5.Name = "SuperTabControlPanel5"
-        Me.SuperTabControlPanel5.Size = New System.Drawing.Size(988, 418)
-        Me.SuperTabControlPanel5.TabIndex = 5
-        Me.SuperTabControlPanel5.TabItem = Me.tabProductosStockMinimo
-        '
-        'Panel5
-        '
-        Me.Panel5.Controls.Add(Me.grProductosStockMinimo)
-        Me.Panel5.Controls.Add(Me.Panel6)
-        Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel5.Location = New System.Drawing.Point(0, 0)
-        Me.Panel5.Name = "Panel5"
-        Me.Panel5.Padding = New System.Windows.Forms.Padding(5)
-        Me.Panel5.Size = New System.Drawing.Size(988, 418)
-        Me.Panel5.TabIndex = 6
-        '
-        'grProductosStockMinimo
-        '
-        Me.grProductosStockMinimo.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
-        Me.grProductosStockMinimo.AlternatingColors = True
-        Me.grProductosStockMinimo.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.grProductosStockMinimo.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
-        Me.grProductosStockMinimo.ColumnAutoResize = True
-        Me.grProductosStockMinimo.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grProductosStockMinimo.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None
-        Me.grProductosStockMinimo.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
-        Me.grProductosStockMinimo.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grProductosStockMinimo.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.grProductosStockMinimo.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.grProductosStockMinimo.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
-        Me.grProductosStockMinimo.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grProductosStockMinimo.GridLines = Janus.Windows.GridEX.GridLines.None
-        Me.grProductosStockMinimo.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
-        Me.grProductosStockMinimo.HeaderFormatStyle.Alpha = 0
-        Me.grProductosStockMinimo.HeaderFormatStyle.Appearance = Janus.Windows.GridEX.Appearance.Flat
-        Me.grProductosStockMinimo.HeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
-        Me.grProductosStockMinimo.HeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
-        Me.grProductosStockMinimo.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
-        Me.grProductosStockMinimo.HeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
-        Me.grProductosStockMinimo.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grProductosStockMinimo.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
-        Me.grProductosStockMinimo.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
-        Me.grProductosStockMinimo.Location = New System.Drawing.Point(5, 66)
-        Me.grProductosStockMinimo.Margin = New System.Windows.Forms.Padding(4)
-        Me.grProductosStockMinimo.Name = "grProductosStockMinimo"
-        Me.grProductosStockMinimo.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.grProductosStockMinimo.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.grProductosStockMinimo.RecordNavigator = True
-        Me.grProductosStockMinimo.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grProductosStockMinimo.RowHeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
-        Me.grProductosStockMinimo.RowHeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.Transparent
-        Me.grProductosStockMinimo.RowHeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
-        Me.grProductosStockMinimo.RowHeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
-        Me.grProductosStockMinimo.RowHeaderFormatStyle.BackgroundImageDrawMode = Janus.Windows.GridEX.BackgroundImageDrawMode.Center
-        Me.grProductosStockMinimo.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grProductosStockMinimo.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
-        Me.grProductosStockMinimo.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
-        Me.grProductosStockMinimo.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grProductosStockMinimo.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grProductosStockMinimo.Size = New System.Drawing.Size(978, 347)
-        Me.grProductosStockMinimo.TabIndex = 2
-        Me.grProductosStockMinimo.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
-        Me.grProductosStockMinimo.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.grProductosStockMinimo.TableSpacing = 9
-        Me.grProductosStockMinimo.TreeLineColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.grProductosStockMinimo.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        Me.grProductosStockMinimo.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        Me.grProductosStockMinimo.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.VS2005
-        '
-        'Panel6
-        '
-        Me.Panel6.BackColor = System.Drawing.Color.White
-        Me.Panel6.Controls.Add(Me.ButtonX2)
-        Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel6.Location = New System.Drawing.Point(5, 5)
-        Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(978, 61)
-        Me.Panel6.TabIndex = 4
-        '
-        'ButtonX2
-        '
-        Me.ButtonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX2.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.ButtonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
-        Me.ButtonX2.DisabledImagesGrayScale = False
-        Me.ButtonX2.Dock = System.Windows.Forms.DockStyle.Right
-        Me.ButtonX2.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX2.Image = Global.TeVendo.My.Resources.Resources.printee
-        Me.ButtonX2.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.ButtonX2.Location = New System.Drawing.Point(751, 0)
-        Me.ButtonX2.Margin = New System.Windows.Forms.Padding(4)
-        Me.ButtonX2.Name = "ButtonX2"
-        Me.ButtonX2.Size = New System.Drawing.Size(227, 61)
-        Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX2.TabIndex = 2
-        Me.ButtonX2.Text = "Imprimir Reporte"
-        Me.ButtonX2.TextColor = System.Drawing.Color.White
-        '
-        'tabProductosStockMinimo
-        '
-        Me.tabProductosStockMinimo.AttachedControl = Me.SuperTabControlPanel5
-        Me.tabProductosStockMinimo.GlobalItem = False
-        Me.tabProductosStockMinimo.Image = Global.TeVendo.My.Resources.Resources.stock02
-        Me.tabProductosStockMinimo.Name = "tabProductosStockMinimo"
-        Me.tabProductosStockMinimo.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Teal
-        Me.tabProductosStockMinimo.SelectedTabFont = New System.Drawing.Font("Calibri", 12.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tabProductosStockMinimo.SymbolColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tabProductosStockMinimo.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tabProductosStockMinimo.Text = "Productos Menor Al Stock Minimo"
-        Me.tabProductosStockMinimo.TextAlignment = DevComponents.DotNetBar.eItemAlignment.Near
-        '
-        'SuperTabControlPanel3
-        '
-        Me.SuperTabControlPanel3.Controls.Add(Me.Panel17)
-        Me.SuperTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel3.Location = New System.Drawing.Point(0, 58)
-        Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
-        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(988, 418)
-        Me.SuperTabControlPanel3.TabIndex = 3
-        Me.SuperTabControlPanel3.TabItem = Me.tabProductosSinStock
-        '
-        'Panel17
-        '
-        Me.Panel17.Controls.Add(Me.gr_ProductosStock0)
-        Me.Panel17.Controls.Add(Me.Panel4)
-        Me.Panel17.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel17.Location = New System.Drawing.Point(0, 0)
-        Me.Panel17.Name = "Panel17"
-        Me.Panel17.Padding = New System.Windows.Forms.Padding(5)
-        Me.Panel17.Size = New System.Drawing.Size(988, 418)
-        Me.Panel17.TabIndex = 5
-        '
-        'gr_ProductosStock0
-        '
-        Me.gr_ProductosStock0.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
-        Me.gr_ProductosStock0.AlternatingColors = True
-        Me.gr_ProductosStock0.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.gr_ProductosStock0.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
-        Me.gr_ProductosStock0.ColumnAutoResize = True
-        Me.gr_ProductosStock0.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.gr_ProductosStock0.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None
-        Me.gr_ProductosStock0.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
-        Me.gr_ProductosStock0.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gr_ProductosStock0.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.gr_ProductosStock0.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.gr_ProductosStock0.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
-        Me.gr_ProductosStock0.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gr_ProductosStock0.GridLines = Janus.Windows.GridEX.GridLines.None
-        Me.gr_ProductosStock0.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
-        Me.gr_ProductosStock0.HeaderFormatStyle.Alpha = 0
-        Me.gr_ProductosStock0.HeaderFormatStyle.Appearance = Janus.Windows.GridEX.Appearance.Flat
-        Me.gr_ProductosStock0.HeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
-        Me.gr_ProductosStock0.HeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
-        Me.gr_ProductosStock0.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
-        Me.gr_ProductosStock0.HeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
-        Me.gr_ProductosStock0.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gr_ProductosStock0.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
-        Me.gr_ProductosStock0.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
-        Me.gr_ProductosStock0.Location = New System.Drawing.Point(5, 66)
-        Me.gr_ProductosStock0.Margin = New System.Windows.Forms.Padding(4)
-        Me.gr_ProductosStock0.Name = "gr_ProductosStock0"
-        Me.gr_ProductosStock0.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.gr_ProductosStock0.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.gr_ProductosStock0.RecordNavigator = True
-        Me.gr_ProductosStock0.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gr_ProductosStock0.RowHeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
-        Me.gr_ProductosStock0.RowHeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.Transparent
-        Me.gr_ProductosStock0.RowHeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
-        Me.gr_ProductosStock0.RowHeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
-        Me.gr_ProductosStock0.RowHeaderFormatStyle.BackgroundImageDrawMode = Janus.Windows.GridEX.BackgroundImageDrawMode.Center
-        Me.gr_ProductosStock0.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gr_ProductosStock0.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
-        Me.gr_ProductosStock0.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
-        Me.gr_ProductosStock0.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gr_ProductosStock0.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.gr_ProductosStock0.Size = New System.Drawing.Size(978, 347)
-        Me.gr_ProductosStock0.TabIndex = 2
-        Me.gr_ProductosStock0.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
-        Me.gr_ProductosStock0.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.gr_ProductosStock0.TableSpacing = 9
-        Me.gr_ProductosStock0.TreeLineColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.gr_ProductosStock0.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        Me.gr_ProductosStock0.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        Me.gr_ProductosStock0.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.VS2005
-        '
-        'Panel4
-        '
-        Me.Panel4.BackColor = System.Drawing.Color.White
-        Me.Panel4.Controls.Add(Me.ButtonX1)
-        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel4.Location = New System.Drawing.Point(5, 5)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(978, 61)
-        Me.Panel4.TabIndex = 4
-        '
-        'ButtonX1
-        '
-        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX1.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
-        Me.ButtonX1.DisabledImagesGrayScale = False
-        Me.ButtonX1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.ButtonX1.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX1.Image = Global.TeVendo.My.Resources.Resources.printee
-        Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.ButtonX1.Location = New System.Drawing.Point(751, 0)
-        Me.ButtonX1.Margin = New System.Windows.Forms.Padding(4)
-        Me.ButtonX1.Name = "ButtonX1"
-        Me.ButtonX1.Size = New System.Drawing.Size(227, 61)
-        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX1.TabIndex = 2
-        Me.ButtonX1.Text = "Imprimir Reporte"
-        Me.ButtonX1.TextColor = System.Drawing.Color.White
-        '
-        'tabProductosSinStock
-        '
-        Me.tabProductosSinStock.AttachedControl = Me.SuperTabControlPanel3
-        Me.tabProductosSinStock.GlobalItem = False
-        Me.tabProductosSinStock.Image = Global.TeVendo.My.Resources.Resources.stock01
-        Me.tabProductosSinStock.Name = "tabProductosSinStock"
-        Me.tabProductosSinStock.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Teal
-        Me.tabProductosSinStock.SelectedTabFont = New System.Drawing.Font("Calibri", 12.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tabProductosSinStock.SymbolColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tabProductosSinStock.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tabProductosSinStock.Text = "Productos Sin Stock"
-        Me.tabProductosSinStock.TextAlignment = DevComponents.DotNetBar.eItemAlignment.Near
         '
         'SuperTabControlPanel6
         '
@@ -365,7 +133,7 @@ Partial Class F_MonitoreoProductos
         Me.SuperTabControlPanel6.Name = "SuperTabControlPanel6"
         Me.SuperTabControlPanel6.Size = New System.Drawing.Size(988, 418)
         Me.SuperTabControlPanel6.TabIndex = 6
-        Me.SuperTabControlPanel6.TabItem = Me.tabProductosVencidos
+        Me.SuperTabControlPanel6.TabItem = Me.btnProductosVencidos
         '
         'PanelDatos
         '
@@ -451,25 +219,6 @@ Partial Class F_MonitoreoProductos
         Me.Panel9.Name = "Panel9"
         Me.Panel9.Size = New System.Drawing.Size(978, 61)
         Me.Panel9.TabIndex = 4
-        '
-        'ButtonX3
-        '
-        Me.ButtonX3.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX3.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.ButtonX3.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
-        Me.ButtonX3.DisabledImagesGrayScale = False
-        Me.ButtonX3.Dock = System.Windows.Forms.DockStyle.Right
-        Me.ButtonX3.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX3.Image = Global.TeVendo.My.Resources.Resources.printee
-        Me.ButtonX3.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.ButtonX3.Location = New System.Drawing.Point(751, 0)
-        Me.ButtonX3.Margin = New System.Windows.Forms.Padding(4)
-        Me.ButtonX3.Name = "ButtonX3"
-        Me.ButtonX3.Size = New System.Drawing.Size(227, 61)
-        Me.ButtonX3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX3.TabIndex = 2
-        Me.ButtonX3.Text = "Imprimir Reporte"
-        Me.ButtonX3.TextColor = System.Drawing.Color.White
         '
         'GroupPanel4
         '
@@ -570,18 +319,231 @@ Partial Class F_MonitoreoProductos
         Me.grPagos.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         Me.grPagos.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
-        'tabProductosVencidos
+        'btnProductosVencidos
         '
-        Me.tabProductosVencidos.AttachedControl = Me.SuperTabControlPanel6
-        Me.tabProductosVencidos.GlobalItem = False
-        Me.tabProductosVencidos.Image = Global.TeVendo.My.Resources.Resources.stock03
-        Me.tabProductosVencidos.Name = "tabProductosVencidos"
-        Me.tabProductosVencidos.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Teal
-        Me.tabProductosVencidos.SelectedTabFont = New System.Drawing.Font("Calibri", 12.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tabProductosVencidos.SymbolColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tabProductosVencidos.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tabProductosVencidos.Text = "Productos Vencidos"
-        Me.tabProductosVencidos.TextAlignment = DevComponents.DotNetBar.eItemAlignment.Near
+        Me.btnProductosVencidos.AttachedControl = Me.SuperTabControlPanel6
+        Me.btnProductosVencidos.GlobalItem = False
+        Me.btnProductosVencidos.Image = Global.TeVendo.My.Resources.Resources.stock03
+        Me.btnProductosVencidos.Name = "btnProductosVencidos"
+        Me.btnProductosVencidos.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Teal
+        Me.btnProductosVencidos.SelectedTabFont = New System.Drawing.Font("Calibri", 12.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnProductosVencidos.SymbolColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.btnProductosVencidos.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnProductosVencidos.Text = "Productos Vencidos"
+        Me.btnProductosVencidos.TextAlignment = DevComponents.DotNetBar.eItemAlignment.Near
+        '
+        'SuperTabControlPanel5
+        '
+        Me.SuperTabControlPanel5.Controls.Add(Me.Panel5)
+        Me.SuperTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SuperTabControlPanel5.Location = New System.Drawing.Point(0, 58)
+        Me.SuperTabControlPanel5.Name = "SuperTabControlPanel5"
+        Me.SuperTabControlPanel5.Size = New System.Drawing.Size(988, 418)
+        Me.SuperTabControlPanel5.TabIndex = 5
+        Me.SuperTabControlPanel5.TabItem = Me.tabProductosStockMinimo
+        '
+        'Panel5
+        '
+        Me.Panel5.Controls.Add(Me.grProductosStockMinimo)
+        Me.Panel5.Controls.Add(Me.Panel6)
+        Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel5.Location = New System.Drawing.Point(0, 0)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Padding = New System.Windows.Forms.Padding(5)
+        Me.Panel5.Size = New System.Drawing.Size(988, 418)
+        Me.Panel5.TabIndex = 6
+        '
+        'grProductosStockMinimo
+        '
+        Me.grProductosStockMinimo.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
+        Me.grProductosStockMinimo.AlternatingColors = True
+        Me.grProductosStockMinimo.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.grProductosStockMinimo.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
+        Me.grProductosStockMinimo.ColumnAutoResize = True
+        Me.grProductosStockMinimo.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grProductosStockMinimo.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None
+        Me.grProductosStockMinimo.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
+        Me.grProductosStockMinimo.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grProductosStockMinimo.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grProductosStockMinimo.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grProductosStockMinimo.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
+        Me.grProductosStockMinimo.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grProductosStockMinimo.GridLines = Janus.Windows.GridEX.GridLines.None
+        Me.grProductosStockMinimo.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
+        Me.grProductosStockMinimo.HeaderFormatStyle.Alpha = 0
+        Me.grProductosStockMinimo.HeaderFormatStyle.Appearance = Janus.Windows.GridEX.Appearance.Flat
+        Me.grProductosStockMinimo.HeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
+        Me.grProductosStockMinimo.HeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
+        Me.grProductosStockMinimo.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
+        Me.grProductosStockMinimo.HeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
+        Me.grProductosStockMinimo.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grProductosStockMinimo.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
+        Me.grProductosStockMinimo.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
+        Me.grProductosStockMinimo.Location = New System.Drawing.Point(5, 66)
+        Me.grProductosStockMinimo.Margin = New System.Windows.Forms.Padding(4)
+        Me.grProductosStockMinimo.Name = "grProductosStockMinimo"
+        Me.grProductosStockMinimo.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.grProductosStockMinimo.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.grProductosStockMinimo.RecordNavigator = True
+        Me.grProductosStockMinimo.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grProductosStockMinimo.RowHeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
+        Me.grProductosStockMinimo.RowHeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.Transparent
+        Me.grProductosStockMinimo.RowHeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
+        Me.grProductosStockMinimo.RowHeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
+        Me.grProductosStockMinimo.RowHeaderFormatStyle.BackgroundImageDrawMode = Janus.Windows.GridEX.BackgroundImageDrawMode.Center
+        Me.grProductosStockMinimo.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grProductosStockMinimo.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.grProductosStockMinimo.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
+        Me.grProductosStockMinimo.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grProductosStockMinimo.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
+        Me.grProductosStockMinimo.Size = New System.Drawing.Size(978, 347)
+        Me.grProductosStockMinimo.TabIndex = 2
+        Me.grProductosStockMinimo.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
+        Me.grProductosStockMinimo.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grProductosStockMinimo.TableSpacing = 9
+        Me.grProductosStockMinimo.TreeLineColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.grProductosStockMinimo.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.grProductosStockMinimo.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.grProductosStockMinimo.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.VS2005
+        '
+        'Panel6
+        '
+        Me.Panel6.BackColor = System.Drawing.Color.White
+        Me.Panel6.Controls.Add(Me.btnStockMinimo)
+        Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel6.Location = New System.Drawing.Point(5, 5)
+        Me.Panel6.Name = "Panel6"
+        Me.Panel6.Size = New System.Drawing.Size(978, 61)
+        Me.Panel6.TabIndex = 4
+        '
+        'tabProductosStockMinimo
+        '
+        Me.tabProductosStockMinimo.AttachedControl = Me.SuperTabControlPanel5
+        Me.tabProductosStockMinimo.GlobalItem = False
+        Me.tabProductosStockMinimo.Image = Global.TeVendo.My.Resources.Resources.stock02
+        Me.tabProductosStockMinimo.Name = "tabProductosStockMinimo"
+        Me.tabProductosStockMinimo.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Teal
+        Me.tabProductosStockMinimo.SelectedTabFont = New System.Drawing.Font("Calibri", 12.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tabProductosStockMinimo.SymbolColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tabProductosStockMinimo.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tabProductosStockMinimo.Text = "Productos Menor Al Stock Minimo"
+        Me.tabProductosStockMinimo.TextAlignment = DevComponents.DotNetBar.eItemAlignment.Near
+        '
+        'SuperTabControlPanel3
+        '
+        Me.SuperTabControlPanel3.Controls.Add(Me.Panel17)
+        Me.SuperTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SuperTabControlPanel3.Location = New System.Drawing.Point(0, 58)
+        Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
+        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(988, 418)
+        Me.SuperTabControlPanel3.TabIndex = 3
+        Me.SuperTabControlPanel3.TabItem = Me.tabProductosSinStock
+        '
+        'Panel17
+        '
+        Me.Panel17.Controls.Add(Me.gr_ProductosStock0)
+        Me.Panel17.Controls.Add(Me.Panel4)
+        Me.Panel17.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel17.Location = New System.Drawing.Point(0, 0)
+        Me.Panel17.Name = "Panel17"
+        Me.Panel17.Padding = New System.Windows.Forms.Padding(5)
+        Me.Panel17.Size = New System.Drawing.Size(988, 418)
+        Me.Panel17.TabIndex = 5
+        '
+        'gr_ProductosStock0
+        '
+        Me.gr_ProductosStock0.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
+        Me.gr_ProductosStock0.AlternatingColors = True
+        Me.gr_ProductosStock0.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.gr_ProductosStock0.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
+        Me.gr_ProductosStock0.ColumnAutoResize = True
+        Me.gr_ProductosStock0.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.gr_ProductosStock0.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None
+        Me.gr_ProductosStock0.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
+        Me.gr_ProductosStock0.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gr_ProductosStock0.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.gr_ProductosStock0.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.gr_ProductosStock0.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
+        Me.gr_ProductosStock0.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gr_ProductosStock0.GridLines = Janus.Windows.GridEX.GridLines.None
+        Me.gr_ProductosStock0.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
+        Me.gr_ProductosStock0.HeaderFormatStyle.Alpha = 0
+        Me.gr_ProductosStock0.HeaderFormatStyle.Appearance = Janus.Windows.GridEX.Appearance.Flat
+        Me.gr_ProductosStock0.HeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
+        Me.gr_ProductosStock0.HeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
+        Me.gr_ProductosStock0.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
+        Me.gr_ProductosStock0.HeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
+        Me.gr_ProductosStock0.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gr_ProductosStock0.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
+        Me.gr_ProductosStock0.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
+        Me.gr_ProductosStock0.Location = New System.Drawing.Point(5, 66)
+        Me.gr_ProductosStock0.Margin = New System.Windows.Forms.Padding(4)
+        Me.gr_ProductosStock0.Name = "gr_ProductosStock0"
+        Me.gr_ProductosStock0.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.gr_ProductosStock0.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.gr_ProductosStock0.RecordNavigator = True
+        Me.gr_ProductosStock0.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gr_ProductosStock0.RowHeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
+        Me.gr_ProductosStock0.RowHeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.Transparent
+        Me.gr_ProductosStock0.RowHeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
+        Me.gr_ProductosStock0.RowHeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
+        Me.gr_ProductosStock0.RowHeaderFormatStyle.BackgroundImageDrawMode = Janus.Windows.GridEX.BackgroundImageDrawMode.Center
+        Me.gr_ProductosStock0.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gr_ProductosStock0.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.gr_ProductosStock0.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
+        Me.gr_ProductosStock0.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gr_ProductosStock0.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
+        Me.gr_ProductosStock0.Size = New System.Drawing.Size(978, 347)
+        Me.gr_ProductosStock0.TabIndex = 2
+        Me.gr_ProductosStock0.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
+        Me.gr_ProductosStock0.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.gr_ProductosStock0.TableSpacing = 9
+        Me.gr_ProductosStock0.TreeLineColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.gr_ProductosStock0.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.gr_ProductosStock0.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.gr_ProductosStock0.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.VS2005
+        '
+        'Panel4
+        '
+        Me.Panel4.BackColor = System.Drawing.Color.White
+        Me.Panel4.Controls.Add(Me.btnProductosSinStock)
+        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel4.Location = New System.Drawing.Point(5, 5)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(978, 61)
+        Me.Panel4.TabIndex = 4
+        '
+        'btnProductosSinStock
+        '
+        Me.btnProductosSinStock.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnProductosSinStock.BackColor = System.Drawing.Color.Honeydew
+        Me.btnProductosSinStock.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.btnProductosSinStock.DisabledImagesGrayScale = False
+        Me.btnProductosSinStock.Dock = System.Windows.Forms.DockStyle.Right
+        Me.btnProductosSinStock.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnProductosSinStock.Image = Global.TeVendo.My.Resources.Resources.sheets
+        Me.btnProductosSinStock.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.btnProductosSinStock.Location = New System.Drawing.Point(751, 0)
+        Me.btnProductosSinStock.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnProductosSinStock.Name = "btnProductosSinStock"
+        Me.btnProductosSinStock.Size = New System.Drawing.Size(227, 61)
+        Me.btnProductosSinStock.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnProductosSinStock.TabIndex = 2
+        Me.btnProductosSinStock.Text = "Exportar Excel"
+        Me.btnProductosSinStock.TextColor = System.Drawing.Color.Black
+        '
+        'tabProductosSinStock
+        '
+        Me.tabProductosSinStock.AttachedControl = Me.SuperTabControlPanel3
+        Me.tabProductosSinStock.GlobalItem = False
+        Me.tabProductosSinStock.Image = Global.TeVendo.My.Resources.Resources.stock01
+        Me.tabProductosSinStock.Name = "tabProductosSinStock"
+        Me.tabProductosSinStock.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Teal
+        Me.tabProductosSinStock.SelectedTabFont = New System.Drawing.Font("Calibri", 12.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tabProductosSinStock.SymbolColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tabProductosSinStock.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tabProductosSinStock.Text = "Productos Sin Stock"
+        Me.tabProductosSinStock.TextAlignment = DevComponents.DotNetBar.eItemAlignment.Near
         '
         'Panel2
         '
@@ -640,6 +602,44 @@ Partial Class F_MonitoreoProductos
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
         '
+        'btnStockMinimo
+        '
+        Me.btnStockMinimo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnStockMinimo.BackColor = System.Drawing.Color.Honeydew
+        Me.btnStockMinimo.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.btnStockMinimo.DisabledImagesGrayScale = False
+        Me.btnStockMinimo.Dock = System.Windows.Forms.DockStyle.Right
+        Me.btnStockMinimo.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnStockMinimo.Image = Global.TeVendo.My.Resources.Resources.sheets
+        Me.btnStockMinimo.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.btnStockMinimo.Location = New System.Drawing.Point(751, 0)
+        Me.btnStockMinimo.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnStockMinimo.Name = "btnStockMinimo"
+        Me.btnStockMinimo.Size = New System.Drawing.Size(227, 61)
+        Me.btnStockMinimo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnStockMinimo.TabIndex = 3
+        Me.btnStockMinimo.Text = "Exportar Excel"
+        Me.btnStockMinimo.TextColor = System.Drawing.Color.Black
+        '
+        'ButtonX3
+        '
+        Me.ButtonX3.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX3.BackColor = System.Drawing.Color.Honeydew
+        Me.ButtonX3.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.ButtonX3.DisabledImagesGrayScale = False
+        Me.ButtonX3.Dock = System.Windows.Forms.DockStyle.Right
+        Me.ButtonX3.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX3.Image = Global.TeVendo.My.Resources.Resources.sheets
+        Me.ButtonX3.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.ButtonX3.Location = New System.Drawing.Point(751, 0)
+        Me.ButtonX3.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX3.Name = "ButtonX3"
+        Me.ButtonX3.Size = New System.Drawing.Size(227, 61)
+        Me.ButtonX3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX3.TabIndex = 3
+        Me.ButtonX3.Text = "Exportar Excel"
+        Me.ButtonX3.TextColor = System.Drawing.Color.Black
+        '
         'F_MonitoreoProductos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -651,14 +651,6 @@ Partial Class F_MonitoreoProductos
         Me.Panel1.ResumeLayout(False)
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuperTabControlMenu.ResumeLayout(False)
-        Me.SuperTabControlPanel5.ResumeLayout(False)
-        Me.Panel5.ResumeLayout(False)
-        CType(Me.grProductosStockMinimo, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel6.ResumeLayout(False)
-        Me.SuperTabControlPanel3.ResumeLayout(False)
-        Me.Panel17.ResumeLayout(False)
-        CType(Me.gr_ProductosStock0, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel4.ResumeLayout(False)
         Me.SuperTabControlPanel6.ResumeLayout(False)
         Me.PanelDatos.ResumeLayout(False)
         Me.Panel8.ResumeLayout(False)
@@ -667,6 +659,14 @@ Partial Class F_MonitoreoProductos
         Me.GroupPanel4.ResumeLayout(False)
         Me.Panel7.ResumeLayout(False)
         CType(Me.grPagos, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SuperTabControlPanel5.ResumeLayout(False)
+        Me.Panel5.ResumeLayout(False)
+        CType(Me.grProductosStockMinimo, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel6.ResumeLayout(False)
+        Me.SuperTabControlPanel3.ResumeLayout(False)
+        Me.Panel17.ResumeLayout(False)
+        CType(Me.gr_ProductosStock0, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel4.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Title.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -680,19 +680,18 @@ Partial Class F_MonitoreoProductos
     Friend WithEvents Panel17 As Panel
     Friend WithEvents gr_ProductosStock0 As Janus.Windows.GridEX.GridEX
     Friend WithEvents Panel4 As Panel
-    Protected WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
+    Protected WithEvents btnProductosSinStock As DevComponents.DotNetBar.ButtonX
     Friend WithEvents tabProductosSinStock As DevComponents.DotNetBar.SuperTabItem
     Friend WithEvents SuperTabControlPanel6 As DevComponents.DotNetBar.SuperTabControlPanel
     Friend WithEvents PanelDatos As Panel
     Friend WithEvents GroupPanel4 As DevComponents.DotNetBar.Controls.GroupPanel
     Friend WithEvents Panel7 As Panel
     Friend WithEvents grPagos As Janus.Windows.GridEX.GridEX
-    Friend WithEvents tabProductosVencidos As DevComponents.DotNetBar.SuperTabItem
+    Friend WithEvents btnProductosVencidos As DevComponents.DotNetBar.SuperTabItem
     Friend WithEvents SuperTabControlPanel5 As DevComponents.DotNetBar.SuperTabControlPanel
     Friend WithEvents Panel5 As Panel
     Friend WithEvents grProductosStockMinimo As Janus.Windows.GridEX.GridEX
     Friend WithEvents Panel6 As Panel
-    Protected WithEvents ButtonX2 As DevComponents.DotNetBar.ButtonX
     Friend WithEvents tabProductosStockMinimo As DevComponents.DotNetBar.SuperTabItem
     Friend WithEvents Panel2 As Panel
     Friend WithEvents Title As Panel
@@ -703,4 +702,5 @@ Partial Class F_MonitoreoProductos
     Friend WithEvents gr_ProductosVencidos As Janus.Windows.GridEX.GridEX
     Friend WithEvents Panel9 As Panel
     Protected WithEvents ButtonX3 As DevComponents.DotNetBar.ButtonX
+    Protected WithEvents btnStockMinimo As DevComponents.DotNetBar.ButtonX
 End Class
