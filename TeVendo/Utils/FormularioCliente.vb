@@ -18,7 +18,7 @@ Public Class FormularioCliente
     Public IdCliente As Integer = 0
     Public NombreCliente As String = ""
     Public NuevoCliente As Boolean = False
-
+    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
     Public listEstrucGrilla As List(Of Celda)
 #End Region
 
@@ -187,17 +187,17 @@ Public Class FormularioCliente
 
         If tbNombreCliente.Text = String.Empty Then
             tbNombreCliente.Focus()
-            ToastNotification.Show(Me, Mensaje, My.Resources.mensaje, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
             Return _ok
         End If
         If cbPrecios.SelectedIndex < 0 Then
             cbPrecios.Focus()
-            ToastNotification.Show(Me, Mensaje, My.Resources.mensaje, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
             Return _ok
         End If
         If cbTipoDocumento.SelectedIndex < 0 Then
             cbTipoDocumento.Focus()
-            ToastNotification.Show(Me, Mensaje, My.Resources.mensaje, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
             Return _ok
         End If
         Return _ok

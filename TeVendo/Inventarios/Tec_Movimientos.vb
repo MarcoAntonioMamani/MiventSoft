@@ -1027,9 +1027,16 @@ salirIf:
             End If
         End If
         If e.KeyData = Keys.Escape Then
-            CType(grProducto.DataSource, DataTable).Rows.Clear()
+            If (IsNothing(FilaSelectLote)) Then
+                CType(grProducto.DataSource, DataTable).Rows.Clear()
 
-            _DesHabilitarProductos()
+                _DesHabilitarProductos()
+            Else
+                FilaSelectLote = Nothing
+                _HabilitarProductos()
+
+            End If
+
         End If
     End Sub
 
