@@ -424,13 +424,13 @@ Public Class Tec_KardexProductos
             ef.ShowDialog()
             Dim bandera As Boolean = False
             bandera = ef.band
-            If (bandera = True) Then
-                Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+        If (bandera = True) Then
 
-                IdProducto = Row.Cells("Id").Value
-                tbProducto.Text = Str(Row.Cells("Id").Value) + "  " + Row.Cells("NombreProveedor").Value
+            Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+            IdProducto = Row.Cells("Id").Value
+            tbProducto.Text = Str(Row.Cells("Id").Value) + "  " + Row.Cells("Nombre").Value
             tbSaldo.Value = Row.Cells("stock").Value
-
             cbDeposito.Focus()
 
             ArmarGrillaMovimientos()

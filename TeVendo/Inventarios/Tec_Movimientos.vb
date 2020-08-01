@@ -794,7 +794,16 @@ Public Class Tec_Movimientos
 
         End If
     End Sub
+    Public Sub _fnObtenerFilaProducto(ByRef pos As Integer, numi As Integer)
+        For i As Integer = 0 To CType(grProducto.DataSource, DataTable).Rows.Count - 1 Step 1
+            Dim _numi As Integer = CType(grProducto.DataSource, DataTable).Rows(i).Item("Id")
+            If (_numi = numi) Then
+                pos = i
+                Return
+            End If
+        Next
 
+    End Sub
     Public Sub InsertarProductosConLote()
 
         If (grDetalle.Row < 0) Then
@@ -809,7 +818,8 @@ Public Class Tec_Movimientos
         Dim pos As Integer = -1
         grDetalle.Row = grDetalle.RowCount - 1
         _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"))
-        Dim posProducto As Integer = grProducto.Row
+        Dim posProducto As Integer = 0
+        _fnObtenerFilaProducto(posProducto, grProducto.GetValue("Id"))
         FilaSelectLote = CType(grProducto.DataSource, DataTable).Rows(posProducto)
 
 

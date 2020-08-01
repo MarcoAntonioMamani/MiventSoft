@@ -330,7 +330,7 @@ Public Class Tec_Ventas
         End With
 
         With grDetalle.RootTable.Columns("Cantidad")
-            .Width = 90
+            .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
@@ -339,7 +339,7 @@ Public Class Tec_Ventas
 
 
         With grDetalle.RootTable.Columns("Precio")
-            .Width = 90
+            .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .Caption = "Precio"
@@ -347,7 +347,7 @@ Public Class Tec_Ventas
         End With
 
         With grDetalle.RootTable.Columns("SubTotal")
-            .Width = 90
+            .Width = 60
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .Caption = "SubTotal"
@@ -359,7 +359,7 @@ Public Class Tec_Ventas
         '     ,   as stock
 
         With grDetalle.RootTable.Columns("ProcentajeDescuento")
-            .Width = 90
+            .Width = 70
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0"
@@ -367,7 +367,7 @@ Public Class Tec_Ventas
         End With
 
         With grDetalle.RootTable.Columns("MontoDescuento")
-            .Width = 90
+            .Width = 70
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
@@ -376,7 +376,7 @@ Public Class Tec_Ventas
 
 
         With grDetalle.RootTable.Columns("Total")
-            .Width = 90
+            .Width = 60
             .Visible = True
             .Caption = "Total".ToUpper
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
@@ -429,13 +429,13 @@ Public Class Tec_Ventas
 
         If (Lote = True) Then
             With grDetalle.RootTable.Columns("Lote")
-                .Width = 100
+                .Width = 60
                 .Caption = "lote".ToUpper
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
                 .Visible = True
             End With
             With grDetalle.RootTable.Columns("FechaVencimiento")
-                .Width = 100
+                .Width = 70
                 .Caption = "FECHA VENC.".ToUpper
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
                 .FormatString = "yyyy/MM/dd"
@@ -497,6 +497,9 @@ Public Class Tec_Ventas
         Dim dt As New DataTable
 
         If (cbSucursal.Value < 0 Or IdCliente = 0) Then
+            If (Not IsNothing(grProducto.DataSource)) Then
+                CType(grProducto.DataSource, DataTable).Rows.Clear()
+            End If
             Return
 
         End If
@@ -862,7 +865,147 @@ salirIf:
 
 
     End Sub
+    Public Sub actualizarSaldo(ByRef dt As DataTable, CodProducto As Integer)
+        'b.yfcdprod1 ,a.iclot ,a.icfven  ,a.iccven 
 
+        '      a.tbnumi ,a.tbtv1numi ,a.tbty5prod ,b.yfcdprod1 as producto,a.tbest ,a.tbcmin ,a.tbumin ,Umin .ycdes3 as unidad,a.tbpbas ,a.tbptot ,a.tbobs ,
+        'a.tbpcos,a.tblote ,a.tbfechaVenc , a.tbptot2, a.tbfact ,a.tbhact ,a.tbuact,1 as estado,Cast(null as Image) as img,
+        'Cast (0 as decimal (18,2)) as stock
+        Dim _detalle As DataTable = CType(grDetalle.DataSource, DataTable)
+
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            Dim lote As String = dt.Rows(i).Item("Lote")
+            Dim FechaVenc As Date = dt.Rows(i).Item("FechaVencimiento")
+            Dim sum As Integer = 0
+            For j As Integer = 0 To _detalle.Rows.Count - 1
+                Dim estado As Integer = _detalle.Rows(j).Item("estado")
+                If (estado = 0) Then
+                    If (lote = _detalle.Rows(j).Item("Lote") And
+                        FechaVenc = _detalle.Rows(j).Item("FechaVencimiento") And CodProducto = _detalle.Rows(j).Item("ProductoId")) Then
+                        sum = sum + _detalle.Rows(j).Item("Cantidad")
+                    End If
+                End If
+            Next
+            dt.Rows(i).Item("stock") = dt.Rows(i).Item("stock") - sum
+        Next
+
+    End Sub
+    Private Sub _prCargarLotesDeProductos(CodProducto As Integer, nameProducto As String)
+        If (cbSucursal.SelectedIndex < 0) Then
+            Return
+        End If
+
+        'p.NombreProducto , a.Lote, a.FechaVencimiento, Sum(a.Cantidad) as stock
+        Dim dt As New DataTable
+        gPanelProductos.Text = nameProducto
+        dt = LotesPorProducto(cbSucursal.Value, CodProducto)  ''1=Almacen
+        actualizarSaldo(dt, CodProducto)
+        grProducto.DataSource = dt
+        grProducto.RetrieveStructure()
+        grProducto.AlternatingColors = True
+        With grProducto.RootTable.Columns("NombreProducto")
+            .Width = 150
+            .Visible = False
+
+        End With
+        'b.yfcdprod1 ,a.iclot ,a.icfven  ,a.iccven 
+        With grProducto.RootTable.Columns("Lote")
+            .Width = 150
+            .Caption = "Lote"
+            .Visible = True
+
+        End With
+        With grProducto.RootTable.Columns("FechaVencimiento")
+            .Width = 160
+            .Caption = "Fecha Vencimiento"
+            .FormatString = "yyyy/MM/dd"
+            .Visible = True
+
+        End With
+
+        With grProducto.RootTable.Columns("stock")
+            .Width = 150
+            .Visible = True
+            .Caption = "Stock"
+            .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+
+
+        With grProducto
+            .DefaultFilterRowComparison = FilterConditionOperator.Contains
+            .FilterMode = FilterMode.Automatic
+            .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
+            .GroupByBoxVisible = False
+            'diseño de la grilla
+            .TotalRow = InheritableBoolean.True
+            .TotalRowFormatStyle.BackColor = Color.Gold
+            .TotalRowPosition = TotalRowPosition.BottomFixed
+            .VisualStyle = VisualStyle.Office2007
+        End With
+        _prAplicarCondiccionJanusLote()
+
+    End Sub
+    Public Sub _prAplicarCondiccionJanusLote()
+        Dim fc As GridEXFormatCondition
+        fc = New GridEXFormatCondition(grProducto.RootTable.Columns("stock"), ConditionOperator.Equal, 0)
+        fc.FormatStyle.BackColor = Color.Gold
+        fc.FormatStyle.FontBold = TriState.True
+        fc.FormatStyle.ForeColor = Color.White
+        grProducto.RootTable.FormatConditions.Add(fc)
+
+        Dim fc2 As GridEXFormatCondition
+        fc2 = New GridEXFormatCondition(grProducto.RootTable.Columns("FechaVencimiento"), ConditionOperator.LessThanOrEqualTo, Now.Date)
+        fc2.FormatStyle.BackColor = Color.Red
+        fc2.FormatStyle.FontBold = TriState.True
+        fc2.FormatStyle.ForeColor = Color.White
+        grProducto.RootTable.FormatConditions.Add(fc2)
+
+        grProducto.Select()
+        grProducto.Col = 1
+        grProducto.Row = grProducto.RowCount - 1
+    End Sub
+
+    Public Sub _fnObtenerFilaProducto(ByRef pos As Integer, numi As Integer)
+        For i As Integer = 0 To CType(grProducto.DataSource, DataTable).Rows.Count - 1 Step 1
+            Dim _numi As Integer = CType(grProducto.DataSource, DataTable).Rows(i).Item("Id")
+            If (_numi = numi) Then
+                pos = i
+                Return
+            End If
+        Next
+
+    End Sub
+    Public Sub InsertarProductosConLote()
+
+        If (grDetalle.Row < 0) Then
+            _prAddDetalleVenta()
+        End If
+
+        '      a.Id ,a.icibid ,a.iccprod ,b.yfcdprod1  as producto,a.Cantidad ,
+        'a.iclot ,a.icfvenc ,Cast(null as image ) as img,1 as estado,
+        '(Sum(inv.iccven )+a.Cantidad  ) as stock
+
+        'a.yfnumi  ,a.yfcdprod1  ,a.yfcdprod2,Sum(b.iccven ) as stock 
+        Dim pos As Integer = -1
+        grDetalle.Row = grDetalle.RowCount - 1
+        _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"))
+        Dim posProducto As Integer = 0
+        _fnObtenerFilaProducto(posProducto, grProducto.GetValue("Id"))
+
+
+        FilaSelectLote = CType(grProducto.DataSource, DataTable).Rows(posProducto)
+
+
+        If (grProducto.GetValue("stock") > 0) Then
+            _prCargarLotesDeProductos(grProducto.GetValue("Id"), grProducto.GetValue("NombreProducto"))
+        Else
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "El Producto: ".ToUpper + grProducto.GetValue("NombreProducto") + " NO CUENTA CON STOCK DISPONIBLE", img, 5000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            FilaSelectLote = Nothing
+        End If
+
+    End Sub
     Private Sub grproducto_KeyDown(sender As Object, e As KeyEventArgs) Handles grProducto.KeyDown
         If (Not _fnAccesible()) Then
             Return
@@ -874,6 +1017,8 @@ salirIf:
             If (f >= 0) Then
 
                 If (IsNothing(FilaSelectLote)) Then
+
+
                     ''''''''''''''''''''''''
                     If (grProducto.GetValue("stock") <= 0) Then
 
@@ -882,20 +1027,79 @@ salirIf:
 
                     End If
 
-                    Dim ef = New Efecto
-                    ef.tipo = 5
-                    ef.NombreProducto = grProducto.GetValue("NombreProducto")
-                    ef.StockActual = grProducto.GetValue("stock")
-                    ef.TipoMovimiento = 3
-                    ef.ShowDialog()
-                    Dim bandera As Boolean = False
-                    bandera = ef.band
-                    If (bandera = True) Then
-                        InsertarProductosSinLote(ef.CantidadTransaccion)
+                    If (Lote = True) Then
+                        InsertarProductosConLote()
+                    Else
+                        Dim ef = New Efecto
+                        ef.tipo = 5
+                        ef.NombreProducto = grProducto.GetValue("NombreProducto")
+                        ef.StockActual = grProducto.GetValue("stock")
+                        ef.TipoMovimiento = 3
+                        ef.ShowDialog()
+                        Dim bandera As Boolean = False
+                        bandera = ef.band
+                        If (bandera = True) Then
+                            InsertarProductosSinLote(ef.CantidadTransaccion)
 
+                        End If
                     End If
 
-                    '''''''''''''''
+
+                Else
+
+                    Dim numiProd As Integer = FilaSelectLote.Item("Id")
+                    Dim mLote As String = grProducto.GetValue("Lote")
+                    Dim FechaVenc As Date = grProducto.GetValue("FechaVencimiento")
+                    If (Not _fnExisteProductoConLote(numiProd, lote, FechaVenc)) Then
+                        Dim ef = New Efecto
+                        ef.tipo = 5
+                        ef.NombreProducto = grProducto.GetValue("NombreProducto")
+                        ef.StockActual = grProducto.GetValue("stock")
+                        ef.TipoMovimiento = 3
+                        ef.ShowDialog()
+                        Dim bandera As Boolean = False
+                        bandera = ef.band
+                        Dim CantidadVenta As Double = 0
+                        If (bandera = True) Then
+                            CantidadVenta = ef.CantidadTransaccion
+                            If (grDetalle.GetValue("ProductoId") > 0) Then
+                                _prAddDetalleVenta()
+                            End If
+                            Dim pos As Integer = -1
+                            grDetalle.Row = grDetalle.RowCount - 1
+                            _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"))
+
+                            If ((pos >= 0)) Then
+                                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = numiProd
+                                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = FilaSelectLote.Item("NombreProducto")
+                                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = CantidadVenta
+                                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = FilaSelectLote.Item("PrecioVenta")
+                                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = FilaSelectLote.Item("PrecioVenta") * CantidadVenta
+
+                                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = FilaSelectLote.Item("PrecioVenta") * CantidadVenta
+                                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCosto") = FilaSelectLote.Item("PrecioCosto")
+                                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("Stock")
+                                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Lote") = mLote
+                                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("FechaVencimiento") = FechaVenc
+
+                                tbNombreProducto.Clear()
+                                tbNombreProducto.Focus()
+                                _prCalcularPrecioTotal()
+                            End If
+
+                            ''''''''
+
+                            FilaSelectLote = Nothing
+                            _DesHabilitarProductos()
+                            tbNombreProducto.Focus()
+                            _prCargarProductos()
+                        End If
+
+                    Else
+
+                            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                        ToastNotification.Show(Me, "El producto con el lote ya existe modifique su cantidad".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                    End If
 
 
                 End If
@@ -904,10 +1108,21 @@ salirIf:
             End If
         End If
         If e.KeyData = Keys.Escape Then
-            CType(grProducto.DataSource, DataTable).Rows.Clear()
 
-            _DesHabilitarProductos()
+            If (Lote = False) Then
+                CType(grProducto.DataSource, DataTable).Rows.Clear()
+
+                _DesHabilitarProductos()
+
+            Else
+                FilaSelectLote = Nothing
+
+                tbNombreProducto.Focus()
+                _prCargarProductos()
+            End If
+
         End If
+        _prCalcularPrecioTotal()
     End Sub
 
     Private Sub grdetalle_CellValueChanged(sender As Object, e As ColumnActionEventArgs) Handles grDetalle.CellValueChanged
@@ -1226,6 +1441,7 @@ salirIf:
         btnVendedor.Visible = True
         btnCliente.Visible = True
         BtnImprimir.Visible = False
+
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -1262,7 +1478,7 @@ salirIf:
         tbFechaVencimientoCredito.Value = Now.Date
         swTipoVenta.Value = True
         seleccionarPrimerItemCombo(cbSucursal)
-
+        IdCliente = 0
 
 
 
@@ -1304,6 +1520,7 @@ salirIf:
 
                 ReporteVenta(Id)
                 ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                FilaSelectLote = Nothing
 
             Else
                 ToastNotification.Show(Me, "Error al guardar la Venta".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
@@ -1328,6 +1545,7 @@ salirIf:
                 ReporteVenta(tbCodigo.Text)
                 ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                 _PSalirRegistro()
+                FilaSelectLote = Nothing
             Else
                 ToastNotification.Show(Me, "Error al guardar La Venta".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
@@ -1361,7 +1579,7 @@ salirIf:
     End Sub
 
     Public Sub _PMOEliminarRegistro()
-
+        FilaSelectLote = Nothing
 
         Dim ef = New Efecto
 
@@ -1572,6 +1790,7 @@ salirIf:
         Else
             tbVendedor.Focus()
         End If
+        _prCargarProductos()
     End Sub
 
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
@@ -1686,8 +1905,9 @@ salirIf:
                 c = grProducto.Col
                 f = grProducto.Row
                 If (f >= 0) Then
-
                     If (IsNothing(FilaSelectLote)) Then
+
+
                         ''''''''''''''''''''''''
                         If (grProducto.GetValue("stock") <= 0) Then
 
@@ -1696,26 +1916,83 @@ salirIf:
 
                         End If
 
-                        Dim ef = New Efecto
+                        If (Lote = True) Then
+                            InsertarProductosConLote()
+                        Else
+                            Dim ef = New Efecto
+                            ef.tipo = 5
+                            ef.NombreProducto = grProducto.GetValue("NombreProducto")
+                            ef.StockActual = grProducto.GetValue("stock")
+                            ef.TipoMovimiento = 3
+                            ef.ShowDialog()
+                            Dim bandera As Boolean = False
+                            bandera = ef.band
+                            If (bandera = True) Then
+                                InsertarProductosSinLote(ef.CantidadTransaccion)
 
-
-                        ef.tipo = 5
-                        ef.NombreProducto = grProducto.GetValue("NombreProducto")
-                        ef.StockActual = grProducto.GetValue("stock")
-                        ef.TipoMovimiento = 3
-                        ef.ShowDialog()
-                        Dim bandera As Boolean = False
-                        bandera = ef.band
-                        If (bandera = True) Then
-                            InsertarProductosSinLote(ef.CantidadTransaccion)
-
+                            End If
                         End If
 
-                        '''''''''''''''
 
+                    Else
+
+                        Dim numiProd As Integer = FilaSelectLote.Item("Id")
+                        Dim mLote As String = grProducto.GetValue("Lote")
+                        Dim FechaVenc As Date = grProducto.GetValue("FechaVencimiento")
+                        If (Not _fnExisteProductoConLote(numiProd, Lote, FechaVenc)) Then
+                            Dim ef = New Efecto
+                            ef.tipo = 5
+                            ef.NombreProducto = grProducto.GetValue("NombreProducto")
+                            ef.StockActual = grProducto.GetValue("stock")
+                            ef.TipoMovimiento = 3
+                            ef.ShowDialog()
+                            Dim bandera As Boolean = False
+                            bandera = ef.band
+                            Dim CantidadVenta As Double = 0
+                            If (bandera = True) Then
+                                CantidadVenta = ef.CantidadTransaccion
+                                If (grDetalle.GetValue("ProductoId") > 0) Then
+                                    _prAddDetalleVenta()
+                                End If
+                                Dim pos As Integer = -1
+                                grDetalle.Row = grDetalle.RowCount - 1
+                                _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"))
+
+                                If ((pos >= 0)) Then
+                                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = numiProd
+                                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = FilaSelectLote.Item("NombreProducto")
+                                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = CantidadVenta
+                                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = FilaSelectLote.Item("PrecioVenta")
+                                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = FilaSelectLote.Item("PrecioVenta") * CantidadVenta
+
+                                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = FilaSelectLote.Item("PrecioVenta") * CantidadVenta
+                                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCosto") = FilaSelectLote.Item("PrecioCosto")
+                                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("Stock")
+                                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Lote") = mLote
+                                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("FechaVencimiento") = FechaVenc
+
+                                    tbNombreProducto.Clear()
+                                    tbNombreProducto.Focus()
+                                    _prCalcularPrecioTotal()
+                                End If
+
+                                ''''''''
+
+                                FilaSelectLote = Nothing
+                                _DesHabilitarProductos()
+                                tbNombreProducto.Focus()
+                                _prCargarProductos()
+                            End If
+
+                        Else
+
+                            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                            ToastNotification.Show(Me, "El producto con el lote ya existe modifique su cantidad".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                        End If
 
 
                     End If
+
                 End If
             End If
 
