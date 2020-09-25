@@ -76,71 +76,67 @@
     <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.DotNetBar.Keyboard, Version=12.5.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\Libreria\DotNet\DevComponents.DotNetBar.Keyboard.dll</HintPath>
+      <HintPath>..\..\..\DINASES\Google Drive\Librerias\DotNet\DevComponents.DotNetBar.Keyboard.dll</HintPath>
     </Reference>
     <Reference Include="DevComponents.DotNetBar.Layout, Version=12.5.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\Libreria\DotNet\DevComponents.DotNetBar.Layout.dll</HintPath>
+      <HintPath>..\..\..\DINASES\Google Drive\Librerias\DotNet\DevComponents.DotNetBar.Layout.dll</HintPath>
     </Reference>
     <Reference Include="DevComponents.DotNetBar.Layout.Design, Version=12.5.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\Libreria\DotNet\DevComponents.DotNetBar.Layout.Design.dll</HintPath>
+      <HintPath>..\..\..\DINASES\Google Drive\Librerias\DotNet\DevComponents.DotNetBar.Layout.Design.dll</HintPath>
     </Reference>
     <Reference Include="DevComponents.DotNetBar.Schedule, Version=12.5.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\Libreria\DotNet\DevComponents.DotNetBar.Schedule.dll</HintPath>
+      <HintPath>..\..\..\DINASES\Google Drive\Librerias\DotNet\DevComponents.DotNetBar.Schedule.dll</HintPath>
     </Reference>
     <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=12.5.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\Libreria\DotNet\DevComponents.DotNetBar.SuperGrid.dll</HintPath>
+      <HintPath>..\..\..\DINASES\Google Drive\Librerias\DotNet\DevComponents.DotNetBar.SuperGrid.dll</HintPath>
     </Reference>
     <Reference Include="DevComponents.DotNetBar2, Version=12.5.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\Libreria\DotNet\DevComponents.DotNetBar2.dll</HintPath>
+      <HintPath>..\..\..\DINASES\Google Drive\Librerias\DotNet\DevComponents.DotNetBar2.dll</HintPath>
     </Reference>
     <Reference Include="DevComponents.Instrumentation, Version=12.5.0.2, Culture=neutral, PublicKeyToken=bc4a9d761ea44ef0, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\Libreria\DotNet\DevComponents.Instrumentation.dll</HintPath>
+      <HintPath>..\..\..\DINASES\Google Drive\Librerias\DotNet\DevComponents.Instrumentation.dll</HintPath>
     </Reference>
     <Reference Include="DevComponents.SuperGrid.Design, Version=12.5.0.2, Culture=neutral, PublicKeyToken=1fea3f5d8d482bff, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\Libreria\DotNet\DevComponents.SuperGrid.Design.dll</HintPath>
+      <HintPath>..\..\..\DINASES\Google Drive\Librerias\DotNet\DevComponents.SuperGrid.Design.dll</HintPath>
     </Reference>
     <Reference Include="DevComponents.TreeGX, Version=12.5.0.2, Culture=neutral, PublicKeyToken=cfcbd7476b2389d1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\Libreria\DotNet\DevComponents.TreeGX.dll</HintPath>
+      <HintPath>..\..\..\DINASES\Google Drive\Librerias\DotNet\DevComponents.TreeGX.dll</HintPath>
     </Reference>
     <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="Gma.QrCodeNet.Encoding">
-      <HintPath>C:\Users\usuario\Dropbox\Utilitarios\Aplicaciones\Qrcode_Barcode\Gma.QrCodeNet.Encoding.dll</HintPath>
+      <HintPath>..\..\..\DINASES\Google Drive\Librerias\QrCode\Gma.QrCodeNet.Encoding.dll</HintPath>
     </Reference>
     <Reference Include="GMap.NET.Core">
-      <HintPath>C:\Users\usuario\Google Drive\INFORMACION MARCO ANTONIO\Librerias\GMap\GMap.NET.Core.dll</HintPath>
+      <HintPath>..\..\..\DINASES\Google Drive\Librerias\GMap\GMap.NET.Core.dll</HintPath>
     </Reference>
     <Reference Include="GMap.NET.WindowsForms">
-      <HintPath>C:\Users\usuario\Google Drive\INFORMACION MARCO ANTONIO\Librerias\GMap\GMap.NET.WindowsForms.dll</HintPath>
-    </Reference>
-    <Reference Include="Interop.AcroPDFLib">
-      <HintPath>C:\librerias\PDF\Interop.AcroPDFLib.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\DINASES\Google Drive\Librerias\GMap\GMap.NET.WindowsForms.dll</HintPath>
     </Reference>
     <Reference Include="Janus.Data.v3">
-      <HintPath>C:\Users\usuario\Dropbox\Utilitarios\Aplicaciones\Janus\Janus.Data.v3.dll</HintPath>
+      <HintPath>..\..\..\DINASES\Google Drive\Librerias\Janus\Janus.Data.v3.dll</HintPath>
     </Reference>
     <Reference Include="Janus.Windows.CalendarCombo.v3">
-      <HintPath>C:\Users\usuario\Dropbox\Utilitarios\Aplicaciones\Janus\Janus.Windows.CalendarCombo.v3.dll</HintPath>
+      <HintPath>..\..\..\DINASES\Google Drive\Librerias\Janus\Janus.Windows.CalendarCombo.v3.dll</HintPath>
     </Reference>
     <Reference Include="Janus.Windows.Common.v3">
-      <HintPath>C:\Users\usuario\Dropbox\Utilitarios\Aplicaciones\Janus\Janus.Windows.Common.v3.dll</HintPath>
+      <HintPath>..\..\..\DINASES\Google Drive\Librerias\Janus\Janus.Windows.Common.v3.dll</HintPath>
     </Reference>
     <Reference Include="Janus.Windows.GridEX.v3">
-      <HintPath>C:\Users\usuario\Dropbox\Utilitarios\Aplicaciones\Janus\Janus.Windows.GridEX.v3.dll</HintPath>
+      <HintPath>..\..\..\DINASES\Google Drive\Librerias\Janus\Janus.Windows.GridEX.v3.dll</HintPath>
     </Reference>
     <Reference Include="Janus.Windows.Ribbon.v3">
-      <HintPath>C:\Users\usuario\Dropbox\Utilitarios\Aplicaciones\Janus\Janus.Windows.Ribbon.v3.dll</HintPath>
+      <HintPath>..\..\..\DINASES\Google Drive\Librerias\Janus\Janus.Windows.Ribbon.v3.dll</HintPath>
     </Reference>
     <Reference Include="Janus.Windows.UI.v3">
-      <HintPath>C:\Users\usuario\Dropbox\Utilitarios\Aplicaciones\Janus\Janus.Windows.UI.v3.dll</HintPath>
+      <HintPath>..\..\..\DINASES\Google Drive\Librerias\Janus\Janus.Windows.UI.v3.dll</HintPath>
     </Reference>
     <Reference Include="MaterialSkin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialSkin.Updated.0.2.2\lib\MaterialSkin.dll</HintPath>
