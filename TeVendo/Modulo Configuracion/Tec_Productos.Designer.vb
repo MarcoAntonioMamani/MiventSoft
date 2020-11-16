@@ -113,6 +113,10 @@ Partial Class Tec_Productos
         Me.SuperTabControlPanel2 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel17 = New System.Windows.Forms.Panel()
         Me.JGrM_Buscador = New Janus.Windows.GridEX.GridEX()
+        Me.MeuOpciones = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.VerToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EditarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EliminarToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.btnSi = New System.Windows.Forms.Panel()
@@ -125,10 +129,6 @@ Partial Class Tec_Productos
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.MeuOpciones = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.VerToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.EditarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.EliminarToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -166,6 +166,7 @@ Partial Class Tec_Productos
         Me.SuperTabControlPanel2.SuspendLayout()
         Me.Panel17.SuspendLayout()
         CType(Me.JGrM_Buscador, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MeuOpciones.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.btnSi.SuspendLayout()
@@ -173,7 +174,6 @@ Partial Class Tec_Productos
         Me.Panel15.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.MeuOpciones.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControlPrincipal
@@ -540,6 +540,7 @@ Partial Class Tec_Productos
         Me.GroupBox1.TabIndex = 59
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Unidades"
+        Me.GroupBox1.Visible = False
         '
         'Panel3
         '
@@ -1448,6 +1449,41 @@ Partial Class Tec_Productos
         Me.JGrM_Buscador.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         Me.JGrM_Buscador.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.VS2005
         '
+        'MeuOpciones
+        '
+        Me.MeuOpciones.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MeuOpciones.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VerToolStripMenuItem1, Me.EditarToolStripMenuItem, Me.EliminarToolStripMenuItem1})
+        Me.MeuOpciones.Name = "MeuOpciones"
+        Me.MeuOpciones.Size = New System.Drawing.Size(146, 112)
+        Me.MeuOpciones.Text = "Opciones"
+        '
+        'VerToolStripMenuItem1
+        '
+        Me.VerToolStripMenuItem1.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.VerToolStripMenuItem1.Image = Global.TeVendo.My.Resources.Resources.verRegistros2
+        Me.VerToolStripMenuItem1.Name = "VerToolStripMenuItem1"
+        Me.VerToolStripMenuItem1.Padding = New System.Windows.Forms.Padding(5)
+        Me.VerToolStripMenuItem1.Size = New System.Drawing.Size(155, 36)
+        Me.VerToolStripMenuItem1.Text = "Ver"
+        '
+        'EditarToolStripMenuItem
+        '
+        Me.EditarToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EditarToolStripMenuItem.Image = Global.TeVendo.My.Resources.Resources.edit
+        Me.EditarToolStripMenuItem.Name = "EditarToolStripMenuItem"
+        Me.EditarToolStripMenuItem.Padding = New System.Windows.Forms.Padding(5)
+        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(155, 36)
+        Me.EditarToolStripMenuItem.Text = "Editar"
+        '
+        'EliminarToolStripMenuItem1
+        '
+        Me.EliminarToolStripMenuItem1.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EliminarToolStripMenuItem1.Image = Global.TeVendo.My.Resources.Resources.trash2
+        Me.EliminarToolStripMenuItem1.Name = "EliminarToolStripMenuItem1"
+        Me.EliminarToolStripMenuItem1.Padding = New System.Windows.Forms.Padding(5)
+        Me.EliminarToolStripMenuItem1.Size = New System.Drawing.Size(155, 36)
+        Me.EliminarToolStripMenuItem1.Text = "Eliminar"
+        '
         'Panel4
         '
         Me.Panel4.BackColor = System.Drawing.Color.White
@@ -1575,41 +1611,6 @@ Partial Class Tec_Productos
         '
         Me.MEP.ContainerControl = Me
         '
-        'MeuOpciones
-        '
-        Me.MeuOpciones.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MeuOpciones.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VerToolStripMenuItem1, Me.EditarToolStripMenuItem, Me.EliminarToolStripMenuItem1})
-        Me.MeuOpciones.Name = "MeuOpciones"
-        Me.MeuOpciones.Size = New System.Drawing.Size(180, 140)
-        Me.MeuOpciones.Text = "Opciones"
-        '
-        'VerToolStripMenuItem1
-        '
-        Me.VerToolStripMenuItem1.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.VerToolStripMenuItem1.Image = Global.TeVendo.My.Resources.Resources.verRegistros2
-        Me.VerToolStripMenuItem1.Name = "VerToolStripMenuItem1"
-        Me.VerToolStripMenuItem1.Padding = New System.Windows.Forms.Padding(5)
-        Me.VerToolStripMenuItem1.Size = New System.Drawing.Size(189, 36)
-        Me.VerToolStripMenuItem1.Text = "Ver"
-        '
-        'EditarToolStripMenuItem
-        '
-        Me.EditarToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EditarToolStripMenuItem.Image = Global.TeVendo.My.Resources.Resources.edit
-        Me.EditarToolStripMenuItem.Name = "EditarToolStripMenuItem"
-        Me.EditarToolStripMenuItem.Padding = New System.Windows.Forms.Padding(5)
-        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(189, 36)
-        Me.EditarToolStripMenuItem.Text = "Editar"
-        '
-        'EliminarToolStripMenuItem1
-        '
-        Me.EliminarToolStripMenuItem1.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EliminarToolStripMenuItem1.Image = Global.TeVendo.My.Resources.Resources.trash2
-        Me.EliminarToolStripMenuItem1.Name = "EliminarToolStripMenuItem1"
-        Me.EliminarToolStripMenuItem1.Padding = New System.Windows.Forms.Padding(5)
-        Me.EliminarToolStripMenuItem1.Size = New System.Drawing.Size(189, 36)
-        Me.EliminarToolStripMenuItem1.Text = "Eliminar"
-        '
         'Tec_Productos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -1658,6 +1659,7 @@ Partial Class Tec_Productos
         Me.SuperTabControlPanel2.ResumeLayout(False)
         Me.Panel17.ResumeLayout(False)
         CType(Me.JGrM_Buscador, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MeuOpciones.ResumeLayout(False)
         Me.Panel4.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.btnSi.ResumeLayout(False)
@@ -1665,7 +1667,6 @@ Partial Class Tec_Productos
         Me.Panel15.ResumeLayout(False)
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.MeuOpciones.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub

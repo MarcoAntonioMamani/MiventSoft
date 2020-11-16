@@ -358,9 +358,12 @@ Public Class TecCategorias
         swEstado.Value = True
         UsImg.Image = My.Resources.camera
         tbNombreCategoria.Focus()
-        If (CType(cbEmpresa.DataSource, DataTable).Rows.Count > 0) Then
-            cbEmpresa.SelectedIndex = 0
+        If (Not IsNothing(cbEmpresa.DataSource)) Then
+            If (CType(cbEmpresa.DataSource, DataTable).Rows.Count > 0) Then
+                cbEmpresa.SelectedIndex = 0
+            End If
         End If
+
 
     End Sub
 

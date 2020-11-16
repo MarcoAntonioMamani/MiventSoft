@@ -81,9 +81,9 @@ Public Class Tec_Compras
 
 
     Public Sub _PMInhabilitar()
-        btnNuevo.Visible = True
-        btnModificar.Visible = True
-        btnEliminar.Visible = True
+        btnNuevo.Visible = False
+        btnModificar.Visible = False
+        btnEliminar.Visible = False
         btnGrabar.Visible = False
         PanelNavegacion.Enabled = True
         JGrM_Buscador.Enabled = True
@@ -227,7 +227,7 @@ Public Class Tec_Compras
 
             'actualizar el grid de buscador
             _PMCargarBuscador()
-
+            _PMSalir()
             '_PMSalir()
         End If
     End Sub
@@ -236,11 +236,12 @@ Public Class Tec_Compras
         If btnGrabar.Visible = True Then
             _PMInhabilitar()
             _PMPrimerRegistro()
-
+            TabControlPrincipal.SelectedTabIndex = 1
         Else
             '  Public _modulo As SideNavItem
             '_modulo.Select()
-            Me.Close()
+            TabControlPrincipal.SelectedTabIndex = 1
+            'Me.Close()
 
         End If
     End Sub
@@ -1805,6 +1806,28 @@ salirIf:
     Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles btnCompra.Click
         If (Not _fnAccesible() And tbCodigo.Text <> String.Empty) Then
             P_GenerarReporte(tbCodigo.Text)
+
+        End If
+    End Sub
+
+    Private Sub VerToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles VerToolStripMenuItem1.Click
+        If (JGrM_Buscador.Row >= 0) Then
+            TabControlPrincipal.SelectedTabIndex = 0
+        End If
+    End Sub
+
+    Private Sub EditarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditarToolStripMenuItem.Click
+        If (JGrM_Buscador.Row >= 0) Then
+            TabControlPrincipal.SelectedTabIndex = 0
+            btnModificar.PerformClick()
+
+        End If
+    End Sub
+
+    Private Sub EliminarToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles EliminarToolStripMenuItem1.Click
+        If (JGrM_Buscador.Row >= 0) Then
+
+            btnEliminar.PerformClick()
 
         End If
     End Sub

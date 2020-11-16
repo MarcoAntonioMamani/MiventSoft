@@ -1791,6 +1791,22 @@ salirIf:
         Else
             tbVendedor.Focus()
         End If
+        Dim dtclientes As DataTable = L_prListarGeneral("MAM_Clientes")
+
+        Dim fila As DataRow() = dtclientes.Select("Id =1")
+        If (Not IsDBNull(fila)) Then
+            If (fila.Count > 0) Then
+
+                IdCliente = fila(0).Item("Id")
+                tbCliente.Text = fila(0).Item("NombreCliente").ToString
+                tbNombreProducto.Focus()
+                _prCargarProductos()
+            End If
+        End If
+
+
+
+
         _prCargarProductos()
     End Sub
 
@@ -2234,13 +2250,13 @@ salirIf:
             IdCliente = Row.Cells("ID").Value
             tbCliente.Text = Row.Cells("NombreProveedor").Value.ToString
             _prCargarProductos()
-            tbGlosa.Focus()
+            tbNombreProducto.Focus()
         Else
             If (ef.NewCliente) Then
                 IdCliente = ef.IdCliente
                 tbCliente.Text = ef.NombreCliente
                 _prCargarProductos()
-                tbGlosa.Focus()
+                tbNombreProducto.Focus()
             End If
         End If
 

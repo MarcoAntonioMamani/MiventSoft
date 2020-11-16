@@ -72,8 +72,8 @@ Public Class Tec_Sucursales
 
     Public Sub _PMInhabilitar()
         btnNuevo.Visible = True
-        btnModificar.Visible = True
-        btnEliminar.Visible = True
+        btnModificar.Visible = False
+        btnEliminar.Visible = False
         btnGrabar.Visible = False
         PanelNavegacion.Enabled = True
         JGrM_Buscador.Enabled = True
@@ -515,6 +515,28 @@ Public Class Tec_Sucursales
             _PMOMostrarRegistro(JGrM_Buscador.Row, True)
         End If
 
+    End Sub
+
+    Private Sub VerToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles VerToolStripMenuItem1.Click
+
+    End Sub
+
+    Private Sub EditarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditarToolStripMenuItem.Click
+        If (JGrM_Buscador.Row >= 0) Then
+            btnModificar.PerformClick()
+
+        End If
+    End Sub
+
+    Private Sub EliminarToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles EliminarToolStripMenuItem1.Click
+        If (JGrM_Buscador.Row >= 1) Then
+            btnEliminar.PerformClick()
+
+        End If
+        If (JGrM_Buscador.Row = 0) Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "No se Puede Eliminar Todas Las Sucursales", img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+        End If
     End Sub
 
 #End Region
