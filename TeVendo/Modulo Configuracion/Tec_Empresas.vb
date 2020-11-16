@@ -96,9 +96,9 @@ Public Class Tec_Empresas
 
 
     Public Sub _PMInhabilitar()
-        btnNuevo.Visible = True
-        btnModificar.Visible = True
-        btnEliminar.Visible = True
+        btnNuevo.Visible = False
+        btnModificar.Visible = False
+        btnEliminar.Visible = False
         btnGrabar.Visible = False
         PanelNavegacion.Enabled = True
         JGrM_Buscador.Enabled = True
@@ -224,7 +224,7 @@ Public Class Tec_Empresas
 
             'actualizar el grid de buscador
             _PMCargarBuscador()
-
+            _PMSalir()
             '_PMSalir()
         End If
     End Sub
@@ -233,11 +233,12 @@ Public Class Tec_Empresas
         If btnGrabar.Visible = True Then
             _PMInhabilitar()
             _PMPrimerRegistro()
-
+            TabControlPrincipal.SelectedTabIndex = 1
         Else
             '  Public _modulo As SideNavItem
             '_modulo.Select()
-            _tab.Close()
+            TabControlPrincipal.SelectedTabIndex = 1
+            '_tab.Close()
         End If
     End Sub
 #End Region
@@ -834,6 +835,20 @@ Public Class Tec_Empresas
 
         Return "default.jpg"
     End Function
+
+    Private Sub VerToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles VerToolStripMenuItem1.Click
+        If (JGrM_Buscador.Row >= 0) Then
+            TabControlPrincipal.SelectedTabIndex = 0
+        End If
+    End Sub
+
+    Private Sub EditarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditarToolStripMenuItem.Click
+        If (JGrM_Buscador.Row >= 0) Then
+            TabControlPrincipal.SelectedTabIndex = 0
+            btnModificar.PerformClick()
+
+        End If
+    End Sub
 
 
 
