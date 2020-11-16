@@ -107,8 +107,8 @@ Public Class Tec_Personal
 
     Public Sub _PMInhabilitar()
         btnNuevo.Visible = True
-        btnModificar.Visible = True
-        btnEliminar.Visible = True
+        btnModificar.Visible = False
+        btnEliminar.Visible = False
         btnGrabar.Visible = False
         PanelNavegacion.Enabled = True
         JGrM_Buscador.Enabled = True
@@ -676,6 +676,23 @@ Public Class Tec_Personal
 
             _PMOMostrarRegistro(_MPos, True)
 
+        End If
+    End Sub
+
+    Private Sub VerToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles VerToolStripMenuItem1.Click
+
+    End Sub
+
+    Private Sub EditarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditarToolStripMenuItem.Click
+        If (JGrM_Buscador.Row >= 0) Then
+            btnModificar.PerformClick()
+            tbNombreProveedor.Focus()
+        End If
+    End Sub
+
+    Private Sub EliminarToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles EliminarToolStripMenuItem1.Click
+        If (JGrM_Buscador.Row >= 0) Then
+            btnEliminar.PerformClick()
         End If
     End Sub
 
