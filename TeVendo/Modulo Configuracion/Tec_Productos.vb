@@ -56,7 +56,8 @@ Public Class Tec_Productos
                     .Caption = _MListEstBuscador.Item(i).titulo
                     .Width = _MListEstBuscador.Item(i).tamano
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-
+                    .WordWrap = True
+                    .MaxLines = 4
                     Dim col As DataColumn = dtBuscador.Columns(campo)
                     Dim tipo As Type = col.DataType
                     If tipo.ToString = "System.Int32" Or tipo.ToString = "System.Decimal" Or tipo.ToString = "System.Double" Then
@@ -112,9 +113,9 @@ Public Class Tec_Productos
 
 
     Public Sub _PMInhabilitar()
-        btnNuevo.Visible = True
-        btnModificar.Visible = True
-        btnEliminar.Visible = True
+        btnNuevo.Visible = False
+        btnModificar.Visible = False
+        btnEliminar.Visible = False
         btnGrabar.Visible = False
         PanelNavegacion.Enabled = True
         JGrM_Buscador.Enabled = True
@@ -241,7 +242,7 @@ Public Class Tec_Productos
 
             'actualizar el grid de buscador
             _PMCargarBuscador()
-
+            _PMSalir()
             '_PMSalir()
         End If
     End Sub
@@ -250,11 +251,12 @@ Public Class Tec_Productos
         If btnGrabar.Visible = True Then
             _PMInhabilitar()
             _PMPrimerRegistro()
-
+            TabControlPrincipal.SelectedTabIndex = 1
         Else
             '  Public _modulo As SideNavItem
             '_modulo.Select()
-            _tab.Close()
+            TabControlPrincipal.SelectedTabIndex = 1
+            '_tab.Close()
         End If
     End Sub
 #End Region
@@ -1160,6 +1162,34 @@ Public Class Tec_Productos
         If (e.KeyCode = Keys.Enter) Then
 
             TabControlPrincipal.SelectedTabIndex = 0
+
+        End If
+    End Sub
+    Private Sub JGrM_Buscador_DoubleClick(sender As Object, e As EventArgs) Handles JGrM_Buscador.DoubleClick
+        If (JGrM_Buscador.Row >= 0) Then
+            TabControlPrincipal.SelectedTabIndex = 0
+        End If
+    End Sub
+    Private Sub VerToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles VerToolStripMenuItem1.Click
+        If (JGrM_Buscador.Row >= 0) Then
+
+            TabControlPrincipal.SelectedTabIndex = 0
+        End If
+    End Sub
+
+    Private Sub EditarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditarToolStripMenuItem.Click
+        If (JGrM_Buscador.Row >= 0) Then
+
+            TabControlPrincipal.SelectedTabIndex = 0
+            btnModificar.PerformClick()
+
+        End If
+    End Sub
+
+    Private Sub EliminarToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles EliminarToolStripMenuItem1.Click
+        If (JGrM_Buscador.Row >= 0) Then
+
+            btnEliminar.PerformClick()
 
         End If
     End Sub
