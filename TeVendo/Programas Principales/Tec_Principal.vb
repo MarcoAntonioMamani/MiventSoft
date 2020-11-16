@@ -56,6 +56,30 @@ Public Class Tec_Principal
         P_prCargarParametros()
         _prValidarMayusculas()
     End Sub
+
+    Private Sub _prSolicitarLogin()
+
+        Dim ef = New Efecto
+        ef.tipo = 4
+        ef.ShowDialog()
+
+        L_Usuario = gs_user
+
+
+        If gs_user <> "DEFAULT" Then
+            btnUser.Text = "Bienvenido: " + L_Usuario
+            _PCargarPrivilegios()
+            _prCargarConfiguracionSistema()
+            P_prCargarParametros()
+            _prValidarMayusculas()
+            SuperTabControlMenu.Focus()
+
+
+
+
+        End If
+
+    End Sub
     Public Sub _prValidarMayusculas()
         'Dim dt As DataTable = L_fnPorcUtilidad()
         'If (dt.Rows.Count > 0) Then
@@ -80,7 +104,15 @@ Public Class Tec_Principal
         'gd_notaAproTeo = dtConf.Rows(0).Item("gbaproteo")
 
     End Sub
+    Public Function ModuloSinAsignaciones(dt As DataTable) As Boolean
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            If (dt.Rows(i).Item("Ver") <> 0) Then
+                Return False
+            End If
 
+        Next
+        Return True
+    End Function
     Private Sub _PCargarPrivilegios()
         Dim listaTabs As New List(Of DevComponents.DotNetBar.Metro.MetroTilePanel)
         listaTabs.Add(Panel_Configuracion)
@@ -89,6 +121,14 @@ Public Class Tec_Principal
         listaTabs.Add(Panel_Mapa)
         listaTabs.Add(Panel_Almacen)
         listaTabs.Add(Panel_Compras)
+        Dim listMenu As New List(Of DevComponents.DotNetBar.SuperTabItem)
+        listMenu.Add(tab_configuraciones)
+        listMenu.Add(tab_compraventa)
+        listMenu.Add(tab_ingresoproducto)
+        listMenu.Add(tab_mapa)
+        listMenu.Add(tab_almacenes)
+        listMenu.Add(tabCompras)
+
         Dim idRolUsu As String = gi_userRol
         Dim dtModulos As DataTable = L_prLibreriaDetalleGeneral(1)  ''' id=1 los modulos del sistema
         Dim listFormsModulo As New List(Of String)
@@ -152,7 +192,20 @@ Public Class Tec_Principal
 
                     End If
                 Next
+
+                If (ModuloSinAsignaciones(dtDetRol)) Then
+                    Dim modul As DevComponents.DotNetBar.SuperTabItem
+                    modul = listMenu(i)
+                    modul.Visible = False
+                Else
+                    Dim modul As DevComponents.DotNetBar.SuperTabItem
+                    modul = listMenu(i)
+                    modul.Visible = True
+                End If
             Else ' no exiten formulario registrados en el modulo pero igual hay que ocultar los botones y los subbotones que tenga
+                Dim modul As DevComponents.DotNetBar.SuperTabItem
+                modul = listMenu(i)
+                modul.Visible = False
                 For Each _item As DevComponents.DotNetBar.BaseItem In listaTabs.Item(i).Items
                     If TypeOf (_item) Is DevComponents.DotNetBar.Metro.MetroTileItem Then 'es un boton del modulo
                         Dim btn As DevComponents.DotNetBar.Metro.MetroTileItem = CType(_item, DevComponents.DotNetBar.Metro.MetroTileItem)
@@ -170,6 +223,7 @@ Public Class Tec_Principal
                 Next
 
             End If
+
 
         Next
 
@@ -759,5 +813,9 @@ Public Class Tec_Principal
         Dim blah As New Bitmap(btnInvMonitoreo.Image, 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
+    End Sub
+
+    Private Sub btnCerrarSesion_Click(sender As Object, e As EventArgs) Handles btnCerrarSesion.Click
+        _prSolicitarLogin()
     End Sub
 End Class

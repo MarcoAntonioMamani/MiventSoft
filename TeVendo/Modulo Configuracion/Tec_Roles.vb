@@ -274,6 +274,7 @@ Public Class Tec_Roles
         If (CType(grModulos.DataSource, DataTable).Rows.Count > 0) Then
             grModulos.Row = 0
         End If
+        SuperTabControl1.TabIndex = 1
     End Sub
 
     Private Sub _prAsignarPermisos()
@@ -374,22 +375,25 @@ Public Class Tec_Roles
         End With
 
         With grDetalle.RootTable.Columns("Ver")
-            .Caption = "VER"
+            .Caption = "Asignar"
             .Width = 150
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center
         End With
         With grDetalle.RootTable.Columns("Insertar")
             .Caption = "AGREGAR"
+            .Visible = False
             .Width = 150
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center
         End With
         With grDetalle.RootTable.Columns("Modificar")
             .Caption = "EDITAR"
+            .Visible = False
             .Width = 150
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center
         End With
         With grDetalle.RootTable.Columns("Eliminar")
             .Caption = "ELIMINAR"
+            .Visible = False
             .Width = 150
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center
         End With
