@@ -115,9 +115,9 @@ Public Class Tec_Clientes
     End Sub
 
     Public Sub _PMInhabilitar()
-        btnNuevo.Visible = True
-        btnModificar.Visible = True
-        btnEliminar.Visible = True
+        btnNuevo.Visible = False
+        btnModificar.Visible = False
+        btnEliminar.Visible = False
         btnGrabar.Visible = False
         PanelNavegacion.Enabled = True
         JGrM_Buscador.Enabled = True
@@ -244,7 +244,7 @@ Public Class Tec_Clientes
 
             'actualizar el grid de buscador
             _PMCargarBuscador()
-
+            _PMSalir()
             '_PMSalir()
         End If
     End Sub
@@ -253,11 +253,12 @@ Public Class Tec_Clientes
         If btnGrabar.Visible = True Then
             _PMInhabilitar()
             _PMPrimerRegistro()
-
+            TabControlPrincipal.SelectedTabIndex = 1
         Else
             '  Public _modulo As SideNavItem
             '_modulo.Select()
-            _tab.Close()
+            '_tab.Close()
+            TabControlPrincipal.SelectedTabIndex = 1
         End If
     End Sub
 #End Region
@@ -765,6 +766,34 @@ Public Class Tec_Clientes
             _MPos = JGrM_Buscador.Row
 
             _PMOMostrarRegistro(_MPos, True)
+
+        End If
+    End Sub
+
+    Private Sub JGrM_Buscador_DoubleClick(sender As Object, e As EventArgs) Handles JGrM_Buscador.DoubleClick
+        If (JGrM_Buscador.Row >= 0) Then
+            TabControlPrincipal.SelectedTabIndex = 0
+        End If
+    End Sub
+
+    Private Sub VerToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles VerToolStripMenuItem1.Click
+        If (JGrM_Buscador.Row >= 0) Then
+            TabControlPrincipal.SelectedTabIndex = 0
+        End If
+    End Sub
+
+    Private Sub EditarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditarToolStripMenuItem.Click
+        If (JGrM_Buscador.Row >= 0) Then
+            TabControlPrincipal.SelectedTabIndex = 0
+            btnModificar.PerformClick()
+
+        End If
+    End Sub
+
+    Private Sub EliminarToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles EliminarToolStripMenuItem1.Click
+        If (JGrM_Buscador.Row >= 0) Then
+            btnEliminar.PerformClick()
+
 
         End If
     End Sub

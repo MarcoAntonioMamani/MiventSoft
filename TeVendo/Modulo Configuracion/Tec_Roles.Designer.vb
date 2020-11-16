@@ -89,6 +89,14 @@ Partial Class Tec_Roles
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.Highlighter1 = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.ErrorProvider1 = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.Panel18 = New System.Windows.Forms.Panel()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.btnSi = New System.Windows.Forms.Panel()
+        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
+        Me.MeuOpciones = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.VerToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EditarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EliminarToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.SuperTabControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControl1.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -125,6 +133,10 @@ Partial Class Tec_Roles
         Me.msModulos.SuspendLayout()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel18.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
+        Me.btnSi.SuspendLayout()
+        Me.MeuOpciones.SuspendLayout()
         Me.SuspendLayout()
         '
         'SuperTabControl1
@@ -142,8 +154,8 @@ Partial Class Tec_Roles
         Me.SuperTabControl1.ControlBox.MenuBox.Name = ""
         Me.SuperTabControl1.ControlBox.Name = ""
         Me.SuperTabControl1.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControl1.ControlBox.MenuBox, Me.SuperTabControl1.ControlBox.CloseBox})
-        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel1)
         Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel2)
+        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel1)
         Me.SuperTabControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControl1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControl1.Location = New System.Drawing.Point(0, 0)
@@ -622,7 +634,7 @@ Partial Class Tec_Roles
         Me.btnSalir.Size = New System.Drawing.Size(120, 60)
         Me.btnSalir.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnSalir.TabIndex = 10
-        Me.btnSalir.Text = "SALIR"
+        Me.btnSalir.Text = "VOLVER"
         Me.btnSalir.TextColor = System.Drawing.Color.White
         '
         'btnEliminar
@@ -641,6 +653,7 @@ Partial Class Tec_Roles
         Me.btnEliminar.TabIndex = 8
         Me.btnEliminar.Text = "ELIMINAR"
         Me.btnEliminar.TextColor = System.Drawing.Color.White
+        Me.btnEliminar.Visible = False
         '
         'btnGrabar
         '
@@ -658,6 +671,7 @@ Partial Class Tec_Roles
         Me.btnGrabar.TabIndex = 9
         Me.btnGrabar.Text = "GRABAR"
         Me.btnGrabar.TextColor = System.Drawing.Color.White
+        Me.btnGrabar.Visible = False
         '
         'btnModificar
         '
@@ -675,6 +689,7 @@ Partial Class Tec_Roles
         Me.btnModificar.TabIndex = 7
         Me.btnModificar.Text = "MODIFICAR"
         Me.btnModificar.TextColor = System.Drawing.Color.White
+        Me.btnModificar.Visible = False
         '
         'btnNuevo
         '
@@ -693,6 +708,7 @@ Partial Class Tec_Roles
         Me.btnNuevo.TabIndex = 6
         Me.btnNuevo.Text = "NUEVO"
         Me.btnNuevo.TextColor = System.Drawing.Color.White
+        Me.btnNuevo.Visible = False
         '
         'PanelNavegacion
         '
@@ -808,6 +824,7 @@ Partial Class Tec_Roles
         'Panel17
         '
         Me.Panel17.Controls.Add(Me.JGrM_Buscador)
+        Me.Panel17.Controls.Add(Me.Panel18)
         Me.Panel17.Controls.Add(Me.Panel14)
         Me.Panel17.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel17.Location = New System.Drawing.Point(0, 0)
@@ -823,7 +840,9 @@ Partial Class Tec_Roles
         Me.JGrM_Buscador.BackColor = System.Drawing.Color.White
         Me.JGrM_Buscador.BorderStyle = Janus.Windows.GridEX.BorderStyle.Raised
         Me.JGrM_Buscador.ColumnAutoResize = True
+        Me.JGrM_Buscador.ContextMenuStrip = Me.MeuOpciones
         Me.JGrM_Buscador.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.JGrM_Buscador.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None
         Me.JGrM_Buscador.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
         Me.JGrM_Buscador.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.JGrM_Buscador.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -835,9 +854,10 @@ Partial Class Tec_Roles
         Me.JGrM_Buscador.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.Empty
         Me.JGrM_Buscador.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.JGrM_Buscador.HeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.JGrM_Buscador.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
         Me.MHighlighterFocus.SetHighlightColor(Me.JGrM_Buscador, DevComponents.DotNetBar.Validator.eHighlightColor.Custom)
         Me.MHighlighterFocus.SetHighlightOnFocus(Me.JGrM_Buscador, True)
-        Me.JGrM_Buscador.Location = New System.Drawing.Point(5, 32)
+        Me.JGrM_Buscador.Location = New System.Drawing.Point(5, 96)
         Me.JGrM_Buscador.Margin = New System.Windows.Forms.Padding(4)
         Me.JGrM_Buscador.Name = "JGrM_Buscador"
         Me.JGrM_Buscador.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
@@ -850,7 +870,7 @@ Partial Class Tec_Roles
         Me.JGrM_Buscador.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.JGrM_Buscador.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.JGrM_Buscador.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.JGrM_Buscador.Size = New System.Drawing.Size(1472, 785)
+        Me.JGrM_Buscador.Size = New System.Drawing.Size(1472, 721)
         Me.JGrM_Buscador.TabIndex = 2
         Me.JGrM_Buscador.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
         Me.JGrM_Buscador.TableSpacing = 9
@@ -975,6 +995,95 @@ Partial Class Tec_Roles
         '
         Me.ErrorProvider1.ContainerControl = Me
         '
+        'Panel18
+        '
+        Me.Panel18.BackColor = System.Drawing.Color.White
+        Me.Panel18.Controls.Add(Me.TableLayoutPanel1)
+        Me.Panel18.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel18.Location = New System.Drawing.Point(5, 32)
+        Me.Panel18.Name = "Panel18"
+        Me.Panel18.Size = New System.Drawing.Size(1472, 64)
+        Me.Panel18.TabIndex = 5
+        '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.ColumnCount = 2
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 84.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.btnSi, 1, 0)
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.Padding = New System.Windows.Forms.Padding(30, 10, 5, 5)
+        Me.TableLayoutPanel1.RowCount = 1
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1472, 64)
+        Me.TableLayoutPanel1.TabIndex = 5
+        '
+        'btnSi
+        '
+        Me.btnSi.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(179, Byte), Integer), CType(CType(148, Byte), Integer))
+        Me.btnSi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.btnSi.Controls.Add(Me.ButtonX1)
+        Me.btnSi.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnSi.Location = New System.Drawing.Point(1240, 13)
+        Me.btnSi.Name = "btnSi"
+        Me.btnSi.Size = New System.Drawing.Size(224, 43)
+        Me.btnSi.TabIndex = 4
+        '
+        'ButtonX1
+        '
+        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX1.BackColor = System.Drawing.Color.Transparent
+        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.ButtonX1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ButtonX1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX1.Image = Global.TeVendo.My.Resources.Resources.iconadd
+        Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.ButtonX1.Location = New System.Drawing.Point(0, 0)
+        Me.ButtonX1.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX1.Name = "ButtonX1"
+        Me.ButtonX1.Size = New System.Drawing.Size(222, 41)
+        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX1.TabIndex = 7
+        Me.ButtonX1.Text = "Nuevo Rol"
+        Me.ButtonX1.TextColor = System.Drawing.Color.White
+        '
+        'MeuOpciones
+        '
+        Me.MeuOpciones.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MeuOpciones.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VerToolStripMenuItem1, Me.EditarToolStripMenuItem, Me.EliminarToolStripMenuItem1})
+        Me.MeuOpciones.Name = "MeuOpciones"
+        Me.MeuOpciones.Size = New System.Drawing.Size(180, 140)
+        Me.MeuOpciones.Text = "Opciones"
+        '
+        'VerToolStripMenuItem1
+        '
+        Me.VerToolStripMenuItem1.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.VerToolStripMenuItem1.Image = Global.TeVendo.My.Resources.Resources.verRegistros2
+        Me.VerToolStripMenuItem1.Name = "VerToolStripMenuItem1"
+        Me.VerToolStripMenuItem1.Padding = New System.Windows.Forms.Padding(5)
+        Me.VerToolStripMenuItem1.Size = New System.Drawing.Size(189, 36)
+        Me.VerToolStripMenuItem1.Text = "Ver"
+        '
+        'EditarToolStripMenuItem
+        '
+        Me.EditarToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EditarToolStripMenuItem.Image = Global.TeVendo.My.Resources.Resources.edit
+        Me.EditarToolStripMenuItem.Name = "EditarToolStripMenuItem"
+        Me.EditarToolStripMenuItem.Padding = New System.Windows.Forms.Padding(5)
+        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(189, 36)
+        Me.EditarToolStripMenuItem.Text = "Editar"
+        '
+        'EliminarToolStripMenuItem1
+        '
+        Me.EliminarToolStripMenuItem1.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EliminarToolStripMenuItem1.Image = Global.TeVendo.My.Resources.Resources.trash2
+        Me.EliminarToolStripMenuItem1.Name = "EliminarToolStripMenuItem1"
+        Me.EliminarToolStripMenuItem1.Padding = New System.Windows.Forms.Padding(5)
+        Me.EliminarToolStripMenuItem1.Size = New System.Drawing.Size(189, 36)
+        Me.EliminarToolStripMenuItem1.Text = "Eliminar"
+        '
         'Tec_Roles
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -1020,6 +1129,10 @@ Partial Class Tec_Roles
         Me.msModulos.ResumeLayout(False)
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel18.ResumeLayout(False)
+        Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.btnSi.ResumeLayout(False)
+        Me.MeuOpciones.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -1090,4 +1203,12 @@ Partial Class Tec_Roles
     Friend WithEvents Panel17 As Panel
     Protected WithEvents Highlighter1 As DevComponents.DotNetBar.Validator.Highlighter
     Protected WithEvents ErrorProvider1 As ErrorProvider
+    Friend WithEvents Panel18 As Panel
+    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
+    Friend WithEvents btnSi As Panel
+    Protected WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents MeuOpciones As ContextMenuStrip
+    Friend WithEvents VerToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents EditarToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents EliminarToolStripMenuItem1 As ToolStripMenuItem
 End Class

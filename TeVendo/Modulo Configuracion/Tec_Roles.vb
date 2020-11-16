@@ -116,9 +116,9 @@ Public Class Tec_Roles
 
 
     Public Sub _PMInhabilitar()
-        btnNuevo.Visible = True
-        btnModificar.Visible = True
-        btnEliminar.Visible = True
+        btnNuevo.Visible = False
+        btnModificar.Visible = False
+        btnEliminar.Visible = False
         btnGrabar.Visible = False
         PanelNavegacion.Enabled = True
         JGrM_Buscador.Enabled = True
@@ -240,7 +240,7 @@ Public Class Tec_Roles
 
             'actualizar el grid de buscador
             _PMCargarBuscador()
-
+            _PMSalir()
             '_PMSalir()
         End If
     End Sub
@@ -249,11 +249,12 @@ Public Class Tec_Roles
         If btnGrabar.Visible = True Then
             _PMInhabilitar()
             _PMPrimerRegistro()
-
+            SuperTabControl1.SelectedTabIndex = 1
         Else
             '  Public _modulo As SideNavItem
             '_modulo.Select()
-            _tab.Close()
+            SuperTabControl1.SelectedTabIndex = 1
+            '_tab.Close()
         End If
     End Sub
 #End Region
@@ -698,5 +699,62 @@ Public Class Tec_Roles
             lbprivilegio.Text = "privilegios del modulo ".ToUpper + desc
         End If
 
+    End Sub
+
+    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
+
+
+        SuperTabControl1.SelectedTabIndex = 0
+
+        btnNuevo.PerformClick()
+
+    End Sub
+
+    Private Sub JGrM_Buscador_KeyDown(sender As Object, e As KeyEventArgs) Handles JGrM_Buscador.KeyDown
+        If (JGrM_Buscador.Row >= 0) Then
+
+            If (e.KeyData = Keys.Enter) Then
+                SuperTabControl1.SelectedTabIndex = 0
+            End If
+        End If
+    End Sub
+
+    Private Sub JGrM_Buscador_DoubleClick(sender As Object, e As EventArgs) Handles JGrM_Buscador.DoubleClick
+        If (JGrM_Buscador.Row >= 0) Then
+
+
+            SuperTabControl1.SelectedTabIndex = 0
+
+        End If
+    End Sub
+
+    Private Sub VerToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles VerToolStripMenuItem1.Click
+        If (JGrM_Buscador.Row >= 0) Then
+
+
+            SuperTabControl1.SelectedTabIndex = 0
+
+        End If
+
+    End Sub
+
+    Private Sub EditarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditarToolStripMenuItem.Click
+        If (JGrM_Buscador.Row >= 0) Then
+
+
+            SuperTabControl1.SelectedTabIndex = 0
+            btnModificar.PerformClick()
+
+
+        End If
+    End Sub
+
+    Private Sub EliminarToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles EliminarToolStripMenuItem1.Click
+        If (JGrM_Buscador.Row >= 0) Then
+
+            btnEliminar.PerformClick()
+
+
+        End If
     End Sub
 End Class
