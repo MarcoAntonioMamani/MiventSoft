@@ -20,7 +20,7 @@ Public Class Tec_Empresas
     Dim _latitud As Double = 0
     Dim _longitud As Double = 0
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-
+    Dim Mapa As Integer = 0
     Public _nameButton As String
     Public _tab As SuperTabItem
     Public _modulo As SideNavItem
@@ -247,14 +247,22 @@ Public Class Tec_Empresas
 
     Private Sub _prIniciarTodo()
         'L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
-        _prInicarMapa()
+
         Me.Text = "Gestion De Empresas"
 
 
         _PMIniciarTodo()
         _prAsignarPermisos()
 
+        If (Mapa = 1) Then
+            PanelRight.Visible = True
 
+            _prInicarMapa()
+        Else
+            PanelRight.Visible = False
+            PanelLEft.Dock = DockStyle.Fill
+            Panel13.Visible = False
+        End If
     End Sub
     Private Sub P_IniciarMap()
         Gmc_Cliente.DragButton = MouseButtons.Left
@@ -397,7 +405,10 @@ Public Class Tec_Empresas
         tbnit.Text = ""
         _latitud = 0
         _longitud = 0
-        _Overlay.Markers.Clear()
+        If (Mapa = 1) Then
+            _Overlay.Markers.Clear()
+        End If
+
         pbImagen.Image = My.Resources.camera
         tbNombreEmpresa.Focus()
     End Sub
@@ -625,8 +636,10 @@ Public Class Tec_Empresas
 
         TablaImagenes = L_prCargarImagenesRecepcion(tbCodigo.Text)
         LblPaginacion.Text = Str(_MPos + 1) + "/" + JGrM_Buscador.RowCount.ToString
+        If (Mapa = 1) Then
+            _dibujarUbicacion(JGrM_Buscador.GetValue("Nombre").ToString, JGrM_Buscador.GetValue("Id").ToString)
+        End If
 
-        _dibujarUbicacion(JGrM_Buscador.GetValue("Nombre").ToString, JGrM_Buscador.GetValue("Id").ToString)
 
     End Sub
     Public Sub _dibujarUbicacion(_nombre As String, _ci As String)

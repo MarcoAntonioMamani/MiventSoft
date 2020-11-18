@@ -32,7 +32,7 @@ Public Class Tec_Clientes
 
     Dim Modificado As Boolean = False
     Dim nameImg As String = "Default.jpg"
-
+    Dim Mapa As Integer = 0
 
     Dim TablaImagenes As DataTable
     Dim TablaInventario As DataTable
@@ -266,8 +266,9 @@ Public Class Tec_Clientes
 #Region "METODOS PRIVADOS"
 
     Private Sub _prIniciarTodo()
-        'L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
-        _prInicarMapa()
+        L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
+        LeerConfiguracion()
+
         Me.Text = "Gestion De Clientes"
         P_Global._prCargarComboGenerico(cbTipoDocumento, L_prLibreriaDetalleGeneral(8), "cnnum", "Codigo", "cndesc1", "TipoDocumento")
         P_Global._prCargarComboGenerico(cbPrecios, L_prListaCategoriasPrecios(), "Id", "Codigo", "Descripcion", "CategoriaPrecio")
@@ -276,9 +277,24 @@ Public Class Tec_Clientes
         _PMIniciarTodo()
         _prAsignarPermisos()
 
+        If (Mapa = 1) Then
+            PanelRight.Visible = True
+
+            _prInicarMapa()
+        Else
+            PanelRight.Visible = False
+            PanelLEft.Dock = DockStyle.Fill
+            Panel13.Visible = False
+        End If
 
 
+    End Sub
 
+    Public Sub LeerConfiguracion()
+        Dim dt As DataTable = L_prLeerConfiguracion()
+        If (dt.Rows.Count > 0) Then
+            Mapa = dt.Rows(0).Item("Mapa")
+        End If
     End Sub
     Private Sub P_IniciarMap()
         Gmc_Cliente.DragButton = MouseButtons.Left
@@ -400,7 +416,11 @@ Public Class Tec_Clientes
         seleccionarPrimerItemCombo(cbPrecios)
         _latitud = 0
         _longitud = 0
-        _Overlay.Markers.Clear()
+
+        If (Mapa = 1) Then
+            _Overlay.Markers.Clear()
+        End If
+
 
         tbNombreCliente.Focus()
     End Sub
@@ -598,8 +618,10 @@ Public Class Tec_Clientes
         End With
         TablaImagenes = L_prCargarImagenesRecepcion(tbCodigo.Text)
         LblPaginacion.Text = Str(_MPos + 1) + "/" + JGrM_Buscador.RowCount.ToString
+        If (Mapa = 1) Then
+            _dibujarUbicacion(JGrM_Buscador.GetValue("NombreCliente").ToString, JGrM_Buscador.GetValue("Id").ToString)
+        End If
 
-        _dibujarUbicacion(JGrM_Buscador.GetValue("NombreCliente").ToString, JGrM_Buscador.GetValue("Id").ToString)
 
     End Sub
     Public Sub _dibujarUbicacion(_nombre As String, _ci As String)
