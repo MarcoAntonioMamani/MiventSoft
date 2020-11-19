@@ -393,7 +393,7 @@ Public Class Tec_ConceptosFijos
         tbPorcentaje.IsInputReadOnly = False
         cbOperacion.ReadOnly = False
         swEstado.IsReadOnly = False
-
+        swTipoConcepto.IsReadOnly = False
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -402,6 +402,7 @@ Public Class Tec_ConceptosFijos
         tbPorcentaje.IsInputReadOnly = True
         cbOperacion.ReadOnly = True
         swEstado.IsReadOnly = True
+        swTipoConcepto.IsReadOnly = True
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -413,7 +414,7 @@ Public Class Tec_ConceptosFijos
         seleccionarPrimerItemCombo(cbOperacion)
 
         tbNombreConcepto.Focus()
-
+        swTipoConcepto.Value = True
     End Sub
     Public Sub seleccionarPrimerItemCombo(cb As EditControls.MultiColumnCombo)
         If (CType(cb.DataSource, DataTable).Rows.Count > 0) Then
@@ -441,7 +442,7 @@ Public Class Tec_ConceptosFijos
         ''_conversion As Double
         Dim res As Boolean
         Try
-            res = L_prConceptoFijoInsertar(tbCodigo.Text, tbNombreConcepto.Text, tbPorcentaje.Value, cbOperacion.Value, IIf(swEstado.Value = True, 1, 0))
+            res = L_prConceptoFijoInsertar(tbCodigo.Text, tbNombreConcepto.Text, tbPorcentaje.Value, cbOperacion.Value, IIf(swEstado.Value = True, 1, 0), IIf(swTipoConcepto.Value = True, 1, 0))
 
             If res Then
 
@@ -465,7 +466,7 @@ Public Class Tec_ConceptosFijos
     Public Function _PMOModificarRegistro() As Boolean
         Dim Res As Boolean
         Try
-            Res = L_prConceptoFijoModificar(tbCodigo.Text, tbNombreConcepto.Text, tbPorcentaje.Value, cbOperacion.Value, IIf(swEstado.Value = True, 1, 0))
+            Res = L_prConceptoFijoModificar(tbCodigo.Text, tbNombreConcepto.Text, tbPorcentaje.Value, cbOperacion.Value, IIf(swEstado.Value = True, 1, 0), IIf(swTipoConcepto.Value = True, 1, 0))
 
 
             If Res Then
@@ -547,15 +548,18 @@ Public Class Tec_ConceptosFijos
 
 
         If (tbPorcentaje.Text <> String.Empty) Then
-            If (tbPorcentaje.Value <= 0) Then
-                tbPorcentaje.BackColor = Color.Red
-                MEP.SetError(tbPorcentaje, "Ingrese valor Porcentaje Valido")
-                Mensaje = Mensaje + Chr(13) + Chr(10) + " Porcentaje"
-                _ok = False
-            Else
-                tbPorcentaje.BackColor = Color.White
-                MEP.SetError(tbPorcentaje, "")
+            If (swTipoConcepto.Value = True) Then
+                If (tbPorcentaje.Value <= 0) Then
+                    tbPorcentaje.BackColor = Color.Red
+                    MEP.SetError(tbPorcentaje, "Ingrese valor Porcentaje Valido")
+                    Mensaje = Mensaje + Chr(13) + Chr(10) + " Porcentaje"
+                    _ok = False
+                Else
+                    tbPorcentaje.BackColor = Color.White
+                    MEP.SetError(tbPorcentaje, "")
+                End If
             End If
+
 
         Else
             tbPorcentaje.BackColor = Color.Red
@@ -580,12 +584,14 @@ Public Class Tec_ConceptosFijos
             cbOperacion.Focus()
             Return _ok
         End If
-
-        If (tbPorcentaje.Text.Length <= 0) Then
-            ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-            tbPorcentaje.Focus()
-            Return _ok
+        If (swTipoConcepto.Value = True) Then
+            If (tbPorcentaje.Text.Length <= 0) Then
+                ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                tbPorcentaje.Focus()
+                Return _ok
+            End If
         End If
+
 
 
         Return _ok
@@ -605,9 +611,9 @@ Public Class Tec_ConceptosFijos
         listEstCeldas.Add(New Celda("NombreConcepto", True, " Nombre Concepto", 250))
         listEstCeldas.Add(New Celda("Porcentaje", True, "Porcentaje", 100, "0.00"))
         listEstCeldas.Add(New Celda("OperacionId", False))
-
+        listEstCeldas.Add(New Celda("Tipo", False))
         listEstCeldas.Add(New Celda("NombreOperacion", True, "Operación", 90, ""))
-
+        listEstCeldas.Add(New Celda("TipoConcepto", True, "Concepto", 90, ""))
         listEstCeldas.Add(New Celda("Estado", False, "Estado", 70))
         listEstCeldas.Add(New Celda("imgEstado", True, "Estado", 150))
 
@@ -627,7 +633,7 @@ Public Class Tec_ConceptosFijos
         With JGrM_Buscador
             tbCodigo.Text = .GetValue("Id").ToString
             tbNombreConcepto.Text = .GetValue("NombreConcepto").ToString
-
+            swTipoConcepto.Value = .GetValue("Tipo")
             tbPorcentaje.Value = .GetValue("Porcentaje")
             cbOperacion.Value = .GetValue("OperacionId")
             swEstado.Value = .GetValue("Estado")
@@ -765,6 +771,10 @@ Public Class Tec_ConceptosFijos
             btnEliminar.PerformClick()
 
         End If
+    End Sub
+
+    Private Sub tbNombreConcepto_TextChanged(sender As Object, e As EventArgs) Handles tbNombreConcepto.TextChanged
+
     End Sub
 #End Region
 End Class

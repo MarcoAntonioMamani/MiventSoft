@@ -2299,7 +2299,7 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
-    Public Shared Function L_prConceptoFijoInsertar(ByRef _numi As String, NombreConcepto As String, Porcentaje As Double, OperacionId As Integer, Estado As Integer) As Boolean
+    Public Shared Function L_prConceptoFijoInsertar(ByRef _numi As String, NombreConcepto As String, Porcentaje As Double, OperacionId As Integer, Estado As Integer, Tipoconcepto As Integer) As Boolean
         Dim _resultado As Boolean
 
         ' @Id,@NombreConcepto ,@Porcentaje ,@OperacionId ,@Estado ,@usuario
@@ -2312,6 +2312,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@NombreConcepto", NombreConcepto))
         _listParam.Add(New Datos.DParametro("@Porcentaje", Porcentaje))
         _listParam.Add(New Datos.DParametro("@OperacionId", OperacionId))
+        _listParam.Add(New Datos.DParametro("@TipoConcepto", Tipoconcepto))
         _listParam.Add(New Datos.DParametro("@Estado", Estado))
 
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
@@ -2329,7 +2330,7 @@ Public Class AccesoLogica
 
         Return _resultado
     End Function
-    Public Shared Function L_prConceptoFijoModificar(ByRef _numi As String, NombreConcepto As String, Porcentaje As Double, OperacionId As Integer, Estado As Integer) As Boolean
+    Public Shared Function L_prConceptoFijoModificar(ByRef _numi As String, NombreConcepto As String, Porcentaje As Double, OperacionId As Integer, Estado As Integer, Tipoconcepto As Integer) As Boolean
         Dim _resultado As Boolean
 
         ' @Id,@NombreConcepto ,@Porcentaje ,@OperacionId ,@Estado ,@usuario
@@ -2343,7 +2344,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@Porcentaje", Porcentaje))
         _listParam.Add(New Datos.DParametro("@OperacionId", OperacionId))
         _listParam.Add(New Datos.DParametro("@Estado", Estado))
-
+        _listParam.Add(New Datos.DParametro("@TipoConcepto", Tipoconcepto))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
 
