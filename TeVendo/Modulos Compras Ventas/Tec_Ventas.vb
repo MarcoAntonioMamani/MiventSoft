@@ -325,13 +325,15 @@ Public Class Tec_Ventas
         End With
 
         With grDetalle.RootTable.Columns("Producto")
-            .Width = 150
+            .Width = 300
+            .WordWrap = True
+            .MaxLines = 4
             .Caption = "Producto"
             .Visible = True
         End With
 
         With grDetalle.RootTable.Columns("Cantidad")
-            .Width = 50
+            .Width = 70
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
@@ -340,7 +342,7 @@ Public Class Tec_Ventas
 
 
         With grDetalle.RootTable.Columns("Precio")
-            .Width = 50
+            .Width = 70
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .Caption = "Precio"
@@ -348,9 +350,9 @@ Public Class Tec_Ventas
         End With
 
         With grDetalle.RootTable.Columns("SubTotal")
-            .Width = 60
+            .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .Caption = "SubTotal"
             .FormatString = "0.00"
         End With
@@ -362,7 +364,7 @@ Public Class Tec_Ventas
         With grDetalle.RootTable.Columns("ProcentajeDescuento")
             .Width = 70
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0"
             .Caption = "P.Descuento".ToUpper
         End With
@@ -370,14 +372,14 @@ Public Class Tec_Ventas
         With grDetalle.RootTable.Columns("MontoDescuento")
             .Width = 70
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "M.Descuento".ToUpper
         End With
 
 
         With grDetalle.RootTable.Columns("Total")
-            .Width = 60
+            .Width = 90
             .Visible = True
             .Caption = "Total".ToUpper
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
@@ -799,7 +801,8 @@ Public Class Tec_Ventas
             'Habilitar solo las columnas de Precio, %, Monto y Observación
             If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index Or
                 e.Column.Index = grDetalle.RootTable.Columns("ProcentajeDescuento").Index Or
-                 e.Column.Index = grDetalle.RootTable.Columns("MontoDescuento").Index) Then
+                 e.Column.Index = grDetalle.RootTable.Columns("MontoDescuento").Index Or
+                 e.Column.Index = grDetalle.RootTable.Columns("Precio").Index) Then
                 e.Cancel = False
             Else
                 If ((e.Column.Index = grDetalle.RootTable.Columns("Lote").Index Or
