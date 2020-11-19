@@ -696,6 +696,10 @@ Public Class Tec_Personal
         End If
     End Sub
 
+    Private Sub tbNombreProveedor_TextChanged(sender As Object, e As EventArgs) Handles tbNombreProveedor.TextChanged
+
+    End Sub
+
 
 
 
