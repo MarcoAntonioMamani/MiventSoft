@@ -2283,4 +2283,81 @@ Public Class AccesoLogica
     End Function
 #End Region
 
+
+#Region "Conceptos Fijos"
+
+    Public Shared Function L_prListarOperacionesConceptosFijos() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_ConceptosFijos", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prConceptoFijoInsertar(ByRef _numi As String, NombreConcepto As String, Porcentaje As Double, OperacionId As Integer, Estado As Integer) As Boolean
+        Dim _resultado As Boolean
+
+        ' @Id,@NombreConcepto ,@Porcentaje ,@OperacionId ,@Estado ,@usuario
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@NombreConcepto", NombreConcepto))
+        _listParam.Add(New Datos.DParametro("@Porcentaje", Porcentaje))
+        _listParam.Add(New Datos.DParametro("@OperacionId", OperacionId))
+        _listParam.Add(New Datos.DParametro("@Estado", Estado))
+
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+
+        _Tabla = D_ProcedimientoConParam("MAM_ConceptosFijos", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _numi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+    Public Shared Function L_prConceptoFijoModificar(ByRef _numi As String, NombreConcepto As String, Porcentaje As Double, OperacionId As Integer, Estado As Integer) As Boolean
+        Dim _resultado As Boolean
+
+        ' @Id,@NombreConcepto ,@Porcentaje ,@OperacionId ,@Estado ,@usuario
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@NombreConcepto", NombreConcepto))
+        _listParam.Add(New Datos.DParametro("@Porcentaje", Porcentaje))
+        _listParam.Add(New Datos.DParametro("@OperacionId", OperacionId))
+        _listParam.Add(New Datos.DParametro("@Estado", Estado))
+
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+
+        _Tabla = D_ProcedimientoConParam("MAM_ConceptosFijos", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _numi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+#End Region
 End Class
