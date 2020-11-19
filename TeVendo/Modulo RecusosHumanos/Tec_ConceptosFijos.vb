@@ -603,7 +603,7 @@ Public Class Tec_ConceptosFijos
         Dim listEstCeldas As New List(Of Celda)
         listEstCeldas.Add(New Celda("Id", True, "ID", 40))
         listEstCeldas.Add(New Celda("NombreConcepto", True, " Nombre Concepto", 250))
-        listEstCeldas.Add(New Celda("Porcentaje", True, "Porcentaje", 100))
+        listEstCeldas.Add(New Celda("Porcentaje", True, "Porcentaje", 100, "0.00"))
         listEstCeldas.Add(New Celda("OperacionId", False))
 
         listEstCeldas.Add(New Celda("NombreOperacion", True, "Operación", 90, ""))
