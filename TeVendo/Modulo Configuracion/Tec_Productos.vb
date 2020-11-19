@@ -1193,5 +1193,9 @@ Public Class Tec_Productos
 
         End If
     End Sub
+
+    Private Sub LabelX5_Click(sender As Object, e As EventArgs) Handles LabelX5.Click
+
+    End Sub
 #End Region
 End Class
