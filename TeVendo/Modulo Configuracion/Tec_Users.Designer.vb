@@ -35,6 +35,9 @@ Partial Class Tec_Users
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.JGrM_Buscador = New Janus.Windows.GridEX.GridEX()
         Me.PanelCampos = New System.Windows.Forms.Panel()
+        Me.btnVendedor = New DevComponents.DotNetBar.ButtonX()
+        Me.LabelX7 = New DevComponents.DotNetBar.LabelX()
+        Me.tbVendedor = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.cbRol = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.LabelX6 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
@@ -67,9 +70,6 @@ Partial Class Tec_Users
         Me.btnPrimero = New DevComponents.DotNetBar.ButtonX()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.btnVendedor = New DevComponents.DotNetBar.ButtonX()
-        Me.LabelX7 = New DevComponents.DotNetBar.LabelX()
-        Me.tbVendedor = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelLEft.SuspendLayout()
@@ -262,12 +262,59 @@ Partial Class Tec_Users
         Me.PanelCampos.Size = New System.Drawing.Size(492, 596)
         Me.PanelCampos.TabIndex = 0
         '
+        'btnVendedor
+        '
+        Me.btnVendedor.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnVendedor.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnVendedor.Image = Global.TeVendo.My.Resources.Resources.search
+        Me.btnVendedor.ImageFixedSize = New System.Drawing.Size(28, 28)
+        Me.btnVendedor.Location = New System.Drawing.Point(428, 107)
+        Me.btnVendedor.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnVendedor.Name = "btnVendedor"
+        Me.btnVendedor.Size = New System.Drawing.Size(35, 31)
+        Me.btnVendedor.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnVendedor.TabIndex = 213
+        Me.btnVendedor.Visible = False
+        '
+        'LabelX7
+        '
+        Me.LabelX7.AutoSize = True
+        Me.LabelX7.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX7.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX7.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX7.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX7.Location = New System.Drawing.Point(29, 80)
+        Me.LabelX7.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX7.Name = "LabelX7"
+        Me.LabelX7.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX7.Size = New System.Drawing.Size(68, 23)
+        Me.LabelX7.TabIndex = 212
+        Me.LabelX7.Text = "Personal:"
+        '
+        'tbVendedor
+        '
+        '
+        '
+        '
+        Me.tbVendedor.Border.Class = "TextBoxBorder"
+        Me.tbVendedor.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbVendedor.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbVendedor.Location = New System.Drawing.Point(29, 107)
+        Me.tbVendedor.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbVendedor.Name = "tbVendedor"
+        Me.tbVendedor.PreventEnterBeep = True
+        Me.tbVendedor.Size = New System.Drawing.Size(377, 29)
+        Me.tbVendedor.TabIndex = 0
+        '
         'cbRol
         '
         cbRol_DesignTimeLayout.LayoutString = resources.GetString("cbRol_DesignTimeLayout.LayoutString")
         Me.cbRol.DesignTimeLayout = cbRol_DesignTimeLayout
         Me.cbRol.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbRol.Location = New System.Drawing.Point(214, 314)
+        Me.cbRol.Location = New System.Drawing.Point(252, 243)
         Me.cbRol.Margin = New System.Windows.Forms.Padding(4)
         Me.cbRol.Name = "cbRol"
         Me.cbRol.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
@@ -275,7 +322,7 @@ Partial Class Tec_Users
         Me.cbRol.SelectedIndex = -1
         Me.cbRol.SelectedItem = Nothing
         Me.cbRol.Size = New System.Drawing.Size(219, 28)
-        Me.cbRol.TabIndex = 5
+        Me.cbRol.TabIndex = 4
         Me.cbRol.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'LabelX6
@@ -288,7 +335,7 @@ Partial Class Tec_Users
         Me.LabelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX6.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX6.Location = New System.Drawing.Point(28, 314)
+        Me.LabelX6.Location = New System.Drawing.Point(252, 212)
         Me.LabelX6.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX6.Name = "LabelX6"
         Me.LabelX6.SingleLineColor = System.Drawing.SystemColors.Control
@@ -306,7 +353,7 @@ Partial Class Tec_Users
         Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX5.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX5.Location = New System.Drawing.Point(28, 276)
+        Me.LabelX5.Location = New System.Drawing.Point(29, 212)
         Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX5.Name = "LabelX5"
         Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
@@ -319,7 +366,7 @@ Partial Class Tec_Users
         cbEmpresa_DesignTimeLayout.LayoutString = resources.GetString("cbEmpresa_DesignTimeLayout.LayoutString")
         Me.cbEmpresa.DesignTimeLayout = cbEmpresa_DesignTimeLayout
         Me.cbEmpresa.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbEmpresa.Location = New System.Drawing.Point(214, 276)
+        Me.cbEmpresa.Location = New System.Drawing.Point(29, 243)
         Me.cbEmpresa.Margin = New System.Windows.Forms.Padding(4)
         Me.cbEmpresa.Name = "cbEmpresa"
         Me.cbEmpresa.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
@@ -327,7 +374,7 @@ Partial Class Tec_Users
         Me.cbEmpresa.SelectedIndex = -1
         Me.cbEmpresa.SelectedItem = Nothing
         Me.cbEmpresa.Size = New System.Drawing.Size(219, 28)
-        Me.cbEmpresa.TabIndex = 4
+        Me.cbEmpresa.TabIndex = 3
         Me.cbEmpresa.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'swEstado
@@ -337,7 +384,7 @@ Partial Class Tec_Users
         '
         Me.swEstado.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.swEstado.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.swEstado.Location = New System.Drawing.Point(214, 241)
+        Me.swEstado.Location = New System.Drawing.Point(29, 310)
         Me.swEstado.Margin = New System.Windows.Forms.Padding(4)
         Me.swEstado.Name = "swEstado"
         Me.swEstado.OffBackColor = System.Drawing.Color.Red
@@ -346,9 +393,9 @@ Partial Class Tec_Users
         Me.swEstado.OnBackColor = System.Drawing.Color.MediumTurquoise
         Me.swEstado.OnText = "ACTIVO"
         Me.swEstado.OnTextColor = System.Drawing.Color.White
-        Me.swEstado.Size = New System.Drawing.Size(133, 27)
+        Me.swEstado.Size = New System.Drawing.Size(219, 27)
         Me.swEstado.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.swEstado.TabIndex = 3
+        Me.swEstado.TabIndex = 5
         Me.swEstado.ValueFalse = "0"
         Me.swEstado.ValueObject = "0"
         Me.swEstado.ValueTrue = "1"
@@ -363,7 +410,7 @@ Partial Class Tec_Users
         Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX4.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX4.Location = New System.Drawing.Point(29, 245)
+        Me.LabelX4.Location = New System.Drawing.Point(29, 279)
         Me.LabelX4.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX4.Name = "LabelX4"
         Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
@@ -380,7 +427,7 @@ Partial Class Tec_Users
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX1.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX1.Location = New System.Drawing.Point(29, 195)
+        Me.LabelX1.Location = New System.Drawing.Point(252, 139)
         Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
@@ -396,7 +443,7 @@ Partial Class Tec_Users
         Me.tbContrasena.Border.Class = "TextBoxBorder"
         Me.tbContrasena.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbContrasena.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbContrasena.Location = New System.Drawing.Point(214, 196)
+        Me.tbContrasena.Location = New System.Drawing.Point(252, 175)
         Me.tbContrasena.Margin = New System.Windows.Forms.Padding(4)
         Me.tbContrasena.Name = "tbContrasena"
         Me.tbContrasena.PreventEnterBeep = True
@@ -413,7 +460,7 @@ Partial Class Tec_Users
         Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX2.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX2.Location = New System.Drawing.Point(28, 72)
+        Me.LabelX2.Location = New System.Drawing.Point(29, 7)
         Me.LabelX2.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX2.Name = "LabelX2"
         Me.LabelX2.SingleLineColor = System.Drawing.SystemColors.Control
@@ -423,6 +470,7 @@ Partial Class Tec_Users
         '
         'LabelX3
         '
+        Me.LabelX3.AutoSize = True
         Me.LabelX3.BackColor = System.Drawing.Color.Transparent
         '
         '
@@ -430,11 +478,11 @@ Partial Class Tec_Users
         Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX3.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX3.Location = New System.Drawing.Point(28, 152)
+        Me.LabelX3.Location = New System.Drawing.Point(29, 144)
         Me.LabelX3.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX3.Name = "LabelX3"
         Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX3.Size = New System.Drawing.Size(168, 28)
+        Me.LabelX3.Size = New System.Drawing.Size(151, 23)
         Me.LabelX3.TabIndex = 32
         Me.LabelX3.Text = "Nombre Del Usuario:"
         '
@@ -446,11 +494,11 @@ Partial Class Tec_Users
         Me.tbCodigo.Border.Class = "TextBoxBorder"
         Me.tbCodigo.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbCodigo.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbCodigo.Location = New System.Drawing.Point(214, 72)
+        Me.tbCodigo.Location = New System.Drawing.Point(29, 43)
         Me.tbCodigo.Margin = New System.Windows.Forms.Padding(4)
         Me.tbCodigo.Name = "tbCodigo"
         Me.tbCodigo.PreventEnterBeep = True
-        Me.tbCodigo.Size = New System.Drawing.Size(133, 29)
+        Me.tbCodigo.Size = New System.Drawing.Size(285, 29)
         Me.tbCodigo.TabIndex = 30
         Me.tbCodigo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -462,7 +510,7 @@ Partial Class Tec_Users
         Me.tbNombreUsuario.Border.Class = "TextBoxBorder"
         Me.tbNombreUsuario.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbNombreUsuario.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbNombreUsuario.Location = New System.Drawing.Point(214, 151)
+        Me.tbNombreUsuario.Location = New System.Drawing.Point(29, 175)
         Me.tbNombreUsuario.Margin = New System.Windows.Forms.Padding(4)
         Me.tbNombreUsuario.Name = "tbNombreUsuario"
         Me.tbNombreUsuario.PreventEnterBeep = True
@@ -600,7 +648,7 @@ Partial Class Tec_Users
         Me.btnGrabar.Name = "btnGrabar"
         Me.btnGrabar.Size = New System.Drawing.Size(130, 60)
         Me.btnGrabar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnGrabar.TabIndex = 9
+        Me.btnGrabar.TabIndex = 6
         Me.btnGrabar.Text = "GRABAR"
         Me.btnGrabar.TextColor = System.Drawing.Color.White
         '
@@ -733,53 +781,6 @@ Partial Class Tec_Users
         'MEP
         '
         Me.MEP.ContainerControl = Me
-        '
-        'btnVendedor
-        '
-        Me.btnVendedor.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnVendedor.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.btnVendedor.Image = Global.TeVendo.My.Resources.Resources.search
-        Me.btnVendedor.ImageFixedSize = New System.Drawing.Size(28, 28)
-        Me.btnVendedor.Location = New System.Drawing.Point(428, 107)
-        Me.btnVendedor.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnVendedor.Name = "btnVendedor"
-        Me.btnVendedor.Size = New System.Drawing.Size(35, 31)
-        Me.btnVendedor.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnVendedor.TabIndex = 213
-        Me.btnVendedor.Visible = False
-        '
-        'LabelX7
-        '
-        Me.LabelX7.AutoSize = True
-        Me.LabelX7.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX7.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX7.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX7.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX7.Location = New System.Drawing.Point(28, 115)
-        Me.LabelX7.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX7.Name = "LabelX7"
-        Me.LabelX7.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX7.Size = New System.Drawing.Size(68, 23)
-        Me.LabelX7.TabIndex = 212
-        Me.LabelX7.Text = "Personal:"
-        '
-        'tbVendedor
-        '
-        '
-        '
-        '
-        Me.tbVendedor.Border.Class = "TextBoxBorder"
-        Me.tbVendedor.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbVendedor.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbVendedor.Location = New System.Drawing.Point(214, 111)
-        Me.tbVendedor.Margin = New System.Windows.Forms.Padding(4)
-        Me.tbVendedor.Name = "tbVendedor"
-        Me.tbVendedor.PreventEnterBeep = True
-        Me.tbVendedor.Size = New System.Drawing.Size(206, 29)
-        Me.tbVendedor.TabIndex = 0
         '
         'Tec_Users
         '
