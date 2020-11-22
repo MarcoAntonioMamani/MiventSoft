@@ -51,7 +51,9 @@ Public Class Tec_Ventas
                     .Caption = _MListEstBuscador.Item(i).titulo
                     .Width = _MListEstBuscador.Item(i).tamano
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-
+                    .WordWrap = True
+                    .MaxLines = 8
+                    .CellToolTip = CellToolTip.TruncatedText
                     Dim col As DataColumn = dtBuscador.Columns(campo)
                     Dim tipo As Type = col.DataType
                     If tipo.ToString = "System.Int32" Or tipo.ToString = "System.Decimal" Or tipo.ToString = "System.Double" Then
@@ -326,10 +328,12 @@ Public Class Tec_Ventas
 
         With grDetalle.RootTable.Columns("Producto")
             .Width = 300
-            .WordWrap = True
-            .MaxLines = 4
+
             .Caption = "Producto"
             .Visible = True
+            .WordWrap = True
+            .MaxLines = 3
+            .CellToolTip = CellToolTip.TruncatedText
         End With
 
         With grDetalle.RootTable.Columns("Cantidad")
@@ -517,7 +521,7 @@ Public Class Tec_Ventas
         With grProducto.RootTable.Columns("Id")
             .Width = 100
             .Caption = "Id"
-            .Visible = True
+            .Visible = False
 
 
         End With
@@ -537,12 +541,17 @@ Public Class Tec_Ventas
             .Width = 350
             .Caption = "PRODUCTOS"
             .Visible = True
-
+            .WordWrap = True
+            .MaxLines = 3
+            .CellToolTip = CellToolTip.TruncatedText
         End With
 
         With grProducto.RootTable.Columns("DescripcionProducto")
-            .Width = 250
+            .Width = 300
             .Visible = True
+            .WordWrap = True
+            .MaxLines = 3
+            .CellToolTip = CellToolTip.TruncatedText
             .Caption = "DESCRIPCION"
         End With
 
@@ -553,7 +562,7 @@ Public Class Tec_Ventas
             .FormatString = "0.00"
         End With
         With grProducto.RootTable.Columns("stock")
-            .Width = 150
+            .Width = 90
             .Visible = True
             .Caption = "Stock"
             .FormatString = "0.00"
@@ -1133,11 +1142,50 @@ salirIf:
         Dim lin As Integer = grDetalle.GetValue("Id")
         Dim pos As Integer = -1
         _fnObtenerFilaDetalle(pos, lin)
+        If (e.Column.Index = grDetalle.RootTable.Columns("Precio").Index) Then
+            If (Not IsNumeric(grDetalle.GetValue("Precio")) Or grDetalle.GetValue("Precio").ToString = String.Empty) Then
+
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = 0
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = 0
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = 0
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = 0
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = 0
+                Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+
+                grDetalle.SetValue("Precio", 0)
+                grDetalle.SetValue("ProcentajeDescuento", 0)
+                grDetalle.SetValue("MontoDescuento", 0)
+                grDetalle.SetValue("SubTotal", 0)
+                grDetalle.SetValue("Total", 0)
+
+
+
+                If (estado = 1) Then
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                End If
+
+            Else
+
+                Dim porcdesc As Double = grDetalle.GetValue("ProcentajeDescuento")
+                Dim montodesc As Double = ((grDetalle.GetValue("Precio") * grDetalle.GetValue("Cantidad")) * (porcdesc / 100))
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = montodesc
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = grDetalle.GetValue("Precio")
+                grDetalle.SetValue("MontoDescuento", montodesc)
+                Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+                Dim rowIndex01 As Integer = grDetalle.Row
+                P_PonerTotal(rowIndex01)
+                If (estado = 1) Then
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                End If
+            End If
+        End If
+
+
         If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
             If (Not IsNumeric(grDetalle.GetValue("Cantidad")) Or grDetalle.GetValue("Cantidad").ToString = String.Empty) Then
 
                 'grDetalle.GetRow(rowIndex).Cells("cant").Value = 1
-                '  grDetalle.CurrentRow.Cells.Item("cant").Value = 1
+                '  grDetalle.CurrentRow.Cells.Item("cant").Value = 1Precio
 
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = 0

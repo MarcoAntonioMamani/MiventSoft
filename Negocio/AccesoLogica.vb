@@ -810,6 +810,19 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+
+    Public Shared Function ReporteProductoPRecio() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 6))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Productos", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_prListarProductosVentas(_deposito As Integer, _ClienteId As Integer) As DataTable
         Dim _Tabla As DataTable
 
