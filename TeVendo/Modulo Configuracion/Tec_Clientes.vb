@@ -273,10 +273,6 @@ Public Class Tec_Clientes
         P_Global._prCargarComboGenerico(cbTipoDocumento, L_prLibreriaDetalleGeneral(8), "cnnum", "Codigo", "cndesc1", "TipoDocumento")
         P_Global._prCargarComboGenerico(cbPrecios, L_prListaCategoriasPrecios(), "Id", "Codigo", "Descripcion", "CategoriaPrecio")
         P_Global._prCargarComboGenerico(cbZona, L_prListarZonas(), "Id", "Codigo", "NombreZona", "Zonas")
-
-        _PMIniciarTodo()
-        _prAsignarPermisos()
-
         If (Mapa = 1) Then
             PanelRight.Visible = True
 
@@ -286,6 +282,10 @@ Public Class Tec_Clientes
             PanelLEft.Dock = DockStyle.Fill
             Panel13.Visible = False
         End If
+
+        _PMIniciarTodo()
+        _prAsignarPermisos()
+
 
 
     End Sub
