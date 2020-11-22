@@ -57,7 +57,9 @@ Public Class Tec_Productos
                     .Width = _MListEstBuscador.Item(i).tamano
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
                     .WordWrap = True
-                    .MaxLines = 4
+                    .MaxLines = 8
+                    .CellToolTip = CellToolTip.TruncatedText
+
                     Dim col As DataColumn = dtBuscador.Columns(campo)
                     Dim tipo As Type = col.DataType
                     If tipo.ToString = "System.Int32" Or tipo.ToString = "System.Decimal" Or tipo.ToString = "System.Double" Then
@@ -874,15 +876,15 @@ Public Class Tec_Productos
         listEstCeldas.Add(New Celda("Id", True, "ID", 40))
         listEstCeldas.Add(New Celda("CodigoExterno", False))
         listEstCeldas.Add(New Celda("CodigoBarras", False))
-        listEstCeldas.Add(New Celda("NombreProducto", True, " NombreProducto", 200))
-        listEstCeldas.Add(New Celda("DescripcionProducto", True, " Descripcion Producto", 100))
+        listEstCeldas.Add(New Celda("NombreProducto", True, " NombreProducto", 300))
+        listEstCeldas.Add(New Celda("DescripcionProducto", True, " Descripcion Producto", 400))
         listEstCeldas.Add(New Celda("StockMinimo", True, "Stock Minimo", 90, "0.00"))
         listEstCeldas.Add(New Celda("estado", False, "Estado", 70))
-        listEstCeldas.Add(New Celda("imgEstado", True, "Estado", 150))
+        listEstCeldas.Add(New Celda("imgEstado", True, "Estado", 70))
         listEstCeldas.Add(New Celda("CategoriaId", False))
         listEstCeldas.Add(New Celda("NombreCategoria", True, "Categoria", 80))
         listEstCeldas.Add(New Celda("EmpresaId", False))
-        listEstCeldas.Add(New Celda("Empresa", True, "Empresa", 80))
+        listEstCeldas.Add(New Celda("Empresa", False, "Empresa", 80))
 
         listEstCeldas.Add(New Celda("ProveedorId", False))
         listEstCeldas.Add(New Celda("MarcaId", False))
@@ -902,7 +904,7 @@ Public Class Tec_Productos
         ',a.StockMinimo ,a.Estado ,
         '    a.CategoriaId , cat.NombreCategoria, a.EmpresaId, em.Nombre As Empresa, a.ProveedorId, 
         'a.MarcaId,
-        '    a.AttributoId, a.FamiliaId, a.UnidadVentaId, a.UnidadMaximaId, a.Conversion  
+        '    a.AttributoId, a.FamiliaId, a.UnidadVentaId, a.UnbuidadMaximaId, a.Conversion  
         If (selected = False) Then
             FilaSeleccionada = True
             JGrM_Buscador.Row = _MPos

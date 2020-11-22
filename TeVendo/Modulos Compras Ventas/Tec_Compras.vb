@@ -48,7 +48,9 @@ Public Class Tec_Compras
                     .Caption = _MListEstBuscador.Item(i).titulo
                     .Width = _MListEstBuscador.Item(i).tamano
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-
+                    .WordWrap = True
+                    .MaxLines = 8
+                    .CellToolTip = CellToolTip.TruncatedText
                     Dim col As DataColumn = dtBuscador.Columns(campo)
                     Dim tipo As Type = col.DataType
                     If tipo.ToString = "System.Int32" Or tipo.ToString = "System.Decimal" Or tipo.ToString = "System.Double" Then
@@ -366,9 +368,12 @@ Public Class Tec_Compras
 
 
         With grDetalle.RootTable.Columns("Producto")
-            .Width = 150
+            .Width = 250
             .Caption = "Producto"
             .Visible = True
+            .WordWrap = True
+            .MaxLines = 3
+            .CellToolTip = CellToolTip.TruncatedText
         End With
 
 
@@ -478,7 +483,7 @@ Public Class Tec_Compras
         With grProducto.RootTable.Columns("Id")
             .Width = 100
             .Caption = "Id"
-            .Visible = True
+            .Visible = False
 
 
         End With
@@ -498,6 +503,9 @@ Public Class Tec_Compras
             .Width = 350
             .Caption = "PRODUCTOS"
             .Visible = True
+            .WordWrap = True
+            .MaxLines = 3
+            .CellToolTip = CellToolTip.TruncatedText
 
         End With
 
@@ -505,6 +513,9 @@ Public Class Tec_Compras
             .Width = 250
             .Visible = True
             .Caption = "DESCRIPCION"
+            .WordWrap = True
+            .MaxLines = 3
+            .CellToolTip = CellToolTip.TruncatedText
         End With
 
 
@@ -514,7 +525,7 @@ Public Class Tec_Compras
             .FormatString = "0.00"
         End With
         With grProducto.RootTable.Columns("stock")
-            .Width = 150
+            .Width = 70
             .Visible = True
             .Caption = "Stock"
             .FormatString = "0.00"

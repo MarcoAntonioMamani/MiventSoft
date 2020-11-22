@@ -86,7 +86,7 @@ Partial Class Rep_SaldoProductos
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1193, 665)
+        Me.Panel1.Size = New System.Drawing.Size(1193, 692)
         Me.Panel1.TabIndex = 2
         '
         'PanelSuperior
@@ -96,7 +96,7 @@ Partial Class Rep_SaldoProductos
         Me.PanelSuperior.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelSuperior.Location = New System.Drawing.Point(0, 0)
         Me.PanelSuperior.Name = "PanelSuperior"
-        Me.PanelSuperior.Size = New System.Drawing.Size(1193, 655)
+        Me.PanelSuperior.Size = New System.Drawing.Size(1193, 682)
         Me.PanelSuperior.TabIndex = 1
         '
         'panelReporte
@@ -105,7 +105,7 @@ Partial Class Rep_SaldoProductos
         Me.panelReporte.Dock = System.Windows.Forms.DockStyle.Fill
         Me.panelReporte.Location = New System.Drawing.Point(484, 0)
         Me.panelReporte.Name = "panelReporte"
-        Me.panelReporte.Size = New System.Drawing.Size(709, 655)
+        Me.panelReporte.Size = New System.Drawing.Size(709, 682)
         Me.panelReporte.TabIndex = 1
         '
         'Panel3
@@ -116,7 +116,7 @@ Partial Class Rep_SaldoProductos
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel3.Size = New System.Drawing.Size(709, 655)
+        Me.Panel3.Size = New System.Drawing.Size(709, 682)
         Me.Panel3.TabIndex = 1
         '
         'Panel4
@@ -126,7 +126,7 @@ Partial Class Rep_SaldoProductos
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel4.Location = New System.Drawing.Point(3, 3)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(703, 649)
+        Me.Panel4.Size = New System.Drawing.Size(703, 676)
         Me.Panel4.TabIndex = 2
         '
         'PanelPrincipal
@@ -138,7 +138,7 @@ Partial Class Rep_SaldoProductos
         Me.PanelPrincipal.Location = New System.Drawing.Point(0, 0)
         Me.PanelPrincipal.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelPrincipal.Name = "PanelPrincipal"
-        Me.PanelPrincipal.Size = New System.Drawing.Size(703, 649)
+        Me.PanelPrincipal.Size = New System.Drawing.Size(703, 676)
         Me.PanelPrincipal.TabIndex = 1
         '
         'MReportViewer
@@ -151,7 +151,7 @@ Partial Class Rep_SaldoProductos
         Me.MReportViewer.Location = New System.Drawing.Point(0, 0)
         Me.MReportViewer.Margin = New System.Windows.Forms.Padding(4)
         Me.MReportViewer.Name = "MReportViewer"
-        Me.MReportViewer.Size = New System.Drawing.Size(703, 598)
+        Me.MReportViewer.Size = New System.Drawing.Size(703, 676)
         Me.MReportViewer.TabIndex = 20
         Me.MReportViewer.ToolPanelWidth = 267
         '
@@ -243,7 +243,7 @@ Partial Class Rep_SaldoProductos
         Me.PanelLEft.Dock = System.Windows.Forms.DockStyle.Left
         Me.PanelLEft.Location = New System.Drawing.Point(0, 0)
         Me.PanelLEft.Name = "PanelLEft"
-        Me.PanelLEft.Size = New System.Drawing.Size(484, 655)
+        Me.PanelLEft.Size = New System.Drawing.Size(484, 682)
         Me.PanelLEft.TabIndex = 0
         '
         'Panel8
@@ -255,7 +255,7 @@ Partial Class Rep_SaldoProductos
         Me.Panel8.Location = New System.Drawing.Point(0, 0)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel8.Size = New System.Drawing.Size(484, 655)
+        Me.Panel8.Size = New System.Drawing.Size(484, 682)
         Me.Panel8.TabIndex = 1
         '
         'PanelDatos
@@ -265,7 +265,7 @@ Partial Class Rep_SaldoProductos
         Me.PanelDatos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelDatos.Location = New System.Drawing.Point(3, 30)
         Me.PanelDatos.Name = "PanelDatos"
-        Me.PanelDatos.Size = New System.Drawing.Size(478, 622)
+        Me.PanelDatos.Size = New System.Drawing.Size(478, 649)
         Me.PanelDatos.TabIndex = 2
         '
         'GroupBox2
@@ -283,7 +283,7 @@ Partial Class Rep_SaldoProductos
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox2.Size = New System.Drawing.Size(478, 622)
+        Me.GroupBox2.Size = New System.Drawing.Size(478, 649)
         Me.GroupBox2.TabIndex = 2
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Datos"
@@ -527,7 +527,7 @@ Partial Class Rep_SaldoProductos
         '
         Me.PanelButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.PanelButton.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PanelButton.Location = New System.Drawing.Point(0, 655)
+        Me.PanelButton.Location = New System.Drawing.Point(0, 682)
         Me.PanelButton.Name = "PanelButton"
         Me.PanelButton.Size = New System.Drawing.Size(1193, 10)
         Me.PanelButton.TabIndex = 3
@@ -536,7 +536,7 @@ Partial Class Rep_SaldoProductos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1193, 665)
+        Me.ClientSize = New System.Drawing.Size(1193, 692)
         Me.Controls.Add(Me.Panel1)
         Me.Name = "Rep_SaldoProductos"
         Me.Text = "Rep_SaldoProductos"
