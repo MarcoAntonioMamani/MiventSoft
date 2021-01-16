@@ -30,6 +30,21 @@ Public Class Tec_Contratos
     Dim gs_DirPrograma As String = ""
     Dim gs_RutaImg As String = ""
 
+    Private Sub swEstado_ValueChanged(sender As Object, e As EventArgs) Handles swEstado.ValueChanged
+        If (swEstado.Value = True) Then
+            lbFechaFin.Visible = False
+            tbFechaFin.Visible = False
+        Else
+
+            lbFechaFin.Visible = True
+            tbFechaFin.Visible = True
+        End If
+    End Sub
+
+    Private Sub Panel9_Paint(sender As Object, e As PaintEventArgs) Handles Panel9.Paint
+
+    End Sub
+
 #End Region
 
 

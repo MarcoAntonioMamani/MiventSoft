@@ -8,7 +8,6 @@ Public Class AccesoLogica
     Public Shared L_Usuario As String = "DEFAULT"
 
 
-
 #Region "METODOS PRIVADOS"
     Public Shared Sub L_prAbrirConexion(Optional Ip As String = "", Optional UsuarioSql As String = "", Optional ClaveSql As String = "", Optional NombreBD As String = "")
         D_abrirConexion(Ip, UsuarioSql, ClaveSql, NombreBD)
@@ -59,7 +58,6 @@ Public Class AccesoLogica
 
 #End Region
 
-
 #Region "METODOS PARA EL CONTROL DE USUARIOS Y PRIVILEGIOS"
 
 
@@ -93,7 +91,6 @@ Public Class AccesoLogica
 #End Region
 
 #End Region
-
 
 #Region "TY004 CLIENTES"
 
