@@ -342,7 +342,7 @@ Public Class AccesoLogica
     Public Shared Function InsertarPersonal(_Id As String, NombrePersonal As String, Direccion As String,
                            Telefono01 As String, TipoDocumento As Integer,
                                              NroDocumento As String, TipoPersonal As Integer,
-                                             Estado As Integer, EmpresaId As Integer) As Boolean
+                                             Estado As Integer, EmpresaId As Integer, FechaNacimiento As String) As Boolean
         Dim _Tabla As DataTable
         Dim _resultado As Boolean
         Dim _listParam As New List(Of Datos.DParametro)
@@ -359,7 +359,7 @@ Public Class AccesoLogica
 
         _listParam.Add(New Datos.DParametro("@TipoPersonal", TipoPersonal))
         _listParam.Add(New Datos.DParametro("@EmpresaId", EmpresaId))
-
+        _listParam.Add(New Datos.DParametro("@FechaNacimiento", FechaNacimiento))
         _Tabla = D_ProcedimientoConParam("MAM_Personal", _listParam)
 
 
@@ -377,7 +377,7 @@ Public Class AccesoLogica
     Public Shared Function ModificarPersonal(_Id As String, NombrePersonal As String, Direccion As String,
                            Telefono01 As String, TipoDocumento As Integer,
                                              NroDocumento As String, TipoPersonal As Integer,
-                                             Estado As Integer, EmpresaId As Integer) As Boolean
+                                             Estado As Integer, EmpresaId As Integer, FechaNacimiento As String) As Boolean
         Dim _Tabla As DataTable
         Dim _resultado As Boolean
         Dim _listParam As New List(Of Datos.DParametro)
@@ -394,7 +394,7 @@ Public Class AccesoLogica
 
         _listParam.Add(New Datos.DParametro("@TipoPersonal", TipoPersonal))
         _listParam.Add(New Datos.DParametro("@EmpresaId", EmpresaId))
-
+        _listParam.Add(New Datos.DParametro("@FechaNacimiento", FechaNacimiento))
         _Tabla = D_ProcedimientoConParam("MAM_Personal", _listParam)
 
 

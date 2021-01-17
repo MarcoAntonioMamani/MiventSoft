@@ -192,6 +192,7 @@ Partial Class Tec_Login
         'Highlighter1
         '
         Me.Highlighter1.ContainerControl = Me
+        Me.Highlighter1.CustomHighlightColors = New System.Drawing.Color() {System.Drawing.Color.DodgerBlue}
         Me.Highlighter1.FocusHighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Orange
         '
         'Timer1

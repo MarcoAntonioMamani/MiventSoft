@@ -264,13 +264,26 @@ Public Class Tec_Personal
         P_Global._prCargarComboGenerico(cbTipoPersonal, L_prLibreriaDetalleGeneral(9), "cnnum", "Codigo", "cndesc1", "TipoPersonal")
         _PMIniciarTodo()
         _prAsignarPermisos()
-
+        _habilitarFocus()
 
 
 
     End Sub
 
+    Public Sub _habilitarFocus()
+        With Highlighter2
+            .SetHighlightOnFocus(tbNombreProveedor, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbDireccion, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbFechaNacimiento, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbTelefono01, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbNroDocumento, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(cbTipoDocumento, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(swEstado, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnGrabar, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnSalir, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
 
+        End With
+    End Sub
 
     Private Sub _prAsignarPermisos()
 
@@ -316,7 +329,7 @@ Public Class Tec_Personal
         tbTelefono01.ReadOnly = False
         cbTipoPersonal.ReadOnly = False
         cbEmpresa.ReadOnly = False
-
+        tbFechaNacimiento.ReadOnly = False
         tbNroDocumento.ReadOnly = False
         cbTipoDocumento.ReadOnly = False
 
@@ -333,7 +346,7 @@ Public Class Tec_Personal
         tbTelefono01.ReadOnly = True
         cbTipoPersonal.ReadOnly = True
         cbEmpresa.ReadOnly = True
-
+        tbFechaNacimiento.ReadOnly = True
         tbNroDocumento.ReadOnly = True
         cbTipoDocumento.ReadOnly = True
 
@@ -348,7 +361,7 @@ Public Class Tec_Personal
         tbCodigo.Text = ""
         tbDireccion.Text = ""
         tbTelefono01.Text = ""
-
+        tbFechaNacimiento.Value = Now.Date
 
 
         swEstado.Value = True
@@ -383,7 +396,7 @@ Public Class Tec_Personal
         Dim res As Boolean
         Try
             res = InsertarPersonal(tbCodigo.Text, tbNombreProveedor.Text, tbDireccion.Text, tbTelefono01.Text,
-                                   cbTipoDocumento.Value, tbNroDocumento.Text, cbTipoPersonal.Value, IIf(swEstado.Value = True, 1, 0), cbEmpresa.Value)
+                                   cbTipoDocumento.Value, tbNroDocumento.Text, cbTipoPersonal.Value, IIf(swEstado.Value = True, 1, 0), cbEmpresa.Value, tbFechaNacimiento.Value.ToString("dd/MM/yyyy"))
 
             If res Then
 
@@ -407,7 +420,7 @@ Public Class Tec_Personal
         Dim Res As Boolean
         Try
             Res = ModificarPersonal(tbCodigo.Text, tbNombreProveedor.Text, tbDireccion.Text, tbTelefono01.Text,
-                                   cbTipoDocumento.Value, tbNroDocumento.Text, cbTipoPersonal.Value, IIf(swEstado.Value = True, 1, 0), cbEmpresa.Value)
+                                   cbTipoDocumento.Value, tbNroDocumento.Text, cbTipoPersonal.Value, IIf(swEstado.Value = True, 1, 0), cbEmpresa.Value, tbFechaNacimiento.Value.ToString("dd/MM/yyyy"))
             If Res Then
 
                 ToastNotification.Show(Me, "Codigo de Personal ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
@@ -503,7 +516,7 @@ Public Class Tec_Personal
             cbTipoDocumento.BackColor = Color.White
             MEP.SetError(cbTipoDocumento, "")
         End If
-        MHighlighterFocus.UpdateHighlights()
+        Highlighter2.UpdateHighlights()
 
         If tbNombreProveedor.Text = String.Empty Then
             tbNombreProveedor.Focus()
@@ -551,7 +564,7 @@ Public Class Tec_Personal
         listEstCeldas.Add(New Celda("Estado", False))
         listEstCeldas.Add(New Celda("img", True, "Estado", 90))
         listEstCeldas.Add(New Celda("Tipo", True, "Tipo", 90))
-
+        listEstCeldas.Add(New Celda("FechaNacimiento", True, "F.Nacimiento", 90))
 
         Return listEstCeldas
     End Function
@@ -577,7 +590,7 @@ Public Class Tec_Personal
             swEstado.Value = .GetValue("Estado")
             cbTipoPersonal.Value = .GetValue("TipoPersonal")
             cbEmpresa.Value = .GetValue("EmpresaId")
-
+            tbFechaNacimiento.Value = .GetValue("FechaNacimiento")
         End With
         TablaImagenes = L_prCargarImagenesRecepcion(tbCodigo.Text)
         LblPaginacion.Text = Str(_MPos + 1) + "/" + JGrM_Buscador.RowCount.ToString
@@ -649,7 +662,7 @@ Public Class Tec_Personal
 
 
 
-    Private Sub cbTipoDocumento_ValueChanged(sender As Object, e As EventArgs) Handles cbTipoDocumento.ValueChanged
+    Private Sub cbTipoDocumento_ValueChanged(sender As Object, e As EventArgs)
 
         If cbTipoDocumento.SelectedIndex < 0 And cbTipoDocumento.Text <> String.Empty Then
             btnTipoDocumento.Visible = True
@@ -703,6 +716,17 @@ Public Class Tec_Personal
 
 
 
+
+    Private Sub P_Moverenfoque()
+        SendKeys.Send("{TAB}")
+    End Sub
+
+    Private Sub tbNombreProveedor_KeyDown(sender As Object, e As KeyEventArgs) Handles tbNombreProveedor.KeyDown, tbDireccion.KeyDown, tbTelefono01.KeyDown, tbCodigo.KeyDown, cbTipoDocumento.KeyDown, tbNroDocumento.KeyDown, swEstado.KeyDown, tbFechaNacimiento.KeyDown
+        If (e.KeyCode = Keys.Enter) Then
+            e.Handled = True
+            P_Moverenfoque()
+        End If
+    End Sub
 
 
 
