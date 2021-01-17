@@ -21,6 +21,8 @@ Public Class Tec_Login
         With Highlighter1
             .SetHighlightOnFocus(tbUsuario, DevComponents.DotNetBar.Validator.eHighlightColor.Red)
             .SetHighlightOnFocus(tbpassword, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnIngresar, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnsalir, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
 
         End With
     End Sub

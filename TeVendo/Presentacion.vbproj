@@ -539,6 +539,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utils\Celda.vb" />
+    <Compile Include="Utils\CrearLibreria.Designer.vb">
+      <DependentUpon>CrearLibreria.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\CrearLibreria.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Utils\Efecto.Designer.vb">
       <DependentUpon>Efecto.vb</DependentUpon>
     </Compile>
@@ -771,6 +777,9 @@
     <EmbeddedResource Include="ReporteSmartApps\VentasVsCostos.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>VentasVsCostos.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utils\CrearLibreria.resx">
+      <DependentUpon>CrearLibreria.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Utils\Efecto.resx">
       <DependentUpon>Efecto.vb</DependentUpon>

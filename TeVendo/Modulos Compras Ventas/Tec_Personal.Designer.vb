@@ -980,6 +980,7 @@ Partial Class Tec_Personal
         '
         Me.Highlighter2.ContainerControl = Me
         Me.Highlighter2.CustomHighlightColors = New System.Drawing.Color() {System.Drawing.Color.Cyan}
+        Me.Highlighter2.FocusHighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Orange
         '
         'MEP
         '

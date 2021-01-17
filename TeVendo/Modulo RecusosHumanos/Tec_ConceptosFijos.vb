@@ -277,8 +277,23 @@ Public Class Tec_ConceptosFijos
         _prAsignarPermisos()
 
 
-
+        _habilitarFocus()
         _prEliminarContenidoImage()
+    End Sub
+
+    Public Sub _habilitarFocus()
+        With Highlighter2
+            .SetHighlightOnFocus(tbNombreConcepto, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbCodigo, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbPorcentaje, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(cbOperacion, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(swEstado, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(swTipoConcepto, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnGrabar, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnSalir, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+
+
+        End With
     End Sub
     Private Sub _prCargarComboLibreria(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
         Dim dt As New DataTable
@@ -571,7 +586,7 @@ Public Class Tec_ConceptosFijos
 
 
 
-        MHighlighterFocus.UpdateHighlights()
+        Highlighter2.UpdateHighlights()
 
         If tbNombreConcepto.Text = String.Empty Then
             tbNombreConcepto.Focus()

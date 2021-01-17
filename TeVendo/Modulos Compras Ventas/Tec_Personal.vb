@@ -112,7 +112,7 @@ Public Class Tec_Personal
         btnGrabar.Visible = False
         PanelNavegacion.Enabled = True
         JGrM_Buscador.Enabled = True
-        btnTipoDocumento.Visible = False
+
 
         _PMOLimpiarErrores()
 
@@ -281,6 +281,7 @@ Public Class Tec_Personal
             .SetHighlightOnFocus(swEstado, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(btnGrabar, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(btnSalir, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnTipoDocumento, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
 
         End With
     End Sub
@@ -334,7 +335,7 @@ Public Class Tec_Personal
         cbTipoDocumento.ReadOnly = False
 
         swEstado.IsReadOnly = False
-
+        btnTipoDocumento.Visible = True
 
 
     End Sub
@@ -351,6 +352,7 @@ Public Class Tec_Personal
         cbTipoDocumento.ReadOnly = True
 
         swEstado.IsReadOnly = True
+        btnTipoDocumento.Visible = False
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -662,23 +664,23 @@ Public Class Tec_Personal
 
 
 
-    Private Sub cbTipoDocumento_ValueChanged(sender As Object, e As EventArgs)
 
-        If cbTipoDocumento.SelectedIndex < 0 And cbTipoDocumento.Text <> String.Empty Then
-            btnTipoDocumento.Visible = True
-        Else
-            btnTipoDocumento.Visible = False
-        End If
-
-    End Sub
 
     Private Sub btnTipoDocumento_Click(sender As Object, e As EventArgs) Handles btnTipoDocumento.Click
         Dim numi As String = ""
-
-        If L_prClasificadorGrabar(numi, 8, cbTipoDocumento.Text) Then
+        Dim ef = New Efecto
+        ef.tipo = 10
+        ef.ModuloLibreria = 8
+        ef.titulo = "Crear Nuevo Tipo De Documento"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
             P_Global._prCargarComboGenerico(cbTipoDocumento, L_prLibreriaDetalleGeneral(8), "cnnum", "Codigo", "cndesc1", "TipoDocumento")
             cbTipoDocumento.SelectedIndex = CType(cbTipoDocumento.DataSource, DataTable).Rows.Count - 1
+            cbTipoDocumento.Focus()
         End If
+
     End Sub
 
 

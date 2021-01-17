@@ -26,7 +26,7 @@ Public Class Efecto
     Public NombreCliente As String
     Public Lote As String
     Public FechaVencimiento As Date
-
+    Public ModuloLibreria As Integer = 0
 
 
 
@@ -55,6 +55,9 @@ Public Class Efecto
                 ReporteVenta()
             Case 9
                 _prMostrarFormularioCantidadLote()
+
+            Case 10
+                _prMostrarFormLibreria()
 
         End Select
     End Sub
@@ -87,6 +90,24 @@ Public Class Efecto
         frmAyuda.Descripcion = descripcion
         frmAyuda.ShowDialog()
         If frmAyuda.respuesta = True Then
+
+            band = True
+            Me.Close()
+        Else
+            band = False
+            Me.Close()
+        End If
+
+    End Sub
+
+    Sub _prMostrarFormLibreria()
+
+        Dim frmAyuda As CrearLibreria
+        frmAyuda = New CrearLibreria
+        frmAyuda.Titulo = titulo
+        frmAyuda.Modulo = ModuloLibreria
+        frmAyuda.ShowDialog()
+        If frmAyuda.Bandera = True Then
 
             band = True
             Me.Close()
