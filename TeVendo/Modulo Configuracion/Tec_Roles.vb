@@ -634,7 +634,7 @@ Public Class Tec_Roles
 
     End Sub
     Private Sub grDetalle_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grDetalle.EditingCell
-        If btnGrabar.Enabled Then
+        If btnGrabar.Visible = True Then
             If e.Column.Key <> "Ver" And e.Column.Key <> "Insertar" And e.Column.Key <> "Modificar" And e.Column.Key <> "Eliminar" Then
                 e.Cancel = True
             End If

@@ -264,6 +264,7 @@ Public Class Tec_Contratos
         Me.Text = "Gestion De Personal"
         P_Global._prCargarComboGenerico(cbTipoContrato, L_prLibreriaDetalleGeneral(10), "cnnum", "Codigo", "cndesc1", "TipoDocumento")
 
+
         P_Global._prCargarComboGenerico(cbCargo, L_prLibreriaDetalleGeneral(11), "cnnum", "Codigo", "cndesc1", "TipoPersonal")
         _PMIniciarTodo()
         _prAsignarPermisos()

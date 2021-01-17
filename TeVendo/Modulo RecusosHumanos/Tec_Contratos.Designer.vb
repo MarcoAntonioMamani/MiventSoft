@@ -23,9 +23,9 @@ Partial Class Tec_Contratos
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim cbCargo_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tec_Contratos))
         Dim cbTipoContrato_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tec_Contratos))
+        Dim cbCargo_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.TabControlPrincipal = New DevComponents.DotNetBar.SuperTabControl()
         Me.SuperTabControlPanel2 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel17 = New System.Windows.Forms.Panel()
@@ -56,7 +56,6 @@ Partial Class Tec_Contratos
         Me.PanelLEft = New System.Windows.Forms.Panel()
         Me.Panel8 = New System.Windows.Forms.Panel()
         Me.Panel9 = New System.Windows.Forms.Panel()
-        Me.cbCargo = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.cbTipoContrato = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.tbFechaFin = New Janus.Windows.CalendarCombo.CalendarCombo()
         Me.tbFechaInicio = New Janus.Windows.CalendarCombo.CalendarCombo()
@@ -100,6 +99,7 @@ Partial Class Tec_Contratos
         Me.EliminarToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.cbCargo = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel2.SuspendLayout()
@@ -123,7 +123,6 @@ Partial Class Tec_Contratos
         Me.PanelLEft.SuspendLayout()
         Me.Panel8.SuspendLayout()
         Me.Panel9.SuspendLayout()
-        CType(Me.cbCargo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbTipoContrato, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbSalario, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel10.SuspendLayout()
@@ -134,6 +133,7 @@ Partial Class Tec_Contratos
         Me.PanelNavegacion.SuspendLayout()
         Me.MeuOpciones.SuspendLayout()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbCargo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TabControlPrincipal
@@ -555,30 +555,6 @@ Partial Class Tec_Contratos
         Me.Panel9.Size = New System.Drawing.Size(607, 547)
         Me.Panel9.TabIndex = 2
         '
-        'cbCargo
-        '
-        Me.cbCargo.BackColor = System.Drawing.Color.Azure
-        Me.cbCargo.ColorScheme = ""
-        Me.cbCargo.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
-        Me.cbCargo.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
-        Me.cbCargo.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
-        cbCargo_DesignTimeLayout.LayoutString = resources.GetString("cbCargo_DesignTimeLayout.LayoutString")
-        Me.cbCargo.DesignTimeLayout = cbCargo_DesignTimeLayout
-        Me.cbCargo.FlatBorderColor = System.Drawing.Color.Black
-        Me.cbCargo.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbCargo.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.cbCargo.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.cbCargo.Location = New System.Drawing.Point(18, 224)
-        Me.cbCargo.Margin = New System.Windows.Forms.Padding(4)
-        Me.cbCargo.Name = "cbCargo"
-        Me.cbCargo.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.cbCargo.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
-        Me.cbCargo.SelectedIndex = -1
-        Me.cbCargo.SelectedItem = Nothing
-        Me.cbCargo.Size = New System.Drawing.Size(219, 28)
-        Me.cbCargo.TabIndex = 226
-        Me.cbCargo.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        '
         'cbTipoContrato
         '
         Me.cbTipoContrato.BackColor = System.Drawing.Color.Azure
@@ -589,8 +565,11 @@ Partial Class Tec_Contratos
         cbTipoContrato_DesignTimeLayout.LayoutString = resources.GetString("cbTipoContrato_DesignTimeLayout.LayoutString")
         Me.cbTipoContrato.DesignTimeLayout = cbTipoContrato_DesignTimeLayout
         Me.cbTipoContrato.FlatBorderColor = System.Drawing.Color.Black
-        Me.cbTipoContrato.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbTipoContrato.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbTipoContrato.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbTipoContrato.HideSelection = False
+        Me.MHighlighterFocus.SetHighlightColor(Me.cbTipoContrato, DevComponents.DotNetBar.Validator.eHighlightColor.Red)
+        Me.MHighlighterFocus.SetHighlightOnFocus(Me.cbTipoContrato, True)
         Me.cbTipoContrato.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.cbTipoContrato.Location = New System.Drawing.Point(18, 168)
         Me.cbTipoContrato.Margin = New System.Windows.Forms.Padding(4)
@@ -1252,6 +1231,33 @@ Partial Class Tec_Contratos
         '
         Me.MEP.ContainerControl = Me
         '
+        'cbCargo
+        '
+        Me.cbCargo.BackColor = System.Drawing.Color.Azure
+        Me.cbCargo.ColorScheme = ""
+        Me.cbCargo.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.cbCargo.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
+        Me.cbCargo.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        cbCargo_DesignTimeLayout.LayoutString = resources.GetString("cbCargo_DesignTimeLayout.LayoutString")
+        Me.cbCargo.DesignTimeLayout = cbCargo_DesignTimeLayout
+        Me.cbCargo.FlatBorderColor = System.Drawing.Color.Black
+        Me.cbCargo.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbCargo.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbCargo.HideSelection = False
+        Me.MHighlighterFocus.SetHighlightColor(Me.cbCargo, DevComponents.DotNetBar.Validator.eHighlightColor.Red)
+        Me.MHighlighterFocus.SetHighlightOnFocus(Me.cbCargo, True)
+        Me.cbCargo.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cbCargo.Location = New System.Drawing.Point(18, 224)
+        Me.cbCargo.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbCargo.Name = "cbCargo"
+        Me.cbCargo.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbCargo.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
+        Me.cbCargo.SelectedIndex = -1
+        Me.cbCargo.SelectedItem = Nothing
+        Me.cbCargo.Size = New System.Drawing.Size(219, 28)
+        Me.cbCargo.TabIndex = 227
+        Me.cbCargo.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
         'Tec_Contratos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -1284,7 +1290,6 @@ Partial Class Tec_Contratos
         Me.Panel8.ResumeLayout(False)
         Me.Panel9.ResumeLayout(False)
         Me.Panel9.PerformLayout()
-        CType(Me.cbCargo, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbTipoContrato, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbSalario, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel10.ResumeLayout(False)
@@ -1295,6 +1300,7 @@ Partial Class Tec_Contratos
         Me.PanelNavegacion.ResumeLayout(False)
         Me.MeuOpciones.ResumeLayout(False)
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbCargo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
