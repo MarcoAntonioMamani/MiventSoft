@@ -358,6 +358,7 @@ Public Class Tec_Contratos
         swIndefinido.Value = False
         seleccionarPrimerItemCombo(cbCargo)
         seleccionarPrimerItemCombo(cbTipoContrato)
+        btnSearchPersonal.Focus()
 
     End Sub
     Public Sub seleccionarPrimerItemCombo(cb As EditControls.MultiColumnCombo)
@@ -678,4 +679,39 @@ Public Class Tec_Contratos
         End If
     End Sub
 
+    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
+        btnNuevo.PerformClick()
+    End Sub
+
+    Private Sub btnSearchPersonal_Click(sender As Object, e As EventArgs) Handles btnSearchPersonal.Click
+        Dim dt As DataTable
+
+        dt = ListarPersonal()
+        'a.Id ,a.NombreProveedor ,a.Direccion ,a.Telefono01
+
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
+        listEstCeldas.Add(New Celda("Nombre", True, "NOMBRE", 350))
+        listEstCeldas.Add(New Celda("Direccion", True, "DIRECCION", 180))
+        listEstCeldas.Add(New Celda("Telefono01", True, "Telefono".ToUpper, 200))
+        Dim ef = New Efecto
+        ef.tipo = 6
+        ef.dt = dt
+        ef.SeleclCol = 2
+        ef.listEstCeldasNew = listEstCeldas
+        ef.alto = 50
+        ef.ancho = 350
+        ef.Context = "Seleccione Personal".ToUpper
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+            PersonalId = Row.Cells("Id").Value
+            tbPersonal.Text = Row.Cells("Nombre").Value
+            cbTipoContrato.Focus()
+
+        End If
+    End Sub
 End Class

@@ -33,6 +33,7 @@ Partial Class FormularioAyuda
         Me.lbTitulo = New System.Windows.Forms.Label()
         Me.Panel16 = New System.Windows.Forms.Panel()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
+        Me.btnSalir = New DevComponents.DotNetBar.ButtonX()
         Me.Panel17.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.grJBuscador, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -118,6 +119,7 @@ Partial Class FormularioAyuda
         'Panel4
         '
         Me.Panel4.BackColor = System.Drawing.Color.White
+        Me.Panel4.Controls.Add(Me.btnSalir)
         Me.Panel4.Controls.Add(Me.lbNombreProductos)
         Me.Panel4.Controls.Add(Me.tbNombre)
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
@@ -224,6 +226,23 @@ Partial Class FormularioAyuda
         Me.PictureBox4.TabIndex = 0
         Me.PictureBox4.TabStop = False
         '
+        'btnSalir
+        '
+        Me.btnSalir.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnSalir.BackColor = System.Drawing.Color.FromArgb(CType(CType(217, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(79, Byte), Integer))
+        Me.btnSalir.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnSalir.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSalir.Image = Global.TeVendo.My.Resources.Resources.atras
+        Me.btnSalir.ImageFixedSize = New System.Drawing.Size(30, 30)
+        Me.btnSalir.Location = New System.Drawing.Point(592, 13)
+        Me.btnSalir.Name = "btnSalir"
+        Me.btnSalir.Size = New System.Drawing.Size(129, 40)
+        Me.btnSalir.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
+        Me.btnSalir.Symbol = ""
+        Me.btnSalir.TabIndex = 61
+        Me.btnSalir.Text = "Salir"
+        Me.btnSalir.TextColor = System.Drawing.Color.White
+        '
         'FormularioAyuda
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -257,4 +276,5 @@ Partial Class FormularioAyuda
     Friend WithEvents lbNombreProductos As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbNombre As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents Panel1 As Panel
+    Friend WithEvents btnSalir As DevComponents.DotNetBar.ButtonX
 End Class

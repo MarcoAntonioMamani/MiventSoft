@@ -1071,6 +1071,7 @@
     <None Include="Resources\trash.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\seleccionar.jpg" />
     <None Include="Resources\monitoreo.png" />
     <None Include="Resources\stock03.png" />
     <None Include="Resources\stock02.png" />

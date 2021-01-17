@@ -1,4 +1,5 @@
-﻿Imports Janus.Windows.GridEX
+﻿Imports System.IO
+Imports Janus.Windows.GridEX
 
 Public Class FormularioAyuda
 
@@ -54,11 +55,13 @@ Public Class FormularioAyuda
 
         Dim anchoVentana As Integer = 0
 
+        dtBuscador.Columns.Add("Seleccionar", GetType(Byte()))
+
         grJBuscador.DataSource = dtBuscador
         grJBuscador.RetrieveStructure()
 
 
-        For i = 0 To dtBuscador.Columns.Count - 1
+        For i = 0 To dtBuscador.Columns.Count - 2
             With grJBuscador.RootTable.Columns(i)
                 If listEstrucGrilla.Item(i).visible = True Then
                     .Caption = listEstrucGrilla.Item(i).titulo
@@ -82,6 +85,8 @@ Public Class FormularioAyuda
             End With
         Next
 
+        grJBuscador.RootTable.Columns("Seleccionar").Width = 150
+
         'Habilitar Filtradores
         With grJBuscador
             .DefaultFilterRowComparison = FilterConditionOperator.Contains
@@ -95,6 +100,26 @@ Public Class FormularioAyuda
 
         'adaptar el tamaño de la ventana
         Me.Width = anchoVentana + 50
+
+        CargarIconEstado()
+
+
+    End Sub
+
+    Public Sub CargarIconEstado()
+        Dim Bin As New MemoryStream
+        Dim img As New Bitmap(My.Resources.seleccionar, 90, 50)
+        img.Save(Bin, Imaging.ImageFormat.Png)
+        Dim dt As DataTable = CType(grJBuscador.DataSource, DataTable)
+        Dim n As Integer = dt.Rows.Count
+        For i As Integer = 0 To n - 1 Step 1
+
+
+            CType(grJBuscador.DataSource, DataTable).Rows(i).Item("Seleccionar") = Bin.GetBuffer
+
+
+        Next
+
     End Sub
 #End Region
 
@@ -145,5 +170,9 @@ Public Class FormularioAyuda
         If (e.KeyData = Keys.Down) Then
             grJBuscador.Focus()
         End If
+    End Sub
+
+    Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
+        Me.Close()
     End Sub
 End Class
