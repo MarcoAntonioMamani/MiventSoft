@@ -38,7 +38,6 @@ Partial Class TecCategorias
         Me.EditarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EliminarToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.PanelCampos = New System.Windows.Forms.Panel()
-        Me.cbEmpresa = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.LabelX7 = New DevComponents.DotNetBar.LabelX()
         Me.UsImg = New System.Windows.Forms.PictureBox()
         Me.btnImage = New DevComponents.DotNetBar.ButtonX()
@@ -73,6 +72,7 @@ Partial Class TecCategorias
         Me.btnPrimero = New DevComponents.DotNetBar.ButtonX()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.cbEmpresa = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelLEft.SuspendLayout()
@@ -83,7 +83,6 @@ Partial Class TecCategorias
         CType(Me.JGrM_Buscador, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MeuOpciones.SuspendLayout()
         Me.PanelCampos.SuspendLayout()
-        CType(Me.cbEmpresa, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.UsImg, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel10.SuspendLayout()
         Me.Panel11.SuspendLayout()
@@ -92,6 +91,7 @@ Partial Class TecCategorias
         Me.PanelToolBar1.SuspendLayout()
         Me.PanelNavegacion.SuspendLayout()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbEmpresa, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
@@ -301,22 +301,6 @@ Partial Class TecCategorias
         Me.PanelCampos.Name = "PanelCampos"
         Me.PanelCampos.Size = New System.Drawing.Size(517, 611)
         Me.PanelCampos.TabIndex = 0
-        '
-        'cbEmpresa
-        '
-        cbEmpresa_DesignTimeLayout.LayoutString = resources.GetString("cbEmpresa_DesignTimeLayout.LayoutString")
-        Me.cbEmpresa.DesignTimeLayout = cbEmpresa_DesignTimeLayout
-        Me.cbEmpresa.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbEmpresa.Location = New System.Drawing.Point(214, 264)
-        Me.cbEmpresa.Margin = New System.Windows.Forms.Padding(4)
-        Me.cbEmpresa.Name = "cbEmpresa"
-        Me.cbEmpresa.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.cbEmpresa.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.cbEmpresa.SelectedIndex = -1
-        Me.cbEmpresa.SelectedItem = Nothing
-        Me.cbEmpresa.Size = New System.Drawing.Size(219, 28)
-        Me.cbEmpresa.TabIndex = 4
-        Me.cbEmpresa.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'LabelX7
         '
@@ -828,6 +812,33 @@ Partial Class TecCategorias
         '
         Me.MEP.ContainerControl = Me
         '
+        'cbEmpresa
+        '
+        Me.cbEmpresa.BackColor = System.Drawing.Color.Azure
+        Me.cbEmpresa.ColorScheme = ""
+        Me.cbEmpresa.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.cbEmpresa.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
+        Me.cbEmpresa.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        cbEmpresa_DesignTimeLayout.LayoutString = resources.GetString("cbEmpresa_DesignTimeLayout.LayoutString")
+        Me.cbEmpresa.DesignTimeLayout = cbEmpresa_DesignTimeLayout
+        Me.cbEmpresa.FlatBorderColor = System.Drawing.Color.Black
+        Me.cbEmpresa.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbEmpresa.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbEmpresa.HideSelection = False
+        Me.MHighlighterFocus.SetHighlightColor(Me.cbEmpresa, DevComponents.DotNetBar.Validator.eHighlightColor.Red)
+        Me.MHighlighterFocus.SetHighlightOnFocus(Me.cbEmpresa, True)
+        Me.cbEmpresa.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cbEmpresa.Location = New System.Drawing.Point(214, 264)
+        Me.cbEmpresa.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbEmpresa.Name = "cbEmpresa"
+        Me.cbEmpresa.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbEmpresa.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
+        Me.cbEmpresa.SelectedIndex = -1
+        Me.cbEmpresa.SelectedItem = Nothing
+        Me.cbEmpresa.Size = New System.Drawing.Size(219, 28)
+        Me.cbEmpresa.TabIndex = 4
+        Me.cbEmpresa.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
         'TecCategorias
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -848,7 +859,6 @@ Partial Class TecCategorias
         Me.MeuOpciones.ResumeLayout(False)
         Me.PanelCampos.ResumeLayout(False)
         Me.PanelCampos.PerformLayout()
-        CType(Me.cbEmpresa, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.UsImg, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel10.ResumeLayout(False)
         Me.Panel11.ResumeLayout(False)
@@ -857,6 +867,7 @@ Partial Class TecCategorias
         Me.PanelToolBar1.ResumeLayout(False)
         Me.PanelNavegacion.ResumeLayout(False)
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbEmpresa, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -904,9 +915,9 @@ Partial Class TecCategorias
     Protected WithEvents MEP As ErrorProvider
     Friend WithEvents UsImg As PictureBox
     Friend WithEvents LabelX7 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents cbEmpresa As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents MeuOpciones As ContextMenuStrip
     Friend WithEvents VerToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents EditarToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents EliminarToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents cbEmpresa As Janus.Windows.GridEX.EditControls.MultiColumnCombo
 End Class

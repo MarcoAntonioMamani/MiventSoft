@@ -750,7 +750,7 @@ Public Class Tec_Clientes
 
 
 
-    Private Sub cbTipoDocumento_ValueChanged(sender As Object, e As EventArgs) Handles cbTipoDocumento.ValueChanged
+    Private Sub cbTipoDocumento_ValueChanged(sender As Object, e As EventArgs)
 
         If cbTipoDocumento.SelectedIndex < 0 And cbTipoDocumento.Text <> String.Empty Then
             btnTipoDocumento.Visible = True

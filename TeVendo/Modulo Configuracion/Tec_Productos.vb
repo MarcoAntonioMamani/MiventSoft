@@ -1009,7 +1009,7 @@ Public Class Tec_Productos
         End If
     End Sub
 
-    Private Sub cbProveedor_ValueChanged(sender As Object, e As EventArgs) Handles cbProveedor.ValueChanged
+    Private Sub cbProveedor_ValueChanged(sender As Object, e As EventArgs)
         If cbProveedor.SelectedIndex < 0 And cbProveedor.Text <> String.Empty Then
             btnProveedor.Visible = True
         Else
@@ -1017,7 +1017,7 @@ Public Class Tec_Productos
         End If
     End Sub
 
-    Private Sub cbMarca_ValueChanged(sender As Object, e As EventArgs) Handles cbMarca.ValueChanged
+    Private Sub cbMarca_ValueChanged(sender As Object, e As EventArgs)
         If cbMarca.SelectedIndex < 0 And cbMarca.Text <> String.Empty Then
             btnMarca.Visible = True
         Else
@@ -1025,7 +1025,7 @@ Public Class Tec_Productos
         End If
     End Sub
 
-    Private Sub cbAtributo_ValueChanged(sender As Object, e As EventArgs) Handles cbAtributo.ValueChanged
+    Private Sub cbAtributo_ValueChanged(sender As Object, e As EventArgs)
         If cbAtributo.SelectedIndex < 0 And cbAtributo.Text <> String.Empty Then
             btnAtributo.Visible = True
         Else
@@ -1033,7 +1033,7 @@ Public Class Tec_Productos
         End If
     End Sub
 
-    Private Sub cbFamilia_ValueChanged(sender As Object, e As EventArgs) Handles cbFamilia.ValueChanged
+    Private Sub cbFamilia_ValueChanged(sender As Object, e As EventArgs)
         If cbFamilia.SelectedIndex < 0 And cbFamilia.Text <> String.Empty Then
             btnFamilia.Visible = True
         Else
