@@ -271,6 +271,72 @@ Public Class AccesoLogica
             Return _resultado
     End Function
 #End Region
+
+#Region "Contratos Tec"
+    Public Shared Function InsertarContratos(_Id As String, PersonalId As Integer, TipoContratoId As Integer, Cargo As Integer, SueldoBase As Double, InicioContrato As String, FinContrato As String, Estado As Integer, Indefinido As Integer, dtdetalle As DataTable) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '(@Id,@PersonalId,@TipoContratoId ,@Cargo,@SueldoBase,@InicioContrato,@FinContrato,@estado,@Indefinido,
+        '		@Usuario ,@FechaRegistro ,@HoraRegistro)
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", _Id))
+        _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
+        _listParam.Add(New Datos.DParametro("@TipoContratoId", TipoContratoId))
+        _listParam.Add(New Datos.DParametro("@Cargo", Cargo))
+        _listParam.Add(New Datos.DParametro("@SueldoBase", SueldoBase))
+        _listParam.Add(New Datos.DParametro("@InicioContrato", InicioContrato))
+        _listParam.Add(New Datos.DParametro("@FinContrato", FinContrato))
+        _listParam.Add(New Datos.DParametro("@Usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@estado", Estado))
+        _listParam.Add(New Datos.DParametro("@Indefinido", Indefinido))
+        _listParam.Add(New Datos.DParametro("@DetalleContratoConcepto", "", dtdetalle))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Contratos", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _Id = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function ModificarContratos(_Id As String, PersonalId As Integer, TipoContratoId As Integer, Cargo As Integer, SueldoBase As Double, InicioContrato As String, FinContrato As String, Estado As Integer, Indefinido As Integer, dtdetalle As DataTable) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '(@Id,@PersonalId,@TipoContratoId ,@Cargo,@SueldoBase,@InicioContrato,@FinContrato,@estado,@Indefinido,
+        '		@Usuario ,@FechaRegistro ,@HoraRegistro)
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@Id", _Id))
+        _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
+        _listParam.Add(New Datos.DParametro("@TipoContratoId", TipoContratoId))
+        _listParam.Add(New Datos.DParametro("@Cargo", Cargo))
+        _listParam.Add(New Datos.DParametro("@SueldoBase", SueldoBase))
+        _listParam.Add(New Datos.DParametro("@InicioContrato", InicioContrato))
+        _listParam.Add(New Datos.DParametro("@FinContrato", FinContrato))
+        _listParam.Add(New Datos.DParametro("@Usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@estado", Estado))
+        _listParam.Add(New Datos.DParametro("@Indefinido", Indefinido))
+        _listParam.Add(New Datos.DParametro("@DetalleContratoConcepto", "", dtdetalle))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Contratos", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _Id = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+#End Region
 #Region "Personal Tec"
 
     Public Shared Function InsertarPersonal(_Id As String, NombrePersonal As String, Direccion As String,
