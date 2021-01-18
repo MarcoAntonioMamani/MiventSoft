@@ -749,7 +749,7 @@ Public Class Tec_Contratos
         Dim bandera As Boolean = False
         bandera = ef.band
         If (bandera = True) Then
-            P_Global._prCargarComboGenerico(cbTipoContrato, L_prLibreriaDetalleGeneral(10), "cnnum", "Codigo", "cndesc1", "TipoDocumento")
+            P_Global._prCargarComboGenerico(cbTipoContrato, L_prLibreriaDetalleGeneral(10), "cnnum", "Codigo", "cndesc1", "Tipo Contrato")
             cbTipoContrato.SelectedIndex = CType(cbTipoContrato.DataSource, DataTable).Rows.Count - 1
             cbTipoContrato.Focus()
         End If
@@ -760,12 +760,12 @@ Public Class Tec_Contratos
         Dim ef = New Efecto
         ef.tipo = 10
         ef.ModuloLibreria = 11
-        ef.titulo = "Crear Nuevo Tipo De Contrato"
+        ef.titulo = "Crear Nuevo Cargo"
         ef.ShowDialog()
         Dim bandera As Boolean = False
         bandera = ef.band
         If (bandera = True) Then
-            P_Global._prCargarComboGenerico(cbCargo, L_prLibreriaDetalleGeneral(11), "cnnum", "Codigo", "cndesc1", "TipoDocumento")
+            P_Global._prCargarComboGenerico(cbCargo, L_prLibreriaDetalleGeneral(11), "cnnum", "Codigo", "cndesc1", "Cargo")
             cbCargo.SelectedIndex = CType(cbTipoContrato.DataSource, DataTable).Rows.Count - 1
             cbCargo.Focus()
         End If

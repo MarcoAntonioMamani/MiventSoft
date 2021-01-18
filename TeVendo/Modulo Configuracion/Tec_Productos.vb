@@ -273,7 +273,7 @@ Public Class Tec_Productos
         P_Global._prCargarComboGenerico(cbEmpresa, L_prListaEmpresasUsuarios(), "Id", "Codigo", "Nombre", "Empresa")
         P_Global._prCargarComboGenerico(cbCategoria, L_prListaCategorias(), "Id", "Codigo", "NombreCategoria", "Categoria")
 
-        P_Global._prCargarComboGenerico(cbProveedor, L_prLibreriaDetalleGeneral(2), "cnnum", "Codigo", "cndesc1", "Proveedor")
+        P_Global._prCargarComboGenerico(cbProveedor, L_prListarProveedores(), "Id", "Codigo", "NombreProveedor", "Proveedor")
         P_Global._prCargarComboGenerico(cbMarca, L_prLibreriaDetalleGeneral(3), "cnnum", "Codigo", "cndesc1", "Marca")
         P_Global._prCargarComboGenerico(cbAtributo, L_prLibreriaDetalleGeneral(4), "cnnum", "Codigo", "cndesc1", "Attributo")
         P_Global._prCargarComboGenerico(cbFamilia, L_prLibreriaDetalleGeneral(5), "cnnum", "Codigo", "cndesc1", "Familia")
@@ -556,6 +556,12 @@ Public Class Tec_Productos
         tbConversion.IsInputReadOnly = False
         btnDelete.Visible = True
         btnImagen.Visible = True
+
+        btnMarca.Visible = True
+        btnAtributo.Visible = True
+        btnFamilia.Visible = True
+        btUniVenta.Visible = True
+        btUniMaxima.Visible = True
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -576,6 +582,12 @@ Public Class Tec_Productos
         btnDelete.Visible = False
         btnImagen.Visible = False
         tbConversion.IsInputReadOnly = True
+
+        btnMarca.Visible = False
+        btnAtributo.Visible = False
+        btnFamilia.Visible = False
+        btUniVenta.Visible = False
+        btUniMaxima.Visible = False
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -1008,106 +1020,102 @@ Public Class Tec_Productos
         End If
     End Sub
 
-    Private Sub cbProveedor_ValueChanged(sender As Object, e As EventArgs)
-        If cbProveedor.SelectedIndex < 0 And cbProveedor.Text <> String.Empty Then
-            btnProveedor.Visible = True
-        Else
-            btnProveedor.Visible = False
-        End If
-    End Sub
 
-    Private Sub cbMarca_ValueChanged(sender As Object, e As EventArgs)
-        If cbMarca.SelectedIndex < 0 And cbMarca.Text <> String.Empty Then
-            btnMarca.Visible = True
-        Else
-            btnMarca.Visible = False
-        End If
-    End Sub
 
-    Private Sub cbAtributo_ValueChanged(sender As Object, e As EventArgs)
-        If cbAtributo.SelectedIndex < 0 And cbAtributo.Text <> String.Empty Then
-            btnAtributo.Visible = True
-        Else
-            btnAtributo.Visible = False
-        End If
-    End Sub
 
-    Private Sub cbFamilia_ValueChanged(sender As Object, e As EventArgs)
-        If cbFamilia.SelectedIndex < 0 And cbFamilia.Text <> String.Empty Then
-            btnFamilia.Visible = True
-        Else
-            btnFamilia.Visible = False
-        End If
-    End Sub
 
-    Private Sub cbUniVenta_ValueChanged(sender As Object, e As EventArgs) Handles cbUniVenta.ValueChanged
-        If cbUniVenta.SelectedIndex < 0 And cbUniVenta.Text <> String.Empty Then
-            btUniVenta.Visible = True
-        Else
-            btUniVenta.Visible = False
-        End If
-    End Sub
-
-    Private Sub cbUnidMaxima_ValueChanged(sender As Object, e As EventArgs) Handles cbUnidMaxima.ValueChanged
-        If cbUnidMaxima.SelectedIndex < 0 And cbUnidMaxima.Text <> String.Empty Then
-            btUniMaxima.Visible = True
-        Else
-            btUniMaxima.Visible = False
-        End If
-    End Sub
-
-    Private Sub btnProveedor_Click(sender As Object, e As EventArgs) Handles btnProveedor.Click
-        Dim numi As String = ""
-
-        If L_prClasificadorGrabar(numi, 2, cbProveedor.Text) Then
-            P_Global._prCargarComboGenerico(cbProveedor, L_prLibreriaDetalleGeneral(2), "cnnum", "Codigo", "cndesc1", "Proveedor")
-            cbProveedor.SelectedIndex = CType(cbProveedor.DataSource, DataTable).Rows.Count - 1
-        End If
-    End Sub
 
     Private Sub btnMarca_Click(sender As Object, e As EventArgs) Handles btnMarca.Click
-        Dim numi As String = ""
 
-        If L_prClasificadorGrabar(numi, 3, cbMarca.Text) Then
+
+        Dim numi As String = ""
+        Dim ef = New Efecto
+        ef.tipo = 10
+        ef.ModuloLibreria = 3
+        ef.titulo = "Crear Nueva Marca"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
             P_Global._prCargarComboGenerico(cbMarca, L_prLibreriaDetalleGeneral(3), "cnnum", "Codigo", "cndesc1", "Marca")
             cbMarca.SelectedIndex = CType(cbMarca.DataSource, DataTable).Rows.Count - 1
+            cbMarca.Focus()
         End If
+
+
     End Sub
 
     Private Sub btnAtributo_Click(sender As Object, e As EventArgs) Handles btnAtributo.Click
         Dim numi As String = ""
-
-        If L_prClasificadorGrabar(numi, 4, cbAtributo.Text) Then
+        Dim ef = New Efecto
+        ef.tipo = 10
+        ef.ModuloLibreria = 4
+        ef.titulo = "Crear Nuevo Atributo"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
             P_Global._prCargarComboGenerico(cbAtributo, L_prLibreriaDetalleGeneral(4), "cnnum", "Codigo", "cndesc1", "Atributo")
             cbAtributo.SelectedIndex = CType(cbAtributo.DataSource, DataTable).Rows.Count - 1
+            cbAtributo.Focus()
         End If
+
+
     End Sub
 
     Private Sub btnFamilia_Click(sender As Object, e As EventArgs) Handles btnFamilia.Click
         Dim numi As String = ""
-
-        If L_prClasificadorGrabar(numi, 5, cbFamilia.Text) Then
+        Dim ef = New Efecto
+        ef.tipo = 10
+        ef.ModuloLibreria = 5
+        ef.titulo = "Crear Nueva Familia"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
             P_Global._prCargarComboGenerico(cbFamilia, L_prLibreriaDetalleGeneral(5), "cnnum", "Codigo", "cndesc1", "Familia")
             cbFamilia.SelectedIndex = CType(cbFamilia.DataSource, DataTable).Rows.Count - 1
+            cbFamilia.Focus()
         End If
+
+
+
     End Sub
 
     Private Sub btUniVenta_Click(sender As Object, e As EventArgs) Handles btUniVenta.Click
         Dim numi As String = ""
-
-        If L_prClasificadorGrabar(numi, 6, cbUniVenta.Text) Then
-            P_Global._prCargarComboGenerico(cbUniVenta, L_prLibreriaDetalleGeneral(6), "cnnum", "Codigo", "cndesc1", "Uni Venta")
+        Dim ef = New Efecto
+        ef.tipo = 10
+        ef.ModuloLibreria = 6
+        ef.titulo = "Crear Nueva Unidad Minima"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            P_Global._prCargarComboGenerico(cbUniVenta, L_prLibreriaDetalleGeneral(6), "cnnum", "Codigo", "cndesc1", "Uni Minima")
             cbUniVenta.SelectedIndex = CType(cbUniVenta.DataSource, DataTable).Rows.Count - 1
+            cbUniVenta.Focus()
         End If
+
+
     End Sub
 
     Private Sub btUniMaxima_Click(sender As Object, e As EventArgs) Handles btUniMaxima.Click
         Dim numi As String = ""
-
-        If L_prClasificadorGrabar(numi, 7, cbUnidMaxima.Text) Then
-            P_Global._prCargarComboGenerico(cbUnidMaxima, L_prLibreriaDetalleGeneral(7), "cnnum", "Codigo", "cndesc1", "Uni Max")
+        Dim ef = New Efecto
+        ef.tipo = 10
+        ef.ModuloLibreria = 7
+        ef.titulo = "Crear Nueva Unidad Maxima"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            P_Global._prCargarComboGenerico(cbUnidMaxima, L_prLibreriaDetalleGeneral(7), "cnnum", "Codigo", "cndesc1", "Uni Maxima")
             cbUnidMaxima.SelectedIndex = CType(cbUnidMaxima.DataSource, DataTable).Rows.Count - 1
+            cbUnidMaxima.Focus()
         End If
+
+
     End Sub
 
     Private Sub btnImagen_Click(sender As Object, e As EventArgs) Handles btnImagen.Click

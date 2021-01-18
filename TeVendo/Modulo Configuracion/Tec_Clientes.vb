@@ -22,7 +22,8 @@ Public Class Tec_Clientes
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
     Public _nameButton As String
     Public _tab As SuperTabItem
-    Public _modulo As SideNavItem
+    Public _modulo As SuperTabItem
+    Public _TabControl As SuperTabControl
     Public FilaSeleccionada As Boolean = False
 
     Public _MListEstBuscador As List(Of Celda)
@@ -286,10 +287,29 @@ Public Class Tec_Clientes
         _PMIniciarTodo()
         _prAsignarPermisos()
 
-
+        _habilitarFocus()
 
     End Sub
+    Public Sub _habilitarFocus()
+        With MHighlighterFocus
+            .SetHighlightOnFocus(tbCodigo, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
 
+            .SetHighlightOnFocus(tbCodigoExterno, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbNombreCliente, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbDireccionCliente, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbTelefono, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(cbTipoDocumento, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbNroDocumento, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbRazonSocial, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbnit, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(cbPrecios, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(cbZona, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(swEstado, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnGrabar, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnSalir, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+
+        End With
+    End Sub
     Public Sub LeerConfiguracion()
         Dim dt As DataTable = L_prLeerConfiguracion()
         If (dt.Rows.Count > 0) Then
@@ -378,14 +398,14 @@ Public Class Tec_Clientes
         swEstado.IsReadOnly = False
         cbZona.ReadOnly = False
         cbPrecios.ReadOnly = False
-
-
+        btnTipoDocumento.Visible = True
+        tbNombreCliente.Focus()
     End Sub
 
     Public Sub _PMOInhabilitar()
         tbCodigo.ReadOnly = True
         tbCodigoExterno.ReadOnly = True
-
+        btnTipoDocumento.Visible = False
         swEstado.IsReadOnly = True
         tbCodigoExterno.ReadOnly = True
         tbNombreCliente.ReadOnly = True
@@ -692,11 +712,9 @@ Public Class Tec_Clientes
         If btnGrabar.Enabled = True Then
             _PMInhabilitar()
             _PMPrimerRegistro()
-
+            TabControlPrincipal.SelectedTabIndex = 1
         Else
-            '  Public _modulo As SideNavItem
-            _modulo.Select()
-            _tab.Close()
+            TabControlPrincipal.SelectedTabIndex = 1
         End If
     End Sub
 
@@ -762,10 +780,17 @@ Public Class Tec_Clientes
 
     Private Sub btnTipoDocumento_Click(sender As Object, e As EventArgs) Handles btnTipoDocumento.Click
         Dim numi As String = ""
-
-        If L_prClasificadorGrabar(numi, 8, cbTipoDocumento.Text) Then
+        Dim ef = New Efecto
+        ef.tipo = 10
+        ef.ModuloLibreria = 8
+        ef.titulo = "Crear Nuevo Tipo De Documento"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
             P_Global._prCargarComboGenerico(cbTipoDocumento, L_prLibreriaDetalleGeneral(8), "cnnum", "Codigo", "cndesc1", "TipoDocumento")
             cbTipoDocumento.SelectedIndex = CType(cbTipoDocumento.DataSource, DataTable).Rows.Count - 1
+            cbTipoDocumento.Focus()
         End If
     End Sub
 
@@ -818,6 +843,12 @@ Public Class Tec_Clientes
 
 
         End If
+    End Sub
+
+    Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles ButtonX2.Click
+        _TabControl.SelectedTab = _modulo
+        _tab.Close()
+        Me.Close()
     End Sub
 
 

@@ -479,6 +479,9 @@ Partial Class Tec_Personal
         Me.btnTipoDocumento.Name = "btnTipoDocumento"
         Me.btnTipoDocumento.Size = New System.Drawing.Size(35, 31)
         Me.btnTipoDocumento.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnTipoDocumento.Symbol = ""
+        Me.btnTipoDocumento.SymbolColor = System.Drawing.Color.LightSeaGreen
+        Me.btnTipoDocumento.SymbolSize = 20.0!
         Me.btnTipoDocumento.TabIndex = 3
         '
         'LabelX11
