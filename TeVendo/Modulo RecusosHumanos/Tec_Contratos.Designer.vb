@@ -100,6 +100,7 @@ Partial Class Tec_Contratos
         Me.EliminarToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -151,8 +152,8 @@ Partial Class Tec_Contratos
         Me.TabControlPrincipal.ControlBox.MenuBox.Name = ""
         Me.TabControlPrincipal.ControlBox.Name = ""
         Me.TabControlPrincipal.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.TabControlPrincipal.ControlBox.MenuBox, Me.TabControlPrincipal.ControlBox.CloseBox})
-        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel1)
         Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel2)
+        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel1)
         Me.TabControlPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControlPrincipal.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.Location = New System.Drawing.Point(0, 0)
@@ -370,8 +371,6 @@ Partial Class Tec_Contratos
         Me.cbCargo.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbCargo.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
         Me.cbCargo.HideSelection = False
-        Me.MHighlighterFocus.SetHighlightColor(Me.cbCargo, DevComponents.DotNetBar.Validator.eHighlightColor.Red)
-        Me.MHighlighterFocus.SetHighlightOnFocus(Me.cbCargo, True)
         Me.cbCargo.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.cbCargo.Location = New System.Drawing.Point(18, 224)
         Me.cbCargo.Margin = New System.Windows.Forms.Padding(4)
@@ -397,8 +396,6 @@ Partial Class Tec_Contratos
         Me.cbTipoContrato.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbTipoContrato.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
         Me.cbTipoContrato.HideSelection = False
-        Me.MHighlighterFocus.SetHighlightColor(Me.cbTipoContrato, DevComponents.DotNetBar.Validator.eHighlightColor.Red)
-        Me.MHighlighterFocus.SetHighlightOnFocus(Me.cbTipoContrato, True)
         Me.cbTipoContrato.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.cbTipoContrato.Location = New System.Drawing.Point(18, 168)
         Me.cbTipoContrato.Margin = New System.Windows.Forms.Padding(4)
@@ -607,7 +604,7 @@ Partial Class Tec_Contratos
         Me.btnCargo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnCargo.Symbol = ""
         Me.btnCargo.SymbolColor = System.Drawing.Color.MediumTurquoise
-        Me.btnCargo.TabIndex = 214
+        Me.btnCargo.TabIndex = 21
         Me.btnCargo.Text = "Nuevo Cargo   "
         Me.btnCargo.Visible = False
         '
@@ -624,7 +621,7 @@ Partial Class Tec_Contratos
         Me.btnTipoContrato.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnTipoContrato.Symbol = ""
         Me.btnTipoContrato.SymbolColor = System.Drawing.Color.MediumTurquoise
-        Me.btnTipoContrato.TabIndex = 213
+        Me.btnTipoContrato.TabIndex = 20
         Me.btnTipoContrato.Text = "Nuevo Contrato"
         Me.btnTipoContrato.Visible = False
         '
@@ -817,7 +814,7 @@ Partial Class Tec_Contratos
         Me.PanelButton.Location = New System.Drawing.Point(0, 580)
         Me.PanelButton.Name = "PanelButton"
         Me.PanelButton.Size = New System.Drawing.Size(1267, 60)
-        Me.PanelButton.TabIndex = 3
+        Me.PanelButton.TabIndex = 10
         '
         'PanelToolBar1
         '
@@ -1108,9 +1105,11 @@ Partial Class Tec_Contratos
         '
         'TableLayoutPanel1
         '
-        Me.TableLayoutPanel1.ColumnCount = 2
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 84.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.0!))
+        Me.TableLayoutPanel1.ColumnCount = 3
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 72.4138!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13.7931!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13.7931!))
+        Me.TableLayoutPanel1.Controls.Add(Me.ButtonX2, 2, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.btnSi, 1, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
@@ -1127,9 +1126,9 @@ Partial Class Tec_Contratos
         Me.btnSi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.btnSi.Controls.Add(Me.ButtonX1)
         Me.btnSi.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnSi.Location = New System.Drawing.Point(1059, 13)
+        Me.btnSi.Location = New System.Drawing.Point(917, 13)
         Me.btnSi.Name = "btnSi"
-        Me.btnSi.Size = New System.Drawing.Size(190, 43)
+        Me.btnSi.Size = New System.Drawing.Size(162, 43)
         Me.btnSi.TabIndex = 4
         '
         'ButtonX1
@@ -1144,7 +1143,7 @@ Partial Class Tec_Contratos
         Me.ButtonX1.Location = New System.Drawing.Point(0, 0)
         Me.ButtonX1.Margin = New System.Windows.Forms.Padding(4)
         Me.ButtonX1.Name = "ButtonX1"
-        Me.ButtonX1.Size = New System.Drawing.Size(188, 41)
+        Me.ButtonX1.Size = New System.Drawing.Size(160, 41)
         Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.ButtonX1.TabIndex = 7
         Me.ButtonX1.Text = "Nuevo Contrato"
@@ -1254,9 +1253,32 @@ Partial Class Tec_Contratos
         Me.EliminarToolStripMenuItem1.Size = New System.Drawing.Size(155, 36)
         Me.EliminarToolStripMenuItem1.Text = "Eliminar"
         '
+        'MHighlighterFocus
+        '
+        Me.MHighlighterFocus.ContainerControl = Me
+        Me.MHighlighterFocus.FocusHighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Orange
+        '
         'MEP
         '
         Me.MEP.ContainerControl = Me
+        '
+        'ButtonX2
+        '
+        Me.ButtonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX2.BackColor = System.Drawing.Color.FromArgb(CType(CType(217, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(79, Byte), Integer))
+        Me.ButtonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.ButtonX2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ButtonX2.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX2.Image = Global.TeVendo.My.Resources.Resources.atras
+        Me.ButtonX2.ImageFixedSize = New System.Drawing.Size(30, 30)
+        Me.ButtonX2.Location = New System.Drawing.Point(1085, 13)
+        Me.ButtonX2.Name = "ButtonX2"
+        Me.ButtonX2.Size = New System.Drawing.Size(164, 43)
+        Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
+        Me.ButtonX2.Symbol = ""
+        Me.ButtonX2.TabIndex = 62
+        Me.ButtonX2.Text = "Salir"
+        Me.ButtonX2.TextColor = System.Drawing.Color.White
         '
         'Tec_Contratos
         '
@@ -1264,6 +1286,7 @@ Partial Class Tec_Contratos
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1267, 671)
         Me.Controls.Add(Me.TabControlPrincipal)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Tec_Contratos"
         Me.Text = "CONTRATOS"
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1379,4 +1402,5 @@ Partial Class Tec_Contratos
     Friend WithEvents tbFechaFin As Janus.Windows.CalendarCombo.CalendarCombo
     Friend WithEvents cbTipoContrato As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents cbCargo As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents ButtonX2 As DevComponents.DotNetBar.ButtonX
 End Class

@@ -12,9 +12,9 @@ Public Class Tec_Personal
 
     Public _nameButton As String
     Public _tab As SuperTabItem
-    Public _modulo As SideNavItem
+    Public _modulo As SuperTabItem
     Public FilaSeleccionada As Boolean = False
-
+    Public _TabControl As SuperTabControl
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
     Public _MListEstBuscador As List(Of Celda)
     Public _MPos As Integer
@@ -246,9 +246,9 @@ Public Class Tec_Personal
             _PMPrimerRegistro()
 
         Else
-            '  Public _modulo As SideNavItem
-            '_modulo.Select()
+            _TabControl.SelectedTab = _modulo
             _tab.Close()
+            Me.Close()
         End If
     End Sub
 #End Region
@@ -609,8 +609,9 @@ Public Class Tec_Personal
 
         Else
             '  Public _modulo As SideNavItem
-            _modulo.Select()
+            _TabControl.SelectedTab = _modulo
             _tab.Close()
+            Me.Close()
         End If
     End Sub
 

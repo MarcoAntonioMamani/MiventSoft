@@ -43,7 +43,7 @@ Public Class FormularioCliente
         'grJBuscador.Col = 1
         Columna = 2
         tbNombre.Focus()
-        Me.Width = 1000
+        Me.Width = 1300
     End Sub
     Public Sub _prSeleccionar()
         'If (Columna >= 0) Then
@@ -58,19 +58,20 @@ Public Class FormularioCliente
     Private Sub _PMCargarBuscador()
 
         Dim anchoVentana As Integer = 0
-
+        dtBuscador.Columns.Add("SELECCIONAR", GetType(Byte()))
         grJBuscador.DataSource = dtBuscador
         grJBuscador.RetrieveStructure()
 
 
-        For i = 0 To dtBuscador.Columns.Count - 1
+        For i = 0 To dtBuscador.Columns.Count - 2
             With grJBuscador.RootTable.Columns(i)
                 If listEstrucGrilla.Item(i).visible = True Then
                     .Caption = listEstrucGrilla.Item(i).titulo
                     .Width = listEstrucGrilla.Item(i).tamano
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
                     .CellStyle.FontSize = 9
-
+                    .MaxLines = 2
+                    .WordWrap = True
                     Dim col As DataColumn = dtBuscador.Columns(i)
                     Dim tipo As Type = col.DataType
                     If tipo.ToString = "System.Int32" Or tipo.ToString = "System.Decimal" Then
@@ -86,7 +87,7 @@ Public Class FormularioCliente
                 End If
             End With
         Next
-
+        grJBuscador.RootTable.Columns("SELECCIONAR").Width = 150
         'Habilitar Filtradores
         With grJBuscador
             .DefaultFilterRowComparison = FilterConditionOperator.Contains
@@ -97,8 +98,23 @@ Public Class FormularioCliente
             .VisualStyle = VisualStyle.Office2007
         End With
 
-
+        CargarIconEstado()
         'adaptar el tamaño de la ventana
+
+    End Sub
+    Public Sub CargarIconEstado()
+        Dim Bin As New MemoryStream
+        Dim img As New Bitmap(My.Resources.seleccionar, grJBuscador.RootTable.Columns("SELECCIONAR").Width - 15, 55)
+        img.Save(Bin, Imaging.ImageFormat.Png)
+        Dim dt As DataTable = CType(grJBuscador.DataSource, DataTable)
+        Dim n As Integer = dt.Rows.Count
+        For i As Integer = 0 To n - 1 Step 1
+
+
+            CType(grJBuscador.DataSource, DataTable).Rows(i).Item("SELECCIONAR") = Bin.GetBuffer
+
+
+        Next
 
     End Sub
 #End Region
@@ -219,6 +235,23 @@ Public Class FormularioCliente
     Private Sub FormularioCliente_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If (e.KeyData = Keys.Escape) Then
             Me.Close()
+
+        End If
+    End Sub
+
+    Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
+        Me.Close()
+    End Sub
+
+    Private Sub grJBuscador_Click(sender As Object, e As EventArgs) Handles grJBuscador.Click
+        If (grJBuscador.RowCount >= 1 And grJBuscador.Row >= 0) Then
+            If (grJBuscador.CurrentColumn.Index = grJBuscador.RootTable.Columns("Seleccionar").Index) Then
+
+
+                filaSelect = grJBuscador.GetRow()
+                seleccionado = True
+                Me.Close()
+            End If
 
         End If
     End Sub

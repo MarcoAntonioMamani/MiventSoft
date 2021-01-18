@@ -9,9 +9,9 @@ Public Class Tec_Contratos
 #Region "Atributos"
     Public _nameButton As String
     Public _tab As SuperTabItem
-    Public _modulo As SideNavItem
+    Public _modulo As SuperTabItem
     Public FilaSeleccionada As Boolean = False
-
+    Public _TabControl As SuperTabControl
 
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
     Public _MListEstBuscador As List(Of Celda)
@@ -247,11 +247,13 @@ Public Class Tec_Contratos
         If btnGrabar.Visible = True Then
             _PMInhabilitar()
             _PMPrimerRegistro()
-
+            TabControlPrincipal.SelectedTabIndex = 1
         Else
             '  Public _modulo As SideNavItem
-            '_modulo.Select()
-            _tab.Close()
+            '_TabControl.SelectedTab = _modulo
+            '_tab.Close()
+            'Me.Close()
+            TabControlPrincipal.SelectedTabIndex = 1
         End If
     End Sub
 #End Region
@@ -270,11 +272,28 @@ Public Class Tec_Contratos
         _prAsignarPermisos()
 
 
-
+        _habilitarFocus()
 
     End Sub
 
+    Public Sub _habilitarFocus()
+        With MHighlighterFocus
+            .SetHighlightOnFocus(tbCodigo, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbPersonal, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnSearchPersonal, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(cbTipoContrato, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnTipoContrato, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(cbCargo, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnCargo, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnGrabar, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnSalir, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbSalario, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(swIndefinido, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbFechaInicio, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbFechaFin, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
 
+        End With
+    End Sub
 
     Private Sub _prAsignarPermisos()
 
@@ -581,11 +600,13 @@ Public Class Tec_Contratos
         If btnGrabar.Enabled = True Then
             _PMInhabilitar()
             _PMPrimerRegistro()
-
+            TabControlPrincipal.SelectedTabIndex = 1
         Else
             '  Public _modulo As SideNavItem
-            _modulo.Select()
-            _tab.Close()
+            '_TabControl.SelectedTab = _modulo
+            '_tab.Close()
+            'Me.Close()
+            TabControlPrincipal.SelectedTabIndex = 1
         End If
     End Sub
 
@@ -680,7 +701,9 @@ Public Class Tec_Contratos
     End Sub
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
+        TabControlPrincipal.SelectedTabIndex = 0
         btnNuevo.PerformClick()
+
     End Sub
 
     Private Sub btnSearchPersonal_Click(sender As Object, e As EventArgs) Handles btnSearchPersonal.Click
@@ -699,8 +722,8 @@ Public Class Tec_Contratos
         ef.dt = dt
         ef.SeleclCol = 2
         ef.listEstCeldasNew = listEstCeldas
-        ef.alto = 50
-        ef.ancho = 350
+        ef.alto = 150
+        ef.ancho = 500
         ef.Context = "Seleccione Personal".ToUpper
         ef.ShowDialog()
         Dim bandera As Boolean = False
@@ -714,4 +737,44 @@ Public Class Tec_Contratos
 
         End If
     End Sub
+
+    Private Sub btnTipoContrato_Click(sender As Object, e As EventArgs) Handles btnTipoContrato.Click
+        Dim numi As String = ""
+        Dim ef = New Efecto
+        ef.tipo = 10
+        ef.ModuloLibreria = 10
+        ef.titulo = "Crear Nuevo Tipo De Contrato"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            P_Global._prCargarComboGenerico(cbTipoContrato, L_prLibreriaDetalleGeneral(10), "cnnum", "Codigo", "cndesc1", "TipoDocumento")
+            cbTipoContrato.SelectedIndex = CType(cbTipoContrato.DataSource, DataTable).Rows.Count - 1
+            cbTipoContrato.Focus()
+        End If
+    End Sub
+
+    Private Sub btnCargo_Click(sender As Object, e As EventArgs) Handles btnCargo.Click
+        Dim numi As String = ""
+        Dim ef = New Efecto
+        ef.tipo = 10
+        ef.ModuloLibreria = 11
+        ef.titulo = "Crear Nuevo Tipo De Contrato"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            P_Global._prCargarComboGenerico(cbCargo, L_prLibreriaDetalleGeneral(11), "cnnum", "Codigo", "cndesc1", "TipoDocumento")
+            cbCargo.SelectedIndex = CType(cbTipoContrato.DataSource, DataTable).Rows.Count - 1
+            cbCargo.Focus()
+        End If
+    End Sub
+
+    Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles ButtonX2.Click
+        _TabControl.SelectedTab = _modulo
+        _tab.Close()
+        Me.Close()
+    End Sub
+
+
 End Class

@@ -9,9 +9,9 @@ Public Class Tec_ConceptosFijos
 #Region "Atributos"
     Public _nameButton As String
     Public _tab As SuperTabItem
-    Public _modulo As SideNavItem
+    Public _modulo As SuperTabItem
     Public FilaSeleccionada As Boolean = False
-
+    Public _TabControl As SuperTabControl
 
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
     Public _MListEstBuscador As List(Of Celda)
@@ -669,11 +669,13 @@ Public Class Tec_ConceptosFijos
         If btnGrabar.Enabled = True Then
             _PMInhabilitar()
             _PMPrimerRegistro()
-
+            TabControlPrincipal.SelectedTabIndex = 1
         Else
+            TabControlPrincipal.SelectedTabIndex = 1
             '  Public _modulo As SideNavItem
-            _modulo.Select()
-            _tab.Close()
+            '_TabControl.SelectedTab = _modulo
+            '_tab.Close()
+            'Me.Close()
         End If
     End Sub
 
@@ -790,6 +792,12 @@ Public Class Tec_ConceptosFijos
 
     Private Sub tbNombreConcepto_TextChanged(sender As Object, e As EventArgs) Handles tbNombreConcepto.TextChanged
 
+    End Sub
+
+    Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles ButtonX2.Click
+        _TabControl.SelectedTab = _modulo
+        _tab.Close()
+        Me.Close()
     End Sub
 #End Region
 End Class
