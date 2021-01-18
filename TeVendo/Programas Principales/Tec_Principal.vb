@@ -409,6 +409,9 @@ Public Class Tec_Principal
         Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
         superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
         tab3.AttachedControl.Controls.Add(panel)
+        frm._tab = tab3
+        frm._TabControl = SuperTabControlMenu
+        frm._modulo = tab_configuraciones
         frm.Show()
         tab3.Text = frm.Text
         Dim blah As New Bitmap(btConfPrecio.Image, 20, 20)
@@ -629,6 +632,9 @@ Public Class Tec_Principal
         Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
         superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
         tab3.AttachedControl.Controls.Add(panel)
+        frm._tab = tab3
+        frm._TabControl = SuperTabControlMenu
+        frm._modulo = tab_configuraciones
         frm.Show()
         tab3.Text = frm.Text
         Dim blah As New Bitmap(btConfEmpresa.Image, 20, 20)

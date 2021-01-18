@@ -16,8 +16,9 @@ Public Class Tec_Precios
 #Region "Variables Globales"
     Dim precio As DataTable
     Public _nameButton As String
-    Public _modulo As SideNavItem
     Public _tab As SuperTabItem
+    Public _modulo As SuperTabItem
+    Public _TabControl As SuperTabControl
 #End Region
 #Region "MEtodos Privados"
     Private Sub _IniciarTodo()
@@ -449,8 +450,9 @@ Public Class Tec_Precios
         If (_fnAccesible()) Then
             _prInhabiliitar()
         Else
-            '_modulo.Select()
+            _TabControl.SelectedTab = _modulo
             _tab.Close()
+            Me.Close()
         End If
     End Sub
     Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click

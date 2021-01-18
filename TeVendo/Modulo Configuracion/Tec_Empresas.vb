@@ -23,7 +23,8 @@ Public Class Tec_Empresas
     Dim Mapa As Integer = 0
     Public _nameButton As String
     Public _tab As SuperTabItem
-    Public _modulo As SideNavItem
+    Public _modulo As SuperTabItem
+    Public _TabControl As SuperTabControl
     Public FilaSeleccionada As Boolean = False
 
     Public _MListEstBuscador As List(Of Celda)
@@ -263,6 +264,25 @@ Public Class Tec_Empresas
             PanelLEft.Dock = DockStyle.Fill
             Panel13.Visible = False
         End If
+        _habilitarFocus()
+    End Sub
+
+    Public Sub _habilitarFocus()
+        With MHighlighterFocus
+            .SetHighlightOnFocus(tbCodigo, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbNombreEmpresa, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbDescripción, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbPropietario, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbTelefono, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbnit, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbCiudad, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbDirección, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnImagen, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+
+            .SetHighlightOnFocus(btnGrabar, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnSalir, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+
+        End With
     End Sub
     Private Sub P_IniciarMap()
         Gmc_Cliente.DragButton = MouseButtons.Left
@@ -710,11 +730,9 @@ Public Class Tec_Empresas
         If btnGrabar.Enabled = True Then
             _PMInhabilitar()
             _PMPrimerRegistro()
-
+            TabControlPrincipal.SelectedTabIndex = 1
         Else
-            '  Public _modulo As SideNavItem
-            _modulo.Select()
-            _tab.Close()
+            TabControlPrincipal.SelectedTabIndex = 1
         End If
     End Sub
 
@@ -861,6 +879,12 @@ Public Class Tec_Empresas
             btnModificar.PerformClick()
 
         End If
+    End Sub
+
+    Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles ButtonX2.Click
+        _TabControl.SelectedTab = _modulo
+        _tab.Close()
+        Me.Close()
     End Sub
 
 

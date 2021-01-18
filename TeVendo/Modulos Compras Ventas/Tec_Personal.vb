@@ -13,8 +13,9 @@ Public Class Tec_Personal
     Public _nameButton As String
     Public _tab As SuperTabItem
     Public _modulo As SuperTabItem
-    Public FilaSeleccionada As Boolean = False
     Public _TabControl As SuperTabControl
+    Public FilaSeleccionada As Boolean = False
+
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
     Public _MListEstBuscador As List(Of Celda)
     Public _MPos As Integer

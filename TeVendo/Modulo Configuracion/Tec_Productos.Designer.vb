@@ -30,8 +30,8 @@ Partial Class Tec_Productos
         Dim cbProveedor_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbCategoria_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbEmpresa_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
-        Dim cbUniVenta_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbUnidMaxima_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim cbUniVenta_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.TabControlPrincipal = New DevComponents.DotNetBar.SuperTabControl()
         Me.SuperTabControlPanel1 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -64,6 +64,8 @@ Partial Class Tec_Productos
         Me.btnMarca = New DevComponents.DotNetBar.ButtonX()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.cbUnidMaxima = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.cbUniVenta = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.LabelX13 = New DevComponents.DotNetBar.LabelX()
         Me.btUniMaxima = New DevComponents.DotNetBar.ButtonX()
         Me.btUniVenta = New DevComponents.DotNetBar.ButtonX()
@@ -127,8 +129,6 @@ Partial Class Tec_Productos
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.cbUniVenta = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
-        Me.cbUnidMaxima = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -153,6 +153,8 @@ Partial Class Tec_Productos
         CType(Me.cbEmpresa, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.Panel3.SuspendLayout()
+        CType(Me.cbUnidMaxima, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbUniVenta, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbConversion, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbStockMinimo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel10.SuspendLayout()
@@ -172,8 +174,6 @@ Partial Class Tec_Productos
         Me.Panel15.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cbUniVenta, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cbUnidMaxima, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TabControlPrincipal
@@ -701,6 +701,56 @@ Partial Class Tec_Productos
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(632, 74)
         Me.Panel3.TabIndex = 210
+        '
+        'cbUnidMaxima
+        '
+        Me.cbUnidMaxima.BackColor = System.Drawing.Color.Azure
+        Me.cbUnidMaxima.ColorScheme = ""
+        Me.cbUnidMaxima.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.cbUnidMaxima.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
+        Me.cbUnidMaxima.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        cbUnidMaxima_DesignTimeLayout.LayoutString = resources.GetString("cbUnidMaxima_DesignTimeLayout.LayoutString")
+        Me.cbUnidMaxima.DesignTimeLayout = cbUnidMaxima_DesignTimeLayout
+        Me.cbUnidMaxima.FlatBorderColor = System.Drawing.Color.Black
+        Me.cbUnidMaxima.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbUnidMaxima.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbUnidMaxima.HideSelection = False
+        Me.cbUnidMaxima.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cbUnidMaxima.Location = New System.Drawing.Point(431, 10)
+        Me.cbUnidMaxima.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbUnidMaxima.Name = "cbUnidMaxima"
+        Me.cbUnidMaxima.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbUnidMaxima.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
+        Me.cbUnidMaxima.SelectedIndex = -1
+        Me.cbUnidMaxima.SelectedItem = Nothing
+        Me.cbUnidMaxima.Size = New System.Drawing.Size(139, 29)
+        Me.cbUnidMaxima.TabIndex = 59
+        Me.cbUnidMaxima.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'cbUniVenta
+        '
+        Me.cbUniVenta.BackColor = System.Drawing.Color.Azure
+        Me.cbUniVenta.ColorScheme = ""
+        Me.cbUniVenta.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.cbUniVenta.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
+        Me.cbUniVenta.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        cbUniVenta_DesignTimeLayout.LayoutString = resources.GetString("cbUniVenta_DesignTimeLayout.LayoutString")
+        Me.cbUniVenta.DesignTimeLayout = cbUniVenta_DesignTimeLayout
+        Me.cbUniVenta.FlatBorderColor = System.Drawing.Color.Black
+        Me.cbUniVenta.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbUniVenta.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbUniVenta.HideSelection = False
+        Me.cbUniVenta.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cbUniVenta.Location = New System.Drawing.Point(123, 10)
+        Me.cbUniVenta.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbUniVenta.Name = "cbUniVenta"
+        Me.cbUniVenta.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbUniVenta.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
+        Me.cbUniVenta.SelectedIndex = -1
+        Me.cbUniVenta.SelectedItem = Nothing
+        Me.cbUniVenta.Size = New System.Drawing.Size(132, 29)
+        Me.cbUniVenta.TabIndex = 58
+        Me.cbUniVenta.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'LabelX13
         '
@@ -1654,60 +1704,11 @@ Partial Class Tec_Productos
         'MHighlighterFocus
         '
         Me.MHighlighterFocus.ContainerControl = Me
+        Me.MHighlighterFocus.FocusHighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Orange
         '
         'MEP
         '
         Me.MEP.ContainerControl = Me
-        '
-        'cbUniVenta
-        '
-        Me.cbUniVenta.BackColor = System.Drawing.Color.Azure
-        Me.cbUniVenta.ColorScheme = ""
-        Me.cbUniVenta.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
-        Me.cbUniVenta.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
-        Me.cbUniVenta.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
-        cbUniVenta_DesignTimeLayout.LayoutString = resources.GetString("cbUniVenta_DesignTimeLayout.LayoutString")
-        Me.cbUniVenta.DesignTimeLayout = cbUniVenta_DesignTimeLayout
-        Me.cbUniVenta.FlatBorderColor = System.Drawing.Color.Black
-        Me.cbUniVenta.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbUniVenta.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.cbUniVenta.HideSelection = False
-        Me.cbUniVenta.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.cbUniVenta.Location = New System.Drawing.Point(123, 10)
-        Me.cbUniVenta.Margin = New System.Windows.Forms.Padding(4)
-        Me.cbUniVenta.Name = "cbUniVenta"
-        Me.cbUniVenta.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.cbUniVenta.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
-        Me.cbUniVenta.SelectedIndex = -1
-        Me.cbUniVenta.SelectedItem = Nothing
-        Me.cbUniVenta.Size = New System.Drawing.Size(132, 29)
-        Me.cbUniVenta.TabIndex = 58
-        Me.cbUniVenta.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        '
-        'cbUnidMaxima
-        '
-        Me.cbUnidMaxima.BackColor = System.Drawing.Color.Azure
-        Me.cbUnidMaxima.ColorScheme = ""
-        Me.cbUnidMaxima.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
-        Me.cbUnidMaxima.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
-        Me.cbUnidMaxima.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
-        cbUnidMaxima_DesignTimeLayout.LayoutString = resources.GetString("cbUnidMaxima_DesignTimeLayout.LayoutString")
-        Me.cbUnidMaxima.DesignTimeLayout = cbUnidMaxima_DesignTimeLayout
-        Me.cbUnidMaxima.FlatBorderColor = System.Drawing.Color.Black
-        Me.cbUnidMaxima.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbUnidMaxima.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.cbUnidMaxima.HideSelection = False
-        Me.cbUnidMaxima.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.cbUnidMaxima.Location = New System.Drawing.Point(431, 10)
-        Me.cbUnidMaxima.Margin = New System.Windows.Forms.Padding(4)
-        Me.cbUnidMaxima.Name = "cbUnidMaxima"
-        Me.cbUnidMaxima.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.cbUnidMaxima.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
-        Me.cbUnidMaxima.SelectedIndex = -1
-        Me.cbUnidMaxima.SelectedItem = Nothing
-        Me.cbUnidMaxima.Size = New System.Drawing.Size(139, 29)
-        Me.cbUnidMaxima.TabIndex = 59
-        Me.cbUnidMaxima.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'Tec_Productos
         '
@@ -1744,6 +1745,8 @@ Partial Class Tec_Productos
         Me.GroupBox1.PerformLayout()
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
+        CType(Me.cbUnidMaxima, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbUniVenta, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbConversion, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbStockMinimo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel10.ResumeLayout(False)
@@ -1763,8 +1766,6 @@ Partial Class Tec_Productos
         Me.Panel15.ResumeLayout(False)
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cbUniVenta, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cbUnidMaxima, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
