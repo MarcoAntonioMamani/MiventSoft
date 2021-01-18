@@ -545,6 +545,7 @@ Partial Class Tec_Productos
         '
         Me.cbProveedor.BackColor = System.Drawing.Color.Azure
         Me.cbProveedor.ColorScheme = ""
+        Me.cbProveedor.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
         Me.cbProveedor.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
         Me.cbProveedor.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
         cbProveedor_DesignTimeLayout.LayoutString = resources.GetString("cbProveedor_DesignTimeLayout.LayoutString")

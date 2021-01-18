@@ -1210,5 +1210,9 @@ Public Class Tec_Productos
         _tab.Close()
         Me.Close()
     End Sub
+
+    Private Sub cbMarca_ValueChanged(sender As Object, e As EventArgs) Handles cbMarca.ValueChanged
+
+    End Sub
 #End Region
 End Class
