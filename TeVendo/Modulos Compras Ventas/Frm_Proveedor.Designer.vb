@@ -41,7 +41,6 @@ Partial Class Frm_Proveedor
         Me.btnTipoDocumento = New DevComponents.DotNetBar.ButtonX()
         Me.LabelX11 = New DevComponents.DotNetBar.LabelX()
         Me.tbNroDocumento = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.cbTipoDocumento = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.LabelX7 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX8 = New DevComponents.DotNetBar.LabelX()
         Me.tbTelefono02 = New DevComponents.DotNetBar.Controls.TextBoxX()
@@ -75,6 +74,7 @@ Partial Class Frm_Proveedor
         Me.btnPrimero = New DevComponents.DotNetBar.ButtonX()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.cbTipoDocumento = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelLEft.SuspendLayout()
@@ -85,7 +85,6 @@ Partial Class Frm_Proveedor
         CType(Me.JGrM_Buscador, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MeuOpciones.SuspendLayout()
         Me.PanelCampos.SuspendLayout()
-        CType(Me.cbTipoDocumento, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel10.SuspendLayout()
         Me.Panel11.SuspendLayout()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -93,6 +92,7 @@ Partial Class Frm_Proveedor
         Me.PanelToolBar1.SuspendLayout()
         Me.PanelNavegacion.SuspendLayout()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbTipoDocumento, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
@@ -282,10 +282,10 @@ Partial Class Frm_Proveedor
         '
         'PanelCampos
         '
+        Me.PanelCampos.Controls.Add(Me.cbTipoDocumento)
         Me.PanelCampos.Controls.Add(Me.btnTipoDocumento)
         Me.PanelCampos.Controls.Add(Me.LabelX11)
         Me.PanelCampos.Controls.Add(Me.tbNroDocumento)
-        Me.PanelCampos.Controls.Add(Me.cbTipoDocumento)
         Me.PanelCampos.Controls.Add(Me.LabelX7)
         Me.PanelCampos.Controls.Add(Me.LabelX8)
         Me.PanelCampos.Controls.Add(Me.tbTelefono02)
@@ -316,6 +316,9 @@ Partial Class Frm_Proveedor
         Me.btnTipoDocumento.Name = "btnTipoDocumento"
         Me.btnTipoDocumento.Size = New System.Drawing.Size(35, 31)
         Me.btnTipoDocumento.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnTipoDocumento.Symbol = ""
+        Me.btnTipoDocumento.SymbolColor = System.Drawing.Color.LightSeaGreen
+        Me.btnTipoDocumento.SymbolSize = 20.0!
         Me.btnTipoDocumento.TabIndex = 223
         Me.btnTipoDocumento.Visible = False
         '
@@ -352,22 +355,6 @@ Partial Class Frm_Proveedor
         Me.tbNroDocumento.Size = New System.Drawing.Size(202, 29)
         Me.tbNroDocumento.TabIndex = 5
         Me.tbNroDocumento.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'cbTipoDocumento
-        '
-        cbTipoDocumento_DesignTimeLayout.LayoutString = resources.GetString("cbTipoDocumento_DesignTimeLayout.LayoutString")
-        Me.cbTipoDocumento.DesignTimeLayout = cbTipoDocumento_DesignTimeLayout
-        Me.cbTipoDocumento.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbTipoDocumento.Location = New System.Drawing.Point(29, 294)
-        Me.cbTipoDocumento.Margin = New System.Windows.Forms.Padding(4)
-        Me.cbTipoDocumento.Name = "cbTipoDocumento"
-        Me.cbTipoDocumento.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.cbTipoDocumento.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.cbTipoDocumento.SelectedIndex = -1
-        Me.cbTipoDocumento.SelectedItem = Nothing
-        Me.cbTipoDocumento.Size = New System.Drawing.Size(206, 28)
-        Me.cbTipoDocumento.TabIndex = 4
-        Me.cbTipoDocumento.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'LabelX7
         '
@@ -855,9 +842,38 @@ Partial Class Frm_Proveedor
         Me.btnPrimero.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnPrimero.TabIndex = 11
         '
+        'MHighlighterFocus
+        '
+        Me.MHighlighterFocus.ContainerControl = Me
+        Me.MHighlighterFocus.FocusHighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Orange
+        '
         'MEP
         '
         Me.MEP.ContainerControl = Me
+        '
+        'cbTipoDocumento
+        '
+        Me.cbTipoDocumento.BackColor = System.Drawing.Color.Azure
+        Me.cbTipoDocumento.ColorScheme = ""
+        Me.cbTipoDocumento.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.cbTipoDocumento.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
+        Me.cbTipoDocumento.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        cbTipoDocumento_DesignTimeLayout.LayoutString = resources.GetString("cbTipoDocumento_DesignTimeLayout.LayoutString")
+        Me.cbTipoDocumento.DesignTimeLayout = cbTipoDocumento_DesignTimeLayout
+        Me.cbTipoDocumento.FlatBorderColor = System.Drawing.Color.Black
+        Me.cbTipoDocumento.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbTipoDocumento.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbTipoDocumento.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cbTipoDocumento.Location = New System.Drawing.Point(28, 295)
+        Me.cbTipoDocumento.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbTipoDocumento.Name = "cbTipoDocumento"
+        Me.cbTipoDocumento.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbTipoDocumento.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
+        Me.cbTipoDocumento.SelectedIndex = -1
+        Me.cbTipoDocumento.SelectedItem = Nothing
+        Me.cbTipoDocumento.Size = New System.Drawing.Size(206, 28)
+        Me.cbTipoDocumento.TabIndex = 4
+        Me.cbTipoDocumento.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'Frm_Proveedor
         '
@@ -879,7 +895,6 @@ Partial Class Frm_Proveedor
         Me.MeuOpciones.ResumeLayout(False)
         Me.PanelCampos.ResumeLayout(False)
         Me.PanelCampos.PerformLayout()
-        CType(Me.cbTipoDocumento, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel10.ResumeLayout(False)
         Me.Panel11.ResumeLayout(False)
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
@@ -887,6 +902,7 @@ Partial Class Frm_Proveedor
         Me.PanelToolBar1.ResumeLayout(False)
         Me.PanelNavegacion.ResumeLayout(False)
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbTipoDocumento, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -933,7 +949,6 @@ Partial Class Frm_Proveedor
     Friend WithEvents btnTipoDocumento As DevComponents.DotNetBar.ButtonX
     Friend WithEvents LabelX11 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbNroDocumento As DevComponents.DotNetBar.Controls.TextBoxX
-    Friend WithEvents cbTipoDocumento As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents LabelX7 As DevComponents.DotNetBar.LabelX
     Protected WithEvents MHighlighterFocus As DevComponents.DotNetBar.Validator.Highlighter
     Protected WithEvents MEP As ErrorProvider
@@ -941,4 +956,5 @@ Partial Class Frm_Proveedor
     Friend WithEvents VerToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents EditarToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents EliminarToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents cbTipoDocumento As Janus.Windows.GridEX.EditControls.MultiColumnCombo
 End Class

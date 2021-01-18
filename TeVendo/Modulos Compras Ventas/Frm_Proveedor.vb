@@ -12,7 +12,8 @@ Public Class Frm_Proveedor
 
     Public _nameButton As String
     Public _tab As SuperTabItem
-    Public _modulo As SideNavItem
+    Public _modulo As SuperTabItem
+    Public _TabControl As SuperTabControl
     Public FilaSeleccionada As Boolean = False
 
 
@@ -247,9 +248,9 @@ Public Class Frm_Proveedor
             _PMPrimerRegistro()
 
         Else
-            '  Public _modulo As SideNavItem
-            '_modulo.Select()
+            _TabControl.SelectedTab = _modulo
             _tab.Close()
+            Me.Close()
         End If
     End Sub
 #End Region
@@ -265,11 +266,26 @@ Public Class Frm_Proveedor
         _PMIniciarTodo()
         _prAsignarPermisos()
 
-
+        _habilitarFocus()
 
     End Sub
 
+    Public Sub _habilitarFocus()
+        With MHighlighterFocus
+            .SetHighlightOnFocus(tbCodigo, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbNombreProveedor, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbDireccion, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbTelefono01, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbTelefono02, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(cbTipoDocumento, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(swEstado, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnTipoDocumento, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbNroDocumento, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnGrabar, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnSalir, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
 
+        End With
+    End Sub
 
     Private Sub _prAsignarPermisos()
 
@@ -542,9 +558,9 @@ Public Class Frm_Proveedor
             _PMPrimerRegistro()
 
         Else
-            '  Public _modulo As SideNavItem
-            _modulo.Select()
+            _TabControl.SelectedTab = _modulo
             _tab.Close()
+            Me.Close()
         End If
     End Sub
 
@@ -598,7 +614,7 @@ Public Class Frm_Proveedor
 
 
 
-    Private Sub cbTipoDocumento_ValueChanged(sender As Object, e As EventArgs) Handles cbTipoDocumento.ValueChanged
+    Private Sub cbTipoDocumento_ValueChanged(sender As Object, e As EventArgs)
 
         If cbTipoDocumento.SelectedIndex < 0 And cbTipoDocumento.Text <> String.Empty Then
             btnTipoDocumento.Visible = True
@@ -610,11 +626,19 @@ Public Class Frm_Proveedor
 
     Private Sub btnTipoDocumento_Click(sender As Object, e As EventArgs) Handles btnTipoDocumento.Click
         Dim numi As String = ""
-
-        If L_prClasificadorGrabar(numi, 8, cbTipoDocumento.Text) Then
+        Dim ef = New Efecto
+        ef.tipo = 10
+        ef.ModuloLibreria = 8
+        ef.titulo = "Crear Nuevo Tipo De Documento"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
             P_Global._prCargarComboGenerico(cbTipoDocumento, L_prLibreriaDetalleGeneral(8), "cnnum", "Codigo", "cndesc1", "TipoDocumento")
             cbTipoDocumento.SelectedIndex = CType(cbTipoDocumento.DataSource, DataTable).Rows.Count - 1
+            cbTipoDocumento.Focus()
         End If
+
     End Sub
 
 
