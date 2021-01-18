@@ -8,7 +8,8 @@ Public Class Tec_Users
 #Region "Atributos"
     Public _nameButton As String
     Public _tab As SuperTabItem
-    Public _modulo As SideNavItem
+    Public _modulo As SuperTabItem
+    Public _TabControl As SuperTabControl
 
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
     Public _MListEstBuscador As List(Of Celda)
@@ -141,7 +142,7 @@ Public Class Tec_Users
         btnEliminar.Visible = False
         btnGrabar.Visible = True
         PanelNavegacion.Enabled = False
-        tbNombreUsuario.Focus()
+        tbVendedor.Focus()
 
 
         '_PMOLimpiar()
@@ -210,9 +211,10 @@ Public Class Tec_Users
             _PMPrimerRegistro()
 
         Else
-            '  Public _modulo As SideNavItem
-            '_modulo.Select()
+            _TabControl.SelectedTab = _modulo
             _tab.Close()
+            Me.Close()
+
         End If
     End Sub
 #End Region
@@ -227,8 +229,24 @@ Public Class Tec_Users
         _PMIniciarTodo()
         _prAsignarPermisos()
 
+        _habilitarFocus()
 
+    End Sub
+    Public Sub _habilitarFocus()
+        With MHighlighterFocus
+            .SetHighlightOnFocus(tbCodigo, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
 
+            .SetHighlightOnFocus(tbNombreUsuario, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbVendedor, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbContrasena, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(cbEmpresa, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(cbRol, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(swEstado, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+
+            .SetHighlightOnFocus(btnGrabar, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnSalir, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+
+        End With
     End Sub
     Private Sub _prCargarComboLibreriaRoles(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
         Dim dt As New DataTable
@@ -299,6 +317,7 @@ Public Class Tec_Users
         cbEmpresa.ReadOnly = False
         cbRol.ReadOnly = False
         swEstado.IsReadOnly = False
+        btnVendedor.Visible = True
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -309,6 +328,8 @@ Public Class Tec_Users
         cbRol.ReadOnly = True
         swEstado.IsReadOnly = True
         tbVendedor.ReadOnly = True
+
+        btnVendedor.Visible = False
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -316,6 +337,7 @@ Public Class Tec_Users
         tbNombreUsuario.Text = ""
         tbContrasena.Text = ""
         swEstado.Value = True
+        tbVendedor.Clear()
         If (ObtenerLongitudCombo(cbRol) > 0) Then
             cbRol.SelectedIndex = 0
         End If
@@ -518,8 +540,10 @@ Public Class Tec_Users
 
         Else
             '  Public _modulo As SideNavItem
-            _modulo.Select()
+            _TabControl.SelectedTab = _modulo
             _tab.Close()
+            Me.Close()
+
         End If
     End Sub
 

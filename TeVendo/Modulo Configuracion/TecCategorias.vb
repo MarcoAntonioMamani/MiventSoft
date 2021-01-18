@@ -10,7 +10,8 @@ Public Class TecCategorias
 #Region "Atributos"
     Public _nameButton As String
     Public _tab As SuperTabItem
-    Public _modulo As SideNavItem
+    Public _modulo As SuperTabItem
+    Public _TabControl As SuperTabControl
     Public FilaSeleccionada As Boolean = False
 
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
@@ -219,9 +220,9 @@ Public Class TecCategorias
             _PMPrimerRegistro()
 
         Else
-            '  Public _modulo As SideNavItem
-            '_modulo.Select()
+            _TabControl.SelectedTab = _modulo
             _tab.Close()
+            Me.Close()
         End If
     End Sub
 #End Region
@@ -235,10 +236,25 @@ Public Class TecCategorias
         _prAsignarPermisos()
 
         P_Global._prCargarComboGenerico(cbEmpresa, L_prListaEmpresasUsuarios(), "Id", "Codigo", "Nombre", "Empresa")
-
+        _habilitarFocus()
 
     End Sub
+    Public Sub _habilitarFocus()
+        With Highlighter2
+            .SetHighlightOnFocus(tbDescripcion, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
 
+            .SetHighlightOnFocus(tbNombreCategoria, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(swEstado, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(swApp, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(cbEmpresa, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+
+            .SetHighlightOnFocus(btnImage, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+
+            .SetHighlightOnFocus(btnGrabar, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnSalir, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+
+        End With
+    End Sub
     Private Sub _prCrearCarpetaTemporal()
 
         If System.IO.Directory.Exists(RutaTemporal) = False Then
@@ -483,7 +499,7 @@ Public Class TecCategorias
 
 
 
-        MHighlighterFocus.UpdateHighlights()
+        Highlighter2.UpdateHighlights()
 
         If tbNombreCategoria.Text = String.Empty Then
             tbNombreCategoria.Focus()
@@ -621,9 +637,9 @@ Public Class TecCategorias
             _PMPrimerRegistro()
 
         Else
-            '  Public _modulo As SideNavItem
-            _modulo.Select()
+            _TabControl.SelectedTab = _modulo
             _tab.Close()
+            Me.Close()
         End If
     End Sub
 

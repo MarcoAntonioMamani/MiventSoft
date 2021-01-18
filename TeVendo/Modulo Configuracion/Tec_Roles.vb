@@ -6,8 +6,11 @@ Imports DevComponents.DotNetBar.Controls
 Public Class Tec_Roles
 #Region "Atributos"
     Public _nameButton As String
+
     Public _tab As SuperTabItem
-    Public _modulo As SideNavItem
+    Public _modulo As SuperTabItem
+
+    Public _TabControl As SuperTabControl
 
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
     Public _MPos As Integer
@@ -594,11 +597,9 @@ Public Class Tec_Roles
         If btnGrabar.Enabled = True Then
             _PMInhabilitar()
             _PMPrimerRegistro()
-
+            SuperTabControl1.SelectedTabIndex = 1
         Else
-            '  Public _modulo As SideNavItem
-            _modulo.Select()
-            _tab.Close()
+            SuperTabControl1.SelectedTabIndex = 1
         End If
     End Sub
 #End Region
@@ -756,5 +757,11 @@ Public Class Tec_Roles
 
 
         End If
+    End Sub
+
+    Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles ButtonX2.Click
+        _TabControl.SelectedTab = _modulo
+        _tab.Close()
+        Me.Close()
     End Sub
 End Class

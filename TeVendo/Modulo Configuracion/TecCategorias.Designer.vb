@@ -38,6 +38,7 @@ Partial Class TecCategorias
         Me.EditarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EliminarToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.PanelCampos = New System.Windows.Forms.Panel()
+        Me.cbEmpresa = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.LabelX7 = New DevComponents.DotNetBar.LabelX()
         Me.UsImg = New System.Windows.Forms.PictureBox()
         Me.btnImage = New DevComponents.DotNetBar.ButtonX()
@@ -70,9 +71,8 @@ Partial Class TecCategorias
         Me.btnSiguiente = New DevComponents.DotNetBar.ButtonX()
         Me.btnAnterior = New DevComponents.DotNetBar.ButtonX()
         Me.btnPrimero = New DevComponents.DotNetBar.ButtonX()
-        Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
+        Me.Highlighter2 = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.cbEmpresa = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelLEft.SuspendLayout()
@@ -83,6 +83,7 @@ Partial Class TecCategorias
         CType(Me.JGrM_Buscador, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MeuOpciones.SuspendLayout()
         Me.PanelCampos.SuspendLayout()
+        CType(Me.cbEmpresa, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.UsImg, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel10.SuspendLayout()
         Me.Panel11.SuspendLayout()
@@ -91,7 +92,6 @@ Partial Class TecCategorias
         Me.PanelToolBar1.SuspendLayout()
         Me.PanelNavegacion.SuspendLayout()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cbEmpresa, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
@@ -301,6 +301,31 @@ Partial Class TecCategorias
         Me.PanelCampos.Name = "PanelCampos"
         Me.PanelCampos.Size = New System.Drawing.Size(517, 611)
         Me.PanelCampos.TabIndex = 0
+        '
+        'cbEmpresa
+        '
+        Me.cbEmpresa.BackColor = System.Drawing.Color.Azure
+        Me.cbEmpresa.ColorScheme = ""
+        Me.cbEmpresa.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.cbEmpresa.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
+        Me.cbEmpresa.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        cbEmpresa_DesignTimeLayout.LayoutString = resources.GetString("cbEmpresa_DesignTimeLayout.LayoutString")
+        Me.cbEmpresa.DesignTimeLayout = cbEmpresa_DesignTimeLayout
+        Me.cbEmpresa.FlatBorderColor = System.Drawing.Color.Black
+        Me.cbEmpresa.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbEmpresa.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbEmpresa.HideSelection = False
+        Me.cbEmpresa.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cbEmpresa.Location = New System.Drawing.Point(214, 264)
+        Me.cbEmpresa.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbEmpresa.Name = "cbEmpresa"
+        Me.cbEmpresa.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbEmpresa.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
+        Me.cbEmpresa.SelectedIndex = -1
+        Me.cbEmpresa.SelectedItem = Nothing
+        Me.cbEmpresa.Size = New System.Drawing.Size(219, 28)
+        Me.cbEmpresa.TabIndex = 4
+        Me.cbEmpresa.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'LabelX7
         '
@@ -643,7 +668,7 @@ Partial Class TecCategorias
         Me.btnSalir.Name = "btnSalir"
         Me.btnSalir.Size = New System.Drawing.Size(120, 60)
         Me.btnSalir.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnSalir.TabIndex = 10
+        Me.btnSalir.TabIndex = 7
         Me.btnSalir.Text = "SALIR"
         Me.btnSalir.TextColor = System.Drawing.Color.White
         '
@@ -677,7 +702,7 @@ Partial Class TecCategorias
         Me.btnGrabar.Name = "btnGrabar"
         Me.btnGrabar.Size = New System.Drawing.Size(130, 60)
         Me.btnGrabar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnGrabar.TabIndex = 9
+        Me.btnGrabar.TabIndex = 6
         Me.btnGrabar.Text = "GRABAR"
         Me.btnGrabar.TextColor = System.Drawing.Color.White
         '
@@ -808,36 +833,14 @@ Partial Class TecCategorias
         Me.btnPrimero.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnPrimero.TabIndex = 11
         '
+        'Highlighter2
+        '
+        Me.Highlighter2.ContainerControl = Me
+        Me.Highlighter2.FocusHighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Orange
+        '
         'MEP
         '
         Me.MEP.ContainerControl = Me
-        '
-        'cbEmpresa
-        '
-        Me.cbEmpresa.BackColor = System.Drawing.Color.Azure
-        Me.cbEmpresa.ColorScheme = ""
-        Me.cbEmpresa.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
-        Me.cbEmpresa.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
-        Me.cbEmpresa.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
-        cbEmpresa_DesignTimeLayout.LayoutString = resources.GetString("cbEmpresa_DesignTimeLayout.LayoutString")
-        Me.cbEmpresa.DesignTimeLayout = cbEmpresa_DesignTimeLayout
-        Me.cbEmpresa.FlatBorderColor = System.Drawing.Color.Black
-        Me.cbEmpresa.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbEmpresa.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.cbEmpresa.HideSelection = False
-        Me.MHighlighterFocus.SetHighlightColor(Me.cbEmpresa, DevComponents.DotNetBar.Validator.eHighlightColor.Red)
-        Me.MHighlighterFocus.SetHighlightOnFocus(Me.cbEmpresa, True)
-        Me.cbEmpresa.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.cbEmpresa.Location = New System.Drawing.Point(214, 264)
-        Me.cbEmpresa.Margin = New System.Windows.Forms.Padding(4)
-        Me.cbEmpresa.Name = "cbEmpresa"
-        Me.cbEmpresa.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.cbEmpresa.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
-        Me.cbEmpresa.SelectedIndex = -1
-        Me.cbEmpresa.SelectedItem = Nothing
-        Me.cbEmpresa.Size = New System.Drawing.Size(219, 28)
-        Me.cbEmpresa.TabIndex = 4
-        Me.cbEmpresa.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'TecCategorias
         '
@@ -859,6 +862,7 @@ Partial Class TecCategorias
         Me.MeuOpciones.ResumeLayout(False)
         Me.PanelCampos.ResumeLayout(False)
         Me.PanelCampos.PerformLayout()
+        CType(Me.cbEmpresa, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.UsImg, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel10.ResumeLayout(False)
         Me.Panel11.ResumeLayout(False)
@@ -867,7 +871,6 @@ Partial Class TecCategorias
         Me.PanelToolBar1.ResumeLayout(False)
         Me.PanelNavegacion.ResumeLayout(False)
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cbEmpresa, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -911,7 +914,7 @@ Partial Class TecCategorias
     Friend WithEvents tbDescripcion As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents swApp As DevComponents.DotNetBar.Controls.SwitchButton
     Friend WithEvents btnImage As DevComponents.DotNetBar.ButtonX
-    Protected WithEvents MHighlighterFocus As DevComponents.DotNetBar.Validator.Highlighter
+    Protected WithEvents Highlighter2 As DevComponents.DotNetBar.Validator.Highlighter
     Protected WithEvents MEP As ErrorProvider
     Friend WithEvents UsImg As PictureBox
     Friend WithEvents LabelX7 As DevComponents.DotNetBar.LabelX

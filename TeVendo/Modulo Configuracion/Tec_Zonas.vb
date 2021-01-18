@@ -30,9 +30,11 @@ Public Class Tec_Zonas
     Public _MModificar As Boolean
     Public _nameButton As String
     Public _tab As SuperTabItem
+    Public _modulo As SuperTabItem
+    Public _TabControl As SuperTabControl
     Dim _TablePoint As DataTable
     Dim _color As String = ""
-    Public _modulo As SideNavItem
+
     Dim _AddPoint As Boolean = False
 
 #End Region
@@ -230,9 +232,9 @@ Public Class Tec_Zonas
             _PMPrimerRegistro()
 
         Else
-            '  Public _modulo As SideNavItem
-            '_modulo.Select()
+            _TabControl.SelectedTab = _modulo
             _tab.Close()
+            Me.Close()
         End If
     End Sub
 #End Region
@@ -249,7 +251,18 @@ Public Class Tec_Zonas
         Dim blah As New Bitmap(New Bitmap(My.Resources.zona), 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         Me.Icon = ico
+        _habilitarFocus()
+    End Sub
+    Public Sub _habilitarFocus()
+        With MHighlighterFocus
+            .SetHighlightOnFocus(tbCodigo, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbColor, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbNombreZona, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbDescripcionZona, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnGrabar, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnSalir, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
 
+        End With
     End Sub
     Public Sub _prCargarZonasTable()
         grZonas.BoundMode = Janus.Data.BoundMode.Bound
@@ -457,7 +470,9 @@ Public Class Tec_Zonas
             _PMPrimerRegistro()
 
         Else
+            _TabControl.SelectedTab = _modulo
             _tab.Close()
+            Me.Close()
         End If
     End Sub
 

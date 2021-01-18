@@ -302,6 +302,9 @@ Public Class Tec_Principal
         Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
         superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
         tab3.AttachedControl.Controls.Add(panel)
+        frm._tab = tab3
+        frm._TabControl = SuperTabControlMenu
+        frm._modulo = tab_configuraciones
         frm.Show()
         tab3.Text = frm.Text
         Dim blah As New Bitmap(btConfRoles.Image, 20, 20)
@@ -325,6 +328,9 @@ Public Class Tec_Principal
         Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
         superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
         tab3.AttachedControl.Controls.Add(panel)
+        frm._tab = tab3
+        frm._TabControl = SuperTabControlMenu
+        frm._modulo = tab_configuraciones
         frm.Show()
         tab3.Text = frm.Text
         Dim blah As New Bitmap(btConfUsuarios.Image, 20, 20)
@@ -348,6 +354,9 @@ Public Class Tec_Principal
         Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
         superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
         tab3.AttachedControl.Controls.Add(panel)
+        frm._tab = tab3
+        frm._TabControl = SuperTabControlMenu
+        frm._modulo = tab_configuraciones
         frm.Show()
         tab3.Text = frm.Text
         Dim blah As New Bitmap(btnConfCategoria.Image, 20, 20)
@@ -371,6 +380,9 @@ Public Class Tec_Principal
         Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
         superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
         tab3.AttachedControl.Controls.Add(panel)
+        frm._tab = tab3
+        frm._TabControl = SuperTabControlMenu
+        frm._modulo = tab_configuraciones
         frm.Show()
         tab3.Text = frm.Text
         Dim blah As New Bitmap(btConfProducto.Image, 20, 20)
@@ -417,6 +429,9 @@ Public Class Tec_Principal
         Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
         superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
         tab3.AttachedControl.Controls.Add(panel)
+        frm._tab = tab3
+        frm._TabControl = SuperTabControlMenu
+        frm._modulo = tab_mapa
         frm.Show()
         tab3.Text = frm.Text
         Dim blah As New Bitmap(btZona.Image, 20, 20)

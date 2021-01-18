@@ -10,7 +10,8 @@ Public Class Tec_Productos
 #Region "Atributos"
     Public _nameButton As String
     Public _tab As SuperTabItem
-    Public _modulo As SideNavItem
+    Public _modulo As SuperTabItem
+    Public _TabControl As SuperTabControl
     Public FilaSeleccionada As Boolean = False
 
 
@@ -943,11 +944,9 @@ Public Class Tec_Productos
         If btnGrabar.Enabled = True Then
             _PMInhabilitar()
             _PMPrimerRegistro()
-
+            TabControlPrincipal.SelectedTabIndex = 1
         Else
-            '  Public _modulo As SideNavItem
-            _modulo.Select()
-            _tab.Close()
+            TabControlPrincipal.SelectedTabIndex = 1
         End If
     End Sub
 
@@ -1196,6 +1195,12 @@ Public Class Tec_Productos
 
     Private Sub LabelX5_Click(sender As Object, e As EventArgs) Handles LabelX5.Click
 
+    End Sub
+
+    Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles ButtonX2.Click
+        _TabControl.SelectedTab = _modulo
+        _tab.Close()
+        Me.Close()
     End Sub
 #End Region
 End Class
