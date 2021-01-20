@@ -566,7 +566,7 @@ Public Class Tec_Personal
         listEstCeldas.Add(New Celda("NroDocumento", True, "Nro Documento", 90))
         listEstCeldas.Add(New Celda("Estado", False))
         listEstCeldas.Add(New Celda("img", True, "Estado", 90))
-        listEstCeldas.Add(New Celda("Tipo", True, "Tipo", 90))
+        listEstCeldas.Add(New Celda("Tipo", True, "Cargo", 90))
         listEstCeldas.Add(New Celda("FechaNacimiento", True, "F.Nacimiento", 90))
 
         Return listEstCeldas

@@ -61,7 +61,8 @@ Public Class Tec_Contratos
                     .Caption = _MListEstBuscador.Item(i).titulo
                     .Width = _MListEstBuscador.Item(i).tamano
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-
+                    .MaxLines = 2
+                    .WordWrap = True
                     Dim col As DataColumn = dtBuscador.Columns(campo)
                     Dim tipo As Type = col.DataType
                     If tipo.ToString = "System.Int32" Or tipo.ToString = "System.Decimal" Or tipo.ToString = "System.Double" Then
@@ -223,15 +224,22 @@ Public Class Tec_Contratos
         End If
 
         If _MNuevo Then
-            If _PMOGrabarRegistro() = True Then
-                'actualizar el grid de buscador
-                _PMCargarBuscador()
+            If (VerificarExisteContratoVigente(PersonalId) = False) Then
+                If _PMOGrabarRegistro() = True Then
+                    'actualizar el grid de buscador
+                    _PMCargarBuscador()
 
-                _PMOLimpiar()
-                _PMSalir()
+                    _PMOLimpiar()
+                    _PMSalir()
+                Else
+                    Exit Sub
+                End If
+
             Else
-                Exit Sub
+                ToastNotification.Show(Me, "El Personal " + tbPersonal.Text + "  Ya tiene un Contrato Vigente", img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
             End If
+
+
 
         Else
 
@@ -276,7 +284,87 @@ Public Class Tec_Contratos
         _habilitarFocus()
 
     End Sub
+    Private Sub _prCargarTablaConceptos(id As String)
+        Dim dt As New DataTable
+        dt = ListaConceptosContratos(id)
+        dt.Columns.Add("Eliminar", GetType(Byte()))
 
+        grConceptos.DataSource = dt
+        grConceptos.RetrieveStructure()
+        grConceptos.AlternatingColors = True
+        'c.Id ,c.ContratoId ,c.ConceptoId,concepto .NombreConcepto ,concepto.Porcentaje as PorcentajeConcepto,1 as estado
+
+        With grConceptos.RootTable.Columns("Id")
+            .Width = 90
+            .Caption = "Id"
+            .Visible = True
+        End With
+        With grConceptos.RootTable.Columns("ContratoId")
+            .Width = 110
+            .Visible = False
+        End With
+        With grConceptos.RootTable.Columns("ConceptoId")
+            .Width = 110
+            .Visible = False
+        End With
+        With grConceptos.RootTable.Columns("NombreConcepto")
+            .Width = 300
+            .Visible = True
+            .Caption = "Concepto"
+        End With
+
+        With grConceptos.RootTable.Columns("PorcentajeConcepto")
+            .Width = 110
+            .Caption = "Porcentaje"
+            .Visible = True
+            .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+        With grConceptos.RootTable.Columns("estado")
+            .Width = 150
+            .Visible = False
+        End With
+        With grConceptos.RootTable.Columns("Eliminar")
+            .Width = 120
+            .Visible = False
+        End With
+        With grConceptos
+            .GroupByBoxVisible = False
+            'diseño de la grilla
+            .VisualStyle = VisualStyle.Office2007
+            .BoundMode = Janus.Data.BoundMode.Bound
+            .RowHeaders = InheritableBoolean.True
+            .CellToolTipText = "Conceptos"
+            .DefaultFilterRowComparison = FilterConditionOperator.Contains
+            .FilterMode = FilterMode.Automatic
+            .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
+            .GroupByBoxVisible = False
+            .TotalRow = InheritableBoolean.True
+            .TotalRowFormatStyle.BackColor = Color.Gold
+            .TotalRowFormatStyle.ForeColor = Color.Black
+            .TotalRowFormatStyle.FontBold = TriState.True
+            .TotalRowFormatStyle.FontSize = 11
+            .TotalRowPosition = TotalRowPosition.BottomFixed
+
+        End With
+        CargarIconEliminar()
+    End Sub
+
+    Public Sub CargarIconEliminar()
+        Dim Bin As New MemoryStream
+        Dim img As New Bitmap(My.Resources.eliminar01, grConceptos.RootTable.Columns("Eliminar").Width - 15, 70)
+        img.Save(Bin, Imaging.ImageFormat.Png)
+        Dim dt As DataTable = CType(grConceptos.DataSource, DataTable)
+        Dim n As Integer = dt.Rows.Count
+        For i As Integer = 0 To n - 1 Step 1
+
+
+            CType(grConceptos.DataSource, DataTable).Rows(i).Item("Eliminar") = Bin.GetBuffer
+
+
+        Next
+
+    End Sub
     Public Sub _habilitarFocus()
         With MHighlighterFocus
             .SetHighlightOnFocus(tbCodigo, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
@@ -292,7 +380,7 @@ Public Class Tec_Contratos
             .SetHighlightOnFocus(swIndefinido, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(tbFechaInicio, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(tbFechaFin, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
-
+            .SetHighlightOnFocus(btnAgregarConceptoFijo, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
         End With
     End Sub
 
@@ -345,9 +433,9 @@ Public Class Tec_Contratos
 
 
         swIndefinido.IsReadOnly = False
+        panelConceptoFijo.Visible = True
 
-
-
+        grConceptos.RootTable.Columns("Eliminar").Visible = True
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -356,16 +444,16 @@ Public Class Tec_Contratos
         tbSalario.IsInputReadOnly = True
         swIndefinido.IsReadOnly = True
         cbCargo.ReadOnly = True
-
-
+        panelConceptoFijo.Visible = False
+        tbPersonal.ReadOnly = False
         tbFechaInicio.ReadOnly = True
         tbFechaFin.ReadOnly = True
         btnCargo.Visible = False
         btnTipoContrato.Visible = False
         btnSearchPersonal.Visible = False
 
+        grConceptos.RootTable.Columns("Eliminar").Visible = False
 
-        swIndefinido.IsReadOnly = False
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -379,7 +467,7 @@ Public Class Tec_Contratos
         seleccionarPrimerItemCombo(cbCargo)
         seleccionarPrimerItemCombo(cbTipoContrato)
         btnSearchPersonal.Focus()
-
+        _prCargarTablaConceptos(-1)
     End Sub
     Public Sub seleccionarPrimerItemCombo(cb As EditControls.MultiColumnCombo)
         If (CType(cb.DataSource, DataTable).Rows.Count > 0) Then
@@ -401,9 +489,15 @@ Public Class Tec_Contratos
 
     Public Function _PMOGrabarRegistro() As Boolean
         '_Id As String, PersonalId As Integer, TipoContratoId As Integer, Cargo As Integer, SueldoBase As Double, InicioContrato As String, FinContrato As String, Estado As Integer, Indefinido As Integer, dtdetalle As DataTabl
+
+        'c.Id , c.ContratoId, c.ConceptoId, concepto.NombreConcepto, concepto.Porcentaje As PorcentajeConcepto, 1 as estado
         Dim res As Boolean
         Try
-            res = InsertarContratos(tbCodigo.Text, PersonalId, cbTipoContrato.Value, cbCargo.Value, tbSalario.Value, tbFechaInicio.Value.ToString("dd/MM/yyyy"), tbFechaFin.Value.ToString("dd/MM/yyyy"), 1, IIf(swIndefinido.Value = True, 1, 0), dtdetalle:=Nothing)
+            Dim dt As New DataTable
+            dt = CType(grConceptos.DataSource, DataTable).DefaultView.ToTable(False, "Id", "ContratoId", "ConceptoId", "NombreConcepto", "PorcentajeConcepto", "estado")
+            Dim FechaFin As Date = Now.Date
+            FechaFin = DateAdd(DateInterval.Year, 50, Now.Date)
+            res = InsertarContratos(tbCodigo.Text, PersonalId, cbTipoContrato.Value, cbCargo.Value, tbSalario.Value, tbFechaInicio.Value.ToString("dd/MM/yyyy"), IIf(swIndefinido.Value = True, FechaFin.ToString("dd/MM/yyyy"), tbFechaFin.Value.ToString("dd/MM/yyyy")), 1, IIf(swIndefinido.Value = True, 1, 0), dt)
 
             If res Then
 
@@ -426,7 +520,9 @@ Public Class Tec_Contratos
     Public Function _PMOModificarRegistro() As Boolean
         Dim Res As Boolean
         Try
-            Res = ModificarContratos(tbCodigo.Text, PersonalId, cbTipoContrato.Value, cbCargo.Value, tbSalario.Value, tbFechaInicio.Value.ToString("dd/MM/yyyy"), tbFechaFin.Value.ToString("dd/MM/yyyy"), 1, IIf(swIndefinido.Value = True, 1, 0), dtdetalle:=Nothing)
+            Dim dt As New DataTable
+            dt = CType(grConceptos.DataSource, DataTable).DefaultView.ToTable(False, "Id", "ContratoId", "ConceptoId", "NombreConcepto", "PorcentajeConcepto", "estado")
+            Res = ModificarContratos(tbCodigo.Text, PersonalId, cbTipoContrato.Value, cbCargo.Value, tbSalario.Value, tbFechaInicio.Value.ToString("dd/MM/yyyy"), tbFechaFin.Value.ToString("dd/MM/yyyy"), 1, IIf(swIndefinido.Value = True, 1, 0), dt)
             If Res Then
 
                 ToastNotification.Show(Me, "Codigo de Contrato ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
@@ -512,10 +608,22 @@ Public Class Tec_Contratos
             cbCargo.BackColor = Color.White
             MEP.SetError(cbCargo, "")
         End If
-
+        If (tbFechaInicio.Value >= tbFechaFin.Value And swIndefinido.Value = False) Then
+            tbFechaFin.BackColor = Color.Red
+            MEP.SetError(tbFechaFin, "Fecha Finalizacion Debe Ser Menor a la Fecha de Inicio de Vigencia")
+            Mensaje = Mensaje + Chr(13) + Chr(10) + " Fecha Finalizacion Debe Ser Mayor a la Fecha de Inicio de Vigencia"
+            _ok = False
+        Else
+            tbFechaFin.BackColor = Color.White
+            MEP.SetError(tbFechaFin, "")
+        End If
 
         MHighlighterFocus.UpdateHighlights()
-
+        If (tbFechaInicio.Value >= tbFechaFin.Value And swIndefinido.Value = False) Then
+            tbFechaFin.Focus()
+            ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Return _ok
+        End If
         If PersonalId <= 0 Then
             tbPersonal.Focus()
             ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
@@ -551,11 +659,14 @@ Public Class Tec_Contratos
         listEstCeldas.Add(New Celda("NombrePersonal", True, "Nombre Personal", 200))
         listEstCeldas.Add(New Celda("TipoContratoID", False))
         listEstCeldas.Add(New Celda("TipoContratoDescripcion", True, "Tipo Contrato", 120))
+        listEstCeldas.Add(New Celda("img", True, "Estado", 90))
         listEstCeldas.Add(New Celda("Cargo", False))
         listEstCeldas.Add(New Celda("DescripcionCargo", True, "Cargo", 120))
-        listEstCeldas.Add(New Celda("SueldoBase", True, "Sueldo", 90))
-        listEstCeldas.Add(New Celda("InicioContrato", True, "Inicio", 100, "dd/MM/yyyy"))
-        listEstCeldas.Add(New Celda("FinContrato", True, "Inicio", 100, "dd/MM/yyyy"))
+        listEstCeldas.Add(New Celda("Antigüedad", True, "Antigüedad", 150))
+        listEstCeldas.Add(New Celda("SueldoBase", True, "Sueldo", 90, "0.00"))
+        listEstCeldas.Add(New Celda("InicioContrato", True, "Inicio", 80, "dd/MM/yyyy"))
+        listEstCeldas.Add(New Celda("FinContrato", False, "Fin", 80, "dd/MM/yyyy"))
+        listEstCeldas.Add(New Celda("FechaFin", True, "Fin", 80, "dd/MM/yyyy"))
         listEstCeldas.Add(New Celda("Estado", False))
         listEstCeldas.Add(New Celda("Indefinido", False))
 
@@ -589,7 +700,7 @@ Public Class Tec_Contratos
 
 
         End With
-
+        _prCargarTablaConceptos(tbCodigo.Text)
         LblPaginacion.Text = Str(_MPos + 1) + "/" + JGrM_Buscador.RowCount.ToString
 
     End Sub
@@ -664,11 +775,15 @@ Public Class Tec_Contratos
     End Sub
 
     Private Sub VerToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles VerToolStripMenuItem1.Click
+        If (JGrM_Buscador.Row >= 0) Then
 
+            TabControlPrincipal.SelectedTabIndex = 0
+        End If
     End Sub
 
     Private Sub EditarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditarToolStripMenuItem.Click
         If (JGrM_Buscador.Row >= 0) Then
+            TabControlPrincipal.SelectedTabIndex = 0
             btnModificar.PerformClick()
             tbPersonal.Focus()
         End If
@@ -739,6 +854,19 @@ Public Class Tec_Contratos
         End If
     End Sub
 
+    Public Function VerificarExisteContratoVigente(PersonalId As Integer) As Boolean
+        Dim dt As DataTable = CType(JGrM_Buscador.DataSource, DataTable)
+
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            ''20/01/2021   30/02/2021  
+            If (dt.Rows(i).Item("PersonalId") = PersonalId And tbFechaInicio.Value <= dt.Rows(i).Item("FinContrato")) Then
+                Return True
+            End If
+        Next
+
+        Return False
+    End Function
+
     Private Sub btnTipoContrato_Click(sender As Object, e As EventArgs) Handles btnTipoContrato.Click
         Dim numi As String = ""
         Dim ef = New Efecto
@@ -777,5 +905,99 @@ Public Class Tec_Contratos
         Me.Close()
     End Sub
 
+    Private Sub btnAgregarConceptoFijo_Click(sender As Object, e As EventArgs) Handles btnAgregarConceptoFijo.Click
+        Dim dt As DataTable
 
+        dt = ListaConceptosFijosContrato()
+
+        Dim concepto As DataTable = dt.Copy
+        concepto.Rows.Clear()
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+            Dim Existe As Boolean = False
+            Dim ConceptoId As Integer = dt.Rows(i).Item("id")
+            For j As Integer = 0 To CType(grConceptos.DataSource, DataTable).Rows.Count - 1 Step 1
+
+                If (dt.Rows(i).Item("id") = CType(grConceptos.DataSource, DataTable).Rows(j).Item("ConceptoId") And CType(grConceptos.DataSource, DataTable).Rows(j).Item("estado") >= 0) Then
+                    Existe = True
+                End If
+
+            Next
+            If (Existe = False) Then
+                concepto.ImportRow(dt.Rows(i))
+            End If
+
+        Next
+
+        'a.id,a.NombreConcepto ,a.Porcentaje
+
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("id,", True, "ID", 50))
+        listEstCeldas.Add(New Celda("NombreConcepto", True, "CONCEPTO", 350))
+        listEstCeldas.Add(New Celda("Porcentaje", True, "PORCENTAJE", 180, "0.00"))
+        Dim ef = New Efecto
+        ef.tipo = 6
+        ef.dt = concepto
+        ef.SeleclCol = 2
+        ef.listEstCeldasNew = listEstCeldas
+        ef.alto = 150
+        ef.ancho = 500
+        ef.Context = "Seleccione Conceptos Fijos".ToUpper
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+            Dim Bin As New MemoryStream
+            Dim img As New Bitmap(My.Resources.eliminar01, grConceptos.RootTable.Columns("Eliminar").Width - 20, 45)
+            img.Save(Bin, Imaging.ImageFormat.Png)
+            CType(grConceptos.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, Row.Cells("id").Value, Row.Cells("NombreConcepto").Value, Row.Cells("Porcentaje").Value, 0, Bin.GetBuffer)
+
+
+            btnAgregarConceptoFijo.Focus()
+
+        End If
+    End Sub
+    Public Function _GenerarId()
+        Dim dt As DataTable = CType(grConceptos.DataSource, DataTable)
+        Dim mayor As Integer = 0
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            Dim data As Integer = IIf(IsDBNull(CType(grConceptos.DataSource, DataTable).Rows(i).Item("Id")), 0, CType(grConceptos.DataSource, DataTable).Rows(i).Item("Id"))
+            If (data > mayor) Then
+                mayor = data
+
+            End If
+        Next
+        Return mayor
+    End Function
+    Public Function ObtenerPosicion(id As Integer) As Integer
+
+        Dim dt As DataTable = CType(grConceptos.DataSource, DataTable)
+
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+            If (dt.Rows(i).Item("id") = id) Then
+
+                Return i
+            End If
+        Next
+        Return -1
+    End Function
+    Private Sub grConceptos_Click(sender As Object, e As EventArgs) Handles grConceptos.Click
+        Try
+            If (grConceptos.RowCount >= 1 And grConceptos.Row >= 0) Then
+                If (grConceptos.CurrentColumn.Index = grConceptos.RootTable.Columns("Eliminar").Index) Then
+                    Dim posicion As Integer = -1
+                    posicion = ObtenerPosicion(grConceptos.GetValue("id"))
+                    CType(grConceptos.DataSource, DataTable).Rows(posicion).Item("estado") = -1
+                    grConceptos.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grConceptos.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
+
+                End If
+
+            End If
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
 End Class

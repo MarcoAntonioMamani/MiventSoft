@@ -52,7 +52,7 @@ Partial Class FormularioAyuda
         Me.Panel17.Location = New System.Drawing.Point(0, 0)
         Me.Panel17.Name = "Panel17"
         Me.Panel17.Padding = New System.Windows.Forms.Padding(5)
-        Me.Panel17.Size = New System.Drawing.Size(1049, 620)
+        Me.Panel17.Size = New System.Drawing.Size(1504, 729)
         Me.Panel17.TabIndex = 0
         '
         'Panel1
@@ -61,7 +61,7 @@ Partial Class FormularioAyuda
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(5, 105)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1039, 510)
+        Me.Panel1.Size = New System.Drawing.Size(1494, 619)
         Me.Panel1.TabIndex = 2
         '
         'grJBuscador
@@ -106,7 +106,7 @@ Partial Class FormularioAyuda
         Me.grJBuscador.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.grJBuscador.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grJBuscador.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grJBuscador.Size = New System.Drawing.Size(1039, 510)
+        Me.grJBuscador.Size = New System.Drawing.Size(1494, 619)
         Me.grJBuscador.TabIndex = 1
         Me.grJBuscador.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grJBuscador.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -125,7 +125,7 @@ Partial Class FormularioAyuda
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel4.Location = New System.Drawing.Point(5, 41)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(1039, 64)
+        Me.Panel4.Size = New System.Drawing.Size(1494, 64)
         Me.Panel4.TabIndex = 1
         '
         'lbNombreProductos
@@ -175,7 +175,7 @@ Partial Class FormularioAyuda
         Me.Panel14.Location = New System.Drawing.Point(5, 5)
         Me.Panel14.Name = "Panel14"
         Me.Panel14.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel14.Size = New System.Drawing.Size(1039, 36)
+        Me.Panel14.Size = New System.Drawing.Size(1494, 36)
         Me.Panel14.TabIndex = 3
         '
         'Panel15
@@ -187,7 +187,7 @@ Partial Class FormularioAyuda
         Me.Panel15.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel15.Location = New System.Drawing.Point(1, 1)
         Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(1037, 34)
+        Me.Panel15.Size = New System.Drawing.Size(1492, 34)
         Me.Panel15.TabIndex = 4
         '
         'lbTitulo
@@ -247,7 +247,7 @@ Partial Class FormularioAyuda
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1049, 620)
+        Me.ClientSize = New System.Drawing.Size(1504, 729)
         Me.Controls.Add(Me.Panel17)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "FormularioAyuda"

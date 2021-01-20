@@ -34,6 +34,9 @@ Partial Class Tec_Contratos
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.PanelImagenes = New System.Windows.Forms.Panel()
         Me.PanelVerImagen = New System.Windows.Forms.Panel()
+        Me.grConceptos = New Janus.Windows.GridEX.GridEX()
+        Me.panelConceptoFijo = New System.Windows.Forms.Panel()
+        Me.btnAgregarConceptoFijo = New DevComponents.DotNetBar.ButtonX()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.lbprivilegio = New System.Windows.Forms.Label()
@@ -86,6 +89,7 @@ Partial Class Tec_Contratos
         Me.JGrM_Buscador = New Janus.Windows.GridEX.GridEX()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
         Me.btnSi = New System.Windows.Forms.Panel()
         Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.Panel14 = New System.Windows.Forms.Panel()
@@ -100,7 +104,6 @@ Partial Class Tec_Contratos
         Me.EliminarToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -109,6 +112,9 @@ Partial Class Tec_Contratos
         Me.PanelRight.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.PanelImagenes.SuspendLayout()
+        Me.PanelVerImagen.SuspendLayout()
+        CType(Me.grConceptos, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.panelConceptoFijo.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.Panel6.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -161,7 +167,7 @@ Partial Class Tec_Contratos
         Me.TabControlPrincipal.ReorderTabsEnabled = True
         Me.TabControlPrincipal.SelectedTabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.SelectedTabIndex = 1
-        Me.TabControlPrincipal.Size = New System.Drawing.Size(1267, 671)
+        Me.TabControlPrincipal.Size = New System.Drawing.Size(1267, 681)
         Me.TabControlPrincipal.TabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Bottom
         Me.TabControlPrincipal.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.TabIndex = 2
@@ -177,7 +183,7 @@ Partial Class Tec_Contratos
         Me.SuperTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
-        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1267, 640)
+        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1267, 650)
         Me.SuperTabControlPanel1.TabIndex = 1
         Me.SuperTabControlPanel1.TabItem = Me.SuperTabItem1
         '
@@ -188,7 +194,7 @@ Partial Class Tec_Contratos
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1267, 640)
+        Me.Panel1.Size = New System.Drawing.Size(1267, 650)
         Me.Panel1.TabIndex = 0
         '
         'PanelSuperior
@@ -199,7 +205,7 @@ Partial Class Tec_Contratos
         Me.PanelSuperior.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelSuperior.Location = New System.Drawing.Point(0, 0)
         Me.PanelSuperior.Name = "PanelSuperior"
-        Me.PanelSuperior.Size = New System.Drawing.Size(1267, 580)
+        Me.PanelSuperior.Size = New System.Drawing.Size(1267, 590)
         Me.PanelSuperior.TabIndex = 1
         '
         'PanelRight
@@ -208,7 +214,7 @@ Partial Class Tec_Contratos
         Me.PanelRight.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelRight.Location = New System.Drawing.Point(623, 0)
         Me.PanelRight.Name = "PanelRight"
-        Me.PanelRight.Size = New System.Drawing.Size(644, 580)
+        Me.PanelRight.Size = New System.Drawing.Size(644, 590)
         Me.PanelRight.TabIndex = 5
         '
         'Panel2
@@ -220,7 +226,7 @@ Partial Class Tec_Contratos
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel2.Size = New System.Drawing.Size(644, 580)
+        Me.Panel2.Size = New System.Drawing.Size(644, 590)
         Me.Panel2.TabIndex = 1
         '
         'PanelImagenes
@@ -230,18 +236,102 @@ Partial Class Tec_Contratos
         Me.PanelImagenes.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelImagenes.Location = New System.Drawing.Point(3, 30)
         Me.PanelImagenes.Name = "PanelImagenes"
-        Me.PanelImagenes.Size = New System.Drawing.Size(638, 547)
+        Me.PanelImagenes.Size = New System.Drawing.Size(638, 557)
         Me.PanelImagenes.TabIndex = 2
         '
         'PanelVerImagen
         '
         Me.PanelVerImagen.BackColor = System.Drawing.Color.Transparent
+        Me.PanelVerImagen.Controls.Add(Me.grConceptos)
+        Me.PanelVerImagen.Controls.Add(Me.panelConceptoFijo)
         Me.PanelVerImagen.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelVerImagen.Location = New System.Drawing.Point(0, 0)
         Me.PanelVerImagen.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelVerImagen.Name = "PanelVerImagen"
-        Me.PanelVerImagen.Size = New System.Drawing.Size(638, 547)
+        Me.PanelVerImagen.Size = New System.Drawing.Size(638, 557)
         Me.PanelVerImagen.TabIndex = 2
+        '
+        'grConceptos
+        '
+        Me.grConceptos.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
+        Me.grConceptos.AlternatingColors = True
+        Me.grConceptos.BackColor = System.Drawing.Color.White
+        Me.grConceptos.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
+        Me.grConceptos.ColumnAutoResize = True
+        Me.grConceptos.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grConceptos.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None
+        Me.grConceptos.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
+        Me.grConceptos.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grConceptos.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grConceptos.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grConceptos.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
+        Me.grConceptos.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grConceptos.GridLines = Janus.Windows.GridEX.GridLines.None
+        Me.grConceptos.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
+        Me.grConceptos.HeaderFormatStyle.Alpha = 0
+        Me.grConceptos.HeaderFormatStyle.Appearance = Janus.Windows.GridEX.Appearance.Flat
+        Me.grConceptos.HeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
+        Me.grConceptos.HeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
+        Me.grConceptos.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
+        Me.grConceptos.HeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
+        Me.grConceptos.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grConceptos.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
+        Me.grConceptos.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
+        Me.grConceptos.Location = New System.Drawing.Point(0, 85)
+        Me.grConceptos.Margin = New System.Windows.Forms.Padding(4)
+        Me.grConceptos.Name = "grConceptos"
+        Me.grConceptos.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.grConceptos.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.grConceptos.RecordNavigator = True
+        Me.grConceptos.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grConceptos.RowHeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
+        Me.grConceptos.RowHeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.Transparent
+        Me.grConceptos.RowHeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
+        Me.grConceptos.RowHeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
+        Me.grConceptos.RowHeaderFormatStyle.BackgroundImageDrawMode = Janus.Windows.GridEX.BackgroundImageDrawMode.Center
+        Me.grConceptos.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grConceptos.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.grConceptos.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
+        Me.grConceptos.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grConceptos.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
+        Me.grConceptos.Size = New System.Drawing.Size(638, 472)
+        Me.grConceptos.TabIndex = 3
+        Me.grConceptos.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
+        Me.grConceptos.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grConceptos.TableSpacing = 9
+        Me.grConceptos.TreeLineColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.grConceptos.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.grConceptos.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.grConceptos.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.VS2005
+        '
+        'panelConceptoFijo
+        '
+        Me.panelConceptoFijo.Controls.Add(Me.btnAgregarConceptoFijo)
+        Me.panelConceptoFijo.Dock = System.Windows.Forms.DockStyle.Top
+        Me.panelConceptoFijo.Location = New System.Drawing.Point(0, 0)
+        Me.panelConceptoFijo.Name = "panelConceptoFijo"
+        Me.panelConceptoFijo.Size = New System.Drawing.Size(638, 85)
+        Me.panelConceptoFijo.TabIndex = 0
+        '
+        'btnAgregarConceptoFijo
+        '
+        Me.btnAgregarConceptoFijo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnAgregarConceptoFijo.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnAgregarConceptoFijo.Font = New System.Drawing.Font("Calibri", 10.8!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnAgregarConceptoFijo.Image = Global.TeVendo.My.Resources.Resources.search
+        Me.btnAgregarConceptoFijo.ImageFixedSize = New System.Drawing.Size(28, 28)
+        Me.btnAgregarConceptoFijo.Location = New System.Drawing.Point(264, 16)
+        Me.btnAgregarConceptoFijo.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnAgregarConceptoFijo.Name = "btnAgregarConceptoFijo"
+        Me.btnAgregarConceptoFijo.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
+        Me.btnAgregarConceptoFijo.Size = New System.Drawing.Size(254, 53)
+        Me.btnAgregarConceptoFijo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnAgregarConceptoFijo.Symbol = "57670"
+        Me.btnAgregarConceptoFijo.SymbolColor = System.Drawing.Color.MediumTurquoise
+        Me.btnAgregarConceptoFijo.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Material
+        Me.btnAgregarConceptoFijo.SymbolSize = 30.0!
+        Me.btnAgregarConceptoFijo.TabIndex = 4
+        Me.btnAgregarConceptoFijo.Text = "Agregar Concepto Fijo"
         '
         'Panel5
         '
@@ -306,7 +396,7 @@ Partial Class Tec_Contratos
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel13.Location = New System.Drawing.Point(613, 0)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(10, 580)
+        Me.Panel13.Size = New System.Drawing.Size(10, 590)
         Me.Panel13.TabIndex = 4
         '
         'PanelLEft
@@ -315,7 +405,7 @@ Partial Class Tec_Contratos
         Me.PanelLEft.Dock = System.Windows.Forms.DockStyle.Left
         Me.PanelLEft.Location = New System.Drawing.Point(0, 0)
         Me.PanelLEft.Name = "PanelLEft"
-        Me.PanelLEft.Size = New System.Drawing.Size(613, 580)
+        Me.PanelLEft.Size = New System.Drawing.Size(613, 590)
         Me.PanelLEft.TabIndex = 0
         '
         'Panel8
@@ -327,7 +417,7 @@ Partial Class Tec_Contratos
         Me.Panel8.Location = New System.Drawing.Point(0, 0)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel8.Size = New System.Drawing.Size(613, 580)
+        Me.Panel8.Size = New System.Drawing.Size(613, 590)
         Me.Panel8.TabIndex = 1
         '
         'Panel9
@@ -355,7 +445,7 @@ Partial Class Tec_Contratos
         Me.Panel9.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel9.Location = New System.Drawing.Point(3, 30)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(607, 547)
+        Me.Panel9.Size = New System.Drawing.Size(607, 557)
         Me.Panel9.TabIndex = 2
         '
         'cbCargo
@@ -811,7 +901,7 @@ Partial Class Tec_Contratos
         Me.PanelButton.Controls.Add(Me.PanelToolBar1)
         Me.PanelButton.Controls.Add(Me.PanelNavegacion)
         Me.PanelButton.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PanelButton.Location = New System.Drawing.Point(0, 580)
+        Me.PanelButton.Location = New System.Drawing.Point(0, 590)
         Me.PanelButton.Name = "PanelButton"
         Me.PanelButton.Size = New System.Drawing.Size(1267, 60)
         Me.PanelButton.TabIndex = 10
@@ -1024,7 +1114,7 @@ Partial Class Tec_Contratos
         Me.SuperTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel2.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel2.Name = "SuperTabControlPanel2"
-        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1267, 640)
+        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1267, 650)
         Me.SuperTabControlPanel2.TabIndex = 2
         Me.SuperTabControlPanel2.TabItem = Me.SuperTabItem2
         '
@@ -1037,7 +1127,7 @@ Partial Class Tec_Contratos
         Me.Panel17.Location = New System.Drawing.Point(0, 0)
         Me.Panel17.Name = "Panel17"
         Me.Panel17.Padding = New System.Windows.Forms.Padding(5)
-        Me.Panel17.Size = New System.Drawing.Size(1267, 640)
+        Me.Panel17.Size = New System.Drawing.Size(1267, 650)
         Me.Panel17.TabIndex = 4
         '
         'JGrM_Buscador
@@ -1047,6 +1137,7 @@ Partial Class Tec_Contratos
         Me.JGrM_Buscador.BackColor = System.Drawing.Color.White
         Me.JGrM_Buscador.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
         Me.JGrM_Buscador.ColumnAutoResize = True
+        Me.JGrM_Buscador.ContextMenuStrip = Me.MeuOpciones
         Me.JGrM_Buscador.Dock = System.Windows.Forms.DockStyle.Fill
         Me.JGrM_Buscador.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None
         Me.JGrM_Buscador.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
@@ -1083,7 +1174,7 @@ Partial Class Tec_Contratos
         Me.JGrM_Buscador.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.JGrM_Buscador.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.JGrM_Buscador.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.JGrM_Buscador.Size = New System.Drawing.Size(1257, 530)
+        Me.JGrM_Buscador.Size = New System.Drawing.Size(1257, 540)
         Me.JGrM_Buscador.TabIndex = 2
         Me.JGrM_Buscador.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.JGrM_Buscador.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -1119,6 +1210,24 @@ Partial Class Tec_Contratos
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(1257, 64)
         Me.TableLayoutPanel1.TabIndex = 5
+        '
+        'ButtonX2
+        '
+        Me.ButtonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX2.BackColor = System.Drawing.Color.FromArgb(CType(CType(217, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(79, Byte), Integer))
+        Me.ButtonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.ButtonX2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ButtonX2.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX2.Image = Global.TeVendo.My.Resources.Resources.atras
+        Me.ButtonX2.ImageFixedSize = New System.Drawing.Size(30, 30)
+        Me.ButtonX2.Location = New System.Drawing.Point(1085, 13)
+        Me.ButtonX2.Name = "ButtonX2"
+        Me.ButtonX2.Size = New System.Drawing.Size(164, 43)
+        Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
+        Me.ButtonX2.Symbol = ""
+        Me.ButtonX2.TabIndex = 62
+        Me.ButtonX2.Text = "Salir"
+        Me.ButtonX2.TextColor = System.Drawing.Color.White
         '
         'btnSi
         '
@@ -1262,29 +1371,11 @@ Partial Class Tec_Contratos
         '
         Me.MEP.ContainerControl = Me
         '
-        'ButtonX2
-        '
-        Me.ButtonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX2.BackColor = System.Drawing.Color.FromArgb(CType(CType(217, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(79, Byte), Integer))
-        Me.ButtonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.ButtonX2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ButtonX2.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX2.Image = Global.TeVendo.My.Resources.Resources.atras
-        Me.ButtonX2.ImageFixedSize = New System.Drawing.Size(30, 30)
-        Me.ButtonX2.Location = New System.Drawing.Point(1085, 13)
-        Me.ButtonX2.Name = "ButtonX2"
-        Me.ButtonX2.Size = New System.Drawing.Size(164, 43)
-        Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
-        Me.ButtonX2.Symbol = ""
-        Me.ButtonX2.TabIndex = 62
-        Me.ButtonX2.Text = "Salir"
-        Me.ButtonX2.TextColor = System.Drawing.Color.White
-        '
         'Tec_Contratos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1267, 671)
+        Me.ClientSize = New System.Drawing.Size(1267, 681)
         Me.Controls.Add(Me.TabControlPrincipal)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Tec_Contratos"
@@ -1297,6 +1388,9 @@ Partial Class Tec_Contratos
         Me.PanelRight.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.PanelImagenes.ResumeLayout(False)
+        Me.PanelVerImagen.ResumeLayout(False)
+        CType(Me.grConceptos, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.panelConceptoFijo.ResumeLayout(False)
         Me.Panel5.ResumeLayout(False)
         Me.Panel6.ResumeLayout(False)
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1403,4 +1497,7 @@ Partial Class Tec_Contratos
     Friend WithEvents cbTipoContrato As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents cbCargo As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents ButtonX2 As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents panelConceptoFijo As Panel
+    Friend WithEvents grConceptos As Janus.Windows.GridEX.GridEX
+    Friend WithEvents btnAgregarConceptoFijo As DevComponents.DotNetBar.ButtonX
 End Class

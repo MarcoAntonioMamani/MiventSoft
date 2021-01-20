@@ -273,6 +273,31 @@ Public Class AccesoLogica
 #End Region
 
 #Region "Contratos Tec"
+
+    Public Shared Function ListaConceptosContratos(ContratoId As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@id", ContratoId))
+        _Tabla = D_ProcedimientoConParam("MAM_Contratos", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function ListaConceptosFijosContrato() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_Contratos", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function InsertarContratos(_Id As String, PersonalId As Integer, TipoContratoId As Integer, Cargo As Integer, SueldoBase As Double, InicioContrato As String, FinContrato As String, Estado As Integer, Indefinido As Integer, dtdetalle As DataTable) As Boolean
         Dim _Tabla As DataTable
         Dim _resultado As Boolean

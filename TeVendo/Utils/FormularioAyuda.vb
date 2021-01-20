@@ -28,7 +28,7 @@ Public Class FormularioAyuda
 
         ' Add any initialization after the InitializeComponent() call.
         Me.StartPosition = FormStartPosition.CenterScreen
-        Me.Location = New Point(posX, posY)
+        'Me.Location = New Point(posX, posY)
         lbTitulo.Text = titulo
 
         listEstrucGrilla = listEst
