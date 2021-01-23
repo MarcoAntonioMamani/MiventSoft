@@ -1471,10 +1471,11 @@ Public Class AccesoLogica
 
         _Tabla = D_ProcedimientoConParam("MAM_Productos", _listParam)
 
-        If _Tabla.Rows.Count > 0 Then
+        If _Tabla.Rows.Count > 0 And _Tabla.Rows(0).Item(0) >= 0 Then
             _resultado = True
 
         Else
+            _mensaje = _Tabla.Rows(0).Item(1)
             _resultado = False
         End If
 
