@@ -26,7 +26,7 @@ Public Class Tec_AdministrarCuentasPorCobrar
 
 
         End If
-
+        Me.Text = "Administrar Cuentas por Cobrar"
         tbFechaTransaccion.Value = Now.Date
     End Sub
 

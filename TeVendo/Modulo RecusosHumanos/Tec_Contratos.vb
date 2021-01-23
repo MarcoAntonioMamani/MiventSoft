@@ -272,7 +272,7 @@ Public Class Tec_Contratos
     Private Sub _prIniciarTodo()
         'L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
 
-        Me.Text = "Gestion De Personal"
+        Me.Text = "Gestion De Contratos"
         P_Global._prCargarComboGenerico(cbTipoContrato, L_prLibreriaDetalleGeneral(10), "cnnum", "Codigo", "cndesc1", "TipoDocumento")
 
 

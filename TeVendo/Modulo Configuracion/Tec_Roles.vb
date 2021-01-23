@@ -305,7 +305,7 @@ Public Class Tec_Roles
     Private Sub _prCargarGridModulos()
         Dim dt As New DataTable
         dt = L_prLibreriaDetalleGeneral(1)
-
+        dt.DefaultView.Table.DefaultView.Sort = "cnnum asc"
         grModulos.DataSource = dt
         grModulos.RetrieveStructure()
 

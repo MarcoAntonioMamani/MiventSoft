@@ -500,15 +500,15 @@ Public Class Tec_Personal
             cbEmpresa.BackColor = Color.White
             MEP.SetError(cbEmpresa, "")
         End If
-        If (cbTipoPersonal.SelectedIndex < 0) Then
-            cbTipoPersonal.BackColor = Color.Red
-            MEP.SetError(cbTipoPersonal, "Seleccione un Tipo Personal")
-            Mensaje = Mensaje + Chr(13) + Chr(10) + " Tipo Personal"
-            _ok = False
-        Else
-            cbTipoPersonal.BackColor = Color.White
-            MEP.SetError(cbTipoPersonal, "")
-        End If
+        'If (cbTipoPersonal.SelectedIndex < 0) Then
+        '    cbTipoPersonal.BackColor = Color.Red
+        '    MEP.SetError(cbTipoPersonal, "Seleccione un Tipo Personal")
+        '    Mensaje = Mensaje + Chr(13) + Chr(10) + " Tipo Personal"
+        '    _ok = False
+        'Else
+        '    cbTipoPersonal.BackColor = Color.White
+        '    MEP.SetError(cbTipoPersonal, "")
+        'End If
 
         If (cbTipoDocumento.SelectedIndex < 0) Then
             cbTipoDocumento.BackColor = Color.Red
@@ -531,11 +531,11 @@ Public Class Tec_Personal
             cbEmpresa.Focus()
             Return _ok
         End If
-        If (cbTipoPersonal.SelectedIndex < 0) Then
-            ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-            cbTipoPersonal.Focus()
-            Return _ok
-        End If
+        'If (cbTipoPersonal.SelectedIndex < 0) Then
+        '    ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+        '    cbTipoPersonal.Focus()
+        '    Return _ok
+        'End If
         If (cbTipoDocumento.SelectedIndex < 0) Then
             ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
             cbTipoDocumento.Focus()
