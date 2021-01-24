@@ -206,4 +206,10 @@ Public Class Tec_RegistrarPersonalAPlanilla
 
 
     End Sub
+
+    Private Sub ButtonX2_Click_1(sender As Object, e As EventArgs) Handles ButtonX2.Click
+        _TabControl.SelectedTab = _modulo
+        _tab.Close()
+        Me.Close()
+    End Sub
 End Class

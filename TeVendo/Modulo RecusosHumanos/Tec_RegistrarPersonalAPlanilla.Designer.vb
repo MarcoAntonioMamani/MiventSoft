@@ -41,6 +41,7 @@ Partial Class Tec_RegistrarPersonalAPlanilla
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Panel16 = New System.Windows.Forms.Panel()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
+        Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
         Me.Panel17.SuspendLayout()
         CType(Me.grContrato, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel4.SuspendLayout()
@@ -120,6 +121,7 @@ Partial Class Tec_RegistrarPersonalAPlanilla
         'Panel4
         '
         Me.Panel4.BackColor = System.Drawing.Color.White
+        Me.Panel4.Controls.Add(Me.ButtonX2)
         Me.Panel4.Controls.Add(Me.btnAnio)
         Me.Panel4.Controls.Add(Me.btnRegistrarPlanilla)
         Me.Panel4.Controls.Add(Me.Panel1)
@@ -168,7 +170,7 @@ Partial Class Tec_RegistrarPersonalAPlanilla
         '
         'Panel1
         '
-        Me.Panel1.BackColor = System.Drawing.Color.DarkTurquoise
+        Me.Panel1.BackColor = System.Drawing.Color.DarkSlateGray
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Panel1.Location = New System.Drawing.Point(0, 163)
@@ -331,6 +333,23 @@ Partial Class Tec_RegistrarPersonalAPlanilla
         Me.PictureBox4.TabIndex = 0
         Me.PictureBox4.TabStop = False
         '
+        'ButtonX2
+        '
+        Me.ButtonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX2.BackColor = System.Drawing.Color.FromArgb(CType(CType(217, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(79, Byte), Integer))
+        Me.ButtonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.ButtonX2.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX2.Image = Global.TeVendo.My.Resources.Resources.atras
+        Me.ButtonX2.ImageFixedSize = New System.Drawing.Size(30, 30)
+        Me.ButtonX2.Location = New System.Drawing.Point(501, 90)
+        Me.ButtonX2.Name = "ButtonX2"
+        Me.ButtonX2.Size = New System.Drawing.Size(164, 43)
+        Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
+        Me.ButtonX2.Symbol = ""
+        Me.ButtonX2.TabIndex = 65
+        Me.ButtonX2.Text = "Salir"
+        Me.ButtonX2.TextColor = System.Drawing.Color.White
+        '
         'Tec_RegistrarPersonalAPlanilla
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -370,4 +389,5 @@ Partial Class Tec_RegistrarPersonalAPlanilla
     Friend WithEvents Label1 As Label
     Friend WithEvents btnRegistrarPlanilla As DevComponents.DotNetBar.ButtonX
     Friend WithEvents btnAnio As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents ButtonX2 As DevComponents.DotNetBar.ButtonX
 End Class
