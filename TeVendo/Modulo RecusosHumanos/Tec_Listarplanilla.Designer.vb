@@ -31,30 +31,30 @@ Partial Class Tec_Listarplanilla
         Me.Panel15 = New System.Windows.Forms.Panel()
         Me.lbTitulo = New System.Windows.Forms.Label()
         Me.Panel16 = New System.Windows.Forms.Panel()
-        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.cbMes = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.cbAnio = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.LabelX7 = New DevComponents.DotNetBar.LabelX()
-        Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
         Me.chktodos = New System.Windows.Forms.CheckBox()
         Me.grplanilla = New Janus.Windows.GridEX.GridEX()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
+        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         Me.PanelCabecera.SuspendLayout()
         Me.PanelDetalle.SuspendLayout()
         Me.Panel14.SuspendLayout()
         Me.Panel15.SuspendLayout()
-        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbMes, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbAnio, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grplanilla, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PanelCabecera
@@ -70,7 +70,7 @@ Partial Class Tec_Listarplanilla
         Me.PanelCabecera.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelCabecera.Location = New System.Drawing.Point(0, 0)
         Me.PanelCabecera.Name = "PanelCabecera"
-        Me.PanelCabecera.Size = New System.Drawing.Size(1055, 189)
+        Me.PanelCabecera.Size = New System.Drawing.Size(1388, 120)
         Me.PanelCabecera.TabIndex = 0
         '
         'PanelDetalle
@@ -79,9 +79,9 @@ Partial Class Tec_Listarplanilla
         Me.PanelDetalle.Controls.Add(Me.grplanilla)
         Me.PanelDetalle.Controls.Add(Me.Panel1)
         Me.PanelDetalle.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelDetalle.Location = New System.Drawing.Point(0, 189)
+        Me.PanelDetalle.Location = New System.Drawing.Point(0, 120)
         Me.PanelDetalle.Name = "PanelDetalle"
-        Me.PanelDetalle.Size = New System.Drawing.Size(1055, 252)
+        Me.PanelDetalle.Size = New System.Drawing.Size(1388, 321)
         Me.PanelDetalle.TabIndex = 1
         '
         'Panel14
@@ -92,7 +92,7 @@ Partial Class Tec_Listarplanilla
         Me.Panel14.Location = New System.Drawing.Point(0, 0)
         Me.Panel14.Name = "Panel14"
         Me.Panel14.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel14.Size = New System.Drawing.Size(1055, 36)
+        Me.Panel14.Size = New System.Drawing.Size(1388, 36)
         Me.Panel14.TabIndex = 5
         '
         'Panel15
@@ -104,7 +104,7 @@ Partial Class Tec_Listarplanilla
         Me.Panel15.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel15.Location = New System.Drawing.Point(1, 1)
         Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(1053, 34)
+        Me.Panel15.Size = New System.Drawing.Size(1386, 34)
         Me.Panel15.TabIndex = 4
         '
         'lbTitulo
@@ -116,7 +116,7 @@ Partial Class Tec_Listarplanilla
         Me.lbTitulo.Location = New System.Drawing.Point(59, 0)
         Me.lbTitulo.Name = "lbTitulo"
         Me.lbTitulo.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
-        Me.lbTitulo.Size = New System.Drawing.Size(994, 34)
+        Me.lbTitulo.Size = New System.Drawing.Size(1327, 34)
         Me.lbTitulo.TabIndex = 10
         Me.lbTitulo.Text = "BUSCAR PLANILLA"
         Me.lbTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -130,19 +130,6 @@ Partial Class Tec_Listarplanilla
         Me.Panel16.Size = New System.Drawing.Size(1, 34)
         Me.Panel16.TabIndex = 11
         '
-        'PictureBox4
-        '
-        Me.PictureBox4.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.PictureBox4.Dock = System.Windows.Forms.DockStyle.Left
-        Me.PictureBox4.Image = Global.TeVendo.My.Resources.Resources.tec_triangulo_blanco
-        Me.PictureBox4.Location = New System.Drawing.Point(0, 0)
-        Me.PictureBox4.Name = "PictureBox4"
-        Me.PictureBox4.Padding = New System.Windows.Forms.Padding(15, 5, 15, 5)
-        Me.PictureBox4.Size = New System.Drawing.Size(58, 34)
-        Me.PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox4.TabIndex = 0
-        Me.PictureBox4.TabStop = False
-        '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(170, Byte), Integer))
@@ -151,7 +138,7 @@ Partial Class Tec_Listarplanilla
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel1.Size = New System.Drawing.Size(1055, 36)
+        Me.Panel1.Size = New System.Drawing.Size(1388, 36)
         Me.Panel1.TabIndex = 5
         '
         'Panel2
@@ -163,7 +150,7 @@ Partial Class Tec_Listarplanilla
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(1, 1)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1053, 34)
+        Me.Panel2.Size = New System.Drawing.Size(1386, 34)
         Me.Panel2.TabIndex = 4
         '
         'Label1
@@ -175,7 +162,7 @@ Partial Class Tec_Listarplanilla
         Me.Label1.Location = New System.Drawing.Point(59, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
-        Me.Label1.Size = New System.Drawing.Size(994, 34)
+        Me.Label1.Size = New System.Drawing.Size(1327, 34)
         Me.Label1.TabIndex = 10
         Me.Label1.Text = "LISTADO CONTRATOS PLANILLA"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -188,19 +175,6 @@ Partial Class Tec_Listarplanilla
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(1, 34)
         Me.Panel3.TabIndex = 11
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Left
-        Me.PictureBox1.Image = Global.TeVendo.My.Resources.Resources.tec_triangulo_blanco
-        Me.PictureBox1.Location = New System.Drawing.Point(0, 0)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Padding = New System.Windows.Forms.Padding(15, 5, 15, 5)
-        Me.PictureBox1.Size = New System.Drawing.Size(58, 34)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 0
-        Me.PictureBox1.TabStop = False
         '
         'cbMes
         '
@@ -215,14 +189,14 @@ Partial Class Tec_Listarplanilla
         Me.cbMes.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbMes.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
         Me.cbMes.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.cbMes.Location = New System.Drawing.Point(445, 82)
+        Me.cbMes.Location = New System.Drawing.Point(295, 82)
         Me.cbMes.Margin = New System.Windows.Forms.Padding(4)
         Me.cbMes.Name = "cbMes"
         Me.cbMes.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.cbMes.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
         Me.cbMes.SelectedIndex = -1
         Me.cbMes.SelectedItem = Nothing
-        Me.cbMes.Size = New System.Drawing.Size(399, 28)
+        Me.cbMes.Size = New System.Drawing.Size(262, 28)
         Me.cbMes.TabIndex = 67
         Me.cbMes.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -236,7 +210,7 @@ Partial Class Tec_Listarplanilla
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX1.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX1.Location = New System.Drawing.Point(445, 52)
+        Me.LabelX1.Location = New System.Drawing.Point(295, 52)
         Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
@@ -264,7 +238,7 @@ Partial Class Tec_Listarplanilla
         Me.cbAnio.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
         Me.cbAnio.SelectedIndex = -1
         Me.cbAnio.SelectedItem = Nothing
-        Me.cbAnio.Size = New System.Drawing.Size(399, 28)
+        Me.cbAnio.Size = New System.Drawing.Size(262, 28)
         Me.cbAnio.TabIndex = 65
         Me.cbAnio.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -286,23 +260,6 @@ Partial Class Tec_Listarplanilla
         Me.LabelX7.TabIndex = 66
         Me.LabelX7.Text = "Año:"
         '
-        'ButtonX2
-        '
-        Me.ButtonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX2.BackColor = System.Drawing.Color.FromArgb(CType(CType(217, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(79, Byte), Integer))
-        Me.ButtonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.ButtonX2.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX2.Image = Global.TeVendo.My.Resources.Resources.atras
-        Me.ButtonX2.ImageFixedSize = New System.Drawing.Size(30, 30)
-        Me.ButtonX2.Location = New System.Drawing.Point(445, 128)
-        Me.ButtonX2.Name = "ButtonX2"
-        Me.ButtonX2.Size = New System.Drawing.Size(164, 43)
-        Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
-        Me.ButtonX2.Symbol = ""
-        Me.ButtonX2.TabIndex = 69
-        Me.ButtonX2.Text = "Salir"
-        Me.ButtonX2.TextColor = System.Drawing.Color.White
-        '
         'chktodos
         '
         Me.chktodos.AutoSize = True
@@ -310,7 +267,7 @@ Partial Class Tec_Listarplanilla
         Me.chktodos.FlatAppearance.BorderColor = System.Drawing.Color.DarkCyan
         Me.chktodos.FlatAppearance.BorderSize = 3
         Me.chktodos.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chktodos.Location = New System.Drawing.Point(25, 128)
+        Me.chktodos.Location = New System.Drawing.Point(586, 82)
         Me.chktodos.Name = "chktodos"
         Me.chktodos.Size = New System.Drawing.Size(101, 25)
         Me.chktodos.TabIndex = 70
@@ -331,7 +288,7 @@ Partial Class Tec_Listarplanilla
         Me.grplanilla.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
         Me.grplanilla.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
         Me.grplanilla.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
-        Me.grplanilla.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grplanilla.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grplanilla.GridLines = Janus.Windows.GridEX.GridLines.None
         Me.grplanilla.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
         Me.grplanilla.HeaderFormatStyle.Alpha = 0
@@ -349,7 +306,7 @@ Partial Class Tec_Listarplanilla
         Me.grplanilla.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.grplanilla.Office2007CustomColor = System.Drawing.Color.DodgerBlue
         Me.grplanilla.RecordNavigator = True
-        Me.grplanilla.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grplanilla.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grplanilla.RowHeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
         Me.grplanilla.RowHeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.Transparent
         Me.grplanilla.RowHeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
@@ -360,7 +317,7 @@ Partial Class Tec_Listarplanilla
         Me.grplanilla.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.grplanilla.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grplanilla.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grplanilla.Size = New System.Drawing.Size(1055, 216)
+        Me.grplanilla.Size = New System.Drawing.Size(1388, 285)
         Me.grplanilla.TabIndex = 6
         Me.grplanilla.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grplanilla.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -370,11 +327,54 @@ Partial Class Tec_Listarplanilla
         Me.grplanilla.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         Me.grplanilla.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.VS2005
         '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Left
+        Me.PictureBox1.Image = Global.TeVendo.My.Resources.Resources.tec_triangulo_blanco
+        Me.PictureBox1.Location = New System.Drawing.Point(0, 0)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Padding = New System.Windows.Forms.Padding(15, 5, 15, 5)
+        Me.PictureBox1.Size = New System.Drawing.Size(58, 34)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 0
+        Me.PictureBox1.TabStop = False
+        '
+        'ButtonX2
+        '
+        Me.ButtonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX2.BackColor = System.Drawing.Color.FromArgb(CType(CType(217, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(79, Byte), Integer))
+        Me.ButtonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.ButtonX2.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX2.Image = Global.TeVendo.My.Resources.Resources.atras
+        Me.ButtonX2.ImageFixedSize = New System.Drawing.Size(30, 30)
+        Me.ButtonX2.Location = New System.Drawing.Point(693, 67)
+        Me.ButtonX2.Name = "ButtonX2"
+        Me.ButtonX2.Size = New System.Drawing.Size(164, 43)
+        Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
+        Me.ButtonX2.Symbol = ""
+        Me.ButtonX2.TabIndex = 69
+        Me.ButtonX2.Text = "Salir"
+        Me.ButtonX2.TextColor = System.Drawing.Color.White
+        '
+        'PictureBox4
+        '
+        Me.PictureBox4.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.PictureBox4.Dock = System.Windows.Forms.DockStyle.Left
+        Me.PictureBox4.Image = Global.TeVendo.My.Resources.Resources.tec_triangulo_blanco
+        Me.PictureBox4.Location = New System.Drawing.Point(0, 0)
+        Me.PictureBox4.Name = "PictureBox4"
+        Me.PictureBox4.Padding = New System.Windows.Forms.Padding(15, 5, 15, 5)
+        Me.PictureBox4.Size = New System.Drawing.Size(58, 34)
+        Me.PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox4.TabIndex = 0
+        Me.PictureBox4.TabStop = False
+        '
         'Tec_Listarplanilla
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1055, 441)
+        Me.ClientSize = New System.Drawing.Size(1388, 441)
         Me.Controls.Add(Me.PanelDetalle)
         Me.Controls.Add(Me.PanelCabecera)
         Me.Name = "Tec_Listarplanilla"
@@ -384,13 +384,13 @@ Partial Class Tec_Listarplanilla
         Me.PanelDetalle.ResumeLayout(False)
         Me.Panel14.ResumeLayout(False)
         Me.Panel15.ResumeLayout(False)
-        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbMes, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbAnio, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grplanilla, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

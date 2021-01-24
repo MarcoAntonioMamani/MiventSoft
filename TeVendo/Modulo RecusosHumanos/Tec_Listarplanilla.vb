@@ -121,6 +121,9 @@ Public Class Tec_Listarplanilla
             .Width = 90
             .Visible = True
             .Caption = "C.Variable"
+            .LeftMargin = 10
+            .TopMargin = 10
+            .BottomMargin = 10
         End With
         With grplanilla.RootTable.Columns("SueldoNeto")
             .Width = 100
@@ -154,7 +157,32 @@ Public Class Tec_Listarplanilla
 
         End With
 
+        CargarIconos()
 
+    End Sub
+
+    Public Sub CargarIconos()
+        Dim BinCFijos As New MemoryStream
+        Dim imgCFijos As New Bitmap(My.Resources.cfijos, 40, 35)
+        imgCFijos.Save(BinCFijos, Imaging.ImageFormat.Png)
+
+        Dim BinCVariable As New MemoryStream
+        Dim imgCVariable As New Bitmap(My.Resources.cvariables, 40, 35)
+        imgCVariable.Save(BinCVariable, Imaging.ImageFormat.Png)
+
+        Dim BinReporte As New MemoryStream
+        Dim imgReporte As New Bitmap(My.Resources.printerplanilla, 40, 35)
+        imgReporte.Save(BinReporte, Imaging.ImageFormat.Png)
+
+        Dim dt As DataTable = CType(grplanilla.DataSource, DataTable)
+        Dim n As Integer = dt.Rows.Count
+        For i As Integer = 0 To n - 1 Step 1
+
+
+            CType(grplanilla.DataSource, DataTable).Rows(i).Item("ConceptoFijos") = BinCFijos.GetBuffer
+            CType(grplanilla.DataSource, DataTable).Rows(i).Item("ConceptoVariable") = BinCVariable.GetBuffer
+            CType(grplanilla.DataSource, DataTable).Rows(i).Item("Reporte") = BinReporte.GetBuffer
+        Next
 
     End Sub
     Public Function ObtenerFilaMes(Mes As String)
@@ -183,9 +211,15 @@ Public Class Tec_Listarplanilla
         If (chktodos.Checked = True) Then
             cbAnio.Enabled = False
             cbMes.Enabled = False
+            If (banderaGrilla = True) Then
+                _prCargarTablaPlanilla()
+            End If
         Else
             cbAnio.Enabled = True
             cbMes.Enabled = True
+            If (banderaGrilla = True) Then
+                _prCargarTablaPlanilla()
+            End If
         End If
     End Sub
 

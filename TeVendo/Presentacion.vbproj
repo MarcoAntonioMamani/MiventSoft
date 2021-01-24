@@ -1089,6 +1089,7 @@
     <None Include="Resources\trash.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\printerplanilla.png" />
     <None Include="Resources\seleccionar.jpg" />
     <None Include="Resources\seleccionar2.jpg" />
     <None Include="Resources\monitoreo.png" />
@@ -1131,6 +1132,7 @@
     <None Include="Resources\back-1.png" />
     <None Include="Resources\camera.png" />
     <None Include="Resources\caja.png" />
+    <None Include="Resources\cfijos.png" />
     <Content Include="Resources\check-mark.png" />
     <None Include="Resources\cobro.png" />
     <None Include="Resources\creditopagos.png" />
@@ -1143,6 +1145,7 @@
     <None Include="Resources\creditopagados.png" />
     <None Include="Resources\creditospagados.png" />
     <None Include="Resources\cobros.png" />
+    <None Include="Resources\cvariables.png" />
     <Content Include="Resources\dinases.png" />
     <None Include="Resources\MapaClientes.png" />
     <None Include="Resources\ventasCostos.png" />

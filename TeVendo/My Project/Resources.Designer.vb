@@ -223,6 +223,16 @@ Namespace My.Resources
         '''<summary>
         '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property cfijos() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("cfijos", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property check_mark() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("check_mark", resourceCulture)
@@ -336,6 +346,16 @@ Namespace My.Resources
         Friend ReadOnly Property cuestion() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("cuestion", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property cvariables() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("cvariables", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -1086,6 +1106,16 @@ Namespace My.Resources
         Friend ReadOnly Property printee() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("printee", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property printerplanilla() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("printerplanilla", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
