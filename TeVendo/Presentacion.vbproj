@@ -376,6 +376,12 @@
     <Compile Include="Modulo RecusosHumanos\Tec_Contratos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modulo RecusosHumanos\Tec_Listarplanilla.Designer.vb">
+      <DependentUpon>Tec_Listarplanilla.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo RecusosHumanos\Tec_Listarplanilla.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Modulo RecusosHumanos\Tec_RegistrarPersonalAPlanilla.Designer.vb">
       <DependentUpon>Tec_RegistrarPersonalAPlanilla.vb</DependentUpon>
     </Compile>
@@ -683,6 +689,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo RecusosHumanos\Tec_Contratos.resx">
       <DependentUpon>Tec_Contratos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo RecusosHumanos\Tec_Listarplanilla.resx">
+      <DependentUpon>Tec_Listarplanilla.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo RecusosHumanos\Tec_RegistrarPersonalAPlanilla.resx">
       <DependentUpon>Tec_RegistrarPersonalAPlanilla.vb</DependentUpon>
