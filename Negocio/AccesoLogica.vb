@@ -273,7 +273,35 @@ Public Class AccesoLogica
 #End Region
 
 #Region "Contratos Tec"
+    Public Shared Function InsertarPlanilla(_Id As String, ContratoId As Integer, Anio As Integer, Mes As Integer, Sueldo As Double, SueldoBruto As Double, SueldoNeto As Double, dtdetalle As DataTable) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '@Id,@ContratoId,@Anio ,@Mes ,@Sueldo ,@SueldoBruto ,@SueldoNeto ,@Usuario ,@newFecha ,@newHora
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", _Id))
+        _listParam.Add(New Datos.DParametro("@ContratoId", ContratoId))
+        _listParam.Add(New Datos.DParametro("@Anio", Anio))
+        _listParam.Add(New Datos.DParametro("@Mes", Mes))
+        _listParam.Add(New Datos.DParametro("@Sueldo", Sueldo))
+        _listParam.Add(New Datos.DParametro("@SueldoBruto", SueldoBruto))
+        _listParam.Add(New Datos.DParametro("@SueldoNeto", SueldoNeto))
+        _listParam.Add(New Datos.DParametro("@Usuario", L_Usuario))
 
+        _listParam.Add(New Datos.DParametro("@PlanillaConcepto", "", dtdetalle))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Planilla", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _Id = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
     Public Shared Function ListaConceptosContratos(ContratoId As String) As DataTable
         Dim _Tabla As DataTable
 
@@ -286,6 +314,19 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+
+    Public Shared Function ListaConceptosPlanilla(PlanillaId As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@Id", PlanillaId))
+        _Tabla = D_ProcedimientoConParam("MAM_Planilla", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function ListarPersonalSinPlanilla(Mes As Integer, Anio As Integer) As DataTable
         Dim _Tabla As DataTable
 
@@ -295,7 +336,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@Mes", Mes))
         _listParam.Add(New Datos.DParametro("@Anio", Anio))
-        _Tabla = D_ProcedimientoConParam("MAM_Contratos", _listParam)
+        _Tabla = D_ProcedimientoConParam("MAM_Planilla", _listParam)
 
         Return _Tabla
     End Function
