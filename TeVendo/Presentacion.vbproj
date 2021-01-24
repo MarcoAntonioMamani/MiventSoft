@@ -388,6 +388,12 @@
     <Compile Include="Modulo RecusosHumanos\Tec_RegistrarPersonalAPlanilla.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modulo RecusosHumanos\Tec_VisualizarConceptoFijosPlanilla.Designer.vb">
+      <DependentUpon>Tec_VisualizarConceptoFijosPlanilla.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo RecusosHumanos\Tec_VisualizarConceptoFijosPlanilla.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Modulos Compras Ventas\Frm_Proveedor.Designer.vb">
       <DependentUpon>Frm_Proveedor.vb</DependentUpon>
     </Compile>
@@ -695,6 +701,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo RecusosHumanos\Tec_RegistrarPersonalAPlanilla.resx">
       <DependentUpon>Tec_RegistrarPersonalAPlanilla.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo RecusosHumanos\Tec_VisualizarConceptoFijosPlanilla.resx">
+      <DependentUpon>Tec_VisualizarConceptoFijosPlanilla.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modulos Compras Ventas\Frm_Proveedor.resx">
       <DependentUpon>Frm_Proveedor.vb</DependentUpon>

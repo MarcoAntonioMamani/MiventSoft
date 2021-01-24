@@ -234,4 +234,24 @@ Public Class Tec_Listarplanilla
             _prCargarTablaPlanilla()
         End If
     End Sub
+
+    Private Sub grplanilla_Click(sender As Object, e As EventArgs) Handles grplanilla.Click
+        Try
+            If (grplanilla.RowCount >= 1 And grplanilla.Row >= 0) Then
+                If (grplanilla.CurrentColumn.Index = grplanilla.RootTable.Columns("ConceptoFijos").Index) Then
+
+                    Dim numi As String = ""
+                    Dim ef = New Efecto
+                    ef.tipo = 11
+                    ef.PlanillaId = grplanilla.GetValue("PlanillaId")
+                    ef.titulo = "Ver Conceptos Fijos De: " + grplanilla.GetValue("Trabajador")
+                    ef.ShowDialog()
+
+                End If
+
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

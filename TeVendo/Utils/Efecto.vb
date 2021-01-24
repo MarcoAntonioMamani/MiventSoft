@@ -27,6 +27,7 @@ Public Class Efecto
     Public Lote As String
     Public FechaVencimiento As Date
     Public ModuloLibreria As Integer = 0
+    Public PlanillaId As Integer = 0
 
 
 
@@ -58,6 +59,8 @@ Public Class Efecto
 
             Case 10
                 _prMostrarFormLibreria()
+            Case 11
+                _prMostrarConceptoFijosPlanilla()
 
         End Select
     End Sub
@@ -115,6 +118,18 @@ Public Class Efecto
             band = False
             Me.Close()
         End If
+
+    End Sub
+
+    Sub _prMostrarConceptoFijosPlanilla()
+
+        Dim frmAyuda As Tec_VisualizarConceptoFijosPlanilla
+        frmAyuda = New Tec_VisualizarConceptoFijosPlanilla
+        frmAyuda.title = titulo
+        frmAyuda.PlanillaId = PlanillaId
+        frmAyuda.ShowDialog()
+        Me.Close()
+
 
     End Sub
 

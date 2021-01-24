@@ -183,7 +183,7 @@ Public Class Tec_RegistrarPersonalAPlanilla
             Dim SueldoBruto As Double = dt.Rows(i).Item("SueldoBruto")
             Dim SueldoNeto As Double = SueldoBruto
             '' Armando conceptos Fijos
-            Dim detalle As DataTable = ListaConceptosPlanilla(-1)
+            Dim detalle As DataTable = ListaConceptosPlanilla(-1, -1)
             Dim dtconcepto As DataTable = ListaConceptosContratos(ContratoId)
             For j As Integer = 0 To dtconcepto.Rows.Count - 1 Step 1
                 Dim ConceptoId As Integer = dtconcepto.Rows(j).Item("ConceptoId")
