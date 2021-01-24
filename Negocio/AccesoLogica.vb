@@ -286,7 +286,19 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+    Public Shared Function ListarPersonalSinPlanilla(Mes As Integer, Anio As Integer) As DataTable
+        Dim _Tabla As DataTable
 
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@Mes", Mes))
+        _listParam.Add(New Datos.DParametro("@Anio", Anio))
+        _Tabla = D_ProcedimientoConParam("MAM_Contratos", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function ListaConceptosFijosContrato() As DataTable
         Dim _Tabla As DataTable
 

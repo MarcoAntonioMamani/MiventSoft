@@ -273,10 +273,10 @@ Public Class Tec_Contratos
         'L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
 
         Me.Text = "Gestion De Contratos"
-        P_Global._prCargarComboGenerico(cbTipoContrato, L_prLibreriaDetalleGeneral(10), "cnnum", "Codigo", "cndesc1", "TipoDocumento")
+        P_Global._prCargarComboGenerico(cbTipoContrato, L_prLibreriaDetalleGeneral(10), "cnnum", "Codigo", "cndesc1", "TipoContrato")
 
 
-        P_Global._prCargarComboGenerico(cbCargo, L_prLibreriaDetalleGeneral(11), "cnnum", "Codigo", "cndesc1", "TipoPersonal")
+        P_Global._prCargarComboGenerico(cbCargo, L_prLibreriaDetalleGeneral(11), "cnnum", "Codigo", "cndesc1", "Cargo")
         _PMIniciarTodo()
         _prAsignarPermisos()
 
@@ -352,7 +352,7 @@ Public Class Tec_Contratos
 
     Public Sub CargarIconEliminar()
         Dim Bin As New MemoryStream
-        Dim img As New Bitmap(My.Resources.eliminar01, grConceptos.RootTable.Columns("Eliminar").Width - 15, 70)
+        Dim img As New Bitmap(My.Resources.eliminar01, grConceptos.RootTable.Columns("Eliminar").Width - 20, 45)
         img.Save(Bin, Imaging.ImageFormat.Png)
         Dim dt As DataTable = CType(grConceptos.DataSource, DataTable)
         Dim n As Integer = dt.Rows.Count
@@ -894,7 +894,7 @@ Public Class Tec_Contratos
         bandera = ef.band
         If (bandera = True) Then
             P_Global._prCargarComboGenerico(cbCargo, L_prLibreriaDetalleGeneral(11), "cnnum", "Codigo", "cndesc1", "Cargo")
-            cbCargo.SelectedIndex = CType(cbTipoContrato.DataSource, DataTable).Rows.Count - 1
+            cbCargo.SelectedIndex = CType(cbCargo.DataSource, DataTable).Rows.Count - 1
             cbCargo.Focus()
         End If
     End Sub
