@@ -28,8 +28,9 @@ Public Class Efecto
     Public FechaVencimiento As Date
     Public ModuloLibreria As Integer = 0
     Public PlanillaId As Integer = 0
-
-
+    Public SueldoNeto As Double = 0
+    Public dtGeneral As DataTable
+    Public Fila As Integer
 
 
 
@@ -61,6 +62,8 @@ Public Class Efecto
                 _prMostrarFormLibreria()
             Case 11
                 _prMostrarConceptoFijosPlanilla()
+            Case 12
+                _prMostrarConceptoVariablesPlanilla()
 
         End Select
     End Sub
@@ -127,6 +130,21 @@ Public Class Efecto
         frmAyuda = New Tec_VisualizarConceptoFijosPlanilla
         frmAyuda.title = titulo
         frmAyuda.PlanillaId = PlanillaId
+        frmAyuda.ShowDialog()
+        Me.Close()
+
+
+    End Sub
+
+    Sub _prMostrarConceptoVariablesPlanilla()
+
+        Dim frmAyuda As Tec_VisualizarConceptosVariablesPlanilla
+        frmAyuda = New Tec_VisualizarConceptosVariablesPlanilla
+        frmAyuda.title = titulo
+        frmAyuda.PlanillaId = PlanillaId
+        frmAyuda.SueldoNeto = SueldoNeto
+        frmAyuda.dtGeneral = dtGeneral
+        frmAyuda.PosicionGeneral = Fila
         frmAyuda.ShowDialog()
         Me.Close()
 

@@ -235,6 +235,22 @@ Public Class Tec_Listarplanilla
         End If
     End Sub
 
+    Public Function ObtenerFila(id As Integer) As Integer
+
+        Dim dt As DataTable = CType(grplanilla.DataSource, DataTable)
+
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+            If (dt.Rows(i).Item("PlanillaId") = id) Then
+
+                Return i
+            End If
+
+        Next
+        Return -1
+    End Function
+
+
     Private Sub grplanilla_Click(sender As Object, e As EventArgs) Handles grplanilla.Click
         Try
             If (grplanilla.RowCount >= 1 And grplanilla.Row >= 0) Then
@@ -248,7 +264,19 @@ Public Class Tec_Listarplanilla
                     ef.ShowDialog()
 
                 End If
+                If (grplanilla.CurrentColumn.Index = grplanilla.RootTable.Columns("ConceptoVariable").Index) Then
+                    Dim Posicion As Integer = ObtenerFila(grplanilla.GetValue("PlanillaId"))
+                    Dim numi As String = ""
+                    Dim ef = New Efecto
+                    ef.tipo = 12
+                    ef.PlanillaId = grplanilla.GetValue("PlanillaId")
+                    ef.SueldoNeto = grplanilla.GetValue("SueldoNeto")
+                    ef.titulo = grplanilla.GetValue("Trabajador")
+                    ef.Fila = Posicion
+                    ef.dtGeneral = CType(grplanilla.DataSource, DataTable)
+                    ef.ShowDialog()
 
+                End If
             End If
         Catch ex As Exception
 

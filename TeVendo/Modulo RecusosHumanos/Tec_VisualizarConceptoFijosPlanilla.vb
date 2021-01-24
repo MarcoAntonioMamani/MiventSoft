@@ -41,7 +41,7 @@ Public Class Tec_VisualizarConceptoFijosPlanilla
             .Visible = True
             .FormatString = "0.00"
             .Caption = "PORCENTAJE %"
-
+            .AggregateFunction = AggregateFunction.Sum
         End With
 
         'Id	PlanillaId	ConceptoId	NombreConcepto	Porcentaje	Monto	TipoConcepto	Descripcion	Fecha	estado	eliminar

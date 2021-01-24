@@ -394,6 +394,12 @@
     <Compile Include="Modulo RecusosHumanos\Tec_VisualizarConceptoFijosPlanilla.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modulo RecusosHumanos\Tec_VisualizarConceptosVariablesPlanilla.Designer.vb">
+      <DependentUpon>Tec_VisualizarConceptosVariablesPlanilla.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo RecusosHumanos\Tec_VisualizarConceptosVariablesPlanilla.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Modulos Compras Ventas\Frm_Proveedor.Designer.vb">
       <DependentUpon>Frm_Proveedor.vb</DependentUpon>
     </Compile>
@@ -704,6 +710,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo RecusosHumanos\Tec_VisualizarConceptoFijosPlanilla.resx">
       <DependentUpon>Tec_VisualizarConceptoFijosPlanilla.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo RecusosHumanos\Tec_VisualizarConceptosVariablesPlanilla.resx">
+      <DependentUpon>Tec_VisualizarConceptosVariablesPlanilla.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modulos Compras Ventas\Frm_Proveedor.resx">
       <DependentUpon>Frm_Proveedor.vb</DependentUpon>
