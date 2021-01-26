@@ -334,4 +334,60 @@ Public Class Tec_Listarplanilla
 
 
     End Sub
+
+    Private Sub btnReportePlanilla_Click(sender As Object, e As EventArgs) Handles btnReportePlanilla.Click
+        Dim dt As DataTable
+        If (CType(grplanilla.DataSource, DataTable).Rows.Count <= 0) Then
+            ToastNotification.Show(Me, "No Existen Datos En Planilla Para Generar Reporte", img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Return
+
+        End If
+
+        If (chktodos.Checked = True) Then
+            dt = ListarPlanillaReporte(cbMes.Value, cbAnio.Value, 1)
+
+        Else
+            dt = ListarPlanillaReporte(cbMes.Value, cbAnio.Value, 0)
+        End If
+        Dim dtImage As DataTable = ObtenerImagenEmpresa()
+        Dim NombreEmpresa As String = dtImage.Rows(0).Item("Nombre")
+        Dim Direccion As String = dtImage.Rows(0).Item("Direccion")
+        If (dtImage.Rows.Count > 0) Then
+            Dim RutaGlobal As String = gs_CarpetaRaiz
+            Dim Name As String = dtImage.Rows(0).Item(0)
+            If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Empresa" + Name)) Then
+                Dim im As New Bitmap(New Bitmap(RutaGlobal + "\Imagenes\Imagenes Empresa" + Name))
+                Dim Bin As New MemoryStream
+                Dim img As New Bitmap(im)
+                img.Save(Bin, Imaging.ImageFormat.Png)
+                Bin.Dispose()
+                For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+
+                    dt.Rows(i).Item("img") = Bin.GetBuffer
+                Next
+            End If
+
+
+        End If
+
+
+        If Not IsNothing(P_Global.Visualizador) Then
+            P_Global.Visualizador.Close()
+        End If
+
+
+
+        P_Global.Visualizador = New Visualizador
+
+        Dim objrep As New Reporte_Planilla
+
+        objrep.SetDataSource(dt)
+        objrep.SetParameterValue("NombreEmpresa", NombreEmpresa)
+        objrep.SetParameterValue("Ciudad", Direccion)
+        P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+        P_Global.Visualizador.CrGeneral.Zoom(120)
+        P_Global.Visualizador.Show() 'Comentar
+        ''P_Global.Visualizador.BringToFront() 'Comentar
+    End Sub
 End Class

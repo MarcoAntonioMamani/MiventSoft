@@ -26,40 +26,42 @@ Partial Class Tec_Listarplanilla
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tec_Listarplanilla))
         Dim cbAnio_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.PanelCabecera = New System.Windows.Forms.Panel()
-        Me.PanelDetalle = New System.Windows.Forms.Panel()
-        Me.Panel14 = New System.Windows.Forms.Panel()
-        Me.Panel15 = New System.Windows.Forms.Panel()
-        Me.lbTitulo = New System.Windows.Forms.Label()
-        Me.Panel16 = New System.Windows.Forms.Panel()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.chktodos = New System.Windows.Forms.CheckBox()
+        Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
         Me.cbMes = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.cbAnio = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.LabelX7 = New DevComponents.DotNetBar.LabelX()
-        Me.chktodos = New System.Windows.Forms.CheckBox()
-        Me.grplanilla = New Janus.Windows.GridEX.GridEX()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
+        Me.Panel14 = New System.Windows.Forms.Panel()
+        Me.Panel15 = New System.Windows.Forms.Panel()
+        Me.lbTitulo = New System.Windows.Forms.Label()
+        Me.Panel16 = New System.Windows.Forms.Panel()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
+        Me.PanelDetalle = New System.Windows.Forms.Panel()
+        Me.grplanilla = New Janus.Windows.GridEX.GridEX()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.btnReportePlanilla = New DevComponents.DotNetBar.ButtonX()
         Me.PanelCabecera.SuspendLayout()
-        Me.PanelDetalle.SuspendLayout()
-        Me.Panel14.SuspendLayout()
-        Me.Panel15.SuspendLayout()
-        Me.Panel1.SuspendLayout()
-        Me.Panel2.SuspendLayout()
         CType(Me.cbMes, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbAnio, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.grplanilla, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel14.SuspendLayout()
+        Me.Panel15.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PanelDetalle.SuspendLayout()
+        CType(Me.grplanilla, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
+        Me.Panel2.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PanelCabecera
         '
         Me.PanelCabecera.BackColor = System.Drawing.Color.White
+        Me.PanelCabecera.Controls.Add(Me.btnReportePlanilla)
         Me.PanelCabecera.Controls.Add(Me.chktodos)
         Me.PanelCabecera.Controls.Add(Me.ButtonX2)
         Me.PanelCabecera.Controls.Add(Me.cbMes)
@@ -73,108 +75,36 @@ Partial Class Tec_Listarplanilla
         Me.PanelCabecera.Size = New System.Drawing.Size(1388, 120)
         Me.PanelCabecera.TabIndex = 0
         '
-        'PanelDetalle
+        'chktodos
         '
-        Me.PanelDetalle.BackColor = System.Drawing.Color.White
-        Me.PanelDetalle.Controls.Add(Me.grplanilla)
-        Me.PanelDetalle.Controls.Add(Me.Panel1)
-        Me.PanelDetalle.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelDetalle.Location = New System.Drawing.Point(0, 120)
-        Me.PanelDetalle.Name = "PanelDetalle"
-        Me.PanelDetalle.Size = New System.Drawing.Size(1388, 321)
-        Me.PanelDetalle.TabIndex = 1
+        Me.chktodos.AutoSize = True
+        Me.chktodos.BackColor = System.Drawing.Color.White
+        Me.chktodos.FlatAppearance.BorderColor = System.Drawing.Color.DarkCyan
+        Me.chktodos.FlatAppearance.BorderSize = 3
+        Me.chktodos.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chktodos.Location = New System.Drawing.Point(586, 82)
+        Me.chktodos.Name = "chktodos"
+        Me.chktodos.Size = New System.Drawing.Size(101, 25)
+        Me.chktodos.TabIndex = 70
+        Me.chktodos.Text = "Ver Todos"
+        Me.chktodos.UseVisualStyleBackColor = True
         '
-        'Panel14
+        'ButtonX2
         '
-        Me.Panel14.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.Panel14.Controls.Add(Me.Panel15)
-        Me.Panel14.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel14.Location = New System.Drawing.Point(0, 0)
-        Me.Panel14.Name = "Panel14"
-        Me.Panel14.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel14.Size = New System.Drawing.Size(1388, 36)
-        Me.Panel14.TabIndex = 5
-        '
-        'Panel15
-        '
-        Me.Panel15.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.Panel15.Controls.Add(Me.lbTitulo)
-        Me.Panel15.Controls.Add(Me.Panel16)
-        Me.Panel15.Controls.Add(Me.PictureBox4)
-        Me.Panel15.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel15.Location = New System.Drawing.Point(1, 1)
-        Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(1386, 34)
-        Me.Panel15.TabIndex = 4
-        '
-        'lbTitulo
-        '
-        Me.lbTitulo.BackColor = System.Drawing.Color.Transparent
-        Me.lbTitulo.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lbTitulo.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbTitulo.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.lbTitulo.Location = New System.Drawing.Point(59, 0)
-        Me.lbTitulo.Name = "lbTitulo"
-        Me.lbTitulo.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
-        Me.lbTitulo.Size = New System.Drawing.Size(1327, 34)
-        Me.lbTitulo.TabIndex = 10
-        Me.lbTitulo.Text = "BUSCAR PLANILLA"
-        Me.lbTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Panel16
-        '
-        Me.Panel16.BackColor = System.Drawing.Color.White
-        Me.Panel16.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Panel16.Location = New System.Drawing.Point(58, 0)
-        Me.Panel16.Name = "Panel16"
-        Me.Panel16.Size = New System.Drawing.Size(1, 34)
-        Me.Panel16.TabIndex = 11
-        '
-        'Panel1
-        '
-        Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.Panel1.Controls.Add(Me.Panel2)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel1.Location = New System.Drawing.Point(0, 0)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel1.Size = New System.Drawing.Size(1388, 36)
-        Me.Panel1.TabIndex = 5
-        '
-        'Panel2
-        '
-        Me.Panel2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.Panel2.Controls.Add(Me.Label1)
-        Me.Panel2.Controls.Add(Me.Panel3)
-        Me.Panel2.Controls.Add(Me.PictureBox1)
-        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel2.Location = New System.Drawing.Point(1, 1)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1386, 34)
-        Me.Panel2.TabIndex = 4
-        '
-        'Label1
-        '
-        Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label1.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.Label1.Location = New System.Drawing.Point(59, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
-        Me.Label1.Size = New System.Drawing.Size(1327, 34)
-        Me.Label1.TabIndex = 10
-        Me.Label1.Text = "LISTADO CONTRATOS PLANILLA"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Panel3
-        '
-        Me.Panel3.BackColor = System.Drawing.Color.White
-        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Panel3.Location = New System.Drawing.Point(58, 0)
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(1, 34)
-        Me.Panel3.TabIndex = 11
+        Me.ButtonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX2.BackColor = System.Drawing.Color.FromArgb(CType(CType(217, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(79, Byte), Integer))
+        Me.ButtonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.ButtonX2.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX2.Image = Global.TeVendo.My.Resources.Resources.atras
+        Me.ButtonX2.ImageFixedSize = New System.Drawing.Size(30, 30)
+        Me.ButtonX2.Location = New System.Drawing.Point(693, 67)
+        Me.ButtonX2.Name = "ButtonX2"
+        Me.ButtonX2.Size = New System.Drawing.Size(164, 43)
+        Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
+        Me.ButtonX2.Symbol = ""
+        Me.ButtonX2.TabIndex = 69
+        Me.ButtonX2.Text = "Salir"
+        Me.ButtonX2.TextColor = System.Drawing.Color.White
         '
         'cbMes
         '
@@ -260,19 +190,75 @@ Partial Class Tec_Listarplanilla
         Me.LabelX7.TabIndex = 66
         Me.LabelX7.Text = "Año:"
         '
-        'chktodos
+        'Panel14
         '
-        Me.chktodos.AutoSize = True
-        Me.chktodos.BackColor = System.Drawing.Color.White
-        Me.chktodos.FlatAppearance.BorderColor = System.Drawing.Color.DarkCyan
-        Me.chktodos.FlatAppearance.BorderSize = 3
-        Me.chktodos.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chktodos.Location = New System.Drawing.Point(586, 82)
-        Me.chktodos.Name = "chktodos"
-        Me.chktodos.Size = New System.Drawing.Size(101, 25)
-        Me.chktodos.TabIndex = 70
-        Me.chktodos.Text = "Ver Todos"
-        Me.chktodos.UseVisualStyleBackColor = True
+        Me.Panel14.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.Panel14.Controls.Add(Me.Panel15)
+        Me.Panel14.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel14.Location = New System.Drawing.Point(0, 0)
+        Me.Panel14.Name = "Panel14"
+        Me.Panel14.Padding = New System.Windows.Forms.Padding(1)
+        Me.Panel14.Size = New System.Drawing.Size(1388, 36)
+        Me.Panel14.TabIndex = 5
+        '
+        'Panel15
+        '
+        Me.Panel15.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Panel15.Controls.Add(Me.lbTitulo)
+        Me.Panel15.Controls.Add(Me.Panel16)
+        Me.Panel15.Controls.Add(Me.PictureBox4)
+        Me.Panel15.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel15.Location = New System.Drawing.Point(1, 1)
+        Me.Panel15.Name = "Panel15"
+        Me.Panel15.Size = New System.Drawing.Size(1386, 34)
+        Me.Panel15.TabIndex = 4
+        '
+        'lbTitulo
+        '
+        Me.lbTitulo.BackColor = System.Drawing.Color.Transparent
+        Me.lbTitulo.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lbTitulo.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbTitulo.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.lbTitulo.Location = New System.Drawing.Point(59, 0)
+        Me.lbTitulo.Name = "lbTitulo"
+        Me.lbTitulo.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
+        Me.lbTitulo.Size = New System.Drawing.Size(1327, 34)
+        Me.lbTitulo.TabIndex = 10
+        Me.lbTitulo.Text = "BUSCAR PLANILLA"
+        Me.lbTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Panel16
+        '
+        Me.Panel16.BackColor = System.Drawing.Color.White
+        Me.Panel16.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Panel16.Location = New System.Drawing.Point(58, 0)
+        Me.Panel16.Name = "Panel16"
+        Me.Panel16.Size = New System.Drawing.Size(1, 34)
+        Me.Panel16.TabIndex = 11
+        '
+        'PictureBox4
+        '
+        Me.PictureBox4.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.PictureBox4.Dock = System.Windows.Forms.DockStyle.Left
+        Me.PictureBox4.Image = Global.TeVendo.My.Resources.Resources.tec_triangulo_blanco
+        Me.PictureBox4.Location = New System.Drawing.Point(0, 0)
+        Me.PictureBox4.Name = "PictureBox4"
+        Me.PictureBox4.Padding = New System.Windows.Forms.Padding(15, 5, 15, 5)
+        Me.PictureBox4.Size = New System.Drawing.Size(58, 34)
+        Me.PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox4.TabIndex = 0
+        Me.PictureBox4.TabStop = False
+        '
+        'PanelDetalle
+        '
+        Me.PanelDetalle.BackColor = System.Drawing.Color.White
+        Me.PanelDetalle.Controls.Add(Me.grplanilla)
+        Me.PanelDetalle.Controls.Add(Me.Panel1)
+        Me.PanelDetalle.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PanelDetalle.Location = New System.Drawing.Point(0, 120)
+        Me.PanelDetalle.Name = "PanelDetalle"
+        Me.PanelDetalle.Size = New System.Drawing.Size(1388, 321)
+        Me.PanelDetalle.TabIndex = 1
         '
         'grplanilla
         '
@@ -327,6 +313,52 @@ Partial Class Tec_Listarplanilla
         Me.grplanilla.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         Me.grplanilla.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.VS2005
         '
+        'Panel1
+        '
+        Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.Panel1.Controls.Add(Me.Panel2)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel1.Location = New System.Drawing.Point(0, 0)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Padding = New System.Windows.Forms.Padding(1)
+        Me.Panel1.Size = New System.Drawing.Size(1388, 36)
+        Me.Panel1.TabIndex = 5
+        '
+        'Panel2
+        '
+        Me.Panel2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Panel2.Controls.Add(Me.Label1)
+        Me.Panel2.Controls.Add(Me.Panel3)
+        Me.Panel2.Controls.Add(Me.PictureBox1)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel2.Location = New System.Drawing.Point(1, 1)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(1386, 34)
+        Me.Panel2.TabIndex = 4
+        '
+        'Label1
+        '
+        Me.Label1.BackColor = System.Drawing.Color.Transparent
+        Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label1.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.Label1.Location = New System.Drawing.Point(59, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
+        Me.Label1.Size = New System.Drawing.Size(1327, 34)
+        Me.Label1.TabIndex = 10
+        Me.Label1.Text = "LISTADO CONTRATOS PLANILLA"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Panel3
+        '
+        Me.Panel3.BackColor = System.Drawing.Color.White
+        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Panel3.Location = New System.Drawing.Point(58, 0)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(1, 34)
+        Me.Panel3.TabIndex = 11
+        '
         'PictureBox1
         '
         Me.PictureBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
@@ -340,35 +372,23 @@ Partial Class Tec_Listarplanilla
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
         '
-        'ButtonX2
+        'btnReportePlanilla
         '
-        Me.ButtonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX2.BackColor = System.Drawing.Color.FromArgb(CType(CType(217, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(79, Byte), Integer))
-        Me.ButtonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.ButtonX2.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX2.Image = Global.TeVendo.My.Resources.Resources.atras
-        Me.ButtonX2.ImageFixedSize = New System.Drawing.Size(30, 30)
-        Me.ButtonX2.Location = New System.Drawing.Point(693, 67)
-        Me.ButtonX2.Name = "ButtonX2"
-        Me.ButtonX2.Size = New System.Drawing.Size(164, 43)
-        Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
-        Me.ButtonX2.Symbol = ""
-        Me.ButtonX2.TabIndex = 69
-        Me.ButtonX2.Text = "Salir"
-        Me.ButtonX2.TextColor = System.Drawing.Color.White
-        '
-        'PictureBox4
-        '
-        Me.PictureBox4.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.PictureBox4.Dock = System.Windows.Forms.DockStyle.Left
-        Me.PictureBox4.Image = Global.TeVendo.My.Resources.Resources.tec_triangulo_blanco
-        Me.PictureBox4.Location = New System.Drawing.Point(0, 0)
-        Me.PictureBox4.Name = "PictureBox4"
-        Me.PictureBox4.Padding = New System.Windows.Forms.Padding(15, 5, 15, 5)
-        Me.PictureBox4.Size = New System.Drawing.Size(58, 34)
-        Me.PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox4.TabIndex = 0
-        Me.PictureBox4.TabStop = False
+        Me.btnReportePlanilla.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnReportePlanilla.BackColor = System.Drawing.Color.LightSeaGreen
+        Me.btnReportePlanilla.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnReportePlanilla.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnReportePlanilla.Image = Global.TeVendo.My.Resources.Resources.atras
+        Me.btnReportePlanilla.ImageFixedSize = New System.Drawing.Size(30, 30)
+        Me.btnReportePlanilla.Location = New System.Drawing.Point(874, 67)
+        Me.btnReportePlanilla.Name = "btnReportePlanilla"
+        Me.btnReportePlanilla.Size = New System.Drawing.Size(206, 43)
+        Me.btnReportePlanilla.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
+        Me.btnReportePlanilla.Symbol = "59565"
+        Me.btnReportePlanilla.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Material
+        Me.btnReportePlanilla.TabIndex = 71
+        Me.btnReportePlanilla.Text = "Reporte Planilla"
+        Me.btnReportePlanilla.TextColor = System.Drawing.Color.White
         '
         'Tec_Listarplanilla
         '
@@ -381,16 +401,16 @@ Partial Class Tec_Listarplanilla
         Me.Text = "Planilla De Contratos"
         Me.PanelCabecera.ResumeLayout(False)
         Me.PanelCabecera.PerformLayout()
-        Me.PanelDetalle.ResumeLayout(False)
-        Me.Panel14.ResumeLayout(False)
-        Me.Panel15.ResumeLayout(False)
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel2.ResumeLayout(False)
         CType(Me.cbMes, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbAnio, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.grplanilla, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel14.ResumeLayout(False)
+        Me.Panel15.ResumeLayout(False)
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PanelDetalle.ResumeLayout(False)
+        CType(Me.grplanilla, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel2.ResumeLayout(False)
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -414,4 +434,5 @@ Partial Class Tec_Listarplanilla
     Friend WithEvents ButtonX2 As DevComponents.DotNetBar.ButtonX
     Friend WithEvents chktodos As CheckBox
     Friend WithEvents grplanilla As Janus.Windows.GridEX.GridEX
+    Friend WithEvents btnReportePlanilla As DevComponents.DotNetBar.ButtonX
 End Class
