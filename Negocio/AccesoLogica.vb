@@ -393,6 +393,19 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+
+    Public Shared Function ReporteBoletaSalarioIndividual(id As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 8))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@id", id))
+        _Tabla = D_ProcedimientoConParam("MAM_Planilla", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function ListaConceptosFijosContrato() As DataTable
         Dim _Tabla As DataTable
 
