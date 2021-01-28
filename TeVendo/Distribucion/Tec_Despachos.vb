@@ -369,14 +369,14 @@ Public Class Tec_Despachos
 
     Public Sub CargarIconEliminar()
         Dim Bin As New MemoryStream
-        Dim img As New Bitmap(My.Resources.eliminar01, grDetalle.RootTable.Columns("Eliminar").Width - 20, 45)
+        Dim img As New Bitmap(My.Resources.eliminar01, grDetalle.RootTable.Columns("img").Width - 20, 45)
         img.Save(Bin, Imaging.ImageFormat.Png)
         Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
         Dim n As Integer = dt.Rows.Count
         For i As Integer = 0 To n - 1 Step 1
 
 
-            CType(grDetalle.DataSource, DataTable).Rows(i).Item("Eliminar") = Bin.GetBuffer
+            CType(grDetalle.DataSource, DataTable).Rows(i).Item("img") = Bin.GetBuffer
 
 
         Next
@@ -602,7 +602,7 @@ Public Class Tec_Despachos
 
     Public Function _PMOGetTablaBuscador() As DataTable
 
-        Dim dtBuscador As DataTable = L_prListarGeneral("MAM_Contratos")
+        Dim dtBuscador As DataTable = L_prListarGeneral("MAM_DespachoProductos")
         Return dtBuscador
     End Function
 

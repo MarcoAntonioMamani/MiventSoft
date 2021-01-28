@@ -1136,6 +1136,7 @@
     <None Include="Resources\trash.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\menudistribucion.png" />
     <None Include="Resources\printerplanilla.png" />
     <None Include="Resources\seleccionar.jpg" />
     <None Include="Resources\seleccionar2.jpg" />
@@ -1195,6 +1196,9 @@
     <None Include="Resources\cvariables.png" />
     <None Include="Resources\conciliacioncerrado.jpg" />
     <None Include="Resources\conciliacionabierto.jpg" />
+    <None Include="Resources\cierrecaja.png" />
+    <None Include="Resources\conciliacion.png" />
+    <None Include="Resources\despacho.png" />
     <Content Include="Resources\dinases.png" />
     <None Include="Resources\MapaClientes.png" />
     <None Include="Resources\ventasCostos.png" />
