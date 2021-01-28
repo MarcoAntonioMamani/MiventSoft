@@ -272,6 +272,89 @@ Public Class AccesoLogica
     End Function
 #End Region
 
+
+#Region "Despacho Productos"
+
+    Public Shared Function ListaDetalleDespachoProductos(DespachoId As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@id", DespachoId))
+        _Tabla = D_ProcedimientoConParam("MAM_DespachoProductos", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function InsertarDespachoProductos(_Id As String, PersonalId As Integer, ConciliacionId As Integer, SucursalId As Integer, Fecha As String, NroNota As String, Detalle As String, TipoMovimientoID As Integer, dtdetalle As DataTable) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '@Id,@PersonalId,@UltimaConciliacionAbierta ,@SucursalId ,@Fecha ,@NroNota ,@Detalle,@TipoMovimientoId ,
+        '@newFecha ,@newHora ,@Usuario
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", _Id))
+        _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
+        _listParam.Add(New Datos.DParametro("@ConciliacionId", ConciliacionId))
+        _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
+        _listParam.Add(New Datos.DParametro("@Fecha", Fecha))
+        _listParam.Add(New Datos.DParametro("@NroNota", NroNota))
+        _listParam.Add(New Datos.DParametro("@TipoMovimientoID", TipoMovimientoID))
+        _listParam.Add(New Datos.DParametro("@Detalle", Detalle))
+        _listParam.Add(New Datos.DParametro("@Usuario", L_Usuario))
+
+        _listParam.Add(New Datos.DParametro("@DetalleDespacho", "", dtdetalle))
+
+        _Tabla = D_ProcedimientoConParam("MAM_DespachoProductos", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _Id = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+
+    Public Shared Function ModificarDespachoProductos(_Id As String, PersonalId As Integer, ConciliacionId As Integer, SucursalId As Integer, Fecha As String, NroNota As String, Detalle As String, TipoMovimientoID As Integer, dtdetalle As DataTable) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '@Id,@PersonalId,@UltimaConciliacionAbierta ,@SucursalId ,@Fecha ,@NroNota ,@Detalle,@TipoMovimientoId ,
+        '@newFecha ,@newHora ,@Usuario
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@Id", _Id))
+        _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
+        _listParam.Add(New Datos.DParametro("@ConciliacionId", ConciliacionId))
+        _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
+        _listParam.Add(New Datos.DParametro("@Fecha", Fecha))
+        _listParam.Add(New Datos.DParametro("@NroNota", NroNota))
+        _listParam.Add(New Datos.DParametro("@TipoMovimientoID", TipoMovimientoID))
+        _listParam.Add(New Datos.DParametro("@Detalle", Detalle))
+        _listParam.Add(New Datos.DParametro("@Usuario", L_Usuario))
+
+        _listParam.Add(New Datos.DParametro("@DetalleDespacho", "", dtdetalle))
+
+        _Tabla = D_ProcedimientoConParam("MAM_DespachoProductos", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _Id = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+#End Region
+
 #Region "Contratos Tec"
     Public Shared Function InsertarPlanilla(_Id As String, ContratoId As Integer, Anio As Integer, Mes As Integer, Sueldo As Double, SueldoBruto As Double, SueldoNeto As Double, dtdetalle As DataTable) As Boolean
         Dim _Tabla As DataTable
@@ -339,6 +422,8 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+
+
 
     Public Shared Function ListaConceptosPlanilla(PlanillaId As String, TipoConcepto As Integer) As DataTable
         Dim _Tabla As DataTable
