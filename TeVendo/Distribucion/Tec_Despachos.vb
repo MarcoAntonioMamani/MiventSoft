@@ -65,6 +65,7 @@ Public Class Tec_Despachos
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
                     .MaxLines = 2
                     .WordWrap = True
+
                     Dim col As DataColumn = dtBuscador.Columns(campo)
                     Dim tipo As Type = col.DataType
                     If tipo.ToString = "System.Int32" Or tipo.ToString = "System.Decimal" Or tipo.ToString = "System.Double" Then
@@ -88,24 +89,33 @@ Public Class Tec_Despachos
             'diseño de la grilla
             .VisualStyle = VisualStyle.Office2007
         End With
+        With JGrM_Buscador.RootTable.Columns("imgConciliacion")
+            .TopMargin = 7
+            .LeftMargin = 5
+            .BottomMargin = 7
+
+        End With
         CargarIconEstado()
     End Sub
 
     Public Sub CargarIconEstado()
+        Dim BinAbierto As New MemoryStream
+        Dim imgAbierto As New Bitmap(My.Resources.conciliacionabierto, 110, 30)
+        imgAbierto.Save(BinAbierto, Imaging.ImageFormat.Png)
+
+        Dim BinCerrado As New MemoryStream
+        Dim imgCerrado As New Bitmap(My.Resources.pasivo, 110, 30)
+        imgCerrado.Save(BinCerrado, Imaging.ImageFormat.Png)
 
         Dim dt As DataTable = CType(JGrM_Buscador.DataSource, DataTable)
         Dim n As Integer = dt.Rows.Count
         For i As Integer = 0 To n - 1 Step 1
-            If (dt.Rows(i).Item("estado") = 1) Then
-                Dim Bin As New MemoryStream
-                Dim img As New Bitmap(My.Resources.activo, 110, 30)
-                img.Save(Bin, Imaging.ImageFormat.Png)
-                CType(JGrM_Buscador.DataSource, DataTable).Rows(i).Item("img") = Bin.GetBuffer
+            If (dt.Rows(i).Item("EstadoConciliacion") = 1) Then
+
+                CType(JGrM_Buscador.DataSource, DataTable).Rows(i).Item("imgConciliacion") = BinAbierto.GetBuffer
             Else
-                Dim Bin As New MemoryStream
-                Dim img As New Bitmap(My.Resources.pasivo, 110, 30)
-                img.Save(Bin, Imaging.ImageFormat.Png)
-                CType(JGrM_Buscador.DataSource, DataTable).Rows(i).Item("img") = Bin.GetBuffer
+
+                CType(JGrM_Buscador.DataSource, DataTable).Rows(i).Item("imgConciliacion") = BinCerrado.GetBuffer
             End If
 
         Next

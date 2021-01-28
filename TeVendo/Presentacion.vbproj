@@ -213,6 +213,12 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="CustomersRow.vb" />
+    <Compile Include="Distribucion\Tec_Despachos.Designer.vb">
+      <DependentUpon>Tec_Despachos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Distribucion\Tec_Despachos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Font\Custom.vb" />
     <Compile Include="Inventarios\F_MonitoreoProductos.Designer.vb">
       <DependentUpon>F_MonitoreoProductos.vb</DependentUpon>
@@ -632,6 +638,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Control\UCLavadero.resx">
       <DependentUpon>UCLavadero.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Distribucion\Tec_Despachos.resx">
+      <DependentUpon>Tec_Despachos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\F_MonitoreoProductos.resx">
       <DependentUpon>F_MonitoreoProductos.vb</DependentUpon>
@@ -1184,6 +1193,8 @@
     <None Include="Resources\creditospagados.png" />
     <None Include="Resources\cobros.png" />
     <None Include="Resources\cvariables.png" />
+    <None Include="Resources\conciliacioncerrado.jpg" />
+    <None Include="Resources\conciliacionabierto.jpg" />
     <Content Include="Resources\dinases.png" />
     <None Include="Resources\MapaClientes.png" />
     <None Include="Resources\ventasCostos.png" />
@@ -1212,6 +1223,7 @@
     <None Include="Resources\pdf.png" />
     <None Include="Resources\txt.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
