@@ -100,7 +100,7 @@ Public Class Tec_Despachos
 
     Public Sub CargarIconEstado()
         Dim BinAbierto As New MemoryStream
-        Dim imgAbierto As New Bitmap(My.Resources.conciliacionabierto, 110, 30)
+        Dim imgAbierto As New Bitmap(My.Resources.conciliacionabierto, 150, 20)
         imgAbierto.Save(BinAbierto, Imaging.ImageFormat.Png)
 
         Dim BinCerrado As New MemoryStream
@@ -324,13 +324,14 @@ Public Class Tec_Despachos
             .Width = 110
             .Caption = "Cantidad"
             .Visible = True
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
         End With
         With grDetalle.RootTable.Columns("Stock")
             .Width = 110
             .Caption = "Stock"
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
         End With
@@ -370,7 +371,7 @@ Public Class Tec_Despachos
 
     Public Sub CargarIconEliminar()
         Dim Bin As New MemoryStream
-        Dim img As New Bitmap(My.Resources.eliminar01, grDetalle.RootTable.Columns("img").Width - 20, 45)
+        Dim img As New Bitmap(My.Resources.rowdelete, 25, 18)
         img.Save(Bin, Imaging.ImageFormat.Png)
         Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
         Dim n As Integer = dt.Rows.Count
@@ -442,20 +443,21 @@ Public Class Tec_Despachos
         panelProducto.Visible = True
 
         grDetalle.RootTable.Columns("img").Visible = True
+        grDetalle.RootTable.Columns("stock").Visible = True
     End Sub
 
     Public Sub _PMOInhabilitar()
         tbCodigo.ReadOnly = True
-        tbFechaSalida.ReadOnly = False
-        tbDetalle.ReadOnly = False
+        tbFechaSalida.ReadOnly = True
+        tbDetalle.ReadOnly = True
 
         panelProducto.Visible = False
-        tbPersonal.ReadOnly = False
+        tbPersonal.ReadOnly = True
 
         btnSearchPersonal.Visible = False
 
         grDetalle.RootTable.Columns("img").Visible = False
-
+        grDetalle.RootTable.Columns("stock").Visible = False
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -820,5 +822,134 @@ Public Class Tec_Despachos
         ef.dtDetalle = CType(grDetalle.DataSource, DataTable)
 
         ef.ShowDialog()
+    End Sub
+
+
+
+    Private Sub grDetalle_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grDetalle.EditingCell
+        If (tbDetalle.ReadOnly = True) Then
+            e.Cancel = True
+            Return
+        End If
+        If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
+            e.Cancel = False
+        Else
+            e.Cancel = True
+
+        End If
+    End Sub
+
+    Public Sub _fnObtenerFilaDetalle(ByRef pos As Integer, numi As Integer)
+        For i As Integer = 0 To CType(grDetalle.DataSource, DataTable).Rows.Count - 1 Step 1
+            Dim _numi As Integer = CType(grDetalle.DataSource, DataTable).Rows(i).Item("Id")
+            If (_numi = numi) Then
+                pos = i
+                Return
+            End If
+        Next
+
+    End Sub
+    Private Sub grDetalle_CellValueChanged(sender As Object, e As ColumnActionEventArgs) Handles grDetalle.CellValueChanged
+        Dim lin As Integer = grDetalle.GetValue("Id")
+        Dim pos As Integer = -1
+        _fnObtenerFilaDetalle(pos, lin)
+        If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
+            If (Not IsNumeric(grDetalle.GetValue("Cantidad")) Or grDetalle.GetValue("Cantidad").ToString = String.Empty) Then
+
+                'grDetalle.GetRow(rowIndex).Cells("cant").Value = 1
+                '  grDetalle.CurrentRow.Cells.Item("cant").Value = 1
+
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+                Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+
+                grDetalle.SetValue("Cantidad", 1)
+
+                If (estado = 1) Then
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                End If
+
+            Else
+                If (grDetalle.GetValue("Cantidad") > 0) Then
+
+                    If (grDetalle.GetValue("Cantidad") <= grDetalle.GetValue("Stock")) Then
+
+                        Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+
+                        If (estado = 1) Then
+                            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                        End If
+
+                    Else
+                        ToastNotification.Show(Me, "La Cantidad = " + Str(grDetalle.GetValue("Cantidad")) + " es mayor al Stock del Producto = " + Str(grDetalle.GetValue("Stock")), img, 6000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+
+                        Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+
+                        grDetalle.SetValue("Cantidad", 1)
+
+                        If (estado = 1) Then
+                            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                        End If
+
+                    End If
+
+
+                Else
+
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+
+                    Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+
+                    grDetalle.SetValue("Cantidad", 1)
+
+                    If (estado = 1) Then
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                    End If
+
+                End If
+            End If
+        End If
+    End Sub
+
+    Private Sub grDetalle_MouseClick(sender As Object, e As MouseEventArgs) Handles grDetalle.MouseClick
+        If (tbDetalle.ReadOnly = True) Then
+            Return
+        End If
+
+        Try
+            If (grDetalle.RowCount >= 1) Then
+                If (grDetalle.CurrentColumn.Index = grDetalle.RootTable.Columns("img").Index) Then
+                    _prEliminarFila()
+                End If
+            End If
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
+    Public Sub _prEliminarFila()
+        If (grDetalle.Row >= 0) Then
+            If (grDetalle.RowCount >= 1) Then
+                Dim estado As Integer = grDetalle.GetValue("estado")
+                Dim pos As Integer = -1
+                Dim lin As Integer = grDetalle.GetValue("Id")
+                _fnObtenerFilaDetalle(pos, lin)
+
+                If (estado = 0) Then
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = -2
+
+                End If
+                If (estado = 1) Then
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = -1
+                End If
+
+                grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
+
+
+            End If
+        End If
+
+
     End Sub
 End Class

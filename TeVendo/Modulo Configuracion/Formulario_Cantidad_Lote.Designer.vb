@@ -36,6 +36,7 @@ Partial Class Formulario_Cantidad_Lote
         Me.tbLote = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.cbFecha = New Janus.Windows.CalendarCombo.CalendarCombo()
+        Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.btnNo.SuspendLayout()
         Me.btnSi.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -242,6 +243,11 @@ Partial Class Formulario_Cantidad_Lote
         Me.cbFecha.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
         Me.cbFecha.YearIncrement = 10
         '
+        'MHighlighterFocus
+        '
+        Me.MHighlighterFocus.ContainerControl = Me
+        Me.MHighlighterFocus.FocusHighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Orange
+        '
         'Formulario_Cantidad_Lote
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -288,4 +294,5 @@ Partial Class Formulario_Cantidad_Lote
     Friend WithEvents tbLote As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents Label5 As Label
     Friend WithEvents cbFecha As Janus.Windows.CalendarCombo.CalendarCombo
+    Protected WithEvents MHighlighterFocus As DevComponents.DotNetBar.Validator.Highlighter
 End Class

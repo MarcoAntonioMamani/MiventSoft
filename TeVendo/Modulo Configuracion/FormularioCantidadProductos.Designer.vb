@@ -31,6 +31,7 @@ Partial Class FormularioCantidadProductos
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.txtStock = New System.Windows.Forms.Label()
         Me.tbCantidad = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.btnNo.SuspendLayout()
         Me.btnSi.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -145,6 +146,11 @@ Partial Class FormularioCantidadProductos
         Me.tbCantidad.Text = "0"
         Me.tbCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
+        'MHighlighterFocus
+        '
+        Me.MHighlighterFocus.ContainerControl = Me
+        Me.MHighlighterFocus.FocusHighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Orange
+        '
         'FormularioCantidadProductos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -181,4 +187,5 @@ Partial Class FormularioCantidadProductos
     Friend WithEvents txtTitulo As Label
     Friend WithEvents txtStock As Label
     Friend WithEvents tbCantidad As DevComponents.DotNetBar.Controls.TextBoxX
+    Protected WithEvents MHighlighterFocus As DevComponents.DotNetBar.Validator.Highlighter
 End Class

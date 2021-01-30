@@ -83,7 +83,7 @@ Partial Class Tec_DespachoDetalle
         Me.grProductos.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
         Me.grProductos.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
         Me.grProductos.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
-        Me.grProductos.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grProductos.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grProductos.GridLines = Janus.Windows.GridEX.GridLines.None
         Me.grProductos.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
         Me.grProductos.HeaderFormatStyle.Alpha = 0
@@ -101,7 +101,7 @@ Partial Class Tec_DespachoDetalle
         Me.grProductos.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.grProductos.Office2007CustomColor = System.Drawing.Color.DodgerBlue
         Me.grProductos.RecordNavigator = True
-        Me.grProductos.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grProductos.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grProductos.RowHeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
         Me.grProductos.RowHeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.Transparent
         Me.grProductos.RowHeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
@@ -259,7 +259,6 @@ Partial Class Tec_DespachoDetalle
         '
         'grDetalle
         '
-        Me.grDetalle.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
         Me.grDetalle.AlternatingColors = True
         Me.grDetalle.BackColor = System.Drawing.Color.White
         Me.grDetalle.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
@@ -270,8 +269,7 @@ Partial Class Tec_DespachoDetalle
         Me.grDetalle.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grDetalle.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
         Me.grDetalle.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.grDetalle.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
-        Me.grDetalle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grDetalle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grDetalle.GridLines = Janus.Windows.GridEX.GridLines.None
         Me.grDetalle.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
         Me.grDetalle.HeaderFormatStyle.Alpha = 0
@@ -289,7 +287,7 @@ Partial Class Tec_DespachoDetalle
         Me.grDetalle.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.grDetalle.Office2007CustomColor = System.Drawing.Color.DodgerBlue
         Me.grDetalle.RecordNavigator = True
-        Me.grDetalle.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grDetalle.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grDetalle.RowHeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
         Me.grDetalle.RowHeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.Transparent
         Me.grDetalle.RowHeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue

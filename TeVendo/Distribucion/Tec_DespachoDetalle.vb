@@ -2,6 +2,8 @@
 Imports Negocio.AccesoLogica
 
 Imports DevComponents.DotNetBar
+Imports System.IO
+
 Public Class Tec_DespachoDetalle
 
     Public dtProductos As DataTable
@@ -9,8 +11,9 @@ Public Class Tec_DespachoDetalle
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
 
     Public Sub IniciarTodod()
-        CargarProductos()
         CargarProductosVentas()
+        CargarProductos()
+
 
         tbProducto.Focus()
 
@@ -63,6 +66,7 @@ Public Class Tec_DespachoDetalle
             .Caption = "Cantidad"
             .Visible = True
             .FormatString = "0.00"
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .AggregateFunction = AggregateFunction.Sum
         End With
         With grDetalle.RootTable.Columns("Stock")
@@ -91,9 +95,6 @@ Public Class Tec_DespachoDetalle
             .BoundMode = Janus.Data.BoundMode.Bound
             .RowHeaders = InheritableBoolean.True
             .CellToolTipText = "Conceptos"
-            .DefaultFilterRowComparison = FilterConditionOperator.Contains
-            .FilterMode = FilterMode.Automatic
-            .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
             .GroupByBoxVisible = False
             .TotalRow = InheritableBoolean.True
             .TotalRowFormatStyle.BackColor = Color.Gold
@@ -103,10 +104,42 @@ Public Class Tec_DespachoDetalle
             .TotalRowPosition = TotalRowPosition.BottomFixed
 
         End With
-
+        grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
     End Sub
+
+
+    Public Function ExisteProductoDetalle(IdProducto As Integer) As Boolean
+
+        Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
+
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            If (dt.Rows(i).Item("estado") >= 0 And dt.Rows(i).Item("ProductoId") = IdProducto) Then
+                Return True
+            End If
+
+        Next
+        Return False
+    End Function
+    Public Function FiltrarProductos(dtSocurce As DataTable) As DataTable
+        Dim dt As DataTable = dtSocurce
+        Dim dtprod = dt.Copy
+        dtprod.Rows.Clear()
+
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            If (Not ExisteProductoDetalle(dt.Rows(i).Item("Id"))) Then
+                dtprod.ImportRow(dt.Rows(i))
+            End If
+
+        Next
+        Return dtprod
+
+    End Function
+
     Public Sub CargarProductos()
         dtProductos = ListarProductosSeleccionables(1)
+
+        dtProductos = FiltrarProductos(dtProductos)
+
         grProductos.DataSource = dtProductos '' 1= Sucursal Principal
 
         grProductos.RetrieveStructure()
@@ -114,7 +147,7 @@ Public Class Tec_DespachoDetalle
 
         '  Id	CodigoExterno	NombreProducto	DescripcionProducto	NombreCategoria	stock	estado
         With grProductos.RootTable.Columns("Id")
-            .Width = 100
+            .Width = 40
             .Caption = "Codigo"
             .Visible = True
 
@@ -128,15 +161,15 @@ Public Class Tec_DespachoDetalle
 
 
         With grProductos.RootTable.Columns("NombreProducto")
-            .Width = 100
+            .Width = 300
             .Caption = "Nombre Producto"
-            .MaxLines = 300
+            .MaxLines = 2
             .CellStyle.LineAlignment = TextAlignment.Near
             .WordWrap = True
             .Visible = True
         End With
         With grProductos.RootTable.Columns("DescripcionProducto")
-            .Width = 90
+            .Width = 300
             .Caption = "Descripcion Producto"
             .MaxLines = 200
             .CellStyle.LineAlignment = TextAlignment.Near
@@ -144,7 +177,7 @@ Public Class Tec_DespachoDetalle
             .Visible = True
         End With
         With grProductos.RootTable.Columns("NombreCategoria")
-            .Width = 90
+            .Width = 150
             .Caption = "Nombre Categoria"
             .MaxLines = 150
             .CellStyle.LineAlignment = TextAlignment.Near
@@ -153,7 +186,7 @@ Public Class Tec_DespachoDetalle
         End With
 
         With grProductos.RootTable.Columns("stock")
-            .Width = 120
+            .Width = 100
             .FormatString = "0.00"
             .Visible = True
             .Caption = "Stock"
@@ -197,7 +230,7 @@ Public Class Tec_DespachoDetalle
 
         For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
-            If (dt.Rows(i).Item("ProductoId") = Id) Then
+            If (dt.Rows(i).Item("ProductoId") = Id And dt.Rows(i).Item("estado") >= 0) Then
                 Return True
             End If
 
@@ -360,7 +393,14 @@ Public Class Tec_DespachoDetalle
         If e.KeyData = Keys.Down Then
             grProductos.Focus()
         End If
+        If e.KeyData = Keys.Enter Then
+            If grProductos.RowCount > 0 Then
 
+                grProductos.Row = 0
+                seleccionarProducto()
+            End If
+
+        End If
     End Sub
 
     Private Sub btnAgregarProducto_Click(sender As Object, e As EventArgs) Handles btnConfirmarSalir.Click
@@ -374,40 +414,172 @@ Public Class Tec_DespachoDetalle
             f = grProductos.Row
             If (f >= 0) Then
 
-                If (Not ExisteProducto(grProductos.GetValue("Id"))) Then
-                    If (grProductos.GetValue("Stock") <= 0) Then
-
-                        ToastNotification.Show(Me, "El Producto no Cuenta con Stock Disponible", img, 4000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                        Return
-
-                    End If
-                    Dim ef = New Efecto
-                    ef.tipo = 5
-                    ef.NombreProducto = grProductos.GetValue("NombreProducto")
-                    ef.StockActual = grProductos.GetValue("stock")
-                    ef.TipoMovimiento = 3
-                    ef.ShowDialog()
-                    Dim bandera As Boolean = False
-                    bandera = ef.band
-                    If (bandera = True) Then
-
-
-                        Dim cantidad As Double = ef.CantidadTransaccion
-
-
-                    End If
-
-                Else
-                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-                    ToastNotification.Show(Me, "El producto ya existe en el detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-
-                    tbProducto.Focus()
-                End If
+                seleccionarProducto()
 
             End If
         End If
         If e.KeyData = Keys.Escape Then
             Me.Close()
+
+        End If
+    End Sub
+
+    Public Sub seleccionarProducto()
+        If (Not ExisteProducto(grProductos.GetValue("Id"))) Then
+            If (grProductos.GetValue("Stock") <= 0) Then
+
+                ToastNotification.Show(Me, "El Producto no Cuenta con Stock Disponible", img, 4000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                Return
+
+            End If
+            Dim ef = New Efecto
+            ef.tipo = 5
+            ef.NombreProducto = grProductos.GetValue("NombreProducto")
+            ef.StockActual = grProductos.GetValue("stock")
+            ef.TipoMovimiento = 3
+            ef.ShowDialog()
+            Dim bandera As Boolean = False
+            bandera = ef.band
+            If (bandera = True) Then
+
+                Dim Bin As New MemoryStream
+                Dim img As New Bitmap(My.Resources.rowdelete, 20, 18)
+                img.Save(Bin, Imaging.ImageFormat.Png)
+
+                Dim cantidad As Double = ef.CantidadTransaccion
+
+
+                CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, grProductos.GetValue("Id"), grProductos.GetValue("NombreProducto"), cantidad, grProductos.GetValue("stock"), 0, Bin.GetBuffer)
+
+                CambiarEstado(grProductos.GetValue("Id"), 2)
+                tbProducto.Focus()
+
+
+            End If
+
+        Else
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "El producto ya existe en el detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+
+            tbProducto.Focus()
+        End If
+    End Sub
+
+    Public Sub CambiarEstado(ProductoId As Integer, Estado As Integer)
+        If (IsNothing(grProductos.DataSource)) Then
+            Return
+
+        End If
+        For i As Integer = 0 To CType(grProductos.DataSource, DataTable).Rows.Count - 1 Step 1
+            If (CType(grProductos.DataSource, DataTable).Rows(i).Item("Id") = ProductoId) Then
+                CType(grProductos.DataSource, DataTable).Rows(i).Item("estado") = Estado
+            End If
+
+        Next
+        grProductos.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grProductos.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.Equal, 1))
+    End Sub
+
+    Public Function _GenerarId()
+        Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
+        Dim mayor As Integer = 0
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            Dim data As Integer = IIf(IsDBNull(CType(grDetalle.DataSource, DataTable).Rows(i).Item("Id")), 0, CType(grDetalle.DataSource, DataTable).Rows(i).Item("Id"))
+            If (data > mayor) Then
+                mayor = data
+
+            End If
+        Next
+        Return mayor
+    End Function
+
+    Private Sub grDetalle_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grDetalle.EditingCell
+        If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
+            e.Cancel = False
+        Else
+            e.Cancel = True
+
+        End If
+
+    End Sub
+    Public Sub _fnObtenerFilaDetalle(ByRef pos As Integer, numi As Integer)
+        For i As Integer = 0 To CType(grDetalle.DataSource, DataTable).Rows.Count - 1 Step 1
+            Dim _numi As Integer = CType(grDetalle.DataSource, DataTable).Rows(i).Item("Id")
+            If (_numi = numi) Then
+                pos = i
+                Return
+            End If
+        Next
+
+    End Sub
+    Private Sub grDetalle_CellValueChanged(sender As Object, e As ColumnActionEventArgs) Handles grDetalle.CellValueChanged
+        Dim lin As Integer = grDetalle.GetValue("Id")
+        Dim pos As Integer = -1
+        _fnObtenerFilaDetalle(pos, lin)
+        If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
+            If (Not IsNumeric(grDetalle.GetValue("Cantidad")) Or grDetalle.GetValue("Cantidad").ToString = String.Empty) Then
+
+                'grDetalle.GetRow(rowIndex).Cells("cant").Value = 1
+                '  grDetalle.CurrentRow.Cells.Item("cant").Value = 1
+
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+                Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+
+                grDetalle.SetValue("Cantidad", 1)
+
+                If (estado = 1) Then
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                End If
+
+            Else
+                If (grDetalle.GetValue("Cantidad") > 0) Then
+
+                    If (grDetalle.GetValue("Cantidad") <= grDetalle.GetValue("Stock")) Then
+
+                        Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+
+                        If (estado = 1) Then
+                            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                        End If
+
+                    Else
+                        ToastNotification.Show(Me, "La Cantidad = " + Str(grDetalle.GetValue("Cantidad")) + " es mayor al Stock del Producto = " + Str(grDetalle.GetValue("Stock")), img, 6000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+
+                        Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+
+                        grDetalle.SetValue("Cantidad", 1)
+
+                        If (estado = 1) Then
+                            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                        End If
+
+                    End If
+
+
+                Else
+
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+
+                    Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+
+                    grDetalle.SetValue("Cantidad", 1)
+
+                    If (estado = 1) Then
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                    End If
+
+                End If
+            End If
+        End If
+    End Sub
+
+    Private Sub grProductos_DoubleClick(sender As Object, e As EventArgs) Handles grProductos.DoubleClick
+        Dim f, c As Integer
+        c = grProductos.Col
+        f = grProductos.Row
+        If (f >= 0) Then
+
+            seleccionarProducto()
 
         End If
     End Sub

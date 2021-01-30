@@ -27,8 +27,18 @@ Public Class Formulario_Cantidad_Lote
         txtStock.Text = "Cantidad Disponible = " + Str(CantidadTotal)
         tbLote.Text = "20200101"
         cbFecha.Value = "01/01/2020"
-    End Sub
 
+        _habilitarFocus()
+    End Sub
+    Public Sub _habilitarFocus()
+        With MHighlighterFocus
+            .SetHighlightOnFocus(tbCantidad, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbLote, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(cbFecha, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnNo, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnSi, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+        End With
+    End Sub
     Private Sub btnNo_MouseHover(sender As Object, e As EventArgs) Handles btnNo.MouseHover
         btnNo.BackColor = Color.FromArgb(170, 170, 170)
     End Sub

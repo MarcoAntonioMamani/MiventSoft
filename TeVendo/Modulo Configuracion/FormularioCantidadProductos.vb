@@ -26,9 +26,15 @@ Public Class FormularioCantidadProductos
     Private Sub Formulario_Eliminar_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         txtProducto.Text = NombreProducto
         txtStock.Text = "Cantidad Disponible = " + Str(CantidadTotal)
-
+        _habilitarFocus()
     End Sub
-
+    Public Sub _habilitarFocus()
+        With MHighlighterFocus
+            .SetHighlightOnFocus(tbCantidad, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnNo, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnSi, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+        End With
+    End Sub
     Private Sub btnNo_MouseHover(sender As Object, e As EventArgs) Handles btnNo.MouseHover
         btnNo.BackColor = Color.FromArgb(170, 170, 170)
     End Sub
