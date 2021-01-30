@@ -341,6 +341,7 @@ Public Class Tec_Despachos
         With grDetalle.RootTable.Columns("img")
             .Width = 120
             .Visible = False
+            .Caption ="Eliminar"
             .LeftMargin = 7
             .TopMargin = 5
             .BottomMargin = 5
@@ -812,4 +813,12 @@ Public Class Tec_Despachos
         Next
         Return -1
     End Function
+
+    Private Sub btnAgregarProducto_Click(sender As Object, e As EventArgs) Handles btnAgregarProducto.Click
+        Dim ef = New Efecto
+        ef.tipo = 13
+        ef.dtDetalle = CType(grDetalle.DataSource, DataTable)
+
+        ef.ShowDialog()
+    End Sub
 End Class

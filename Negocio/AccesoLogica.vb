@@ -288,6 +288,19 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
+    Public Shared Function ListarProductosSeleccionables(SucursalId As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
+        _Tabla = D_ProcedimientoConParam("MAM_DespachoProductos", _listParam)
+
+        Return _Tabla
+    End Function
+
     Public Shared Function InsertarDespachoProductos(_Id As String, PersonalId As Integer, ConciliacionId As Integer, SucursalId As Integer, Fecha As String, NroNota As String, Detalle As String, TipoMovimientoID As Integer, dtdetalle As DataTable) As Boolean
         Dim _Tabla As DataTable
         Dim _resultado As Boolean

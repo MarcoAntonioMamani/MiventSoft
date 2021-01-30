@@ -33,6 +33,10 @@ Public Class Efecto
     Public Fila As Integer
 
 
+    Public dtDetalle As DataTable
+
+
+
 
 
     Private Sub Efecto_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -64,7 +68,8 @@ Public Class Efecto
                 _prMostrarConceptoFijosPlanilla()
             Case 12
                 _prMostrarConceptoVariablesPlanilla()
-
+            Case 13
+                _prMostrarAyudaProductosDespachos()
         End Select
     End Sub
     Public Sub _prLogin()
@@ -145,6 +150,17 @@ Public Class Efecto
         frmAyuda.SueldoNeto = SueldoNeto
         frmAyuda.dtGeneral = dtGeneral
         frmAyuda.PosicionGeneral = Fila
+        frmAyuda.ShowDialog()
+        Me.Close()
+
+
+    End Sub
+
+    Sub _prMostrarAyudaProductosDespachos()
+
+        Dim frmAyuda As Tec_DespachoDetalle
+        frmAyuda = New Tec_DespachoDetalle(dtDetalle)
+
         frmAyuda.ShowDialog()
         Me.Close()
 
