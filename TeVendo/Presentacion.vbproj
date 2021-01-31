@@ -514,6 +514,12 @@
       <DependentUpon>Reporte_CreditoVentaPagados.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ReporteSmartApps\Reporte_Despacho.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reporte_Despacho.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ReporteSmartApps\Reporte_EstadoCuentasCompras.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -803,6 +809,10 @@
     <EmbeddedResource Include="ReporteSmartApps\Reporte_CreditoVentaPagados.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Reporte_CreditoVentaPagados.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\Reporte_Despacho.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reporte_Despacho.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\Reporte_EstadoCuentasCompras.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
