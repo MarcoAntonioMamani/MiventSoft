@@ -304,7 +304,7 @@ Public Class Tec_Despachos
         With grDetalle.RootTable.Columns("Id")
             .Width = 90
             .Caption = "Id"
-            .Visible = True
+            .Visible = False
         End With
         With grDetalle.RootTable.Columns("DespachoProductosId")
             .Width = 110
@@ -312,7 +312,8 @@ Public Class Tec_Despachos
         End With
         With grDetalle.RootTable.Columns("ProductoId")
             .Width = 110
-            .Visible = False
+            .Visible = True
+            .Caption = "Cod. Producto"
         End With
         With grDetalle.RootTable.Columns("NombreProducto")
             .Width = 300
@@ -615,7 +616,7 @@ Public Class Tec_Despachos
         '     c.Id , c.PersonalId, p.NombrePersonal, c.TipoContratoID, TipoContrato.Descripcion as TipoContratoDescripcion
         ',c.Cargo ,Cargo .Descripcion as DescripcionCargo,c.SueldoBase ,c.InicioContrato ,c.FinContrato ,c.Estado ,c.Indefinido 	
         Dim listEstCeldas As New List(Of Celda)
-        listEstCeldas.Add(New Celda("Id", True, "ID", 40))
+        listEstCeldas.Add(New Celda("Id", True, "Cod. Despacho", 60))
         listEstCeldas.Add(New Celda("PersonalId", False))
         listEstCeldas.Add(New Celda("NombrePersonal", True, "Nombre Personal", 300))
         listEstCeldas.Add(New Celda("ConciliacionId", False))
