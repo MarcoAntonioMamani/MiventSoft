@@ -484,13 +484,13 @@ Public Class Tec_Despachos
 
         Dim res As Boolean
         Try
-
+            Dim Id As String = ""
             '_Id As String, PersonalId As Integer, ConciliacionId As Integer, SucursalId As Integer, Fecha As String, NroNota As String, Detalle As String, TipoMovimientoID As Integer, dtdetalle As DataTable
-            res = InsertarDespachoProductos(tbCodigo.Text, PersonalId, ConciliacionID, SucursalId, tbFechaSalida.Value.ToString("dd/MM/yyyy"), tbCodigo.Text, tbDetalle.Text, MovimientoSalidId, CType(grDetalle.DataSource, DataTable))
+            res = InsertarDespachoProductos(Id, PersonalId, ConciliacionID, SucursalId, tbFechaSalida.Value.ToString("dd/MM/yyyy"), tbCodigo.Text, tbDetalle.Text, MovimientoSalidId, CType(grDetalle.DataSource, DataTable))
 
             If res Then
 
-
+                ImprimirNotaSalida(Id)
                 ToastNotification.Show(Me, "Codigo de Despacho ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
 
             Else
@@ -512,7 +512,7 @@ Public Class Tec_Despachos
 
             Res = ModificarDespachoProductos(tbCodigo.Text, PersonalId, ConciliacionID, SucursalId, tbFechaSalida.Value.ToString("dd/MM/yyyy"), tbCodigo.Text, tbDetalle.Text, MovimientoSalidId, CType(grDetalle.DataSource, DataTable))
             If Res Then
-
+                ImprimirNotaSalida(tbCodigo.Text)
                 ToastNotification.Show(Me, "Codigo de Despacho ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                 _PSalirRegistro()
             Else
@@ -757,9 +757,7 @@ Public Class Tec_Despachos
 
 
 #End Region
-    Private Sub Tec_Despachos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-    End Sub
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
         TabControlPrincipal.SelectedTabIndex = 0

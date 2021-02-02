@@ -969,4 +969,27 @@ Public Class Tec_Principal
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub
+
+    Private Sub btnConciliaciones_Click(sender As Object, e As EventArgs) Handles btnConciliaciones.Click
+        SuperTabControlMenu.SelectedTab = tab_ventana
+        Dim frm As New Tec_Conciliacion
+
+        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
+        tab3.RecalcSize()
+        tab3.ThemeAware = True
+        tab3.ShowSubItems = True
+        tab3.UpdateBindings()
+        'frm._tab = tab3
+        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
+        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
+        tab3.AttachedControl.Controls.Add(panel)
+        frm._tab = tab3
+        frm._TabControl = SuperTabControlMenu
+        frm._modulo = tab_distribucion
+        frm.Show()
+        tab3.Text = frm.Text
+        Dim blah As New Bitmap(btnConciliaciones.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
+    End Sub
 End Class

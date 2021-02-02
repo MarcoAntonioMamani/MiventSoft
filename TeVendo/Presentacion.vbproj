@@ -213,6 +213,12 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="CustomersRow.vb" />
+    <Compile Include="Distribucion\Tec_Conciliacion.Designer.vb">
+      <DependentUpon>Tec_Conciliacion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Distribucion\Tec_Conciliacion.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Distribucion\Tec_DespachoDetalle.Designer.vb">
       <DependentUpon>Tec_DespachoDetalle.vb</DependentUpon>
     </Compile>
@@ -650,6 +656,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Control\UCLavadero.resx">
       <DependentUpon>UCLavadero.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Distribucion\Tec_Conciliacion.resx">
+      <DependentUpon>Tec_Conciliacion.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Distribucion\Tec_DespachoDetalle.resx">
       <DependentUpon>Tec_DespachoDetalle.vb</DependentUpon>
