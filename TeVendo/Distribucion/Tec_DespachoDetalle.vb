@@ -13,13 +13,8 @@ Public Class Tec_DespachoDetalle
     Public Sub IniciarTodod()
         CargarProductosVentas()
         CargarProductos()
-
-
-        tbProducto.Focus()
-
-
-
         _habilitarFocus()
+        tbProducto.Focus()
     End Sub
 
     Public Sub _habilitarFocus()
