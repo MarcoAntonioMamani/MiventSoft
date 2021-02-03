@@ -25,6 +25,7 @@ Public Class Efecto
     Public IdCliente As Integer
     Public NombreCliente As String
     Public Lote As String
+    Public Lotebool As Boolean
     Public FechaVencimiento As Date
     Public ModuloLibreria As Integer = 0
     Public PlanillaId As Integer = 0
@@ -34,6 +35,8 @@ Public Class Efecto
 
 
     Public dtDetalle As DataTable
+    Public TipoMovimientoId As Integer
+    Public DepositoId As Integer
 
 
 
@@ -70,6 +73,8 @@ Public Class Efecto
                 _prMostrarConceptoVariablesPlanilla()
             Case 13
                 _prMostrarAyudaProductosDespachos()
+            Case 14
+                _prMostrarAyudaProductosMovimientos()
         End Select
     End Sub
     Public Sub _prLogin()
@@ -166,7 +171,18 @@ Public Class Efecto
 
 
     End Sub
+    Sub _prMostrarAyudaProductosMovimientos()
 
+        Dim frmAyuda As Tec_MovimientoDetalle
+        frmAyuda = New Tec_MovimientoDetalle(dtDetalle)
+        frmAyuda.TipoMovimientoId = TipoMovimientoId
+        frmAyuda.DepositoId = DepositoId
+        frmAyuda.Lote = Lotebool
+        frmAyuda.ShowDialog()
+        Me.Close()
+
+
+    End Sub
     Public Sub ReporteVenta()
         Dim frmAyuda As Formulario_Reportevb
         frmAyuda = New Formulario_Reportevb

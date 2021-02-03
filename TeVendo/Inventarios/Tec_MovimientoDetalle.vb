@@ -8,10 +8,10 @@ Public Class Tec_MovimientoDetalle
     Dim FilaSelectLote As DataRow = Nothing
     Public dtProductos As DataTable
     Public dtDetalle As DataTable
-    Dim Lote As Boolean = False
+    Public Lote As Boolean
 
-    Dim TipoMovimientoId As Integer
-    Dim DepositoId As Integer
+    Public TipoMovimientoId As Integer
+    Public DepositoId As Integer
 
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
 
@@ -20,9 +20,21 @@ Public Class Tec_MovimientoDetalle
         _prCargarProductos()
 
         _habilitarFocus()
+        ActualizarProductos()
         tbProducto.Focus()
     End Sub
+    Public Sub ActualizarProductos()
 
+        For i As Integer = 0 To CType(grDetalle.DataSource, DataTable).Rows.Count - 1 Step 1
+            If (CType(grDetalle.DataSource, DataTable).Rows(i).Item("estado") >= 0) Then
+                CambiarEstado(CType(grDetalle.DataSource, DataTable).Rows(i).Item("ProductoId"), 0)
+
+            End If
+
+
+        Next
+
+    End Sub
     Public Sub _habilitarFocus()
         With MHighlighterFocus
             .SetHighlightOnFocus(tbProducto, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)

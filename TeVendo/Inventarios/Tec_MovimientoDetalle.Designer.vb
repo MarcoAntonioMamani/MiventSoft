@@ -382,8 +382,10 @@ Partial Class Tec_MovimientoDetalle
         Me.ClientSize = New System.Drawing.Size(1284, 746)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Paneltop)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Tec_MovimientoDetalle"
         Me.Text = "Tec_MovimientoDetalle"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.Paneltop.ResumeLayout(False)
         CType(Me.grProducto, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel5.ResumeLayout(False)
