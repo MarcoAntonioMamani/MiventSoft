@@ -196,13 +196,19 @@ Public Class FormularioAyuda
     End Sub
 
     Private Sub grJBuscador_DoubleClick(sender As Object, e As EventArgs) Handles grJBuscador.DoubleClick
-        If (grJBuscador.RowCount >= 1 And grJBuscador.Row >= 0) Then
+        Try
+            If (grJBuscador.RowCount >= 1 And grJBuscador.Row >= 0) Then
 
-            filaSelect = grJBuscador.GetRow()
+                filaSelect = grJBuscador.GetRow()
                 seleccionado = True
                 Me.Close()
 
 
-        End If
+            End If
+        Catch ex As Exception
+
+        End Try
+
+
     End Sub
 End Class

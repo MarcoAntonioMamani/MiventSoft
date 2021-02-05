@@ -245,7 +245,7 @@ Public Class Tec_MovimientoDetalle
             '    Console.WriteLine("'{0}'", item)
             'Next
             Dim cant As Integer = vectoraux.Length
-            'Id  CodigoExterno	NombreProducto	DescripcionProducto	NombreCategoria	stock	estado
+            'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock 
             For i As Integer = 0 To dt.Rows.Count - 1 Step 1
                 Dim nombre As String = dt.Rows(i).Item("CodigoExterno").ToString.ToUpper +
                     " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper +
@@ -444,8 +444,10 @@ Public Class Tec_MovimientoDetalle
         If (Lote = True And TipoMovimientoId = 3) Then '' es Salida Productos
             dt = L_prListarProductosLote(DepositoId)  ''1=Almacen
             actualizarSaldoSinLote(dt)
+            dtProductos = dt
         Else
             dt = L_prListarProductosLote(DepositoId)  ''1=Almacen
+            dtProductos = dt
         End If
         'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock 
 
@@ -475,13 +477,23 @@ Public Class Tec_MovimientoDetalle
             .Width = 350
             .Caption = "PRODUCTOS"
             .Visible = True
-
+            .MaxLines = 2
+            .WordWrap = True
         End With
-
+        With grProducto.RootTable.Columns("NombreCategoria")
+            .Width = 150
+            .Caption = "CATEGORIA"
+            .Visible = True
+            .MaxLines = 2
+            .WordWrap = True
+        End With
+        ''NombreCategoria
         With grProducto.RootTable.Columns("DescripcionProducto")
             .Width = 250
             .Visible = True
             .Caption = "DESCRIPCION"
+            .MaxLines = 2
+            .WordWrap = True
         End With
 
 
