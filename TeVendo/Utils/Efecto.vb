@@ -37,6 +37,7 @@ Public Class Efecto
     Public dtDetalle As DataTable
     Public TipoMovimientoId As Integer
     Public DepositoId As Integer
+    Public SucursalId As Integer
 
 
 
@@ -75,6 +76,8 @@ Public Class Efecto
                 _prMostrarAyudaProductosDespachos()
             Case 14
                 _prMostrarAyudaProductosMovimientos()
+            Case 15
+                _prMostrarAyudaProductosCompras()
         End Select
     End Sub
     Public Sub _prLogin()
@@ -177,6 +180,18 @@ Public Class Efecto
         frmAyuda = New Tec_MovimientoDetalle(dtDetalle)
         frmAyuda.TipoMovimientoId = TipoMovimientoId
         frmAyuda.DepositoId = DepositoId
+        frmAyuda.Lote = Lotebool
+        frmAyuda.ShowDialog()
+        Me.Close()
+
+
+    End Sub
+
+    Sub _prMostrarAyudaProductosCompras()
+
+        Dim frmAyuda As Tec_ComprasDetalle
+        frmAyuda = New Tec_ComprasDetalle(dtDetalle)
+        frmAyuda.SucursalId = SucursalId
         frmAyuda.Lote = Lotebool
         frmAyuda.ShowDialog()
         Me.Close()
