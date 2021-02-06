@@ -1403,6 +1403,8 @@ salirIf:
     Private Sub Tec_Users_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         _prIniciarTodo()
         TabControlPrincipal.SelectedTabIndex = 1
+        Me.Width = 1920
+        Me.Height = 1080
     End Sub
 
     Private Sub btnPrimero_Click(sender As Object, e As EventArgs) Handles btnPrimero.Click
@@ -1809,6 +1811,10 @@ salirIf:
         ef.ShowDialog()
         grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
         _prCalcularPrecioTotal()
+    End Sub
+
+    Private Sub LabelX8_Click(sender As Object, e As EventArgs) Handles LabelX8.Click
+
     End Sub
 #End Region
 End Class
