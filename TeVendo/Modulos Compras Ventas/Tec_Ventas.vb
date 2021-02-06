@@ -245,7 +245,7 @@ Public Class Tec_Ventas
         'L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
         Me.Text = "Gestion De Ventas"
         P_Global._prCargarComboGenerico(cbSucursal, L_fnGeneralSucursales(), "aanumi", "Codigo", "aabdes", "Sucursal")
-
+        P_Global._prCargarComboGenerico(cbEstadoPedido, L_fnPedidosEstados(), "id", "Id", "NombreEstado", "Estado")
         _PMIniciarTodo()
         _prAsignarPermisos()
 
@@ -960,7 +960,7 @@ salirIf:
         End If
     End Sub
 
-    Private Sub cbConcepto_ValueChanged(sender As Object, e As EventArgs) Handles cbSucursal.ValueChanged
+    Private Sub cbConcepto_ValueChanged(sender As Object, e As EventArgs)
 
 
 
@@ -1323,7 +1323,7 @@ salirIf:
             IdCliente = .GetValue("ClienteId")
             tbFechaVencimientoCredito.Value = .GetValue("FechaVencimientoCredito")
             tbCliente.Text = .GetValue("NombreCliente").ToString
-
+            cbEstadoPedido.Value = .GetValue("EstadoPedido")
             tbGlosa.Text = .GetValue("Glosa").ToString
             tbMdesc.Value = .GetValue("descuento")
         End With
