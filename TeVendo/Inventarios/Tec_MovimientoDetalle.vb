@@ -33,7 +33,7 @@ Public Class Tec_MovimientoDetalle
 
 
         Next
-
+        grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
     End Sub
     Public Sub _habilitarFocus()
         With MHighlighterFocus
@@ -986,11 +986,16 @@ Public Class Tec_MovimientoDetalle
     End Sub
 
     Private Sub grDetalle_MouseClick(sender As Object, e As MouseEventArgs) Handles grDetalle.MouseClick
-        If (grDetalle.RowCount >= 1) Then
-            If (grDetalle.CurrentColumn.Index = grDetalle.RootTable.Columns("img").Index) Then
-                _prEliminarFila()
+        Try
+            If (grDetalle.RowCount >= 1) Then
+                If (grDetalle.CurrentColumn.Index = grDetalle.RootTable.Columns("img").Index) Then
+                    _prEliminarFila()
+                End If
             End If
-        End If
+        Catch ex As Exception
+
+        End Try
+
     End Sub
     Public Sub _prEliminarFila()
         If (grDetalle.Row >= 0) Then

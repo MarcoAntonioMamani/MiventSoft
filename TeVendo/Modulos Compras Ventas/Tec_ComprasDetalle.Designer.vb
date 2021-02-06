@@ -369,6 +369,7 @@ Partial Class Tec_ComprasDetalle
         '
         'MHighlighterFocus
         '
+        Me.MHighlighterFocus.ContainerControl = Me
         Me.MHighlighterFocus.FocusHighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Orange
         '
         'MEP
@@ -384,7 +385,9 @@ Partial Class Tec_ComprasDetalle
         Me.Controls.Add(Me.Paneltop)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Tec_ComprasDetalle"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Detalle Compra"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.Paneltop.ResumeLayout(False)
         CType(Me.grProducto, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel5.ResumeLayout(False)

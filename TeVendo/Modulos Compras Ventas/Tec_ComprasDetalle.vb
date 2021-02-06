@@ -23,13 +23,17 @@ Public Class Tec_ComprasDetalle
         ActualizarProductos()
         tbProducto.Focus()
     End Sub
+    Private Sub Tec_DespachoDetalle_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        IniciarTodod()
+        tbProducto.Focus()
+    End Sub
 
     Private Sub _prCargarProductos()
         Dim dt As New DataTable
 
 
         dt = L_prListarProductosCompras(SucursalId)  ''1=Almacen
-
+        dtProductos = dt
         'a.Id , a.NombreProducto, PCosto.Precio As PrecioCosto,
         ''PVenta.Precio as PrecioVenta
         grProducto.DataSource = dt
@@ -66,7 +70,11 @@ Public Class Tec_ComprasDetalle
             .Visible = True
             .Caption = "DESCRIPCION"
         End With
-
+        With grProducto.RootTable.Columns("NombreCategoria")
+            .Width = 200
+            .Visible = True
+            .Caption = "CATEGORIA"
+        End With
 
         With grProducto.RootTable.Columns("PrecioCosto")
             .Width = 150
@@ -116,7 +124,7 @@ Public Class Tec_ComprasDetalle
 
 
         Next
-
+        grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
     End Sub
 
     Private Sub _prAddDetalleVenta()
@@ -124,7 +132,7 @@ Public Class Tec_ComprasDetalle
         'd.Lote, d.FechaVencimiento, d.TotalCompra, d.PrecioVenta, 1 As estado, cast('' as image) as img,
         'd.PrecioCosto As costo, d.PrecioVenta  as venta
         Dim Bin As New MemoryStream
-        Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
+        Dim img As New Bitmap(My.Resources.rowdelete, 25, 18)
         img.Save(Bin, Imaging.ImageFormat.Png)
         CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, 0, "20200101", CDate("01/01/2020"), 0, 0, 0, Bin.GetBuffer, 0, 0)
     End Sub
@@ -245,8 +253,11 @@ Public Class Tec_ComprasDetalle
                 .Width = 80
                 .Caption = "Eliminar".ToUpper
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
-                .Visible = False
-            End With
+            .Visible = True
+            .LeftMargin = 7
+            .TopMargin = 5
+            .BottomMargin = 5
+        End With
 
 
 
@@ -295,14 +306,14 @@ Public Class Tec_ComprasDetalle
     End Sub
     Public Sub CargarIconEstado()
 
-
+        Dim Bin As New MemoryStream
+        Dim img As New Bitmap(My.Resources.rowdelete, 25, 18)
+        img.Save(Bin, Imaging.ImageFormat.Png)
         Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
         Dim n As Integer = dt.Rows.Count
         For i As Integer = 0 To n - 1 Step 1
 
-            Dim Bin As New MemoryStream
-            Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
-            img.Save(Bin, Imaging.ImageFormat.Png)
+
             CType(grDetalle.DataSource, DataTable).Rows(i).Item("img") = Bin.GetBuffer
 
 
@@ -664,11 +675,12 @@ salirIf:
             '    Console.WriteLine("'{0}'", item)
             'Next
             Dim cant As Integer = vectoraux.Length
-            'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock 
+            'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock  NombreCategoria
             For i As Integer = 0 To dt.Rows.Count - 1 Step 1
                 Dim nombre As String = dt.Rows(i).Item("Id").ToString.ToUpper +
                     " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper
+                    " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("NombreCategoria").ToString.ToUpper
                 Select Case cant
                     Case 1
 
@@ -848,7 +860,7 @@ salirIf:
 
                     Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
                     Dim rowIndex As Integer = grDetalle.Row
-
+                    P_PonerTotal(rowIndex)
                     If (estado = 1) Then
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
                     End If
@@ -876,7 +888,7 @@ salirIf:
             Else
                 If (grDetalle.GetValue("PrecioCosto") > 0) Then
                     Dim rowIndex As Integer = grDetalle.Row
-
+                    P_PonerTotal(rowIndex)
                 Else
 
                     Dim cantidad As Double = grDetalle.GetValue("Cantidad")
@@ -897,7 +909,32 @@ salirIf:
             End If
         End If
     End Sub
+    Public Sub P_PonerTotal(rowIndex As Integer)
+        If (rowIndex < grDetalle.RowCount) Then
 
+            Dim lin As Integer = grDetalle.GetValue("Id")
+            Dim pos As Integer = -1
+            _fnObtenerFilaDetalle(pos, lin)
+            Dim cant As Double = grDetalle.GetValue("Cantidad")
+            Dim uni As Double = grDetalle.GetValue("PrecioCosto")
+            If (pos >= 0) Then
+                Dim TotalUnitario As Double = cant * uni
+                'grDetalle.SetValue("lcmdes", montodesc)
+
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("TotalCompra") = TotalUnitario
+                grDetalle.SetValue("TotalCompra", TotalUnitario)
+                Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+                If (estado = 1) Then
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                End If
+
+            End If
+
+        End If
+
+
+
+    End Sub
     Private Sub btnConfirmarSalir_Click(sender As Object, e As EventArgs) Handles btnConfirmarSalir.Click
         Me.Close()
     End Sub
