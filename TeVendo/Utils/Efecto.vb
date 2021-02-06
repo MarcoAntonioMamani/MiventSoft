@@ -78,6 +78,9 @@ Public Class Efecto
                 _prMostrarAyudaProductosMovimientos()
             Case 15
                 _prMostrarAyudaProductosCompras()
+
+            Case 16
+                _prMostrarAyudaProductosVentas()
         End Select
     End Sub
     Public Sub _prLogin()
@@ -193,6 +196,19 @@ Public Class Efecto
         frmAyuda = New Tec_ComprasDetalle(dtDetalle)
         frmAyuda.SucursalId = SucursalId
         frmAyuda.Lote = Lotebool
+        frmAyuda.ShowDialog()
+        Me.Close()
+
+
+    End Sub
+
+    Sub _prMostrarAyudaProductosVentas()
+
+        Dim frmAyuda As Tec_VentasDetalle
+        frmAyuda = New Tec_VentasDetalle(dtDetalle)
+        frmAyuda.SucursalId = SucursalId
+        frmAyuda.Lote = Lotebool
+        frmAyuda.IdCliente = IdCliente
         frmAyuda.ShowDialog()
         Me.Close()
 

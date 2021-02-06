@@ -384,7 +384,9 @@ Partial Class Tec_VentasDetalle
         Me.Controls.Add(Me.Paneltop)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Tec_VentasDetalle"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Ventas Detalle"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.Paneltop.ResumeLayout(False)
         CType(Me.grProducto, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel5.ResumeLayout(False)
