@@ -25,7 +25,7 @@ Public Class CrearLibreria
     End Sub
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
-        If (tbdescripcion.Text.Length > 2) Then
+        If (tbdescripcion.Text.Length > 1) Then
             Bandera = L_prClasificadorGrabar("", Modulo, tbdescripcion.Text)
 
             Me.Close()

@@ -43,6 +43,7 @@ Partial Class Tec_VentasDetalle
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.btnProductos = New DevComponents.DotNetBar.ButtonX()
         Me.Paneltop.SuspendLayout()
         CType(Me.grProducto, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
@@ -65,7 +66,7 @@ Partial Class Tec_VentasDetalle
         Me.Paneltop.Controls.Add(Me.Panel10)
         Me.Paneltop.Dock = System.Windows.Forms.DockStyle.Top
         Me.Paneltop.Location = New System.Drawing.Point(0, 0)
-        Me.Paneltop.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Paneltop.Margin = New System.Windows.Forms.Padding(2)
         Me.Paneltop.Name = "Paneltop"
         Me.Paneltop.Size = New System.Drawing.Size(821, 474)
         Me.Paneltop.TabIndex = 3
@@ -124,12 +125,13 @@ Partial Class Tec_VentasDetalle
         '
         'Panel5
         '
+        Me.Panel5.Controls.Add(Me.btnProductos)
         Me.Panel5.Controls.Add(Me.btnConfirmarSalir)
         Me.Panel5.Controls.Add(Me.LabelX9)
         Me.Panel5.Controls.Add(Me.tbProducto)
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel5.Location = New System.Drawing.Point(0, 29)
-        Me.Panel5.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel5.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(821, 55)
         Me.Panel5.TabIndex = 3
@@ -191,7 +193,7 @@ Partial Class Tec_VentasDetalle
         Me.Panel10.Controls.Add(Me.Panel11)
         Me.Panel10.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel10.Location = New System.Drawing.Point(0, 0)
-        Me.Panel10.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel10.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Padding = New System.Windows.Forms.Padding(1)
         Me.Panel10.Size = New System.Drawing.Size(821, 29)
@@ -205,7 +207,7 @@ Partial Class Tec_VentasDetalle
         Me.Panel11.Controls.Add(Me.PictureBox3)
         Me.Panel11.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel11.Location = New System.Drawing.Point(1, 1)
-        Me.Panel11.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel11.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel11.Name = "Panel11"
         Me.Panel11.Size = New System.Drawing.Size(819, 27)
         Me.Panel11.TabIndex = 0
@@ -230,7 +232,7 @@ Partial Class Tec_VentasDetalle
         Me.Panel12.BackColor = System.Drawing.Color.White
         Me.Panel12.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel12.Location = New System.Drawing.Point(44, 0)
-        Me.Panel12.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel12.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel12.Name = "Panel12"
         Me.Panel12.Size = New System.Drawing.Size(1, 27)
         Me.Panel12.TabIndex = 1
@@ -241,7 +243,7 @@ Partial Class Tec_VentasDetalle
         Me.PictureBox3.Dock = System.Windows.Forms.DockStyle.Left
         Me.PictureBox3.Image = Global.TeVendo.My.Resources.Resources.tec_triangulo_blanco
         Me.PictureBox3.Location = New System.Drawing.Point(0, 0)
-        Me.PictureBox3.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.PictureBox3.Margin = New System.Windows.Forms.Padding(2)
         Me.PictureBox3.Name = "PictureBox3"
         Me.PictureBox3.Padding = New System.Windows.Forms.Padding(11, 4, 11, 4)
         Me.PictureBox3.Size = New System.Drawing.Size(44, 27)
@@ -256,7 +258,7 @@ Partial Class Tec_VentasDetalle
         Me.Panel2.Controls.Add(Me.Panel1)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(0, 474)
-        Me.Panel2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel2.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(821, 166)
         Me.Panel2.TabIndex = 4
@@ -317,7 +319,7 @@ Partial Class Tec_VentasDetalle
         Me.Panel1.Controls.Add(Me.Panel3)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Padding = New System.Windows.Forms.Padding(1)
         Me.Panel1.Size = New System.Drawing.Size(821, 29)
@@ -331,7 +333,7 @@ Partial Class Tec_VentasDetalle
         Me.Panel3.Controls.Add(Me.PictureBox1)
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel3.Location = New System.Drawing.Point(1, 1)
-        Me.Panel3.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel3.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(819, 27)
         Me.Panel3.TabIndex = 0
@@ -356,7 +358,7 @@ Partial Class Tec_VentasDetalle
         Me.Panel4.BackColor = System.Drawing.Color.White
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel4.Location = New System.Drawing.Point(44, 0)
-        Me.Panel4.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel4.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(1, 27)
         Me.Panel4.TabIndex = 1
@@ -367,7 +369,7 @@ Partial Class Tec_VentasDetalle
         Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Left
         Me.PictureBox1.Image = Global.TeVendo.My.Resources.Resources.tec_triangulo_blanco
         Me.PictureBox1.Location = New System.Drawing.Point(0, 0)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Padding = New System.Windows.Forms.Padding(11, 4, 11, 4)
         Me.PictureBox1.Size = New System.Drawing.Size(44, 27)
@@ -383,6 +385,26 @@ Partial Class Tec_VentasDetalle
         '
         Me.MEP.ContainerControl = Me
         '
+        'btnProductos
+        '
+        Me.btnProductos.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnProductos.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnProductos.Font = New System.Drawing.Font("Calibri", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnProductos.Image = Global.TeVendo.My.Resources.Resources.search
+        Me.btnProductos.ImageFixedSize = New System.Drawing.Size(24, 24)
+        Me.btnProductos.Location = New System.Drawing.Point(662, 6)
+        Me.btnProductos.Name = "btnProductos"
+        Me.btnProductos.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
+        Me.btnProductos.Size = New System.Drawing.Size(149, 43)
+        Me.btnProductos.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnProductos.Symbol = "57410"
+        Me.btnProductos.SymbolColor = System.Drawing.Color.DarkOrange
+        Me.btnProductos.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Material
+        Me.btnProductos.SymbolSize = 30.0!
+        Me.btnProductos.TabIndex = 376
+        Me.btnProductos.Text = "Volver a Productos"
+        Me.btnProductos.Visible = False
+        '
         'Tec_VentasDetalle
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -391,7 +413,7 @@ Partial Class Tec_VentasDetalle
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Paneltop)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "Tec_VentasDetalle"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Ventas Detalle"
@@ -432,4 +454,5 @@ Partial Class Tec_VentasDetalle
     Friend WithEvents PictureBox1 As PictureBox
     Protected WithEvents MHighlighterFocus As DevComponents.DotNetBar.Validator.Highlighter
     Protected WithEvents MEP As ErrorProvider
+    Friend WithEvents btnProductos As DevComponents.DotNetBar.ButtonX
 End Class

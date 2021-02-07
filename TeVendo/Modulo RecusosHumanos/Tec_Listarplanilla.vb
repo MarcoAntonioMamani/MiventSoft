@@ -67,16 +67,22 @@ Public Class Tec_Listarplanilla
             .Width = 50
             .Visible = True
             .Caption = "Año"
+            .MaxLines = 2
+            .WordWrap = True
         End With
         With grplanilla.RootTable.Columns("Mes")
             .Width = 50
             .Visible = True
             .Caption = "Mes"
+            .MaxLines = 2
+            .WordWrap = True
         End With
         With grplanilla.RootTable.Columns("Trabajador")
             .Width = 220
             .Visible = True
             .Caption = "Trabajador"
+            .MaxLines = 2
+            .WordWrap = True
         End With
         'fila	PlanillaId	Anio	Mes	Trabajador	InicioContrato	FinContrato	Cargo	Sueldo	ConceptoFijos	SueldoBruto	ConceptoVariable	SueldoNeto	Reporte
 
@@ -96,6 +102,8 @@ Public Class Tec_Listarplanilla
             .Width = 120
             .Visible = True
             .Caption = "Cargo"
+            .MaxLines = 2
+            .WordWrap = True
         End With
         'fila	PlanillaId	Anio	Mes	Trabajador	InicioContrato	FinContrato	Cargo	Sueldo	ConceptoFijos	SueldoBruto	ConceptoVariable	SueldoNeto	Reporte
         With grplanilla.RootTable.Columns("Sueldo")

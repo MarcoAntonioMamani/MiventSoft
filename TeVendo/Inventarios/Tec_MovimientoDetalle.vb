@@ -406,6 +406,7 @@ Public Class Tec_MovimientoDetalle
 
                 _DesHabilitarProductos()
             Else
+                btnProductos.Visible = False
                 FilaSelectLote = Nothing
                 _HabilitarProductos()
 
@@ -628,6 +629,7 @@ Public Class Tec_MovimientoDetalle
 
     End Sub
     Private Sub _prCargarLotesDeProductos(CodProducto As Integer, nameProducto As String)
+        btnProductos.Visible = True
         If (DepositoId < 0) Then
             Return
         End If
@@ -826,7 +828,7 @@ Public Class Tec_MovimientoDetalle
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Lote") = grProducto.GetValue("Lote")
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("FechaVencimiento") = grProducto.GetValue("FechaVencimiento")
 
-
+                    btnProductos.Visible = False
                     FilaSelectLote = Nothing
                     _DesHabilitarProductos()
                     tbProducto.Focus()
@@ -1021,5 +1023,10 @@ Public Class Tec_MovimientoDetalle
         End If
 
 
+    End Sub
+
+    Private Sub btnProductos_Click(sender As Object, e As EventArgs) Handles btnProductos.Click
+        FilaSelectLote = Nothing
+        _HabilitarProductos()
     End Sub
 End Class
