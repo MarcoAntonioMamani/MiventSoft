@@ -1196,9 +1196,9 @@ Public Class AccesoLogica
 
     Public Shared Function VentaInsertar(ByRef _numi As String, AlmacenId As Integer,
                                            FechaTransacccion As String, PersonalId As Integer, ClienteId As Integer, TipoVenta As Integer,
-       FechaVencCredito As String, Moneda As Integer, estado As Integer, glosa As String,
+       FechaVencCredito As String, estado As Integer, glosa As String,
                                            TotalCompra As Double, _dtDetalle As DataTable,
-                                           Descuento As Double) As Boolean
+                                           Descuento As Double, EstadoPedido As Integer, FechaEntregar As String, VentaDirecta As Integer) As Boolean
         Dim _resultado As Boolean
 
         '    @Id ,@SucursalId ,@FechaVenta ,@PersonalId ,@TipoVenta ,
@@ -1218,13 +1218,16 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@ClienteId", ClienteId))
 
 
-        _listParam.Add(New Datos.DParametro("@MonedaVenta", Moneda))
+        _listParam.Add(New Datos.DParametro("@MonedaVenta", 1))
         _listParam.Add(New Datos.DParametro("@Estado", estado))
         _listParam.Add(New Datos.DParametro("@Glosa", glosa))
         _listParam.Add(New Datos.DParametro("@TotalVenta", TotalCompra))
         _listParam.Add(New Datos.DParametro("@Descuento", Descuento))
         _listParam.Add(New Datos.DParametro("@VentaDetalleType", "", _dtDetalle))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@EstadoPedido", EstadoPedido))
+        _listParam.Add(New Datos.DParametro("@FechaEntregar", FechaEntregar))
+        _listParam.Add(New Datos.DParametro("@Ventadirecta", VentaDirecta))
 
         _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
 
@@ -1243,7 +1246,7 @@ Public Class AccesoLogica
                                            FechaTransacccion As String, PersonalId As Integer, ClienteId As Integer, TipoVenta As Integer,
        FechaVencCredito As String, Moneda As Integer, estado As Integer, glosa As String,
                                            TotalCompra As Double, _dtDetalle As DataTable,
-                                           Descuento As Double) As Boolean
+                                           Descuento As Double, EstadoPedido As Integer, FechaEntregar As String, VentaDirecta As Integer)) As Boolean
         Dim _resultado As Boolean
 
         '    @Id ,@SucursalId ,@FechaVenta ,@PersonalId ,@TipoVenta ,
@@ -1270,7 +1273,9 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@Descuento", Descuento))
         _listParam.Add(New Datos.DParametro("@VentaDetalleType", "", _dtDetalle))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
-
+        _listParam.Add(New Datos.DParametro("@EstadoPedido", EstadoPedido))
+        _listParam.Add(New Datos.DParametro("@FechaEntregar", FechaEntregar))
+        _listParam.Add(New Datos.DParametro("@Ventadirecta", VentaDirecta))
         _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
 
         If _Tabla.Rows.Count > 0 Then

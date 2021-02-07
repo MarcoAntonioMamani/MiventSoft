@@ -25,6 +25,7 @@ Public Class Tec_Ventas
     Dim Lote As Boolean = False
     Dim IdVendedor As Integer = 0
     Dim IdCliente As Integer = 0
+    Dim VentaDirecta As Integer
 
 #End Region
 
@@ -1003,8 +1004,14 @@ salirIf:
 
         cbSucursal.ReadOnly = False
         swTipoVenta.IsReadOnly = False
-        tbFechaVencimientoCredito.IsInputReadOnly = False
+        tbFechaVencimientoCredito.ReadOnly = False
         tbFechaTransaccion.IsInputReadOnly = False
+
+        lbDistribuidor.Visible = False
+        tbDistribuidro.Visible = False
+        lbFechaEntregar.Visible = False
+        cbFechaEntregado.Visible = False
+
 
 
         tbMdesc.IsInputReadOnly = False
@@ -1025,7 +1032,7 @@ salirIf:
 
         cbSucursal.ReadOnly = True
         swTipoVenta.IsReadOnly = True
-        tbFechaVencimientoCredito.IsInputReadOnly = True
+        tbFechaVencimientoCredito.ReadOnly = True
         tbFechaTransaccion.IsInputReadOnly = True
         tbTotal.IsInputReadOnly = True
         tbMdesc.IsInputReadOnly = True
@@ -1034,6 +1041,11 @@ salirIf:
         btnVendedor.Visible = False
         btnCliente.Visible = False
         BtnImprimir.Visible = True
+
+        lbDistribuidor.Visible = True
+        tbDistribuidro.Visible = True
+        lbFechaEntregar.Visible = True
+        cbFechaEntregado.Visible = True
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -1056,6 +1068,13 @@ salirIf:
         tbPdesc.Value = 0
         tbTotal.Value = 0
         _prCargarDetalleVenta(-1)
+
+
+        If (VentaDirecta = 1) Then
+            cbEstadoPedido.Value = 4
+        Else
+            cbEstadoPedido.Value = 1
+        End If
 
 
     End Sub
@@ -1083,8 +1102,7 @@ salirIf:
         Dim Id As String = "0"
         Try
             res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
-                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value)
+                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"), 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, cbEstadoPedido.Value, cbFechaEntregado.Value.ToString("yyyy/MM/dd"), VentaDirecta)
 
             If res Then
 
@@ -1110,7 +1128,7 @@ salirIf:
         Try
             Res = VentaModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                 IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value)
+                                1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, cbEstadoPedido.Value, cbFechaEntregado.Value.ToString("yyyy/MM/dd"), VentaDirecta)
             If Res Then
                 ReporteVenta(tbCodigo.Text)
                 ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
@@ -1297,7 +1315,11 @@ salirIf:
         listEstCeldas.Add(New Celda("Glosa", True, " Glosa", 250))
         listEstCeldas.Add(New Celda("TotalVenta", True, "Total Venta", 150, "0.00"))
         listEstCeldas.Add(New Celda("Descuento", False))
-
+        listEstCeldas.Add(New Celda("EstadoPedido", False))
+        listEstCeldas.Add(New Celda("NombreEstado", True, "Estado Pedido", 70))
+        listEstCeldas.Add(New Celda("VentaDirecta", False))
+        listEstCeldas.Add(New Celda("FechaEntrega", False))
+        listEstCeldas.Add(New Celda("NombrePersonal", False))
         Return listEstCeldas
     End Function
 
@@ -1326,6 +1348,9 @@ salirIf:
             cbEstadoPedido.Value = .GetValue("EstadoPedido")
             tbGlosa.Text = .GetValue("Glosa").ToString
             tbMdesc.Value = .GetValue("descuento")
+            VentaDirecta = .GetValue("VentaDirecta")
+            cbFechaEntregado.Value = .GetValue("FechaEntrega")
+            tbDistribuidro.Text = .GetValue("NombrePersonal").ToString
         End With
 
         _prCargarDetalleVenta(tbCodigo.Text)
@@ -1444,6 +1469,7 @@ salirIf:
     End Sub
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
+        VentaDirecta = 1
         TabControlPrincipal.SelectedTabIndex = 0
         btnNuevo.PerformClick()
 
