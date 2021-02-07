@@ -47,9 +47,10 @@ Partial Class Tec_Login
         Me.Panel3.Controls.Add(Me.Panel1)
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
+        Me.Panel3.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Padding = New System.Windows.Forms.Padding(2)
-        Me.Panel3.Size = New System.Drawing.Size(937, 385)
+        Me.Panel3.Size = New System.Drawing.Size(703, 313)
         Me.Panel3.TabIndex = 33
         '
         'Panel1
@@ -65,8 +66,9 @@ Partial Class Tec_Login
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(2, 2)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(933, 381)
+        Me.Panel1.Size = New System.Drawing.Size(699, 309)
         Me.Panel1.TabIndex = 0
         '
         'tbpassword
@@ -80,12 +82,11 @@ Partial Class Tec_Login
         Me.tbpassword.Border.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
         Me.tbpassword.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tbpassword.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbpassword.Location = New System.Drawing.Point(457, 192)
-        Me.tbpassword.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbpassword.Location = New System.Drawing.Point(343, 156)
         Me.tbpassword.Name = "tbpassword"
         Me.tbpassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.tbpassword.PreventEnterBeep = True
-        Me.tbpassword.Size = New System.Drawing.Size(385, 37)
+        Me.tbpassword.Size = New System.Drawing.Size(289, 33)
         Me.tbpassword.TabIndex = 1
         Me.tbpassword.WatermarkBehavior = DevComponents.DotNetBar.eWatermarkBehavior.HideNonEmpty
         Me.tbpassword.WatermarkColor = System.Drawing.Color.DarkGray
@@ -98,10 +99,11 @@ Partial Class Tec_Login
         Me.btnsalir.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground
         Me.btnsalir.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnsalir.HotTrackingStyle = DevComponents.DotNetBar.eHotTrackingStyle.Color
-        Me.btnsalir.Location = New System.Drawing.Point(677, 275)
+        Me.btnsalir.Location = New System.Drawing.Point(508, 223)
+        Me.btnsalir.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.btnsalir.Name = "btnsalir"
         Me.btnsalir.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(3)
-        Me.btnsalir.Size = New System.Drawing.Size(165, 38)
+        Me.btnsalir.Size = New System.Drawing.Size(124, 31)
         Me.btnsalir.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnsalir.TabIndex = 32
         Me.btnsalir.Text = "Salir"
@@ -114,10 +116,11 @@ Partial Class Tec_Login
         Me.btnIngresar.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground
         Me.btnIngresar.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnIngresar.HotTrackingStyle = DevComponents.DotNetBar.eHotTrackingStyle.Color
-        Me.btnIngresar.Location = New System.Drawing.Point(457, 275)
+        Me.btnIngresar.Location = New System.Drawing.Point(343, 223)
+        Me.btnIngresar.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.btnIngresar.Name = "btnIngresar"
         Me.btnIngresar.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(3)
-        Me.btnIngresar.Size = New System.Drawing.Size(165, 38)
+        Me.btnIngresar.Size = New System.Drawing.Size(124, 31)
         Me.btnIngresar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnIngresar.TabIndex = 2
         Me.btnIngresar.Text = "Ingresar"
@@ -127,9 +130,10 @@ Partial Class Tec_Login
         '
         Me.PictureBox1.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(67, 41)
+        Me.PictureBox1.Location = New System.Drawing.Point(50, 33)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(294, 272)
+        Me.PictureBox1.Size = New System.Drawing.Size(220, 221)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 22
         Me.PictureBox1.TabStop = False
@@ -137,9 +141,10 @@ Partial Class Tec_Login
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.Color.White
-        Me.Panel2.Location = New System.Drawing.Point(367, 41)
+        Me.Panel2.Location = New System.Drawing.Point(275, 33)
+        Me.Panel2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(3, 272)
+        Me.Panel2.Size = New System.Drawing.Size(2, 221)
         Me.Panel2.TabIndex = 21
         '
         'tbUsuario
@@ -155,11 +160,10 @@ Partial Class Tec_Login
         Me.tbUsuario.Border.CornerTypeBottomLeft = DevComponents.DotNetBar.eCornerType.Rounded
         Me.tbUsuario.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tbUsuario.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbUsuario.Location = New System.Drawing.Point(457, 130)
-        Me.tbUsuario.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbUsuario.Location = New System.Drawing.Point(343, 106)
         Me.tbUsuario.Name = "tbUsuario"
         Me.tbUsuario.PreventEnterBeep = True
-        Me.tbUsuario.Size = New System.Drawing.Size(385, 37)
+        Me.tbUsuario.Size = New System.Drawing.Size(289, 33)
         Me.tbUsuario.TabIndex = 0
         Me.tbUsuario.WatermarkBehavior = DevComponents.DotNetBar.eWatermarkBehavior.HideNonEmpty
         Me.tbUsuario.WatermarkColor = System.Drawing.Color.DarkGray
@@ -171,9 +175,10 @@ Partial Class Tec_Login
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.White
-        Me.Label2.Location = New System.Drawing.Point(433, 87)
+        Me.Label2.Location = New System.Drawing.Point(325, 71)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(446, 21)
+        Me.Label2.Size = New System.Drawing.Size(357, 17)
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "Por Favor Acceda Al sistema con sus credenciales autorizados :"
         '
@@ -183,9 +188,10 @@ Partial Class Tec_Login
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Calibri", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(420, 30)
+        Me.Label1.Location = New System.Drawing.Point(315, 24)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(466, 49)
+        Me.Label1.Size = New System.Drawing.Size(371, 39)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Autentificación De Usuario"
         '
@@ -200,11 +206,12 @@ Partial Class Tec_Login
         '
         'Tec_Login
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(937, 385)
+        Me.ClientSize = New System.Drawing.Size(703, 313)
         Me.Controls.Add(Me.Panel3)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "Tec_Login"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Tec_Login"
