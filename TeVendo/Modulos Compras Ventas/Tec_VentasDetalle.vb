@@ -32,7 +32,7 @@ Public Class Tec_VentasDetalle
 
     Private Sub _prCargarProductos()
         Dim dt As New DataTable
-
+        btnProductos.Visible = False
 
         If (SucursalId < 0 Or IdCliente = 0) Then
             If (Not IsNothing(grProducto.DataSource)) Then
@@ -400,10 +400,27 @@ Public Class Tec_VentasDetalle
             End If
         End If
         If e.KeyData = Keys.Escape Then
-            CType(grProducto.DataSource, DataTable).Rows.Clear()
 
-            _DesHabilitarProductos()
+            If (IsNothing(FilaSelectLote)) Then
+                CType(grProducto.DataSource, DataTable).Rows.Clear()
+
+                _DesHabilitarProductos()
+            Else
+                btnProductos.Visible = False
+                FilaSelectLote = Nothing
+                _HabilitarProductos()
+
+
+
+            End If
+
+
         End If
+    End Sub
+    Private Sub _HabilitarProductos()
+
+        _prCargarProductos()
+        tbProducto.Focus()
     End Sub
 
     Private Sub _DesHabilitarProductos()
@@ -473,7 +490,7 @@ Public Class Tec_VentasDetalle
         If (SucursalId < 0) Then
             Return
         End If
-
+        btnProductos.Visible = True
         'p.NombreProducto , a.Lote, a.FechaVencimiento, Sum(a.Cantidad) as stock
         Dim dt As New DataTable
 
@@ -1298,6 +1315,9 @@ salirIf:
         Me.Close()
     End Sub
 
-
-
+    Private Sub btnProductos_Click(sender As Object, e As EventArgs) Handles btnProductos.Click
+        btnProductos.Visible = False
+        FilaSelectLote = Nothing
+        _HabilitarProductos()
+    End Sub
 End Class
