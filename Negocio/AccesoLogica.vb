@@ -1246,7 +1246,7 @@ Public Class AccesoLogica
                                            FechaTransacccion As String, PersonalId As Integer, ClienteId As Integer, TipoVenta As Integer,
        FechaVencCredito As String, Moneda As Integer, estado As Integer, glosa As String,
                                            TotalCompra As Double, _dtDetalle As DataTable,
-                                           Descuento As Double, EstadoPedido As Integer, FechaEntregar As String, VentaDirecta As Integer)) As Boolean
+                                           Descuento As Double, EstadoPedido As Integer, FechaEntregar As String, VentaDirecta As Integer) As Boolean
         Dim _resultado As Boolean
 
         '    @Id ,@SucursalId ,@FechaVenta ,@PersonalId ,@TipoVenta ,

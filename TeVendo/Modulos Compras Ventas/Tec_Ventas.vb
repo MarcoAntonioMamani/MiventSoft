@@ -249,6 +249,15 @@ Public Class Tec_Ventas
         P_Global._prCargarComboGenerico(cbEstadoPedido, L_fnPedidosEstados(), "id", "Id", "NombreEstado", "Estado")
         _PMIniciarTodo()
         _prAsignarPermisos()
+        Dim dt As DataTable = L_fnPedidosEstados()
+
+        dt.Rows.Add(5, "Todos")
+        P_Global._prCargarComboGenerico(cbFiltroEstado, dt, "id", "Id", "NombreEstado", "Estado")
+
+        cbFiltroEstado.Value = 5
+
+
+
 
 
 
@@ -940,15 +949,22 @@ salirIf:
     End Sub
 
     Private Sub grdetalle_MouseClick(sender As Object, e As MouseEventArgs) Handles grDetalle.MouseClick
+
+
         If (Not _fnAccesible()) Then
             Return
         End If
 
-        If (grDetalle.RowCount >= 1) Then
-            If (grDetalle.CurrentColumn.Index = grDetalle.RootTable.Columns("img").Index) Then
-                _prEliminarFila()
+        Try
+            If (grDetalle.RowCount >= 1) Then
+                If (grDetalle.CurrentColumn.Index = grDetalle.RootTable.Columns("img").Index) Then
+                    _prEliminarFila()
+                End If
             End If
-        End If
+        Catch ex As Exception
+
+        End Try
+
 
 
     End Sub
@@ -1005,14 +1021,14 @@ salirIf:
         cbSucursal.ReadOnly = False
         swTipoVenta.IsReadOnly = False
         tbFechaVencimientoCredito.ReadOnly = False
-        tbFechaTransaccion.IsInputReadOnly = False
+        tbFechaTransaccion.ReadOnly = False
 
         lbDistribuidor.Visible = False
         tbDistribuidro.Visible = False
-        lbFechaEntregar.Visible = False
-        cbFechaEntregado.Visible = False
+        lbFechaEntregar.Visible = True
+        cbFechaEntregado.Visible = True
 
-
+        cbFechaEntregado.ReadOnly = False
 
         tbMdesc.IsInputReadOnly = False
         tbPdesc.IsInputReadOnly = False
@@ -1033,7 +1049,8 @@ salirIf:
         cbSucursal.ReadOnly = True
         swTipoVenta.IsReadOnly = True
         tbFechaVencimientoCredito.ReadOnly = True
-        tbFechaTransaccion.IsInputReadOnly = True
+        tbFechaTransaccion.ReadOnly = True
+
         tbTotal.IsInputReadOnly = True
         tbMdesc.IsInputReadOnly = True
         tbPdesc.IsInputReadOnly = True
@@ -1046,6 +1063,10 @@ salirIf:
         tbDistribuidro.Visible = True
         lbFechaEntregar.Visible = True
         cbFechaEntregado.Visible = True
+        cbFechaEntregado.ReadOnly = True
+
+
+        cbFechaEntregado.MinDate = Now.Date.AddYears(-20)
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -1058,6 +1079,10 @@ salirIf:
         IdCliente = 0
         tbFechaTransaccion.Value = Now.Date
         tbFechaVencimientoCredito.Value = Now.Date
+        cbFechaEntregado.Value = Now.Date
+
+        cbFechaEntregado.MinDate = Now.Date
+
         swTipoVenta.Value = True
         seleccionarPrimerItemCombo(cbSucursal)
         IdCliente = 0
@@ -1469,7 +1494,7 @@ salirIf:
     End Sub
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
-        VentaDirecta = 1
+        VentaDirecta = 0
         TabControlPrincipal.SelectedTabIndex = 0
         btnNuevo.PerformClick()
 
@@ -1840,6 +1865,37 @@ salirIf:
     End Sub
 
     Private Sub LabelX8_Click(sender As Object, e As EventArgs) Handles LabelX8.Click
+
+    End Sub
+
+    Private Sub ButtonX3_Click(sender As Object, e As EventArgs) Handles ButtonX3.Click
+        VentaDirecta = 1
+        TabControlPrincipal.SelectedTabIndex = 0
+        btnNuevo.PerformClick()
+    End Sub
+
+    Private Sub TableLayoutPanel1_Paint(sender As Object, e As PaintEventArgs) Handles TableLayoutPanel1.Paint
+
+    End Sub
+
+    Private Sub cbFiltroEstado_ValueChanged(sender As Object, e As EventArgs) Handles cbFiltroEstado.ValueChanged
+        Try
+            If (cbFiltroEstado.SelectedIndex >= 0) Then
+
+
+                JGrM_Buscador.RemoveFilters()
+                If (cbFiltroEstado.Value <= 4) Then
+                    JGrM_Buscador.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(JGrM_Buscador.RootTable.Columns("EstadoPedido"), Janus.Windows.GridEX.ConditionOperator.Equal, cbFiltroEstado.Value))
+                End If
+
+
+            End If
+
+        Catch ex As Exception
+
+        End Try
+
+
 
     End Sub
 #End Region
