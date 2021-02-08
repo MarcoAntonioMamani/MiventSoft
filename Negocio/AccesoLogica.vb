@@ -1156,6 +1156,18 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
+    Public Shared Function ListaPedidosPendientesAsignaciones() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 7))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
+
+        Return _Tabla
+    End Function
+
     Public Shared Function ListarVentaRecibo(VentaId As String) As DataTable
         Dim _Tabla As DataTable
 
@@ -1193,7 +1205,35 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+    Public Shared Function VentaInsertarAsignaciones(_dtDetalle As DataTable, ChoferId As Integer) As Boolean
+        Dim _resultado As Boolean
 
+        '    @Id ,@SucursalId ,@FechaVenta ,@PersonalId ,@TipoVenta ,
+        '@FechaVencimientoCredito ,@ClienteId ,@MonedaVenta ,@Estado ,@Glosa ,
+        '@Descuento ,@TotalVenta 
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 8))
+
+        _listParam.Add(New Datos.DParametro("@Asignacion", "", _dtDetalle))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@PersonalId", ChoferId))
+
+
+        _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
     Public Shared Function VentaInsertar(ByRef _numi As String, AlmacenId As Integer,
                                            FechaTransacccion As String, PersonalId As Integer, ClienteId As Integer, TipoVenta As Integer,
        FechaVencCredito As String, estado As Integer, glosa As String,
@@ -1329,6 +1369,16 @@ Public Class AccesoLogica
 
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 9))
+        _Tabla = D_ProcedimientoConParam("MAM_Clientes", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function ListarSoloChoferes() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 12))
         _Tabla = D_ProcedimientoConParam("MAM_Clientes", _listParam)
 
         Return _Tabla

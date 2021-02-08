@@ -213,6 +213,18 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="CustomersRow.vb" />
+    <Compile Include="Distribucion\Tec_AdministrarAsignacionesPedidos.Designer.vb">
+      <DependentUpon>Tec_AdministrarAsignacionesPedidos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Distribucion\Tec_AdministrarAsignacionesPedidos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Distribucion\Tec_AsignacionPedidos.Designer.vb">
+      <DependentUpon>Tec_AsignacionPedidos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Distribucion\Tec_AsignacionPedidos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Distribucion\Tec_Conciliacion.Designer.vb">
       <DependentUpon>Tec_Conciliacion.vb</DependentUpon>
     </Compile>
@@ -229,6 +241,12 @@
       <DependentUpon>Tec_Despachos.vb</DependentUpon>
     </Compile>
     <Compile Include="Distribucion\Tec_Despachos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Distribucion\Tec_VisualizarDetallePedido.Designer.vb">
+      <DependentUpon>Tec_VisualizarDetallePedido.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Distribucion\Tec_VisualizarDetallePedido.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Font\Custom.vb" />
@@ -675,6 +693,12 @@
     <EmbeddedResource Include="Control\UCLavadero.resx">
       <DependentUpon>UCLavadero.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Distribucion\Tec_AdministrarAsignacionesPedidos.resx">
+      <DependentUpon>Tec_AdministrarAsignacionesPedidos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Distribucion\Tec_AsignacionPedidos.resx">
+      <DependentUpon>Tec_AsignacionPedidos.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Distribucion\Tec_Conciliacion.resx">
       <DependentUpon>Tec_Conciliacion.vb</DependentUpon>
     </EmbeddedResource>
@@ -683,6 +707,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Distribucion\Tec_Despachos.resx">
       <DependentUpon>Tec_Despachos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Distribucion\Tec_VisualizarDetallePedido.resx">
+      <DependentUpon>Tec_VisualizarDetallePedido.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\F_MonitoreoProductos.resx">
       <DependentUpon>F_MonitoreoProductos.vb</DependentUpon>

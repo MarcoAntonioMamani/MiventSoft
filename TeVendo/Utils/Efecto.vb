@@ -39,6 +39,8 @@ Public Class Efecto
     Public DepositoId As Integer
     Public SucursalId As Integer
 
+    Public VentaId As Integer
+
 
 
 
@@ -81,6 +83,9 @@ Public Class Efecto
 
             Case 16
                 _prMostrarAyudaProductosVentas()
+
+            Case 17
+                _prMostrarDetalleVenta()
         End Select
     End Sub
     Public Sub _prLogin()
@@ -146,6 +151,18 @@ Public Class Efecto
         frmAyuda = New Tec_VisualizarConceptoFijosPlanilla
         frmAyuda.title = titulo
         frmAyuda.PlanillaId = PlanillaId
+        frmAyuda.ShowDialog()
+        Me.Close()
+
+
+    End Sub
+
+    Sub _prMostrarDetalleVenta()
+
+        Dim frmAyuda As Tec_VisualizarDetallePedido
+        frmAyuda = New Tec_VisualizarDetallePedido
+        frmAyuda.title = titulo
+        frmAyuda.VentaId = VentaId
         frmAyuda.ShowDialog()
         Me.Close()
 
