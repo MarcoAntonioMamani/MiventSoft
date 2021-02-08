@@ -399,7 +399,7 @@ Public Class Tec_Personal
         Dim res As Boolean
         Try
             res = InsertarPersonal(tbCodigo.Text, tbNombreProveedor.Text, tbDireccion.Text, tbTelefono01.Text,
-                                   cbTipoDocumento.Value, tbNroDocumento.Text, cbTipoPersonal.Value, IIf(swEstado.Value = True, 1, 0), cbEmpresa.Value, tbFechaNacimiento.Value.ToString("dd/MM/yyyy"))
+                                   cbTipoDocumento.Value, tbNroDocumento.Text, cbTipoPersonal.Value, IIf(swEstado.Value = True, 1, 0), cbEmpresa.Value, tbFechaNacimiento.Value.ToString("yyyy/MM/dd"))
 
             If res Then
 
@@ -423,7 +423,7 @@ Public Class Tec_Personal
         Dim Res As Boolean
         Try
             Res = ModificarPersonal(tbCodigo.Text, tbNombreProveedor.Text, tbDireccion.Text, tbTelefono01.Text,
-                                   cbTipoDocumento.Value, tbNroDocumento.Text, cbTipoPersonal.Value, IIf(swEstado.Value = True, 1, 0), cbEmpresa.Value, tbFechaNacimiento.Value.ToString("dd/MM/yyyy"))
+                                   cbTipoDocumento.Value, tbNroDocumento.Text, cbTipoPersonal.Value, IIf(swEstado.Value = True, 1, 0), cbEmpresa.Value, tbFechaNacimiento.Value.ToString("yyyy/MM/dd"))
             If Res Then
 
                 ToastNotification.Show(Me, "Codigo de Personal ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
