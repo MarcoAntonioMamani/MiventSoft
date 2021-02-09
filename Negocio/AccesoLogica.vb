@@ -1180,7 +1180,18 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+    Public Shared Function ListaPedidosEntregadosByChofer(ChoferId As Integer) As DataTable
+        Dim _Tabla As DataTable
 
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 15))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@ChoferId", ChoferId))
+        _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function ListaProductosAsignadosByChofer(ChoferId As Integer) As DataTable
         Dim _Tabla As DataTable
 
@@ -1258,6 +1269,127 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@PersonalId", ChoferId))
 
+
+        _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function VentaEntregarPedidos(_dtDetalle As DataTable, ChoferId As Integer, ByRef Mensaje As String, NombreDistribuidor As String) As Boolean
+        Dim _resultado As Boolean
+
+        '    @Id ,@SucursalId ,@FechaVenta ,@PersonalId ,@TipoVenta ,
+        '@FechaVencimientoCredito ,@ClienteId ,@MonedaVenta ,@Estado ,@Glosa ,
+        '@Descuento ,@TotalVenta 
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 14))
+
+        _listParam.Add(New Datos.DParametro("@Asignacion", "", _dtDetalle))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@ChoferId", ChoferId))
+
+
+        _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            Dim valor As Integer = _Tabla.Rows(0).Item(0)
+            If (valor > 0) Then
+
+                _resultado = True
+
+            Else
+                Mensaje = "No se Puede Cambiar A Entregado Por que El Distribuidor: " + NombreDistribuidor + "  No Tiene Una Conciliación Con Estado Abierto"
+                _resultado = False
+            End If
+
+
+        Else
+            Mensaje = "Hubo un error en el Servidor"
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function VentaQuitarAsignaciones(_dtDetalle As DataTable) As Boolean
+        Dim _resultado As Boolean
+
+        '    @Id ,@SucursalId ,@FechaVenta ,@PersonalId ,@TipoVenta ,
+        '@FechaVencimientoCredito ,@ClienteId ,@MonedaVenta ,@Estado ,@Glosa ,
+        '@Descuento ,@TotalVenta 
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 12))
+
+        _listParam.Add(New Datos.DParametro("@Asignacion", "", _dtDetalle))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+    Public Shared Function VentaRevertiEstadoEntregado(_dtDetalle As DataTable) As Boolean
+        Dim _resultado As Boolean
+
+        '    @Id ,@SucursalId ,@FechaVenta ,@PersonalId ,@TipoVenta ,
+        '@FechaVencimientoCredito ,@ClienteId ,@MonedaVenta ,@Estado ,@Glosa ,
+        '@Descuento ,@TotalVenta 
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 16))
+
+        _listParam.Add(New Datos.DParametro("@AsignacionEntregado", "", _dtDetalle))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+    Public Shared Function VentaAnularPedidos(_dtDetalle As DataTable) As Boolean
+        Dim _resultado As Boolean
+
+        '    @Id ,@SucursalId ,@FechaVenta ,@PersonalId ,@TipoVenta ,
+        '@FechaVencimientoCredito ,@ClienteId ,@MonedaVenta ,@Estado ,@Glosa ,
+        '@Descuento ,@TotalVenta 
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 13))
+
+        _listParam.Add(New Datos.DParametro("@Asignacion", "", _dtDetalle))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
 

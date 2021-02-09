@@ -16,7 +16,7 @@ Public Class Tec_AdministrarAsignacionesPedidos
         dt = dt.DefaultView.ToTable(False, "Id", "Nombre")
         P_Global._prCargarComboGenerico(cbPersonal, dt, "id", "Id", "Nombre", "Chofer")
         P_Global._prCargarComboGenerico(cbPersonalAsignado, dt, "id", "Id", "Nombre", "Chofer")
-
+        P_Global._prCargarComboGenerico(cbChofer, dt, "id", "Id", "Nombre", "Chofer")
         _prCargarPedidosPendientesAsignacion()
 
     End Sub
@@ -62,7 +62,7 @@ Public Class Tec_AdministrarAsignacionesPedidos
         End With
         With grPedidosPendientes.RootTable.Columns("Asignar")
             .Width = 90
-            .Caption = "Asignar"
+            .Caption = "Seleccionar"
             .Visible = True
         End With
         With grPedidosPendientes.RootTable.Columns("PersonalId")
@@ -143,7 +143,7 @@ Public Class Tec_AdministrarAsignacionesPedidos
         End With
         With grAsignados.RootTable.Columns("Asignar")
             .Width = 110
-            .Caption = "Quitar Asignación"
+            .Caption = "Seleccionar"
             .Visible = True
         End With
         With grAsignados.RootTable.Columns("PersonalId")
@@ -181,6 +181,114 @@ Public Class Tec_AdministrarAsignacionesPedidos
             .TotalRowPosition = TotalRowPosition.BottomFixed
         End With
         CargarIconosAsignados()
+    End Sub
+
+    Private Sub _prCargarPedidosEntregados(ChoferId As Integer)
+        Dim dt As New DataTable
+
+        If (ChoferId <= 0) Then
+            Return
+
+        End If
+        dt = ListaPedidosEntregadosByChofer(ChoferId)
+        grPedidosEntregados.DataSource = dt
+        grPedidosEntregados.RetrieveStructure()
+        grPedidosEntregados.AlternatingColors = True
+        ' Id	FechaPedido	NombreCliente	NombrePersonal	totalPedido	Asignar	detalle
+        With grPedidosEntregados.RootTable.Columns("Id")
+            .Width = 60
+            .Caption = "Nro Pedido"
+            .Visible = True
+
+        End With
+        With grPedidosEntregados.RootTable.Columns("FechaPedido")
+            .Width = 90
+            .Visible = True
+            .Caption = "Fecha Pedido"
+            .FormatString = "dd/MM/yyyy"
+
+        End With
+        With grPedidosEntregados.RootTable.Columns("detalle")
+            .Width = 90
+            .Visible = True
+            .LeftMargin = 4
+            .TopMargin = 4
+            .BottomMargin = 4
+            .Caption = "Detalle Pedido"
+        End With
+        With grPedidosEntregados.RootTable.Columns("NombrePersonal")
+            .Width = 250
+            .Caption = "Vendedor"
+            .Visible = True
+        End With
+
+        With grPedidosEntregados.RootTable.Columns("NombreCliente")
+            .Width = 250
+            .Caption = "Cliente"
+            .Visible = True
+        End With
+        With grPedidosEntregados.RootTable.Columns("Asignar")
+            .Width = 110
+            .Caption = "Seleccionar"
+            .Visible = True
+        End With
+        With grPedidosEntregados.RootTable.Columns("PersonalId")
+            .Visible = False
+        End With
+        With grPedidosEntregados.RootTable.Columns("EstadoConciliacion")
+            .Visible = False
+        End With
+
+        With grPedidosEntregados.RootTable.Columns("totalPedido")
+            .Width = 70
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Total".ToUpper
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+
+
+
+
+
+
+        With grPedidosEntregados
+            .GroupByBoxVisible = False
+            .DefaultFilterRowComparison = FilterConditionOperator.Contains
+            .FilterMode = FilterMode.Automatic
+            .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
+            'diseño de la grilla
+            .VisualStyle = VisualStyle.Office2007
+            .BoundMode = Janus.Data.BoundMode.Bound
+            .RowHeaders = InheritableBoolean.True
+            .TotalRow = InheritableBoolean.True
+            .TotalRowFormatStyle.BackColor = Color.Gold
+            .TotalRowFormatStyle.ForeColor = Color.Black
+            .TotalRowFormatStyle.FontBold = TriState.True
+            .TotalRowFormatStyle.FontSize = 9
+            .TotalRowPosition = TotalRowPosition.BottomFixed
+        End With
+        CargarIconosEntregado()
+    End Sub
+
+    Public Sub CargarIconosEntregado()
+
+
+        Dim BinCVariable As New MemoryStream
+        Dim imgCVariable As New Bitmap(My.Resources.cvariables, 25, 20)
+        imgCVariable.Save(BinCVariable, Imaging.ImageFormat.Png)
+
+
+
+        Dim dt As DataTable = CType(grPedidosEntregados.DataSource, DataTable)
+        Dim n As Integer = dt.Rows.Count
+        For i As Integer = 0 To n - 1 Step 1
+
+            CType(grPedidosEntregados.DataSource, DataTable).Rows(i).Item("detalle") = BinCVariable.GetBuffer
+
+        Next
+
     End Sub
     Public Sub CargarIconosAsignados()
 
@@ -220,7 +328,7 @@ Public Class Tec_AdministrarAsignacionesPedidos
     End Sub
     Private Sub Tec_AdministrarAsignacionesPedidos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Iniciartodo()
-
+        Me.Text = "Administrar Asignaciones Pedidos"
     End Sub
 
 
@@ -257,6 +365,44 @@ Public Class Tec_AdministrarAsignacionesPedidos
         End If
 
 
+    End Sub
+
+    Private Sub grEntregados_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grPedidosEntregados.EditingCell
+
+        'a.Id , a.VentaId, a.ProductoId, p.NombreProducto As Producto, a.Cantidad, a.Precio, a.SubTotal,
+        'a.ProcentajeDescuento, a.MontoDescuento, a.Total, a.Detalle, a.PrecioCosto, a.Lote, a.FechaVencimiento,
+        '1 As estado, cast('' as image ) as img
+        ', 0 as stock
+        'Habilitar solo las columnas de Precio, %, Monto y Observación
+        If (e.Column.Index = grPedidosEntregados.RootTable.Columns("Asignar").Index) Then
+            e.Cancel = False
+        Else
+            e.Cancel = True
+
+        End If
+
+
+    End Sub
+
+    Private Sub grEntregados_Click(sender As Object, e As EventArgs) Handles grPedidosEntregados.Click
+        Try
+            If (grPedidosEntregados.RowCount >= 1 And grPedidosEntregados.Row >= 0) Then
+                If (grPedidosEntregados.CurrentColumn.Index = grPedidosEntregados.RootTable.Columns("detalle").Index) Then
+
+                    Dim numi As String = ""
+                    Dim ef = New Efecto
+                    ef.tipo = 17
+                    ef.VentaId = grPedidosEntregados.GetValue("Id")
+                    ef.titulo = "Pedido # " + Str(grPedidosEntregados.GetValue("Id")) + "  Cliente = " + grPedidosEntregados.GetValue("NombreCliente")
+                    ef.ShowDialog()
+
+                End If
+
+                ''Reporte
+            End If
+        Catch ex As Exception
+
+        End Try
     End Sub
     Private Sub grAsignados_Click(sender As Object, e As EventArgs) Handles grAsignados.Click
         Try
@@ -326,6 +472,45 @@ Public Class Tec_AdministrarAsignacionesPedidos
         Return False
 
     End Function
+
+    Public Function ExisteItemSeleccionadosEntregado()
+
+        Dim dt As DataTable = CType(grPedidosEntregados.DataSource, DataTable)
+
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+            If (dt.Rows(i).Item("Asignar") = True) Then
+                Return True
+
+            End If
+
+        Next
+
+
+
+        Return False
+
+    End Function
+
+    Public Function ExisteItemSeleccionadoConciliacionCerrada()
+
+        Dim dt As DataTable = CType(grPedidosEntregados.DataSource, DataTable)
+
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+            If (dt.Rows(i).Item("Asignar") = True And dt.Rows(i).Item("EstadoConciliacion") = 0) Then
+
+                Return True
+
+            End If
+
+        Next
+
+
+
+        Return False
+
+    End Function
     Public Function ExisteItemSeleccionados()
 
         Dim dt As DataTable = CType(grPedidosPendientes.DataSource, DataTable)
@@ -359,7 +544,7 @@ Public Class Tec_AdministrarAsignacionesPedidos
         If (bandera = True) Then
             ToastNotification.Show(Me, "Asignacion Realizada Correctamente ", My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
             _prCargarPedidosPendientesAsignacion()
-
+            _prCargarPedidosAsignados(cbPersonalAsignado.Value)
         Else
             ToastNotification.Show(Me, "Error no se Pudo Realizar las Asignaciones", img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
         End If
@@ -371,6 +556,19 @@ Public Class Tec_AdministrarAsignacionesPedidos
         If (Not ExisteItemSeleccionadosDesAsignar()) Then
             ToastNotification.Show(Me, "No Existe Ningun Pedido Seleccionado", img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
             Return
+        End If
+
+        Dim bandera As Boolean = VentaQuitarAsignaciones(CType(grAsignados.DataSource, DataTable))
+        If (bandera = True) Then
+            ToastNotification.Show(Me, "Se han Quitado Las Asignaciones Correctamente", My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+            _prCargarPedidosAsignados(cbPersonalAsignado.Value)
+
+            _prCargarPedidosPendientesAsignacion()
+
+
+
+        Else
+            ToastNotification.Show(Me, "Error no se Pudo completar el proceso", img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
         End If
     End Sub
 
@@ -499,6 +697,146 @@ Public Class Tec_AdministrarAsignacionesPedidos
         Else
             ToastNotification.Show(Me, "No Existen Datos Para Mostrar", img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
             Return
+        End If
+    End Sub
+
+    Private Sub ButtonX10_Click(sender As Object, e As EventArgs) Handles ButtonX10.Click
+        If (Not ExisteItemSeleccionados()) Then
+            ToastNotification.Show(Me, "No Existe Ningun Pedido Seleccionado", img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Return
+        End If
+        Dim ef = New Efecto
+
+
+        ef.tipo = 3
+        ef.titulo = "Confirmación de Anulación"
+        ef.descripcion = "¿Esta Seguro de Anular Todos Los Pedidos Seleccionados ?"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            bandera = VentaAnularPedidos(CType(grPedidosPendientes.DataSource, DataTable))
+            If (bandera = True) Then
+                ToastNotification.Show(Me, "Los Pedidos Han Sido Anulados Correctamente", My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                _prCargarPedidosAsignados(cbPersonalAsignado.Value)
+
+                _prCargarPedidosPendientesAsignacion()
+
+
+
+            Else
+                ToastNotification.Show(Me, "Error no se Pudo completar el proceso", img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub ButtonX9_Click(sender As Object, e As EventArgs) Handles ButtonX9.Click
+        If (Not ExisteItemSeleccionadosDesAsignar()) Then
+            ToastNotification.Show(Me, "No Existe Ningun Pedido Seleccionado", img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Return
+        End If
+
+        Dim ef = New Efecto
+
+
+        ef.tipo = 3
+        ef.titulo = "Confirmación de Anulación"
+        ef.descripcion = "¿Esta Seguro de Anular Todos Los Pedidos Seleccionados ?"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            bandera = VentaAnularPedidos(CType(grAsignados.DataSource, DataTable))
+            If (bandera = True) Then
+                ToastNotification.Show(Me, "Los Pedidos Han Sido Anulados Correctamente", My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                _prCargarPedidosAsignados(cbPersonalAsignado.Value)
+
+                _prCargarPedidosPendientesAsignacion()
+
+
+
+            Else
+                ToastNotification.Show(Me, "Error no se Pudo completar el proceso", img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub ButtonX11_Click(sender As Object, e As EventArgs) Handles btnEntregar.Click
+        If (Not ExisteItemSeleccionadosDesAsignar()) Then
+            ToastNotification.Show(Me, "No Existe Ningun Pedido Seleccionado", img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Return
+        End If
+
+        Dim Mensaje As String = ""
+        Dim bandera As Boolean = VentaEntregarPedidos(CType(grAsignados.DataSource, DataTable), cbPersonalAsignado.Value, Mensaje, cbPersonalAsignado.Text)
+        If (bandera = True) Then
+            ToastNotification.Show(Me, "Los Pedidos Ha Pasado Al Estado Entregado", My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+            _prCargarPedidosAsignados(cbPersonalAsignado.Value)
+
+            _prCargarPedidosEntregados(cbChofer.Value)
+
+
+
+        Else
+            ToastNotification.Show(Me, Mensaje, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+        End If
+    End Sub
+
+    Private Sub ButtonX16_Click(sender As Object, e As EventArgs) Handles ButtonX16.Click
+        _prCargarPedidosEntregados(cbChofer.Value)
+
+    End Sub
+
+    Private Sub cbChofer_ValueChanged(sender As Object, e As EventArgs) Handles cbChofer.ValueChanged
+        Try
+            _prCargarPedidosEntregados(cbChofer.Value)
+        Catch ex As Exception
+
+        End Try
+
+
+    End Sub
+
+    Private Sub ButtonX15_Click(sender As Object, e As EventArgs) Handles ButtonX15.Click
+        _TabControl.SelectedTab = _modulo
+        _tab.Close()
+        Me.Close()
+    End Sub
+
+    Private Sub ButtonX17_Click(sender As Object, e As EventArgs) Handles btnEntregadoAAsignado.Click
+        If (Not ExisteItemSeleccionadosEntregado()) Then
+            ToastNotification.Show(Me, "No Existe Ningun Pedido Seleccionado", img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Return
+        End If
+
+        If (ExisteItemSeleccionadoConciliacionCerrada()) Then  ''Estado ConciliacionCerrada
+            ToastNotification.Show(Me, "Existen Pedidos Que Pertenece A una Conciliacion Cerrada", img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Return
+
+        End If
+        Dim ef = New Efecto
+
+
+        ef.tipo = 3
+        ef.titulo = "Confirmación de Reversión"
+        ef.descripcion = "¿Esta Seguro de Revertir El Estado Del Pedido ?"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            bandera = VentaRevertiEstadoEntregado(CType(grPedidosEntregados.DataSource, DataTable))
+            If (bandera = True) Then
+                ToastNotification.Show(Me, "Los Pedidos Han Sido Revertido Al Estado Asignado", My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                _prCargarPedidosAsignados(cbPersonalAsignado.Value)
+                _prCargarPedidosEntregados(cbChofer.Value)
+
+
+
+            Else
+                ToastNotification.Show(Me, "Error no se Pudo completar el proceso", img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            End If
         End If
     End Sub
 End Class
