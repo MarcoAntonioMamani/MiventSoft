@@ -62,6 +62,7 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.Panel16 = New System.Windows.Forms.Panel()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         Me.SuperTabItem1 = New DevComponents.DotNetBar.SuperTabItem()
+        Me.ButtonX7 = New DevComponents.DotNetBar.ButtonX()
         CType(Me.SuperTabGeneral, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabGeneral.SuspendLayout()
         Me.SuperTabControlPanel2.SuspendLayout()
@@ -111,7 +112,7 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.SuperTabGeneral.ReorderTabsEnabled = True
         Me.SuperTabGeneral.SelectedTabFont = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabGeneral.SelectedTabIndex = 0
-        Me.SuperTabGeneral.Size = New System.Drawing.Size(1032, 551)
+        Me.SuperTabGeneral.Size = New System.Drawing.Size(1331, 551)
         Me.SuperTabGeneral.TabFont = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabGeneral.TabIndex = 0
         Me.SuperTabGeneral.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabItem1, Me.SuperTabItem2})
@@ -127,7 +128,7 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.SuperTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel2.Location = New System.Drawing.Point(0, 59)
         Me.SuperTabControlPanel2.Name = "SuperTabControlPanel2"
-        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1032, 492)
+        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1331, 492)
         Me.SuperTabControlPanel2.TabIndex = 0
         Me.SuperTabControlPanel2.TabItem = Me.SuperTabItem2
         '
@@ -140,7 +141,7 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel4.Location = New System.Drawing.Point(0, 0)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(1032, 492)
+        Me.Panel4.Size = New System.Drawing.Size(1331, 492)
         Me.Panel4.TabIndex = 0
         '
         'Panel9
@@ -149,7 +150,7 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.Panel9.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel9.Location = New System.Drawing.Point(0, 102)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(1032, 390)
+        Me.Panel9.Size = New System.Drawing.Size(1331, 390)
         Me.Panel9.TabIndex = 8
         '
         'GroupPanel2
@@ -162,7 +163,7 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.GroupPanel2.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupPanel2.Location = New System.Drawing.Point(0, 0)
         Me.GroupPanel2.Name = "GroupPanel2"
-        Me.GroupPanel2.Size = New System.Drawing.Size(1032, 390)
+        Me.GroupPanel2.Size = New System.Drawing.Size(1331, 390)
         '
         '
         '
@@ -236,7 +237,7 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.grAsignados.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.grAsignados.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grAsignados.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grAsignados.Size = New System.Drawing.Size(1026, 360)
+        Me.grAsignados.Size = New System.Drawing.Size(1325, 360)
         Me.grAsignados.TabIndex = 4
         Me.grAsignados.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grAsignados.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -248,6 +249,7 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         '
         'Panel8
         '
+        Me.Panel8.Controls.Add(Me.ButtonX7)
         Me.Panel8.Controls.Add(Me.cbPersonalAsignado)
         Me.Panel8.Controls.Add(Me.ButtonX3)
         Me.Panel8.Controls.Add(Me.ButtonX5)
@@ -256,7 +258,7 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.Panel8.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel8.Location = New System.Drawing.Point(0, 40)
         Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(1032, 62)
+        Me.Panel8.Size = New System.Drawing.Size(1331, 62)
         Me.Panel8.TabIndex = 7
         '
         'cbPersonalAsignado
@@ -292,7 +294,7 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.ButtonX3.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonX3.Image = Global.TeVendo.My.Resources.Resources.atras
         Me.ButtonX3.ImageFixedSize = New System.Drawing.Size(30, 30)
-        Me.ButtonX3.Location = New System.Drawing.Point(792, 16)
+        Me.ButtonX3.Location = New System.Drawing.Point(1115, 16)
         Me.ButtonX3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ButtonX3.Name = "ButtonX3"
         Me.ButtonX3.Size = New System.Drawing.Size(117, 29)
@@ -312,7 +314,7 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.ButtonX5.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonX5.Image = Global.TeVendo.My.Resources.Resources.caja
         Me.ButtonX5.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.ButtonX5.Location = New System.Drawing.Point(663, 15)
+        Me.ButtonX5.Location = New System.Drawing.Point(986, 15)
         Me.ButtonX5.Margin = New System.Windows.Forms.Padding(4)
         Me.ButtonX5.Name = "ButtonX5"
         Me.ButtonX5.Size = New System.Drawing.Size(122, 30)
@@ -332,7 +334,7 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.ButtonX6.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonX6.Image = Global.TeVendo.My.Resources.Resources.caja
         Me.ButtonX6.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.ButtonX6.Location = New System.Drawing.Point(488, 15)
+        Me.ButtonX6.Location = New System.Drawing.Point(811, 15)
         Me.ButtonX6.Margin = New System.Windows.Forms.Padding(4)
         Me.ButtonX6.Name = "ButtonX6"
         Me.ButtonX6.Size = New System.Drawing.Size(167, 30)
@@ -369,7 +371,7 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.Panel5.Location = New System.Drawing.Point(0, 0)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel5.Size = New System.Drawing.Size(1032, 40)
+        Me.Panel5.Size = New System.Drawing.Size(1331, 40)
         Me.Panel5.TabIndex = 6
         '
         'Panel6
@@ -381,7 +383,7 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel6.Location = New System.Drawing.Point(1, 1)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1030, 38)
+        Me.Panel6.Size = New System.Drawing.Size(1329, 38)
         Me.Panel6.TabIndex = 0
         '
         'Label1
@@ -738,11 +740,31 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.SuperTabItem1.TabFont = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabItem1.Text = "Asignar Pedidos Pendientes"
         '
+        'ButtonX7
+        '
+        Me.ButtonX7.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX7.BackColor = System.Drawing.Color.LightSeaGreen
+        Me.ButtonX7.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.ButtonX7.DisabledImagesGrayScale = False
+        Me.ButtonX7.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX7.Image = Global.TeVendo.My.Resources.Resources.caja
+        Me.ButtonX7.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.ButtonX7.Location = New System.Drawing.Point(664, 15)
+        Me.ButtonX7.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX7.Name = "ButtonX7"
+        Me.ButtonX7.Size = New System.Drawing.Size(139, 40)
+        Me.ButtonX7.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX7.Symbol = ""
+        Me.ButtonX7.SymbolSize = 12.0!
+        Me.ButtonX7.TabIndex = 220
+        Me.ButtonX7.Text = "Productos" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Asignados"
+        Me.ButtonX7.TextColor = System.Drawing.Color.White
+        '
         'Tec_AdministrarAsignacionesPedidos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1032, 551)
+        Me.ClientSize = New System.Drawing.Size(1331, 551)
         Me.Controls.Add(Me.SuperTabGeneral)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Tec_AdministrarAsignacionesPedidos"
@@ -810,4 +832,5 @@ Partial Class Tec_AdministrarAsignacionesPedidos
     Friend WithEvents GroupPanel2 As DevComponents.DotNetBar.Controls.GroupPanel
     Friend WithEvents grAsignados As Janus.Windows.GridEX.GridEX
     Friend WithEvents cbPersonal As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Protected WithEvents ButtonX7 As DevComponents.DotNetBar.ButtonX
 End Class
