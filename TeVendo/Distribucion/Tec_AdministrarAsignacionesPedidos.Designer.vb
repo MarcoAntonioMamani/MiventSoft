@@ -63,6 +63,7 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         Me.SuperTabItem1 = New DevComponents.DotNetBar.SuperTabItem()
         Me.ButtonX7 = New DevComponents.DotNetBar.ButtonX()
+        Me.ButtonX8 = New DevComponents.DotNetBar.ButtonX()
         CType(Me.SuperTabGeneral, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabGeneral.SuspendLayout()
         Me.SuperTabControlPanel2.SuspendLayout()
@@ -249,6 +250,8 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         '
         'Panel8
         '
+        Me.Panel8.AutoScroll = True
+        Me.Panel8.Controls.Add(Me.ButtonX8)
         Me.Panel8.Controls.Add(Me.ButtonX7)
         Me.Panel8.Controls.Add(Me.cbPersonalAsignado)
         Me.Panel8.Controls.Add(Me.ButtonX3)
@@ -743,7 +746,7 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         'ButtonX7
         '
         Me.ButtonX7.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX7.BackColor = System.Drawing.Color.LightSeaGreen
+        Me.ButtonX7.BackColor = System.Drawing.Color.DarkSlateGray
         Me.ButtonX7.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
         Me.ButtonX7.DisabledImagesGrayScale = False
         Me.ButtonX7.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -759,6 +762,26 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.ButtonX7.TabIndex = 220
         Me.ButtonX7.Text = "Productos" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Asignados"
         Me.ButtonX7.TextColor = System.Drawing.Color.White
+        '
+        'ButtonX8
+        '
+        Me.ButtonX8.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX8.BackColor = System.Drawing.Color.DarkSlateGray
+        Me.ButtonX8.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.ButtonX8.DisabledImagesGrayScale = False
+        Me.ButtonX8.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX8.Image = Global.TeVendo.My.Resources.Resources.caja
+        Me.ButtonX8.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.ButtonX8.Location = New System.Drawing.Point(517, 15)
+        Me.ButtonX8.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX8.Name = "ButtonX8"
+        Me.ButtonX8.Size = New System.Drawing.Size(139, 40)
+        Me.ButtonX8.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX8.Symbol = ""
+        Me.ButtonX8.SymbolSize = 12.0!
+        Me.ButtonX8.TabIndex = 221
+        Me.ButtonX8.Text = "Clientes" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Asignados"
+        Me.ButtonX8.TextColor = System.Drawing.Color.White
         '
         'Tec_AdministrarAsignacionesPedidos
         '
@@ -833,4 +856,5 @@ Partial Class Tec_AdministrarAsignacionesPedidos
     Friend WithEvents grAsignados As Janus.Windows.GridEX.GridEX
     Friend WithEvents cbPersonal As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Protected WithEvents ButtonX7 As DevComponents.DotNetBar.ButtonX
+    Protected WithEvents ButtonX8 As DevComponents.DotNetBar.ButtonX
 End Class
