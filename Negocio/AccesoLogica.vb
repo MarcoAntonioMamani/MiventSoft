@@ -1192,6 +1192,18 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+
+    Public Shared Function ListaPedidosAnulados() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 17))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function ListaProductosAsignadosByChofer(ChoferId As Integer) As DataTable
         Dim _Tabla As DataTable
 
@@ -1389,6 +1401,34 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@tipo", 13))
 
         _listParam.Add(New Datos.DParametro("@Asignacion", "", _dtDetalle))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function VentaRevertirAnulacion(_dtDetalle As DataTable) As Boolean
+        Dim _resultado As Boolean
+
+        '    @Id ,@SucursalId ,@FechaVenta ,@PersonalId ,@TipoVenta ,
+        '@FechaVencimientoCredito ,@ClienteId ,@MonedaVenta ,@Estado ,@Glosa ,
+        '@Descuento ,@TotalVenta 
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 18))
+
+        _listParam.Add(New Datos.DParametro("@AsignacionAnulacion", "", _dtDetalle))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)

@@ -17,8 +17,9 @@ Public Class Tec_AdministrarAsignacionesPedidos
         P_Global._prCargarComboGenerico(cbPersonal, dt, "id", "Id", "Nombre", "Chofer")
         P_Global._prCargarComboGenerico(cbPersonalAsignado, dt, "id", "Id", "Nombre", "Chofer")
         P_Global._prCargarComboGenerico(cbChofer, dt, "id", "Id", "Nombre", "Chofer")
-        _prCargarPedidosPendientesAsignacion()
 
+        _prCargarPedidosPendientesAsignacion()
+        _prCargarPedidosAnulados()
     End Sub
 
     Private Sub _prCargarPedidosPendientesAsignacion()
@@ -272,6 +273,113 @@ Public Class Tec_AdministrarAsignacionesPedidos
         CargarIconosEntregado()
     End Sub
 
+    Private Sub _prCargarPedidosAnulados()
+        Dim dt As New DataTable
+
+        dt = ListaPedidosAnulados()
+        grPedidosAnulados.DataSource = dt
+        grPedidosAnulados.RetrieveStructure()
+        grPedidosAnulados.AlternatingColors = True
+        ' Id	FechaPedido	NombreCliente	NombrePersonal	totalPedido	Asignar	detalle
+        With grPedidosAnulados.RootTable.Columns("Id")
+            .Width = 60
+            .Caption = "Nro Pedido"
+            .Visible = True
+
+        End With
+        With grPedidosAnulados.RootTable.Columns("FechaPedido")
+            .Width = 90
+            .Visible = True
+            .Caption = "Fecha Pedido"
+            .FormatString = "dd/MM/yyyy"
+
+        End With
+        With grPedidosAnulados.RootTable.Columns("FechaAnulacion")
+            .Width = 90
+            .Visible = True
+            .Caption = "Fecha Anulada"
+            .FormatString = "dd/MM/yyyy"
+
+        End With
+        With grPedidosAnulados.RootTable.Columns("detalle")
+            .Width = 90
+            .Visible = True
+            .LeftMargin = 4
+            .TopMargin = 4
+            .BottomMargin = 4
+            .Caption = "Detalle Pedido"
+        End With
+        With grPedidosAnulados.RootTable.Columns("NombrePersonal")
+            .Width = 250
+            .Caption = "Vendedor"
+            .Visible = True
+        End With
+
+        With grPedidosAnulados.RootTable.Columns("NombreCliente")
+            .Width = 250
+            .Caption = "Cliente"
+            .Visible = True
+        End With
+        With grPedidosAnulados.RootTable.Columns("Asignar")
+            .Width = 110
+            .Caption = "Seleccionar"
+            .Visible = True
+        End With
+        With grPedidosAnulados.RootTable.Columns("PersonalId")
+            .Visible = False
+        End With
+
+
+        With grPedidosAnulados.RootTable.Columns("totalPedido")
+            .Width = 70
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Total".ToUpper
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+
+
+
+
+
+
+        With grPedidosAnulados
+            .GroupByBoxVisible = False
+            .DefaultFilterRowComparison = FilterConditionOperator.Contains
+            .FilterMode = FilterMode.Automatic
+            .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
+            'diseño de la grilla
+            .VisualStyle = VisualStyle.Office2007
+            .BoundMode = Janus.Data.BoundMode.Bound
+            .RowHeaders = InheritableBoolean.True
+            .TotalRow = InheritableBoolean.True
+            .TotalRowFormatStyle.BackColor = Color.Gold
+            .TotalRowFormatStyle.ForeColor = Color.Black
+            .TotalRowFormatStyle.FontBold = TriState.True
+            .TotalRowFormatStyle.FontSize = 9
+            .TotalRowPosition = TotalRowPosition.BottomFixed
+        End With
+        CargarIconosAnulados()
+    End Sub
+    Public Sub CargarIconosAnulados()
+
+
+        Dim BinCVariable As New MemoryStream
+        Dim imgCVariable As New Bitmap(My.Resources.cvariables, 25, 20)
+        imgCVariable.Save(BinCVariable, Imaging.ImageFormat.Png)
+
+
+
+        Dim dt As DataTable = CType(grPedidosAnulados.DataSource, DataTable)
+        Dim n As Integer = dt.Rows.Count
+        For i As Integer = 0 To n - 1 Step 1
+
+            CType(grPedidosAnulados.DataSource, DataTable).Rows(i).Item("detalle") = BinCVariable.GetBuffer
+
+        Next
+
+    End Sub
     Public Sub CargarIconosEntregado()
 
 
@@ -350,6 +458,23 @@ Public Class Tec_AdministrarAsignacionesPedidos
 
     End Sub
 
+    Private Sub grPedidosAnulados_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grPedidosAnulados.EditingCell
+
+        'a.Id , a.VentaId, a.ProductoId, p.NombreProducto As Producto, a.Cantidad, a.Precio, a.SubTotal,
+        'a.ProcentajeDescuento, a.MontoDescuento, a.Total, a.Detalle, a.PrecioCosto, a.Lote, a.FechaVencimiento,
+        '1 As estado, cast('' as image ) as img
+        ', 0 as stock
+        'Habilitar solo las columnas de Precio, %, Monto y Observación
+        If (e.Column.Index = grPedidosAnulados.RootTable.Columns("Asignar").Index) Then
+            e.Cancel = False
+        Else
+            e.Cancel = True
+
+        End If
+
+
+    End Sub
+
     Private Sub grAsignados_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grAsignados.EditingCell
 
         'a.Id , a.VentaId, a.ProductoId, p.NombreProducto As Producto, a.Cantidad, a.Precio, a.SubTotal,
@@ -383,7 +508,26 @@ Public Class Tec_AdministrarAsignacionesPedidos
 
 
     End Sub
+    Private Sub grAnulados_Click(sender As Object, e As EventArgs) Handles grPedidosAnulados.Click
+        Try
+            If (grPedidosAnulados.RowCount >= 1 And grPedidosAnulados.Row >= 0) Then
+                If (grPedidosAnulados.CurrentColumn.Index = grPedidosAnulados.RootTable.Columns("detalle").Index) Then
 
+                    Dim numi As String = ""
+                    Dim ef = New Efecto
+                    ef.tipo = 17
+                    ef.VentaId = grPedidosAnulados.GetValue("Id")
+                    ef.titulo = "Pedido # " + Str(grPedidosAnulados.GetValue("Id")) + "  Cliente = " + grPedidosAnulados.GetValue("NombreCliente")
+                    ef.ShowDialog()
+
+                End If
+
+                ''Reporte
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
     Private Sub grEntregados_Click(sender As Object, e As EventArgs) Handles grPedidosEntregados.Click
         Try
             If (grPedidosEntregados.RowCount >= 1 And grPedidosEntregados.Row >= 0) Then
@@ -476,6 +620,25 @@ Public Class Tec_AdministrarAsignacionesPedidos
     Public Function ExisteItemSeleccionadosEntregado()
 
         Dim dt As DataTable = CType(grPedidosEntregados.DataSource, DataTable)
+
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+            If (dt.Rows(i).Item("Asignar") = True) Then
+                Return True
+
+            End If
+
+        Next
+
+
+
+        Return False
+
+    End Function
+
+    Public Function ExisteItemSeleccionadosAnulaciones()
+
+        Dim dt As DataTable = CType(grPedidosAnulados.DataSource, DataTable)
 
         For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
@@ -718,10 +881,10 @@ Public Class Tec_AdministrarAsignacionesPedidos
             bandera = VentaAnularPedidos(CType(grPedidosPendientes.DataSource, DataTable))
             If (bandera = True) Then
                 ToastNotification.Show(Me, "Los Pedidos Han Sido Anulados Correctamente", My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
-                _prCargarPedidosAsignados(cbPersonalAsignado.Value)
+
 
                 _prCargarPedidosPendientesAsignacion()
-
+                _prCargarPedidosAnulados()
 
 
             Else
@@ -752,8 +915,7 @@ Public Class Tec_AdministrarAsignacionesPedidos
                 ToastNotification.Show(Me, "Los Pedidos Han Sido Anulados Correctamente", My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                 _prCargarPedidosAsignados(cbPersonalAsignado.Value)
 
-                _prCargarPedidosPendientesAsignacion()
-
+                _prCargarPedidosAnulados()
 
 
             Else
@@ -832,6 +994,47 @@ Public Class Tec_AdministrarAsignacionesPedidos
                 _prCargarPedidosAsignados(cbPersonalAsignado.Value)
                 _prCargarPedidosEntregados(cbChofer.Value)
 
+
+
+            Else
+                ToastNotification.Show(Me, "Error no se Pudo completar el proceso", img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            End If
+        End If
+    End Sub
+
+    Private Sub ButtonX12_Click(sender As Object, e As EventArgs) Handles ButtonX12.Click
+        _prCargarPedidosAnulados()
+
+    End Sub
+
+    Private Sub ButtonX11_Click_1(sender As Object, e As EventArgs) Handles ButtonX11.Click
+        _TabControl.SelectedTab = _modulo
+        _tab.Close()
+        Me.Close()
+    End Sub
+
+    Private Sub ButtonX13_Click(sender As Object, e As EventArgs) Handles ButtonX13.Click
+        If (Not ExisteItemSeleccionadosAnulaciones()) Then
+            ToastNotification.Show(Me, "No Existe Ningun Pedido Seleccionado", img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Return
+        End If
+        Dim ef = New Efecto
+
+
+        ef.tipo = 3
+        ef.titulo = "Confirmación de Reversión"
+        ef.descripcion = "¿Esta Seguro de Revertir Estado Del Pedido a Estado Pendiente?"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            bandera = VentaRevertirAnulacion(CType(grPedidosAnulados.DataSource, DataTable))
+            If (bandera = True) Then
+                ToastNotification.Show(Me, "Reversion Exitosa. Los Pedidos Han Pasado Al Estado Pendiente", My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+
+
+                _prCargarPedidosPendientesAsignacion()
+                _prCargarPedidosAnulados()
 
 
             Else
