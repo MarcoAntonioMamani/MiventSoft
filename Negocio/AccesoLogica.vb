@@ -1552,7 +1552,47 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+    Public Shared Function ListaComprasHistorico(FechaI As String, FechaF As String) As DataTable
+        Dim _Tabla As DataTable
 
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 9))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@FechaI", FechaI))
+        _listParam.Add(New Datos.DParametro("@FechaF", FechaF))
+        _Tabla = D_ProcedimientoConParam("MAM_Compras", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function ListaComprasTotalesHistorico(FechaI As String, FechaF As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 10))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@FechaI", FechaI))
+        _listParam.Add(New Datos.DParametro("@FechaF", FechaF))
+        _Tabla = D_ProcedimientoConParam("MAM_Compras", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function ListaComprasProductosHistorico(FechaI As String, FechaF As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 11))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@FechaI", FechaI))
+        _listParam.Add(New Datos.DParametro("@FechaF", FechaF))
+        _Tabla = D_ProcedimientoConParam("MAM_Compras", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function ListarProveedores() As DataTable
         Dim _Tabla As DataTable
 
@@ -1735,7 +1775,7 @@ Public Class AccesoLogica
                                            FechaTransacccion As String, ProveedorId As Integer, TipoVenta As Integer,
        FechaVencCredito As String, Moneda As Integer, estado As Integer, glosa As String,
                                            TotalCompra As Double, EmpresaId As Integer, _dtDetalle As DataTable,
-                                           Descuento As Double) As Boolean
+                                           Descuento As Double, NroNotaCompra As String, NroNotaRecepcion As String) As Boolean
         Dim _resultado As Boolean
 
         '     @Id ,@AlmacenId,@FechaTransaccion ,@Proveedor  ,@TipoVenta,
@@ -1751,6 +1791,9 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@Proveedor", ProveedorId))
         _listParam.Add(New Datos.DParametro("@TipoVenta", TipoVenta))
         _listParam.Add(New Datos.DParametro("@FechaVencimientoCredito", FechaVencCredito))
+
+        _listParam.Add(New Datos.DParametro("@NroNotaCompra", NroNotaCompra))
+        _listParam.Add(New Datos.DParametro("@NroNotaRecepcion", NroNotaRecepcion))
 
         _listParam.Add(New Datos.DParametro("@Moneda", Moneda))
         _listParam.Add(New Datos.DParametro("@Estado", estado))
@@ -1779,7 +1822,7 @@ Public Class AccesoLogica
                                            FechaTransacccion As String, ProveedorId As Integer, TipoVenta As Integer,
        FechaVencCredito As String, Moneda As Integer, estado As Integer, glosa As String,
                                            TotalCompra As Double, EmpresaId As Integer, _dtDetalle As DataTable,
-                                            Descuento As Double) As Boolean
+                                            Descuento As Double, NroNotaCompra As String, NroNotaRecepcion As String) As Boolean
         Dim _resultado As Boolean
 
         '     @Id ,@AlmacenId,@FechaTransaccion ,@Proveedor  ,@TipoVenta,
@@ -1802,6 +1845,8 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@TotalCompra", TotalCompra))
         _listParam.Add(New Datos.DParametro("@EmpresaId", EmpresaId))
 
+        _listParam.Add(New Datos.DParametro("@NroNotaCompra", NroNotaCompra))
+        _listParam.Add(New Datos.DParametro("@NroNotaRecepcion", NroNotaRecepcion))
         _listParam.Add(New Datos.DParametro("@detalle", "", _dtDetalle))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 

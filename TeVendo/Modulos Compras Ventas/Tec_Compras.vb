@@ -48,7 +48,7 @@ Public Class Tec_Compras
                     .Caption = _MListEstBuscador.Item(i).titulo
                     .Width = _MListEstBuscador.Item(i).tamano
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-
+                    .TextAlignment = TextAlignment.Far
                     Dim col As DataColumn = dtBuscador.Columns(campo)
                     Dim tipo As Type = col.DataType
                     If tipo.ToString = "System.Int32" Or tipo.ToString = "System.Decimal" Or tipo.ToString = "System.Double" Then
@@ -249,7 +249,8 @@ Public Class Tec_Compras
         _PMIniciarTodo()
         _prAsignarPermisos()
 
-
+        tbNroNotaCompra.MaxLength = 50
+        tbNroNotaRecepcion.MaxLength = 50
 
 
 
@@ -846,6 +847,8 @@ salirIf:
         tbFechaVencimientoCredito.ReadOnly = False
         tbFechaTransaccion.ReadOnly = False
 
+        tbNroNotaCompra.ReadOnly = False
+        tbNroNotaRecepcion.ReadOnly = False
 
         tbMdesc.IsInputReadOnly = False
         tbPdesc.IsInputReadOnly = False
@@ -857,6 +860,9 @@ salirIf:
         btnSeleccionarProducto.Visible = False
         tbProveedor.ReadOnly = True
         tbGlosa.ReadOnly = True
+
+        tbNroNotaCompra.ReadOnly = True
+        tbNroNotaRecepcion.ReadOnly = True
 
         cbSucursal.ReadOnly = True
         swTipoVenta.IsReadOnly = True
@@ -885,6 +891,10 @@ salirIf:
         tbPdesc.Value = 0
         tbTotal.Value = 0
         _prCargarDetalleVenta(-1)
+
+        tbNroNotaCompra.Clear()
+        tbNroNotaRecepcion.Clear()
+
     End Sub
     Public Sub seleccionarPrimerItemCombo(cb As EditControls.MultiColumnCombo)
         If (CType(cb.DataSource, DataTable).Rows.Count > 0) Then
@@ -911,7 +921,7 @@ salirIf:
         Try
             res = ComprasInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), IdProveedor,
                                   IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                  1, 1, tbGlosa.Text, tbTotal.Value, 1, CType(grDetalle.DataSource, DataTable), tbMdesc.Value)
+                                  1, 1, tbGlosa.Text, tbTotal.Value, 1, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, tbNroNotaCompra.Text, tbNroNotaRecepcion.Text)
 
             If res Then
 
@@ -954,7 +964,7 @@ salirIf:
         Try
             Res = ComprasModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), IdProveedor,
                                   IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                  1, 1, tbGlosa.Text, tbTotal.Value, 1, CType(grDetalle.DataSource, DataTable), tbMdesc.Value)
+                                  1, 1, tbGlosa.Text, tbTotal.Value, 1, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, tbNroNotaCompra.Text, tbNroNotaRecepcion.Text)
             If Res Then
                 ReporteCompra(tbCodigo.Text)
                 ToastNotification.Show(Me, "Codigo de Compra ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
@@ -1101,13 +1111,15 @@ salirIf:
         Dim listEstCeldas As New List(Of Celda)
         listEstCeldas.Add(New Celda("Id", True, "ID", 40))
         listEstCeldas.Add(New Celda("AlmacenId", False))
+        listEstCeldas.Add(New Celda("NroNotaCompra", True, "NroNotaCompra", 90))
+        listEstCeldas.Add(New Celda("NroNotaRecepcion", True, "NroNotaRecepcion", 90))
         listEstCeldas.Add(New Celda("ProveedorId", False, "Estado", 150))
-        listEstCeldas.Add(New Celda("FechaTransaccion", True, "Fecha Transaccion", 100))
+        listEstCeldas.Add(New Celda("FechaTransaccion", True, "Fecha Compra", 100))
         listEstCeldas.Add(New Celda("NombreProveedor", True, "Proveedor", 260))
         listEstCeldas.Add(New Celda("TipoVenta", False, "Estado", 70))
         listEstCeldas.Add(New Celda("FechaVencimientoCredito", False, "Estado", 70))
         listEstCeldas.Add(New Celda("Moneda", False, "Estado", 70))
-        listEstCeldas.Add(New Celda("TituloMoneda", True, "Moneda", 70))
+        listEstCeldas.Add(New Celda("TituloMoneda", False, "Moneda", 70))
         listEstCeldas.Add(New Celda("Estado", False, "Estado", 70))
 
         listEstCeldas.Add(New Celda("Glosa", True, " Glosa", 250))
@@ -1139,7 +1151,8 @@ salirIf:
             tbProveedor.Text = .GetValue("NombreProveedor").ToString
             swTipoVenta.Value = .GetValue("TipoVenta")
             tbFechaVencimientoCredito.Value = .GetValue("FechaVencimientoCredito")
-
+            tbNroNotaCompra.Text = .GetValue("NroNotaCompra").ToString
+            tbNroNotaRecepcion.Text = .GetValue("NroNotaRecepcion").ToString
             tbMdesc.Value = .GetValue("descuento")
         End With
 

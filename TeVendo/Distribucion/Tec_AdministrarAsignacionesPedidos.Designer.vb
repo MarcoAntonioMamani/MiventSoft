@@ -25,8 +25,8 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Dim SuperTabColorTable1 As DevComponents.DotNetBar.Rendering.SuperTabColorTable = New DevComponents.DotNetBar.Rendering.SuperTabColorTable()
         Dim SuperTabLinearGradientColorTable1 As DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable = New DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable()
         Dim cbChofer_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tec_AdministrarAsignacionesPedidos))
         Dim cbPersonalAsignado_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tec_AdministrarAsignacionesPedidos))
         Dim cbPersonal_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.SuperTabGeneral = New DevComponents.DotNetBar.SuperTabControl()
         Me.SuperTabControlPanel4 = New DevComponents.DotNetBar.SuperTabControlPanel()
@@ -67,8 +67,8 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.GroupPanel2 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.grAsignados = New Janus.Windows.GridEX.GridEX()
         Me.Panel8 = New System.Windows.Forms.Panel()
-        Me.btnEntregar = New DevComponents.DotNetBar.ButtonX()
         Me.ButtonX9 = New DevComponents.DotNetBar.ButtonX()
+        Me.btnEntregar = New DevComponents.DotNetBar.ButtonX()
         Me.ButtonX8 = New DevComponents.DotNetBar.ButtonX()
         Me.ButtonX7 = New DevComponents.DotNetBar.ButtonX()
         Me.cbPersonalAsignado = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
@@ -158,10 +158,10 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.SuperTabGeneral.ControlBox.MenuBox.Name = ""
         Me.SuperTabGeneral.ControlBox.Name = ""
         Me.SuperTabGeneral.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabGeneral.ControlBox.MenuBox, Me.SuperTabGeneral.ControlBox.CloseBox})
-        Me.SuperTabGeneral.Controls.Add(Me.SuperTabControlPanel4)
-        Me.SuperTabGeneral.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabGeneral.Controls.Add(Me.SuperTabControlPanel2)
         Me.SuperTabGeneral.Controls.Add(Me.SuperTabControlPanel1)
+        Me.SuperTabGeneral.Controls.Add(Me.SuperTabControlPanel4)
+        Me.SuperTabGeneral.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabGeneral.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabGeneral.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabGeneral.ForeColor = System.Drawing.Color.White
@@ -898,26 +898,6 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.Panel8.Size = New System.Drawing.Size(1331, 62)
         Me.Panel8.TabIndex = 7
         '
-        'btnEntregar
-        '
-        Me.btnEntregar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnEntregar.BackColor = System.Drawing.Color.Lime
-        Me.btnEntregar.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
-        Me.btnEntregar.DisabledImagesGrayScale = False
-        Me.btnEntregar.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnEntregar.Image = Global.TeVendo.My.Resources.Resources.caja
-        Me.btnEntregar.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.btnEntregar.Location = New System.Drawing.Point(652, 16)
-        Me.btnEntregar.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnEntregar.Name = "btnEntregar"
-        Me.btnEntregar.Size = New System.Drawing.Size(155, 40)
-        Me.btnEntregar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnEntregar.Symbol = ""
-        Me.btnEntregar.SymbolSize = 12.0!
-        Me.btnEntregar.TabIndex = 223
-        Me.btnEntregar.Text = "Confirmar Entrega" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "De Pedidos"
-        Me.btnEntregar.TextColor = System.Drawing.Color.Black
-        '
         'ButtonX9
         '
         Me.ButtonX9.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
@@ -937,6 +917,26 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.ButtonX9.TabIndex = 222
         Me.ButtonX9.Text = "Anular" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Pedidos"
         Me.ButtonX9.TextColor = System.Drawing.Color.White
+        '
+        'btnEntregar
+        '
+        Me.btnEntregar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnEntregar.BackColor = System.Drawing.Color.Lime
+        Me.btnEntregar.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.btnEntregar.DisabledImagesGrayScale = False
+        Me.btnEntregar.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnEntregar.Image = Global.TeVendo.My.Resources.Resources.caja
+        Me.btnEntregar.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.btnEntregar.Location = New System.Drawing.Point(652, 16)
+        Me.btnEntregar.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnEntregar.Name = "btnEntregar"
+        Me.btnEntregar.Size = New System.Drawing.Size(155, 40)
+        Me.btnEntregar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnEntregar.Symbol = ""
+        Me.btnEntregar.SymbolSize = 12.0!
+        Me.btnEntregar.TabIndex = 223
+        Me.btnEntregar.Text = "Confirmar Entrega" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "De Pedidos"
+        Me.btnEntregar.TextColor = System.Drawing.Color.Black
         '
         'ButtonX8
         '
