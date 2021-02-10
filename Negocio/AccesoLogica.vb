@@ -300,6 +300,70 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
+    Public Shared Function ListaDetalleGastosCierreId(CierreCajaId As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@id", CierreCajaId))
+        _Tabla = D_ProcedimientoConParam("MAM_CierreCaja", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function ListaDetallePedidosconciliacion(CierreCajaId As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 6))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@id", CierreCajaId))
+        _Tabla = D_ProcedimientoConParam("MAM_CierreCaja", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function ListaCobranzasPorPersonalSinCierre(PersonalId As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 7))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
+        _Tabla = D_ProcedimientoConParam("MAM_CierreCaja", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function ListaCobranzasPorPersonalconCierre(CierreCajaId As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 8))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@Id", CierreCajaId))
+        _Tabla = D_ProcedimientoConParam("MAM_CierreCaja", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function ListarConciliacionesCaja() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_CierreCaja", _listParam)
+
+        Return _Tabla
+    End Function
+
     Public Shared Function ListarProductosSalidasConciliacion(ConciliacionId As String) As DataTable
         Dim _Tabla As DataTable
 
@@ -406,7 +470,77 @@ Public Class AccesoLogica
 
         Return _resultado
     End Function
+    Public Shared Function InsertarCierreCaja(ByRef _Id As String, ConciliacionId As Integer, PersonalId As Integer, FechaCierre As String, TotalGasto As Double, VentasCredito As Double, VentasContado As Double, TotalCobros As Double, EfectivoCalculado As Double, EfectivoRecibido As Double, Diferencia As Double, dtGastos As DataTable, dtCobranzas As DataTable) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '@Id,@ConciliacionId ,@PersonalId ,@FechaCierre ,@TotalGastos ,@VentasCredito ,
+        '@VentasContado ,@TotalCobros ,@EfectivoCalculado ,@EfectivoRecibido ,@Diferencia ,@newFecha  ,@newHora ,@Usuario
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", _Id))
+        _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
+        _listParam.Add(New Datos.DParametro("@ConciliacionId", ConciliacionId))
+        _listParam.Add(New Datos.DParametro("@FechaCierre", FechaCierre))
+        _listParam.Add(New Datos.DParametro("@TotalGastos", TotalGasto))
+        _listParam.Add(New Datos.DParametro("@VentasCredito", VentasCredito))
+        _listParam.Add(New Datos.DParametro("@VentasContado", VentasContado))
+        _listParam.Add(New Datos.DParametro("@TotalCobros", TotalCobros))
+        _listParam.Add(New Datos.DParametro("@EfectivoCalculado", EfectivoCalculado))
+        _listParam.Add(New Datos.DParametro("@EfectivoRecibido", EfectivoRecibido))
+        _listParam.Add(New Datos.DParametro("@Diferencia", Diferencia))
 
+        _listParam.Add(New Datos.DParametro("@Usuario", L_Usuario))
+
+        _listParam.Add(New Datos.DParametro("@DetalleGastos", "", dtGastos))
+
+        _listParam.Add(New Datos.DParametro("@Cobranzas", "", dtCobranzas))
+        _Tabla = D_ProcedimientoConParam("MAM_CierreCaja", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _Id = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+    Public Shared Function ModificarCierreCaja(ByRef _Id As String, ConciliacionId As Integer, PersonalId As Integer, FechaCierre As String, TotalGasto As Double, VentasCredito As Double, VentasContado As Double, TotalCobros As Double, EfectivoCalculado As Double, EfectivoRecibido As Double, Diferencia As Double, dtGastos As DataTable, dtCobranzas As DataTable) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '@Id,@ConciliacionId ,@PersonalId ,@FechaCierre ,@TotalGastos ,@VentasCredito ,
+        '@VentasContado ,@TotalCobros ,@EfectivoCalculado ,@EfectivoRecibido ,@Diferencia ,@newFecha  ,@newHora ,@Usuario
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@Id", _Id))
+        _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
+        _listParam.Add(New Datos.DParametro("@ConciliacionId", ConciliacionId))
+        _listParam.Add(New Datos.DParametro("@FechaCierre", FechaCierre))
+        _listParam.Add(New Datos.DParametro("@TotalGastos", TotalGasto))
+        _listParam.Add(New Datos.DParametro("@VentasCredito", VentasCredito))
+        _listParam.Add(New Datos.DParametro("@VentasContado", VentasContado))
+        _listParam.Add(New Datos.DParametro("@TotalCobros", TotalCobros))
+        _listParam.Add(New Datos.DParametro("@EfectivoCalculado", EfectivoCalculado))
+        _listParam.Add(New Datos.DParametro("@EfectivoRecibido", EfectivoRecibido))
+        _listParam.Add(New Datos.DParametro("@Diferencia", Diferencia))
+
+        _listParam.Add(New Datos.DParametro("@Usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@Cobranzas", "", dtCobranzas))
+        _listParam.Add(New Datos.DParametro("@DetalleGastos", "", dtGastos))
+
+        _Tabla = D_ProcedimientoConParam("MAM_CierreCaja", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _Id = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
     ''MAM_Conciliacion
     Public Shared Function ModificarConciliacion(_Id As String, Fecha As String, Estado As Integer, Observacion As String, detalle As DataTable) As Boolean
         Dim _Tabla As DataTable

@@ -1038,4 +1038,10 @@ Public Class Tec_Principal
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub
+
+    Private Sub btnCierreCaja_Click(sender As Object, e As EventArgs) Handles btnCierreCaja.Click
+        Dim frm As New Tec_CierreCaja
+        frm.Show()
+
+    End Sub
 End Class

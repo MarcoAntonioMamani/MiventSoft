@@ -249,6 +249,12 @@
     <Compile Include="Distribucion\Tec_Despachos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Distribucion\Tec_Gastos.Designer.vb">
+      <DependentUpon>Tec_Gastos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Distribucion\Tec_Gastos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Distribucion\Tec_VisualizarDetallePedido.Designer.vb">
       <DependentUpon>Tec_VisualizarDetallePedido.vb</DependentUpon>
     </Compile>
@@ -734,6 +740,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Distribucion\Tec_Despachos.resx">
       <DependentUpon>Tec_Despachos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Distribucion\Tec_Gastos.resx">
+      <DependentUpon>Tec_Gastos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Distribucion\Tec_VisualizarDetallePedido.resx">
       <DependentUpon>Tec_VisualizarDetallePedido.vb</DependentUpon>
