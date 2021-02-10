@@ -24,11 +24,46 @@ Partial Class Tec_AdministrarAsignacionesPedidos
     Private Sub InitializeComponent()
         Dim SuperTabColorTable1 As DevComponents.DotNetBar.Rendering.SuperTabColorTable = New DevComponents.DotNetBar.Rendering.SuperTabColorTable()
         Dim SuperTabLinearGradientColorTable1 As DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable = New DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable()
-        Dim cbPersonalAsignado_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
-        Dim cbPersonal_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbChofer_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim cbPersonal_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tec_AdministrarAsignacionesPedidos))
+        Dim cbPersonalAsignado_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.SuperTabGeneral = New DevComponents.DotNetBar.SuperTabControl()
+        Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
+        Me.Panel10 = New System.Windows.Forms.Panel()
+        Me.Panel11 = New System.Windows.Forms.Panel()
+        Me.GroupPanel3 = New DevComponents.DotNetBar.Controls.GroupPanel()
+        Me.grPedidosEntregados = New Janus.Windows.GridEX.GridEX()
+        Me.Panel12 = New System.Windows.Forms.Panel()
+        Me.cbChofer = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.ButtonX15 = New DevComponents.DotNetBar.ButtonX()
+        Me.ButtonX16 = New DevComponents.DotNetBar.ButtonX()
+        Me.btnEntregadoAAsignado = New DevComponents.DotNetBar.ButtonX()
+        Me.LabelX3 = New DevComponents.DotNetBar.LabelX()
+        Me.Panel13 = New System.Windows.Forms.Panel()
+        Me.Panel17 = New System.Windows.Forms.Panel()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Panel18 = New System.Windows.Forms.Panel()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.SuperTabItem3 = New DevComponents.DotNetBar.SuperTabItem()
+        Me.SuperTabControlPanel1 = New DevComponents.DotNetBar.SuperTabControlPanel()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
+        Me.grPedidosPendientes = New Janus.Windows.GridEX.GridEX()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.ButtonX10 = New DevComponents.DotNetBar.ButtonX()
+        Me.cbPersonal = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
+        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
+        Me.ButtonX4 = New DevComponents.DotNetBar.ButtonX()
+        Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
+        Me.Panel14 = New System.Windows.Forms.Panel()
+        Me.Panel15 = New System.Windows.Forms.Panel()
+        Me.lbtitle = New System.Windows.Forms.Label()
+        Me.Panel16 = New System.Windows.Forms.Panel()
+        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
+        Me.SuperTabItem1 = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel2 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.Panel9 = New System.Windows.Forms.Panel()
@@ -50,24 +85,6 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.Panel7 = New System.Windows.Forms.Panel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
-        Me.SuperTabControlPanel1 = New DevComponents.DotNetBar.SuperTabControlPanel()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
-        Me.grPedidosPendientes = New Janus.Windows.GridEX.GridEX()
-        Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.ButtonX10 = New DevComponents.DotNetBar.ButtonX()
-        Me.cbPersonal = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
-        Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
-        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
-        Me.ButtonX4 = New DevComponents.DotNetBar.ButtonX()
-        Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
-        Me.Panel14 = New System.Windows.Forms.Panel()
-        Me.Panel15 = New System.Windows.Forms.Panel()
-        Me.lbtitle = New System.Windows.Forms.Label()
-        Me.Panel16 = New System.Windows.Forms.Panel()
-        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
-        Me.SuperTabItem1 = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel4 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel19 = New System.Windows.Forms.Panel()
         Me.Panel20 = New System.Windows.Forms.Panel()
@@ -83,54 +100,8 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.Panel24 = New System.Windows.Forms.Panel()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.SuperTabItem4 = New DevComponents.DotNetBar.SuperTabItem()
-        Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
-        Me.Panel10 = New System.Windows.Forms.Panel()
-        Me.Panel11 = New System.Windows.Forms.Panel()
-        Me.GroupPanel3 = New DevComponents.DotNetBar.Controls.GroupPanel()
-        Me.grPedidosEntregados = New Janus.Windows.GridEX.GridEX()
-        Me.Panel12 = New System.Windows.Forms.Panel()
-        Me.cbChofer = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
-        Me.ButtonX15 = New DevComponents.DotNetBar.ButtonX()
-        Me.ButtonX16 = New DevComponents.DotNetBar.ButtonX()
-        Me.btnEntregadoAAsignado = New DevComponents.DotNetBar.ButtonX()
-        Me.LabelX3 = New DevComponents.DotNetBar.LabelX()
-        Me.Panel13 = New System.Windows.Forms.Panel()
-        Me.Panel17 = New System.Windows.Forms.Panel()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Panel18 = New System.Windows.Forms.Panel()
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
-        Me.SuperTabItem3 = New DevComponents.DotNetBar.SuperTabItem()
         CType(Me.SuperTabGeneral, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabGeneral.SuspendLayout()
-        Me.SuperTabControlPanel2.SuspendLayout()
-        Me.Panel4.SuspendLayout()
-        Me.Panel9.SuspendLayout()
-        Me.GroupPanel2.SuspendLayout()
-        CType(Me.grAsignados, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel8.SuspendLayout()
-        CType(Me.cbPersonalAsignado, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel5.SuspendLayout()
-        Me.Panel6.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SuperTabControlPanel1.SuspendLayout()
-        Me.Panel1.SuspendLayout()
-        Me.Panel3.SuspendLayout()
-        Me.GroupPanel1.SuspendLayout()
-        CType(Me.grPedidosPendientes, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel2.SuspendLayout()
-        CType(Me.cbPersonal, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel14.SuspendLayout()
-        Me.Panel15.SuspendLayout()
-        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SuperTabControlPanel4.SuspendLayout()
-        Me.Panel19.SuspendLayout()
-        Me.Panel20.SuspendLayout()
-        Me.GroupPanel4.SuspendLayout()
-        CType(Me.grPedidosAnulados, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel21.SuspendLayout()
-        Me.Panel22.SuspendLayout()
-        Me.Panel23.SuspendLayout()
-        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlPanel3.SuspendLayout()
         Me.Panel10.SuspendLayout()
         Me.Panel11.SuspendLayout()
@@ -141,6 +112,35 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.Panel13.SuspendLayout()
         Me.Panel17.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SuperTabControlPanel1.SuspendLayout()
+        Me.Panel1.SuspendLayout()
+        Me.Panel3.SuspendLayout()
+        Me.GroupPanel1.SuspendLayout()
+        CType(Me.grPedidosPendientes, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel2.SuspendLayout()
+        CType(Me.cbPersonal, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel14.SuspendLayout()
+        Me.Panel15.SuspendLayout()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SuperTabControlPanel2.SuspendLayout()
+        Me.Panel4.SuspendLayout()
+        Me.Panel9.SuspendLayout()
+        Me.GroupPanel2.SuspendLayout()
+        CType(Me.grAsignados, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel8.SuspendLayout()
+        CType(Me.cbPersonalAsignado, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel5.SuspendLayout()
+        Me.Panel6.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SuperTabControlPanel4.SuspendLayout()
+        Me.Panel19.SuspendLayout()
+        Me.Panel20.SuspendLayout()
+        Me.GroupPanel4.SuspendLayout()
+        CType(Me.grPedidosAnulados, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel21.SuspendLayout()
+        Me.Panel22.SuspendLayout()
+        Me.Panel23.SuspendLayout()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'SuperTabGeneral
@@ -158,8 +158,8 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.SuperTabGeneral.ControlBox.MenuBox.Name = ""
         Me.SuperTabGeneral.ControlBox.Name = ""
         Me.SuperTabGeneral.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabGeneral.ControlBox.MenuBox, Me.SuperTabGeneral.ControlBox.CloseBox})
-        Me.SuperTabGeneral.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabGeneral.Controls.Add(Me.SuperTabControlPanel1)
+        Me.SuperTabGeneral.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabGeneral.Controls.Add(Me.SuperTabControlPanel2)
         Me.SuperTabGeneral.Controls.Add(Me.SuperTabControlPanel4)
         Me.SuperTabGeneral.Dock = System.Windows.Forms.DockStyle.Fill
@@ -179,6 +179,645 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.SuperTabGeneral.TabStripColor = SuperTabColorTable1
         Me.SuperTabGeneral.TabStyle = DevComponents.DotNetBar.eSuperTabStyle.Office2010BackstageBlue
         Me.SuperTabGeneral.Text = "SuperTabGeneral"
+        '
+        'SuperTabControlPanel3
+        '
+        Me.SuperTabControlPanel3.Controls.Add(Me.Panel10)
+        Me.SuperTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SuperTabControlPanel3.Location = New System.Drawing.Point(0, 59)
+        Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
+        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(1331, 492)
+        Me.SuperTabControlPanel3.TabIndex = 0
+        Me.SuperTabControlPanel3.TabItem = Me.SuperTabItem3
+        '
+        'Panel10
+        '
+        Me.Panel10.BackColor = System.Drawing.Color.White
+        Me.Panel10.Controls.Add(Me.Panel11)
+        Me.Panel10.Controls.Add(Me.Panel12)
+        Me.Panel10.Controls.Add(Me.Panel13)
+        Me.Panel10.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel10.Location = New System.Drawing.Point(0, 0)
+        Me.Panel10.Name = "Panel10"
+        Me.Panel10.Size = New System.Drawing.Size(1331, 492)
+        Me.Panel10.TabIndex = 1
+        '
+        'Panel11
+        '
+        Me.Panel11.Controls.Add(Me.GroupPanel3)
+        Me.Panel11.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel11.Location = New System.Drawing.Point(0, 102)
+        Me.Panel11.Name = "Panel11"
+        Me.Panel11.Size = New System.Drawing.Size(1331, 390)
+        Me.Panel11.TabIndex = 8
+        '
+        'GroupPanel3
+        '
+        Me.GroupPanel3.CanvasColor = System.Drawing.SystemColors.Control
+        Me.GroupPanel3.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
+        Me.GroupPanel3.Controls.Add(Me.grPedidosEntregados)
+        Me.GroupPanel3.DisabledBackColor = System.Drawing.Color.Empty
+        Me.GroupPanel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupPanel3.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupPanel3.Location = New System.Drawing.Point(0, 0)
+        Me.GroupPanel3.Name = "GroupPanel3"
+        Me.GroupPanel3.Size = New System.Drawing.Size(1331, 390)
+        '
+        '
+        '
+        Me.GroupPanel3.Style.BackColor = System.Drawing.Color.DarkCyan
+        Me.GroupPanel3.Style.BackColor2 = System.Drawing.Color.DarkCyan
+        Me.GroupPanel3.Style.BackColorGradientAngle = 90
+        Me.GroupPanel3.Style.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel3.Style.BorderBottomWidth = 1
+        Me.GroupPanel3.Style.BorderColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
+        Me.GroupPanel3.Style.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel3.Style.BorderLeftWidth = 1
+        Me.GroupPanel3.Style.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel3.Style.BorderRightWidth = 1
+        Me.GroupPanel3.Style.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel3.Style.BorderTopWidth = 1
+        Me.GroupPanel3.Style.CornerDiameter = 4
+        Me.GroupPanel3.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.GroupPanel3.Style.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Far
+        Me.GroupPanel3.Style.TextColor = System.Drawing.Color.White
+        Me.GroupPanel3.Style.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Near
+        '
+        '
+        '
+        Me.GroupPanel3.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        '
+        '
+        '
+        Me.GroupPanel3.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.GroupPanel3.TabIndex = 6
+        Me.GroupPanel3.Text = "Listado de Pedidos Entregados"
+        '
+        'grPedidosEntregados
+        '
+        Me.grPedidosEntregados.AlternatingColors = True
+        Me.grPedidosEntregados.BackColor = System.Drawing.Color.White
+        Me.grPedidosEntregados.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
+        Me.grPedidosEntregados.ColumnAutoResize = True
+        Me.grPedidosEntregados.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grPedidosEntregados.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None
+        Me.grPedidosEntregados.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
+        Me.grPedidosEntregados.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grPedidosEntregados.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grPedidosEntregados.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grPedidosEntregados.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
+        Me.grPedidosEntregados.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grPedidosEntregados.GridLines = Janus.Windows.GridEX.GridLines.None
+        Me.grPedidosEntregados.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
+        Me.grPedidosEntregados.HeaderFormatStyle.Alpha = 0
+        Me.grPedidosEntregados.HeaderFormatStyle.Appearance = Janus.Windows.GridEX.Appearance.Flat
+        Me.grPedidosEntregados.HeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
+        Me.grPedidosEntregados.HeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
+        Me.grPedidosEntregados.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
+        Me.grPedidosEntregados.HeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
+        Me.grPedidosEntregados.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grPedidosEntregados.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
+        Me.grPedidosEntregados.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
+        Me.grPedidosEntregados.Location = New System.Drawing.Point(0, 0)
+        Me.grPedidosEntregados.Margin = New System.Windows.Forms.Padding(4)
+        Me.grPedidosEntregados.Name = "grPedidosEntregados"
+        Me.grPedidosEntregados.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.grPedidosEntregados.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.grPedidosEntregados.RecordNavigator = True
+        Me.grPedidosEntregados.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grPedidosEntregados.RowHeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
+        Me.grPedidosEntregados.RowHeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.Transparent
+        Me.grPedidosEntregados.RowHeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
+        Me.grPedidosEntregados.RowHeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
+        Me.grPedidosEntregados.RowHeaderFormatStyle.BackgroundImageDrawMode = Janus.Windows.GridEX.BackgroundImageDrawMode.Center
+        Me.grPedidosEntregados.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grPedidosEntregados.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.grPedidosEntregados.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
+        Me.grPedidosEntregados.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grPedidosEntregados.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
+        Me.grPedidosEntregados.Size = New System.Drawing.Size(1325, 360)
+        Me.grPedidosEntregados.TabIndex = 4
+        Me.grPedidosEntregados.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
+        Me.grPedidosEntregados.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grPedidosEntregados.TableSpacing = 9
+        Me.grPedidosEntregados.TreeLineColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.grPedidosEntregados.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.grPedidosEntregados.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.grPedidosEntregados.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.VS2005
+        '
+        'Panel12
+        '
+        Me.Panel12.AutoScroll = True
+        Me.Panel12.Controls.Add(Me.cbChofer)
+        Me.Panel12.Controls.Add(Me.ButtonX15)
+        Me.Panel12.Controls.Add(Me.ButtonX16)
+        Me.Panel12.Controls.Add(Me.btnEntregadoAAsignado)
+        Me.Panel12.Controls.Add(Me.LabelX3)
+        Me.Panel12.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel12.Location = New System.Drawing.Point(0, 40)
+        Me.Panel12.Name = "Panel12"
+        Me.Panel12.Size = New System.Drawing.Size(1331, 62)
+        Me.Panel12.TabIndex = 7
+        '
+        'cbChofer
+        '
+        Me.cbChofer.BackColor = System.Drawing.Color.Azure
+        Me.cbChofer.ColorScheme = ""
+        Me.cbChofer.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.cbChofer.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
+        Me.cbChofer.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        cbChofer_DesignTimeLayout.LayoutString = resources.GetString("cbChofer_DesignTimeLayout.LayoutString")
+        Me.cbChofer.DesignTimeLayout = cbChofer_DesignTimeLayout
+        Me.cbChofer.FlatBorderColor = System.Drawing.Color.Black
+        Me.cbChofer.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbChofer.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbChofer.HideSelection = False
+        Me.cbChofer.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cbChofer.Location = New System.Drawing.Point(117, 16)
+        Me.cbChofer.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbChofer.Name = "cbChofer"
+        Me.cbChofer.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbChofer.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
+        Me.cbChofer.SelectedIndex = -1
+        Me.cbChofer.SelectedItem = Nothing
+        Me.cbChofer.Size = New System.Drawing.Size(281, 29)
+        Me.cbChofer.TabIndex = 219
+        Me.cbChofer.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'ButtonX15
+        '
+        Me.ButtonX15.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX15.BackColor = System.Drawing.Color.FromArgb(CType(CType(217, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(79, Byte), Integer))
+        Me.ButtonX15.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.ButtonX15.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX15.Image = Global.TeVendo.My.Resources.Resources.atras
+        Me.ButtonX15.ImageFixedSize = New System.Drawing.Size(30, 30)
+        Me.ButtonX15.Location = New System.Drawing.Point(718, 17)
+        Me.ButtonX15.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.ButtonX15.Name = "ButtonX15"
+        Me.ButtonX15.Size = New System.Drawing.Size(94, 39)
+        Me.ButtonX15.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
+        Me.ButtonX15.Symbol = ""
+        Me.ButtonX15.SymbolSize = 12.0!
+        Me.ButtonX15.TabIndex = 70
+        Me.ButtonX15.Text = "Salir"
+        Me.ButtonX15.TextColor = System.Drawing.Color.White
+        '
+        'ButtonX16
+        '
+        Me.ButtonX16.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX16.BackColor = System.Drawing.Color.Orange
+        Me.ButtonX16.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.ButtonX16.DisabledImagesGrayScale = False
+        Me.ButtonX16.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX16.Image = Global.TeVendo.My.Resources.Resources.caja
+        Me.ButtonX16.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.ButtonX16.Location = New System.Drawing.Point(598, 16)
+        Me.ButtonX16.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX16.Name = "ButtonX16"
+        Me.ButtonX16.Size = New System.Drawing.Size(113, 40)
+        Me.ButtonX16.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX16.Symbol = ""
+        Me.ButtonX16.SymbolSize = 12.0!
+        Me.ButtonX16.TabIndex = 44
+        Me.ButtonX16.Text = "Actualizar"
+        Me.ButtonX16.TextColor = System.Drawing.Color.White
+        '
+        'btnEntregadoAAsignado
+        '
+        Me.btnEntregadoAAsignado.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnEntregadoAAsignado.BackColor = System.Drawing.Color.LightSeaGreen
+        Me.btnEntregadoAAsignado.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.btnEntregadoAAsignado.DisabledImagesGrayScale = False
+        Me.btnEntregadoAAsignado.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnEntregadoAAsignado.Image = Global.TeVendo.My.Resources.Resources.caja
+        Me.btnEntregadoAAsignado.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.btnEntregadoAAsignado.Location = New System.Drawing.Point(433, 16)
+        Me.btnEntregadoAAsignado.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnEntregadoAAsignado.Name = "btnEntregadoAAsignado"
+        Me.btnEntregadoAAsignado.Size = New System.Drawing.Size(157, 40)
+        Me.btnEntregadoAAsignado.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnEntregadoAAsignado.Symbol = ""
+        Me.btnEntregadoAAsignado.SymbolSize = 12.0!
+        Me.btnEntregadoAAsignado.TabIndex = 43
+        Me.btnEntregadoAAsignado.Text = "Volver A" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Estado Asignado"
+        Me.btnEntregadoAAsignado.TextColor = System.Drawing.Color.White
+        '
+        'LabelX3
+        '
+        Me.LabelX3.AutoSize = True
+        Me.LabelX3.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX3.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX3.Location = New System.Drawing.Point(17, 15)
+        Me.LabelX3.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX3.Name = "LabelX3"
+        Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX3.Size = New System.Drawing.Size(92, 23)
+        Me.LabelX3.TabIndex = 42
+        Me.LabelX3.Text = "Distribuidor:"
+        '
+        'Panel13
+        '
+        Me.Panel13.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.Panel13.Controls.Add(Me.Panel17)
+        Me.Panel13.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel13.Location = New System.Drawing.Point(0, 0)
+        Me.Panel13.Name = "Panel13"
+        Me.Panel13.Padding = New System.Windows.Forms.Padding(1)
+        Me.Panel13.Size = New System.Drawing.Size(1331, 40)
+        Me.Panel13.TabIndex = 6
+        '
+        'Panel17
+        '
+        Me.Panel17.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Panel17.Controls.Add(Me.Label2)
+        Me.Panel17.Controls.Add(Me.Panel18)
+        Me.Panel17.Controls.Add(Me.PictureBox2)
+        Me.Panel17.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel17.Location = New System.Drawing.Point(1, 1)
+        Me.Panel17.Name = "Panel17"
+        Me.Panel17.Size = New System.Drawing.Size(1329, 38)
+        Me.Panel17.TabIndex = 0
+        '
+        'Label2
+        '
+        Me.Label2.BackColor = System.Drawing.Color.Transparent
+        Me.Label2.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Label2.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.Label2.Location = New System.Drawing.Point(59, 0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
+        Me.Label2.Size = New System.Drawing.Size(773, 38)
+        Me.Label2.TabIndex = 2
+        Me.Label2.Text = "Administrar Pedidos Entregados"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Panel18
+        '
+        Me.Panel18.BackColor = System.Drawing.Color.White
+        Me.Panel18.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Panel18.Location = New System.Drawing.Point(58, 0)
+        Me.Panel18.Name = "Panel18"
+        Me.Panel18.Size = New System.Drawing.Size(1, 38)
+        Me.Panel18.TabIndex = 1
+        '
+        'PictureBox2
+        '
+        Me.PictureBox2.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.PictureBox2.Dock = System.Windows.Forms.DockStyle.Left
+        Me.PictureBox2.Image = Global.TeVendo.My.Resources.Resources.tec_triangulo_blanco
+        Me.PictureBox2.Location = New System.Drawing.Point(0, 0)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Padding = New System.Windows.Forms.Padding(15, 5, 15, 5)
+        Me.PictureBox2.Size = New System.Drawing.Size(58, 38)
+        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox2.TabIndex = 0
+        Me.PictureBox2.TabStop = False
+        '
+        'SuperTabItem3
+        '
+        Me.SuperTabItem3.AttachedControl = Me.SuperTabControlPanel3
+        Me.SuperTabItem3.GlobalItem = False
+        Me.SuperTabItem3.Image = Global.TeVendo.My.Resources.Resources.pagos
+        Me.SuperTabItem3.Name = "SuperTabItem3"
+        Me.SuperTabItem3.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Teal
+        Me.SuperTabItem3.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SuperTabItem3.Text = "Ver Pedidos Entregados"
+        '
+        'SuperTabControlPanel1
+        '
+        Me.SuperTabControlPanel1.Controls.Add(Me.Panel1)
+        Me.SuperTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 59)
+        Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
+        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1331, 492)
+        Me.SuperTabControlPanel1.TabIndex = 1
+        Me.SuperTabControlPanel1.TabItem = Me.SuperTabItem1
+        '
+        'Panel1
+        '
+        Me.Panel1.BackColor = System.Drawing.Color.White
+        Me.Panel1.Controls.Add(Me.Panel3)
+        Me.Panel1.Controls.Add(Me.Panel2)
+        Me.Panel1.Controls.Add(Me.Panel14)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel1.Location = New System.Drawing.Point(0, 0)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(1331, 492)
+        Me.Panel1.TabIndex = 1
+        '
+        'Panel3
+        '
+        Me.Panel3.Controls.Add(Me.GroupPanel1)
+        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel3.Location = New System.Drawing.Point(0, 40)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(1005, 452)
+        Me.Panel3.TabIndex = 7
+        '
+        'GroupPanel1
+        '
+        Me.GroupPanel1.CanvasColor = System.Drawing.SystemColors.Control
+        Me.GroupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
+        Me.GroupPanel1.Controls.Add(Me.grPedidosPendientes)
+        Me.GroupPanel1.DisabledBackColor = System.Drawing.Color.Empty
+        Me.GroupPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupPanel1.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.GroupPanel1.Name = "GroupPanel1"
+        Me.GroupPanel1.Size = New System.Drawing.Size(1005, 452)
+        '
+        '
+        '
+        Me.GroupPanel1.Style.BackColor = System.Drawing.Color.DarkCyan
+        Me.GroupPanel1.Style.BackColor2 = System.Drawing.Color.DarkCyan
+        Me.GroupPanel1.Style.BackColorGradientAngle = 90
+        Me.GroupPanel1.Style.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel1.Style.BorderBottomWidth = 1
+        Me.GroupPanel1.Style.BorderColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
+        Me.GroupPanel1.Style.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel1.Style.BorderLeftWidth = 1
+        Me.GroupPanel1.Style.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel1.Style.BorderRightWidth = 1
+        Me.GroupPanel1.Style.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel1.Style.BorderTopWidth = 1
+        Me.GroupPanel1.Style.CornerDiameter = 4
+        Me.GroupPanel1.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.GroupPanel1.Style.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Far
+        Me.GroupPanel1.Style.TextColor = System.Drawing.Color.White
+        Me.GroupPanel1.Style.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Near
+        '
+        '
+        '
+        Me.GroupPanel1.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        '
+        '
+        '
+        Me.GroupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.GroupPanel1.TabIndex = 6
+        Me.GroupPanel1.Text = "Listado de Pedidos Pendientes"
+        '
+        'grPedidosPendientes
+        '
+        Me.grPedidosPendientes.AlternatingColors = True
+        Me.grPedidosPendientes.BackColor = System.Drawing.Color.White
+        Me.grPedidosPendientes.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
+        Me.grPedidosPendientes.ColumnAutoResize = True
+        Me.grPedidosPendientes.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grPedidosPendientes.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None
+        Me.grPedidosPendientes.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
+        Me.grPedidosPendientes.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grPedidosPendientes.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grPedidosPendientes.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grPedidosPendientes.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
+        Me.grPedidosPendientes.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grPedidosPendientes.GridLines = Janus.Windows.GridEX.GridLines.None
+        Me.grPedidosPendientes.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
+        Me.grPedidosPendientes.HeaderFormatStyle.Alpha = 0
+        Me.grPedidosPendientes.HeaderFormatStyle.Appearance = Janus.Windows.GridEX.Appearance.Flat
+        Me.grPedidosPendientes.HeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
+        Me.grPedidosPendientes.HeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
+        Me.grPedidosPendientes.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
+        Me.grPedidosPendientes.HeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
+        Me.grPedidosPendientes.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grPedidosPendientes.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
+        Me.grPedidosPendientes.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
+        Me.grPedidosPendientes.Location = New System.Drawing.Point(0, 0)
+        Me.grPedidosPendientes.Margin = New System.Windows.Forms.Padding(4)
+        Me.grPedidosPendientes.Name = "grPedidosPendientes"
+        Me.grPedidosPendientes.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.grPedidosPendientes.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.grPedidosPendientes.RecordNavigator = True
+        Me.grPedidosPendientes.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grPedidosPendientes.RowHeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
+        Me.grPedidosPendientes.RowHeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.Transparent
+        Me.grPedidosPendientes.RowHeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
+        Me.grPedidosPendientes.RowHeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
+        Me.grPedidosPendientes.RowHeaderFormatStyle.BackgroundImageDrawMode = Janus.Windows.GridEX.BackgroundImageDrawMode.Center
+        Me.grPedidosPendientes.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grPedidosPendientes.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.grPedidosPendientes.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
+        Me.grPedidosPendientes.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grPedidosPendientes.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
+        Me.grPedidosPendientes.Size = New System.Drawing.Size(999, 422)
+        Me.grPedidosPendientes.TabIndex = 4
+        Me.grPedidosPendientes.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
+        Me.grPedidosPendientes.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grPedidosPendientes.TableSpacing = 9
+        Me.grPedidosPendientes.TreeLineColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.grPedidosPendientes.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.grPedidosPendientes.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.grPedidosPendientes.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.VS2005
+        '
+        'Panel2
+        '
+        Me.Panel2.Controls.Add(Me.ButtonX10)
+        Me.Panel2.Controls.Add(Me.cbPersonal)
+        Me.Panel2.Controls.Add(Me.ButtonX2)
+        Me.Panel2.Controls.Add(Me.ButtonX1)
+        Me.Panel2.Controls.Add(Me.ButtonX4)
+        Me.Panel2.Controls.Add(Me.LabelX1)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Right
+        Me.Panel2.Location = New System.Drawing.Point(1005, 40)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(326, 452)
+        Me.Panel2.TabIndex = 6
+        '
+        'ButtonX10
+        '
+        Me.ButtonX10.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX10.BackColor = System.Drawing.Color.OrangeRed
+        Me.ButtonX10.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.ButtonX10.DisabledImagesGrayScale = False
+        Me.ButtonX10.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX10.Image = Global.TeVendo.My.Resources.Resources.caja
+        Me.ButtonX10.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.ButtonX10.Location = New System.Drawing.Point(7, 128)
+        Me.ButtonX10.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX10.Name = "ButtonX10"
+        Me.ButtonX10.Size = New System.Drawing.Size(117, 40)
+        Me.ButtonX10.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX10.Symbol = ""
+        Me.ButtonX10.SymbolSize = 12.0!
+        Me.ButtonX10.TabIndex = 223
+        Me.ButtonX10.Text = "Anular" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Pedidos"
+        Me.ButtonX10.TextColor = System.Drawing.Color.White
+        '
+        'cbPersonal
+        '
+        Me.cbPersonal.BackColor = System.Drawing.Color.Azure
+        Me.cbPersonal.ColorScheme = ""
+        Me.cbPersonal.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.cbPersonal.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
+        Me.cbPersonal.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        cbPersonal_DesignTimeLayout.LayoutString = resources.GetString("cbPersonal_DesignTimeLayout.LayoutString")
+        Me.cbPersonal.DesignTimeLayout = cbPersonal_DesignTimeLayout
+        Me.cbPersonal.FlatBorderColor = System.Drawing.Color.Black
+        Me.cbPersonal.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbPersonal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbPersonal.HideSelection = False
+        Me.cbPersonal.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cbPersonal.Location = New System.Drawing.Point(5, 51)
+        Me.cbPersonal.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbPersonal.Name = "cbPersonal"
+        Me.cbPersonal.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbPersonal.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
+        Me.cbPersonal.SelectedIndex = -1
+        Me.cbPersonal.SelectedItem = Nothing
+        Me.cbPersonal.Size = New System.Drawing.Size(308, 28)
+        Me.cbPersonal.TabIndex = 220
+        Me.cbPersonal.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'ButtonX2
+        '
+        Me.ButtonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX2.BackColor = System.Drawing.Color.FromArgb(CType(CType(217, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(79, Byte), Integer))
+        Me.ButtonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.ButtonX2.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX2.Image = Global.TeVendo.My.Resources.Resources.atras
+        Me.ButtonX2.ImageFixedSize = New System.Drawing.Size(30, 30)
+        Me.ButtonX2.Location = New System.Drawing.Point(132, 126)
+        Me.ButtonX2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.ButtonX2.Name = "ButtonX2"
+        Me.ButtonX2.Size = New System.Drawing.Size(122, 42)
+        Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
+        Me.ButtonX2.Symbol = ""
+        Me.ButtonX2.SymbolSize = 12.0!
+        Me.ButtonX2.TabIndex = 70
+        Me.ButtonX2.Text = "Salir"
+        Me.ButtonX2.TextColor = System.Drawing.Color.White
+        '
+        'ButtonX1
+        '
+        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX1.BackColor = System.Drawing.Color.Orange
+        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.ButtonX1.DisabledImagesGrayScale = False
+        Me.ButtonX1.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX1.Image = Global.TeVendo.My.Resources.Resources.caja
+        Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.ButtonX1.Location = New System.Drawing.Point(132, 91)
+        Me.ButtonX1.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX1.Name = "ButtonX1"
+        Me.ButtonX1.Size = New System.Drawing.Size(122, 29)
+        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX1.Symbol = ""
+        Me.ButtonX1.SymbolSize = 12.0!
+        Me.ButtonX1.TabIndex = 44
+        Me.ButtonX1.Text = "Actualizar"
+        Me.ButtonX1.TextColor = System.Drawing.Color.White
+        '
+        'ButtonX4
+        '
+        Me.ButtonX4.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX4.BackColor = System.Drawing.Color.LightSeaGreen
+        Me.ButtonX4.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.ButtonX4.DisabledImagesGrayScale = False
+        Me.ButtonX4.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX4.Image = Global.TeVendo.My.Resources.Resources.caja
+        Me.ButtonX4.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.ButtonX4.Location = New System.Drawing.Point(7, 91)
+        Me.ButtonX4.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX4.Name = "ButtonX4"
+        Me.ButtonX4.Size = New System.Drawing.Size(117, 29)
+        Me.ButtonX4.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX4.Symbol = ""
+        Me.ButtonX4.SymbolSize = 12.0!
+        Me.ButtonX4.TabIndex = 43
+        Me.ButtonX4.Text = "Asignar"
+        Me.ButtonX4.TextColor = System.Drawing.Color.White
+        '
+        'LabelX1
+        '
+        Me.LabelX1.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX1.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX1.Location = New System.Drawing.Point(17, 15)
+        Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX1.Name = "LabelX1"
+        Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX1.Size = New System.Drawing.Size(168, 28)
+        Me.LabelX1.TabIndex = 42
+        Me.LabelX1.Text = "Asignar A Distribuidor:"
+        '
+        'Panel14
+        '
+        Me.Panel14.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.Panel14.Controls.Add(Me.Panel15)
+        Me.Panel14.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel14.Location = New System.Drawing.Point(0, 0)
+        Me.Panel14.Name = "Panel14"
+        Me.Panel14.Padding = New System.Windows.Forms.Padding(1)
+        Me.Panel14.Size = New System.Drawing.Size(1331, 40)
+        Me.Panel14.TabIndex = 5
+        '
+        'Panel15
+        '
+        Me.Panel15.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Panel15.Controls.Add(Me.lbtitle)
+        Me.Panel15.Controls.Add(Me.Panel16)
+        Me.Panel15.Controls.Add(Me.PictureBox4)
+        Me.Panel15.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel15.Location = New System.Drawing.Point(1, 1)
+        Me.Panel15.Name = "Panel15"
+        Me.Panel15.Size = New System.Drawing.Size(1329, 38)
+        Me.Panel15.TabIndex = 0
+        '
+        'lbtitle
+        '
+        Me.lbtitle.BackColor = System.Drawing.Color.Transparent
+        Me.lbtitle.Dock = System.Windows.Forms.DockStyle.Left
+        Me.lbtitle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbtitle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.lbtitle.Location = New System.Drawing.Point(59, 0)
+        Me.lbtitle.Name = "lbtitle"
+        Me.lbtitle.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
+        Me.lbtitle.Size = New System.Drawing.Size(773, 38)
+        Me.lbtitle.TabIndex = 2
+        Me.lbtitle.Text = "Asignación de Pedidos Pendientes A Distribuidores"
+        Me.lbtitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Panel16
+        '
+        Me.Panel16.BackColor = System.Drawing.Color.White
+        Me.Panel16.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Panel16.Location = New System.Drawing.Point(58, 0)
+        Me.Panel16.Name = "Panel16"
+        Me.Panel16.Size = New System.Drawing.Size(1, 38)
+        Me.Panel16.TabIndex = 1
+        '
+        'PictureBox4
+        '
+        Me.PictureBox4.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.PictureBox4.Dock = System.Windows.Forms.DockStyle.Left
+        Me.PictureBox4.Image = Global.TeVendo.My.Resources.Resources.tec_triangulo_blanco
+        Me.PictureBox4.Location = New System.Drawing.Point(0, 0)
+        Me.PictureBox4.Name = "PictureBox4"
+        Me.PictureBox4.Padding = New System.Windows.Forms.Padding(15, 5, 15, 5)
+        Me.PictureBox4.Size = New System.Drawing.Size(58, 38)
+        Me.PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox4.TabIndex = 0
+        Me.PictureBox4.TabStop = False
+        '
+        'SuperTabItem1
+        '
+        Me.SuperTabItem1.AttachedControl = Me.SuperTabControlPanel1
+        Me.SuperTabItem1.GlobalItem = False
+        Me.SuperTabItem1.Image = Global.TeVendo.My.Resources.Resources.modulocompra
+        Me.SuperTabItem1.Name = "SuperTabItem1"
+        Me.SuperTabItem1.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Teal
+        Me.SuperTabItem1.TabFont = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SuperTabItem1.Text = "Asignar Pedidos Pendientes"
         '
         'SuperTabControlPanel2
         '
@@ -574,335 +1213,6 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.SuperTabItem2.TabFont = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabItem2.Text = "Ver Pedidos Asignados"
         '
-        'SuperTabControlPanel1
-        '
-        Me.SuperTabControlPanel1.Controls.Add(Me.Panel1)
-        Me.SuperTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 59)
-        Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
-        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1331, 492)
-        Me.SuperTabControlPanel1.TabIndex = 1
-        Me.SuperTabControlPanel1.TabItem = Me.SuperTabItem1
-        '
-        'Panel1
-        '
-        Me.Panel1.BackColor = System.Drawing.Color.White
-        Me.Panel1.Controls.Add(Me.Panel3)
-        Me.Panel1.Controls.Add(Me.Panel2)
-        Me.Panel1.Controls.Add(Me.Panel14)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(0, 0)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1331, 492)
-        Me.Panel1.TabIndex = 1
-        '
-        'Panel3
-        '
-        Me.Panel3.Controls.Add(Me.GroupPanel1)
-        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel3.Location = New System.Drawing.Point(0, 40)
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(1005, 452)
-        Me.Panel3.TabIndex = 7
-        '
-        'GroupPanel1
-        '
-        Me.GroupPanel1.CanvasColor = System.Drawing.SystemColors.Control
-        Me.GroupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
-        Me.GroupPanel1.Controls.Add(Me.grPedidosPendientes)
-        Me.GroupPanel1.DisabledBackColor = System.Drawing.Color.Empty
-        Me.GroupPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupPanel1.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupPanel1.Location = New System.Drawing.Point(0, 0)
-        Me.GroupPanel1.Name = "GroupPanel1"
-        Me.GroupPanel1.Size = New System.Drawing.Size(1005, 452)
-        '
-        '
-        '
-        Me.GroupPanel1.Style.BackColor = System.Drawing.Color.DarkCyan
-        Me.GroupPanel1.Style.BackColor2 = System.Drawing.Color.DarkCyan
-        Me.GroupPanel1.Style.BackColorGradientAngle = 90
-        Me.GroupPanel1.Style.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.GroupPanel1.Style.BorderBottomWidth = 1
-        Me.GroupPanel1.Style.BorderColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
-        Me.GroupPanel1.Style.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.GroupPanel1.Style.BorderLeftWidth = 1
-        Me.GroupPanel1.Style.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.GroupPanel1.Style.BorderRightWidth = 1
-        Me.GroupPanel1.Style.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.GroupPanel1.Style.BorderTopWidth = 1
-        Me.GroupPanel1.Style.CornerDiameter = 4
-        Me.GroupPanel1.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
-        Me.GroupPanel1.Style.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Far
-        Me.GroupPanel1.Style.TextColor = System.Drawing.Color.White
-        Me.GroupPanel1.Style.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Near
-        '
-        '
-        '
-        Me.GroupPanel1.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        '
-        '
-        '
-        Me.GroupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.GroupPanel1.TabIndex = 6
-        Me.GroupPanel1.Text = "Listado de Pedidos Pendientes"
-        '
-        'grPedidosPendientes
-        '
-        Me.grPedidosPendientes.AlternatingColors = True
-        Me.grPedidosPendientes.BackColor = System.Drawing.Color.White
-        Me.grPedidosPendientes.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
-        Me.grPedidosPendientes.ColumnAutoResize = True
-        Me.grPedidosPendientes.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grPedidosPendientes.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None
-        Me.grPedidosPendientes.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
-        Me.grPedidosPendientes.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grPedidosPendientes.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.grPedidosPendientes.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.grPedidosPendientes.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
-        Me.grPedidosPendientes.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grPedidosPendientes.GridLines = Janus.Windows.GridEX.GridLines.None
-        Me.grPedidosPendientes.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
-        Me.grPedidosPendientes.HeaderFormatStyle.Alpha = 0
-        Me.grPedidosPendientes.HeaderFormatStyle.Appearance = Janus.Windows.GridEX.Appearance.Flat
-        Me.grPedidosPendientes.HeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
-        Me.grPedidosPendientes.HeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
-        Me.grPedidosPendientes.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
-        Me.grPedidosPendientes.HeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
-        Me.grPedidosPendientes.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grPedidosPendientes.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
-        Me.grPedidosPendientes.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
-        Me.grPedidosPendientes.Location = New System.Drawing.Point(0, 0)
-        Me.grPedidosPendientes.Margin = New System.Windows.Forms.Padding(4)
-        Me.grPedidosPendientes.Name = "grPedidosPendientes"
-        Me.grPedidosPendientes.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.grPedidosPendientes.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.grPedidosPendientes.RecordNavigator = True
-        Me.grPedidosPendientes.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grPedidosPendientes.RowHeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
-        Me.grPedidosPendientes.RowHeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.Transparent
-        Me.grPedidosPendientes.RowHeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
-        Me.grPedidosPendientes.RowHeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
-        Me.grPedidosPendientes.RowHeaderFormatStyle.BackgroundImageDrawMode = Janus.Windows.GridEX.BackgroundImageDrawMode.Center
-        Me.grPedidosPendientes.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grPedidosPendientes.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
-        Me.grPedidosPendientes.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
-        Me.grPedidosPendientes.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grPedidosPendientes.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grPedidosPendientes.Size = New System.Drawing.Size(999, 422)
-        Me.grPedidosPendientes.TabIndex = 4
-        Me.grPedidosPendientes.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
-        Me.grPedidosPendientes.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.grPedidosPendientes.TableSpacing = 9
-        Me.grPedidosPendientes.TreeLineColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.grPedidosPendientes.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        Me.grPedidosPendientes.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        Me.grPedidosPendientes.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.VS2005
-        '
-        'Panel2
-        '
-        Me.Panel2.Controls.Add(Me.ButtonX10)
-        Me.Panel2.Controls.Add(Me.cbPersonal)
-        Me.Panel2.Controls.Add(Me.ButtonX2)
-        Me.Panel2.Controls.Add(Me.ButtonX1)
-        Me.Panel2.Controls.Add(Me.ButtonX4)
-        Me.Panel2.Controls.Add(Me.LabelX1)
-        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel2.Location = New System.Drawing.Point(1005, 40)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(326, 452)
-        Me.Panel2.TabIndex = 6
-        '
-        'ButtonX10
-        '
-        Me.ButtonX10.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX10.BackColor = System.Drawing.Color.OrangeRed
-        Me.ButtonX10.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
-        Me.ButtonX10.DisabledImagesGrayScale = False
-        Me.ButtonX10.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX10.Image = Global.TeVendo.My.Resources.Resources.caja
-        Me.ButtonX10.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.ButtonX10.Location = New System.Drawing.Point(7, 128)
-        Me.ButtonX10.Margin = New System.Windows.Forms.Padding(4)
-        Me.ButtonX10.Name = "ButtonX10"
-        Me.ButtonX10.Size = New System.Drawing.Size(117, 40)
-        Me.ButtonX10.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX10.Symbol = ""
-        Me.ButtonX10.SymbolSize = 12.0!
-        Me.ButtonX10.TabIndex = 223
-        Me.ButtonX10.Text = "Anular" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Pedidos"
-        Me.ButtonX10.TextColor = System.Drawing.Color.White
-        '
-        'cbPersonal
-        '
-        Me.cbPersonal.BackColor = System.Drawing.Color.Azure
-        Me.cbPersonal.ColorScheme = ""
-        Me.cbPersonal.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
-        Me.cbPersonal.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
-        Me.cbPersonal.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
-        cbPersonal_DesignTimeLayout.LayoutString = resources.GetString("cbPersonal_DesignTimeLayout.LayoutString")
-        Me.cbPersonal.DesignTimeLayout = cbPersonal_DesignTimeLayout
-        Me.cbPersonal.FlatBorderColor = System.Drawing.Color.Black
-        Me.cbPersonal.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbPersonal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.cbPersonal.HideSelection = False
-        Me.cbPersonal.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.cbPersonal.Location = New System.Drawing.Point(5, 51)
-        Me.cbPersonal.Margin = New System.Windows.Forms.Padding(4)
-        Me.cbPersonal.Name = "cbPersonal"
-        Me.cbPersonal.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.cbPersonal.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
-        Me.cbPersonal.SelectedIndex = -1
-        Me.cbPersonal.SelectedItem = Nothing
-        Me.cbPersonal.Size = New System.Drawing.Size(308, 28)
-        Me.cbPersonal.TabIndex = 220
-        Me.cbPersonal.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        '
-        'ButtonX2
-        '
-        Me.ButtonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX2.BackColor = System.Drawing.Color.FromArgb(CType(CType(217, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(79, Byte), Integer))
-        Me.ButtonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.ButtonX2.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX2.Image = Global.TeVendo.My.Resources.Resources.atras
-        Me.ButtonX2.ImageFixedSize = New System.Drawing.Size(30, 30)
-        Me.ButtonX2.Location = New System.Drawing.Point(132, 126)
-        Me.ButtonX2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.ButtonX2.Name = "ButtonX2"
-        Me.ButtonX2.Size = New System.Drawing.Size(122, 42)
-        Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
-        Me.ButtonX2.Symbol = ""
-        Me.ButtonX2.SymbolSize = 12.0!
-        Me.ButtonX2.TabIndex = 70
-        Me.ButtonX2.Text = "Salir"
-        Me.ButtonX2.TextColor = System.Drawing.Color.White
-        '
-        'ButtonX1
-        '
-        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX1.BackColor = System.Drawing.Color.Orange
-        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
-        Me.ButtonX1.DisabledImagesGrayScale = False
-        Me.ButtonX1.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX1.Image = Global.TeVendo.My.Resources.Resources.caja
-        Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.ButtonX1.Location = New System.Drawing.Point(132, 91)
-        Me.ButtonX1.Margin = New System.Windows.Forms.Padding(4)
-        Me.ButtonX1.Name = "ButtonX1"
-        Me.ButtonX1.Size = New System.Drawing.Size(122, 29)
-        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX1.Symbol = ""
-        Me.ButtonX1.SymbolSize = 12.0!
-        Me.ButtonX1.TabIndex = 44
-        Me.ButtonX1.Text = "Actualizar"
-        Me.ButtonX1.TextColor = System.Drawing.Color.White
-        '
-        'ButtonX4
-        '
-        Me.ButtonX4.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX4.BackColor = System.Drawing.Color.LightSeaGreen
-        Me.ButtonX4.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
-        Me.ButtonX4.DisabledImagesGrayScale = False
-        Me.ButtonX4.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX4.Image = Global.TeVendo.My.Resources.Resources.caja
-        Me.ButtonX4.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.ButtonX4.Location = New System.Drawing.Point(7, 91)
-        Me.ButtonX4.Margin = New System.Windows.Forms.Padding(4)
-        Me.ButtonX4.Name = "ButtonX4"
-        Me.ButtonX4.Size = New System.Drawing.Size(117, 29)
-        Me.ButtonX4.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX4.Symbol = ""
-        Me.ButtonX4.SymbolSize = 12.0!
-        Me.ButtonX4.TabIndex = 43
-        Me.ButtonX4.Text = "Asignar"
-        Me.ButtonX4.TextColor = System.Drawing.Color.White
-        '
-        'LabelX1
-        '
-        Me.LabelX1.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX1.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX1.Location = New System.Drawing.Point(17, 15)
-        Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX1.Name = "LabelX1"
-        Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX1.Size = New System.Drawing.Size(168, 28)
-        Me.LabelX1.TabIndex = 42
-        Me.LabelX1.Text = "Asignar A Distribuidor:"
-        '
-        'Panel14
-        '
-        Me.Panel14.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.Panel14.Controls.Add(Me.Panel15)
-        Me.Panel14.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel14.Location = New System.Drawing.Point(0, 0)
-        Me.Panel14.Name = "Panel14"
-        Me.Panel14.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel14.Size = New System.Drawing.Size(1331, 40)
-        Me.Panel14.TabIndex = 5
-        '
-        'Panel15
-        '
-        Me.Panel15.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.Panel15.Controls.Add(Me.lbtitle)
-        Me.Panel15.Controls.Add(Me.Panel16)
-        Me.Panel15.Controls.Add(Me.PictureBox4)
-        Me.Panel15.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel15.Location = New System.Drawing.Point(1, 1)
-        Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(1329, 38)
-        Me.Panel15.TabIndex = 0
-        '
-        'lbtitle
-        '
-        Me.lbtitle.BackColor = System.Drawing.Color.Transparent
-        Me.lbtitle.Dock = System.Windows.Forms.DockStyle.Left
-        Me.lbtitle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbtitle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.lbtitle.Location = New System.Drawing.Point(59, 0)
-        Me.lbtitle.Name = "lbtitle"
-        Me.lbtitle.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
-        Me.lbtitle.Size = New System.Drawing.Size(773, 38)
-        Me.lbtitle.TabIndex = 2
-        Me.lbtitle.Text = "Asignación de Pedidos Pendientes A Distribuidores"
-        Me.lbtitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Panel16
-        '
-        Me.Panel16.BackColor = System.Drawing.Color.White
-        Me.Panel16.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Panel16.Location = New System.Drawing.Point(58, 0)
-        Me.Panel16.Name = "Panel16"
-        Me.Panel16.Size = New System.Drawing.Size(1, 38)
-        Me.Panel16.TabIndex = 1
-        '
-        'PictureBox4
-        '
-        Me.PictureBox4.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.PictureBox4.Dock = System.Windows.Forms.DockStyle.Left
-        Me.PictureBox4.Image = Global.TeVendo.My.Resources.Resources.tec_triangulo_blanco
-        Me.PictureBox4.Location = New System.Drawing.Point(0, 0)
-        Me.PictureBox4.Name = "PictureBox4"
-        Me.PictureBox4.Padding = New System.Windows.Forms.Padding(15, 5, 15, 5)
-        Me.PictureBox4.Size = New System.Drawing.Size(58, 38)
-        Me.PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox4.TabIndex = 0
-        Me.PictureBox4.TabStop = False
-        '
-        'SuperTabItem1
-        '
-        Me.SuperTabItem1.AttachedControl = Me.SuperTabControlPanel1
-        Me.SuperTabItem1.GlobalItem = False
-        Me.SuperTabItem1.Image = Global.TeVendo.My.Resources.Resources.modulocompra
-        Me.SuperTabItem1.Name = "SuperTabItem1"
-        Me.SuperTabItem1.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Teal
-        Me.SuperTabItem1.TabFont = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SuperTabItem1.Text = "Asignar Pedidos Pendientes"
-        '
         'SuperTabControlPanel4
         '
         Me.SuperTabControlPanel4.Controls.Add(Me.Panel19)
@@ -1168,316 +1478,6 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.SuperTabItem4.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabItem4.Text = "Ver Pedidos Anulados"
         '
-        'SuperTabControlPanel3
-        '
-        Me.SuperTabControlPanel3.Controls.Add(Me.Panel10)
-        Me.SuperTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel3.Location = New System.Drawing.Point(0, 59)
-        Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
-        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(1331, 492)
-        Me.SuperTabControlPanel3.TabIndex = 0
-        Me.SuperTabControlPanel3.TabItem = Me.SuperTabItem3
-        '
-        'Panel10
-        '
-        Me.Panel10.BackColor = System.Drawing.Color.White
-        Me.Panel10.Controls.Add(Me.Panel11)
-        Me.Panel10.Controls.Add(Me.Panel12)
-        Me.Panel10.Controls.Add(Me.Panel13)
-        Me.Panel10.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel10.Location = New System.Drawing.Point(0, 0)
-        Me.Panel10.Name = "Panel10"
-        Me.Panel10.Size = New System.Drawing.Size(1331, 492)
-        Me.Panel10.TabIndex = 1
-        '
-        'Panel11
-        '
-        Me.Panel11.Controls.Add(Me.GroupPanel3)
-        Me.Panel11.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel11.Location = New System.Drawing.Point(0, 102)
-        Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(1331, 390)
-        Me.Panel11.TabIndex = 8
-        '
-        'GroupPanel3
-        '
-        Me.GroupPanel3.CanvasColor = System.Drawing.SystemColors.Control
-        Me.GroupPanel3.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
-        Me.GroupPanel3.Controls.Add(Me.grPedidosEntregados)
-        Me.GroupPanel3.DisabledBackColor = System.Drawing.Color.Empty
-        Me.GroupPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupPanel3.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupPanel3.Location = New System.Drawing.Point(0, 0)
-        Me.GroupPanel3.Name = "GroupPanel3"
-        Me.GroupPanel3.Size = New System.Drawing.Size(1331, 390)
-        '
-        '
-        '
-        Me.GroupPanel3.Style.BackColor = System.Drawing.Color.DarkCyan
-        Me.GroupPanel3.Style.BackColor2 = System.Drawing.Color.DarkCyan
-        Me.GroupPanel3.Style.BackColorGradientAngle = 90
-        Me.GroupPanel3.Style.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.GroupPanel3.Style.BorderBottomWidth = 1
-        Me.GroupPanel3.Style.BorderColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
-        Me.GroupPanel3.Style.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.GroupPanel3.Style.BorderLeftWidth = 1
-        Me.GroupPanel3.Style.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.GroupPanel3.Style.BorderRightWidth = 1
-        Me.GroupPanel3.Style.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.GroupPanel3.Style.BorderTopWidth = 1
-        Me.GroupPanel3.Style.CornerDiameter = 4
-        Me.GroupPanel3.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
-        Me.GroupPanel3.Style.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Far
-        Me.GroupPanel3.Style.TextColor = System.Drawing.Color.White
-        Me.GroupPanel3.Style.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Near
-        '
-        '
-        '
-        Me.GroupPanel3.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        '
-        '
-        '
-        Me.GroupPanel3.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.GroupPanel3.TabIndex = 6
-        Me.GroupPanel3.Text = "Listado de Pedidos Entregados"
-        '
-        'grPedidosEntregados
-        '
-        Me.grPedidosEntregados.AlternatingColors = True
-        Me.grPedidosEntregados.BackColor = System.Drawing.Color.White
-        Me.grPedidosEntregados.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
-        Me.grPedidosEntregados.ColumnAutoResize = True
-        Me.grPedidosEntregados.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grPedidosEntregados.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None
-        Me.grPedidosEntregados.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
-        Me.grPedidosEntregados.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grPedidosEntregados.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.grPedidosEntregados.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.grPedidosEntregados.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
-        Me.grPedidosEntregados.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grPedidosEntregados.GridLines = Janus.Windows.GridEX.GridLines.None
-        Me.grPedidosEntregados.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
-        Me.grPedidosEntregados.HeaderFormatStyle.Alpha = 0
-        Me.grPedidosEntregados.HeaderFormatStyle.Appearance = Janus.Windows.GridEX.Appearance.Flat
-        Me.grPedidosEntregados.HeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
-        Me.grPedidosEntregados.HeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
-        Me.grPedidosEntregados.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
-        Me.grPedidosEntregados.HeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
-        Me.grPedidosEntregados.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grPedidosEntregados.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
-        Me.grPedidosEntregados.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
-        Me.grPedidosEntregados.Location = New System.Drawing.Point(0, 0)
-        Me.grPedidosEntregados.Margin = New System.Windows.Forms.Padding(4)
-        Me.grPedidosEntregados.Name = "grPedidosEntregados"
-        Me.grPedidosEntregados.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.grPedidosEntregados.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.grPedidosEntregados.RecordNavigator = True
-        Me.grPedidosEntregados.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grPedidosEntregados.RowHeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
-        Me.grPedidosEntregados.RowHeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.Transparent
-        Me.grPedidosEntregados.RowHeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
-        Me.grPedidosEntregados.RowHeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
-        Me.grPedidosEntregados.RowHeaderFormatStyle.BackgroundImageDrawMode = Janus.Windows.GridEX.BackgroundImageDrawMode.Center
-        Me.grPedidosEntregados.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grPedidosEntregados.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
-        Me.grPedidosEntregados.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
-        Me.grPedidosEntregados.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grPedidosEntregados.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grPedidosEntregados.Size = New System.Drawing.Size(1325, 360)
-        Me.grPedidosEntregados.TabIndex = 4
-        Me.grPedidosEntregados.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
-        Me.grPedidosEntregados.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.grPedidosEntregados.TableSpacing = 9
-        Me.grPedidosEntregados.TreeLineColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.grPedidosEntregados.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        Me.grPedidosEntregados.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        Me.grPedidosEntregados.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.VS2005
-        '
-        'Panel12
-        '
-        Me.Panel12.AutoScroll = True
-        Me.Panel12.Controls.Add(Me.cbChofer)
-        Me.Panel12.Controls.Add(Me.ButtonX15)
-        Me.Panel12.Controls.Add(Me.ButtonX16)
-        Me.Panel12.Controls.Add(Me.btnEntregadoAAsignado)
-        Me.Panel12.Controls.Add(Me.LabelX3)
-        Me.Panel12.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel12.Location = New System.Drawing.Point(0, 40)
-        Me.Panel12.Name = "Panel12"
-        Me.Panel12.Size = New System.Drawing.Size(1331, 62)
-        Me.Panel12.TabIndex = 7
-        '
-        'cbChofer
-        '
-        Me.cbChofer.BackColor = System.Drawing.Color.Azure
-        Me.cbChofer.ColorScheme = ""
-        Me.cbChofer.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
-        Me.cbChofer.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
-        Me.cbChofer.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
-        cbChofer_DesignTimeLayout.LayoutString = resources.GetString("cbChofer_DesignTimeLayout.LayoutString")
-        Me.cbChofer.DesignTimeLayout = cbChofer_DesignTimeLayout
-        Me.cbChofer.FlatBorderColor = System.Drawing.Color.Black
-        Me.cbChofer.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbChofer.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.cbChofer.HideSelection = False
-        Me.cbChofer.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.cbChofer.Location = New System.Drawing.Point(117, 16)
-        Me.cbChofer.Margin = New System.Windows.Forms.Padding(4)
-        Me.cbChofer.Name = "cbChofer"
-        Me.cbChofer.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.cbChofer.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
-        Me.cbChofer.SelectedIndex = -1
-        Me.cbChofer.SelectedItem = Nothing
-        Me.cbChofer.Size = New System.Drawing.Size(281, 29)
-        Me.cbChofer.TabIndex = 219
-        Me.cbChofer.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        '
-        'ButtonX15
-        '
-        Me.ButtonX15.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX15.BackColor = System.Drawing.Color.FromArgb(CType(CType(217, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(79, Byte), Integer))
-        Me.ButtonX15.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.ButtonX15.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX15.Image = Global.TeVendo.My.Resources.Resources.atras
-        Me.ButtonX15.ImageFixedSize = New System.Drawing.Size(30, 30)
-        Me.ButtonX15.Location = New System.Drawing.Point(718, 17)
-        Me.ButtonX15.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.ButtonX15.Name = "ButtonX15"
-        Me.ButtonX15.Size = New System.Drawing.Size(94, 39)
-        Me.ButtonX15.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
-        Me.ButtonX15.Symbol = ""
-        Me.ButtonX15.SymbolSize = 12.0!
-        Me.ButtonX15.TabIndex = 70
-        Me.ButtonX15.Text = "Salir"
-        Me.ButtonX15.TextColor = System.Drawing.Color.White
-        '
-        'ButtonX16
-        '
-        Me.ButtonX16.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX16.BackColor = System.Drawing.Color.Orange
-        Me.ButtonX16.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
-        Me.ButtonX16.DisabledImagesGrayScale = False
-        Me.ButtonX16.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX16.Image = Global.TeVendo.My.Resources.Resources.caja
-        Me.ButtonX16.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.ButtonX16.Location = New System.Drawing.Point(598, 16)
-        Me.ButtonX16.Margin = New System.Windows.Forms.Padding(4)
-        Me.ButtonX16.Name = "ButtonX16"
-        Me.ButtonX16.Size = New System.Drawing.Size(113, 40)
-        Me.ButtonX16.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX16.Symbol = ""
-        Me.ButtonX16.SymbolSize = 12.0!
-        Me.ButtonX16.TabIndex = 44
-        Me.ButtonX16.Text = "Actualizar"
-        Me.ButtonX16.TextColor = System.Drawing.Color.White
-        '
-        'btnEntregadoAAsignado
-        '
-        Me.btnEntregadoAAsignado.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnEntregadoAAsignado.BackColor = System.Drawing.Color.LightSeaGreen
-        Me.btnEntregadoAAsignado.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
-        Me.btnEntregadoAAsignado.DisabledImagesGrayScale = False
-        Me.btnEntregadoAAsignado.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnEntregadoAAsignado.Image = Global.TeVendo.My.Resources.Resources.caja
-        Me.btnEntregadoAAsignado.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.btnEntregadoAAsignado.Location = New System.Drawing.Point(433, 16)
-        Me.btnEntregadoAAsignado.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnEntregadoAAsignado.Name = "btnEntregadoAAsignado"
-        Me.btnEntregadoAAsignado.Size = New System.Drawing.Size(157, 40)
-        Me.btnEntregadoAAsignado.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnEntregadoAAsignado.Symbol = ""
-        Me.btnEntregadoAAsignado.SymbolSize = 12.0!
-        Me.btnEntregadoAAsignado.TabIndex = 43
-        Me.btnEntregadoAAsignado.Text = "Volver A" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Estado Asignado"
-        Me.btnEntregadoAAsignado.TextColor = System.Drawing.Color.White
-        '
-        'LabelX3
-        '
-        Me.LabelX3.AutoSize = True
-        Me.LabelX3.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX3.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX3.Location = New System.Drawing.Point(17, 15)
-        Me.LabelX3.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX3.Name = "LabelX3"
-        Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX3.Size = New System.Drawing.Size(92, 23)
-        Me.LabelX3.TabIndex = 42
-        Me.LabelX3.Text = "Distribuidor:"
-        '
-        'Panel13
-        '
-        Me.Panel13.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.Panel13.Controls.Add(Me.Panel17)
-        Me.Panel13.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel13.Location = New System.Drawing.Point(0, 0)
-        Me.Panel13.Name = "Panel13"
-        Me.Panel13.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel13.Size = New System.Drawing.Size(1331, 40)
-        Me.Panel13.TabIndex = 6
-        '
-        'Panel17
-        '
-        Me.Panel17.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.Panel17.Controls.Add(Me.Label2)
-        Me.Panel17.Controls.Add(Me.Panel18)
-        Me.Panel17.Controls.Add(Me.PictureBox2)
-        Me.Panel17.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel17.Location = New System.Drawing.Point(1, 1)
-        Me.Panel17.Name = "Panel17"
-        Me.Panel17.Size = New System.Drawing.Size(1329, 38)
-        Me.Panel17.TabIndex = 0
-        '
-        'Label2
-        '
-        Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Label2.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.Label2.Location = New System.Drawing.Point(59, 0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
-        Me.Label2.Size = New System.Drawing.Size(773, 38)
-        Me.Label2.TabIndex = 2
-        Me.Label2.Text = "Administrar Pedidos Entregados"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Panel18
-        '
-        Me.Panel18.BackColor = System.Drawing.Color.White
-        Me.Panel18.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Panel18.Location = New System.Drawing.Point(58, 0)
-        Me.Panel18.Name = "Panel18"
-        Me.Panel18.Size = New System.Drawing.Size(1, 38)
-        Me.Panel18.TabIndex = 1
-        '
-        'PictureBox2
-        '
-        Me.PictureBox2.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.PictureBox2.Dock = System.Windows.Forms.DockStyle.Left
-        Me.PictureBox2.Image = Global.TeVendo.My.Resources.Resources.tec_triangulo_blanco
-        Me.PictureBox2.Location = New System.Drawing.Point(0, 0)
-        Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Padding = New System.Windows.Forms.Padding(15, 5, 15, 5)
-        Me.PictureBox2.Size = New System.Drawing.Size(58, 38)
-        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox2.TabIndex = 0
-        Me.PictureBox2.TabStop = False
-        '
-        'SuperTabItem3
-        '
-        Me.SuperTabItem3.AttachedControl = Me.SuperTabControlPanel3
-        Me.SuperTabItem3.GlobalItem = False
-        Me.SuperTabItem3.Image = Global.TeVendo.My.Resources.Resources.pagos
-        Me.SuperTabItem3.Name = "SuperTabItem3"
-        Me.SuperTabItem3.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Teal
-        Me.SuperTabItem3.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SuperTabItem3.Text = "Ver Pedidos Entregados"
-        '
         'Tec_AdministrarAsignacionesPedidos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -1489,37 +1489,6 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.Text = "Tec_AdministrarAsignacionesPedidos"
         CType(Me.SuperTabGeneral, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuperTabGeneral.ResumeLayout(False)
-        Me.SuperTabControlPanel2.ResumeLayout(False)
-        Me.Panel4.ResumeLayout(False)
-        Me.Panel9.ResumeLayout(False)
-        Me.GroupPanel2.ResumeLayout(False)
-        CType(Me.grAsignados, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel8.ResumeLayout(False)
-        Me.Panel8.PerformLayout()
-        CType(Me.cbPersonalAsignado, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel5.ResumeLayout(False)
-        Me.Panel6.ResumeLayout(False)
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.SuperTabControlPanel1.ResumeLayout(False)
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel3.ResumeLayout(False)
-        Me.GroupPanel1.ResumeLayout(False)
-        CType(Me.grPedidosPendientes, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel2.ResumeLayout(False)
-        Me.Panel2.PerformLayout()
-        CType(Me.cbPersonal, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel14.ResumeLayout(False)
-        Me.Panel15.ResumeLayout(False)
-        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.SuperTabControlPanel4.ResumeLayout(False)
-        Me.Panel19.ResumeLayout(False)
-        Me.Panel20.ResumeLayout(False)
-        Me.GroupPanel4.ResumeLayout(False)
-        CType(Me.grPedidosAnulados, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel21.ResumeLayout(False)
-        Me.Panel22.ResumeLayout(False)
-        Me.Panel23.ResumeLayout(False)
-        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuperTabControlPanel3.ResumeLayout(False)
         Me.Panel10.ResumeLayout(False)
         Me.Panel11.ResumeLayout(False)
@@ -1531,6 +1500,37 @@ Partial Class Tec_AdministrarAsignacionesPedidos
         Me.Panel13.ResumeLayout(False)
         Me.Panel17.ResumeLayout(False)
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SuperTabControlPanel1.ResumeLayout(False)
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel3.ResumeLayout(False)
+        Me.GroupPanel1.ResumeLayout(False)
+        CType(Me.grPedidosPendientes, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
+        CType(Me.cbPersonal, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel14.ResumeLayout(False)
+        Me.Panel15.ResumeLayout(False)
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SuperTabControlPanel2.ResumeLayout(False)
+        Me.Panel4.ResumeLayout(False)
+        Me.Panel9.ResumeLayout(False)
+        Me.GroupPanel2.ResumeLayout(False)
+        CType(Me.grAsignados, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel8.ResumeLayout(False)
+        Me.Panel8.PerformLayout()
+        CType(Me.cbPersonalAsignado, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel5.ResumeLayout(False)
+        Me.Panel6.ResumeLayout(False)
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SuperTabControlPanel4.ResumeLayout(False)
+        Me.Panel19.ResumeLayout(False)
+        Me.Panel20.ResumeLayout(False)
+        Me.GroupPanel4.ResumeLayout(False)
+        CType(Me.grPedidosAnulados, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel21.ResumeLayout(False)
+        Me.Panel22.ResumeLayout(False)
+        Me.Panel23.ResumeLayout(False)
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

@@ -225,6 +225,12 @@
     <Compile Include="Distribucion\Tec_AsignacionPedidos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Distribucion\Tec_CierreCaja.Designer.vb">
+      <DependentUpon>Tec_CierreCaja.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Distribucion\Tec_CierreCaja.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Distribucion\Tec_Conciliacion.Designer.vb">
       <DependentUpon>Tec_Conciliacion.vb</DependentUpon>
     </Compile>
@@ -716,6 +722,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Distribucion\Tec_AsignacionPedidos.resx">
       <DependentUpon>Tec_AsignacionPedidos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Distribucion\Tec_CierreCaja.resx">
+      <DependentUpon>Tec_CierreCaja.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Distribucion\Tec_Conciliacion.resx">
       <DependentUpon>Tec_Conciliacion.vb</DependentUpon>

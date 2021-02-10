@@ -71,7 +71,6 @@ Partial Class Tec_Despachos
         Me.Panel16 = New System.Windows.Forms.Panel()
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.btnAgregarProducto = New DevComponents.DotNetBar.ButtonX()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.btnSearchPersonal = New DevComponents.DotNetBar.ButtonX()
@@ -93,6 +92,7 @@ Partial Class Tec_Despachos
         Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
         Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
+        Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -834,11 +834,6 @@ Partial Class Tec_Despachos
         '
         Me.MEP.ContainerControl = Me
         '
-        'MHighlighterFocus
-        '
-        Me.MHighlighterFocus.ContainerControl = Me
-        Me.MHighlighterFocus.FocusHighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Orange
-        '
         'btnAgregarProducto
         '
         Me.btnAgregarProducto.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
@@ -1157,6 +1152,11 @@ Partial Class Tec_Despachos
         Me.PictureBox4.TabIndex = 0
         Me.PictureBox4.TabStop = False
         '
+        'MHighlighterFocus
+        '
+        Me.MHighlighterFocus.ContainerControl = Me
+        Me.MHighlighterFocus.FocusHighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Orange
+        '
         'Tec_Despachos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -1271,9 +1271,9 @@ Partial Class Tec_Despachos
     Friend WithEvents EditarToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents EliminarToolStripMenuItem1 As ToolStripMenuItem
     Protected WithEvents MEP As ErrorProvider
-    Protected WithEvents MHighlighterFocus As DevComponents.DotNetBar.Validator.Highlighter
     Friend WithEvents LabelX3 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbDetalle As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents ReporteToolStripMenuItem As ToolStripMenuItem
     Protected WithEvents btnImprimir As DevComponents.DotNetBar.ButtonX
+    Protected WithEvents MHighlighterFocus As DevComponents.DotNetBar.Validator.Highlighter
 End Class
