@@ -100,11 +100,11 @@ Public Class Tec_Despachos
 
     Public Sub CargarIconEstado()
         Dim BinAbierto As New MemoryStream
-        Dim imgAbierto As New Bitmap(My.Resources.conciliacionabierto, 150, 20)
+        Dim imgAbierto As New Bitmap(My.Resources.conciliacionabierto, 150, 25)
         imgAbierto.Save(BinAbierto, Imaging.ImageFormat.Png)
 
         Dim BinCerrado As New MemoryStream
-        Dim imgCerrado As New Bitmap(My.Resources.pasivo, 110, 30)
+        Dim imgCerrado As New Bitmap(My.Resources.conciliacioncerrado, 150, 25)
         imgCerrado.Save(BinCerrado, Imaging.ImageFormat.Png)
 
         Dim dt As DataTable = CType(JGrM_Buscador.DataSource, DataTable)
@@ -479,19 +479,35 @@ Public Class Tec_Despachos
         tbFechaSalida.BackColor = Color.White
 
     End Sub
+    Public Sub ReporteVenta(Id As String)
+        Dim ef = New Efecto
 
+
+        ef.tipo = 8
+        ef.titulo = "Comprobante de Despacho"
+        ef.descripcion = "¿Desea Generar el Comprobante De Despacho  #" + Id + " ?"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            ImprimirNotaSalida(Id)
+
+
+        End If
+
+    End Sub
     Public Function _PMOGrabarRegistro() As Boolean
 
         Dim res As Boolean
         Try
             Dim Id As String = ""
             '_Id As String, PersonalId As Integer, ConciliacionId As Integer, SucursalId As Integer, Fecha As String, NroNota As String, Detalle As String, TipoMovimientoID As Integer, dtdetalle As DataTable
-            res = InsertarDespachoProductos(Id, PersonalId, ConciliacionID, SucursalId, tbFechaSalida.Value.ToString("dd/MM/yyyy"), tbCodigo.Text, tbDetalle.Text, MovimientoSalidId, CType(grDetalle.DataSource, DataTable))
+            res = InsertarDespachoProductos(Id, PersonalId, ConciliacionID, SucursalId, tbFechaSalida.Value.ToString("yyyy/MM/dd"), tbCodigo.Text, tbDetalle.Text, MovimientoSalidId, CType(grDetalle.DataSource, DataTable))
 
             If res Then
-
-                ImprimirNotaSalida(Id)
                 ToastNotification.Show(Me, "Codigo de Despacho ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                ReporteVenta(Id)
+
 
             Else
                 ToastNotification.Show(Me, "Error al guardar el Despacho".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
@@ -510,10 +526,11 @@ Public Class Tec_Despachos
         Dim Res As Boolean
         Try
 
-            Res = ModificarDespachoProductos(tbCodigo.Text, PersonalId, ConciliacionID, SucursalId, tbFechaSalida.Value.ToString("dd/MM/yyyy"), tbCodigo.Text, tbDetalle.Text, MovimientoSalidId, CType(grDetalle.DataSource, DataTable))
+            Res = ModificarDespachoProductos(tbCodigo.Text, PersonalId, ConciliacionID, SucursalId, tbFechaSalida.Value.ToString("yyyy/MM/dd"), tbCodigo.Text, tbDetalle.Text, MovimientoSalidId, CType(grDetalle.DataSource, DataTable))
             If Res Then
-                ImprimirNotaSalida(tbCodigo.Text)
+
                 ToastNotification.Show(Me, "Codigo de Despacho ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                ReporteVenta(tbCodigo.Text)
                 _PSalirRegistro()
             Else
                 ToastNotification.Show(Me, "Error al guardar el Despacho".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
@@ -729,21 +746,34 @@ Public Class Tec_Despachos
     Private Sub VerToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles VerToolStripMenuItem1.Click
         If (JGrM_Buscador.Row >= 0) Then
 
+
             TabControlPrincipal.SelectedTabIndex = 0
         End If
     End Sub
 
     Private Sub EditarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditarToolStripMenuItem.Click
         If (JGrM_Buscador.Row >= 0) Then
-            TabControlPrincipal.SelectedTabIndex = 0
-            btnModificar.PerformClick()
-            tbPersonal.Focus()
+            If (JGrM_Buscador.GetValue("EstadoConciliacion") = 0) Then '' Si La Conciliacion Esta Cerrada No Puedo Modificar Ni Eliminar
+                ToastNotification.Show(Me, "La Conciliacion Ya Esta Cerrada No Es Posible Editar Este Despacho. Primero Debe Revertir El Estado De La Conciliacion", img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Else
+                TabControlPrincipal.SelectedTabIndex = 0
+                btnModificar.PerformClick()
+                tbPersonal.Focus()
+            End If
+
+
         End If
     End Sub
 
     Private Sub EliminarToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles EliminarToolStripMenuItem1.Click
         If (JGrM_Buscador.Row >= 0) Then
-            btnEliminar.PerformClick()
+            If (JGrM_Buscador.GetValue("EstadoConciliacion") = 0) Then '' Si La Conciliacion Esta Cerrada No Puedo Modificar Ni Eliminar
+                ToastNotification.Show(Me, "La Conciliacion Ya Esta Cerrada No Es Posible Editar Este Despacho. Primero Debe Revertir El Estado De La Conciliacion", img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Else
+                btnEliminar.PerformClick()
+            End If
+
+
         End If
     End Sub
 

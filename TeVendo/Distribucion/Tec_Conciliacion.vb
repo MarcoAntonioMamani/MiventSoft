@@ -106,7 +106,7 @@ Public Class Tec_Conciliacion
         imgAbierto.Save(BinAbierto, Imaging.ImageFormat.Png)
 
         Dim BinCerrado As New MemoryStream
-        Dim imgCerrado As New Bitmap(My.Resources.pasivo, 110, 30)
+        Dim imgCerrado As New Bitmap(My.Resources.conciliacioncerrado, 150, 20)
         imgCerrado.Save(BinCerrado, Imaging.ImageFormat.Png)
 
         Dim dt As DataTable = CType(JGrM_Buscador.DataSource, DataTable)
@@ -351,10 +351,11 @@ Public Class Tec_Conciliacion
 
         dt.Columns.Add("TotalSalida".Trim)
         dt.Columns.Add("TotalDevoluciones".Trim)
+        dt.Columns.Add("TotalDevolucionesCalculado".Trim)
         dt.Columns.Add("TotalEntregado".Trim)
         dt.Columns.Add("Diferencia".Trim)
 
-        ''Aqui rellenaremos los vamores de totales
+        ''Aqui rellenaremos los valores de totales De Salida "TotalSalida"
 
         For i As Integer = 0 To dt.Rows.Count - 1 Step 1
             Dim idProducto As Integer = dt.Rows(i).Item("ProductoId")
@@ -370,10 +371,86 @@ Public Class Tec_Conciliacion
             End If
             dt.Rows(i).Item("TotalSalida") = totalProductoSalida
             dt.Rows(i).Item("TotalDevoluciones") = 0
+            dt.Rows(i).Item("TotalDevolucionesCalculado") = 0
             dt.Rows(i).Item("TotalEntregado") = 0
             dt.Rows(i).Item("Diferencia") = 0
         Next
+        If (swEstado.Value = True) Then  ''Si la conciliacion Esta Abierta Recalculamos con todos los Datos Actuales
+            '''' Aqui Rellenaremos las cantidades de productos entregados
+            Dim dtEntregado As DataTable = ListarProductosEntregadoConciliaciones(id)
 
+            For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+                Dim idProducto As Integer = dt.Rows(i).Item("ProductoId")
+                Dim TotalEntregado As Double = 0
+                Dim Diferencia As Double = 0
+                Dim Devolver As Double = 0
+                Dim TotalSalida As Double = 0
+                Dim dtSalProducto() As DataRow = dtEntregado.Select("ProductoId=" + Str(idProducto))
+                If (dtSalProducto.Count = 1) Then
+
+
+                    For Each dr As DataRow In dtSalProducto
+
+                        TotalEntregado += dr.Item("Cantidad")
+
+                    Next
+
+                    TotalSalida = dt.Rows(i).Item("TotalSalida")
+                    dt.Rows(i).Item("TotalEntregado") = TotalEntregado
+
+                    dt.Rows(i).Item("TotalDevoluciones") = TotalSalida - TotalEntregado
+                    dt.Rows(i).Item("TotalDevolucionesCalculado") = TotalSalida - TotalEntregado
+                    dt.Rows(i).Item("Diferencia") = 0
+                Else
+                    TotalSalida = dt.Rows(i).Item("TotalSalida")
+                    dt.Rows(i).Item("TotalEntregado") = 0
+
+                    dt.Rows(i).Item("TotalDevoluciones") = TotalSalida
+                    dt.Rows(i).Item("TotalDevolucionesCalculado") = TotalSalida
+                    dt.Rows(i).Item("Diferencia") = 0
+                End If
+
+            Next
+
+        Else  ''Si la conciliacion Esta Cerrada Solo Mostramos Los datos Guardados en la tabla Detalle conciliacion
+            Dim dtEntregado As DataTable = ListarProductosDetalleConciliacion(id)
+
+            For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+                Dim idProducto As Integer = dt.Rows(i).Item("ProductoId")
+                Dim TotalEntregado As Double = 0
+                Dim Diferencia As Double = 0
+                Dim Devolver As Double = 0
+                Dim TotalSalida As Double = 0
+                Dim dtSalProducto() As DataRow = dtEntregado.Select("ProductoId=" + Str(idProducto))
+                If (dtSalProducto.Count = 1) Then
+
+
+                    For Each dr As DataRow In dtSalProducto
+
+                        TotalEntregado = dr.Item("TotalEntregado")
+                        dt.Rows(i).Item("TotalEntregado") = TotalEntregado
+
+                        dt.Rows(i).Item("TotalDevoluciones") = dr.Item("TotalDevoluciones")
+                        dt.Rows(i).Item("TotalDevolucionesCalculado") = dr.Item("TotalDevolucionesCalculado")
+                        dt.Rows(i).Item("Diferencia") = dr.Item("Diferencia")
+
+                    Next
+
+
+
+                Else
+                    TotalSalida = dt.Rows(i).Item("TotalSalida")
+                    dt.Rows(i).Item("TotalEntregado") = 0
+
+                    dt.Rows(i).Item("TotalDevoluciones") = TotalSalida
+                    dt.Rows(i).Item("TotalDevolucionesCalculado") = TotalSalida
+                    dt.Rows(i).Item("Diferencia") = 0
+                End If
+
+            Next
+
+
+        End If
 
 
         grDetalle.DataSource = dt
@@ -385,6 +462,8 @@ Public Class Tec_Conciliacion
             .Width = 70
             .Caption = "Tot Salidas."
             .Visible = True
+            .CellStyle.BackColor = Color.Lime
+            .CellStyle.FontBold = TriState.True
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .FormatString = "0.00"
         End With
@@ -392,6 +471,8 @@ Public Class Tec_Conciliacion
             .Width = 70
             .Caption = "Devoluciones."
             .Visible = True
+            .CellStyle.BackColor = Color.Gold
+            .CellStyle.FontBold = TriState.True
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .FormatString = "0.00"
         End With
@@ -400,6 +481,8 @@ Public Class Tec_Conciliacion
             .Width = 70
             .Caption = "Entregado."
             .Visible = True
+            .CellStyle.BackColor = Color.Lime
+            .CellStyle.FontBold = TriState.True
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .FormatString = "0.00"
         End With
@@ -410,7 +493,13 @@ Public Class Tec_Conciliacion
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .FormatString = "0.00"
         End With
-        'c.Id ,c.ContratoId ,c.ConceptoId,concepto .NombreConcepto ,concepto.Porcentaje as PorcentajeConcepto,1 as estado
+        With grDetalle.RootTable.Columns("TotalDevolucionesCalculado")
+
+            .Visible = False
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .FormatString = "0.00"
+        End With
+        'TotalDevolucionesCalculado
         For i As Integer = 0 To n - 1 Step 1
             Dim idSalida As Integer = dtIdSalidas.Rows(i).Item("IdSalida")
             With grDetalle.RootTable.Columns(Str(idSalida))
@@ -551,8 +640,16 @@ Public Class Tec_Conciliacion
     Public Function _PMOModificarRegistro() As Boolean
         Dim Res As Boolean
         Try
+            ''tbFechaConciliacion.Value.ToString("dd/MM/yyyy")
 
-            Res = ModificarDespachoProductos(tbCodigo.Text, PersonalId, ConciliacionID, SucursalId, tbFechaConciliacion.Value.ToString("dd/MM/yyyy"), tbCodigo.Text, tbDetalle.Text, MovimientoSalidId, CType(grDetalle.DataSource, DataTable))
+
+            'dt.Columns.Add("TotalSalida".Trim)
+            'dt.Columns.Add("TotalDevoluciones".Trim)
+            'dt.Columns.Add("TotalDevolucionesCalculado".Trim)
+            'dt.Columns.Add("TotalEntregado".Trim)
+            'dt.Columns.Add("Diferencia".Trim)
+
+            Res = ModificarConciliacion(tbCodigo.Text, tbFechaConciliacion.Value.ToString("yyyy/MM/dd"), IIf(swEstado.Value = True, 1, 0), tbDetalle.Text, CType(grDetalle.DataSource, DataTable).DefaultView.ToTable(False, "ProductoId", "TotalSalida", "TotalDevoluciones", "TotalEntregado", "Diferencia"))
             If Res Then
 
                 ToastNotification.Show(Me, "Conciliación # ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
@@ -740,13 +837,69 @@ Public Class Tec_Conciliacion
 
     Private Sub EditarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditarToolStripMenuItem.Click
         If (JGrM_Buscador.Row >= 0) Then
+
             TabControlPrincipal.SelectedTabIndex = 0
-            btnModificar.PerformClick()
-            tbPersonal.Focus()
+                btnModificar.PerformClick()
+                tbPersonal.Focus()
+
+
         End If
     End Sub
 
+    Private Sub grDetalle_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grDetalle.EditingCell
 
+        If (tbDetalle.ReadOnly = True) Then
+            e.Cancel = True
+            Return
+
+        End If
+        If (e.Column.Index = grDetalle.RootTable.Columns("TotalDevoluciones").Index) Then
+            e.Cancel = False
+        Else
+            e.Cancel = True
+
+        End If
+
+    End Sub
+    Public Sub _fnObtenerFilaDetalle(ByRef pos As Integer, numi As Integer)
+        For i As Integer = 0 To CType(grDetalle.DataSource, DataTable).Rows.Count - 1 Step 1
+            Dim _numi As Integer = CType(grDetalle.DataSource, DataTable).Rows(i).Item("ProductoId")
+            If (_numi = numi) Then
+                pos = i
+                Return
+            End If
+        Next
+
+    End Sub
+    Private Sub grDetalle_CellValueChanged(sender As Object, e As ColumnActionEventArgs) Handles grDetalle.CellValueChanged
+        Dim lin As Integer = grDetalle.GetValue("ProductoId")
+        Dim pos As Integer = -1
+        _fnObtenerFilaDetalle(pos, lin)
+        If (e.Column.Index = grDetalle.RootTable.Columns("TotalDevoluciones").Index) Then
+            If (Not IsNumeric(grDetalle.GetValue("TotalDevoluciones")) Or grDetalle.GetValue("TotalDevoluciones").ToString = String.Empty) Then
+
+                'grDetalle.GetRow(rowIndex).Cells("cant").Value = 1
+                '  grDetalle.CurrentRow.Cells.Item("cant").Value = 1
+
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("TotalDevoluciones") = grDetalle.GetValue("TotalDevolucionesCalculado")
+
+                grDetalle.SetValue("TotalDevoluciones", grDetalle.GetValue("TotalDevolucionesCalculado"))
+                grDetalle.SetValue("Diferencia", 0)
+
+            Else
+                If (grDetalle.GetValue("TotalDevoluciones") > 0) Then
+
+                    Dim DiferenciaReal As Double = grDetalle.GetValue("TotalDevoluciones")
+                    Dim DiferenciaCalculada As Double = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("TotalDevolucionesCalculado")
+
+                    Dim Diferencia As Double = DiferenciaReal - DiferenciaCalculada
+
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Diferencia") = Diferencia
+                    grDetalle.SetValue("Diferencia", Diferencia)
+                End If
+            End If
+        End If
+    End Sub
 
 
 

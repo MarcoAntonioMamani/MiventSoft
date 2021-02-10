@@ -312,7 +312,31 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+    Public Shared Function ListarProductosEntregadoConciliaciones(ConciliacionId As String) As DataTable
+        Dim _Tabla As DataTable
 
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 6))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@id", ConciliacionId))
+        _Tabla = D_ProcedimientoConParam("MAM_Conciliacion", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function ListarProductosDetalleConciliacion(ConciliacionId As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 7))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@id", ConciliacionId))
+        _Tabla = D_ProcedimientoConParam("MAM_Conciliacion", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function ListarTodasSalidas(ConciliacionId As String) As DataTable
         Dim _Tabla As DataTable
 
@@ -383,7 +407,35 @@ Public Class AccesoLogica
         Return _resultado
     End Function
 
+    ''MAM_Conciliacion
+    Public Shared Function ModificarConciliacion(_Id As String, Fecha As String, Estado As Integer, Observacion As String, detalle As DataTable) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '@Id,@PersonalId,@UltimaConciliacionAbierta ,@SucursalId ,@Fecha ,@NroNota ,@Detalle,@TipoMovimientoId ,
+        '@newFecha ,@newHora ,@Usuario
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@Id", _Id))
+        _listParam.Add(New Datos.DParametro("@Fecha", Fecha))
+        _listParam.Add(New Datos.DParametro("@Estado", Estado))
+        _listParam.Add(New Datos.DParametro("@Observacion", Observacion))
 
+        _listParam.Add(New Datos.DParametro("@Usuario", L_Usuario))
+
+        _listParam.Add(New Datos.DParametro("@DetalleConciliacion", "", detalle))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Conciliacion", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _Id = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
     Public Shared Function ModificarDespachoProductos(_Id As String, PersonalId As Integer, ConciliacionId As Integer, SucursalId As Integer, Fecha As String, NroNota As String, Detalle As String, TipoMovimientoID As Integer, dtdetalle As DataTable) As Boolean
         Dim _Tabla As DataTable
         Dim _resultado As Boolean

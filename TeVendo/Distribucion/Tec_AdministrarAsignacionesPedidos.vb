@@ -974,7 +974,7 @@ Public Class Tec_AdministrarAsignacionesPedidos
         End If
 
         If (ExisteItemSeleccionadoConciliacionCerrada()) Then  ''Estado ConciliacionCerrada
-            ToastNotification.Show(Me, "Existen Pedidos Que Pertenece A una Conciliacion Cerrada", img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, "No Es Posible Revertir Estado Por Que Existen Pedidos Que Pertenece A una Conciliacion Cerrada", img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
             Return
 
         End If
