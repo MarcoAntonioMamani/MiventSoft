@@ -103,8 +103,8 @@ Public Class Rep_MovimientosProductos
 
             Dim objrep As New Reporte_KardexGeneralProductos
             objrep.SetDataSource(_dt)
-            Dim fechaI As String = cbFechaDesde.Value.ToString("dd/MM/yyyy")
-            Dim fechaF As String = cbFechaHasta.Value.ToString("dd/MM/yyyy")
+            Dim fechaI As String = cbFechaDesde.Value.ToString("yyyy/MM/dd")
+            Dim fechaF As String = cbFechaHasta.Value.ToString("yyy/MM/dd")
             objrep.SetParameterValue("Deposito", cbDeposito.Text)
             objrep.SetParameterValue("FechaDesde", fechaI)
             objrep.SetParameterValue("FechaHasta", fechaF)

@@ -136,7 +136,7 @@ Public Class Reporte_RendimientoPersonal
 
         End If
         Dim _dt As New DataTable
-        _dt = ReporteVentasRendimientoPersonal(cbFechaDesde.Value.ToString("dd/MM/yyyy"), cbFechaHasta.Value.ToString("dd/MM/yyyy"), CType(gr_Personal.DataSource, DataTable))
+        _dt = ReporteVentasRendimientoPersonal(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"), CType(gr_Personal.DataSource, DataTable))
         If (IsNothing(_dt) Or _dt.Rows.Count = 0) Then
 
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)

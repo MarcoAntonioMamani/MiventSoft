@@ -112,11 +112,11 @@ Public Class Rep_VentasRealizadas
 
         If (chkTodos.Checked = True) Then
 
-            dt = ReporteVentasAtendidasTodos(cbFechaDesde.Value.ToString("dd/MM/yyyy"), cbFechaHasta.Value.ToString("dd/MM/yyyy"))
+            dt = ReporteVentasAtendidasTodos(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"))
         Else
             If (IdPersonal > 0) Then
 
-                dt = ReporteVentasAtendidasTodosUnVendedor(cbFechaDesde.Value.ToString("dd/MM/yyyy"), cbFechaHasta.Value.ToString("dd/MM/yyyy"), IdPersonal)
+                dt = ReporteVentasAtendidasTodosUnVendedor(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"), IdPersonal)
             Else
 
                 Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)

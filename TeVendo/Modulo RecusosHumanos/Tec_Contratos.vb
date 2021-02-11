@@ -497,7 +497,7 @@ Public Class Tec_Contratos
             dt = CType(grConceptos.DataSource, DataTable).DefaultView.ToTable(False, "Id", "ContratoId", "ConceptoId", "NombreConcepto", "PorcentajeConcepto", "estado")
             Dim FechaFin As Date = Now.Date
             FechaFin = DateAdd(DateInterval.Year, 50, Now.Date)
-            res = InsertarContratos(tbCodigo.Text, PersonalId, cbTipoContrato.Value, cbCargo.Value, tbSalario.Value, tbFechaInicio.Value.ToString("dd/MM/yyyy"), IIf(swIndefinido.Value = True, FechaFin.ToString("dd/MM/yyyy"), tbFechaFin.Value.ToString("dd/MM/yyyy")), 1, IIf(swIndefinido.Value = True, 1, 0), dt)
+            res = InsertarContratos(tbCodigo.Text, PersonalId, cbTipoContrato.Value, cbCargo.Value, tbSalario.Value, tbFechaInicio.Value.ToString("yyyy/MM/dd"), IIf(swIndefinido.Value = True, FechaFin.ToString("yyyy/MM/dd"), tbFechaFin.Value.ToString("yyyy/MM/dd")), 1, IIf(swIndefinido.Value = True, 1, 0), dt)
 
             If res Then
 
@@ -522,7 +522,7 @@ Public Class Tec_Contratos
         Try
             Dim dt As New DataTable
             dt = CType(grConceptos.DataSource, DataTable).DefaultView.ToTable(False, "Id", "ContratoId", "ConceptoId", "NombreConcepto", "PorcentajeConcepto", "estado")
-            Res = ModificarContratos(tbCodigo.Text, PersonalId, cbTipoContrato.Value, cbCargo.Value, tbSalario.Value, tbFechaInicio.Value.ToString("dd/MM/yyyy"), tbFechaFin.Value.ToString("dd/MM/yyyy"), 1, IIf(swIndefinido.Value = True, 1, 0), dt)
+            Res = ModificarContratos(tbCodigo.Text, PersonalId, cbTipoContrato.Value, cbCargo.Value, tbSalario.Value, tbFechaInicio.Value.ToString("yyyy/MM/dd"), tbFechaFin.Value.ToString("yyyy/MM/dd"), 1, IIf(swIndefinido.Value = True, 1, 0), dt)
             If Res Then
 
                 ToastNotification.Show(Me, "Codigo de Contrato ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)

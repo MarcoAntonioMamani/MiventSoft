@@ -552,7 +552,7 @@ Public Class Tec_Conciliacion
         Dim Res As Boolean
         Try
 
-            Res = ModificarDespachoProductos(tbCodigo.Text, PersonalId, ConciliacionID, SucursalId, tbFechaConciliacion.Value.ToString("dd/MM/yyyy"), tbCodigo.Text, tbDetalle.Text, MovimientoSalidId, CType(grDetalle.DataSource, DataTable))
+            Res = ModificarDespachoProductos(tbCodigo.Text, PersonalId, ConciliacionID, SucursalId, tbFechaConciliacion.Value.ToString("yyyy/MM/dd"), tbCodigo.Text, tbDetalle.Text, MovimientoSalidId, CType(grDetalle.DataSource, DataTable))
             If Res Then
 
                 ToastNotification.Show(Me, "Conciliación # ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
