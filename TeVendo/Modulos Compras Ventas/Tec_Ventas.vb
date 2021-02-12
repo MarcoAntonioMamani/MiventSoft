@@ -353,7 +353,7 @@ Public Class Tec_Ventas
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0"
-            .Caption = "P.Descuento".ToUpper
+            .Caption = "%.Descuento".ToUpper
         End With
 
         With grDetalle.RootTable.Columns("MontoDescuento")
