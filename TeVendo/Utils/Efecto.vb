@@ -42,6 +42,9 @@ Public Class Efecto
     Public VentaId As Integer
 
 
+    Public CategoriaId As Integer
+
+
 
 
 
@@ -86,6 +89,8 @@ Public Class Efecto
 
             Case 17
                 _prMostrarDetalleVenta()
+            Case 18
+                _prMostrarFormCrearCategoria()
         End Select
     End Sub
     Public Sub _prLogin()
@@ -136,6 +141,22 @@ Public Class Efecto
         frmAyuda.ShowDialog()
         If frmAyuda.Bandera = True Then
 
+            band = True
+            Me.Close()
+        Else
+            band = False
+            Me.Close()
+        End If
+
+    End Sub
+
+    Sub _prMostrarFormCrearCategoria()
+
+        Dim frmAyuda As CrearCategoria
+        frmAyuda = New CrearCategoria
+        frmAyuda.ShowDialog()
+        If frmAyuda.Bandera = True Then
+            CategoriaId = frmAyuda.IdCategoria
             band = True
             Me.Close()
         Else
