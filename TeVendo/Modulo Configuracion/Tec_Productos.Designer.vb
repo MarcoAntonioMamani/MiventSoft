@@ -773,6 +773,7 @@ Partial Class Tec_Productos
         Me.GroupBox1.TabIndex = 59
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Unidades"
+        Me.GroupBox1.Visible = False
         '
         'Panel3
         '
@@ -983,9 +984,9 @@ Partial Class Tec_Productos
         Me.LabelX10.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.LabelX10.Name = "LabelX10"
         Me.LabelX10.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX10.Size = New System.Drawing.Size(141, 21)
+        Me.LabelX10.Size = New System.Drawing.Size(46, 21)
         Me.LabelX10.TabIndex = 54
-        Me.LabelX10.Text = "Marca / Presentación:"
+        Me.LabelX10.Text = "Marca:"
         '
         'Presentacion
         '
