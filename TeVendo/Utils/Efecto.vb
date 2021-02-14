@@ -43,6 +43,7 @@ Public Class Efecto
 
 
     Public CategoriaId As Integer
+    Public ProveedorId As Integer
 
 
 
@@ -91,6 +92,8 @@ Public Class Efecto
                 _prMostrarDetalleVenta()
             Case 18
                 _prMostrarFormCrearCategoria()
+            Case 19
+                _prMostrarFormCrearProveedor()
         End Select
     End Sub
     Public Sub _prLogin()
@@ -157,6 +160,22 @@ Public Class Efecto
         frmAyuda.ShowDialog()
         If frmAyuda.Bandera = True Then
             CategoriaId = frmAyuda.IdCategoria
+            band = True
+            Me.Close()
+        Else
+            band = False
+            Me.Close()
+        End If
+
+    End Sub
+
+    Sub _prMostrarFormCrearProveedor()
+
+        Dim frmAyuda As CrearProveedor
+        frmAyuda = New CrearProveedor
+        frmAyuda.ShowDialog()
+        If frmAyuda.Bandera = True Then
+            ProveedorId = frmAyuda.ProveedorId
             band = True
             Me.Close()
         Else

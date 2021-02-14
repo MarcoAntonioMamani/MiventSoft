@@ -109,6 +109,7 @@ Partial Class Tec_Productos
         Me.btnDelete = New DevComponents.DotNetBar.ButtonX()
         Me.pbImgProdu = New System.Windows.Forms.PictureBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.btnAgregarProveedor = New DevComponents.DotNetBar.ButtonX()
         Me.btnAgregarCategoria = New DevComponents.DotNetBar.ButtonX()
         Me.btnFamilia = New DevComponents.DotNetBar.ButtonX()
         Me.btnAtributo = New DevComponents.DotNetBar.ButtonX()
@@ -575,6 +576,7 @@ Partial Class Tec_Productos
         '
         Me.Panel9.AutoScroll = True
         Me.Panel9.BackColor = System.Drawing.Color.White
+        Me.Panel9.Controls.Add(Me.btnAgregarProveedor)
         Me.Panel9.Controls.Add(Me.btnAgregarCategoria)
         Me.Panel9.Controls.Add(Me.cbFamilia)
         Me.Panel9.Controls.Add(Me.cbAtributo)
@@ -704,7 +706,7 @@ Partial Class Tec_Productos
         Me.cbProveedor.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
         Me.cbProveedor.SelectedIndex = -1
         Me.cbProveedor.SelectedItem = Nothing
-        Me.cbProveedor.Size = New System.Drawing.Size(269, 26)
+        Me.cbProveedor.Size = New System.Drawing.Size(251, 26)
         Me.cbProveedor.TabIndex = 48
         Me.cbProveedor.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -773,7 +775,6 @@ Partial Class Tec_Productos
         Me.GroupBox1.TabIndex = 59
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Unidades"
-        Me.GroupBox1.Visible = False
         '
         'Panel3
         '
@@ -1433,6 +1434,23 @@ Partial Class Tec_Productos
         Me.PictureBox2.TabIndex = 0
         Me.PictureBox2.TabStop = False
         '
+        'btnAgregarProveedor
+        '
+        Me.btnAgregarProveedor.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnAgregarProveedor.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnAgregarProveedor.Image = Global.TeVendo.My.Resources.Resources.add
+        Me.btnAgregarProveedor.ImageFixedSize = New System.Drawing.Size(28, 28)
+        Me.btnAgregarProveedor.Location = New System.Drawing.Point(263, 276)
+        Me.btnAgregarProveedor.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnAgregarProveedor.Name = "btnAgregarProveedor"
+        Me.btnAgregarProveedor.Size = New System.Drawing.Size(35, 31)
+        Me.btnAgregarProveedor.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnAgregarProveedor.Symbol = ""
+        Me.btnAgregarProveedor.SymbolColor = System.Drawing.Color.LightSeaGreen
+        Me.btnAgregarProveedor.SymbolSize = 20.0!
+        Me.btnAgregarProveedor.TabIndex = 214
+        Me.btnAgregarProveedor.Visible = False
+        '
         'btnAgregarCategoria
         '
         Me.btnAgregarCategoria.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
@@ -1919,4 +1937,5 @@ Partial Class Tec_Productos
     Friend WithEvents cbUniVenta As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents cbUnidMaxima As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents btnAgregarCategoria As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents btnAgregarProveedor As DevComponents.DotNetBar.ButtonX
 End Class

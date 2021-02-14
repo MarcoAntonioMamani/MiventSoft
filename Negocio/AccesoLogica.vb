@@ -916,7 +916,7 @@ Public Class AccesoLogica
 #End Region
 #Region "Proveedor Tec"
 
-    Public Shared Function InsertarProveedor(_Id As String, NombreProveedor As String, Direccion As String,
+    Public Shared Function InsertarProveedor(ByRef _Id As String, NombreProveedor As String, Direccion As String,
                            Telefono01 As String, Telefono02 As String, Descripcion As String, TipoDocumento As Integer,
                                              NroDocumento As String, Estado As Integer) As Boolean
         Dim _Tabla As DataTable
