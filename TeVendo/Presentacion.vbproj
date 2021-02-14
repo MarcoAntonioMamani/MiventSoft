@@ -580,6 +580,12 @@
       <DependentUpon>Reporte_ProductosMasVendidos.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ReporteSmartApps\Reporte_ProductosPrecios.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reporte_ProductosPrecios.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ReporteSmartApps\Reporte_Rendimiento_Personal.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -891,6 +897,10 @@
     <EmbeddedResource Include="ReporteSmartApps\Reporte_ProductosMasVendidos.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Reporte_ProductosMasVendidos.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\Reporte_ProductosPrecios.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reporte_ProductosPrecios.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\Reporte_Rendimiento_Personal.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -1219,6 +1229,7 @@
     <None Include="Resources\trash.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\noimage.png" />
     <None Include="Resources\menudistribucion.png" />
     <None Include="Resources\printerplanilla.png" />
     <None Include="Resources\seleccionar.jpg" />

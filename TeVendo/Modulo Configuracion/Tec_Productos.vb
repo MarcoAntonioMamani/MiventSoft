@@ -1275,5 +1275,122 @@ Public Class Tec_Productos
             cbProveedor.Focus()
         End If
     End Sub
+
+    Private Sub btnReporteConImagenes_Click(sender As Object, e As EventArgs) Handles btnReporteConImagenes.Click
+        GenerarReporte(1)
+    End Sub
+
+    Public Sub GenerarReporte(tipo As Integer)
+        Dim dt As DataTable
+        dt = GenerarReportePrecios()
+        Dim dtImage As DataTable = ObtenerImagenEmpresa()
+        Dim NombreEmpresa As String = dtImage.Rows(0).Item("Nombre")
+        Dim Direccion As String = dtImage.Rows(0).Item("Direccion")
+        If (dtImage.Rows.Count > 0) Then
+            Dim RutaGlobal As String = gs_CarpetaRaiz
+            Dim Name As String = dtImage.Rows(0).Item(0)
+            If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Empresa" + Name)) Then
+                Dim im As New Bitmap(New Bitmap(RutaGlobal + "\Imagenes\Imagenes Empresa" + Name))
+                Dim Bin As New MemoryStream
+                Dim img As New Bitmap(im)
+                img.Save(Bin, Imaging.ImageFormat.Png)
+                Bin.Dispose()
+                For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+
+                    dt.Rows(i).Item("imgEmpresa") = Bin.GetBuffer
+                    If (tipo = 1) Then  '' Reporte con Imagenes
+                        Dim Rutaimagen As String = dt.Rows(i).Item("Rutaimg")
+                        If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Productos\ProductosTodos" + Rutaimagen)) Then
+                            Dim bm As Bitmap = New Bitmap(RutaGlobal + "\Imagenes\Imagenes Productos\ProductosTodos" + Rutaimagen)
+                            Dim Bin02 As New MemoryStream
+                            Dim img02 As New Bitmap(bm)
+                            img02.Save(Bin02, Imaging.ImageFormat.Png)
+                            Bin02.Dispose()
+                            dt.Rows(i).Item("img") = Bin02.GetBuffer
+
+                        Else
+                            Dim bm As Bitmap = New Bitmap(My.Resources.noimage)
+                            Dim Bin02 As New MemoryStream
+                            Dim img02 As New Bitmap(bm)
+                            img02.Save(Bin02, Imaging.ImageFormat.Png)
+                            Bin02.Dispose()
+                            dt.Rows(i).Item("img") = Bin02.GetBuffer
+                        End If
+                    End If
+
+
+                Next
+            Else
+                If (tipo = 1) Then
+                    For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+
+
+                        Dim Rutaimagen As String = dt.Rows(i).Item("Rutaimg")
+                        If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Productos\ProductosTodos" + Rutaimagen)) Then
+                            Dim bm As Bitmap = New Bitmap(RutaGlobal + "\Imagenes\Imagenes Productos\ProductosTodos" + Rutaimagen)
+                            Dim Bin02 As New MemoryStream
+                            Dim img02 As New Bitmap(bm)
+                            img02.Save(Bin02, Imaging.ImageFormat.Png)
+                            Bin02.Dispose()
+                            dt.Rows(i).Item("img") = Bin02.GetBuffer
+
+                        Else
+                            Dim bm As Bitmap = New Bitmap(My.Resources.noimage)
+                            Dim Bin02 As New MemoryStream
+                            Dim img02 As New Bitmap(bm)
+                            img02.Save(Bin02, Imaging.ImageFormat.Png)
+                            Bin02.Dispose()
+                            dt.Rows(i).Item("img") = Bin02.GetBuffer
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+
+        End If
+        If Not IsNothing(P_Global.Visualizador) Then
+            P_Global.Visualizador.Close()
+        End If
+
+
+
+        P_Global.Visualizador = New Visualizador
+
+        If (tipo = 1) Then
+            Dim objrep As New Reporte_ProductoImagenes
+
+
+
+            objrep.SetDataSource(dt)
+            objrep.SetParameterValue("NombreEmpresa", NombreEmpresa)
+            objrep.SetParameterValue("Ciudad", Direccion)
+            P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+            P_Global.Visualizador.CrGeneral.Zoom(90)
+            P_Global.Visualizador.Show() 'Comentar
+            ''P_Global.Visualizador.BringToFront() 'Comentar
+
+        Else
+            Dim objrep As New Reporte_ProductosPrecios
+
+
+
+            objrep.SetDataSource(dt)
+            objrep.SetParameterValue("NombreEmpresa", NombreEmpresa)
+            objrep.SetParameterValue("Ciudad", Direccion)
+            P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+            P_Global.Visualizador.CrGeneral.Zoom(90)
+            P_Global.Visualizador.Show() 'Comentar
+            ''P_Global.Visualizador.BringToFront() 'Comentar
+        End If
+
+    End Sub
+
+    Private Sub ButtonX3_Click(sender As Object, e As EventArgs) Handles ButtonX3.Click
+        GenerarReporte(0)
+    End Sub
 #End Region
 End Class
