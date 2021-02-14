@@ -279,13 +279,20 @@ Public Class Tec_Principal
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
 
-        superTabControl3.Tabs.Clear()
-        superTabControl3.Controls.Clear()
+        Dim n As Integer = superTabControl3.Tabs.Count
 
-
-
+        For i As Integer = 0 To n - 1 Step 1
+            superTabControl3.CloseTab(superTabControl3.Tabs(0))
+        Next
 
         Me.Close()
+    End Sub
+    Private Sub Tec_Principal_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        Dim n As Integer = superTabControl3.Tabs.Count
+
+        For i As Integer = 0 To n - 1 Step 1
+            superTabControl3.CloseTab(superTabControl3.Tabs(0))
+        Next
 
 
     End Sub
