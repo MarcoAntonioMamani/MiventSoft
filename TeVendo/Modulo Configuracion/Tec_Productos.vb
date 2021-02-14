@@ -589,6 +589,9 @@ Public Class Tec_Productos
         btnFamilia.Visible = True
         btUniVenta.Visible = True
         btUniMaxima.Visible = True
+
+        btnAgregarCategoria.Visible = True
+        btnAgregarProveedor.Visible = True
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -615,6 +618,8 @@ Public Class Tec_Productos
         btnFamilia.Visible = False
         btUniVenta.Visible = False
         btUniMaxima.Visible = False
+        btnAgregarCategoria.Visible = False
+        btnAgregarProveedor.Visible = False
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -1240,6 +1245,35 @@ Public Class Tec_Productos
 
     Private Sub cbMarca_ValueChanged(sender As Object, e As EventArgs) Handles cbMarca.ValueChanged
 
+    End Sub
+
+    Private Sub btnAgregarCategoria_Click(sender As Object, e As EventArgs) Handles btnAgregarCategoria.Click
+        Dim numi As String = ""
+        Dim ef = New Efecto
+        ef.tipo = 18
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            P_Global._prCargarComboGenerico(cbCategoria, L_prListaCategorias(), "Id", "Codigo", "NombreCategoria", "Categoria")
+            cbCategoria.Value = ef.CategoriaId
+            cbCategoria.Focus()
+        End If
+
+    End Sub
+
+    Private Sub btnAgregarProveedor_Click(sender As Object, e As EventArgs) Handles btnAgregarProveedor.Click
+        Dim numi As String = ""
+        Dim ef = New Efecto
+        ef.tipo = 19
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            P_Global._prCargarComboGenerico(cbProveedor, L_prListarProveedores(), "Id", "Codigo", "NombreProveedor", "Proveedor")
+            cbProveedor.Value = ef.ProveedorId
+            cbProveedor.Focus()
+        End If
     End Sub
 #End Region
 End Class

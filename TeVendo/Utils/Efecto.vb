@@ -40,6 +40,8 @@ Public Class Efecto
     Public SucursalId As Integer
 
 
+    Public CategoriaId As Integer
+    Public ProveedorId As Integer
 
 
 
@@ -48,7 +50,7 @@ Public Class Efecto
 
         Select Case tipo
             Case 1
-                 _prMostrarMensaje()
+                _prMostrarMensaje()
             Case 2
                 _prMostrarMensajeDelete()
             Case 3
@@ -81,7 +83,44 @@ Public Class Efecto
 
             Case 16
                 _prMostrarAyudaProductosVentas()
+
+            Case 18
+                _prMostrarFormCrearCategoria()
+            Case 19
+                _prMostrarFormCrearProveedor()
         End Select
+    End Sub
+
+    Sub _prMostrarFormCrearCategoria()
+
+        Dim frmAyuda As CrearCategoria
+        frmAyuda = New CrearCategoria
+        frmAyuda.ShowDialog()
+        If frmAyuda.Bandera = True Then
+            CategoriaId = frmAyuda.IdCategoria
+            band = True
+            Me.Close()
+        Else
+            band = False
+            Me.Close()
+        End If
+
+    End Sub
+
+    Sub _prMostrarFormCrearProveedor()
+
+        Dim frmAyuda As CrearProveedor
+        frmAyuda = New CrearProveedor
+        frmAyuda.ShowDialog()
+        If frmAyuda.Bandera = True Then
+            ProveedorId = frmAyuda.ProveedorId
+            band = True
+            Me.Close()
+        Else
+            band = False
+            Me.Close()
+        End If
+
     End Sub
     Public Sub _prLogin()
         Dim Frm As New Tec_Login
