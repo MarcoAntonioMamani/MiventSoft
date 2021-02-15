@@ -44,6 +44,13 @@ Public Class Efecto
     Public ProveedorId As Integer
 
 
+    Public MontoBs As Double = 0
+    Public MontoDolares As Double = 0
+    Public MontoTarjeta As Double = 0
+    Public MontoTransferencia As Double = 0
+    Public TotalVenta As Double = 0
+
+
 
     Private Sub Efecto_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.WindowState = FormWindowState.Maximized
@@ -88,6 +95,8 @@ Public Class Efecto
                 _prMostrarFormCrearCategoria()
             Case 19
                 _prMostrarFormCrearProveedor()
+            Case 20
+                _prMostrarFormCobranza()
         End Select
     End Sub
 
@@ -114,6 +123,32 @@ Public Class Efecto
         frmAyuda.ShowDialog()
         If frmAyuda.Bandera = True Then
             ProveedorId = frmAyuda.ProveedorId
+            band = True
+            Me.Close()
+        Else
+            band = False
+            Me.Close()
+        End If
+
+    End Sub
+
+    Sub _prMostrarFormCobranza()
+
+        Dim frmAyuda As EfectivoCobranza
+        frmAyuda = New EfectivoCobranza
+        frmAyuda.MontoBs = MontoBs
+        frmAyuda.MontoDolares = MontoDolares
+        frmAyuda.MontoTarjeta = MontoTarjeta
+        frmAyuda.MontoTransferencia = MontoTransferencia
+        frmAyuda.TotalVenta = TotalVenta
+        frmAyuda.ShowDialog()
+        If frmAyuda.Bandera = True Then
+
+            MontoBs = frmAyuda.MontoBs
+            MontoDolares = frmAyuda.MontoDolares
+            MontoTarjeta = frmAyuda.MontoTarjeta
+            MontoTransferencia = frmAyuda.MontoTransferencia
+
             band = True
             Me.Close()
         Else

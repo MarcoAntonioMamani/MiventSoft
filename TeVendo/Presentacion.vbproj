@@ -653,6 +653,12 @@
     <Compile Include="Utils\CrearProveedor.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Utils\EfectivoCobranza.Designer.vb">
+      <DependentUpon>EfectivoCobranza.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\EfectivoCobranza.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Utils\Efecto.Designer.vb">
       <DependentUpon>Efecto.vb</DependentUpon>
     </Compile>
@@ -947,6 +953,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Utils\CrearProveedor.resx">
       <DependentUpon>CrearProveedor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utils\EfectivoCobranza.resx">
+      <DependentUpon>EfectivoCobranza.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Utils\Efecto.resx">
       <DependentUpon>Efecto.vb</DependentUpon>
