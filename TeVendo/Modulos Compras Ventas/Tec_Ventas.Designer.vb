@@ -1683,7 +1683,7 @@ Partial Class Tec_Ventas
         '
         'GroupBox1
         '
-        Me.GroupBox1.BackColor = System.Drawing.Color.Teal
+        Me.GroupBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.GroupBox1.Controls.Add(Me.tbTransferencia)
         Me.GroupBox1.Controls.Add(Me.LabelX15)
         Me.GroupBox1.Controls.Add(Me.tbTarjeta)
@@ -1852,7 +1852,7 @@ Partial Class Tec_Ventas
         '
         'GroupBox2
         '
-        Me.GroupBox2.BackColor = System.Drawing.Color.Teal
+        Me.GroupBox2.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.GroupBox2.Controls.Add(Me.tbCambio)
         Me.GroupBox2.Controls.Add(Me.LabelX17)
         Me.GroupBox2.Controls.Add(Me.tbTotalPagado)
