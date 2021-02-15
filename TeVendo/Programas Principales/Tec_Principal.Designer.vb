@@ -159,12 +159,12 @@ Partial Class Tec_Principal
         Me.SuperTabControlMenu.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlMenu.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControlMenu.ForeColor = System.Drawing.Color.Black
-        Me.SuperTabControlMenu.Location = New System.Drawing.Point(10, 53)
+        Me.SuperTabControlMenu.Location = New System.Drawing.Point(10, 50)
         Me.SuperTabControlMenu.Name = "SuperTabControlMenu"
         Me.SuperTabControlMenu.ReorderTabsEnabled = True
         Me.SuperTabControlMenu.SelectedTabFont = New System.Drawing.Font("Calibri", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControlMenu.SelectedTabIndex = 1
-        Me.SuperTabControlMenu.Size = New System.Drawing.Size(1458, 690)
+        Me.SuperTabControlMenu.Size = New System.Drawing.Size(1458, 693)
         Me.SuperTabControlMenu.TabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Left
         Me.SuperTabControlMenu.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControlMenu.TabIndex = 0
@@ -181,7 +181,7 @@ Partial Class Tec_Principal
         Me.SuperTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel3.Location = New System.Drawing.Point(213, 0)
         Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
-        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(1245, 690)
+        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(1245, 693)
         Me.SuperTabControlPanel3.TabIndex = 3
         Me.SuperTabControlPanel3.TabItem = Me.tab_configuraciones
         '
@@ -206,7 +206,7 @@ Partial Class Tec_Principal
         Me.Panel_Configuracion.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel_Configuracion.MultiLine = True
         Me.Panel_Configuracion.Name = "Panel_Configuracion"
-        Me.Panel_Configuracion.Size = New System.Drawing.Size(1245, 690)
+        Me.Panel_Configuracion.Size = New System.Drawing.Size(1245, 693)
         Me.Panel_Configuracion.TabIndex = 3
         Me.Panel_Configuracion.Text = "mtp2Logistica"
         '
@@ -1784,7 +1784,7 @@ Partial Class Tec_Principal
         Me.PanelContentSuperior.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelContentSuperior.Location = New System.Drawing.Point(10, 10)
         Me.PanelContentSuperior.Name = "PanelContentSuperior"
-        Me.PanelContentSuperior.Size = New System.Drawing.Size(1458, 43)
+        Me.PanelContentSuperior.Size = New System.Drawing.Size(1458, 40)
         Me.PanelContentSuperior.TabIndex = 1
         '
         'btnTipoCambio
@@ -1895,7 +1895,7 @@ Partial Class Tec_Principal
         Me.PanelLine.Dock = System.Windows.Forms.DockStyle.Left
         Me.PanelLine.Location = New System.Drawing.Point(201, 0)
         Me.PanelLine.Name = "PanelLine"
-        Me.PanelLine.Size = New System.Drawing.Size(2, 43)
+        Me.PanelLine.Size = New System.Drawing.Size(2, 40)
         Me.PanelLine.TabIndex = 2
         '
         'imguser
@@ -1904,7 +1904,7 @@ Partial Class Tec_Principal
         Me.imguser.Image = Global.TeVendo.My.Resources.Resources.icono_sistema02
         Me.imguser.Location = New System.Drawing.Point(0, 0)
         Me.imguser.Name = "imguser"
-        Me.imguser.Size = New System.Drawing.Size(201, 43)
+        Me.imguser.Size = New System.Drawing.Size(201, 40)
         Me.imguser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.imguser.TabIndex = 1
         Me.imguser.TabStop = False

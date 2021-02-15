@@ -1013,7 +1013,7 @@ salirIf:
         btnVendedor.Visible = True
         btnCliente.Visible = True
         BtnImprimir.Visible = False
-
+        tab_Cobro.Visible = False
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -1034,6 +1034,8 @@ salirIf:
         btnVendedor.Visible = False
         btnCliente.Visible = False
         BtnImprimir.Visible = True
+
+        tab_Cobro.Visible = True
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -1544,7 +1546,9 @@ salirIf:
     Private Sub swTipoVenta_ValueChanged(sender As Object, e As EventArgs) Handles swTipoVenta.ValueChanged
         If (swTipoVenta.Value = True) Then
             tbFechaVencimientoCredito.Visible = False
+            lbcredito.Visible = False
         Else
+            lbcredito.Visible = True
             tbFechaVencimientoCredito.Visible = True
 
         End If
