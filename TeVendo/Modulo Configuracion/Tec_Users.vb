@@ -226,6 +226,9 @@ Public Class Tec_Users
         Me.Text = "Gestion De Usuarios"
         _prCargarComboLibreriaRoles(cbRol)
         _prCargarComboLibreriaEmpresa(cbEmpresa)
+        Dim dt As DataTable = L_fnGeneralSucursales()
+        dt.Rows.Add(-1, "Todos")
+        P_Global._prCargarComboGenerico(cbSucursal, dt, "aanumi", "Codigo", "aabdes", "Sucursal")
         _PMIniciarTodo()
         _prAsignarPermisos()
 
@@ -238,6 +241,10 @@ Public Class Tec_Users
 
             .SetHighlightOnFocus(tbNombreUsuario, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(tbVendedor, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(cbSucursal, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(swModificarDescuento, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(swModificarPrecio, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+
             .SetHighlightOnFocus(tbContrasena, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(cbEmpresa, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(cbRol, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
@@ -318,6 +325,10 @@ Public Class Tec_Users
         cbRol.ReadOnly = False
         swEstado.IsReadOnly = False
         btnVendedor.Visible = True
+
+        cbSucursal.ReadOnly = False
+        swModificarDescuento.IsReadOnly = False
+        swModificarPrecio.IsReadOnly = False
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -329,6 +340,10 @@ Public Class Tec_Users
         swEstado.IsReadOnly = True
         tbVendedor.ReadOnly = True
 
+
+        cbSucursal.ReadOnly = True
+        swModificarDescuento.IsReadOnly = True
+        swModificarPrecio.IsReadOnly = True
         btnVendedor.Visible = False
     End Sub
 
@@ -338,6 +353,12 @@ Public Class Tec_Users
         tbContrasena.Text = ""
         swEstado.Value = True
         tbVendedor.Clear()
+
+        cbSucursal.Value = 1
+
+        swModificarDescuento.Value = False
+        swModificarPrecio.Value = False
+
         If (ObtenerLongitudCombo(cbRol) > 0) Then
             cbRol.SelectedIndex = 0
         End If
@@ -364,7 +385,7 @@ Public Class Tec_Users
     Public Function _PMOGrabarRegistro() As Boolean
 
         Dim res As Boolean = L_prUsuarioInsertar(tbCodigo.Text, cbRol.Value, tbNombreUsuario.Text,
-                                                  tbContrasena.Text, IIf(swEstado.Value = True, 1, 0), 1, cbEmpresa.Value, IdPersonal)
+                                                  tbContrasena.Text, IIf(swEstado.Value = True, 1, 0), cbSucursal.Value, cbEmpresa.Value, IdPersonal, IIf(swModificarPrecio.Value = True, 1, 0), IIf(swModificarDescuento.Value = True, 1, 0))
         If res Then
             ToastNotification.Show(Me, "Codigo de Usuario ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
         End If
@@ -375,7 +396,7 @@ Public Class Tec_Users
     Public Function _PMOModificarRegistro() As Boolean
 
         Dim res As Boolean = L_prUsuarioModificar(tbCodigo.Text, cbRol.Value, tbNombreUsuario.Text,
-                                                  tbContrasena.Text, IIf(swEstado.Value = True, 1, 0), 1, cbEmpresa.Value, IdPersonal)
+                                                  tbContrasena.Text, IIf(swEstado.Value = True, 1, 0), cbSucursal.Value, cbEmpresa.Value, IdPersonal, IIf(swModificarPrecio.Value = True, 1, 0), IIf(swModificarDescuento.Value = True, 1, 0))
         If res Then
 
             ToastNotification.Show(Me, "Codigo de Usuario ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
@@ -504,6 +525,10 @@ Public Class Tec_Users
         listEstCeldas.Add(New Celda("Empresa", True, "Empresa", 80))
         listEstCeldas.Add(New Celda("IdPersonal", False))
         listEstCeldas.Add(New Celda("Personal", True, "Personal", 120))
+        listEstCeldas.Add(New Celda("NombreAlmacen", True, "Sucursal", 120))
+        listEstCeldas.Add(New Celda("ModificarPrecioVenta", False))
+        listEstCeldas.Add(New Celda("AplicarDescuentoVenta", False))
+
         Return listEstCeldas
     End Function
 
@@ -526,6 +551,11 @@ Public Class Tec_Users
             cbEmpresa.Value = .GetValue("IdEmpresa")
             IdPersonal = .GetValue("IdPersonal")
             tbVendedor.Text = .GetValue("Personal").ToString
+
+            cbSucursal.Value = .GetValue("SucursalId")
+            swModificarPrecio.Value = .GetValue("ModificarPrecioVenta")
+            swModificarDescuento.Value = .GetValue("AplicarDescuentoVenta")
+
         End With
 
         LblPaginacion.Text = Str(_MPos + 1) + "/" + JGrM_Buscador.RowCount.ToString
