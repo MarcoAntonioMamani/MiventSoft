@@ -1090,7 +1090,7 @@ salirIf:
 
     Public Function _PMOGetTablaBuscador() As DataTable
 
-        Dim dtBuscador As DataTable = L_prListarGeneral("MAM_Compras")
+        Dim dtBuscador As DataTable = L_prListarGeneralComprasFiltro("MAM_Compras", tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"))
         Return dtBuscador
     End Function
 
@@ -1191,6 +1191,9 @@ salirIf:
     End Sub
 
     Private Sub Tec_Users_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        tbDesde.Value = Now.Date
+        tbHasta.Value = Now.Date
+
         _prIniciarTodo()
         TabControlPrincipal.SelectedTabIndex = 1
     End Sub
@@ -1455,6 +1458,16 @@ salirIf:
         ef.ShowDialog()
         grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
         _prCalcularPrecioTotal()
+
+    End Sub
+
+    Private Sub btnFiltrarVentas_Click(sender As Object, e As EventArgs) Handles btnFiltrarVentas.Click
+        If (tbDesde.Value > tbHasta.Value) Then
+
+            ToastNotification.Show(Me, "La Fecha Desde Debe Ser Menor Que la Fecha Hasta", img, 5000, eToastGlowColor.Red, eToastPosition.BottomRight)
+        Else
+            _PMCargarBuscador()
+        End If
 
     End Sub
 #End Region

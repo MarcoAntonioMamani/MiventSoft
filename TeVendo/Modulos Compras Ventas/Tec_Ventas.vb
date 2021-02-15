@@ -1315,7 +1315,7 @@ salirIf:
 
     Public Function _PMOGetTablaBuscador() As DataTable
 
-        Dim dtBuscador As DataTable = L_prListarGeneral("MAM_Ventas")
+        Dim dtBuscador As DataTable = L_prListarVentasGeneralFiltroFecha("MAM_Ventas", tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"))
         Return dtBuscador
     End Function
 
@@ -1462,6 +1462,9 @@ salirIf:
     End Sub
 
     Private Sub Tec_Users_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        tbDesde.Value = Now.Date
+        tbHasta.Value = Now.Date
+
         _prIniciarTodo()
         TabControlPrincipal.SelectedTabIndex = 1
         Me.Width = 1920
@@ -1877,6 +1880,18 @@ salirIf:
     End Sub
 
     Private Sub LabelX8_Click(sender As Object, e As EventArgs) Handles LabelX8.Click
+
+    End Sub
+
+    Private Sub btnConfirmarSalir_Click(sender As Object, e As EventArgs) Handles btnFiltrarVentas.Click
+
+        If (tbDesde.Value > tbHasta.Value) Then
+
+            ToastNotification.Show(Me, "La Fecha Desde Debe Ser Menor Que la Fecha Hasta", img, 5000, eToastGlowColor.Red, eToastPosition.BottomRight)
+        Else
+            _PMCargarBuscador()
+        End If
+
 
     End Sub
 #End Region

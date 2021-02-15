@@ -1766,6 +1766,32 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+    Public Shared Function L_prListarGeneralComprasFiltro(NameSp As String, Desde As String, Hasta As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@desde", Desde))
+        _listParam.Add(New Datos.DParametro("@hasta", Hasta))
+        _Tabla = D_ProcedimientoConParam(NameSp, _listParam)
+
+        Return _Tabla
+    End Function
+    Public Shared Function L_prListarVentasGeneralFiltroFecha(NameSp As String, Desde As String, Hasta As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@Desde", Desde))
+        _listParam.Add(New Datos.DParametro("@Hasta", Hasta))
+        _Tabla = D_ProcedimientoConParam(NameSp, _listParam)
+
+        Return _Tabla
+    End Function
 
     Public Shared Function L_prCargarImagenesRecepcion(ProductoId As Integer) As DataTable
         Dim _Tabla As DataTable

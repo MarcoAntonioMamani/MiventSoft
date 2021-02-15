@@ -133,6 +133,12 @@ Partial Class Tec_Ventas
         Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         Me.lbTipoCambio = New DevComponents.DotNetBar.LabelX()
+        Me.Panel21 = New System.Windows.Forms.Panel()
+        Me.tbDesde = New Janus.Windows.CalendarCombo.CalendarCombo()
+        Me.LabelX6 = New DevComponents.DotNetBar.LabelX()
+        Me.tbHasta = New Janus.Windows.CalendarCombo.CalendarCombo()
+        Me.LabelX16 = New DevComponents.DotNetBar.LabelX()
+        Me.btnFiltrarVentas = New DevComponents.DotNetBar.ButtonX()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -187,6 +193,7 @@ Partial Class Tec_Ventas
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel21.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControlPrincipal
@@ -204,8 +211,8 @@ Partial Class Tec_Ventas
         Me.TabControlPrincipal.ControlBox.MenuBox.Name = ""
         Me.TabControlPrincipal.ControlBox.Name = ""
         Me.TabControlPrincipal.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.TabControlPrincipal.ControlBox.MenuBox, Me.TabControlPrincipal.ControlBox.CloseBox})
-        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel1)
         Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel2)
+        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel1)
         Me.TabControlPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControlPrincipal.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.Location = New System.Drawing.Point(0, 0)
@@ -810,7 +817,7 @@ Partial Class Tec_Ventas
         '
         '
         '
-        Me.lbcredito.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.lbcredito.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbcredito.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
         Me.lbcredito.Location = New System.Drawing.Point(345, 134)
@@ -1429,7 +1436,7 @@ Partial Class Tec_Ventas
         Me.SuperTabControlPanel2.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.SuperTabControlPanel2.Name = "SuperTabControlPanel2"
-        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1371, 737)
+        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1371, 538)
         Me.SuperTabControlPanel2.TabIndex = 2
         Me.SuperTabControlPanel2.TabItem = Me.SuperTabItem2
         '
@@ -1443,7 +1450,7 @@ Partial Class Tec_Ventas
         Me.Panel17.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel17.Name = "Panel17"
         Me.Panel17.Padding = New System.Windows.Forms.Padding(5)
-        Me.Panel17.Size = New System.Drawing.Size(1371, 737)
+        Me.Panel17.Size = New System.Drawing.Size(1371, 538)
         Me.Panel17.TabIndex = 4
         '
         'JGrM_Buscador
@@ -1490,7 +1497,7 @@ Partial Class Tec_Ventas
         Me.JGrM_Buscador.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.JGrM_Buscador.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.JGrM_Buscador.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.JGrM_Buscador.Size = New System.Drawing.Size(1361, 627)
+        Me.JGrM_Buscador.Size = New System.Drawing.Size(1361, 428)
         Me.JGrM_Buscador.TabIndex = 2
         Me.JGrM_Buscador.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.JGrM_Buscador.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -1521,16 +1528,18 @@ Partial Class Tec_Ventas
         '
         'TableLayoutPanel1
         '
-        Me.TableLayoutPanel1.ColumnCount = 2
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 84.0!))
+        Me.TableLayoutPanel1.ColumnCount = 3
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 68.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.Panel19, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.btnSi, 1, 0)
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.Panel21, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.Panel19, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.btnSi, 2, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.Padding = New System.Windows.Forms.Padding(29, 10, 5, 5)
+        Me.TableLayoutPanel1.Padding = New System.Windows.Forms.Padding(5, 2, 5, 5)
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(1361, 64)
@@ -1542,10 +1551,10 @@ Partial Class Tec_Ventas
         Me.Panel19.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel19.Controls.Add(Me.ButtonX2)
         Me.Panel19.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel19.Location = New System.Drawing.Point(858, 12)
+        Me.Panel19.Location = New System.Drawing.Point(926, 4)
         Me.Panel19.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel19.Name = "Panel19"
-        Me.Panel19.Size = New System.Drawing.Size(282, 45)
+        Me.Panel19.Size = New System.Drawing.Size(210, 53)
         Me.Panel19.TabIndex = 5
         '
         'btnSi
@@ -1554,10 +1563,10 @@ Partial Class Tec_Ventas
         Me.btnSi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.btnSi.Controls.Add(Me.ButtonX1)
         Me.btnSi.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnSi.Location = New System.Drawing.Point(1146, 12)
+        Me.btnSi.Location = New System.Drawing.Point(1142, 4)
         Me.btnSi.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnSi.Name = "btnSi"
-        Me.btnSi.Size = New System.Drawing.Size(207, 45)
+        Me.btnSi.Size = New System.Drawing.Size(211, 53)
         Me.btnSi.TabIndex = 4
         '
         'Panel14
@@ -1905,7 +1914,7 @@ Partial Class Tec_Ventas
         Me.ButtonX2.Location = New System.Drawing.Point(0, 0)
         Me.ButtonX2.Margin = New System.Windows.Forms.Padding(4)
         Me.ButtonX2.Name = "ButtonX2"
-        Me.ButtonX2.Size = New System.Drawing.Size(280, 43)
+        Me.ButtonX2.Size = New System.Drawing.Size(208, 51)
         Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.ButtonX2.TabIndex = 7
         Me.ButtonX2.Text = "Imprimir Nota de Venta"
@@ -1923,7 +1932,7 @@ Partial Class Tec_Ventas
         Me.ButtonX1.Location = New System.Drawing.Point(0, 0)
         Me.ButtonX1.Margin = New System.Windows.Forms.Padding(4)
         Me.ButtonX1.Name = "ButtonX1"
-        Me.ButtonX1.Size = New System.Drawing.Size(205, 43)
+        Me.ButtonX1.Size = New System.Drawing.Size(209, 51)
         Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.ButtonX1.TabIndex = 7
         Me.ButtonX1.Text = "Nueva Venta"
@@ -1950,7 +1959,7 @@ Partial Class Tec_Ventas
         '
         '
         '
-        Me.lbTipoCambio.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.lbTipoCambio.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbTipoCambio.ForeColor = System.Drawing.Color.White
         Me.lbTipoCambio.Location = New System.Drawing.Point(479, 11)
@@ -1960,6 +1969,149 @@ Partial Class Tec_Ventas
         Me.lbTipoCambio.Size = New System.Drawing.Size(76, 21)
         Me.lbTipoCambio.TabIndex = 71
         Me.lbTipoCambio.Text = "Monto $u$:"
+        '
+        'Panel21
+        '
+        Me.Panel21.AutoScroll = True
+        Me.Panel21.Controls.Add(Me.btnFiltrarVentas)
+        Me.Panel21.Controls.Add(Me.tbHasta)
+        Me.Panel21.Controls.Add(Me.LabelX16)
+        Me.Panel21.Controls.Add(Me.tbDesde)
+        Me.Panel21.Controls.Add(Me.LabelX6)
+        Me.Panel21.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel21.Location = New System.Drawing.Point(8, 5)
+        Me.Panel21.Name = "Panel21"
+        Me.Panel21.Size = New System.Drawing.Size(912, 51)
+        Me.Panel21.TabIndex = 5
+        '
+        'tbDesde
+        '
+        Me.tbDesde.BackColor = System.Drawing.Color.White
+        Me.tbDesde.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.Flat
+        '
+        '
+        '
+        Me.tbDesde.DropDownCalendar.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.None
+        Me.tbDesde.DropDownCalendar.DayOfWeekAbbreviation = Janus.Windows.CalendarCombo.DayOfWeekAbbreviation.UseAbbreviatedName
+        Me.tbDesde.DropDownCalendar.DaysFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.tbDesde.DropDownCalendar.DaysFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.tbDesde.DropDownCalendar.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbDesde.DropDownCalendar.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.tbDesde.DropDownCalendar.HeaderAppearance = Janus.Windows.CalendarCombo.ButtonAppearance.PopUp
+        Me.tbDesde.DropDownCalendar.HeaderFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.tbDesde.DropDownCalendar.HeaderFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.tbDesde.DropDownCalendar.Name = ""
+        Me.tbDesde.DropDownCalendar.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.tbDesde.DropDownCalendar.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.tbDesde.DropDownCalendar.TodayRectColor = System.Drawing.Color.DarkCyan
+        Me.tbDesde.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.tbDesde.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
+        Me.tbDesde.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbDesde.Location = New System.Drawing.Point(97, 11)
+        Me.tbDesde.Name = "tbDesde"
+        Me.tbDesde.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.tbDesde.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.tbDesde.SecondIncrement = 10
+        Me.tbDesde.Size = New System.Drawing.Size(157, 26)
+        Me.tbDesde.TabIndex = 218
+        Me.tbDesde.TodayButtonText = "Hoy"
+        Me.tbDesde.UseCompatibleTextRendering = False
+        Me.tbDesde.Value = New Date(2020, 6, 21, 0, 0, 0, 0)
+        Me.tbDesde.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.tbDesde.YearIncrement = 10
+        '
+        'LabelX6
+        '
+        Me.LabelX6.AutoSize = True
+        Me.LabelX6.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX6.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX6.Location = New System.Drawing.Point(4, 15)
+        Me.LabelX6.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX6.Name = "LabelX6"
+        Me.LabelX6.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX6.Size = New System.Drawing.Size(86, 21)
+        Me.LabelX6.TabIndex = 219
+        Me.LabelX6.Text = "Venta Desde:"
+        '
+        'tbHasta
+        '
+        Me.tbHasta.BackColor = System.Drawing.Color.White
+        Me.tbHasta.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.Flat
+        '
+        '
+        '
+        Me.tbHasta.DropDownCalendar.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.None
+        Me.tbHasta.DropDownCalendar.DayOfWeekAbbreviation = Janus.Windows.CalendarCombo.DayOfWeekAbbreviation.UseAbbreviatedName
+        Me.tbHasta.DropDownCalendar.DaysFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.tbHasta.DropDownCalendar.DaysFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.tbHasta.DropDownCalendar.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbHasta.DropDownCalendar.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.tbHasta.DropDownCalendar.HeaderAppearance = Janus.Windows.CalendarCombo.ButtonAppearance.PopUp
+        Me.tbHasta.DropDownCalendar.HeaderFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.tbHasta.DropDownCalendar.HeaderFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.tbHasta.DropDownCalendar.Name = ""
+        Me.tbHasta.DropDownCalendar.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.tbHasta.DropDownCalendar.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.tbHasta.DropDownCalendar.TodayRectColor = System.Drawing.Color.DarkCyan
+        Me.tbHasta.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.tbHasta.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
+        Me.tbHasta.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbHasta.Location = New System.Drawing.Point(354, 10)
+        Me.tbHasta.Name = "tbHasta"
+        Me.tbHasta.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.tbHasta.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.tbHasta.SecondIncrement = 10
+        Me.tbHasta.Size = New System.Drawing.Size(157, 26)
+        Me.tbHasta.TabIndex = 220
+        Me.tbHasta.TodayButtonText = "Hoy"
+        Me.tbHasta.UseCompatibleTextRendering = False
+        Me.tbHasta.Value = New Date(2020, 6, 21, 0, 0, 0, 0)
+        Me.tbHasta.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.tbHasta.YearIncrement = 10
+        '
+        'LabelX16
+        '
+        Me.LabelX16.AutoSize = True
+        Me.LabelX16.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX16.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX16.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX16.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX16.Location = New System.Drawing.Point(261, 14)
+        Me.LabelX16.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX16.Name = "LabelX16"
+        Me.LabelX16.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX16.Size = New System.Drawing.Size(83, 21)
+        Me.LabelX16.TabIndex = 221
+        Me.LabelX16.Text = "Venta Hasta:"
+        '
+        'btnFiltrarVentas
+        '
+        Me.btnFiltrarVentas.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnFiltrarVentas.BackColor = System.Drawing.Color.DarkOrange
+        Me.btnFiltrarVentas.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnFiltrarVentas.Font = New System.Drawing.Font("Calibri", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnFiltrarVentas.Image = Global.TeVendo.My.Resources.Resources.search
+        Me.btnFiltrarVentas.ImageFixedSize = New System.Drawing.Size(28, 28)
+        Me.btnFiltrarVentas.Location = New System.Drawing.Point(532, 9)
+        Me.btnFiltrarVentas.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnFiltrarVentas.Name = "btnFiltrarVentas"
+        Me.btnFiltrarVentas.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
+        Me.btnFiltrarVentas.Size = New System.Drawing.Size(121, 34)
+        Me.btnFiltrarVentas.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnFiltrarVentas.Symbol = ""
+        Me.btnFiltrarVentas.SymbolColor = System.Drawing.Color.White
+        Me.btnFiltrarVentas.SymbolSize = 15.0!
+        Me.btnFiltrarVentas.TabIndex = 222
+        Me.btnFiltrarVentas.Text = "Filtrar"
+        Me.btnFiltrarVentas.TextColor = System.Drawing.Color.White
         '
         'Tec_Ventas
         '
@@ -2028,6 +2180,8 @@ Partial Class Tec_Ventas
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel21.ResumeLayout(False)
+        Me.Panel21.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2140,4 +2294,10 @@ Partial Class Tec_Ventas
     Friend WithEvents tbTotalPagado As DevComponents.Editors.DoubleInput
     Friend WithEvents LabelX18 As DevComponents.DotNetBar.LabelX
     Friend WithEvents lbTipoCambio As DevComponents.DotNetBar.LabelX
+    Friend WithEvents Panel21 As Panel
+    Friend WithEvents tbDesde As Janus.Windows.CalendarCombo.CalendarCombo
+    Friend WithEvents LabelX6 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbHasta As Janus.Windows.CalendarCombo.CalendarCombo
+    Friend WithEvents LabelX16 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents btnFiltrarVentas As DevComponents.DotNetBar.ButtonX
 End Class
