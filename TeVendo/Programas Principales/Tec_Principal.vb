@@ -1012,4 +1012,21 @@ Public Class Tec_Principal
 
 
     End Sub
+
+    Private Sub btnTipoCambio_Click(sender As Object, e As EventArgs) Handles btnTipoCambio.Click
+
+        Dim frm As ActualizarTipoCambio = New ActualizarTipoCambio
+        frm.MontoTipoCambio = Global_TipoCambio
+        frm.ShowDialog()
+
+        If (frm.Bandera = True) Then
+
+            Global_TipoCambio = frm.MontoTipoCambio
+            btnTipoCambio.Text = "Tipo Cambio: " + Str(Global_TipoCambio).Trim
+            ToastNotification.Show(Me, "Tipo De Cambio Actualizado Correctamente", My.Resources.GRABACION_EXITOSA, 1500, eToastGlowColor.Green, eToastPosition.TopRight)
+        End If
+
+
+
+    End Sub
 End Class

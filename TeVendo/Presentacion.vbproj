@@ -628,6 +628,12 @@
       <DependentUpon>VentasVsCostos.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Utils\ActualizarTipoCambio.Designer.vb">
+      <DependentUpon>ActualizarTipoCambio.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\ActualizarTipoCambio.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Utils\Celda.vb" />
     <Compile Include="Utils\CrearCategoria.designer.vb">
       <DependentUpon>CrearCategoria.vb</DependentUpon>
@@ -929,6 +935,9 @@
     <EmbeddedResource Include="ReporteSmartApps\VentasVsCostos.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>VentasVsCostos.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utils\ActualizarTipoCambio.resx">
+      <DependentUpon>ActualizarTipoCambio.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Utils\CrearCategoria.resx">
       <DependentUpon>CrearCategoria.vb</DependentUpon>

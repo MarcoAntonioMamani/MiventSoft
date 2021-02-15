@@ -106,13 +106,13 @@ Partial Class Tec_Principal
         Me.tab_distribucion = New DevComponents.DotNetBar.SuperTabItem()
         Me.PanelPrincipal = New System.Windows.Forms.Panel()
         Me.PanelContentSuperior = New System.Windows.Forms.Panel()
+        Me.btnTipoCambio = New DevComponents.DotNetBar.ButtonX()
         Me.btnUser = New DevComponents.DotNetBar.ButtonX()
         Me.btnFecha = New DevComponents.DotNetBar.ButtonX()
         Me.btnSalir = New DevComponents.DotNetBar.ButtonX()
         Me.btnCerrarSesion = New DevComponents.DotNetBar.ButtonX()
         Me.PanelLine = New System.Windows.Forms.Panel()
         Me.imguser = New System.Windows.Forms.PictureBox()
-        Me.btnTipoCambio = New DevComponents.DotNetBar.ButtonX()
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlMenu.SuspendLayout()
         Me.SuperTabControlPanel3.SuspendLayout()
@@ -1787,6 +1787,29 @@ Partial Class Tec_Principal
         Me.PanelContentSuperior.Size = New System.Drawing.Size(1458, 43)
         Me.PanelContentSuperior.TabIndex = 1
         '
+        'btnTipoCambio
+        '
+        Me.btnTipoCambio.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnTipoCambio.AutoSize = True
+        Me.btnTipoCambio.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnTipoCambio.Dock = System.Windows.Forms.DockStyle.Right
+        Me.btnTipoCambio.EnableMarkup = False
+        Me.btnTipoCambio.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnTipoCambio.Image = CType(resources.GetObject("btnTipoCambio.Image"), System.Drawing.Image)
+        Me.btnTipoCambio.ImageFixedSize = New System.Drawing.Size(25, 25)
+        Me.btnTipoCambio.Location = New System.Drawing.Point(601, 0)
+        Me.btnTipoCambio.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnTipoCambio.Name = "btnTipoCambio"
+        Me.btnTipoCambio.Size = New System.Drawing.Size(197, 43)
+        Me.btnTipoCambio.StopPulseOnMouseOver = False
+        Me.btnTipoCambio.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
+        Me.btnTipoCambio.Symbol = ""
+        Me.btnTipoCambio.TabIndex = 17
+        Me.btnTipoCambio.Tag = ""
+        Me.btnTipoCambio.Text = "Tipo Cambio : 6.96"
+        Me.btnTipoCambio.TextColor = System.Drawing.Color.White
+        Me.btnTipoCambio.UseMnemonic = False
+        '
         'btnUser
         '
         Me.btnUser.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
@@ -1885,29 +1908,6 @@ Partial Class Tec_Principal
         Me.imguser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.imguser.TabIndex = 1
         Me.imguser.TabStop = False
-        '
-        'btnTipoCambio
-        '
-        Me.btnTipoCambio.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnTipoCambio.AutoSize = True
-        Me.btnTipoCambio.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.btnTipoCambio.Dock = System.Windows.Forms.DockStyle.Right
-        Me.btnTipoCambio.EnableMarkup = False
-        Me.btnTipoCambio.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnTipoCambio.Image = CType(resources.GetObject("btnTipoCambio.Image"), System.Drawing.Image)
-        Me.btnTipoCambio.ImageFixedSize = New System.Drawing.Size(25, 25)
-        Me.btnTipoCambio.Location = New System.Drawing.Point(601, 0)
-        Me.btnTipoCambio.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnTipoCambio.Name = "btnTipoCambio"
-        Me.btnTipoCambio.Size = New System.Drawing.Size(197, 43)
-        Me.btnTipoCambio.StopPulseOnMouseOver = False
-        Me.btnTipoCambio.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
-        Me.btnTipoCambio.Symbol = ""
-        Me.btnTipoCambio.TabIndex = 17
-        Me.btnTipoCambio.Tag = ""
-        Me.btnTipoCambio.Text = "Tipo Cambio : 6.96"
-        Me.btnTipoCambio.TextColor = System.Drawing.Color.White
-        Me.btnTipoCambio.UseMnemonic = False
         '
         'Tec_Principal
         '
