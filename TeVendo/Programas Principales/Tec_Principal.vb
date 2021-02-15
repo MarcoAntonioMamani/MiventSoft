@@ -275,6 +275,9 @@ Public Class Tec_Principal
         Dim blah As New Bitmap(New Bitmap(My.Resources.compra), 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         Me.Icon = ico
+
+        btnTipoCambio.Text = "Tipo Cambio: " + Str(Global_TipoCambio)
+
     End Sub
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click

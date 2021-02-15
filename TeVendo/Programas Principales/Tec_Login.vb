@@ -105,6 +105,7 @@ Public Class Tec_Login
             gi_userNumi = dtUsuario.Rows(0).Item("Id")
             gi_userRol = dtUsuario.Rows(0).Item("RolId")
             gi_userSuc = dtUsuario.Rows(0).Item("SucursalId")
+            Global_TipoCambio = dtUsuario.Rows(0).Item("Monto")
             'gb_userTodasSuc = IIf(dtUsuario.Rows(0).Item("ydall") = 1, True, False)
 
             _prDesvenecerPantalla()
