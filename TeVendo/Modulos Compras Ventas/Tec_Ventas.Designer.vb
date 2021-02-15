@@ -125,6 +125,7 @@ Partial Class Tec_Ventas
         Me.LabelX13 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX14 = New DevComponents.DotNetBar.LabelX()
         Me.DoubleInput1 = New DevComponents.Editors.DoubleInput()
+        Me.LabelX15 = New DevComponents.DotNetBar.LabelX()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -1672,6 +1673,7 @@ Partial Class Tec_Ventas
         'GroupBox1
         '
         Me.GroupBox1.BackColor = System.Drawing.Color.Teal
+        Me.GroupBox1.Controls.Add(Me.LabelX15)
         Me.GroupBox1.Controls.Add(Me.DoubleInput1)
         Me.GroupBox1.Controls.Add(Me.LabelX14)
         Me.GroupBox1.Controls.Add(Me.tbMontoBs)
@@ -1797,6 +1799,24 @@ Partial Class Tec_Ventas
         Me.DoubleInput1.Size = New System.Drawing.Size(160, 27)
         Me.DoubleInput1.TabIndex = 68
         Me.DoubleInput1.WatermarkAlignment = DevComponents.Editors.eTextAlignment.Right
+        '
+        'LabelX15
+        '
+        Me.LabelX15.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX15.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX15.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX15.ForeColor = System.Drawing.Color.White
+        Me.LabelX15.Location = New System.Drawing.Point(296, 83)
+        Me.LabelX15.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX15.Name = "LabelX15"
+        Me.LabelX15.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX15.Size = New System.Drawing.Size(113, 22)
+        Me.LabelX15.TabIndex = 69
+        Me.LabelX15.Text = "Transferencia Bancaria:"
+        Me.LabelX15.VerticalTextTopUp = False
         '
         'Tec_Ventas
         '
@@ -1964,4 +1984,5 @@ Partial Class Tec_Ventas
     Friend WithEvents tbMontoDolar As DevComponents.Editors.DoubleInput
     Friend WithEvents LabelX13 As DevComponents.DotNetBar.LabelX
     Friend WithEvents DoubleInput1 As DevComponents.Editors.DoubleInput
+    Friend WithEvents LabelX15 As DevComponents.DotNetBar.LabelX
 End Class
