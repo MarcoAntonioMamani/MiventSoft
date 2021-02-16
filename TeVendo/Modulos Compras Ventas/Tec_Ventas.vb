@@ -1070,7 +1070,7 @@ salirIf:
         End If
 
 
-        btnVendedor.Visible = True
+        btnVendedor.Visible = False
         btnCliente.Visible = True
         BtnImprimir.Visible = False
         tab_Cobro.Visible = False
@@ -1596,40 +1596,40 @@ salirIf:
 
     Private Sub tbProveedor_KeyDown(sender As Object, e As KeyEventArgs) Handles tbVendedor.KeyDown
         If (_fnAccesible()) Then
-            If e.KeyData = Keys.Control + Keys.Enter Then
+            'If e.KeyData = Keys.Control + Keys.Enter Then
 
 
-                Dim dt As DataTable
+            '    Dim dt As DataTable
 
-                dt = ListarPersonal()
-                'a.Id ,a.NombreProveedor ,a.Direccion ,a.Telefono01
+            '    dt = ListarPersonal()
+            '    'a.Id ,a.NombreProveedor ,a.Direccion ,a.Telefono01
 
-                Dim listEstCeldas As New List(Of Celda)
-                listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
-                listEstCeldas.Add(New Celda("Nombre", True, "NOMBRE", 350))
-                listEstCeldas.Add(New Celda("Direccion", True, "DIRECCION", 180))
-                listEstCeldas.Add(New Celda("Telefono01", True, "Telefono".ToUpper, 200))
-                Dim ef = New Efecto
-                ef.tipo = 6
-                ef.dt = dt
-                ef.SeleclCol = 2
-                ef.listEstCeldasNew = listEstCeldas
-                ef.alto = 50
-                ef.ancho = 350
-                ef.Context = "Seleccione Personal".ToUpper
-                ef.ShowDialog()
-                Dim bandera As Boolean = False
-                bandera = ef.band
-                If (bandera = True) Then
-                    Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+            '    Dim listEstCeldas As New List(Of Celda)
+            '    listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
+            '    listEstCeldas.Add(New Celda("Nombre", True, "NOMBRE", 350))
+            '    listEstCeldas.Add(New Celda("Direccion", True, "DIRECCION", 180))
+            '    listEstCeldas.Add(New Celda("Telefono01", True, "Telefono".ToUpper, 200))
+            '    Dim ef = New Efecto
+            '    ef.tipo = 6
+            '    ef.dt = dt
+            '    ef.SeleclCol = 2
+            '    ef.listEstCeldasNew = listEstCeldas
+            '    ef.alto = 50
+            '    ef.ancho = 350
+            '    ef.Context = "Seleccione Personal".ToUpper
+            '    ef.ShowDialog()
+            '    Dim bandera As Boolean = False
+            '    bandera = ef.band
+            '    If (bandera = True) Then
+            '        Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
 
-                    IdVendedor = Row.Cells("Id").Value
-                    tbVendedor.Text = Row.Cells("Nombre").Value
-                    tbCliente.Focus()
+            '        IdVendedor = Row.Cells("Id").Value
+            '        tbVendedor.Text = Row.Cells("Nombre").Value
+            '        tbCliente.Focus()
 
-                End If
+            '    End If
 
-            End If
+            'End If
 
         End If
 
