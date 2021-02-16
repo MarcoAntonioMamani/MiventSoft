@@ -2740,7 +2740,31 @@ Public Class AccesoLogica
 
 
 #Region "Conceptos Fijos"
+    Public Shared Function L_prListarCaja() As DataTable
+        Dim _Tabla As DataTable
 
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_CajaIngresoEgreso", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prListarTipoMovimientoCaja() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_CajaIngresoEgreso", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_prListarOperacionesConceptosFijos() As DataTable
         Dim _Tabla As DataTable
 
@@ -2753,7 +2777,81 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+    Public Shared Function L_prIngresoSalidaInsertar(ByRef _numi As String, Fecha As String, Descripcion As String, Monto As Double, CajaId As Integer, IngresoEgreso As Integer, CajaTipoMovimientoId As Integer, PersonalId As Integer, SucursalId As Integer, CajaIdDestino As Integer) As Boolean
+        Dim _resultado As Boolean
 
+        '@id,@CierreCajeroId ,@Fecha ,@Descripcion ,@Monto ,@CajaId ,@IngresoEgreso ,@CajaTipoMovimientoId,
+        '@PersonalId ,@Modulo,@IdModulo ,@SucursalId ,@CajaIngresoEgresoIdDestino,@CajaIdDestino,@Usuario ,@newFecha,@newHora 
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@CierreCajeroId", 0))
+        _listParam.Add(New Datos.DParametro("@Fecha", Fecha))
+        _listParam.Add(New Datos.DParametro("@Descripcion", Descripcion))
+        _listParam.Add(New Datos.DParametro("@Monto", Monto))
+        _listParam.Add(New Datos.DParametro("@CajaId", CajaId))
+        _listParam.Add(New Datos.DParametro("@IngresoEgreso", IngresoEgreso))
+        _listParam.Add(New Datos.DParametro("@CajaTipoMovimientoId", CajaTipoMovimientoId))
+        _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
+        _listParam.Add(New Datos.DParametro("@Modulo", 0))
+        _listParam.Add(New Datos.DParametro("@IdModulo", 0))
+        _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
+        _listParam.Add(New Datos.DParametro("@CajaIngresoEgresoIdDestino", 0))
+        _listParam.Add(New Datos.DParametro("@CajaIdDestino", CajaIdDestino))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_CajaIngresoEgreso", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _numi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function L_prIngresoSalidaModificar(ByRef _numi As String, Fecha As String, Descripcion As String, Monto As Double, CajaId As Integer, IngresoEgreso As Integer, CajaTipoMovimientoId As Integer, PersonalId As Integer, SucursalId As Integer, CajaIdDestino As Integer) As Boolean
+        Dim _resultado As Boolean
+
+        '@id,@CierreCajeroId ,@Fecha ,@Descripcion ,@Monto ,@CajaId ,@IngresoEgreso ,@CajaTipoMovimientoId,
+        '@PersonalId ,@Modulo,@IdModulo ,@SucursalId ,@CajaIngresoEgresoIdDestino,@CajaIdDestino,@Usuario ,@newFecha,@newHora 
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@CierreCajeroId", 0))
+        _listParam.Add(New Datos.DParametro("@Fecha", Fecha))
+        _listParam.Add(New Datos.DParametro("@Descripcion", Descripcion))
+        _listParam.Add(New Datos.DParametro("@Monto", Monto))
+        _listParam.Add(New Datos.DParametro("@CajaId", CajaId))
+        _listParam.Add(New Datos.DParametro("@IngresoEgreso", IngresoEgreso))
+        _listParam.Add(New Datos.DParametro("@CajaTipoMovimientoId", CajaTipoMovimientoId))
+        _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
+        _listParam.Add(New Datos.DParametro("@Modulo", 0))
+        _listParam.Add(New Datos.DParametro("@IdModulo", 0))
+        _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
+        _listParam.Add(New Datos.DParametro("@CajaIngresoEgresoIdDestino", 0))
+        _listParam.Add(New Datos.DParametro("@CajaIdDestino", CajaIdDestino))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_CajaIngresoEgreso", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _numi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
     Public Shared Function L_prConceptoFijoInsertar(ByRef _numi As String, NombreConcepto As String, Porcentaje As Double, OperacionId As Integer, Estado As Integer, Tipoconcepto As Integer) As Boolean
         Dim _resultado As Boolean
 

@@ -194,6 +194,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Caja\Tec_ProgramaIngresoEgresoCaja.Designer.vb">
+      <DependentUpon>Tec_ProgramaIngresoEgresoCaja.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Caja\Tec_ProgramaIngresoEgresoCaja.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Control\Imageus.Designer.vb">
       <DependentUpon>Imageus.vb</DependentUpon>
     </Compile>
@@ -702,6 +708,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Caja\Tec_ProgramaIngresoEgresoCaja.resx">
+      <DependentUpon>Tec_ProgramaIngresoEgresoCaja.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Control\Imageus.resx">
       <DependentUpon>Imageus.vb</DependentUpon>
     </EmbeddedResource>
