@@ -67,11 +67,15 @@ Public Class Tec_Principal
 
 
         If gs_user <> "DEFAULT" Then
-            btnUser.Text = "Bienvenido: " + L_Usuario
+            btnUser.Text = L_Usuario
             _PCargarPrivilegios()
             _prCargarConfiguracionSistema()
             P_prCargarParametros()
             _prValidarMayusculas()
+
+
+            btnSucursal.Text = "Suc. " + Global_NombreSucursal
+            btnTipoCambio.Text = "Tipo Cambio: " + Str(Global_TipoCambio)
 
             Dim n As Integer = superTabControl3.Tabs.Count
 
@@ -284,6 +288,7 @@ Public Class Tec_Principal
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         Me.Icon = ico
 
+        btnSucursal.Text = "Suc. " + Global_NombreSucursal
         btnTipoCambio.Text = "Tipo Cambio: " + Str(Global_TipoCambio)
 
     End Sub

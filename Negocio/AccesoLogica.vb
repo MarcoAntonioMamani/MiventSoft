@@ -85,7 +85,7 @@ Public Class AccesoLogica
 
     Public Shared Function L_Validar_Usuario(_Nom As String, _Pass As String) As DataTable
         Dim _Tabla As DataTable
-        _Tabla = D_Datos_Tabla("Id,RolId,SucursalId,IdPersonal,isnull((select top 1 Monto from TipoCambio as t order by id desc),0) as Monto,isnull(ModificarPrecioVenta,0) as ModificarPrecioVenta, isnull(AplicarDescuentoVenta,0)as AplicarDescuentoVenta", "Usuarios", "NombreUsuario = '" + _Nom + "' AND Contrasena = '" + _Pass + "'")
+        _Tabla = D_Datos_Tabla("Id,RolId,SucursalId,IdPersonal,isnull((select top 1 Monto from TipoCambio as t order by id desc),0) as Monto,isnull(ModificarPrecioVenta,0) as ModificarPrecioVenta, isnull(AplicarDescuentoVenta,0)as AplicarDescuentoVenta,isnull((select al.Nombrealmacen from Almacenes  as al where al.id=SucursalId ),'Todos') as NombreSucursal", "Usuarios", "NombreUsuario = '" + _Nom + "' AND Contrasena = '" + _Pass + "'")
         Return _Tabla
     End Function
 #End Region

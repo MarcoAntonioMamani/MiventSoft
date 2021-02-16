@@ -113,6 +113,7 @@ Partial Class Tec_Principal
         Me.btnCerrarSesion = New DevComponents.DotNetBar.ButtonX()
         Me.PanelLine = New System.Windows.Forms.Panel()
         Me.imguser = New System.Windows.Forms.PictureBox()
+        Me.btnSucursal = New DevComponents.DotNetBar.ButtonX()
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlMenu.SuspendLayout()
         Me.SuperTabControlPanel3.SuspendLayout()
@@ -1774,6 +1775,7 @@ Partial Class Tec_Principal
         'PanelContentSuperior
         '
         Me.PanelContentSuperior.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.PanelContentSuperior.Controls.Add(Me.btnSucursal)
         Me.PanelContentSuperior.Controls.Add(Me.btnTipoCambio)
         Me.PanelContentSuperior.Controls.Add(Me.btnUser)
         Me.PanelContentSuperior.Controls.Add(Me.btnFecha)
@@ -1797,7 +1799,7 @@ Partial Class Tec_Principal
         Me.btnTipoCambio.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnTipoCambio.Image = CType(resources.GetObject("btnTipoCambio.Image"), System.Drawing.Image)
         Me.btnTipoCambio.ImageFixedSize = New System.Drawing.Size(25, 25)
-        Me.btnTipoCambio.Location = New System.Drawing.Point(601, 0)
+        Me.btnTipoCambio.Location = New System.Drawing.Point(744, 0)
         Me.btnTipoCambio.Margin = New System.Windows.Forms.Padding(4)
         Me.btnTipoCambio.Name = "btnTipoCambio"
         Me.btnTipoCambio.Size = New System.Drawing.Size(197, 43)
@@ -1820,14 +1822,14 @@ Partial Class Tec_Principal
         Me.btnUser.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnUser.Image = CType(resources.GetObject("btnUser.Image"), System.Drawing.Image)
         Me.btnUser.ImageFixedSize = New System.Drawing.Size(25, 25)
-        Me.btnUser.Location = New System.Drawing.Point(798, 0)
+        Me.btnUser.Location = New System.Drawing.Point(941, 0)
         Me.btnUser.Margin = New System.Windows.Forms.Padding(4)
         Me.btnUser.Name = "btnUser"
-        Me.btnUser.Size = New System.Drawing.Size(210, 43)
+        Me.btnUser.Size = New System.Drawing.Size(128, 40)
         Me.btnUser.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnUser.TabIndex = 15
         Me.btnUser.Tag = ""
-        Me.btnUser.Text = "     Bienvenido: Marco Antonio"
+        Me.btnUser.Text = "Marco Antonio"
         Me.btnUser.TextColor = System.Drawing.Color.White
         Me.btnUser.UseMnemonic = False
         '
@@ -1844,10 +1846,10 @@ Partial Class Tec_Principal
         Me.btnFecha.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnFecha.Image = CType(resources.GetObject("btnFecha.Image"), System.Drawing.Image)
         Me.btnFecha.ImageFixedSize = New System.Drawing.Size(25, 25)
-        Me.btnFecha.Location = New System.Drawing.Point(1008, 0)
+        Me.btnFecha.Location = New System.Drawing.Point(1069, 0)
         Me.btnFecha.Margin = New System.Windows.Forms.Padding(4)
         Me.btnFecha.Name = "btnFecha"
-        Me.btnFecha.Size = New System.Drawing.Size(209, 43)
+        Me.btnFecha.Size = New System.Drawing.Size(148, 40)
         Me.btnFecha.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
         Me.btnFecha.TabIndex = 14
         Me.btnFecha.Text = "     20 Octubre 2018"
@@ -1908,6 +1910,28 @@ Partial Class Tec_Principal
         Me.imguser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.imguser.TabIndex = 1
         Me.imguser.TabStop = False
+        '
+        'btnSucursal
+        '
+        Me.btnSucursal.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnSucursal.AutoSize = True
+        Me.btnSucursal.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnSucursal.Dock = System.Windows.Forms.DockStyle.Right
+        Me.btnSucursal.EnableMarkup = False
+        Me.btnSucursal.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSucursal.Image = CType(resources.GetObject("btnSucursal.Image"), System.Drawing.Image)
+        Me.btnSucursal.ImageFixedSize = New System.Drawing.Size(25, 25)
+        Me.btnSucursal.Location = New System.Drawing.Point(612, 0)
+        Me.btnSucursal.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnSucursal.Name = "btnSucursal"
+        Me.btnSucursal.Size = New System.Drawing.Size(132, 40)
+        Me.btnSucursal.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnSucursal.Symbol = ""
+        Me.btnSucursal.TabIndex = 18
+        Me.btnSucursal.Tag = ""
+        Me.btnSucursal.Text = "Suc. Santa Cruz"
+        Me.btnSucursal.TextColor = System.Drawing.Color.White
+        Me.btnSucursal.UseMnemonic = False
         '
         'Tec_Principal
         '
@@ -2029,4 +2053,5 @@ Partial Class Tec_Principal
     Friend WithEvents MetroTileItem4 As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents MetroTileItem5 As DevComponents.DotNetBar.Metro.MetroTileItem
     Protected WithEvents btnTipoCambio As DevComponents.DotNetBar.ButtonX
+    Protected WithEvents btnSucursal As DevComponents.DotNetBar.ButtonX
 End Class
