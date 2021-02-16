@@ -522,7 +522,7 @@ Public Class Tec_Users
         listEstCeldas.Add(New Celda("NombreRol", True, "Rol", 90))
         listEstCeldas.Add(New Celda("SucursalId", False))
         listEstCeldas.Add(New Celda("IdEmpresa", False))
-        listEstCeldas.Add(New Celda("Empresa", True, "Empresa", 80))
+        listEstCeldas.Add(New Celda("Empresa", False, "Empresa", 80))
         listEstCeldas.Add(New Celda("IdPersonal", False))
         listEstCeldas.Add(New Celda("Personal", True, "Personal", 120))
         listEstCeldas.Add(New Celda("NombreAlmacen", True, "Sucursal", 120))

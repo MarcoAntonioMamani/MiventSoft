@@ -72,6 +72,14 @@ Public Class Tec_Principal
             _prCargarConfiguracionSistema()
             P_prCargarParametros()
             _prValidarMayusculas()
+
+            Dim n As Integer = superTabControl3.Tabs.Count
+
+            For i As Integer = 0 To n - 1 Step 1
+                superTabControl3.CloseTab(superTabControl3.Tabs(0))
+            Next
+
+
             SuperTabControlMenu.Focus()
 
 

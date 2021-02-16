@@ -85,7 +85,7 @@ Public Class AccesoLogica
 
     Public Shared Function L_Validar_Usuario(_Nom As String, _Pass As String) As DataTable
         Dim _Tabla As DataTable
-        _Tabla = D_Datos_Tabla("Id,RolId,SucursalId,IdPersonal,isnull((select top 1 Monto from TipoCambio as t order by id desc),0) as Monto", "Usuarios", "NombreUsuario = '" + _Nom + "' AND Contrasena = '" + _Pass + "'")
+        _Tabla = D_Datos_Tabla("Id,RolId,SucursalId,IdPersonal,isnull((select top 1 Monto from TipoCambio as t order by id desc),0) as Monto,isnull(ModificarPrecioVenta,0) as ModificarPrecioVenta, isnull(AplicarDescuentoVenta,0)as AplicarDescuentoVenta", "Usuarios", "NombreUsuario = '" + _Nom + "' AND Contrasena = '" + _Pass + "'")
         Return _Tabla
     End Function
 #End Region
@@ -1779,7 +1779,7 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
-    Public Shared Function L_prListarVentasGeneralFiltroFecha(NameSp As String, Desde As String, Hasta As String) As DataTable
+    Public Shared Function L_prListarVentasGeneralFiltroFecha(NameSp As String, Desde As String, Hasta As String, SucursalId As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
@@ -1788,6 +1788,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@Desde", Desde))
         _listParam.Add(New Datos.DParametro("@Hasta", Hasta))
+        _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
         _Tabla = D_ProcedimientoConParam(NameSp, _listParam)
 
         Return _Tabla

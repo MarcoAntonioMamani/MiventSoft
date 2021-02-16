@@ -1000,8 +1000,14 @@ salirIf:
         btnSeleccionarProducto.Visible = True
 
         tbGlosa.ReadOnly = False
+        If (Global_Sucursal >= 0) Then
 
-        cbSucursal.ReadOnly = False
+            cbSucursal.ReadOnly = True
+        Else
+
+            cbSucursal.ReadOnly = False
+        End If
+
         swTipoVenta.IsReadOnly = False
         tbFechaVencimientoCredito.ReadOnly = False
         tbFechaTransaccion.ReadOnly = False
@@ -1014,6 +1020,9 @@ salirIf:
         btnCliente.Visible = True
         BtnImprimir.Visible = False
         tab_Cobro.Visible = False
+
+
+
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -1049,9 +1058,16 @@ salirIf:
         tbFechaTransaccion.Value = Now.Date
         tbFechaVencimientoCredito.Value = Now.Date
         swTipoVenta.Value = True
-        seleccionarPrimerItemCombo(cbSucursal)
+
+
         IdCliente = 0
 
+        If (Global_Sucursal >= 0) Then
+
+            cbSucursal.Value = Global_Sucursal
+        Else
+            seleccionarPrimerItemCombo(cbSucursal)
+        End If
 
 
         tbMdesc.Value = 0
@@ -1315,7 +1331,7 @@ salirIf:
 
     Public Function _PMOGetTablaBuscador() As DataTable
 
-        Dim dtBuscador As DataTable = L_prListarVentasGeneralFiltroFecha("MAM_Ventas", tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"))
+        Dim dtBuscador As DataTable = L_prListarVentasGeneralFiltroFecha("MAM_Ventas", tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"), Global_Sucursal)
         Return dtBuscador
     End Function
 

@@ -124,6 +124,9 @@ Module P_Global
     Public gi_Mayusculas As Integer = 0
     Public Global_IdPersonal As Integer = 0
     Public Global_TipoCambio As Double = 0
+    Public Global_Sucursal As Integer = 0
+    Public Global_ModificarPrecio As Integer = 0
+    Public Global_ModificarDescuento As Integer = 0
     'configuracion del sistema tabla TCG011
     Public gd_notaAproTeo As Double = 0
 #End Region
