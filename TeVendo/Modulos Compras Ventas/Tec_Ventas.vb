@@ -624,23 +624,33 @@ Public Class Tec_Ventas
             '1 As estado, cast('' as image ) as img
             ', 0 as stock
             'Habilitar solo las columnas de Precio, %, Monto y Observación
-            If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index Or
-                e.Column.Index = grDetalle.RootTable.Columns("ProcentajeDescuento").Index Or
-                 e.Column.Index = grDetalle.RootTable.Columns("MontoDescuento").Index) Then
+            If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
                 e.Cancel = False
+                Return
             Else
-                If ((e.Column.Index = grDetalle.RootTable.Columns("Lote").Index Or
-                    e.Column.Index = grDetalle.RootTable.Columns("FechaVencimiento").Index) And
-                Lote = True) Then
+                If (Global_ModificarDescuento = 1 And (
+                e.Column.Index = grDetalle.RootTable.Columns("ProcentajeDescuento").Index Or
+                 e.Column.Index = grDetalle.RootTable.Columns("MontoDescuento").Index)) Then
+
+
                     e.Cancel = False
-                Else
-                    e.Cancel = True
+                    Return
+
+                End If
+                If (Global_ModificarPrecio = 1 And e.Column.Index = grDetalle.RootTable.Columns("Precio").Index) Then
+
+                    e.Cancel = False
+                    Return
+
                 End If
 
-            End If
+                e.Cancel = True
 
 
-        Else
+                End If
+
+
+                Else
             e.Cancel = True
         End If
     End Sub
@@ -785,6 +795,45 @@ salirIf:
                 End If
             End If
         End If
+
+        If (e.Column.Index = grDetalle.RootTable.Columns("Precio").Index) Then
+            If (Not IsNumeric(grDetalle.GetValue("Precio")) Or grDetalle.GetValue("Precio").ToString = String.Empty) Then
+
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = 0
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = 0
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = 0
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = 0
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = 0
+                Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+
+                grDetalle.SetValue("Precio", 0)
+                grDetalle.SetValue("ProcentajeDescuento", 0)
+                grDetalle.SetValue("MontoDescuento", 0)
+                grDetalle.SetValue("SubTotal", 0)
+                grDetalle.SetValue("Total", 0)
+
+
+
+                If (estado = 1) Then
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                End If
+
+            Else
+
+                Dim porcdesc As Double = grDetalle.GetValue("ProcentajeDescuento")
+                Dim montodesc As Double = ((grDetalle.GetValue("Precio") * grDetalle.GetValue("Cantidad")) * (porcdesc / 100))
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = montodesc
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = grDetalle.GetValue("Precio")
+                grDetalle.SetValue("MontoDescuento", montodesc)
+                Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+                Dim rowIndex01 As Integer = grDetalle.Row
+                P_PonerTotal(rowIndex01)
+                If (estado = 1) Then
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                End If
+            End If
+        End If
+
 
         If (e.Column.Index = grDetalle.RootTable.Columns("ProcentajeDescuento").Index) Then
             If (Not IsNumeric(grDetalle.GetValue("ProcentajeDescuento")) Or grDetalle.GetValue("ProcentajeDescuento").ToString = String.Empty) Then
@@ -1012,9 +1061,14 @@ salirIf:
         tbFechaVencimientoCredito.ReadOnly = False
         tbFechaTransaccion.ReadOnly = False
 
+        If (Global_ModificarDescuento = 1) Then
+            tbMdesc.IsInputReadOnly = False
+            tbPdesc.IsInputReadOnly = False
+        Else
+            tbMdesc.IsInputReadOnly = True
+            tbPdesc.IsInputReadOnly = True
+        End If
 
-        tbMdesc.IsInputReadOnly = False
-        tbPdesc.IsInputReadOnly = False
 
         btnVendedor.Visible = True
         btnCliente.Visible = True
