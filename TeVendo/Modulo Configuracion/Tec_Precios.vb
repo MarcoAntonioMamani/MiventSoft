@@ -457,6 +457,7 @@ Public Class Tec_Precios
     End Sub
     Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
         _prGrabarCategorias()
+        btnGrabar.PerformClick()
 
 
     End Sub

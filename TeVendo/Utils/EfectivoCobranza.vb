@@ -114,16 +114,7 @@ Public Class EfectivoCobranza
     End Sub
 
     Private Sub tbMontoBs_ValueChanged(sender As Object, e As EventArgs) Handles tbMontoBs.ValueChanged
-        Try
-            If (tbMontoBs.Value > 0) Then
 
-                chkMontoBs.CheckValue = True
-            Else
-                chkMontoBs.CheckValue = False
-            End If
-        Catch ex As Exception
-            chkMontoBs.CheckValue = False
-        End Try
         Calculartotal()
     End Sub
 

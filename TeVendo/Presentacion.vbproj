@@ -987,6 +987,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="bin\Debug\TeVendo.exe.config" />
+    <None Include="bin\Release\TeVendo.exe.config" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -1297,6 +1299,41 @@
     <None Include="Resources\at2.png" />
     <None Include="Resources\activo.png" />
     <None Include="Resources\addimage.png" />
+    <Content Include="bin\Debug\TeVendo.exe" />
+    <Content Include="bin\Debug\TeVendo.pdb" />
+    <Content Include="bin\Release\Datos.dll" />
+    <Content Include="bin\Release\Datos.pdb" />
+    <Content Include="bin\Release\Datos.xml" />
+    <Content Include="bin\Release\dbConnect.TXT" />
+    <Content Include="bin\Release\DevComponents.DotNetBar.Keyboard.dll" />
+    <Content Include="bin\Release\DevComponents.DotNetBar.Layout.Design.dll" />
+    <Content Include="bin\Release\DevComponents.DotNetBar.Layout.dll" />
+    <Content Include="bin\Release\DevComponents.DotNetBar.Schedule.dll" />
+    <Content Include="bin\Release\DevComponents.DotNetBar.SuperGrid.dll" />
+    <Content Include="bin\Release\DevComponents.DotNetBar2.dll" />
+    <Content Include="bin\Release\DevComponents.Instrumentation.dll" />
+    <Content Include="bin\Release\DevComponents.SuperGrid.Design.dll" />
+    <Content Include="bin\Release\DevComponents.TreeGX.dll" />
+    <Content Include="bin\Release\Facturacion.dll" />
+    <Content Include="bin\Release\Facturacion.pdb" />
+    <Content Include="bin\Release\Facturacion.xml" />
+    <Content Include="bin\Release\Gma.QrCodeNet.Encoding.dll" />
+    <Content Include="bin\Release\GMap.NET.Core.dll" />
+    <Content Include="bin\Release\GMap.NET.WindowsForms.dll" />
+    <Content Include="bin\Release\Janus.Data.v3.dll" />
+    <Content Include="bin\Release\Janus.Windows.CalendarCombo.v3.dll" />
+    <Content Include="bin\Release\Janus.Windows.Common.v3.dll" />
+    <Content Include="bin\Release\Janus.Windows.GridEX.v3.dll" />
+    <Content Include="bin\Release\Janus.Windows.Ribbon.v3.dll" />
+    <Content Include="bin\Release\Janus.Windows.UI.v3.dll" />
+    <Content Include="bin\Release\Negocio.dll" />
+    <Content Include="bin\Release\Negocio.pdb" />
+    <Content Include="bin\Release\Negocio.xml" />
+    <Content Include="bin\Release\ShockwaveFlashObjects.dll" />
+    <Content Include="bin\Release\stdole.dll" />
+    <Content Include="bin\Release\TeVendo.exe" />
+    <Content Include="bin\Release\TeVendo.pdb" />
+    <Content Include="bin\Release\TeVendo.xml" />
     <Content Include="Resources\atras1.png" />
     <None Include="Resources\back-1.png" />
     <None Include="Resources\camera.png" />
