@@ -370,7 +370,7 @@ Public Class Tec_CierreCajaCajero
         ''_conversion As Double
         Dim res As Boolean
         Try
-            res = L_prIngresoSalidaInsertar(tbCodigo.Text, tbFecha.Value.ToString("yyyy/MM/dd"), tbDescripcion.Text, tbMonto.Value, cbCaja.Value, IIf(swtipo.Value = True, 1, 0), cbMotivoMovimiento.Value, PersonalId, cbSucursal.Value, 0)
+            res = L_prCierreCajeroInsertar(tbCodigo.Text, tbFechaCierre.Value.ToString("yyyy/MM/dd"))
 
             If res Then
 

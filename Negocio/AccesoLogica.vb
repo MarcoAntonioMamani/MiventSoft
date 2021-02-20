@@ -2806,6 +2806,94 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+
+    Public Shared Function L_prCierreCajeroInsertar(ByRef _numi As String, Fecha As String, PersonalId As Integer, SucursalId As Integer, MontoInicial As Double, EstadoCaja As Integer, TipoCambio As Double, TotalVenta As Double, TotalCobranzas As Double, TotalIngresos As Double, TotalEgresos As Double, TotalCaja As Double, TotalEfectivo As Double, TotalTransferencia As Double, TotalTarjeta As Double, TotalEfectivoRecibido As Double, Diferencia As Double, Observacion As String) As Boolean
+        Dim _resultado As Boolean
+
+        '@Id,@Fecha ,@PersonalId,@SucursalId,@MontoInicial,@EstadoCaja,@TipoCambio,@TotalVentas,@TotalCobranzas,@TotalIngresos,@TotalEgreso,@TotalCaja,@TotalEfectivo,@Totaltransferencia,@TotalTarjeta,@TotalEfectivoRecibido,@Diferencia,@Observacion
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@Fecha", Fecha))
+
+        _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
+        _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
+        _listParam.Add(New Datos.DParametro("@MontoInicial", MontoInicial))
+        _listParam.Add(New Datos.DParametro("@EstadoCaja", EstadoCaja))
+        _listParam.Add(New Datos.DParametro("@TipoCambio", TipoCambio))
+        _listParam.Add(New Datos.DParametro("@TotalVentas", TotalVenta))
+        _listParam.Add(New Datos.DParametro("@TotalCobranzas", TotalCobranzas))
+        _listParam.Add(New Datos.DParametro("@TotalIngresos", TotalIngresos))
+        _listParam.Add(New Datos.DParametro("@TotalEgreso", TotalEgresos))
+        _listParam.Add(New Datos.DParametro("@TotalCaja", TotalCaja))
+        _listParam.Add(New Datos.DParametro("@TotalEfectivo", TotalEfectivo))
+        _listParam.Add(New Datos.DParametro("@Totaltransferencia", TotalTransferencia))
+        _listParam.Add(New Datos.DParametro("@TotalTarjeta", TotalTarjeta))
+        _listParam.Add(New Datos.DParametro("@TotalEfectivoRecibido", TotalEfectivoRecibido))
+        _listParam.Add(New Datos.DParametro("@Diferencia", Diferencia))
+        _listParam.Add(New Datos.DParametro("@Observacion", Observacion))
+
+
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_CierreCajero", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _numi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function L_prCierreCajeroModificar(ByRef _numi As String, Fecha As String, PersonalId As Integer, SucursalId As Integer, MontoInicial As Double, EstadoCaja As Integer, TipoCambio As Double, TotalVenta As Double, TotalCobranzas As Double, TotalIngresos As Double, TotalEgresos As Double, TotalCaja As Double, TotalEfectivo As Double, TotalTransferencia As Double, TotalTarjeta As Double, TotalEfectivoRecibido As Double, Diferencia As Double, Observacion As String) As Boolean
+        Dim _resultado As Boolean
+
+        '@Id,@Fecha ,@PersonalId,@SucursalId,@MontoInicial,@EstadoCaja,@TipoCambio,@TotalVentas,@TotalCobranzas,@TotalIngresos,@TotalEgreso,@TotalCaja,@TotalEfectivo,@Totaltransferencia,@TotalTarjeta,@TotalEfectivoRecibido,@Diferencia,@Observacion
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@Fecha", Fecha))
+
+        _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
+        _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
+        _listParam.Add(New Datos.DParametro("@MontoInicial", MontoInicial))
+        _listParam.Add(New Datos.DParametro("@EstadoCaja", EstadoCaja))
+        _listParam.Add(New Datos.DParametro("@TipoCambio", TipoCambio))
+        _listParam.Add(New Datos.DParametro("@TotalVentas", TotalVenta))
+        _listParam.Add(New Datos.DParametro("@TotalCobranzas", TotalCobranzas))
+        _listParam.Add(New Datos.DParametro("@TotalIngresos", TotalIngresos))
+        _listParam.Add(New Datos.DParametro("@TotalEgreso", TotalEgresos))
+        _listParam.Add(New Datos.DParametro("@TotalCaja", TotalCaja))
+        _listParam.Add(New Datos.DParametro("@TotalEfectivo", TotalEfectivo))
+        _listParam.Add(New Datos.DParametro("@Totaltransferencia", TotalTransferencia))
+        _listParam.Add(New Datos.DParametro("@TotalTarjeta", TotalTarjeta))
+        _listParam.Add(New Datos.DParametro("@TotalEfectivoRecibido", TotalEfectivoRecibido))
+        _listParam.Add(New Datos.DParametro("@Diferencia", Diferencia))
+        _listParam.Add(New Datos.DParametro("@Observacion", Observacion))
+
+
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_CierreCajero", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _numi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
     Public Shared Function L_prIngresoSalidaInsertar(ByRef _numi As String, Fecha As String, Descripcion As String, Monto As Double, CajaId As Integer, IngresoEgreso As Integer, CajaTipoMovimientoId As Integer, PersonalId As Integer, SucursalId As Integer, CajaIdDestino As Integer) As Boolean
         Dim _resultado As Boolean
 
