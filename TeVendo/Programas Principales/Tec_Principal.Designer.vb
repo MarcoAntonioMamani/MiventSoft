@@ -106,6 +106,7 @@ Partial Class Tec_Principal
         Me.tab_distribucion = New DevComponents.DotNetBar.SuperTabItem()
         Me.PanelPrincipal = New System.Windows.Forms.Panel()
         Me.PanelContentSuperior = New System.Windows.Forms.Panel()
+        Me.btnSucursal = New DevComponents.DotNetBar.ButtonX()
         Me.btnTipoCambio = New DevComponents.DotNetBar.ButtonX()
         Me.btnUser = New DevComponents.DotNetBar.ButtonX()
         Me.btnFecha = New DevComponents.DotNetBar.ButtonX()
@@ -113,7 +114,9 @@ Partial Class Tec_Principal
         Me.btnCerrarSesion = New DevComponents.DotNetBar.ButtonX()
         Me.PanelLine = New System.Windows.Forms.Panel()
         Me.imguser = New System.Windows.Forms.PictureBox()
-        Me.btnSucursal = New DevComponents.DotNetBar.ButtonX()
+        Me.ItemContainer8 = New DevComponents.DotNetBar.ItemContainer()
+        Me.btnGastos = New DevComponents.DotNetBar.Metro.MetroTileItem()
+        Me.btnCierreCajero = New DevComponents.DotNetBar.Metro.MetroTileItem()
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlMenu.SuspendLayout()
         Me.SuperTabControlPanel3.SuspendLayout()
@@ -148,9 +151,9 @@ Partial Class Tec_Principal
         Me.SuperTabControlMenu.ControlBox.MenuBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControlMenu.ControlBox.MenuBox, Me.SuperTabControlMenu.ControlBox.CloseBox})
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel8)
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel6)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel1)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel2)
@@ -571,7 +574,7 @@ Partial Class Tec_Principal
         Me.SuperTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel5.Location = New System.Drawing.Point(213, 0)
         Me.SuperTabControlPanel5.Name = "SuperTabControlPanel5"
-        Me.SuperTabControlPanel5.Size = New System.Drawing.Size(1245, 690)
+        Me.SuperTabControlPanel5.Size = New System.Drawing.Size(1245, 693)
         Me.SuperTabControlPanel5.TabIndex = 5
         Me.SuperTabControlPanel5.TabItem = Me.tab_compraventa
         '
@@ -589,14 +592,14 @@ Partial Class Tec_Principal
         Me.Panel_Ventas.ContainerControlProcessDialogKey = True
         Me.Panel_Ventas.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel_Ventas.DragDropSupport = True
-        Me.Panel_Ventas.Items.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.ItemContainer2})
+        Me.Panel_Ventas.Items.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.ItemContainer2, Me.ItemContainer8})
         Me.Panel_Ventas.ItemSpacing = 10
         Me.Panel_Ventas.LayoutOrientation = DevComponents.DotNetBar.eOrientation.Vertical
         Me.Panel_Ventas.Location = New System.Drawing.Point(0, 0)
         Me.Panel_Ventas.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel_Ventas.MultiLine = True
         Me.Panel_Ventas.Name = "Panel_Ventas"
-        Me.Panel_Ventas.Size = New System.Drawing.Size(1245, 690)
+        Me.Panel_Ventas.Size = New System.Drawing.Size(1245, 693)
         Me.Panel_Ventas.TabIndex = 4
         Me.Panel_Ventas.Text = "mtp2Logistica"
         '
@@ -1789,6 +1792,28 @@ Partial Class Tec_Principal
         Me.PanelContentSuperior.Size = New System.Drawing.Size(1458, 40)
         Me.PanelContentSuperior.TabIndex = 1
         '
+        'btnSucursal
+        '
+        Me.btnSucursal.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnSucursal.AutoSize = True
+        Me.btnSucursal.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnSucursal.Dock = System.Windows.Forms.DockStyle.Right
+        Me.btnSucursal.EnableMarkup = False
+        Me.btnSucursal.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSucursal.Image = CType(resources.GetObject("btnSucursal.Image"), System.Drawing.Image)
+        Me.btnSucursal.ImageFixedSize = New System.Drawing.Size(25, 25)
+        Me.btnSucursal.Location = New System.Drawing.Point(612, 0)
+        Me.btnSucursal.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnSucursal.Name = "btnSucursal"
+        Me.btnSucursal.Size = New System.Drawing.Size(132, 40)
+        Me.btnSucursal.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnSucursal.Symbol = ""
+        Me.btnSucursal.TabIndex = 18
+        Me.btnSucursal.Tag = ""
+        Me.btnSucursal.Text = "Suc. Santa Cruz"
+        Me.btnSucursal.TextColor = System.Drawing.Color.White
+        Me.btnSucursal.UseMnemonic = False
+        '
         'btnTipoCambio
         '
         Me.btnTipoCambio.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
@@ -1911,27 +1936,72 @@ Partial Class Tec_Principal
         Me.imguser.TabIndex = 1
         Me.imguser.TabStop = False
         '
-        'btnSucursal
+        'ItemContainer8
         '
-        Me.btnSucursal.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnSucursal.AutoSize = True
-        Me.btnSucursal.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.btnSucursal.Dock = System.Windows.Forms.DockStyle.Right
-        Me.btnSucursal.EnableMarkup = False
-        Me.btnSucursal.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSucursal.Image = CType(resources.GetObject("btnSucursal.Image"), System.Drawing.Image)
-        Me.btnSucursal.ImageFixedSize = New System.Drawing.Size(25, 25)
-        Me.btnSucursal.Location = New System.Drawing.Point(612, 0)
-        Me.btnSucursal.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnSucursal.Name = "btnSucursal"
-        Me.btnSucursal.Size = New System.Drawing.Size(132, 40)
-        Me.btnSucursal.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnSucursal.Symbol = ""
-        Me.btnSucursal.TabIndex = 18
-        Me.btnSucursal.Tag = ""
-        Me.btnSucursal.Text = "Suc. Santa Cruz"
-        Me.btnSucursal.TextColor = System.Drawing.Color.White
-        Me.btnSucursal.UseMnemonic = False
+        '
+        '
+        '
+        Me.ItemContainer8.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.ItemContainer8.ItemSpacing = 10
+        Me.ItemContainer8.MultiLine = True
+        Me.ItemContainer8.Name = "ItemContainer8"
+        Me.ItemContainer8.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnGastos, Me.btnCierreCajero})
+        '
+        '
+        '
+        Me.ItemContainer8.TitleStyle.BackColor = System.Drawing.Color.DarkBlue
+        Me.ItemContainer8.TitleStyle.BackColor2 = System.Drawing.Color.Aquamarine
+        Me.ItemContainer8.TitleStyle.Class = "MetroTileGroupTitle"
+        Me.ItemContainer8.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.ItemContainer8.TitleStyle.Font = New System.Drawing.Font("Calibri", 18.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ItemContainer8.TitleStyle.TextColor = System.Drawing.Color.White
+        Me.ItemContainer8.TitleText = "  Administrar Caja"
+        '
+        'btnGastos
+        '
+        Me.btnGastos.Image = Global.TeVendo.My.Resources.Resources.icongastos
+        Me.btnGastos.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnGastos.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnGastos.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnGastos.Name = "btnGastos"
+        Me.btnGastos.SymbolColor = System.Drawing.Color.Black
+        Me.btnGastos.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnGastos.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btnGastos.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(159, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.btnGastos.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.btnGastos.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnGastos.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnGastos.TileStyle.PaddingRight = 20
+        Me.btnGastos.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnGastos.TitleText = "Registrar Gastos" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "o Ingresos"
+        Me.btnGastos.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnGastos.TitleTextColor = System.Drawing.Color.White
+        '
+        'btnCierreCajero
+        '
+        Me.btnCierreCajero.Image = Global.TeVendo.My.Resources.Resources.iconcierre
+        Me.btnCierreCajero.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnCierreCajero.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnCierreCajero.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnCierreCajero.Name = "btnCierreCajero"
+        Me.btnCierreCajero.SymbolColor = System.Drawing.Color.Black
+        Me.btnCierreCajero.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnCierreCajero.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btnCierreCajero.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnCierreCajero.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
+        Me.btnCierreCajero.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnCierreCajero.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnCierreCajero.TileStyle.PaddingRight = 20
+        Me.btnCierreCajero.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnCierreCajero.TitleText = "Administrar" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Cierre Caja"
+        Me.btnCierreCajero.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnCierreCajero.TitleTextColor = System.Drawing.Color.White
         '
         'Tec_Principal
         '
@@ -2054,4 +2124,7 @@ Partial Class Tec_Principal
     Friend WithEvents MetroTileItem5 As DevComponents.DotNetBar.Metro.MetroTileItem
     Protected WithEvents btnTipoCambio As DevComponents.DotNetBar.ButtonX
     Protected WithEvents btnSucursal As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents ItemContainer8 As DevComponents.DotNetBar.ItemContainer
+    Friend WithEvents btnGastos As DevComponents.DotNetBar.Metro.MetroTileItem
+    Friend WithEvents btnCierreCajero As DevComponents.DotNetBar.Metro.MetroTileItem
 End Class

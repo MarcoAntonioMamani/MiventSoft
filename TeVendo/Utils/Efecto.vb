@@ -50,7 +50,7 @@ Public Class Efecto
     Public MontoTransferencia As Double = 0
     Public TotalVenta As Double = 0
 
-
+    Public Id As Integer = 0
 
     Private Sub Efecto_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.WindowState = FormWindowState.Maximized
@@ -97,6 +97,8 @@ Public Class Efecto
                 _prMostrarFormCrearProveedor()
             Case 20
                 _prMostrarFormCobranza()
+            Case 21
+                _prMostrarFormCrearTipoMovimiento()
         End Select
     End Sub
 
@@ -107,6 +109,22 @@ Public Class Efecto
         frmAyuda.ShowDialog()
         If frmAyuda.Bandera = True Then
             CategoriaId = frmAyuda.IdCategoria
+            band = True
+            Me.Close()
+        Else
+            band = False
+            Me.Close()
+        End If
+
+    End Sub
+
+    Sub _prMostrarFormCrearTipoMovimiento()
+
+        Dim frmAyuda As Crear_TipoMovimientoCaja
+        frmAyuda = New Crear_TipoMovimientoCaja
+        frmAyuda.ShowDialog()
+        If frmAyuda.Bandera = True Then
+            Id = frmAyuda.IdTipoMovimiento
             band = True
             Me.Close()
         Else

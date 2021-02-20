@@ -713,6 +713,16 @@ Namespace My.Resources
         '''<summary>
         '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property iconcierre() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("iconcierre", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property iconeditar() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("iconeditar", resourceCulture)
@@ -736,6 +746,16 @@ Namespace My.Resources
         Friend ReadOnly Property IconFondo() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("IconFondo", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property icongastos() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("icongastos", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

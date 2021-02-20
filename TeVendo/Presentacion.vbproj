@@ -659,6 +659,12 @@
     <Compile Include="Utils\CrearProveedor.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Utils\Crear_TipoMovimientoCaja.Designer.vb">
+      <DependentUpon>Crear_TipoMovimientoCaja.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Crear_TipoMovimientoCaja.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Utils\EfectivoCobranza.Designer.vb">
       <DependentUpon>EfectivoCobranza.vb</DependentUpon>
     </Compile>
@@ -962,6 +968,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Utils\CrearProveedor.resx">
       <DependentUpon>CrearProveedor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utils\Crear_TipoMovimientoCaja.resx">
+      <DependentUpon>Crear_TipoMovimientoCaja.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Utils\EfectivoCobranza.resx">
       <DependentUpon>EfectivoCobranza.vb</DependentUpon>
@@ -1381,6 +1390,8 @@
     <None Include="Resources\empresa.png" />
     <None Include="Resources\grilladelete.png" />
     <None Include="Resources\eliminar01.jpg" />
+    <None Include="Resources\icongastos.png" />
+    <None Include="Resources\iconcierre.png" />
     <Content Include="Resources\man.png" />
     <None Include="Resources\pdf.png" />
     <None Include="Resources\txt.png" />

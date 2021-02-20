@@ -28,6 +28,8 @@ Public Class Tec_ProgramaIngresoEgresoCaja
     Dim gs_DirPrograma As String = ""
     Dim gs_RutaImg As String = ""
 
+
+
 #End Region
 
 #Region "Metodos Overrides"
@@ -354,7 +356,7 @@ Public Class Tec_ProgramaIngresoEgresoCaja
         cbMotivoMovimiento.ReadOnly = False
         cbCaja.ReadOnly = False
 
-
+        btnAgregarMotivoMovimiento.Visible = True
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -365,6 +367,8 @@ Public Class Tec_ProgramaIngresoEgresoCaja
         cbSucursal.ReadOnly = True
         cbMotivoMovimiento.ReadOnly = True
         cbCaja.ReadOnly = True
+
+        btnAgregarMotivoMovimiento.Visible = False
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -565,7 +569,7 @@ Public Class Tec_ProgramaIngresoEgresoCaja
 
     Public Function _PMOGetTablaBuscador() As DataTable
 
-        Dim dtBuscador As DataTable = L_prListarGeneral("MAM_ConceptosFijos")
+        Dim dtBuscador As DataTable = L_prListarGeneral("MAM_CajaIngresoEgreso")
         Return dtBuscador
     End Function
 
@@ -650,7 +654,13 @@ Public Class Tec_ProgramaIngresoEgresoCaja
 
     Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
         _PMNuevo()
+        Dim dt As DataTable = ListarPersonalById(Global_IdPersonal)
+        If (dt.Rows.Count > 0) Then
 
+            PersonalId = Global_IdPersonal
+            tbPersonal.Text = dt.Rows(0).Item("Nombre")
+
+        End If
     End Sub
 
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
@@ -765,6 +775,62 @@ Public Class Tec_ProgramaIngresoEgresoCaja
         _TabControl.SelectedTab = _modulo
         _tab.Close()
         Me.Close()
+    End Sub
+
+    Private Sub cbCaja_ValueChanged(sender As Object, e As EventArgs) Handles cbCaja.ValueChanged
+
+    End Sub
+
+    Private Sub btnAgregarMotivoMovimiento_Click(sender As Object, e As EventArgs) Handles btnAgregarMotivoMovimiento.Click
+        Dim numi As String = ""
+        Dim ef = New Efecto
+        ef.tipo = 21
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            'P_Global._prCargarComboGenerico(cbCategoria, L_prListaCategorias(), "Id", "Codigo", "NombreCategoria", "Categoria")
+            _prCargarComboTipoMovimiento(cbMotivoMovimiento)
+
+            cbMotivoMovimiento.Value = ef.Id
+            cbMotivoMovimiento.Focus()
+
+            Dim dt As DataTable = CType(cbMotivoMovimiento.DataSource, DataTable)
+
+            Dim fila As DataRow() = dt.Select("id =" + Str(ef.Id))
+            If (Not IsDBNull(fila)) Then
+                If (fila.Count > 0) Then
+
+                    Dim valor As Integer = fila(0).Item("Tipo")
+                    If (valor = 1) Then
+                        swtipo.Value = True
+                    Else
+                        swtipo.Value = False
+                    End If
+                End If
+
+            End If
+
+        End If
+
+    End Sub
+
+    Private Sub cbMotivoMovimiento_ValueChanged(sender As Object, e As EventArgs) Handles cbMotivoMovimiento.ValueChanged
+        Dim dt As DataTable = CType(cbMotivoMovimiento.DataSource, DataTable)
+
+        Dim fila As DataRow() = dt.Select("id =" + Str(cbMotivoMovimiento.Value))
+        If (Not IsDBNull(fila)) Then
+            If (fila.Count > 0) Then
+
+                Dim valor As Integer = fila(0).Item("Tipo")
+                If (valor = 1) Then
+                    swtipo.Value = True
+                Else
+                    swtipo.Value = False
+                End If
+            End If
+
+        End If
     End Sub
 #End Region
 End Class
