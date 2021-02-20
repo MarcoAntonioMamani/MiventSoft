@@ -43,14 +43,14 @@ Partial Class Tec_CierreCajaCajero
         Me.LabelX13 = New DevComponents.DotNetBar.LabelX()
         Me.tbEfectivoRecibido = New DevComponents.Editors.DoubleInput()
         Me.LabelX12 = New DevComponents.DotNetBar.LabelX()
-        Me.tbContadoCobranzas = New DevComponents.Editors.DoubleInput()
+        Me.tbTotalCaja = New DevComponents.Editors.DoubleInput()
         Me.LabelX10 = New DevComponents.DotNetBar.LabelX()
         Me.tbGastos = New DevComponents.Editors.DoubleInput()
-        Me.tbCobranzas = New DevComponents.Editors.DoubleInput()
+        Me.tbTotalPagos = New DevComponents.Editors.DoubleInput()
         Me.LabelX8 = New DevComponents.DotNetBar.LabelX()
-        Me.tbVentasCredito = New DevComponents.Editors.DoubleInput()
+        Me.tbVentasContadoCobranza = New DevComponents.Editors.DoubleInput()
         Me.LabelX7 = New DevComponents.DotNetBar.LabelX()
-        Me.tbVentasContado = New DevComponents.Editors.DoubleInput()
+        Me.tbMontoInicialTotal = New DevComponents.Editors.DoubleInput()
         Me.LabelX6 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
         Me.Panel5 = New System.Windows.Forms.Panel()
@@ -107,8 +107,8 @@ Partial Class Tec_CierreCajaCajero
         Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         Me.LabelX14 = New DevComponents.DotNetBar.LabelX()
-        Me.DoubleInput1 = New DevComponents.Editors.DoubleInput()
-        Me.swtipo = New DevComponents.DotNetBar.Controls.SwitchButton()
+        Me.tbMontoInicial = New DevComponents.Editors.DoubleInput()
+        Me.swEstado = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.LabelX15 = New DevComponents.DotNetBar.LabelX()
         Me.SuperTabItem5 = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel5 = New DevComponents.DotNetBar.SuperTabControlPanel()
@@ -116,11 +116,11 @@ Partial Class Tec_CierreCajaCajero
         Me.tbIngresos = New DevComponents.Editors.DoubleInput()
         Me.LabelX16 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX17 = New DevComponents.DotNetBar.LabelX()
-        Me.DoubleInput2 = New DevComponents.Editors.DoubleInput()
+        Me.tbTotalCortesEfectivo = New DevComponents.Editors.DoubleInput()
         Me.LabelX9 = New DevComponents.DotNetBar.LabelX()
-        Me.DoubleInput3 = New DevComponents.Editors.DoubleInput()
+        Me.TbTotalTransferencia = New DevComponents.Editors.DoubleInput()
         Me.LabelX11 = New DevComponents.DotNetBar.LabelX()
-        Me.DoubleInput4 = New DevComponents.Editors.DoubleInput()
+        Me.tbTotalTarjeta = New DevComponents.Editors.DoubleInput()
         Me.LabelX18 = New DevComponents.DotNetBar.LabelX()
         Me.MeuOpciones = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.VerToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
@@ -146,11 +146,11 @@ Partial Class Tec_CierreCajaCajero
         Me.panelProducto.SuspendLayout()
         CType(Me.tbDiferencia, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbEfectivoRecibido, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.tbContadoCobranzas, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbTotalCaja, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbGastos, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.tbCobranzas, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.tbVentasCredito, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.tbVentasContado, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbTotalPagos, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbVentasContadoCobranza, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbMontoInicialTotal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
         Me.Panel6.SuspendLayout()
         Me.PanelLEft.SuspendLayout()
@@ -174,13 +174,13 @@ Partial Class Tec_CierreCajaCajero
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DoubleInput1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbMontoInicial, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlPanel5.SuspendLayout()
         CType(Me.grIngresosEgresoss, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbIngresos, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DoubleInput2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DoubleInput3, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DoubleInput4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbTotalCortesEfectivo, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.TbTotalTransferencia, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbTotalTarjeta, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MeuOpciones.SuspendLayout()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -200,8 +200,8 @@ Partial Class Tec_CierreCajaCajero
         Me.TabControlPrincipal.ControlBox.MenuBox.Name = ""
         Me.TabControlPrincipal.ControlBox.Name = ""
         Me.TabControlPrincipal.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.TabControlPrincipal.ControlBox.MenuBox, Me.TabControlPrincipal.ControlBox.CloseBox})
-        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel2)
         Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel1)
+        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel2)
         Me.TabControlPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControlPrincipal.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.Location = New System.Drawing.Point(0, 0)
@@ -308,9 +308,9 @@ Partial Class Tec_CierreCajaCajero
         Me.SuperTabControl1.ControlBox.MenuBox.Name = ""
         Me.SuperTabControl1.ControlBox.Name = ""
         Me.SuperTabControl1.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControl1.ControlBox.MenuBox, Me.SuperTabControl1.ControlBox.CloseBox})
-        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel5)
-        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel4)
         Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel3)
+        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel4)
+        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel5)
         Me.SuperTabControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControl1.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControl1.Location = New System.Drawing.Point(0, 0)
@@ -472,11 +472,11 @@ Partial Class Tec_CierreCajaCajero
         '
         'panelProducto
         '
-        Me.panelProducto.Controls.Add(Me.DoubleInput4)
+        Me.panelProducto.Controls.Add(Me.tbTotalTarjeta)
         Me.panelProducto.Controls.Add(Me.LabelX18)
-        Me.panelProducto.Controls.Add(Me.DoubleInput3)
+        Me.panelProducto.Controls.Add(Me.TbTotalTransferencia)
         Me.panelProducto.Controls.Add(Me.LabelX11)
-        Me.panelProducto.Controls.Add(Me.DoubleInput2)
+        Me.panelProducto.Controls.Add(Me.tbTotalCortesEfectivo)
         Me.panelProducto.Controls.Add(Me.LabelX9)
         Me.panelProducto.Controls.Add(Me.LabelX17)
         Me.panelProducto.Controls.Add(Me.tbIngresos)
@@ -485,14 +485,14 @@ Partial Class Tec_CierreCajaCajero
         Me.panelProducto.Controls.Add(Me.LabelX13)
         Me.panelProducto.Controls.Add(Me.tbEfectivoRecibido)
         Me.panelProducto.Controls.Add(Me.LabelX12)
-        Me.panelProducto.Controls.Add(Me.tbContadoCobranzas)
+        Me.panelProducto.Controls.Add(Me.tbTotalCaja)
         Me.panelProducto.Controls.Add(Me.LabelX10)
         Me.panelProducto.Controls.Add(Me.tbGastos)
-        Me.panelProducto.Controls.Add(Me.tbCobranzas)
+        Me.panelProducto.Controls.Add(Me.tbTotalPagos)
         Me.panelProducto.Controls.Add(Me.LabelX8)
-        Me.panelProducto.Controls.Add(Me.tbVentasCredito)
+        Me.panelProducto.Controls.Add(Me.tbVentasContadoCobranza)
         Me.panelProducto.Controls.Add(Me.LabelX7)
-        Me.panelProducto.Controls.Add(Me.tbVentasContado)
+        Me.panelProducto.Controls.Add(Me.tbMontoInicialTotal)
         Me.panelProducto.Controls.Add(Me.LabelX6)
         Me.panelProducto.Controls.Add(Me.LabelX4)
         Me.panelProducto.Dock = System.Windows.Forms.DockStyle.Bottom
@@ -568,22 +568,22 @@ Partial Class Tec_CierreCajaCajero
         Me.LabelX12.TabIndex = 231
         Me.LabelX12.Text = "Efectivo Recibido"
         '
-        'tbContadoCobranzas
+        'tbTotalCaja
         '
         '
         '
         '
-        Me.tbContadoCobranzas.BackgroundStyle.BackColor = System.Drawing.Color.Chartreuse
-        Me.tbContadoCobranzas.BackgroundStyle.Class = "DateTimeInputBackground"
-        Me.tbContadoCobranzas.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbContadoCobranzas.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
-        Me.tbContadoCobranzas.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbContadoCobranzas.Increment = 1.0R
-        Me.tbContadoCobranzas.IsInputReadOnly = True
-        Me.tbContadoCobranzas.Location = New System.Drawing.Point(123, 187)
-        Me.tbContadoCobranzas.Name = "tbContadoCobranzas"
-        Me.tbContadoCobranzas.Size = New System.Drawing.Size(181, 30)
-        Me.tbContadoCobranzas.TabIndex = 228
+        Me.tbTotalCaja.BackgroundStyle.BackColor = System.Drawing.Color.Chartreuse
+        Me.tbTotalCaja.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbTotalCaja.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbTotalCaja.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.tbTotalCaja.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbTotalCaja.Increment = 1.0R
+        Me.tbTotalCaja.IsInputReadOnly = True
+        Me.tbTotalCaja.Location = New System.Drawing.Point(123, 187)
+        Me.tbTotalCaja.Name = "tbTotalCaja"
+        Me.tbTotalCaja.Size = New System.Drawing.Size(181, 30)
+        Me.tbTotalCaja.TabIndex = 228
         '
         'LabelX10
         '
@@ -620,21 +620,21 @@ Partial Class Tec_CierreCajaCajero
         Me.tbGastos.Size = New System.Drawing.Size(117, 24)
         Me.tbGastos.TabIndex = 226
         '
-        'tbCobranzas
+        'tbTotalPagos
         '
         '
         '
         '
-        Me.tbCobranzas.BackgroundStyle.Class = "DateTimeInputBackground"
-        Me.tbCobranzas.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbCobranzas.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
-        Me.tbCobranzas.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbCobranzas.Increment = 1.0R
-        Me.tbCobranzas.IsInputReadOnly = True
-        Me.tbCobranzas.Location = New System.Drawing.Point(187, 91)
-        Me.tbCobranzas.Name = "tbCobranzas"
-        Me.tbCobranzas.Size = New System.Drawing.Size(117, 24)
-        Me.tbCobranzas.TabIndex = 224
+        Me.tbTotalPagos.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbTotalPagos.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbTotalPagos.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.tbTotalPagos.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbTotalPagos.Increment = 1.0R
+        Me.tbTotalPagos.IsInputReadOnly = True
+        Me.tbTotalPagos.Location = New System.Drawing.Point(187, 91)
+        Me.tbTotalPagos.Name = "tbTotalPagos"
+        Me.tbTotalPagos.Size = New System.Drawing.Size(117, 24)
+        Me.tbTotalPagos.TabIndex = 224
         '
         'LabelX8
         '
@@ -654,21 +654,21 @@ Partial Class Tec_CierreCajaCajero
         Me.LabelX8.TabIndex = 223
         Me.LabelX8.Text = "Total Pagos:"
         '
-        'tbVentasCredito
+        'tbVentasContadoCobranza
         '
         '
         '
         '
-        Me.tbVentasCredito.BackgroundStyle.Class = "DateTimeInputBackground"
-        Me.tbVentasCredito.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbVentasCredito.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
-        Me.tbVentasCredito.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbVentasCredito.Increment = 1.0R
-        Me.tbVentasCredito.IsInputReadOnly = True
-        Me.tbVentasCredito.Location = New System.Drawing.Point(187, 63)
-        Me.tbVentasCredito.Name = "tbVentasCredito"
-        Me.tbVentasCredito.Size = New System.Drawing.Size(117, 24)
-        Me.tbVentasCredito.TabIndex = 222
+        Me.tbVentasContadoCobranza.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbVentasContadoCobranza.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbVentasContadoCobranza.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.tbVentasContadoCobranza.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbVentasContadoCobranza.Increment = 1.0R
+        Me.tbVentasContadoCobranza.IsInputReadOnly = True
+        Me.tbVentasContadoCobranza.Location = New System.Drawing.Point(187, 63)
+        Me.tbVentasContadoCobranza.Name = "tbVentasContadoCobranza"
+        Me.tbVentasContadoCobranza.Size = New System.Drawing.Size(117, 24)
+        Me.tbVentasContadoCobranza.TabIndex = 222
         '
         'LabelX7
         '
@@ -688,21 +688,21 @@ Partial Class Tec_CierreCajaCajero
         Me.LabelX7.TabIndex = 221
         Me.LabelX7.Text = "Ventas Contado-Cobranzas"
         '
-        'tbVentasContado
+        'tbMontoInicialTotal
         '
         '
         '
         '
-        Me.tbVentasContado.BackgroundStyle.Class = "DateTimeInputBackground"
-        Me.tbVentasContado.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbVentasContado.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
-        Me.tbVentasContado.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbVentasContado.Increment = 1.0R
-        Me.tbVentasContado.IsInputReadOnly = True
-        Me.tbVentasContado.Location = New System.Drawing.Point(187, 33)
-        Me.tbVentasContado.Name = "tbVentasContado"
-        Me.tbVentasContado.Size = New System.Drawing.Size(117, 24)
-        Me.tbVentasContado.TabIndex = 220
+        Me.tbMontoInicialTotal.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbMontoInicialTotal.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbMontoInicialTotal.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.tbMontoInicialTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbMontoInicialTotal.Increment = 1.0R
+        Me.tbMontoInicialTotal.IsInputReadOnly = True
+        Me.tbMontoInicialTotal.Location = New System.Drawing.Point(187, 33)
+        Me.tbMontoInicialTotal.Name = "tbMontoInicialTotal"
+        Me.tbMontoInicialTotal.Size = New System.Drawing.Size(117, 24)
+        Me.tbMontoInicialTotal.TabIndex = 220
         '
         'LabelX6
         '
@@ -913,9 +913,9 @@ Partial Class Tec_CierreCajaCajero
         'Panel9
         '
         Me.Panel9.BackColor = System.Drawing.Color.White
-        Me.Panel9.Controls.Add(Me.swtipo)
+        Me.Panel9.Controls.Add(Me.swEstado)
         Me.Panel9.Controls.Add(Me.LabelX15)
-        Me.Panel9.Controls.Add(Me.DoubleInput1)
+        Me.Panel9.Controls.Add(Me.tbMontoInicial)
         Me.Panel9.Controls.Add(Me.LabelX14)
         Me.Panel9.Controls.Add(Me.LabelX3)
         Me.Panel9.Controls.Add(Me.tbDetalle)
@@ -1631,46 +1631,46 @@ Partial Class Tec_CierreCajaCajero
         Me.LabelX14.TabIndex = 220
         Me.LabelX14.Text = "Monto Inicial:"
         '
-        'DoubleInput1
+        'tbMontoInicial
         '
         '
         '
         '
-        Me.DoubleInput1.BackgroundStyle.BackColor = System.Drawing.Color.Chartreuse
-        Me.DoubleInput1.BackgroundStyle.Class = "DateTimeInputBackground"
-        Me.DoubleInput1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.DoubleInput1.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
-        Me.DoubleInput1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DoubleInput1.Increment = 1.0R
-        Me.DoubleInput1.IsInputReadOnly = True
-        Me.DoubleInput1.Location = New System.Drawing.Point(349, 74)
-        Me.DoubleInput1.Name = "DoubleInput1"
-        Me.DoubleInput1.Size = New System.Drawing.Size(157, 27)
-        Me.DoubleInput1.TabIndex = 229
+        Me.tbMontoInicial.BackgroundStyle.BackColor = System.Drawing.Color.Chartreuse
+        Me.tbMontoInicial.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbMontoInicial.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbMontoInicial.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.tbMontoInicial.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbMontoInicial.Increment = 1.0R
+        Me.tbMontoInicial.IsInputReadOnly = True
+        Me.tbMontoInicial.Location = New System.Drawing.Point(349, 74)
+        Me.tbMontoInicial.Name = "tbMontoInicial"
+        Me.tbMontoInicial.Size = New System.Drawing.Size(157, 27)
+        Me.tbMontoInicial.TabIndex = 229
         '
-        'swtipo
-        '
-        '
+        'swEstado
         '
         '
-        Me.swtipo.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.swtipo.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.swtipo.IsReadOnly = True
-        Me.swtipo.Location = New System.Drawing.Point(349, 125)
-        Me.swtipo.Margin = New System.Windows.Forms.Padding(4)
-        Me.swtipo.Name = "swtipo"
-        Me.swtipo.OffBackColor = System.Drawing.Color.OrangeRed
-        Me.swtipo.OffText = "Cerrada"
-        Me.swtipo.OffTextColor = System.Drawing.Color.White
-        Me.swtipo.OnBackColor = System.Drawing.Color.MediumTurquoise
-        Me.swtipo.OnText = "Abierta"
-        Me.swtipo.OnTextColor = System.Drawing.Color.White
-        Me.swtipo.Size = New System.Drawing.Size(219, 27)
-        Me.swtipo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.swtipo.TabIndex = 230
-        Me.swtipo.ValueFalse = "0"
-        Me.swtipo.ValueObject = "0"
-        Me.swtipo.ValueTrue = "1"
+        '
+        '
+        Me.swEstado.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.swEstado.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.swEstado.IsReadOnly = True
+        Me.swEstado.Location = New System.Drawing.Point(349, 125)
+        Me.swEstado.Margin = New System.Windows.Forms.Padding(4)
+        Me.swEstado.Name = "swEstado"
+        Me.swEstado.OffBackColor = System.Drawing.Color.OrangeRed
+        Me.swEstado.OffText = "Cerrada"
+        Me.swEstado.OffTextColor = System.Drawing.Color.White
+        Me.swEstado.OnBackColor = System.Drawing.Color.MediumTurquoise
+        Me.swEstado.OnText = "Abierta"
+        Me.swEstado.OnTextColor = System.Drawing.Color.White
+        Me.swEstado.Size = New System.Drawing.Size(219, 27)
+        Me.swEstado.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.swEstado.TabIndex = 230
+        Me.swEstado.ValueFalse = "0"
+        Me.swEstado.ValueObject = "0"
+        Me.swEstado.ValueTrue = "1"
         '
         'LabelX15
         '
@@ -1814,21 +1814,21 @@ Partial Class Tec_CierreCajaCajero
         Me.LabelX17.TabIndex = 237
         Me.LabelX17.Text = "Total Gastos-Egresos:"
         '
-        'DoubleInput2
+        'tbTotalCortesEfectivo
         '
         '
         '
         '
-        Me.DoubleInput2.BackgroundStyle.Class = "DateTimeInputBackground"
-        Me.DoubleInput2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.DoubleInput2.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
-        Me.DoubleInput2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DoubleInput2.Increment = 1.0R
-        Me.DoubleInput2.IsInputReadOnly = True
-        Me.DoubleInput2.Location = New System.Drawing.Point(499, 33)
-        Me.DoubleInput2.Name = "DoubleInput2"
-        Me.DoubleInput2.Size = New System.Drawing.Size(117, 24)
-        Me.DoubleInput2.TabIndex = 239
+        Me.tbTotalCortesEfectivo.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbTotalCortesEfectivo.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbTotalCortesEfectivo.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.tbTotalCortesEfectivo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbTotalCortesEfectivo.Increment = 1.0R
+        Me.tbTotalCortesEfectivo.IsInputReadOnly = True
+        Me.tbTotalCortesEfectivo.Location = New System.Drawing.Point(499, 33)
+        Me.tbTotalCortesEfectivo.Name = "tbTotalCortesEfectivo"
+        Me.tbTotalCortesEfectivo.Size = New System.Drawing.Size(117, 24)
+        Me.tbTotalCortesEfectivo.TabIndex = 239
         '
         'LabelX9
         '
@@ -1848,21 +1848,21 @@ Partial Class Tec_CierreCajaCajero
         Me.LabelX9.TabIndex = 238
         Me.LabelX9.Text = "Total Cortes Efectivo:"
         '
-        'DoubleInput3
+        'TbTotalTransferencia
         '
         '
         '
         '
-        Me.DoubleInput3.BackgroundStyle.Class = "DateTimeInputBackground"
-        Me.DoubleInput3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.DoubleInput3.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
-        Me.DoubleInput3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DoubleInput3.Increment = 1.0R
-        Me.DoubleInput3.IsInputReadOnly = True
-        Me.DoubleInput3.Location = New System.Drawing.Point(499, 63)
-        Me.DoubleInput3.Name = "DoubleInput3"
-        Me.DoubleInput3.Size = New System.Drawing.Size(117, 24)
-        Me.DoubleInput3.TabIndex = 241
+        Me.TbTotalTransferencia.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.TbTotalTransferencia.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.TbTotalTransferencia.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.TbTotalTransferencia.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TbTotalTransferencia.Increment = 1.0R
+        Me.TbTotalTransferencia.IsInputReadOnly = True
+        Me.TbTotalTransferencia.Location = New System.Drawing.Point(499, 63)
+        Me.TbTotalTransferencia.Name = "TbTotalTransferencia"
+        Me.TbTotalTransferencia.Size = New System.Drawing.Size(117, 24)
+        Me.TbTotalTransferencia.TabIndex = 241
         '
         'LabelX11
         '
@@ -1882,21 +1882,21 @@ Partial Class Tec_CierreCajaCajero
         Me.LabelX11.TabIndex = 240
         Me.LabelX11.Text = "Total Transferencia:"
         '
-        'DoubleInput4
+        'tbTotalTarjeta
         '
         '
         '
         '
-        Me.DoubleInput4.BackgroundStyle.Class = "DateTimeInputBackground"
-        Me.DoubleInput4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.DoubleInput4.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
-        Me.DoubleInput4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DoubleInput4.Increment = 1.0R
-        Me.DoubleInput4.IsInputReadOnly = True
-        Me.DoubleInput4.Location = New System.Drawing.Point(499, 91)
-        Me.DoubleInput4.Name = "DoubleInput4"
-        Me.DoubleInput4.Size = New System.Drawing.Size(117, 24)
-        Me.DoubleInput4.TabIndex = 243
+        Me.tbTotalTarjeta.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbTotalTarjeta.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbTotalTarjeta.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.tbTotalTarjeta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbTotalTarjeta.Increment = 1.0R
+        Me.tbTotalTarjeta.IsInputReadOnly = True
+        Me.tbTotalTarjeta.Location = New System.Drawing.Point(499, 91)
+        Me.tbTotalTarjeta.Name = "tbTotalTarjeta"
+        Me.tbTotalTarjeta.Size = New System.Drawing.Size(117, 24)
+        Me.tbTotalTarjeta.TabIndex = 243
         '
         'LabelX18
         '
@@ -1930,7 +1930,7 @@ Partial Class Tec_CierreCajaCajero
         Me.VerToolStripMenuItem1.Image = Global.TeVendo.My.Resources.Resources.verRegistros2
         Me.VerToolStripMenuItem1.Name = "VerToolStripMenuItem1"
         Me.VerToolStripMenuItem1.Padding = New System.Windows.Forms.Padding(5)
-        Me.VerToolStripMenuItem1.Size = New System.Drawing.Size(189, 36)
+        Me.VerToolStripMenuItem1.Size = New System.Drawing.Size(155, 36)
         Me.VerToolStripMenuItem1.Text = "Ver"
         '
         'EditarToolStripMenuItem
@@ -1939,7 +1939,7 @@ Partial Class Tec_CierreCajaCajero
         Me.EditarToolStripMenuItem.Image = Global.TeVendo.My.Resources.Resources.edit
         Me.EditarToolStripMenuItem.Name = "EditarToolStripMenuItem"
         Me.EditarToolStripMenuItem.Padding = New System.Windows.Forms.Padding(5)
-        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(189, 36)
+        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(155, 36)
         Me.EditarToolStripMenuItem.Text = "Editar"
         '
         'EliminarToolStripMenuItem1
@@ -1948,7 +1948,7 @@ Partial Class Tec_CierreCajaCajero
         Me.EliminarToolStripMenuItem1.Image = Global.TeVendo.My.Resources.Resources.trash2
         Me.EliminarToolStripMenuItem1.Name = "EliminarToolStripMenuItem1"
         Me.EliminarToolStripMenuItem1.Padding = New System.Windows.Forms.Padding(5)
-        Me.EliminarToolStripMenuItem1.Size = New System.Drawing.Size(189, 36)
+        Me.EliminarToolStripMenuItem1.Size = New System.Drawing.Size(155, 36)
         Me.EliminarToolStripMenuItem1.Text = "Eliminar"
         '
         'Highlighter2
@@ -1987,11 +1987,11 @@ Partial Class Tec_CierreCajaCajero
         Me.panelProducto.PerformLayout()
         CType(Me.tbDiferencia, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbEfectivoRecibido, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.tbContadoCobranzas, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbTotalCaja, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbGastos, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.tbCobranzas, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.tbVentasCredito, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.tbVentasContado, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbTotalPagos, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbVentasContadoCobranza, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbMontoInicialTotal, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel5.ResumeLayout(False)
         Me.Panel6.ResumeLayout(False)
         Me.PanelLEft.ResumeLayout(False)
@@ -2016,13 +2016,13 @@ Partial Class Tec_CierreCajaCajero
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DoubleInput1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbMontoInicial, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuperTabControlPanel5.ResumeLayout(False)
         CType(Me.grIngresosEgresoss, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbIngresos, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DoubleInput2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DoubleInput3, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DoubleInput4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbTotalCortesEfectivo, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.TbTotalTransferencia, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbTotalTarjeta, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MeuOpciones.ResumeLayout(False)
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -2049,14 +2049,14 @@ Partial Class Tec_CierreCajaCajero
     Friend WithEvents LabelX13 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbEfectivoRecibido As DevComponents.Editors.DoubleInput
     Friend WithEvents LabelX12 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents tbContadoCobranzas As DevComponents.Editors.DoubleInput
+    Friend WithEvents tbTotalCaja As DevComponents.Editors.DoubleInput
     Friend WithEvents LabelX10 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbGastos As DevComponents.Editors.DoubleInput
-    Friend WithEvents tbCobranzas As DevComponents.Editors.DoubleInput
+    Friend WithEvents tbTotalPagos As DevComponents.Editors.DoubleInput
     Friend WithEvents LabelX8 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents tbVentasCredito As DevComponents.Editors.DoubleInput
+    Friend WithEvents tbVentasContadoCobranza As DevComponents.Editors.DoubleInput
     Friend WithEvents LabelX7 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents tbVentasContado As DevComponents.Editors.DoubleInput
+    Friend WithEvents tbMontoInicialTotal As DevComponents.Editors.DoubleInput
     Friend WithEvents LabelX6 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX4 As DevComponents.DotNetBar.LabelX
     Friend WithEvents Panel5 As Panel
@@ -2113,8 +2113,8 @@ Partial Class Tec_CierreCajaCajero
     Friend WithEvents PictureBox4 As PictureBox
     Friend WithEvents SuperTabItem2 As DevComponents.DotNetBar.SuperTabItem
     Friend WithEvents LabelX14 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents DoubleInput1 As DevComponents.Editors.DoubleInput
-    Friend WithEvents swtipo As DevComponents.DotNetBar.Controls.SwitchButton
+    Friend WithEvents tbMontoInicial As DevComponents.Editors.DoubleInput
+    Friend WithEvents swEstado As DevComponents.DotNetBar.Controls.SwitchButton
     Friend WithEvents LabelX15 As DevComponents.DotNetBar.LabelX
     Friend WithEvents SuperTabControlPanel5 As DevComponents.DotNetBar.SuperTabControlPanel
     Friend WithEvents grIngresosEgresoss As Janus.Windows.GridEX.GridEX
@@ -2122,11 +2122,11 @@ Partial Class Tec_CierreCajaCajero
     Friend WithEvents tbIngresos As DevComponents.Editors.DoubleInput
     Friend WithEvents LabelX16 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX17 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents DoubleInput2 As DevComponents.Editors.DoubleInput
+    Friend WithEvents tbTotalCortesEfectivo As DevComponents.Editors.DoubleInput
     Friend WithEvents LabelX9 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents DoubleInput4 As DevComponents.Editors.DoubleInput
+    Friend WithEvents tbTotalTarjeta As DevComponents.Editors.DoubleInput
     Friend WithEvents LabelX18 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents DoubleInput3 As DevComponents.Editors.DoubleInput
+    Friend WithEvents TbTotalTransferencia As DevComponents.Editors.DoubleInput
     Friend WithEvents LabelX11 As DevComponents.DotNetBar.LabelX
     Friend WithEvents MeuOpciones As ContextMenuStrip
     Friend WithEvents VerToolStripMenuItem1 As ToolStripMenuItem
