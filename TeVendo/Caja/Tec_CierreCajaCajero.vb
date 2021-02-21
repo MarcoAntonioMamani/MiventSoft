@@ -363,16 +363,50 @@ Public Class Tec_CierreCajaCajero
             .Caption = "Dinero Bs"
             .Visible = True
             .FormatString = "0.00"
-            .AggregateFunction = AggregateFunction.Sum
+
+            .TextAlignment = TextAlignment.Far
+
         End With
         With grEfectivo.RootTable.Columns("CantidadBs")
             .Width = 100
             .Caption = "Cantidad Bs"
             .Visible = True
+            .FormatString = "0"
+            .TextAlignment = TextAlignment.Far
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+        With grEfectivo.RootTable.Columns("SubTotalBs")
+            .Width = 100
+            .Caption = "SubTotal Bs"
+            .Visible = True
+            .TextAlignment = TextAlignment.Far
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
         End With
+        With grEfectivo.RootTable.Columns("CorteDolares")
+            .Width = 100
+            .Caption = "Dinero $u$"
+            .Visible = True
+            .FormatString = "0.00"
 
+        End With
+        With grEfectivo.RootTable.Columns("CantidadDolares")
+            .Width = 100
+            .Caption = "Cantidad $u$"
+            .Visible = True
+            .TextAlignment = TextAlignment.Far
+            .FormatString = "0"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+        With grEfectivo.RootTable.Columns("SubtotalDolares")
+            .Width = 100
+            .Caption = "SubTotal $u$"
+            .Visible = True
+            .TextAlignment = TextAlignment.Far
+            .LeftMargin = 4
+            .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
 
         With grEfectivo
             .GroupByBoxVisible = False
@@ -393,6 +427,19 @@ Public Class Tec_CierreCajaCajero
             .TotalRowPosition = TotalRowPosition.BottomFixed
 
         End With
+
+
+
+        Dim condicionBs = New GridEXFilterCondition(grEfectivo.RootTable.Columns("CantidadBs"), Janus.Windows.GridEX.ConditionOperator.GreaterThan, 0)
+        Dim condicionSus = New GridEXFilterCondition(grEfectivo.RootTable.Columns("CantidadDolares"), Janus.Windows.GridEX.ConditionOperator.GreaterThan, 0)
+
+        Dim compositeCondition As GridEXFilterCondition = New GridEXFilterCondition
+
+
+        compositeCondition.AddCondition(condicionBs)
+        compositeCondition.AddCondition(LogicalOperator.Or, condicionSus)
+
+        grEfectivo.RootTable.FilterCondition = compositeCondition
 
     End Sub
     Private Sub _prCargarDetalleIngresoEgresos(id As Integer)
@@ -541,11 +588,15 @@ Public Class Tec_CierreCajaCajero
             .Caption = "Transferencia Bancaria"
             .Visible = True
             .FormatString = "0.00"
+            .WordWrap = True
+            .MaxLines = 2
             .AggregateFunction = AggregateFunction.Sum
         End With
         With grVentas.RootTable.Columns("tarjeta")
             .Width = 100
             .Caption = "Tarjeta"
+            .WordWrap = True
+            .MaxLines = 2
             .Visible = True
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
@@ -565,6 +616,10 @@ Public Class Tec_CierreCajaCajero
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
         End With
+        grVentas.RootTable.ColumnSetHeaderLines = 2
+        grVentas.RootTable.ColumnSetRowCount = 2
+        grVentas.RootTable.ShouldSerializeRowHeaderWidth()
+
         With grVentas
             .GroupByBoxVisible = False
             'diseño de la grilla
@@ -651,7 +706,7 @@ Public Class Tec_CierreCajaCajero
         tbDetalle.ReadOnly = False
 
 
-        tbEfectivoRecibido.IsInputReadOnly = False
+        tbEfectivoRecibido.IsInputReadOnly = True
 
 
         btnCargarDatos.Visible = True
@@ -664,7 +719,7 @@ Public Class Tec_CierreCajaCajero
             cbSucursal.ReadOnly = False
 
         End If
-
+        tbTipoCambio.IsInputReadOnly = False
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -674,7 +729,7 @@ Public Class Tec_CierreCajaCajero
         btnCargarDatos.Visible = False
 
         tbEfectivoRecibido.IsInputReadOnly = True
-
+        tbTipoCambio.IsInputReadOnly = True
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -698,14 +753,35 @@ Public Class Tec_CierreCajaCajero
         tbDiferencia.Value = 0
         tbMontoInicial.Focus()
 
+        tbTipoCambio.Value = Global_TipoCambio
+
+        If (Not IsNothing(grVentas.DataSource)) Then
+            CType(grVentas.DataSource, DataTable).Rows.Clear()
+
+
+        End If
+
+        If (Not IsNothing(grCobranzas.DataSource)) Then
+            CType(grCobranzas.DataSource, DataTable).Rows.Clear()
+
+
+        End If
+
+        If (Not IsNothing(grEfectivo.DataSource)) Then
+            CType(grEfectivo.DataSource, DataTable).Rows.Clear()
+
+
+        End If
+
+        If (Not IsNothing(grIngresosEgresoss.DataSource)) Then
+            CType(grIngresosEgresoss.DataSource, DataTable).Rows.Clear()
+        End If
     End Sub
 
 
     Public Sub _PMOLimpiarErrores()
         MEP.Clear()
         tbEfectivoRecibido.BackColor = Color.White
-
-
 
     End Sub
 
@@ -719,6 +795,7 @@ Public Class Tec_CierreCajaCajero
         ''_conversion As Double
         Dim res As Boolean
         Try
+            TipoCambio = tbTipoCambio.Value
             res = L_prCierreCajeroInsertar(tbCodigo.Text, tbFechaCierre.Value.ToString("yyyy/MM/dd"), PersonalId, cbSucursal.Value, tbMontoInicial.Value, IIf(swEstado.Value = True, 1, 0), TipoCambio, tbVentasContadoCobranza.Value, tbTotalPagos.Value, tbIngresos.Value, tbGastos.Value, tbTotalCaja.Value, tbTotalCortesEfectivo.Value, TbTotalTransferencia.Value, tbTotalTarjeta.Value, tbEfectivoRecibido.Value, tbDiferencia.Value, tbDetalle.Text)
 
             If res Then
@@ -740,10 +817,46 @@ Public Class Tec_CierreCajaCajero
 
     End Function
 
+    Public Function ArmarIdModulos() As DataTable
+
+        Dim id As Integer = 0
+        Dim dt As DataTable = L_prListarIdModulosCierre(-1)
+
+        Dim dtVentas As DataTable = CType(grVentas.DataSource, DataTable)
+
+        For i As Integer = 0 To dtVentas.Rows.Count - 1 Step 1
+
+            dt.Rows.Add(id, 0, 1, dtVentas.Rows(i).Item("Id"))
+            id += 1
+
+        Next
+
+        Dim dtPagos As DataTable = CType(grCobranzas.DataSource, DataTable)
+
+        For i As Integer = 0 To dtPagos.Rows.Count - 1 Step 1
+
+            dt.Rows.Add(id, 0, 2, dtPagos.Rows(i).Item("Id"))
+            id += 1
+
+        Next
+
+        Dim dtMovimiento As DataTable = CType(grIngresosEgresoss.DataSource, DataTable)
+        For i As Integer = 0 To dtMovimiento.Rows.Count - 1 Step 1
+
+            dt.Rows.Add(id, 0, 3, dtMovimiento.Rows(i).Item("Id"))
+            id += 1
+
+        Next
+
+        Return dt
+
+    End Function
+
     Public Function _PMOModificarRegistro() As Boolean
         Dim Res As Boolean
         Try
-            Res = L_prCierreCajeroModificar(tbCodigo.Text, tbFechaCierre.Value.ToString("yyyy/MM/dd"), PersonalId, cbSucursal.Value, tbMontoInicial.Value, IIf(swEstado.Value = True, 1, 0), TipoCambio, tbVentasContadoCobranza.Value, tbTotalPagos.Value, tbIngresos.Value, tbGastos.Value, tbTotalCaja.Value, tbTotalCortesEfectivo.Value, TbTotalTransferencia.Value, tbTotalTarjeta.Value, tbEfectivoRecibido.Value, tbDiferencia.Value, tbDetalle.Text)
+            TipoCambio = tbTipoCambio.Value
+            Res = L_prCierreCajeroModificar(tbCodigo.Text, tbFechaCierre.Value.ToString("yyyy/MM/dd"), PersonalId, cbSucursal.Value, tbMontoInicial.Value, 0, TipoCambio, tbVentasContadoCobranza.Value, tbTotalPagos.Value, tbIngresos.Value, tbGastos.Value, tbTotalCaja.Value, tbTotalCortesEfectivo.Value, TbTotalTransferencia.Value, tbTotalTarjeta.Value, tbEfectivoRecibido.Value, tbDiferencia.Value, tbDetalle.Text, CType(grEfectivo.DataSource, DataTable), ArmarIdModulos())
 
 
             If Res Then
@@ -938,7 +1051,7 @@ Public Class Tec_CierreCajaCajero
             tbMontoInicial.Value = .GetValue("MontoInicial")
             tbMontoInicialTotal.Value = .GetValue("MontoInicial")
             swEstado.Value = .GetValue("EstadoCaja")
-            TipoCambio = .GetValue("TipoCambio")
+            tbTipoCambio.Value = .GetValue("TipoCambio")
             tbVentasContadoCobranza.Value = .GetValue("TotalVentas")
             tbTotalPagos.Value = .GetValue("TotalCobranza")
             tbIngresos.Value = .GetValue("TotalIngreso")
@@ -953,6 +1066,7 @@ Public Class Tec_CierreCajaCajero
             _prCargarDetalleVentas(.GetValue("Id"))
             _prCargarDetalleCobranza(.GetValue("Id"))
             _prCargarDetalleIngresoEgresos(.GetValue("Id"))
+            _prCargarDetalleEfectivoCortes(.GetValue("Id"))
         End With
 
         LblPaginacion.Text = Str(_MPos + 1) + "/" + JGrM_Buscador.RowCount.ToString
@@ -1124,12 +1238,25 @@ Public Class Tec_CierreCajaCajero
     End Sub
 
     Private Sub btnCargarDatos_Click(sender As Object, e As EventArgs) Handles btnCargarDatos.Click
+
+        tbTotalCortesEfectivo.Value = 0
         _prCargarDetalleVentas(0)
         _prCargarDetalleCobranza(0)
         _prCargarDetalleIngresoEgresos(0)
         Calculartotales()
-
-
+        _prCargarDetalleEfectivoCortes(-1)
+        'a.Id, a.CierreCajeroId, a.CorteBs, a.CantidadBs, a.SubTotalBs, a.CorteDolares, a.CantidadDolares, a.SubtotalDolares
+        CType(grEfectivo.DataSource, DataTable).Rows.Add(1, 0, 200, 0, 0, 100, 0, 0)
+        CType(grEfectivo.DataSource, DataTable).Rows.Add(2, 0, 100, 0, 0, 50, 0, 0)
+        CType(grEfectivo.DataSource, DataTable).Rows.Add(3, 0, 50, 0, 0, 20, 0, 0)
+        CType(grEfectivo.DataSource, DataTable).Rows.Add(4, 0, 20, 0, 0, 10, 0, 0)
+        CType(grEfectivo.DataSource, DataTable).Rows.Add(5, 0, 10, 0, 0, 5, 0, 0)
+        CType(grEfectivo.DataSource, DataTable).Rows.Add(6, 0, 5, 0, 0, 1, 0, 0)
+        CType(grEfectivo.DataSource, DataTable).Rows.Add(7, 0, 2, 0, 0, 0, 0, 0)
+        CType(grEfectivo.DataSource, DataTable).Rows.Add(8, 0, 1, 0, 0, 0, 0, 0)
+        CType(grEfectivo.DataSource, DataTable).Rows.Add(9, 0, 0.5, 0, 0, 0, 0, 0)
+        CType(grEfectivo.DataSource, DataTable).Rows.Add(10, 0, 0.2, 0, 0, 0, 0, 0)
+        CType(grEfectivo.DataSource, DataTable).Rows.Add(11, 0, 0.1, 0, 0, 0, 0, 0)
 
 
     End Sub
@@ -1145,10 +1272,16 @@ Public Class Tec_CierreCajaCajero
 
         '''Calculo de totales de venta
 
+
+        If (IsNothing(grVentas.DataSource)) Then
+            Return
+        End If
         Dim dtventas As DataTable = CType(grVentas.DataSource, DataTable)
 
         For i As Integer = 0 To dtventas.Rows.Count - 1 Step 1
             totalVentas += dtventas.Rows(i).Item("totalbs")
+            totalTarjeta += dtventas.Rows(i).Item("tarjeta")
+            Totaltransferencia += dtventas.Rows(i).Item("TransferenciaBancaria")
         Next
         '' Calculo total Cobranza
         Dim dtPagos As DataTable = CType(grCobranzas.DataSource, DataTable)
@@ -1176,7 +1309,122 @@ Public Class Tec_CierreCajaCajero
         tbGastos.Value = totalEgresos
         tbTotalCaja.Value = (tbMontoInicial.Value + totalVentas + totalPago + totalIngresos) - totalEgresos
 
+        tbTotalTarjeta.Value = totalTarjeta
+        TbTotalTransferencia.Value = Totaltransferencia
+
+
+        tbEfectivoRecibido.Value = tbTotalCortesEfectivo.Value + totalTarjeta + Totaltransferencia
+
+        tbDiferencia.Value = tbEfectivoRecibido.Value - tbTotalCaja.Value
+
     End Sub
+    Public Sub _fnObtenerFilaDetalle(ByRef pos As Integer, numi As Integer)
+        For i As Integer = 0 To CType(grEfectivo.DataSource, DataTable).Rows.Count - 1 Step 1
+            Dim _numi As Integer = CType(grEfectivo.DataSource, DataTable).Rows(i).Item("Id")
+            If (_numi = numi) Then
+                pos = i
+                Return
+            End If
+        Next
+
+    End Sub
+    Private Sub grEfectivo_CellValueChanged(sender As Object, e As ColumnActionEventArgs) Handles grEfectivo.CellValueChanged
+        Try
+            If (e.Column.Key = "CantidadBs" Or e.Column.Key = "CantidadDolares") Then
+                Dim lin As Integer = grEfectivo.GetValue("Id")
+                Dim pos As Integer = -1
+                _fnObtenerFilaDetalle(pos, lin)
+
+                If (Not IsNumeric(grEfectivo.GetValue("CantidadBs")) Or grEfectivo.GetValue("CantidadBs").ToString = String.Empty) Then
+
+                    grEfectivo.SetValue("CantidadBs", 0)
+                    grEfectivo.SetValue("SubTotalBs", 0)
+                    CType(grEfectivo.DataSource, DataTable).Rows(pos).Item("CantidadBs") = 0
+                    CType(grEfectivo.DataSource, DataTable).Rows(pos).Item("SubTotalBs") = 0
+
+                    _prCalcular()
+
+                Else
+
+                    Dim CorteBo, CantidadBo, totalBo As Double
+                    'CorteBo = Convert.ToDouble(grEfectivo.CurrentRow.Cells("CorteBs").Value)
+                    CorteBo = Convert.ToDouble(grEfectivo.GetValue("CorteBs"))
+                    CantidadBo = grEfectivo.GetValue("CantidadBs")
+                    totalBo = CorteBo * CantidadBo
+                    'grEfectivo.CurrentRow.Cells("SubTotalBs").Value = totalBo
+
+
+                    CType(grEfectivo.DataSource, DataTable).Rows(pos).Item("SubTotalBs") = totalBo
+                    grEfectivo.SetValue("SubTotalBs", totalBo)
+                    'grEfectivo.UpdateData()
+                    _prCalcular()
+                End If
+
+                If (Not IsNumeric(grEfectivo.GetValue("CantidadDolares")) Or grEfectivo.GetValue("CantidadDolares").ToString = String.Empty) Then
+
+                    grEfectivo.SetValue("CantidadDolares", 0)
+                    grEfectivo.SetValue("SubtotalDolares", 0)
+
+                    _prCalcular()
+                Else
+
+                    Dim CorteDo, CantidadDo, totalDo As Double
+
+                    'CorteDo = Convert.ToDouble(grEfectivo.CurrentRow.Cells("CorteDolares").Value)
+                    CorteDo = Convert.ToDouble(grEfectivo.GetValue("CorteDolares"))
+                    CantidadDo = grEfectivo.GetValue("CantidadDolares")
+                    totalDo = CorteDo * CantidadDo
+                    'grEfectivo.CurrentRow.Cells("SubtotalDolares").Value = totalDo
+
+
+                    CType(grEfectivo.DataSource, DataTable).Rows(pos).Item("SubtotalDolares") = totalDo
+                    grEfectivo.SetValue("SubtotalDolares", totalDo)
+
+                    _prCalcular()
+                End If
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    Private Sub _prCalcular()
+        Try
+            Dim totalCorteDol, totalCorteBol, TotalDeposito As Double
+            totalCorteBol = grEfectivo.GetTotal(grEfectivo.RootTable.Columns("SubTotalBs"), AggregateFunction.Sum)
+
+            totalCorteDol = grEfectivo.GetTotal(grEfectivo.RootTable.Columns("SubtotalDolares"), AggregateFunction.Sum)
+
+            tbTotalCortesEfectivo.Value = totalCorteBol + (totalCorteDol * tbTipoCambio.Value)
+
+            Calculartotales()
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
+    Private Sub grEfectivo_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grEfectivo.EditingCell
+        If btnGrabar.Enabled = True Then
+            If (e.Column.Index = grEfectivo.RootTable.Columns("CantidadBs").Index Or
+                e.Column.Index = grEfectivo.RootTable.Columns("CantidadDolares").Index) Then
+                e.Cancel = False
+            Else
+                e.Cancel = True
+            End If
+        Else
+            e.Cancel = True
+        End If
+    End Sub
+
+    Private Sub tbMontoInicial_ValueChanged(sender As Object, e As EventArgs) Handles tbMontoInicial.ValueChanged
+
+
+        tbMontoInicialTotal.Value = tbMontoInicial.Value
+        Calculartotales()
+
+
+    End Sub
+
 
 #End Region
 End Class

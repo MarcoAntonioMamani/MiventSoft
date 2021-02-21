@@ -2873,6 +2873,19 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
+    Public Shared Function L_prListarIdModulosCierre(CierreId As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 11))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@Id", CierreId))
+        _Tabla = D_ProcedimientoConParam("MAM_CierreCajero", _listParam)
+
+        Return _Tabla
+    End Function
+
     Public Shared Function L_prListarMovimientosIngresoEgresoCierrePendiente(SucursalId As Integer, Fecha As String) As DataTable
         Dim _Tabla As DataTable
 
@@ -2943,7 +2956,7 @@ Public Class AccesoLogica
         Return _resultado
     End Function
 
-    Public Shared Function L_prCierreCajeroModificar(ByRef _numi As String, Fecha As String, PersonalId As Integer, SucursalId As Integer, MontoInicial As Double, EstadoCaja As Integer, TipoCambio As Double, TotalVenta As Double, TotalCobranzas As Double, TotalIngresos As Double, TotalEgresos As Double, TotalCaja As Double, TotalEfectivo As Double, TotalTransferencia As Double, TotalTarjeta As Double, TotalEfectivoRecibido As Double, Diferencia As Double, Observacion As String) As Boolean
+    Public Shared Function L_prCierreCajeroModificar(ByRef _numi As String, Fecha As String, PersonalId As Integer, SucursalId As Integer, MontoInicial As Double, EstadoCaja As Integer, TipoCambio As Double, TotalVenta As Double, TotalCobranzas As Double, TotalIngresos As Double, TotalEgresos As Double, TotalCaja As Double, TotalEfectivo As Double, TotalTransferencia As Double, TotalTarjeta As Double, TotalEfectivoRecibido As Double, Diferencia As Double, Observacion As String, dtCortes As DataTable, dtModulos As DataTable) As Boolean
         Dim _resultado As Boolean
 
         '@Id,@Fecha ,@PersonalId,@SucursalId,@MontoInicial,@EstadoCaja,@TipoCambio,@TotalVentas,@TotalCobranzas,@TotalIngresos,@TotalEgreso,@TotalCaja,@TotalEfectivo,@Totaltransferencia,@TotalTarjeta,@TotalEfectivoRecibido,@Diferencia,@Observacion
@@ -2972,7 +2985,8 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@Diferencia", Diferencia))
         _listParam.Add(New Datos.DParametro("@Observacion", Observacion))
 
-
+        _listParam.Add(New Datos.DParametro("@CorteBilletes", "", dtCortes))
+        _listParam.Add(New Datos.DParametro("@ModuloId", "", dtModulos))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _Tabla = D_ProcedimientoConParam("MAM_CierreCajero", _listParam)
 
