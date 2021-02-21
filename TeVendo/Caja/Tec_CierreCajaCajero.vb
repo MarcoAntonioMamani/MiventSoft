@@ -335,6 +335,66 @@ Public Class Tec_CierreCajaCajero
 
     End Sub
 
+    Private Sub _prCargarDetalleEfectivoCortes(id As Integer)
+        Dim dt As New DataTable
+
+
+        dt = L_prListarEfectivoCortesCierre(id)
+
+
+
+        grEfectivo.DataSource = dt
+        grEfectivo.RetrieveStructure()
+        grEfectivo.AlternatingColors = True
+        'a.Id,a.CierreCajeroId,a.CorteBs,a.CantidadBs,a.SubTotalBs,a.CorteDolares,a.CantidadDolares,a.SubtotalDolares
+        With grEfectivo.RootTable.Columns("id")
+            .Width = 110
+            .Visible = False
+        End With
+
+        With grEfectivo.RootTable.Columns("CierreCajeroId")
+            .Width = 110
+            .Visible = False
+        End With
+
+
+        With grEfectivo.RootTable.Columns("CorteBs")
+            .Width = 100
+            .Caption = "Dinero Bs"
+            .Visible = True
+            .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+        With grEfectivo.RootTable.Columns("CantidadBs")
+            .Width = 100
+            .Caption = "Cantidad Bs"
+            .Visible = True
+            .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+
+
+        With grEfectivo
+            .GroupByBoxVisible = False
+            'diseño de la grilla
+            .VisualStyle = VisualStyle.Office2007
+            .BoundMode = Janus.Data.BoundMode.Bound
+            .RowHeaders = InheritableBoolean.True
+            .CellToolTipText = "Conceptos"
+            .DefaultFilterRowComparison = FilterConditionOperator.Contains
+            .FilterMode = FilterMode.Automatic
+            .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
+            .GroupByBoxVisible = False
+            .TotalRow = InheritableBoolean.True
+            .TotalRowFormatStyle.BackColor = Color.Gold
+            .TotalRowFormatStyle.ForeColor = Color.Black
+            .TotalRowFormatStyle.FontBold = TriState.True
+            .TotalRowFormatStyle.FontSize = 11
+            .TotalRowPosition = TotalRowPosition.BottomFixed
+
+        End With
+
+    End Sub
     Private Sub _prCargarDetalleIngresoEgresos(id As Integer)
         Dim dt As New DataTable
 
