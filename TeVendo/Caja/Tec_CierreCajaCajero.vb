@@ -28,6 +28,8 @@ Public Class Tec_CierreCajaCajero
     Dim gs_DirPrograma As String = ""
     Dim gs_RutaImg As String = ""
 
+    Dim TipoCambio As Double = 0
+
 
 
 #End Region
@@ -240,6 +242,12 @@ Public Class Tec_CierreCajaCajero
 
 #Region "METODOS PRIVADOS"
 
+
+
+
+
+
+
     Private Sub _prIniciarTodo()
 
 
@@ -247,13 +255,275 @@ Public Class Tec_CierreCajaCajero
         'L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
         Me.Text = "Cierre Caja Cajero"
 
-
+        P_Global._prCargarComboGenerico(cbSucursal, L_fnGeneralSucursales(), "aanumi", "Codigo", "aabdes", "Sucursal")
 
         _PMIniciarTodo()
         _prAsignarPermisos()
 
 
         _habilitarFocus()
+
+    End Sub
+
+    Private Sub _prCargarDetalleCobranza(id As Integer)
+        Dim dt As New DataTable
+
+        If (id = 0) Then
+
+            dt = L_prListarCobrosCajaPendiente(tbFechaCierre.Value.ToString("yyyy/MM/dd"))
+        Else
+            dt = L_prListarCobranzaCierresCaja(id)
+        End If
+
+
+        grCobranzas.DataSource = dt
+        grCobranzas.RetrieveStructure()
+        grCobranzas.AlternatingColors = True
+        'id	NroComprobanteVenta	Monto	FechaPago	PersonalId	NombrePersonal
+        With grCobranzas.RootTable.Columns("FechaPago")
+            .Width = 90
+            .Caption = "Fecha Pago"
+            .Visible = True
+            .FormatString = "dd/MM/yyyy"
+        End With
+        With grCobranzas.RootTable.Columns("NroComprobanteVenta")
+            .Width = 90
+            .Caption = "Comprobante Venta"
+            .Visible = True
+        End With
+        With grCobranzas.RootTable.Columns("PersonalId")
+            .Width = 110
+            .Visible = False
+        End With
+        With grCobranzas.RootTable.Columns("NombrePersonal")
+            .Width = 110
+            .Visible = False
+        End With
+        With grCobranzas.RootTable.Columns("id")
+            .Width = 110
+            .Visible = False
+        End With
+
+        With grCobranzas.RootTable.Columns("Monto")
+            .Width = 120
+            .Caption = "Monto Pagado"
+            .Visible = True
+            .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+
+
+        With grCobranzas
+            .GroupByBoxVisible = False
+            'diseño de la grilla
+            .VisualStyle = VisualStyle.Office2007
+            .BoundMode = Janus.Data.BoundMode.Bound
+            .RowHeaders = InheritableBoolean.True
+            .CellToolTipText = "Conceptos"
+            .DefaultFilterRowComparison = FilterConditionOperator.Contains
+            .FilterMode = FilterMode.Automatic
+            .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
+            .GroupByBoxVisible = False
+            .TotalRow = InheritableBoolean.True
+            .TotalRowFormatStyle.BackColor = Color.Gold
+            .TotalRowFormatStyle.ForeColor = Color.Black
+            .TotalRowFormatStyle.FontBold = TriState.True
+            .TotalRowFormatStyle.FontSize = 11
+            .TotalRowPosition = TotalRowPosition.BottomFixed
+
+        End With
+
+    End Sub
+
+    Private Sub _prCargarDetalleIngresoEgresos(id As Integer)
+        Dim dt As New DataTable
+
+        If (id = 0) Then
+
+            dt = L_prListarMovimientosIngresoEgresoCierrePendiente(cbSucursal.Value, tbFechaCierre.Value.ToString("yyyy/MM/dd"))
+        Else
+            dt = L_prListarMovimientosIngresoEgresoCierre(id)
+        End If
+
+
+        grIngresosEgresoss.DataSource = dt
+        grIngresosEgresoss.RetrieveStructure()
+        grIngresosEgresoss.AlternatingColors = True
+        'id	Fecha	Descripcion	Monto	IngresoEgreso	Movimiento	CajatipoMovimientoId	NombreTipoMovimiento	PersonalId	NombrePersonal
+        With grIngresosEgresoss.RootTable.Columns("id")
+            .Width = 110
+            .Visible = False
+        End With
+
+        With grIngresosEgresoss.RootTable.Columns("CajatipoMovimientoId")
+            .Width = 110
+            .Visible = False
+        End With
+        With grIngresosEgresoss.RootTable.Columns("Movimiento")
+            .Width = 110
+            .Caption = "Movimiento"
+            .Visible = True
+        End With
+        With grIngresosEgresoss.RootTable.Columns("NombreTipoMovimiento")
+            .Width = 200
+            .Caption = "Tipo Movimiento"
+            .Visible = True
+        End With
+
+        With grIngresosEgresoss.RootTable.Columns("Fecha")
+            .Width = 90
+            .Caption = "Fecha"
+            .Visible = True
+            .FormatString = "dd/MM/yyyy"
+        End With
+        With grIngresosEgresoss.RootTable.Columns("Descripcion")
+            .Width = 200
+            .Caption = "Descripcion"
+            .Visible = True
+        End With
+
+
+        With grIngresosEgresoss.RootTable.Columns("PersonalId")
+            .Width = 110
+            .Visible = False
+        End With
+        With grIngresosEgresoss.RootTable.Columns("NombrePersonal")
+            .Width = 110
+            .Visible = False
+        End With
+        With grIngresosEgresoss.RootTable.Columns("IngresoEgreso")
+            .Width = 110
+            .Visible = False
+        End With
+
+        With grIngresosEgresoss.RootTable.Columns("Monto")
+            .Width = 120
+            .Caption = "Monto"
+            .Visible = True
+            .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+
+
+        With grIngresosEgresoss
+            .GroupByBoxVisible = False
+            'diseño de la grilla
+            .VisualStyle = VisualStyle.Office2007
+            .BoundMode = Janus.Data.BoundMode.Bound
+            .RowHeaders = InheritableBoolean.True
+            .CellToolTipText = "Conceptos"
+            .DefaultFilterRowComparison = FilterConditionOperator.Contains
+            .FilterMode = FilterMode.Automatic
+            .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
+            .GroupByBoxVisible = False
+            .TotalRow = InheritableBoolean.True
+            .TotalRowFormatStyle.BackColor = Color.Gold
+            .TotalRowFormatStyle.ForeColor = Color.Black
+            .TotalRowFormatStyle.FontBold = TriState.True
+            .TotalRowFormatStyle.FontSize = 11
+            .TotalRowPosition = TotalRowPosition.BottomFixed
+
+        End With
+
+    End Sub
+
+    Private Sub _prCargarDetalleVentas(id As Integer)
+        Dim dt As New DataTable
+
+        If (id = 0) Then
+
+            dt = L_prListarVentaCierresCajaPendiente(PersonalId, cbSucursal.Value, tbFechaCierre.Value.ToString("yyyy/MM/dd"))
+        Else
+            dt = L_prListarVentaCierresCaja(id)
+        End If
+
+
+        grVentas.DataSource = dt
+        grVentas.RetrieveStructure()
+        grVentas.AlternatingColors = True
+        'Id	FechaVenta	contado	contado$	tarjeta	TransferenciaBancaria	tipocambio	credito	totalbs	total$
+
+        With grVentas.RootTable.Columns("Id")
+            .Width = 90
+            .Caption = "Cod Venta"
+            .Visible = True
+        End With
+        With grVentas.RootTable.Columns("FechaVenta")
+            .Width = 110
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("tipocambio")
+            .Width = 110
+            .Visible = False
+        End With
+
+        With grVentas.RootTable.Columns("total$")
+            .Width = 110
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("totalbs")
+            .Width = 120
+            .Caption = "Total Venta Bs"
+            .Visible = True
+            .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+
+        With grVentas.RootTable.Columns("credito")
+            .Width = 100
+            .Caption = "credito"
+            .Visible = True
+            .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+        With grVentas.RootTable.Columns("TransferenciaBancaria")
+            .Width = 100
+            .Caption = "Transferencia Bancaria"
+            .Visible = True
+            .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+        With grVentas.RootTable.Columns("tarjeta")
+            .Width = 100
+            .Caption = "Tarjeta"
+            .Visible = True
+            .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+
+        With grVentas.RootTable.Columns("contado")
+            .Width = 100
+            .Caption = "Contado Bs"
+            .Visible = True
+            .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+        With grVentas.RootTable.Columns("contado$")
+            .Width = 100
+            .Caption = "Contado $u$"
+            .Visible = True
+            .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+        With grVentas
+            .GroupByBoxVisible = False
+            'diseño de la grilla
+            .VisualStyle = VisualStyle.Office2007
+            .BoundMode = Janus.Data.BoundMode.Bound
+            .RowHeaders = InheritableBoolean.True
+            .CellToolTipText = "Conceptos"
+            .DefaultFilterRowComparison = FilterConditionOperator.Contains
+            .FilterMode = FilterMode.Automatic
+            .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
+            .GroupByBoxVisible = False
+            .TotalRow = InheritableBoolean.True
+            .TotalRowFormatStyle.BackColor = Color.Gold
+            .TotalRowFormatStyle.ForeColor = Color.Black
+            .TotalRowFormatStyle.FontBold = TriState.True
+            .TotalRowFormatStyle.FontSize = 11
+            .TotalRowPosition = TotalRowPosition.BottomFixed
+
+        End With
 
     End Sub
 
@@ -320,12 +590,31 @@ Public Class Tec_CierreCajaCajero
         tbMontoInicial.IsInputReadOnly = False
         tbDetalle.ReadOnly = False
 
+
+        tbEfectivoRecibido.IsInputReadOnly = False
+
+
+        btnCargarDatos.Visible = True
+
+        If (Global_Sucursal > 0) Then
+
+            cbSucursal.Value = Global_Sucursal
+            cbSucursal.ReadOnly = True
+        Else
+            cbSucursal.ReadOnly = False
+
+        End If
+
     End Sub
 
     Public Sub _PMOInhabilitar()
         tbCodigo.ReadOnly = True
         tbMontoInicial.IsInputReadOnly = True
         tbDetalle.ReadOnly = True
+        btnCargarDatos.Visible = False
+
+        tbEfectivoRecibido.IsInputReadOnly = True
+
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -370,20 +659,20 @@ Public Class Tec_CierreCajaCajero
         ''_conversion As Double
         Dim res As Boolean
         Try
-            res = L_prCierreCajeroInsertar(tbCodigo.Text, tbFechaCierre.Value.ToString("yyyy/MM/dd"))
+            res = L_prCierreCajeroInsertar(tbCodigo.Text, tbFechaCierre.Value.ToString("yyyy/MM/dd"), PersonalId, cbSucursal.Value, tbMontoInicial.Value, IIf(swEstado.Value = True, 1, 0), TipoCambio, tbVentasContadoCobranza.Value, tbTotalPagos.Value, tbIngresos.Value, tbGastos.Value, tbTotalCaja.Value, tbTotalCortesEfectivo.Value, TbTotalTransferencia.Value, tbTotalTarjeta.Value, tbEfectivoRecibido.Value, tbDiferencia.Value, tbDetalle.Text)
 
             If res Then
 
 
 
-                ToastNotification.Show(Me, "Ingreso / Egreso  #".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Cierre Caja #".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
 
             Else
-                ToastNotification.Show(Me, "Error al guardar Ingreso / Egreso".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Error al guardar Cierre De Caja".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End If
         Catch ex As Exception
-            ToastNotification.Show(Me, "Error al guardar Ingreso / Egreso".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, "Error al guardar Cierre De Caja".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
         End Try
 
@@ -394,16 +683,16 @@ Public Class Tec_CierreCajaCajero
     Public Function _PMOModificarRegistro() As Boolean
         Dim Res As Boolean
         Try
-            Res = L_prIngresoSalidaModificar(tbCodigo.Text, tbFecha.Value.ToString("yyyy/MM/dd"), tbDescripcion.Text, tbMonto.Value, cbCaja.Value, IIf(swtipo.Value = True, 1, 0), cbMotivoMovimiento.Value, PersonalId, cbSucursal.Value, 0)
+            Res = L_prCierreCajeroModificar(tbCodigo.Text, tbFechaCierre.Value.ToString("yyyy/MM/dd"), PersonalId, cbSucursal.Value, tbMontoInicial.Value, IIf(swEstado.Value = True, 1, 0), TipoCambio, tbVentasContadoCobranza.Value, tbTotalPagos.Value, tbIngresos.Value, tbGastos.Value, tbTotalCaja.Value, tbTotalCortesEfectivo.Value, TbTotalTransferencia.Value, tbTotalTarjeta.Value, tbEfectivoRecibido.Value, tbDiferencia.Value, tbDetalle.Text)
 
 
             If Res Then
 
 
-                ToastNotification.Show(Me, "Codigo de Ingreso / Egreso".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Codigo de Cierre De Caja".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                 _PSalirRegistro()
             Else
-                ToastNotification.Show(Me, "Error al guardar Ingreso / Egreso".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Error al guardar Cierre Caja".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End If
         Catch ex As Exception
@@ -414,7 +703,7 @@ Public Class Tec_CierreCajaCajero
         Return Res
     End Function
     Public Function _fnActionNuevo() As Boolean
-        Return tbCodigo.Text = String.Empty And tbDescripcion.ReadOnly = False
+        Return tbCodigo.Text = String.Empty And tbDetalle.ReadOnly = False
     End Function
 
 
@@ -426,7 +715,7 @@ Public Class Tec_CierreCajaCajero
 
         ef.tipo = 3
         ef.titulo = "Confirmación de Eliminación"
-        ef.descripcion = "¿Esta Seguro de Eliminar El Ingreso / Egreso " + cbMotivoMovimiento.Text + " ?"
+        ef.descripcion = "¿Esta Seguro de Eliminar Cierre Caja #" + tbCodigo.Text + " ?"
         ef.ShowDialog()
         Dim bandera As Boolean = False
         bandera = ef.band
@@ -434,16 +723,16 @@ Public Class Tec_CierreCajaCajero
             Dim mensajeError As String = ""
             Dim res As Boolean
             Try
-                res = L_prBorrarRegistro(tbCodigo.Text, mensajeError, "MAM_CajaIngresoEgreso")
+                res = L_prBorrarRegistro(tbCodigo.Text, mensajeError, "MAM_CierreCajero")
                 If res Then
 
-                    ToastNotification.Show(Me, "Codigo de Caja Ingreso / Egreso ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                    ToastNotification.Show(Me, "Codigo de Cierre Caja".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                     _PMFiltrar()
                 Else
                     ToastNotification.Show(Me, mensajeError, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
                 End If
             Catch ex As Exception
-                ToastNotification.Show(Me, "Error al eliminar Caja Ingreso / Egreso".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Error al eliminar Cierre De Caja".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End Try
 
@@ -455,33 +744,33 @@ Public Class Tec_CierreCajaCajero
         Dim _ok As Boolean = True
         MEP.Clear()
         Dim Mensaje As String = "Los Siguientes Campos Son Requeridos: "
-        If tbMonto.Value <= 0 Then
-            tbMonto.BackColor = Color.Red
-            MEP.SetError(tbMonto, "Ingrese un Monto Valido")
-            Mensaje = Mensaje + " Monto Valido Mayor a 0"
-            _ok = False
-        Else
-            tbMonto.BackColor = Color.White
-            MEP.SetError(tbMonto, "")
-        End If
-        If (cbMotivoMovimiento.SelectedIndex < 0) Then
-            cbMotivoMovimiento.BackColor = Color.Red
-            MEP.SetError(cbMotivoMovimiento, "Seleccione un Motivo Movimiento Valido")
-            Mensaje = Mensaje + Chr(13) + Chr(10) + " Motivo Movimiento"
-            _ok = False
-        Else
-            cbMotivoMovimiento.BackColor = Color.White
-            MEP.SetError(cbMotivoMovimiento, "")
-        End If
-        If (cbCaja.SelectedIndex < 0) Then
-            cbCaja.BackColor = Color.Red
-            MEP.SetError(cbCaja, "Seleccione una Caja ")
-            Mensaje = Mensaje + Chr(13) + Chr(10) + " Caja"
-            _ok = False
-        Else
-            cbCaja.BackColor = Color.White
-            MEP.SetError(cbCaja, "")
-        End If
+        'If tbEfectivoRecibido.Value <= 0 Then
+        '    tbMonto.BackColor = Color.Red
+        '    MEP.SetError(tbMonto, "Ingrese un Monto Valido")
+        '    Mensaje = Mensaje + " Monto Valido Mayor a 0"
+        '    _ok = False
+        'Else
+        '    tbMonto.BackColor = Color.White
+        '    MEP.SetError(tbMonto, "")
+        'End If
+        'If (cbMotivoMovimiento.SelectedIndex < 0) Then
+        '    cbMotivoMovimiento.BackColor = Color.Red
+        '    MEP.SetError(cbMotivoMovimiento, "Seleccione un Motivo Movimiento Valido")
+        '    Mensaje = Mensaje + Chr(13) + Chr(10) + " Motivo Movimiento"
+        '    _ok = False
+        'Else
+        '    cbMotivoMovimiento.BackColor = Color.White
+        '    MEP.SetError(cbMotivoMovimiento, "")
+        'End If
+        'If (cbCaja.SelectedIndex < 0) Then
+        '    cbCaja.BackColor = Color.Red
+        '    MEP.SetError(cbCaja, "Seleccione una Caja ")
+        '    Mensaje = Mensaje + Chr(13) + Chr(10) + " Caja"
+        '    _ok = False
+        'Else
+        '    cbCaja.BackColor = Color.White
+        '    MEP.SetError(cbCaja, "")
+        'End If
 
         If (cbSucursal.SelectedIndex < 0) Then
             cbSucursal.BackColor = Color.Red
@@ -497,24 +786,24 @@ Public Class Tec_CierreCajaCajero
 
         Highlighter2.UpdateHighlights()
 
-        If tbMonto.Value <= 0 Then
-            tbMonto.Focus()
-            ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-            Return _ok
-        End If
+        'If tbMonto.Value <= 0 Then
+        '    tbMonto.Focus()
+        '    ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+        '    Return _ok
+        'End If
 
-        If (cbMotivoMovimiento.SelectedIndex < 0) Then
-            ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-            cbMotivoMovimiento.Focus()
-            Return _ok
-        End If
-        If (cbCaja.SelectedIndex < 0) Then
+        'If (cbMotivoMovimiento.SelectedIndex < 0) Then
+        '    ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+        '    cbMotivoMovimiento.Focus()
+        '    Return _ok
+        'End If
+        'If (cbCaja.SelectedIndex < 0) Then
 
-            ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-            cbCaja.Focus()
-            Return _ok
+        '    ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+        '    cbCaja.Focus()
+        '    Return _ok
 
-        End If
+        'End If
         If (cbSucursal.SelectedIndex < 0) Then
 
             ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
@@ -529,45 +818,51 @@ Public Class Tec_CierreCajaCajero
 
     Public Function _PMOGetTablaBuscador() As DataTable
 
-        Dim dtBuscador As DataTable = L_prListarGeneral("MAM_CajaIngresoEgreso")
+        Dim dtBuscador As DataTable = L_prListarGeneral("MAM_CierreCajero")
         Return dtBuscador
     End Function
 
     Public Function _PMOGetListEstructuraBuscador() As List(Of Celda)
 
-        'id,CierreCajeroId,Fecha ,Descripcion,Monto,CajaId,NombreCaja,IngresoEgreso,
-        'IIf(a.IngresoEgreso = 1,'Ingreso','Egreso')as Movimiento,a.CajatipoMovimientoId,mov.Descripcion as NombreTipoMovimiento,
-        '    a.PersonalId, p.NombrePersonal, a.Modulo, a.IdModulo, a.SucursalId, suc.NombreAlmacen As Sucursal,
-        '    a.CajaIngresoEgresoIdDestino, a.CajaIdDestino 
+        ''cierre.id,cierre.Fecha,cierre.PersonalId,p.NombrePersonal,cierre.SucursalId,alm.NombreAlmacen as Sucursal,
+        'cierre.MontoInicial, cierre.EstadoCaja, IIf(cierre.EstadoCaja = 1,'Abierta','Cerrada') as Caja,cierre.TipoCambio,
+        '    cierre.TotalVentas, cierre.TotalCobranza, cierre.TotalIngreso, cierre.TotalEgresos, cierre.TotalCaja, cierre.TotalEfectivo, cierre.TotalTransferencia,
+        '    cierre.TotalTarjeta, cierre.TotalEfectivoRecibido, cierre.Diferencia, cierre.Observacion  
         Dim listEstCeldas As New List(Of Celda)
         listEstCeldas.Add(New Celda("Id", True, "Movimiento Id", 40))
-        listEstCeldas.Add(New Celda("CierreCajeroId", False))
         listEstCeldas.Add(New Celda("Fecha", True, "Fecha", 70, "dd/MM/yyyy"))
-        listEstCeldas.Add(New Celda("Descripcion", True, "Descripcion", 150))
-        listEstCeldas.Add(New Celda("Monto", True, "Monto", 90, "0.00"))
-        listEstCeldas.Add(New Celda("CajaId", False))
-        listEstCeldas.Add(New Celda("NombreCaja", True, "Caja", 90, ""))
-        listEstCeldas.Add(New Celda("IngresoEgreso", False))
-        listEstCeldas.Add(New Celda("Movimiento", True, "Movimiento", 70))
-        listEstCeldas.Add(New Celda("CajatipoMovimientoId", False))
-        listEstCeldas.Add(New Celda("NombreTipoMovimiento", True, "Tipo Movimiento", 70))
         listEstCeldas.Add(New Celda("PersonalId", False))
-        listEstCeldas.Add(New Celda("NombrePersonal", True, "Personal", 90))
-        listEstCeldas.Add(New Celda("Modulo", False))
-        listEstCeldas.Add(New Celda("IdModulo", False))
+        listEstCeldas.Add(New Celda("NombrePersonal", True, "Personal", 150))
         listEstCeldas.Add(New Celda("SucursalId", False))
-        listEstCeldas.Add(New Celda("Sucursal", True, "Sucursal", 90))
-        listEstCeldas.Add(New Celda("CajaIngresoEgresoIdDestino", False))
-        listEstCeldas.Add(New Celda("CajaIdDestino", False))
+        listEstCeldas.Add(New Celda("Sucursal", True, "Sucursal", 100))
+        listEstCeldas.Add(New Celda("MontoInicial", False))
+
+        listEstCeldas.Add(New Celda("EstadoCaja", False))
+        listEstCeldas.Add(New Celda("Caja", True, "Estado Caja", 100))
+        listEstCeldas.Add(New Celda("TipoCambio", False))
+        listEstCeldas.Add(New Celda("TotalVentas", False))
+        listEstCeldas.Add(New Celda("TotalCobranza", False))
+        listEstCeldas.Add(New Celda("TotalIngreso", False))
+
+        listEstCeldas.Add(New Celda("TotalEgresos", False))
+        listEstCeldas.Add(New Celda("TotalCaja", False))
+        listEstCeldas.Add(New Celda("TotalEfectivo", False))
+        listEstCeldas.Add(New Celda("TotalTransferencia", False))
+        listEstCeldas.Add(New Celda("TotalTarjeta", False))
+        listEstCeldas.Add(New Celda("TotalEfectivoRecibido", True, "E. Recibido", 90, "0.00"))
+        listEstCeldas.Add(New Celda("Diferencia", False))
+        listEstCeldas.Add(New Celda("Observacion", True, "Detalle", 150))
+
+
         Return listEstCeldas
     End Function
 
     Public Sub _PMOMostrarRegistro(_N As Integer, Optional selected As Boolean = False)
 
-        'id,CierreCajeroId,Fecha ,Descripcion,Monto,CajaId,NombreCaja,IngresoEgreso,
-        'IIf(a.IngresoEgreso = 1,'Ingreso','Egreso')as Movimiento,a.CajatipoMovimientoId,mov.Descripcion as NombreTipoMovimiento,
-        '    a.PersonalId, p.NombrePersonal, a.Modulo, a.IdModulo, a.SucursalId, suc.NombreAlmacen As Sucursal,
-        '    a.CajaIngresoEgresoIdDestino, a.CajaIdDestino 
+        ''cierre.id,cierre.Fecha,cierre.PersonalId,p.NombrePersonal,cierre.SucursalId,alm.NombreAlmacen as Sucursal,
+        'cierre.MontoInicial, cierre.EstadoCaja, IIf(cierre.EstadoCaja = 1,'Abierta','Cerrada') as Caja,cierre.TipoCambio,
+        '    cierre.TotalVentas, cierre.TotalCobranza, cierre.TotalIngreso, cierre.TotalEgresos, cierre.TotalCaja, cierre.TotalEfectivo, cierre.TotalTransferencia,
+        '    cierre.TotalTarjeta, cierre.TotalEfectivoRecibido, cierre.Diferencia, cierre.Observacion
         If (selected = False) Then
             FilaSeleccionada = True
             JGrM_Buscador.Row = _MPos
@@ -576,15 +871,28 @@ Public Class Tec_CierreCajaCajero
 
         With JGrM_Buscador
             tbCodigo.Text = .GetValue("Id").ToString
-            tbFecha.Value = .GetValue("Fecha")
-            tbDescripcion.Text = .GetValue("Descripcion").ToString
-            tbMonto.Value = .GetValue("Monto")
-            cbCaja.Value = .GetValue("CajaId")
-            swtipo.Value = .GetValue("IngresoEgreso")
-            cbMotivoMovimiento.Value = .GetValue("CajatipoMovimientoId")
+            tbFechaCierre.Value = .GetValue("Fecha")
             PersonalId = .GetValue("PersonalId")
             tbPersonal.Text = .GetValue("NombrePersonal").ToString
             cbSucursal.Value = .GetValue("SucursalId")
+            tbMontoInicial.Value = .GetValue("MontoInicial")
+            tbMontoInicialTotal.Value = .GetValue("MontoInicial")
+            swEstado.Value = .GetValue("EstadoCaja")
+            TipoCambio = .GetValue("TipoCambio")
+            tbVentasContadoCobranza.Value = .GetValue("TotalVentas")
+            tbTotalPagos.Value = .GetValue("TotalCobranza")
+            tbIngresos.Value = .GetValue("TotalIngreso")
+            tbGastos.Value = .GetValue("TotalEgresos")
+            tbTotalCaja.Value = .GetValue("TotalCaja")
+            tbTotalCortesEfectivo.Value = .GetValue("TotalEfectivo")
+            TbTotalTransferencia.Value = .GetValue("TotalTransferencia")
+            tbTotalTarjeta.Value = .GetValue("TotalTarjeta")
+            tbEfectivoRecibido.Value = .GetValue("TotalEfectivoRecibido")
+            tbDiferencia.Value = .GetValue("Diferencia")
+            tbDetalle.Text = .GetValue("Observacion").ToString
+            _prCargarDetalleVentas(.GetValue("Id"))
+            _prCargarDetalleCobranza(.GetValue("Id"))
+            _prCargarDetalleIngresoEgresos(.GetValue("Id"))
         End With
 
         LblPaginacion.Text = Str(_MPos + 1) + "/" + JGrM_Buscador.RowCount.ToString
@@ -621,11 +929,29 @@ Public Class Tec_CierreCajaCajero
             tbPersonal.Text = dt.Rows(0).Item("Nombre")
 
         End If
+        If (Global_Sucursal > 0) Then
+            cbSucursal.ReadOnly = True
+            cbSucursal.Value = Global_Sucursal
+        Else
+            cbSucursal.ReadOnly = False
+
+        End If
+        swEstado.Value = True
+        btnCargarDatos.Enabled = False
+
     End Sub
 
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
-        _PMModificar()
+        If (JGrM_Buscador.GetValue("EstadoCaja") = 0) Then
 
+            ToastNotification.Show(Me, "No Se Puede Modificar La Caja Por que Ya Se Encuentra con Estado Cerrada. Elimine la Caja Y Vuelva a Realizar El Cierre", img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Return
+
+        End If
+
+        _PMModificar()
+        cbSucursal.ReadOnly = False
+        btnCargarDatos.Enabled = True
     End Sub
 
     Private Sub btnGrabar_Click(sender As Object, e As EventArgs) Handles btnGrabar.Click
@@ -737,60 +1063,60 @@ Public Class Tec_CierreCajaCajero
         Me.Close()
     End Sub
 
-    Private Sub cbCaja_ValueChanged(sender As Object, e As EventArgs) Handles cbCaja.ValueChanged
+    Private Sub btnCargarDatos_Click(sender As Object, e As EventArgs) Handles btnCargarDatos.Click
+        _prCargarDetalleVentas(0)
+        _prCargarDetalleCobranza(0)
+        _prCargarDetalleIngresoEgresos(0)
+        Calculartotales()
+
+
+
 
     End Sub
 
-    Private Sub btnAgregarMotivoMovimiento_Click(sender As Object, e As EventArgs) Handles btnAgregarMotivoMovimiento.Click
-        Dim numi As String = ""
-        Dim ef = New Efecto
-        ef.tipo = 21
-        ef.ShowDialog()
-        Dim bandera As Boolean = False
-        bandera = ef.band
-        If (bandera = True) Then
-            'P_Global._prCargarComboGenerico(cbCategoria, L_prListaCategorias(), "Id", "Codigo", "NombreCategoria", "Categoria")
-            _prCargarComboTipoMovimiento(cbMotivoMovimiento)
+    Public Sub Calculartotales()
+        Dim totalVentas As Double = 0
+        Dim totalPago As Double = 0
+        Dim totalIngresos As Double = 0
+        Dim totalEgresos As Double = 0
 
-            cbMotivoMovimiento.Value = ef.Id
-            cbMotivoMovimiento.Focus()
+        Dim totalTarjeta As Double = 0
+        Dim Totaltransferencia As Double = 0
 
-            Dim dt As DataTable = CType(cbMotivoMovimiento.DataSource, DataTable)
+        '''Calculo de totales de venta
 
-            Dim fila As DataRow() = dt.Select("id =" + Str(ef.Id))
-            If (Not IsDBNull(fila)) Then
-                If (fila.Count > 0) Then
+        Dim dtventas As DataTable = CType(grVentas.DataSource, DataTable)
 
-                    Dim valor As Integer = fila(0).Item("Tipo")
-                    If (valor = 1) Then
-                        swtipo.Value = True
-                    Else
-                        swtipo.Value = False
-                    End If
-                End If
+        For i As Integer = 0 To dtventas.Rows.Count - 1 Step 1
+            totalVentas += dtventas.Rows(i).Item("totalbs")
+        Next
+        '' Calculo total Cobranza
+        Dim dtPagos As DataTable = CType(grCobranzas.DataSource, DataTable)
+        For i As Integer = 0 To dtPagos.Rows.Count - 1 Step 1
+            totalPago += dtPagos.Rows(i).Item("Monto")
+        Next
+        '''Calculo Ingresos o Egresos
 
+        Dim dtMovimiento As DataTable = CType(grIngresosEgresoss.DataSource, DataTable)
+        For i As Integer = 0 To dtMovimiento.Rows.Count - 1 Step 1
+
+            Dim EsIngreso As Integer = dtMovimiento.Rows(i).Item("IngresoEgreso")
+            If (EsIngreso = 1) Then
+                totalIngresos += dtMovimiento.Rows(i).Item("Monto")
+            Else
+                totalEgresos += dtMovimiento.Rows(i).Item("Monto")
             End If
 
-        End If
+        Next
+
+
+        tbVentasContadoCobranza.Value = totalVentas
+        tbTotalPagos.Value = totalPago
+        tbIngresos.Value = totalIngresos
+        tbGastos.Value = totalEgresos
+        tbTotalCaja.Value = (tbMontoInicial.Value + totalVentas + totalPago + totalIngresos) - totalEgresos
 
     End Sub
 
-    Private Sub cbMotivoMovimiento_ValueChanged(sender As Object, e As EventArgs) Handles cbMotivoMovimiento.ValueChanged
-        Dim dt As DataTable = CType(cbMotivoMovimiento.DataSource, DataTable)
-
-        Dim fila As DataRow() = dt.Select("id =" + Str(cbMotivoMovimiento.Value))
-        If (Not IsDBNull(fila)) Then
-            If (fila.Count > 0) Then
-
-                Dim valor As Integer = fila(0).Item("Tipo")
-                If (valor = 1) Then
-                    swtipo.Value = True
-                Else
-                    swtipo.Value = False
-                End If
-            End If
-
-        End If
-    End Sub
 #End Region
 End Class

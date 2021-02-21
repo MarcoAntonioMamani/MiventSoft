@@ -2807,6 +2807,85 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
+    Public Shared Function L_prListarVentaCierresCaja(CierreId As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@Id", CierreId))
+        _Tabla = D_ProcedimientoConParam("MAM_CierreCajero", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prListarVentaCierresCajaPendiente(PersonalId As Integer, SucursalId As Integer, Fecha As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@Fecha", Fecha))
+        _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
+        _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
+        _Tabla = D_ProcedimientoConParam("MAM_CierreCajero", _listParam)
+
+        Return _Tabla
+    End Function
+    Public Shared Function L_prListarCobranzaCierresCaja(CierreId As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 6))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@Id", CierreId))
+        _Tabla = D_ProcedimientoConParam("MAM_CierreCajero", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prListarMovimientosIngresoEgresoCierre(CierreId As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 8))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@Id", CierreId))
+        _Tabla = D_ProcedimientoConParam("MAM_CierreCajero", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prListarMovimientosIngresoEgresoCierrePendiente(SucursalId As Integer, Fecha As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 9))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
+        _listParam.Add(New Datos.DParametro("@Fecha", Fecha))
+        _Tabla = D_ProcedimientoConParam("MAM_CierreCajero", _listParam)
+
+        Return _Tabla
+    End Function
+    Public Shared Function L_prListarCobrosCajaPendiente(Fecha As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 7))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@Fecha", Fecha))
+        _Tabla = D_ProcedimientoConParam("MAM_CierreCajero", _listParam)
+
+        Return _Tabla
+    End Function
+
     Public Shared Function L_prCierreCajeroInsertar(ByRef _numi As String, Fecha As String, PersonalId As Integer, SucursalId As Integer, MontoInicial As Double, EstadoCaja As Integer, TipoCambio As Double, TotalVenta As Double, TotalCobranzas As Double, TotalIngresos As Double, TotalEgresos As Double, TotalCaja As Double, TotalEfectivo As Double, TotalTransferencia As Double, TotalTarjeta As Double, TotalEfectivoRecibido As Double, Diferencia As Double, Observacion As String) As Boolean
         Dim _resultado As Boolean
 

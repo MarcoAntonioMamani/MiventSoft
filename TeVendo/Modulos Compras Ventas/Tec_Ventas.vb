@@ -1163,17 +1163,41 @@ salirIf:
         Dim Id As String = "0"
         Try
 
-            Dim ef = New Efecto
-            ef.tipo = 20
-            ef.TotalVenta = tbTotal.Value
-            ef.ShowDialog()
-            Dim bandera As Boolean = False
-            bandera = ef.band
-            If (bandera = True) Then
+            If (swTipoVenta.Value = True) Then
+
+                Dim ef = New Efecto
+                ef.tipo = 20
+                ef.TotalVenta = tbTotal.Value
+                ef.ShowDialog()
+                Dim bandera As Boolean = False
+                bandera = ef.band
+                If (bandera = True) Then
+
+                    Dim dt As DataTable = ListaVentasDetallePago(-1)
+                    'a.Id , a.VentaId, a.MontoBs, a.MontoDolares, a.TarjetaBancaria, a.TransferenciaBancaria, a.TipoCambio, 1 as estado
+                    dt.Rows.Add(0, 0, ef.MontoBs, ef.MontoDolares, ef.MontoTarjeta, ef.MontoTransferencia, Global_TipoCambio, 0)
+
+
+                    res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
+                                   IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
+                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt)
+
+                    If res Then
+
+                        ReporteVenta(Id)
+                        ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                        FilaSelectLote = Nothing
+
+                    Else
+                        ToastNotification.Show(Me, "Error al guardar la Venta".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+
+                    End If
+                End If
+            Else
 
                 Dim dt As DataTable = ListaVentasDetallePago(-1)
                 'a.Id , a.VentaId, a.MontoBs, a.MontoDolares, a.TarjetaBancaria, a.TransferenciaBancaria, a.TipoCambio, 1 as estado
-                dt.Rows.Add(0, 0, ef.MontoBs, ef.MontoDolares, ef.MontoTarjeta, ef.MontoTransferencia, Global_TipoCambio, 0)
+
 
 
                 res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
@@ -1191,6 +1215,8 @@ salirIf:
 
                 End If
             End If
+
+
 
 
 
