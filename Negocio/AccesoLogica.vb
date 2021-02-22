@@ -3000,7 +3000,7 @@ Public Class AccesoLogica
 
         Return _resultado
     End Function
-    Public Shared Function L_prIngresoSalidaInsertar(ByRef _numi As String, Fecha As String, Descripcion As String, Monto As Double, CajaId As Integer, IngresoEgreso As Integer, CajaTipoMovimientoId As Integer, PersonalId As Integer, SucursalId As Integer, CajaIdDestino As Integer) As Boolean
+    Public Shared Function L_prIngresoSalidaInsertar(ByRef _numi As String, Fecha As String, Descripcion As String, Monto As Double, CajaId As Integer, IngresoEgreso As Integer, CajaTipoMovimientoId As Integer, PersonalId As Integer, SucursalId As Integer, CajaIdDestino As Integer, IdIngresoEgreso As Integer) As Boolean
         Dim _resultado As Boolean
 
         '@id,@CierreCajeroId ,@Fecha ,@Descripcion ,@Monto ,@CajaId ,@IngresoEgreso ,@CajaTipoMovimientoId,
@@ -3022,7 +3022,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@Modulo", 0))
         _listParam.Add(New Datos.DParametro("@IdModulo", 0))
         _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
-        _listParam.Add(New Datos.DParametro("@CajaIngresoEgresoIdDestino", 0))
+        _listParam.Add(New Datos.DParametro("@CajaIngresoEgresoIdDestino", IdIngresoEgreso))
         _listParam.Add(New Datos.DParametro("@CajaIdDestino", CajaIdDestino))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _Tabla = D_ProcedimientoConParam("MAM_CajaIngresoEgreso", _listParam)

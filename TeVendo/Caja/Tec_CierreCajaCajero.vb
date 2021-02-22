@@ -470,11 +470,17 @@ Public Class Tec_CierreCajaCajero
             .Width = 110
             .Caption = "Movimiento"
             .Visible = True
+            .MaxLines = 2
+            .WordWrap = True
         End With
         With grIngresosEgresoss.RootTable.Columns("NombreTipoMovimiento")
             .Width = 200
             .Caption = "Tipo Movimiento"
             .Visible = True
+
+            .MaxLines = 2
+            .WordWrap = True
+
         End With
 
         With grIngresosEgresoss.RootTable.Columns("Fecha")
@@ -487,6 +493,8 @@ Public Class Tec_CierreCajaCajero
             .Width = 200
             .Caption = "Descripcion"
             .Visible = True
+            .MaxLines = 2
+            .WordWrap = True
         End With
 
 
@@ -793,6 +801,9 @@ Public Class Tec_CierreCajaCajero
         ''_AttributoId As Integer, _FamiliaId As Integer, _UnidadVentaId As Integer,
         '_UnidadMaximaId As Integer,
         ''_conversion As Double
+
+
+
         Dim res As Boolean
         Try
             TipoCambio = tbTipoCambio.Value
@@ -985,6 +996,23 @@ Public Class Tec_CierreCajaCajero
 
         End If
 
+        If (_MNuevo) Then
+
+            Dim dt As DataTable = L_prListarGeneral("MAM_CierreCajero")
+
+            Dim fila As DataRow() = dt.Select("SucursalId=" + Str(cbSucursal.Value) + " and EstadoCaja=1")
+            If (Not IsDBNull(fila)) Then
+                If (fila.Count > 0) Then
+
+                    ToastNotification.Show(Me, "No Es Posible Abrir Una Nueva Caja, por que ya existe una Abierta Para la Sucursal " + cbSucursal.Text, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                    tbDetalle.Focus()
+                    _ok = False
+                    Return _ok
+                End If
+
+            End If
+
+        End If
 
         Return _ok
     End Function

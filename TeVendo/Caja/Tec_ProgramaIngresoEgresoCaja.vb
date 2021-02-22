@@ -289,6 +289,20 @@ Public Class Tec_ProgramaIngresoEgresoCaja
             .DataSource = dt
             .Refresh()
         End With
+
+
+        With cbCajaDestino
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("Id").Width = 70
+            .DropDownList.Columns("Id").Caption = "COD"
+            .DropDownList.Columns.Add("NombreCaja").Width = 200
+            .DropDownList.Columns("NombreCaja").Caption = "Caja"
+            .ValueMember = "Id"
+            .DisplayMember = "NombreCaja"
+            .DataSource = dt
+            .Refresh()
+        End With
+
     End Sub
 
     Private Sub _prCargarComboTipoMovimiento(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
@@ -355,7 +369,7 @@ Public Class Tec_ProgramaIngresoEgresoCaja
         cbSucursal.ReadOnly = False
         cbMotivoMovimiento.ReadOnly = False
         cbCaja.ReadOnly = False
-
+        cbCajaDestino.ReadOnly = False
         btnAgregarMotivoMovimiento.Visible = True
     End Sub
 
@@ -367,7 +381,7 @@ Public Class Tec_ProgramaIngresoEgresoCaja
         cbSucursal.ReadOnly = True
         cbMotivoMovimiento.ReadOnly = True
         cbCaja.ReadOnly = True
-
+        cbCajaDestino.ReadOnly = True
         btnAgregarMotivoMovimiento.Visible = False
     End Sub
 
@@ -399,7 +413,31 @@ Public Class Tec_ProgramaIngresoEgresoCaja
 
 
     End Sub
+    Function _prGuardarTraspaso() As Boolean
+        Dim numi As String = ""
+        Dim Res As Boolean = L_prIngresoSalidaInsertar(numi, tbFecha.Value.ToString("yyyy/MM/dd"), tbDescripcion.Text, tbMonto.Value, cbCaja.Value, IIf(swtipo.Value = True, 1, 0), cbMotivoMovimiento.Value, PersonalId, cbSucursal.Value, cbCajaDestino.Value, 0)
+        If res Then
 
+            Dim numDestino As String = ""
+            Dim resDestino As Boolean = L_prIngresoSalidaInsertar(numDestino, tbFecha.Value.ToString("yyyy/MM/dd"), tbDescripcion.Text, tbMonto.Value, cbCajaDestino.Value, 1, 10, PersonalId, cbSucursal.Value, cbCaja.Value, numi)
+            If resDestino Then
+
+                Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+                ToastNotification.Show(Me, "Traspaso De Dinero Entre Cajas ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper,
+                                          img, 2000,
+                                          eToastGlowColor.Green,
+                                          eToastPosition.TopCenter
+                                          )
+                Return True
+            End If
+
+        Else
+            Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
+            ToastNotification.Show(Me, "El traspaso no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            Return False
+        End If
+        Return False
+    End Function
     Public Function _PMOGrabarRegistro() As Boolean
         'ByRef _numi As String, _CodigoExterno As String,
         '                                        _CodigoBarra As String, _NombreProducto As String,
@@ -410,7 +448,13 @@ Public Class Tec_ProgramaIngresoEgresoCaja
         ''_conversion As Double
         Dim res As Boolean
         Try
-            res = L_prIngresoSalidaInsertar(tbCodigo.Text, tbFecha.Value.ToString("yyyy/MM/dd"), tbDescripcion.Text, tbMonto.Value, cbCaja.Value, IIf(swtipo.Value = True, 1, 0), cbMotivoMovimiento.Value, PersonalId, cbSucursal.Value, 0)
+            If (cbMotivoMovimiento.Value = 9) Then
+
+
+                Return _prGuardarTraspaso()
+            End If
+
+            res = L_prIngresoSalidaInsertar(tbCodigo.Text, tbFecha.Value.ToString("yyyy/MM/dd"), tbDescripcion.Text, tbMonto.Value, cbCaja.Value, IIf(swtipo.Value = True, 1, 0), cbMotivoMovimiento.Value, PersonalId, cbSucursal.Value, 0, 0)
 
             If res Then
 
@@ -563,7 +607,53 @@ Public Class Tec_ProgramaIngresoEgresoCaja
 
         End If
 
+        If (cbMotivoMovimiento.Value = 9) Then
 
+            If (cbCajaDestino.SelectedIndex < 0) Then
+                ToastNotification.Show(Me, "Seleccione una Caja Destino", img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                cbCajaDestino.Focus()
+                _ok = False
+                Return _ok
+            End If
+
+            If (cbCaja.Value = cbCajaDestino.Value) Then
+                ToastNotification.Show(Me, "en el Campo Caja Destino Seleccione una Caja diferente Al Origen", img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                cbCajaDestino.Focus()
+                _ok = False
+                Return _ok
+            End If
+
+        End If
+
+        If (cbCaja.Value = 2) Then
+            Dim dt As DataTable = L_prListarGeneral("MAM_CierreCajero")
+
+            Dim fila As DataRow() = dt.Select("SucursalId=" + Str(cbSucursal.Value) + " and EstadoCaja=1")
+            If (Not IsDBNull(fila)) Then
+                If (fila.Count < 0) Then
+
+                    ToastNotification.Show(Me, "No Es Posible Hacer EL Movimiento Por que no Existe Caja Chica con Estado Abierto Para Esta Fecha =" + tbFecha.Value.ToString("dd/MM/yyy"), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                    tbDescripcion.Focus()
+                    _ok = False
+                    Return _ok
+                Else
+                    Dim bandera As Boolean = False
+                    For Each item As Object In fila
+                        If (item("Fecha") = tbFecha.Value) Then
+                            bandera = True
+                        End If
+                    Next
+                    If (bandera = False) Then
+                        ToastNotification.Show(Me, "No Es Posible Hacer EL Movimiento Por que no Existe Caja Chica con Estado Abierto Para Esta Fecha =" + tbFecha.Value.ToString("dd/MM/yyy"), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                        tbDescripcion.Focus()
+                        _ok = False
+                        Return _ok
+                    End If
+                End If
+            End If
+
+
+        End If
         Return _ok
     End Function
 
@@ -755,14 +845,28 @@ Public Class Tec_ProgramaIngresoEgresoCaja
     Private Sub EditarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditarToolStripMenuItem.Click
         If (JGrM_Buscador.Row >= 0) Then
 
-            TabControlPrincipal.SelectedTabIndex = 0
-            btnModificar.PerformClick()
+            If (cbMotivoMovimiento.Value = 9) Then
+                ToastNotification.Show(Me, "No Es Posible Modificar Un Traspaso. Elimine Este registro y Vuelva a Registrarlo".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                Return
+            End If
 
-        End If
+            If (JGrM_Buscador.GetValue("CierreCajeroId") > 0) Then
+                ToastNotification.Show(Me, "No Es Posible Modificar El Movimiento ya Que Pertenece a Un cierre de Caja Con Estado Cerrado".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                Return
+            End If
+
+            TabControlPrincipal.SelectedTabIndex = 0
+                btnModificar.PerformClick()
+
+            End If
     End Sub
 
     Private Sub EliminarToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles EliminarToolStripMenuItem1.Click
         If (JGrM_Buscador.Row >= 0) Then
+            If (JGrM_Buscador.GetValue("CierreCajeroId") > 0) Then
+                ToastNotification.Show(Me, "No Es Posible Modificar El Movimiento ya Que Pertenece a Un cierre de Caja Con Estado Cerrado".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                Return
+            End If
 
             btnEliminar.PerformClick()
 
@@ -778,6 +882,9 @@ Public Class Tec_ProgramaIngresoEgresoCaja
     End Sub
 
     Private Sub cbCaja_ValueChanged(sender As Object, e As EventArgs) Handles cbCaja.ValueChanged
+
+
+
 
     End Sub
 
@@ -829,6 +936,23 @@ Public Class Tec_ProgramaIngresoEgresoCaja
                     swtipo.Value = False
                 End If
             End If
+
+        End If
+        If (cbMotivoMovimiento.Value = 9) Then  ''Si es Traspaso Debo mostrar el deposito destino
+
+            lbCajaSalida.Text = "Caja Origen:"
+            lbCajaDestino.Visible = True
+            cbCajaDestino.Visible = True
+
+            Dim dtCaja As DataTable = CType(cbCajaDestino.DataSource, DataTable)
+
+            cbCajaDestino.SelectedIndex = dtCaja.Rows.Count - 1
+
+
+        Else
+            lbCajaSalida.Text = "Caja:"
+            lbCajaDestino.Visible = False
+            cbCajaDestino.Visible = False
 
         End If
     End Sub
