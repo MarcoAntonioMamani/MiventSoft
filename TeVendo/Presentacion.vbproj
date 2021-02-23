@@ -194,6 +194,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Caja\Tec_CajaGeneral.Designer.vb">
+      <DependentUpon>Tec_CajaGeneral.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Caja\Tec_CajaGeneral.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Caja\Tec_CierreCajaCajero.Designer.vb">
       <DependentUpon>Tec_CierreCajaCajero.vb</DependentUpon>
     </Compile>
@@ -720,6 +726,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Caja\Tec_CajaGeneral.resx">
+      <DependentUpon>Tec_CajaGeneral.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Caja\Tec_CierreCajaCajero.resx">
       <DependentUpon>Tec_CierreCajaCajero.vb</DependentUpon>
     </EmbeddedResource>

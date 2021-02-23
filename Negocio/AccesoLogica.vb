@@ -88,6 +88,12 @@ Public Class AccesoLogica
         _Tabla = D_Datos_Tabla("Id,RolId,SucursalId,IdPersonal,isnull((select top 1 Monto from TipoCambio as t order by id desc),0) as Monto,isnull(ModificarPrecioVenta,0) as ModificarPrecioVenta, isnull(AplicarDescuentoVenta,0)as AplicarDescuentoVenta,isnull((select al.Nombrealmacen from Almacenes  as al where al.id=SucursalId ),'Todos') as NombreSucursal", "Usuarios", "NombreUsuario = '" + _Nom + "' AND Contrasena = '" + _Pass + "'")
         Return _Tabla
     End Function
+
+    Public Shared Function L_ObtenerConfiguraciones() As DataTable
+        Dim _Tabla As DataTable
+        _Tabla = D_Datos_Tabla("Lote,Mapa,TotalCajaGeneral", "Configuracion", "1=1")
+        Return _Tabla
+    End Function
 #End Region
 
 #End Region
@@ -1008,6 +1014,27 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
+    Public Shared Function L_fnObtenerHistorialCajaGeneral(FechaI As String) As DataTable
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 6))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@FechaI", FechaI))
+        _Tabla = D_ProcedimientoConParam("MAM_CajaIngresoEgreso", _listParam)
+
+        Return _Tabla
+    End Function
+    Public Shared Function L_fnObtenerHistorialCajaGeneralDesdeHasta(FechaI As String, FechaF As String) As DataTable
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 7))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@FechaI", FechaI))
+        _listParam.Add(New Datos.DParametro("@FechaF", FechaF))
+        _Tabla = D_ProcedimientoConParam("MAM_CajaIngresoEgreso", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_fnObtenerHistorialProducto(_codProducto As Integer, FechaI As String, FechaF As String, _almacen As Integer) As DataTable
         Dim _Tabla As DataTable
 

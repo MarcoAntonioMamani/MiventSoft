@@ -117,6 +117,7 @@ Partial Class Tec_Principal
         Me.btnCerrarSesion = New DevComponents.DotNetBar.ButtonX()
         Me.PanelLine = New System.Windows.Forms.Panel()
         Me.imguser = New System.Windows.Forms.PictureBox()
+        Me.btnCajaGeneral = New DevComponents.DotNetBar.Metro.MetroTileItem()
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlMenu.SuspendLayout()
         Me.SuperTabControlPanel5.SuspendLayout()
@@ -428,7 +429,7 @@ Partial Class Tec_Principal
         Me.ItemContainer8.ItemSpacing = 10
         Me.ItemContainer8.MultiLine = True
         Me.ItemContainer8.Name = "ItemContainer8"
-        Me.ItemContainer8.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnGastos, Me.btnCierreCajero})
+        Me.ItemContainer8.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnGastos, Me.btnCierreCajero, Me.btnCajaGeneral})
         '
         '
         '
@@ -459,7 +460,7 @@ Partial Class Tec_Principal
         Me.btnGastos.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnGastos.TileStyle.PaddingRight = 20
         Me.btnGastos.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
-        Me.btnGastos.TitleText = "Registrar Gastos" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "o Ingresos"
+        Me.btnGastos.TitleText = "Registrar " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Gastos o" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Ingresos"
         Me.btnGastos.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
         Me.btnGastos.TitleTextColor = System.Drawing.Color.White
         '
@@ -2003,6 +2004,29 @@ Partial Class Tec_Principal
         Me.imguser.TabIndex = 1
         Me.imguser.TabStop = False
         '
+        'btnCajaGeneral
+        '
+        Me.btnCajaGeneral.Image = Global.TeVendo.My.Resources.Resources.ventas
+        Me.btnCajaGeneral.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnCajaGeneral.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnCajaGeneral.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnCajaGeneral.Name = "btnCajaGeneral"
+        Me.btnCajaGeneral.SymbolColor = System.Drawing.Color.Black
+        Me.btnCajaGeneral.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnCajaGeneral.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btnCajaGeneral.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(159, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.btnCajaGeneral.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.btnCajaGeneral.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnCajaGeneral.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnCajaGeneral.TileStyle.PaddingRight = 20
+        Me.btnCajaGeneral.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnCajaGeneral.TitleText = "Caja" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "General"
+        Me.btnCajaGeneral.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnCajaGeneral.TitleTextColor = System.Drawing.Color.White
+        '
         'Tec_Principal
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -2127,4 +2151,5 @@ Partial Class Tec_Principal
     Friend WithEvents ItemContainer8 As DevComponents.DotNetBar.ItemContainer
     Friend WithEvents btnGastos As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents btnCierreCajero As DevComponents.DotNetBar.Metro.MetroTileItem
+    Friend WithEvents btnCajaGeneral As DevComponents.DotNetBar.Metro.MetroTileItem
 End Class
