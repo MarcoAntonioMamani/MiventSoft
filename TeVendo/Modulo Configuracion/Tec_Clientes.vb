@@ -469,7 +469,7 @@ Public Class Tec_Clientes
         Try
             res = InsertarCliente(tbCodigo.Text, cbZona.Value, cbPrecios.Value, tbCodigoExterno.Text, tbNombreCliente.Text,
                                   tbDireccionCliente.Text, tbTelefono.Text, cbTipoDocumento.Value, tbNroDocumento.Text,
-                                  tbRazonSocial.Text, tbnit.Text, IIf(swEstado.Value = True, 1, 0), Now.Date.ToString("dd/MM/yyyy"), _latitud, _longitud)
+                                  tbRazonSocial.Text, tbnit.Text, IIf(swEstado.Value = True, 1, 0), Now.Date.ToString("yyyy/MM/dd"), _latitud, _longitud)
 
             If res Then
 

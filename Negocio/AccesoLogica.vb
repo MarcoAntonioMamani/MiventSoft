@@ -1182,7 +1182,18 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+    Public Shared Function ListaProformasDetalles(VentaId As String) As DataTable
+        Dim _Tabla As DataTable
 
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@id", VentaId))
+        _Tabla = D_ProcedimientoConParam("MAM_Proforma", _listParam)
+
+        Return _Tabla
+    End Function
 
     Public Shared Function ListaVentasDetallePago(VentaId As String) As DataTable
         Dim _Tabla As DataTable
