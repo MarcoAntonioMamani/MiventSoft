@@ -1152,65 +1152,27 @@ salirIf:
         Dim Id As String = "0"
         Try
 
-            If (swTipoVenta.Value = True) Then
-
-                Dim ef = New Efecto
-                ef.tipo = 20
-                ef.TotalVenta = tbTotal.Value
-                ef.ShowDialog()
-                Dim bandera As Boolean = False
-                bandera = ef.band
-                If (bandera = True) Then
-
-                    Dim dt As DataTable = ListaVentasDetallePago(-1)
-                    'a.Id , a.VentaId, a.MontoBs, a.MontoDolares, a.TarjetaBancaria, a.TransferenciaBancaria, a.TipoCambio, 1 as estado
-                    dt.Rows.Add(0, 0, ef.MontoBs, ef.MontoDolares, ef.MontoTarjeta, ef.MontoTransferencia, Global_TipoCambio, 0)
 
 
-                    res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
-                                   IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt)
 
-                    If res Then
+            res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
+                           IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
+                           1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt)
 
-                        ReporteVenta(Id)
-                        ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
-                        FilaSelectLote = Nothing
+            If res Then
 
-                    Else
-                        ToastNotification.Show(Me, "Error al guardar la Venta".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ReporteVenta(Id)
+                ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                FilaSelectLote = Nothing
 
-                    End If
-                End If
             Else
+                ToastNotification.Show(Me, "Error al guardar la Venta".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
-                Dim dt As DataTable = ListaVentasDetallePago(-1)
-                'a.Id , a.VentaId, a.MontoBs, a.MontoDolares, a.TarjetaBancaria, a.TransferenciaBancaria, a.TipoCambio, 1 as estado
-
-
-
-                res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
-                               IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt)
-
-                If res Then
-
-                    ReporteVenta(Id)
-                    ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
-                    FilaSelectLote = Nothing
-
-                Else
-                    ToastNotification.Show(Me, "Error al guardar la Venta".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
-
-                End If
             End If
 
 
-
-
-
         Catch ex As Exception
-            ToastNotification.Show(Me, "Error al guardar la Venta".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, "Error al guardar la Proforma".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
         End Try
 
@@ -1222,37 +1184,22 @@ salirIf:
         Dim Res As Boolean
         Try
 
-            Dim ef = New Efecto
-            ef.tipo = 20
-            ef.TotalVenta = tbTotal.Value
-            ef.MontoBs = tbMontoBs.Value
-            ef.MontoDolares = tbMontoDolar.Value
-            ef.MontoTarjeta = tbTarjeta.Value
-            ef.MontoTransferencia = tbTransferencia.Value
-            ef.ShowDialog()
-            Dim bandera As Boolean = False
-            bandera = ef.band
-            If (bandera = True) Then
-                Dim dt As DataTable = ListaVentasDetallePago(-1)
-                'a.Id , a.VentaId, a.MontoBs, a.MontoDolares, a.TarjetaBancaria, a.TransferenciaBancaria, a.TipoCambio, 1 as estado
-                dt.Rows.Add(0, 0, ef.MontoBs, ef.MontoDolares, ef.MontoTarjeta, ef.MontoTransferencia, Global_TipoCambio, 0)
 
-                Res = VentaModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
-                               IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt)
-                If Res Then
-                    ReporteVenta(tbCodigo.Text)
-                    ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
-                    _PSalirRegistro()
-                    FilaSelectLote = Nothing
-                Else
-                    ToastNotification.Show(Me, "Error al guardar La Venta".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Res = ProformaModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
+                               IdVendedor, IdCliente, 1, Now.Date.ToString("yyyy/MM/dd"),
+                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value)
+            If Res Then
+                ReporteVenta(tbCodigo.Text)
+                ToastNotification.Show(Me, "Codigo de Proforma ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                _PSalirRegistro()
+                FilaSelectLote = Nothing
+            Else
+                ToastNotification.Show(Me, "Error al guardar La Proforma".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
-                End If
             End If
 
         Catch ex As Exception
-            ToastNotification.Show(Me, "Error al modificar La Venta".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, "Error al modificar La Proforma".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
         End Try
 
@@ -1400,7 +1347,7 @@ salirIf:
 
     Public Function _PMOGetTablaBuscador() As DataTable
 
-        Dim dtBuscador As DataTable = L_prListarVentasGeneralFiltroFecha("MAM_Ventas", tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"), Global_Sucursal)
+        Dim dtBuscador As DataTable = L_prListarVentasGeneralFiltroFecha("MAM_Proforma", tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"), Global_Sucursal)
         Return dtBuscador
     End Function
 
@@ -1429,11 +1376,7 @@ salirIf:
         listEstCeldas.Add(New Celda("NombreAlmacen", True, " Sucursal", 120))
         listEstCeldas.Add(New Celda("TotalVenta", True, "Total Venta", 120, "0.00"))
         listEstCeldas.Add(New Celda("Descuento", False))
-        listEstCeldas.Add(New Celda("MontoBs", False))
-        listEstCeldas.Add(New Celda("MontoDolares", False))
-        listEstCeldas.Add(New Celda("TarjetaBancaria", False))
-        listEstCeldas.Add(New Celda("TransferenciaBancaria", False))
-        listEstCeldas.Add(New Celda("TipoCambio", False))
+
         Return listEstCeldas
     End Function
 
@@ -1455,28 +1398,21 @@ salirIf:
             tbFechaTransaccion.Value = .GetValue("FechaVenta")
             IdVendedor = .GetValue("PersonalId")
             tbVendedor.Text = .GetValue("Personal").ToString
-            swTipoVenta.Value = .GetValue("TipoVenta")
+
             IdCliente = .GetValue("ClienteId")
-            tbFechaVencimientoCredito.Value = .GetValue("FechaVencimientoCredito")
+
             tbCliente.Text = .GetValue("NombreCliente").ToString
 
             tbGlosa.Text = .GetValue("Glosa").ToString
             tbMdesc.Value = .GetValue("descuento")
 
-            tbMontoBs.Value = .GetValue("MontoBs")
-            tbMontoDolar.Value = .GetValue("MontoDolares")
-            tbTarjeta.Value = .GetValue("TarjetaBancaria")
-            tbTransferencia.Value = .GetValue("TransferenciaBancaria")
-            TipoCambio = .GetValue("TipoCambio")
-            tbTotalPagado.Value = tbMontoBs.Value + (tbMontoDolar.Value * TipoCambio) + tbTransferencia.Value + tbTarjeta.Value
-            lbTipoCambio.Text = "Tipo Cambio = " + Str(TipoCambio)
 
         End With
 
         _prCargarDetalleVenta(tbCodigo.Text)
         tbMdesc.Value = JGrM_Buscador.GetValue("Descuento")
         _prCalcularPrecioTotal()
-        tbCambio.Value = tbTotalPagado.Value - tbTotal.Value
+
         LblPaginacion.Text = Str(_MPos + 1) + "/" + JGrM_Buscador.RowCount.ToString
 
     End Sub
@@ -1690,16 +1626,7 @@ salirIf:
 
     End Sub
 
-    Private Sub swTipoVenta_ValueChanged(sender As Object, e As EventArgs) Handles swTipoVenta.ValueChanged
-        If (swTipoVenta.Value = True) Then
-            tbFechaVencimientoCredito.Visible = False
-            lbcredito.Visible = False
-        Else
-            lbcredito.Visible = True
-            tbFechaVencimientoCredito.Visible = True
 
-        End If
-    End Sub
 
     Private Sub tbPdesc_ValueChanged(sender As Object, e As EventArgs) Handles tbPdesc.ValueChanged
         If (tbPdesc.Focused) Then
@@ -1936,9 +1863,9 @@ salirIf:
         If (JGrM_Buscador.Row >= 0) Then
             btnEliminar.PerformClick()
 
+        End If
 
-
-End Sub
+    End Sub
 
     Private Sub btnSeleccionarProducto_Click(sender As Object, e As EventArgs) Handles btnSeleccionarProducto.Click
         Dim ef = New Efecto
