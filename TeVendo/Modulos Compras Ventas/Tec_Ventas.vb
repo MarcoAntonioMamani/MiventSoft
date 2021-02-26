@@ -1969,6 +1969,7 @@ salirIf:
 
         ef.SucursalId = cbSucursal.Value
         ef.Lotebool = Lote
+        ef.TipoPrograma = 1
         ef.IdCliente = IdCliente
         ef.ShowDialog()
         grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))

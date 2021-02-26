@@ -50,6 +50,7 @@ Public Class Efecto
     Public MontoTransferencia As Double = 0
     Public TotalVenta As Double = 0
 
+    Public TipoPrograma As Integer = 1
     Public Id As Integer = 0
 
     Private Sub Efecto_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -301,6 +302,7 @@ Public Class Efecto
         frmAyuda.SucursalId = SucursalId
         frmAyuda.Lote = Lotebool
         frmAyuda.IdCliente = IdCliente
+        frmAyuda.TipoProgramas = TipoPrograma
         frmAyuda.ShowDialog()
         Me.Close()
 

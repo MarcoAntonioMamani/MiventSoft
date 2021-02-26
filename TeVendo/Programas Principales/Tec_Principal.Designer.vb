@@ -29,6 +29,7 @@ Partial Class Tec_Principal
         Me.SuperTabControlPanel5 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel_Ventas = New DevComponents.DotNetBar.Metro.MetroTilePanel()
         Me.ItemContainer2 = New DevComponents.DotNetBar.ItemContainer()
+        Me.btnProforma = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btVentVenta = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btVentReporteRealizada = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btVentGrafica = New DevComponents.DotNetBar.Metro.MetroTileItem()
@@ -118,7 +119,6 @@ Partial Class Tec_Principal
         Me.btnCerrarSesion = New DevComponents.DotNetBar.ButtonX()
         Me.PanelLine = New System.Windows.Forms.Panel()
         Me.imguser = New System.Windows.Forms.PictureBox()
-        Me.btnProforma = New DevComponents.DotNetBar.Metro.MetroTileItem()
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlMenu.SuspendLayout()
         Me.SuperTabControlPanel5.SuspendLayout()
@@ -153,8 +153,8 @@ Partial Class Tec_Principal
         Me.SuperTabControlMenu.ControlBox.MenuBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControlMenu.ControlBox.MenuBox, Me.SuperTabControlMenu.ControlBox.CloseBox})
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel3)
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel8)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel6)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel1)
@@ -236,6 +236,29 @@ Partial Class Tec_Principal
         Me.ItemContainer2.TitleStyle.Font = New System.Drawing.Font("Calibri", 18.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ItemContainer2.TitleStyle.TextColor = System.Drawing.Color.White
         Me.ItemContainer2.TitleText = "  Ventas"
+        '
+        'btnProforma
+        '
+        Me.btnProforma.Image = Global.TeVendo.My.Resources.Resources.credito
+        Me.btnProforma.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnProforma.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnProforma.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnProforma.Name = "btnProforma"
+        Me.btnProforma.SymbolColor = System.Drawing.Color.Black
+        Me.btnProforma.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnProforma.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btnProforma.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnProforma.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
+        Me.btnProforma.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnProforma.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnProforma.TileStyle.PaddingRight = 20
+        Me.btnProforma.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnProforma.TitleText = "Crear" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Proformas"
+        Me.btnProforma.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnProforma.TitleTextColor = System.Drawing.Color.White
         '
         'btVentVenta
         '
@@ -2019,37 +2042,16 @@ Partial Class Tec_Principal
         '
         'imguser
         '
+        Me.imguser.BackColor = System.Drawing.Color.White
         Me.imguser.Dock = System.Windows.Forms.DockStyle.Left
-        Me.imguser.Image = Global.TeVendo.My.Resources.Resources.icono_sistema02
+        Me.imguser.Image = CType(resources.GetObject("imguser.Image"), System.Drawing.Image)
         Me.imguser.Location = New System.Drawing.Point(0, 0)
         Me.imguser.Name = "imguser"
+        Me.imguser.Padding = New System.Windows.Forms.Padding(30, 0, 30, 0)
         Me.imguser.Size = New System.Drawing.Size(201, 40)
         Me.imguser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.imguser.TabIndex = 1
         Me.imguser.TabStop = False
-        '
-        'btnProforma
-        '
-        Me.btnProforma.Image = Global.TeVendo.My.Resources.Resources.credito
-        Me.btnProforma.ImageIndent = New System.Drawing.Point(-50, 0)
-        Me.btnProforma.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
-        Me.btnProforma.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
-        Me.btnProforma.Name = "btnProforma"
-        Me.btnProforma.SymbolColor = System.Drawing.Color.Black
-        Me.btnProforma.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
-        Me.btnProforma.TileSize = New System.Drawing.Size(250, 135)
-        '
-        '
-        '
-        Me.btnProforma.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.btnProforma.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
-        Me.btnProforma.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
-        Me.btnProforma.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnProforma.TileStyle.PaddingRight = 20
-        Me.btnProforma.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
-        Me.btnProforma.TitleText = "Crear" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Proformas"
-        Me.btnProforma.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
-        Me.btnProforma.TitleTextColor = System.Drawing.Color.White
         '
         'Tec_Principal
         '

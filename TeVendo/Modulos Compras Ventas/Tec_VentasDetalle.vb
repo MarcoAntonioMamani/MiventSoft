@@ -17,6 +17,8 @@ Public Class Tec_VentasDetalle
     Public IdCliente As Integer
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
 
+
+    Public TipoProgramas As Integer = 0   ''1=venta  2 =  proforma
     Public Sub IniciarTodod()
         CargarProductosVentas()
         _prCargarProductos()
@@ -119,12 +121,16 @@ Public Class Tec_VentasDetalle
         _prAplicarCondiccionJanusSinLote()
     End Sub
     Public Sub _prAplicarCondiccionJanusSinLote()
-        Dim fc As GridEXFormatCondition
-        fc = New GridEXFormatCondition(grProducto.RootTable.Columns("stock"), ConditionOperator.Equal, 0)
-        'fc.FormatStyle.FontBold = TriState.True
-        fc.FormatStyle.ForeColor = Color.White
-        fc.FormatStyle.BackColor = Color.Red
-        grProducto.RootTable.FormatConditions.Add(fc)
+
+        If (TipoProgramas = 1) Then
+            Dim fc As GridEXFormatCondition
+            fc = New GridEXFormatCondition(grProducto.RootTable.Columns("stock"), ConditionOperator.Equal, 0)
+            'fc.FormatStyle.FontBold = TriState.True
+            fc.FormatStyle.ForeColor = Color.White
+            fc.FormatStyle.BackColor = Color.Red
+            grProducto.RootTable.FormatConditions.Add(fc)
+        End If
+
     End Sub
     Public Sub CambiarEstado(ProductoId As Integer, Estado As Integer)
         If (IsNothing(grProducto.DataSource)) Then
@@ -543,23 +549,28 @@ Public Class Tec_VentasDetalle
 
     End Sub
     Public Sub _prAplicarCondiccionJanusLote()
-        Dim fc As GridEXFormatCondition
-        fc = New GridEXFormatCondition(grProducto.RootTable.Columns("stock"), ConditionOperator.Equal, 0)
-        fc.FormatStyle.BackColor = Color.Gold
-        fc.FormatStyle.FontBold = TriState.True
-        fc.FormatStyle.ForeColor = Color.White
-        grProducto.RootTable.FormatConditions.Add(fc)
 
-        Dim fc2 As GridEXFormatCondition
-        fc2 = New GridEXFormatCondition(grProducto.RootTable.Columns("FechaVencimiento"), ConditionOperator.LessThanOrEqualTo, Now.Date)
-        fc2.FormatStyle.BackColor = Color.Red
-        fc2.FormatStyle.FontBold = TriState.True
-        fc2.FormatStyle.ForeColor = Color.White
-        grProducto.RootTable.FormatConditions.Add(fc2)
 
-        grProducto.Select()
-        grProducto.Col = 1
-        grProducto.Row = grProducto.RowCount - 1
+        If (TipoProgramas = 1) Then
+            Dim fc As GridEXFormatCondition
+            fc = New GridEXFormatCondition(grProducto.RootTable.Columns("stock"), ConditionOperator.Equal, 0)
+            fc.FormatStyle.BackColor = Color.Gold
+            fc.FormatStyle.FontBold = TriState.True
+            fc.FormatStyle.ForeColor = Color.White
+            grProducto.RootTable.FormatConditions.Add(fc)
+
+            Dim fc2 As GridEXFormatCondition
+            fc2 = New GridEXFormatCondition(grProducto.RootTable.Columns("FechaVencimiento"), ConditionOperator.LessThanOrEqualTo, Now.Date)
+            fc2.FormatStyle.BackColor = Color.Red
+            fc2.FormatStyle.FontBold = TriState.True
+            fc2.FormatStyle.ForeColor = Color.White
+            grProducto.RootTable.FormatConditions.Add(fc2)
+
+            grProducto.Select()
+            grProducto.Col = 1
+            grProducto.Row = grProducto.RowCount - 1
+        End If
+
     End Sub
 
 
@@ -655,7 +666,8 @@ Public Class Tec_VentasDetalle
 
 
             ''''''''''''''''''''''''
-            If (grProducto.GetValue("stock") <= 0) Then
+
+            If (grProducto.GetValue("stock") <= 0 And TipoProgramas = 1) Then
 
                 ToastNotification.Show(Me, "No Existe Stock del Producto Para Proceder con la Venta".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
                 Return
@@ -669,7 +681,13 @@ Public Class Tec_VentasDetalle
                 ef.tipo = 5
                 ef.NombreProducto = grProducto.GetValue("NombreProducto")
                 ef.StockActual = grProducto.GetValue("stock")
-                ef.TipoMovimiento = 3
+                If (TipoProgramas = 1) Then
+                    ef.TipoMovimiento = 3
+                Else
+                    ef.TipoMovimiento = 4
+
+                End If
+
                 ef.ShowDialog()
                 Dim bandera As Boolean = False
                 bandera = ef.band
@@ -1139,8 +1157,45 @@ salirIf:
 
             Else
                 If (grDetalle.GetValue("Cantidad") > 0) Then
+                    If (TipoProgramas = 1) Then
+                        If (grDetalle.GetValue("Cantidad") <= grDetalle.GetValue("Stock")) Then
+                            Dim porcdesc As Double = grDetalle.GetValue("ProcentajeDescuento")
+                            Dim montodesc As Double = ((grDetalle.GetValue("Precio") * grDetalle.GetValue("Cantidad")) * (porcdesc / 100))
+                            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = montodesc
+                            grDetalle.SetValue("MontoDescuento", montodesc)
+                            Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+                            Dim rowIndex01 As Integer = grDetalle.Row
+                            P_PonerTotal(rowIndex01)
+                            If (estado = 1) Then
+                                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                            End If
 
-                    If (grDetalle.GetValue("Cantidad") <= grDetalle.GetValue("Stock")) Then
+                        Else
+
+                            If (TipoProgramas = 1) Then
+                                ToastNotification.Show(Me, "La Cantidad = " + Str(grDetalle.GetValue("Cantidad")) + " es mayor al Stock del Producto = " + Str(grDetalle.GetValue("Stock")), img, 6000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+                                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = 0
+                                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = 0
+                                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio")
+                                Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+
+                                grDetalle.SetValue("Cantidad", 1)
+                                grDetalle.SetValue("ProcentajeDescuento", 0)
+                                grDetalle.SetValue("MontoDescuento", 0)
+                                grDetalle.SetValue("SubTotal", grDetalle.GetValue("Precio"))
+                                grDetalle.SetValue("Total", grDetalle.GetValue("Precio"))
+
+
+
+                                If (estado = 1) Then
+                                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                                End If
+
+                            End If
+
+                        End If
+                    Else
                         Dim porcdesc As Double = grDetalle.GetValue("ProcentajeDescuento")
                         Dim montodesc As Double = ((grDetalle.GetValue("Precio") * grDetalle.GetValue("Cantidad")) * (porcdesc / 100))
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = montodesc
@@ -1151,27 +1206,6 @@ salirIf:
                         If (estado = 1) Then
                             CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
                         End If
-
-                    Else
-                        ToastNotification.Show(Me, "La Cantidad = " + Str(grDetalle.GetValue("Cantidad")) + " es mayor al Stock del Producto = " + Str(grDetalle.GetValue("Stock")), img, 6000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
-                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = 0
-                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = 0
-                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio")
-                        Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
-
-                        grDetalle.SetValue("Cantidad", 1)
-                        grDetalle.SetValue("ProcentajeDescuento", 0)
-                        grDetalle.SetValue("MontoDescuento", 0)
-                        grDetalle.SetValue("SubTotal", grDetalle.GetValue("Precio"))
-                        grDetalle.SetValue("Total", grDetalle.GetValue("Precio"))
-
-
-
-                        If (estado = 1) Then
-                            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
-                        End If
-
                     End If
 
 
