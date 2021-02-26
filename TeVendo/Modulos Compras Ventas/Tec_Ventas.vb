@@ -1501,8 +1501,7 @@ salirIf:
 
         Else
             '  Public _modulo As SideNavItem
-            _modulo.Select()
-            _tab.Close()
+            TabControlPrincipal.SelectedTabIndex = 1
         End If
     End Sub
 
@@ -1914,6 +1913,7 @@ salirIf:
         objrep.SetParameterValue("Monto", li)
         objrep.SetParameterValue("Fecha", _FechaPar)
         objrep.SetParameterValue("Total", Str(total))
+        objrep.SetParameterValue("TipoReporte", "NOTA DE VENTA")
         P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
         P_Global.Visualizador.CrGeneral.Zoom(130)
         P_Global.Visualizador.Show() 'Comentar

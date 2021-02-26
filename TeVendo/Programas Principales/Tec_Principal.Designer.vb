@@ -40,6 +40,7 @@ Partial Class Tec_Principal
         Me.ItemContainer8 = New DevComponents.DotNetBar.ItemContainer()
         Me.btnGastos = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btnCierreCajero = New DevComponents.DotNetBar.Metro.MetroTileItem()
+        Me.btnCajaGeneral = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.tab_compraventa = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel_Configuracion = New DevComponents.DotNetBar.Metro.MetroTilePanel()
@@ -117,7 +118,7 @@ Partial Class Tec_Principal
         Me.btnCerrarSesion = New DevComponents.DotNetBar.ButtonX()
         Me.PanelLine = New System.Windows.Forms.Panel()
         Me.imguser = New System.Windows.Forms.PictureBox()
-        Me.btnCajaGeneral = New DevComponents.DotNetBar.Metro.MetroTileItem()
+        Me.btnProforma = New DevComponents.DotNetBar.Metro.MetroTileItem()
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlMenu.SuspendLayout()
         Me.SuperTabControlPanel5.SuspendLayout()
@@ -224,7 +225,7 @@ Partial Class Tec_Principal
         Me.ItemContainer2.ItemSpacing = 10
         Me.ItemContainer2.MultiLine = True
         Me.ItemContainer2.Name = "ItemContainer2"
-        Me.ItemContainer2.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btVentVenta, Me.btVentReporteRealizada, Me.btVentGrafica, Me.btVentReporteVentaVsCosto, Me.btInvUtilidad, Me.btVentProdMasVendidos, Me.btVentRendimiento, Me.btnCredPago})
+        Me.ItemContainer2.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnProforma, Me.btVentVenta, Me.btVentReporteRealizada, Me.btVentGrafica, Me.btVentReporteVentaVsCosto, Me.btInvUtilidad, Me.btVentProdMasVendidos, Me.btVentRendimiento, Me.btnCredPago})
         '
         '
         '
@@ -486,6 +487,29 @@ Partial Class Tec_Principal
         Me.btnCierreCajero.TitleText = "Administrar" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Cierre Caja"
         Me.btnCierreCajero.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
         Me.btnCierreCajero.TitleTextColor = System.Drawing.Color.White
+        '
+        'btnCajaGeneral
+        '
+        Me.btnCajaGeneral.Image = Global.TeVendo.My.Resources.Resources.ventas
+        Me.btnCajaGeneral.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnCajaGeneral.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnCajaGeneral.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnCajaGeneral.Name = "btnCajaGeneral"
+        Me.btnCajaGeneral.SymbolColor = System.Drawing.Color.Black
+        Me.btnCajaGeneral.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnCajaGeneral.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btnCajaGeneral.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(159, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.btnCajaGeneral.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.btnCajaGeneral.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnCajaGeneral.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnCajaGeneral.TileStyle.PaddingRight = 20
+        Me.btnCajaGeneral.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnCajaGeneral.TitleText = "Caja" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "General"
+        Me.btnCajaGeneral.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnCajaGeneral.TitleTextColor = System.Drawing.Color.White
         '
         'tab_compraventa
         '
@@ -2004,28 +2028,28 @@ Partial Class Tec_Principal
         Me.imguser.TabIndex = 1
         Me.imguser.TabStop = False
         '
-        'btnCajaGeneral
+        'btnProforma
         '
-        Me.btnCajaGeneral.Image = Global.TeVendo.My.Resources.Resources.ventas
-        Me.btnCajaGeneral.ImageIndent = New System.Drawing.Point(-50, 0)
-        Me.btnCajaGeneral.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
-        Me.btnCajaGeneral.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
-        Me.btnCajaGeneral.Name = "btnCajaGeneral"
-        Me.btnCajaGeneral.SymbolColor = System.Drawing.Color.Black
-        Me.btnCajaGeneral.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
-        Me.btnCajaGeneral.TileSize = New System.Drawing.Size(250, 135)
+        Me.btnProforma.Image = Global.TeVendo.My.Resources.Resources.credito
+        Me.btnProforma.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnProforma.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnProforma.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnProforma.Name = "btnProforma"
+        Me.btnProforma.SymbolColor = System.Drawing.Color.Black
+        Me.btnProforma.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnProforma.TileSize = New System.Drawing.Size(250, 135)
         '
         '
         '
-        Me.btnCajaGeneral.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(159, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.btnCajaGeneral.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.btnCajaGeneral.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
-        Me.btnCajaGeneral.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnCajaGeneral.TileStyle.PaddingRight = 20
-        Me.btnCajaGeneral.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
-        Me.btnCajaGeneral.TitleText = "Caja" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "General"
-        Me.btnCajaGeneral.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
-        Me.btnCajaGeneral.TitleTextColor = System.Drawing.Color.White
+        Me.btnProforma.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnProforma.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
+        Me.btnProforma.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnProforma.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnProforma.TileStyle.PaddingRight = 20
+        Me.btnProforma.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnProforma.TitleText = "Crear" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Proformas"
+        Me.btnProforma.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnProforma.TitleTextColor = System.Drawing.Color.White
         '
         'Tec_Principal
         '
@@ -2152,4 +2176,5 @@ Partial Class Tec_Principal
     Friend WithEvents btnGastos As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents btnCierreCajero As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents btnCajaGeneral As DevComponents.DotNetBar.Metro.MetroTileItem
+    Friend WithEvents btnProforma As DevComponents.DotNetBar.Metro.MetroTileItem
 End Class
