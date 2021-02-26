@@ -1195,7 +1195,7 @@ salirIf:
 
         ef.tipo = 8
         ef.titulo = "Comprobante de Proforma"
-        ef.descripcion = "¿Desea Generar la Proforma de la Venta #" + Id + " ?"
+        ef.descripcion = "¿Desea Generar la Proforma #" + Id + " ?"
         ef.ShowDialog()
         Dim bandera As Boolean = False
         bandera = ef.band
