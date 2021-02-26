@@ -1219,6 +1219,19 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+
+    Public Shared Function ListarVentaProforma(VentaId As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 6))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@id", VentaId))
+        _Tabla = D_ProcedimientoConParam("MAM_Proforma", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function ReporteCompras(CompraId As String) As DataTable
         Dim _Tabla As DataTable
 
@@ -1290,6 +1303,51 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _numi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function ProformaInsertar(ByRef _numi As String, AlmacenId As Integer,
+                                           FechaTransacccion As String, PersonalId As Integer, ClienteId As Integer, TipoVenta As Integer,
+       FechaVencCredito As String, Moneda As Integer, estado As Integer, glosa As String,
+                                           TotalCompra As Double, _dtDetalle As DataTable,
+                                           Descuento As Double) As Boolean
+        Dim _resultado As Boolean
+
+        '    @Id ,@SucursalId ,@FechaVenta ,@PersonalId ,@TipoVenta ,
+        '@FechaVencimientoCredito ,@ClienteId ,@MonedaVenta ,@Estado ,@Glosa ,
+        '@Descuento ,@TotalVenta 
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@SucursalId", AlmacenId))
+        _listParam.Add(New Datos.DParametro("@FechaVenta", FechaTransacccion))
+        _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
+        _listParam.Add(New Datos.DParametro("@TipoVenta", TipoVenta))
+        _listParam.Add(New Datos.DParametro("@FechaVencimientoCredito", FechaVencCredito))
+        _listParam.Add(New Datos.DParametro("@ClienteId", ClienteId))
+
+
+        _listParam.Add(New Datos.DParametro("@MonedaVenta", Moneda))
+        _listParam.Add(New Datos.DParametro("@Estado", estado))
+        _listParam.Add(New Datos.DParametro("@Glosa", glosa))
+        _listParam.Add(New Datos.DParametro("@TotalVenta", TotalCompra))
+        _listParam.Add(New Datos.DParametro("@Descuento", Descuento))
+        _listParam.Add(New Datos.DParametro("@VentaDetalleType", "", _dtDetalle))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Proforma", _listParam)
 
         If _Tabla.Rows.Count > 0 Then
             _numi = _Tabla.Rows(0).Item(0)

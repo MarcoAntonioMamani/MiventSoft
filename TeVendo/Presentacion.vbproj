@@ -616,6 +616,9 @@
       <DependentUpon>Reporte_Rendimiento_Personal.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ReporteSmartApps\Reporte_VentaDetalladas.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ReporteSmartApps\Reporte_VentaEstadoCuentas.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -1119,7 +1119,7 @@ Public Class Tec_Productos
         Dim ef = New Efecto
         ef.tipo = 10
         ef.ModuloLibreria = 6
-        ef.titulo = "Crear Nueva Unidad Minima"
+        ef.titulo = "Crear Nueva Unidad Venta Minima"
         ef.ShowDialog()
         Dim bandera As Boolean = False
         bandera = ef.band

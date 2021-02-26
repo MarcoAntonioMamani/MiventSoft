@@ -1155,18 +1155,18 @@ salirIf:
 
 
 
-            res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
-                           IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                           1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt)
+            res = ProformaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
+                           IdVendedor, IdCliente, 1, Now.Date.ToString("yyyy/MM/dd"),
+                           1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value)
 
             If res Then
 
                 ReporteVenta(Id)
-                ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Codigo de Proforma ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                 FilaSelectLote = Nothing
 
             Else
-                ToastNotification.Show(Me, "Error al guardar la Venta".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Error al guardar la Proforma".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
             End If
 
@@ -1213,8 +1213,8 @@ salirIf:
 
 
         ef.tipo = 8
-        ef.titulo = "Comprobante de Venta"
-        ef.descripcion = "¿Desea Generar el Reporte de la Venta #" + Id + " ?"
+        ef.titulo = "Comprobante de Proforma"
+        ef.descripcion = "¿Desea Generar la Proforma de la Venta #" + Id + " ?"
         ef.ShowDialog()
         Dim bandera As Boolean = False
         bandera = ef.band
@@ -1234,7 +1234,7 @@ salirIf:
 
         ef.tipo = 3
         ef.titulo = "Confirmación de Eliminación"
-        ef.descripcion = "¿Esta Seguro de Eliminar la Venta " + tbCodigo.Text + " ?"
+        ef.descripcion = "¿Esta Seguro de Eliminar la Proforma " + tbCodigo.Text + " ?"
         ef.ShowDialog()
         Dim bandera As Boolean = False
         bandera = ef.band
@@ -1242,7 +1242,7 @@ salirIf:
             Dim mensajeError As String = ""
             Dim res As Boolean
             Try
-                res = L_prBorrarRegistro(tbCodigo.Text, mensajeError, "MAM_Ventas")
+                res = L_prBorrarRegistro(tbCodigo.Text, mensajeError, "MAM_Proforma")
                 If res Then
 
                     ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
@@ -1778,7 +1778,7 @@ salirIf:
 
     End Sub
     Private Sub P_GenerarReporte(numi As String)
-        Dim dt As DataTable = ListarVentaRecibo(numi)
+        Dim dt As DataTable = ListarVentaProforma(numi)
 
         Dim total As Decimal = dt.Compute("SUM(Total)", "")
         total = total - dt.Rows(0).Item("DescuentoVenta")
