@@ -631,7 +631,7 @@ Public Class Tec_ProgramaIngresoEgresoCaja
 
                 Dim fila As DataRow() = dt.Select("SucursalId=" + Str(cbSucursal.Value) + " and EstadoCaja=1")
                 If (Not IsDBNull(fila)) Then
-                    If (fila.Count < 0) Then
+                    If (fila.Count <= 0) Then
 
                         ToastNotification.Show(Me, "No Es Posible Hacer EL Movimiento Por que no Existe Caja Chica con Estado Abierto Para Esta Fecha =" + tbFecha.Value.ToString("dd/MM/yyy"), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
                         tbDescripcion.Focus()
@@ -662,7 +662,7 @@ Public Class Tec_ProgramaIngresoEgresoCaja
 
             Dim fila As DataRow() = dt.Select("SucursalId=" + Str(cbSucursal.Value) + " and EstadoCaja=1")
             If (Not IsDBNull(fila)) Then
-                If (fila.Count < 0) Then
+                If (fila.Count <= 0) Then
 
                     ToastNotification.Show(Me, "No Es Posible Hacer EL Movimiento Por que no Existe Caja Chica con Estado Abierto Para Esta Fecha =" + tbFecha.Value.ToString("dd/MM/yyy"), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
                     tbDescripcion.Focus()

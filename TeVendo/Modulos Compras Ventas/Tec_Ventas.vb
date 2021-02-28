@@ -1406,6 +1406,33 @@ salirIf:
             tbCliente.Focus()
             Return _ok
         End If
+
+        Dim dt As DataTable = L_prListarGeneral("MAM_CierreCajero")
+
+        Dim fila As DataRow() = dt.Select("SucursalId=" + Str(cbSucursal.Value) + " and EstadoCaja=1")
+        If (Not IsDBNull(fila)) Then
+            If (fila.Count <= 0) Then
+
+                ToastNotification.Show(Me, "No Es Posible Hacer EL Movimiento Por que no Existe Caja Chica con Estado Abierto Para Esta Fecha =" + tbFechaTransaccion.Value.ToString("dd/MM/yyy"), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                tbFechaTransaccion.Focus()
+                _ok = False
+                Return _ok
+            Else
+                Dim bandera As Boolean = False
+                For Each item As Object In fila
+                    If (item("Fecha") = tbFechaTransaccion.Value) Then
+                        bandera = True
+                    End If
+                Next
+                If (bandera = False) Then
+                    ToastNotification.Show(Me, "No Es Posible Hacer EL Movimiento Por que no Existe Caja Chica con Estado Abierto Para Esta Fecha =" + tbFechaTransaccion.Value.ToString("dd/MM/yyy"), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                    tbFechaTransaccion.Focus()
+                    _ok = False
+                    Return _ok
+                End If
+            End If
+        End If
+
         Return _ok
     End Function
 
@@ -1506,28 +1533,34 @@ salirIf:
     End Sub
 
     Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
+
+
         _PMNuevo()
-        Dim dt As DataTable = ListarPersonalById(Global_IdPersonal)
-        If (dt.Rows.Count > 0) Then
-            IdVendedor = Global_IdPersonal
-            tbVendedor.Text = dt.Rows(0).Item("Nombre")
-            tbCliente.Focus()
+                Dim dt As DataTable = ListarPersonalById(Global_IdPersonal)
+                If (dt.Rows.Count > 0) Then
+                    IdVendedor = Global_IdPersonal
+                    tbVendedor.Text = dt.Rows(0).Item("Nombre")
+                    tbCliente.Focus()
 
-        Else
-            tbVendedor.Focus()
-        End If
-        Dim dtclientes As DataTable = L_prListarGeneral("MAM_Clientes")
+                Else
+                    tbVendedor.Focus()
+                End If
+                Dim dtclientes As DataTable = L_prListarGeneral("MAM_Clientes")
 
-        Dim fila As DataRow() = dtclientes.Select("Id =1")
-        If (Not IsDBNull(fila)) Then
-            If (fila.Count > 0) Then
+                Dim fila01 As DataRow() = dtclientes.Select("Id =1")
+                If (Not IsDBNull(fila01)) Then
+                    If (fila01.Count > 0) Then
 
-                IdCliente = fila(0).Item("Id")
-                tbCliente.Text = fila(0).Item("NombreCliente").ToString
-                btnSeleccionarProducto.Focus()
+                        IdCliente = fila01(0).Item("Id")
+                        tbCliente.Text = fila01(0).Item("NombreCliente").ToString
+                        btnSeleccionarProducto.Focus()
 
-            End If
-        End If
+                    End If
+                End If
+
+
+
+
 
 
 
@@ -1603,8 +1636,26 @@ salirIf:
     End Sub
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
-        TabControlPrincipal.SelectedTabIndex = 0
-        btnNuevo.PerformClick()
+        Dim dtCierre As DataTable = L_prListarGeneral("MAM_CierreCajero")
+        Dim fila As DataRow()
+        If (Global_Sucursal > 0) Then
+
+            fila = dtCierre.Select("SucursalId=" + Str(Global_Sucursal) + " and EstadoCaja=1")
+        Else
+            fila = dtCierre.Select("EstadoCaja=1")
+        End If
+
+        If (Not IsDBNull(fila)) Then
+            If (fila.Count <= 0) Then
+
+                ToastNotification.Show(Me, "No Es Posible Hacer La Venta Por que no Existe Caja Chica con Estado Abierta", img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                Return
+            Else
+                TabControlPrincipal.SelectedTabIndex = 0
+                btnNuevo.PerformClick()
+            End If
+
+        End If
 
     End Sub
 
@@ -1943,6 +1994,12 @@ salirIf:
     End Sub
 
     Private Sub EditarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditarToolStripMenuItem.Click
+
+        If (JGrM_Buscador.GetValue("CierreModulo") > 0) Then
+            ToastNotification.Show(Me, "No Es Posible Modificar La Venta Ya que Pertenece A un cierre De Caja Cerrado # " + Str(JGrM_Buscador.GetValue("CierreModulo")), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Return
+        End If
+
         If (JGrM_Buscador.Row >= 0) Then
             TabControlPrincipal.SelectedTabIndex = 0
             btnModificar.PerformClick()
@@ -1951,6 +2008,11 @@ salirIf:
     End Sub
 
     Private Sub EliminarToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles EliminarToolStripMenuItem1.Click
+        If (JGrM_Buscador.GetValue("CierreModulo") > 0) Then
+            ToastNotification.Show(Me, "No Es Posible Eliminar La Venta Ya que Pertenece A un cierre De Caja Cerrado # " + Str(JGrM_Buscador.GetValue("CierreModulo")), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Return
+        End If
+
         If (JGrM_Buscador.Row >= 0) Then
             btnEliminar.PerformClick()
 

@@ -46,7 +46,10 @@ Public Class Tec_AdministrarCuentasPorCobrar
             .Visible = True
         End With
 
-
+        With grPagos.RootTable.Columns("CierreModulo")
+            .Width = 70
+            .Visible = False
+        End With
         With grPagos.RootTable.Columns("Monto")
             .Width = 70
             .Visible = True
@@ -115,6 +118,10 @@ Public Class Tec_AdministrarCuentasPorCobrar
         grPagosTodos.RetrieveStructure()
         grPagosTodos.AlternatingColors = True
         'FechaPago	Monto	Glosa	NroComprobante	NombrePersonal	img
+        With grPagosTodos.RootTable.Columns("CierreModulo")
+            .Width = 70
+            .Visible = False
+        End With
         With grPagosTodos.RootTable.Columns("Id")
             .Width = 70
             .Visible = False
@@ -703,6 +710,32 @@ Public Class Tec_AdministrarCuentasPorCobrar
 
         If (ValidarCamposaGrabar()) Then
 
+
+            Dim dt As DataTable = L_prListarGeneral("MAM_CierreCajero")
+
+            Dim fila As DataRow() = dt.Select("EstadoCaja=1")
+            If (Not IsDBNull(fila)) Then
+                If (fila.Count <= 0) Then
+
+                    ToastNotification.Show(Me, "No Es Posible Hacer EL Cobro Por que no Existe Caja Chica con Estado Abierto Para Esta Fecha =" + tbFechaTransaccion.Value.ToString("dd/MM/yyy"), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                    tbFechaTransaccion.Focus()
+                    Return
+                Else
+                    Dim bandera As Boolean = False
+                    For Each item As Object In fila
+                        If (item("Fecha") = tbFechaTransaccion.Value) Then
+                            bandera = True
+                        End If
+                    Next
+                    If (bandera = False) Then
+                        ToastNotification.Show(Me, "No Es Posible Hacer EL Cobro Por que no Existe Caja Chica con Estado Abierto Para Esta Fecha =" + tbFechaTransaccion.Value.ToString("dd/MM/yyy"), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                        tbFechaTransaccion.Focus()
+
+                        Return
+                    End If
+                End If
+            End If
+
             Dim id As String = ""
             Try
                 If (L_prGrabarPagosCreditoVentas(id, IdCredito, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), IdPersonal, tbGlosa.Text, tbNroComprobante.Text, tbMontoAPagar.Value)) Then
@@ -837,39 +870,51 @@ Public Class Tec_AdministrarCuentasPorCobrar
 
     Private Sub grPagosTodos_Click(sender As Object, e As EventArgs) Handles grPagosTodos.Click
         If (grPagosTodos.RowCount >= 1) Then
+
+
+
+
             If (grPagosTodos.CurrentColumn.Index = grPagosTodos.RootTable.Columns("img").Index) Then
+
+                If (grPagosTodos.GetValue("CierreModulo") > 0) Then
+                    ToastNotification.Show(Me, "No Es Posible Eliminar El Cobro por Que ya Pertenece a un Cierre De Caja # " + Str(grPagosTodos.GetValue("CierreModulo")), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                    Return
+                End If
+
+
+
                 Dim ef = New Efecto
 
 
-                ef.tipo = 3
-                ef.titulo = "Eliminación De Pagos"
-                ef.descripcion = "¿Esta Seguro de Eliminar el Pago de Fecha " + grPagosTodos.GetValue("FechaPago") + " Con Monto de " + Str(grPagosTodos.GetValue("Monto")) + " ?"
-                ef.ShowDialog()
-                Dim bandera As Boolean = False
-                bandera = ef.band
-                If (bandera = True) Then
-                    Dim mensajeError As String = ""
-                    Dim res As Boolean
-                    Try
-                        res = L_prEliminarPagosCuentaPorCobrar(grPagosTodos.GetValue("Id"))
-                        If res Then
+                    ef.tipo = 3
+                    ef.titulo = "Eliminación De Pagos"
+                    ef.descripcion = "¿Esta Seguro de Eliminar el Pago de Fecha " + grPagosTodos.GetValue("FechaPago") + " Con Monto de " + Str(grPagosTodos.GetValue("Monto")) + " ?"
+                    ef.ShowDialog()
+                    Dim bandera As Boolean = False
+                    bandera = ef.band
+                    If (bandera = True) Then
+                        Dim mensajeError As String = ""
+                        Dim res As Boolean
+                        Try
+                            res = L_prEliminarPagosCuentaPorCobrar(grPagosTodos.GetValue("Id"))
+                            If res Then
 
-                            Dim imgOk As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
-                            ToastNotification.Show(Me, "El pago ha sido Eliminado con Exito".ToUpper, imgOk, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                                Dim imgOk As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+                                ToastNotification.Show(Me, "El pago ha sido Eliminado con Exito".ToUpper, imgOk, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
 
-                            tbSaldoTodos.Value = tbSaldoTodos.Value + grPagosTodos.GetValue("Monto")
-                            _prListaPagosAdministracion()
-                        Else
-                            ToastNotification.Show(Me, mensajeError, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                        End If
-                    Catch ex As Exception
-                        ToastNotification.Show(Me, "Error al eliminar el Pago".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                                tbSaldoTodos.Value = tbSaldoTodos.Value + grPagosTodos.GetValue("Monto")
+                                _prListaPagosAdministracion()
+                            Else
+                                ToastNotification.Show(Me, mensajeError, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                            End If
+                        Catch ex As Exception
+                            ToastNotification.Show(Me, "Error al eliminar el Pago".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
-                    End Try
+                        End Try
 
+                    End If
                 End If
             End If
-        End If
     End Sub
 
     Private Sub tab_configuraciones_Click(sender As Object, e As EventArgs) Handles tabCreditoPendiente.Click
