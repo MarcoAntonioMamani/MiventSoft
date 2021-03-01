@@ -800,7 +800,7 @@ Public Class Tec_Kits
 
             CType(grProductos.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, Row.Cells("ProductoId").Value, Row.Cells("NombreProducto").Value, Row.Cells("PrecioVenta").Value, 1, Row.Cells("PrecioVenta").Value, 0, Bin.GetBuffer, Row.Cells("PrecioCosto").Value, Row.Cells("PrecioVenta").Value)
 
-
+            _prCalcularPrecioTotal()
             btnAgregarProducto.Focus()
 
         End If
@@ -838,7 +838,7 @@ Public Class Tec_Kits
                     posicion = ObtenerPosicion(grProductos.GetValue("id"))
                     CType(grProductos.DataSource, DataTable).Rows(posicion).Item("estado") = -1
                     grProductos.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grProductos.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
-
+                    _prCalcularPrecioTotal()
                 End If
 
             End If
