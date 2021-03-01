@@ -1046,7 +1046,13 @@ Public Class Tec_Kits
 
 
 
-
+            'Else
+            '    Dim estado As Integer = CType(grProductos.DataSource, DataTable).Rows(pos).Item("estado")
+            '    Dim rowIndex01 As Integer = grProductos.Row
+            '    P_PonerTotal(rowIndex01)
+            '    If (estado = 1) Then
+            '        CType(grProductos.DataSource, DataTable).Rows(pos).Item("estado") = 2
+            '    End If
         End If
     End Sub
 End Class
