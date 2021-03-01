@@ -53,8 +53,15 @@ Public Class Tec_VentasDetalle
         grProducto.AlternatingColors = True
         With grProducto.RootTable.Columns("Id")
             .Width = 100
-            .Caption = "Id"
+            .Caption = "Cod Producto"
             .Visible = True
+
+
+        End With
+        With grProducto.RootTable.Columns("Tipo")
+            .Width = 100
+            .Caption = "Tipo"
+            .Visible = False
 
 
         End With
@@ -71,7 +78,7 @@ Public Class Tec_VentasDetalle
 
         End With
         With grProducto.RootTable.Columns("NombreProducto")
-            .Width = 350
+            .Width = 300
             .Caption = "PRODUCTOS"
             .Visible = True
             .MaxLines = 2
@@ -85,14 +92,20 @@ Public Class Tec_VentasDetalle
             .WordWrap = True
             .Caption = "DESCRIPCION"
         End With
+        With grProducto.RootTable.Columns("NombreTipo")
+            .Width = 90
+            .Visible = True
+            .MaxLines = 2
+            .WordWrap = True
+            .Caption = "Tipo"
+        End With
         With grProducto.RootTable.Columns("NombreCategoria")
-            .Width = 150
+            .Width = 120
             .Visible = True
             .MaxLines = 2
             .WordWrap = True
             .Caption = "CATEGORIA"
         End With
-
 
         With grProducto.RootTable.Columns("PrecioCosto")
             .Width = 150
@@ -214,6 +227,29 @@ Public Class Tec_VentasDetalle
 
         End With
 
+
+        With grDetalle.RootTable.Columns("Tipo")
+            .Width = 100
+            .Visible = False
+
+        End With
+        With grDetalle.RootTable.Columns("TipoNombre")
+            .Width = 60
+            .Visible = True
+            .Caption = "Tipo"
+        End With
+        With grDetalle.RootTable.Columns("KitId")
+            .Width = 100
+            .Visible = False
+
+        End With
+        With grDetalle.RootTable.Columns("KitNombre")
+            .Width = 100
+            .Visible = True
+            .Caption = "Kit"
+            .WordWrap = True
+            .MaxLines = 3
+        End With
 
         With grDetalle.RootTable.Columns("ProductoId")
             .Width = 30
