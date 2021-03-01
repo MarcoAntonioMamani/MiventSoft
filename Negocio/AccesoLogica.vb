@@ -493,7 +493,18 @@ Public Class AccesoLogica
     End Function
 
 
+    Public Shared Function ListaProductosKits(KitId As String) As DataTable
+        Dim _Tabla As DataTable
 
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@id", KitId))
+        _Tabla = D_ProcedimientoConParam("MAM_Kits", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function ListaConceptosPlanilla(PlanillaId As String, TipoConcepto As Integer) As DataTable
         Dim _Tabla As DataTable
 
@@ -585,6 +596,74 @@ Public Class AccesoLogica
         _Tabla = D_ProcedimientoConParam("MAM_Contratos", _listParam)
 
         Return _Tabla
+    End Function
+
+    Public Shared Function ListarProductosKits() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_Kits", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function InsertarKit(_Id As String, NombreKit As String, DescripcionKit As String, Estado As Integer, Total As Double, dtdetalle As DataTable) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '(@Id,@NombreKit,@DescripcionKit,@CategoriaId,@Estado,@Total,@Usuario,@newFecha,@newHora )
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", _Id))
+        _listParam.Add(New Datos.DParametro("@NombreKit", NombreKit))
+        _listParam.Add(New Datos.DParametro("@DescripcionKit", DescripcionKit))
+        _listParam.Add(New Datos.DParametro("@CategoriaId", 1))
+        _listParam.Add(New Datos.DParametro("@Estado", Estado))
+        _listParam.Add(New Datos.DParametro("@Total", Total))
+        _listParam.Add(New Datos.DParametro("@Usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@KitsProductos", "", dtdetalle))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Kits", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _Id = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function ModificarKit(_Id As String, NombreKit As String, DescripcionKit As String, Estado As Integer, Total As Double, dtdetalle As DataTable) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '(@Id,@NombreKit,@DescripcionKit,@CategoriaId,@Estado,@Total,@Usuario,@newFecha,@newHora )
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@Id", _Id))
+        _listParam.Add(New Datos.DParametro("@NombreKit", NombreKit))
+        _listParam.Add(New Datos.DParametro("@DescripcionKit", DescripcionKit))
+        _listParam.Add(New Datos.DParametro("@CategoriaId", 1))
+        _listParam.Add(New Datos.DParametro("@Estado", Estado))
+        _listParam.Add(New Datos.DParametro("@Total", Total))
+        _listParam.Add(New Datos.DParametro("@Usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@KitsProductos", "", dtdetalle))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Kits", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _Id = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
     End Function
     Public Shared Function InsertarContratos(_Id As String, PersonalId As Integer, TipoContratoId As Integer, Cargo As Integer, SueldoBase As Double, InicioContrato As String, FinContrato As String, Estado As Integer, Indefinido As Integer, dtdetalle As DataTable) As Boolean
         Dim _Tabla As DataTable

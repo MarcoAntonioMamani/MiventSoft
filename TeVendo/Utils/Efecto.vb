@@ -100,6 +100,8 @@ Public Class Efecto
                 _prMostrarFormCobranza()
             Case 21
                 _prMostrarFormCrearTipoMovimiento()
+            Case 22
+                MostrarFormularioAyudaProductos()
         End Select
     End Sub
 
@@ -327,6 +329,24 @@ Public Class Efecto
     Sub MostrarFormularioContenido()
         Dim frmAyuda As FormularioAyuda
         frmAyuda = New FormularioAyuda(alto, ancho, dt, Context.ToUpper, listEstCeldasNew)
+        If (SeleclCol >= 0) Then
+            frmAyuda.Columna = SeleclCol
+            frmAyuda._prSeleccionar()
+
+        End If
+        frmAyuda.ShowDialog()
+        If frmAyuda.seleccionado = True Then
+            Row = frmAyuda.filaSelect
+            band = True
+            Me.Close()
+        Else
+            band = False
+            Me.Close()
+        End If
+    End Sub
+    Sub MostrarFormularioAyudaProductos()
+        Dim frmAyuda As FormulariiAyudaProductos
+        frmAyuda = New FormulariiAyudaProductos(alto, ancho, dt, Context.ToUpper, listEstCeldasNew)
         If (SeleclCol >= 0) Then
             frmAyuda.Columna = SeleclCol
             frmAyuda._prSeleccionar()

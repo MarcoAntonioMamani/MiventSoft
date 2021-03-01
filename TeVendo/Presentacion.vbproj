@@ -206,6 +206,12 @@
     <Compile Include="Caja\Tec_CierreCajaCajero.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Caja\Tec_Kits.Designer.vb">
+      <DependentUpon>Tec_Kits.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Caja\Tec_Kits.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Caja\Tec_ProgramaIngresoEgresoCaja.Designer.vb">
       <DependentUpon>Tec_ProgramaIngresoEgresoCaja.vb</DependentUpon>
     </Compile>
@@ -715,6 +721,12 @@
     </Compile>
     <Compile Include="P_Encrypt.vb" />
     <Compile Include="P_Global.vb" />
+    <Compile Include="Utils\FormulariiAyudaProductos.Designer.vb">
+      <DependentUpon>FormulariiAyudaProductos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\FormulariiAyudaProductos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Utils\FormularioAyuda.Designer.vb">
       <DependentUpon>FormularioAyuda.vb</DependentUpon>
     </Compile>
@@ -740,6 +752,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Caja\Tec_CierreCajaCajero.resx">
       <DependentUpon>Tec_CierreCajaCajero.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Caja\Tec_Kits.resx">
+      <DependentUpon>Tec_Kits.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Caja\Tec_ProgramaIngresoEgresoCaja.resx">
       <DependentUpon>Tec_ProgramaIngresoEgresoCaja.vb</DependentUpon>
@@ -1014,6 +1029,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utils\FormulariiAyudaProductos.resx">
+      <DependentUpon>FormulariiAyudaProductos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Utils\FormularioAyuda.resx">
       <DependentUpon>FormularioAyuda.vb</DependentUpon>
