@@ -934,15 +934,17 @@ Public Class Tec_Kits
             Else
 
 
-
                 Dim estado As Integer = CType(grProductos.DataSource, DataTable).Rows(pos).Item("estado")
-                Dim rowIndex01 As Integer = grProductos.Row
-                P_PonerTotal(rowIndex01)
-                If (estado = 1) Then
-                    CType(grProductos.DataSource, DataTable).Rows(pos).Item("estado") = 2
-                End If
+                    Dim rowIndex01 As Integer = grProductos.Row
+                    P_PonerTotal(rowIndex01)
+                    If (estado = 1) Then
+                        CType(grProductos.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                    End If
+
+
+
             End If
-        End If
+            End If
 
 
 
@@ -1016,6 +1018,35 @@ Public Class Tec_Kits
 
         Else
             e.Cancel = True
+        End If
+    End Sub
+
+    Private Sub grProductos_CellEdited(sender As Object, e As ColumnActionEventArgs) Handles grProductos.CellEdited
+        Dim lin As Integer = grProductos.GetValue("Id")
+        Dim pos As Integer = -1
+        _fnObtenerFilaDetalle(pos, lin)
+        If (grProductos.GetValue("Precio") < grProductos.GetValue("PrecioCosto")) Then
+
+            ToastNotification.Show(Me, "El Precio Es Menor Al Precio De Costo Del Producto que Es = " + Str(grProductos.GetValue("PrecioCosto")), img, 6000, eToastGlowColor.Red, eToastPosition.TopCenter)
+
+            CType(grProductos.DataSource, DataTable).Rows(pos).Item("Precio") = grProductos.GetValue("PrecioVentaBackup")
+            CType(grProductos.DataSource, DataTable).Rows(pos).Item("SubTotal") = grProductos.GetValue("PrecioVentaBackup") * grProductos.GetValue("Cantidad")
+
+            Dim estado As Integer = CType(grProductos.DataSource, DataTable).Rows(pos).Item("estado")
+
+            grProductos.SetValue("Precio", grProductos.GetValue("PrecioVentaBackup"))
+            grProductos.SetValue("SubTotal", (grProductos.GetValue("PrecioVentaBackup") * grProductos.GetValue("Cantidad")))
+
+            Dim rowIndex01 As Integer = grProductos.Row
+            P_PonerTotal(rowIndex01)
+            If (estado = 1) Then
+                CType(grProductos.DataSource, DataTable).Rows(pos).Item("estado") = 2
+            End If
+
+
+
+
+
         End If
     End Sub
 End Class
