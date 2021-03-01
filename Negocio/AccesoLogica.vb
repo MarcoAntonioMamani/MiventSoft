@@ -1971,6 +1971,18 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+    Public Shared Function L_prListarProductosKitsVenta(KitId As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 10))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@Id", KitId))
+        _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
+
+        Return _Tabla
+    End Function
 
     Public Shared Function LotesPorProducto(_almacen As Integer, _codproducto As Integer) As DataTable
         Dim _Tabla As DataTable

@@ -151,7 +151,7 @@ Public Class Tec_VentasDetalle
 
         End If
         For i As Integer = 0 To CType(grProducto.DataSource, DataTable).Rows.Count - 1 Step 1
-            If (CType(grProducto.DataSource, DataTable).Rows(i).Item("Id") = ProductoId) Then
+            If (CType(grProducto.DataSource, DataTable).Rows(i).Item("Id") = ProductoId And CType(grProducto.DataSource, DataTable).Rows(i).Item("Tipo") = 1) Then
                 CType(grProducto.DataSource, DataTable).Rows(i).Item("estado") = Estado
             End If
 
@@ -181,7 +181,7 @@ Public Class Tec_VentasDetalle
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.rowdelete, 25, 18)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, 0, 0, 0, 0, 0, "", 0, "20200101", CDate("2020/01/01"), 0, Bin.GetBuffer, 0)
+        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, 0, 0, 0, 0, 0, "", 0, "20200101", CDate("2020/01/01"), 0, "", 0, "", 0, 0, Bin.GetBuffer, 0)
     End Sub
 
     Public Function _GenerarId()
@@ -263,6 +263,13 @@ Public Class Tec_VentasDetalle
             .Visible = True
         End With
 
+        With grDetalle.RootTable.Columns("CantidadKit")
+            .Width = 40
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "CantidadKit"
+        End With
         With grDetalle.RootTable.Columns("Cantidad")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
@@ -469,22 +476,33 @@ Public Class Tec_VentasDetalle
         tbProducto.Clear()
         tbProducto.Focus()
     End Sub
-    Public Function _fnExisteProducto(idprod As Integer) As Boolean
+    Public Function _fnExisteProducto(idprod As Integer, Tipo As Integer) As Boolean
         For i As Integer = 0 To CType(grDetalle.DataSource, DataTable).Rows.Count - 1 Step 1
             Dim _idprod As Integer = CType(grDetalle.DataSource, DataTable).Rows(i).Item("ProductoId")
             Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(i).Item("estado")
-            If (_idprod = idprod And estado >= 0) Then
+            If (Tipo = 1) Then  '''1=Producto   2=Kits
 
-                Return True
+                If (_idprod = idprod And estado >= 0 And CType(grDetalle.DataSource, DataTable).Rows(i).Item("Tipo") = 1) Then
+
+                    Return True
+                End If
+
+            Else
+                _idprod = CType(grDetalle.DataSource, DataTable).Rows(i).Item("KitId")
+                If (_idprod = idprod And estado >= 0 And CType(grDetalle.DataSource, DataTable).Rows(i).Item("Tipo") = 2) Then
+
+                    Return True
+                End If
             End If
+
         Next
         Return False
     End Function
 
-    Public Sub _fnObtenerFilaDetalle(ByRef pos As Integer, numi As Integer)
+    Public Sub _fnObtenerFilaDetalle(ByRef pos As Integer, numi As Integer, Tipo As Integer)
         For i As Integer = 0 To CType(grDetalle.DataSource, DataTable).Rows.Count - 1 Step 1
             Dim _numi As Integer = CType(grDetalle.DataSource, DataTable).Rows(i).Item("Id")
-            If (_numi = numi) Then
+            If (_numi = numi And CType(grDetalle.DataSource, DataTable).Rows(i).Item("Tipo") = Tipo) Then
                 pos = i
                 Return
             End If
@@ -610,17 +628,30 @@ Public Class Tec_VentasDetalle
     End Sub
 
 
-    Public Function _fnExisteProductoConLote(idprod As Integer, lote As String, fechaVenci As Date) As Boolean
+    Public Function _fnExisteProductoConLote(idprod As Integer, lote As String, fechaVenci As Date, Tipo As Integer) As Boolean
         For i As Integer = 0 To CType(grDetalle.DataSource, DataTable).Rows.Count - 1 Step 1
             Dim _idprod As Integer = CType(grDetalle.DataSource, DataTable).Rows(i).Item("ProductoId")
             Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(i).Item("estado")
 
             Dim _LoteDetalle As String = CType(grDetalle.DataSource, DataTable).Rows(i).Item("Lote")
             Dim _FechaVencDetalle As Date = CType(grDetalle.DataSource, DataTable).Rows(i).Item("FechaVencimiento")
-            If (_idprod = idprod And estado >= 0 And lote = _LoteDetalle And fechaVenci = _FechaVencDetalle) Then
+            If (Tipo = 1) Then  ''1=productos   2=Kits
 
-                Return True
+                If (_idprod = idprod And estado >= 0 And lote = _LoteDetalle And fechaVenci = _FechaVencDetalle) Then
+
+                    Return True
+                End If
+
+            Else
+                Dim KitId As Integer = CType(grDetalle.DataSource, DataTable).Rows(i).Item("KitId")
+                If (KitId = idprod) Then
+                    Return True
+                End If
+
+
             End If
+
+
         Next
         Return False
     End Function
@@ -637,7 +668,7 @@ Public Class Tec_VentasDetalle
         'a.yfnumi  ,a.yfcdprod1  ,a.yfcdprod2,Sum(b.iccven ) as stock 
         Dim pos As Integer = -1
         grDetalle.Row = grDetalle.RowCount - 1
-        _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"))
+        _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"),grDetalle.GetValue("Tipo"))
         Dim posProducto As Integer = 0
         _fnObtenerFilaProducto(posProducto, grProducto.GetValue("Id"))
 
@@ -664,32 +695,84 @@ Public Class Tec_VentasDetalle
         If (grDetalle.Row < 0) Then
             _prAddDetalleVenta()
         End If
-        Dim existe As Boolean = _fnExisteProducto(grProducto.GetValue("Id"))
+        Dim existe As Boolean = _fnExisteProducto(grProducto.GetValue("Id"), grProducto.GetValue("Tipo"))
         If ((Not existe)) Then
-            If (grDetalle.GetValue("ProductoId") > 0) Then
-                _prAddDetalleVenta()
-            End If
-            grDetalle.Row = grDetalle.RowCount - 1
-            _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"))
-            If ((pos >= 0)) Then
-                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = grProducto.GetValue("Id")
-                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = grProducto.GetValue("NombreProducto")
-                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
-                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = grProducto.GetValue("PrecioVenta")
-                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = grProducto.GetValue("PrecioVenta") * cantidad
 
-                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = grProducto.GetValue("PrecioVenta") * cantidad
-                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCosto") = grProducto.GetValue("PrecioCosto")
-                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("Stock")
+            If (grProducto.GetValue("Tipo") = 1) Then  ''Inserto Productos
+                If (grDetalle.GetValue("ProductoId") > 0) Then
+                    _prAddDetalleVenta()
+                End If
+                grDetalle.Row = grDetalle.RowCount - 1
+                _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"), grDetalle.GetValue("Tipo"))
+                If ((pos >= 0)) Then
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = grProducto.GetValue("Id")
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = grProducto.GetValue("NombreProducto")
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = grProducto.GetValue("PrecioVenta")
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = grProducto.GetValue("PrecioVenta") * cantidad
 
-                CambiarEstado(grProducto.GetValue("Id"), 0)
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = grProducto.GetValue("PrecioVenta") * cantidad
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCosto") = grProducto.GetValue("PrecioCosto")
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("Stock")
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Tipo") = 1
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("TipoNombre") = "Productos"
+
+                    CambiarEstado(grProducto.GetValue("Id"), 0)
+                    'grproducto.RemoveFilters()
+                    tbProducto.Clear()
+                    tbProducto.Focus()
+                End If
+
+            Else ''Inserto Kits
+
+                Dim dt As DataTable = L_prListarProductosKitsVenta(grProducto.GetValue("Id"))
+
+                For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+                    If (grDetalle.GetValue("ProductoId") > 0) Then
+                        _prAddDetalleVenta()
+                    End If
+                    grDetalle.Row = grDetalle.RowCount - 1
+                    _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"), grDetalle.GetValue("Tipo"))
+                    If ((pos >= 0)) Then
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = dt.Rows(i).Item("ProductoId")
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = dt.Rows(i).Item("NombreProducto")
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = dt.Rows(i).Item("Cantidad") * cantidad
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = dt.Rows(i).Item("PrecioVenta")
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = (dt.Rows(i).Item("PrecioVenta")) * (dt.Rows(i).Item("Cantidad") * cantidad)
+
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = (dt.Rows(i).Item("PrecioVenta")) * (dt.Rows(i).Item("Cantidad") * cantidad)
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCosto") = dt.Rows(i).Item("PrecioCosto")
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = dt.Rows(i).Item("Cantidad")
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Tipo") = 2
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("TipoNombre") = "Kits"
+
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("KitId") = grProducto.GetValue("Id")
+
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("KitNombre") = grProducto.GetValue("NombreProducto")
+
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadKit") = cantidad
+
+                    End If
+
+                Next
+                'CambiarEstado(grProducto.GetValue("Id"), 0)
                 'grproducto.RemoveFilters()
                 tbProducto.Clear()
                 tbProducto.Focus()
+
             End If
+
         Else
             If (existe) Then
-                ToastNotification.Show(Me, "El producto ya existe en el detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                If (grProducto.GetValue("Tipo") = 1) Then
+
+                    ToastNotification.Show(Me, "El producto ya existe en el detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                Else
+
+                    ToastNotification.Show(Me, "El Kit Ya Existe En el Detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                End If
+
                 grProducto.RemoveFilters()
                 tbProducto.Focus()
             End If
@@ -739,7 +822,7 @@ Public Class Tec_VentasDetalle
             Dim numiProd As Integer = FilaSelectLote.Item("Id")
             Dim mLote As String = grProducto.GetValue("Lote")
             Dim FechaVenc As Date = grProducto.GetValue("FechaVencimiento")
-            If (Not _fnExisteProductoConLote(numiProd, Lote, FechaVenc)) Then
+            If (Not _fnExisteProductoConLote(numiProd, Lote, FechaVenc, grProducto.GetValue("Tipo"))) Then
                 Dim ef = New Efecto
                 ef.tipo = 5
                 ef.NombreProducto = grProducto.GetValue("NombreProducto")
@@ -756,7 +839,7 @@ Public Class Tec_VentasDetalle
                     End If
                     Dim pos As Integer = -1
                     grDetalle.Row = grDetalle.RowCount - 1
-                    _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"))
+                    _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"), grDetalle.GetValue("Tipo"))
 
                     If ((pos >= 0)) Then
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = numiProd
@@ -785,9 +868,14 @@ Public Class Tec_VentasDetalle
                 End If
 
             Else
+                If (grProducto.GetValue("Tipo") = 1) Then
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    ToastNotification.Show(Me, "El producto con el lote ya existe modifique su cantidad".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                Else
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    ToastNotification.Show(Me, "El producto con el lote ya existe modifique su cantidad".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                End If
 
-                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-                ToastNotification.Show(Me, "El producto con el lote ya existe modifique su cantidad".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
             End If
 
 
@@ -823,7 +911,7 @@ Public Class Tec_VentasDetalle
                 _prAddDetalleVenta()
             End If
             grDetalle.Row = grDetalle.RowCount - 1
-            _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"))
+            _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"), grDetalle.GetValue("Tipo"))
             If ((pos >= 0)) Then
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = grProducto.GetValue("Id")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = grProducto.GetValue("NombreProducto")
@@ -879,31 +967,42 @@ Public Class Tec_VentasDetalle
         End If
     End Sub
     Private Sub grdetalle_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grDetalle.EditingCell
-
-        If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
-            e.Cancel = False
-            Return
-        Else
-            If (Global_ModificarDescuento = 1 And (
-                e.Column.Index = grDetalle.RootTable.Columns("ProcentajeDescuento").Index Or
-                 e.Column.Index = grDetalle.RootTable.Columns("MontoDescuento").Index)) Then
-
-
-                e.Cancel = False
-                Return
-
-            End If
-            If (Global_ModificarPrecio = 1 And e.Column.Index = grDetalle.RootTable.Columns("Precio").Index) Then
-
-                e.Cancel = False
+        Try
+            If (grDetalle.GetValue("Tipo") = 2) Then
+                e.Cancel = True
                 Return
 
             End If
 
-            e.Cancel = True
+            If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
+                e.Cancel = False
+                Return
+            Else
+                If (Global_ModificarDescuento = 1 And (
+                    e.Column.Index = grDetalle.RootTable.Columns("ProcentajeDescuento").Index Or
+                     e.Column.Index = grDetalle.RootTable.Columns("MontoDescuento").Index)) Then
 
 
-        End If
+                    e.Cancel = False
+                    Return
+
+                End If
+                If (Global_ModificarPrecio = 1 And e.Column.Index = grDetalle.RootTable.Columns("Precio").Index) Then
+
+                    e.Cancel = False
+                    Return
+
+                End If
+
+                e.Cancel = True
+
+
+            End If
+        Catch ex As Exception
+
+        End Try
+
+
 
 
 
@@ -1127,18 +1226,50 @@ salirIf:
                 Dim estado As Integer = grDetalle.GetValue("estado")
                 Dim pos As Integer = -1
                 Dim lin As Integer = grDetalle.GetValue("Id")
-                _fnObtenerFilaDetalle(pos, lin)
+                _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
+                Dim TipoKit As Integer = grDetalle.GetValue("Tipo")
 
-                CambiarEstado(grDetalle.GetValue("ProductoId"), 1)
-                If (estado = 0) Then
-                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = -2
+                If (TipoKit = 1) Then  ''Productos
 
+                    CambiarEstado(grDetalle.GetValue("ProductoId"), 1)
+                    If (estado = 0) Then
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = -2
+
+                    End If
+                    If (estado = 1) Then
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = -1
+                    End If
+
+                    grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
+                Else ''Kits
+
+                    Dim KitId As Integer = grDetalle.GetValue("KitId")
+                    Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
+
+                    For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+                        If (dt.Rows(i).Item("KitId") = KitId) Then
+                            If (estado = 0) Then
+                                CType(grDetalle.DataSource, DataTable).Rows(i).Item("estado") = -2
+
+                            End If
+                            If (estado = 1) Then
+                                CType(grDetalle.DataSource, DataTable).Rows(i).Item("estado") = -1
+                            End If
+
+                        End If
+
+                    Next
+
+
+
+
+
+
+
+                    grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
                 End If
-                If (estado = 1) Then
-                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = -1
-                End If
 
-                grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
 
 
             End If
@@ -1166,7 +1297,7 @@ salirIf:
     Private Sub grdetalle_CellValueChanged(sender As Object, e As ColumnActionEventArgs) Handles grDetalle.CellValueChanged
         Dim lin As Integer = grDetalle.GetValue("Id")
         Dim pos As Integer = -1
-        _fnObtenerFilaDetalle(pos, lin)
+        _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
         If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
             If (Not IsNumeric(grDetalle.GetValue("Cantidad")) Or grDetalle.GetValue("Cantidad").ToString = String.Empty) Then
 
@@ -1311,7 +1442,7 @@ salirIf:
                 '  grDetalle.CurrentRow.Cells.Item("cant").Value = 1
                 lin = grDetalle.GetValue("Id")
                 pos = -1
-                _fnObtenerFilaDetalle(pos, lin)
+                _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = 0
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = 0
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal")
@@ -1324,7 +1455,7 @@ salirIf:
                     Dim montodesc As Double = (grDetalle.GetValue("SubTotal") * (porcdesc / 100))
                     lin = grDetalle.GetValue("Id")
                     pos = -1
-                    _fnObtenerFilaDetalle(pos, lin)
+                    _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = montodesc
                     grDetalle.SetValue("MontoDescuento", montodesc)
 
@@ -1332,7 +1463,7 @@ salirIf:
                 Else
                     lin = grDetalle.GetValue("Id")
                     pos = -1
-                    _fnObtenerFilaDetalle(pos, lin)
+                    _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = 0
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = 0
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal")
@@ -1356,7 +1487,7 @@ salirIf:
                 '  grDetalle.CurrentRow.Cells.Item("cant").Value = 1
                 lin = grDetalle.GetValue("Id")
                 pos = -1
-                _fnObtenerFilaDetalle(pos, lin)
+                _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = 0
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = 0
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal")
@@ -1370,7 +1501,7 @@ salirIf:
 
                     lin = grDetalle.GetValue("Id")
                     pos = -1
-                    _fnObtenerFilaDetalle(pos, lin)
+                    _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = montodesc
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = pordesc
 
@@ -1380,7 +1511,7 @@ salirIf:
                 Else
                     lin = grDetalle.GetValue("Id")
                     pos = -1
-                    _fnObtenerFilaDetalle(pos, lin)
+                    _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = 0
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = 0
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal")
@@ -1402,7 +1533,7 @@ salirIf:
 
             Dim lin As Integer = grDetalle.GetValue("Id")
             Dim pos As Integer = -1
-            _fnObtenerFilaDetalle(pos, lin)
+            _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
             Dim cant As Double = grDetalle.GetValue("Cantidad")
             Dim uni As Double = grDetalle.GetValue("Precio")
             Dim MontoDesc As Double = grDetalle.GetValue("MontoDescuento")
