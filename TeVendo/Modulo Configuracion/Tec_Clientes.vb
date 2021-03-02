@@ -630,6 +630,7 @@ Public Class Tec_Clientes
             cbPrecios.Value = .GetValue("PrecioCategoriaId")
             cbZona.Value = .GetValue("ZonaId")
             tbNroDocumento.Text = .GetValue("NroDocumento")
+            tbTelefono.Text = .GetValue("Telefono")
             tbRazonSocial.Text = .GetValue("RazonSocial").ToString
             tbnit.Text = .GetValue("Nit").ToString
             swEstado.Value = .GetValue("estado")
