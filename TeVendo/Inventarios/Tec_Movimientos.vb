@@ -791,7 +791,7 @@ Public Class Tec_Movimientos
                                          1, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), CType(grDetalle.DataSource, DataTable))
 
             If res Then
-
+                ReporteVenta(tbCodigo.Text)
 
                 ToastNotification.Show(Me, "Codigo de Movimiento ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
 
@@ -818,7 +818,7 @@ Public Class Tec_Movimientos
 
 
             If Res Then
-
+                ReporteVenta(tbCodigo.Text)
                 ToastNotification.Show(Me, "Codigo de Movimiento ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                 _PSalirRegistro()
             Else
@@ -1126,6 +1126,70 @@ Public Class Tec_Movimientos
         ef.DepositoId = cbDepositos.Value
         ef.Lotebool = Lote
         ef.ShowDialog()
+    End Sub
+
+    Private Sub P_GenerarReporte(numi As String)
+        Dim dt As DataTable = ListarReporteMovimientoProductos(numi)
+
+
+        Dim dtImage As DataTable = ObtenerImagenEmpresa()
+        If (dtImage.Rows.Count > 0) Then
+            Dim Name As String = dtImage.Rows(0).Item(0)
+            If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Empresa" + Name)) Then
+                Dim im As New Bitmap(New Bitmap(RutaGlobal + "\Imagenes\Imagenes Empresa" + Name))
+                Dim Bin As New MemoryStream
+                Dim img As New Bitmap(im)
+                img.Save(Bin, Imaging.ImageFormat.Png)
+                Bin.Dispose()
+                For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+
+                    dt.Rows(i).Item("img") = Bin.GetBuffer
+                Next
+            End If
+
+
+        End If
+
+
+
+        If Not IsNothing(P_Global.Visualizador) Then
+            P_Global.Visualizador.Close()
+        End If
+
+        P_Global.Visualizador = New Visualizador
+
+        Dim objrep As New Reporte_Movimiento
+
+        objrep.SetDataSource(dt)
+
+        P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+        P_Global.Visualizador.CrGeneral.Zoom(90)
+        P_Global.Visualizador.Show() 'Comentar
+        ''P_Global.Visualizador.BringToFront() 'Comentar
+
+
+    End Sub
+    Public Sub ReporteVenta(Id As String)
+        Dim ef = New Efecto
+
+
+        ef.tipo = 8
+        ef.titulo = "Comprobante de Movimiento"
+        ef.descripcion = "¿Desea Generar Reporte Movimiento#" + Id + " ?"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            P_GenerarReporte(Id)
+
+
+        End If
+
+    End Sub
+
+    Private Sub ReporteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReporteToolStripMenuItem.Click
+        P_GenerarReporte(JGrM_Buscador.GetValue("Id"))
     End Sub
 #End Region
 End Class
