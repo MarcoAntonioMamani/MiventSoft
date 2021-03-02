@@ -39,7 +39,7 @@ Partial Class Formulario_Reportevb
         Me.btnNo.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.btnNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.btnNo.Controls.Add(Me.Label4)
-        Me.btnNo.Location = New System.Drawing.Point(330, 255)
+        Me.btnNo.Location = New System.Drawing.Point(393, 250)
         Me.btnNo.Name = "btnNo"
         Me.btnNo.Size = New System.Drawing.Size(156, 50)
         Me.btnNo.TabIndex = 9
@@ -60,7 +60,7 @@ Partial Class Formulario_Reportevb
         Me.btnSi.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(179, Byte), Integer), CType(CType(148, Byte), Integer))
         Me.btnSi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.btnSi.Controls.Add(Me.Label3)
-        Me.btnSi.Location = New System.Drawing.Point(126, 255)
+        Me.btnSi.Location = New System.Drawing.Point(189, 250)
         Me.btnSi.Name = "btnSi"
         Me.btnSi.Size = New System.Drawing.Size(156, 50)
         Me.btnSi.TabIndex = 8
@@ -79,7 +79,7 @@ Partial Class Formulario_Reportevb
         'PictureBox1
         '
         Me.PictureBox1.Image = Global.TeVendo.My.Resources.Resources.printee
-        Me.PictureBox1.Location = New System.Drawing.Point(273, 47)
+        Me.PictureBox1.Location = New System.Drawing.Point(336, 42)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(80, 76)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -90,7 +90,7 @@ Partial Class Formulario_Reportevb
         '
         Me.txtDescripcion.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtDescripcion.ForeColor = System.Drawing.Color.FromArgb(CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer))
-        Me.txtDescripcion.Location = New System.Drawing.Point(121, 188)
+        Me.txtDescripcion.Location = New System.Drawing.Point(184, 183)
         Me.txtDescripcion.Name = "txtDescripcion"
         Me.txtDescripcion.Size = New System.Drawing.Size(380, 22)
         Me.txtDescripcion.TabIndex = 6
@@ -99,21 +99,21 @@ Partial Class Formulario_Reportevb
         '
         'txtTitulo
         '
-        Me.txtTitulo.AutoSize = True
-        Me.txtTitulo.Font = New System.Drawing.Font("Calibri", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtTitulo.Font = New System.Drawing.Font("Calibri", 19.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTitulo.ForeColor = System.Drawing.Color.FromArgb(CType(CType(89, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(89, Byte), Integer))
-        Me.txtTitulo.Location = New System.Drawing.Point(110, 139)
+        Me.txtTitulo.Location = New System.Drawing.Point(40, 134)
         Me.txtTitulo.Name = "txtTitulo"
-        Me.txtTitulo.Size = New System.Drawing.Size(403, 49)
+        Me.txtTitulo.Size = New System.Drawing.Size(686, 49)
         Me.txtTitulo.TabIndex = 5
         Me.txtTitulo.Text = "Generación de Reporte"
+        Me.txtTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Formulario_Reportevb
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(616, 368)
+        Me.ClientSize = New System.Drawing.Size(758, 368)
         Me.Controls.Add(Me.btnNo)
         Me.Controls.Add(Me.btnSi)
         Me.Controls.Add(Me.PictureBox1)
@@ -129,7 +129,6 @@ Partial Class Formulario_Reportevb
         Me.btnSi.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
 

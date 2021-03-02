@@ -23,11 +23,11 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim cbCajaDestino_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tec_ProgramaIngresoEgresoCaja))
         Dim cbCaja_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbSucursal_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbMotivoMovimiento_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
-        Dim cbCajaDestino_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tec_ProgramaIngresoEgresoCaja))
         Me.TabControlPrincipal = New DevComponents.DotNetBar.SuperTabControl()
         Me.SuperTabControlPanel1 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -35,6 +35,8 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.PanelLEft = New System.Windows.Forms.Panel()
         Me.Panel8 = New System.Windows.Forms.Panel()
         Me.Panel9 = New System.Windows.Forms.Panel()
+        Me.cbCajaDestino = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.lbCajaDestino = New DevComponents.DotNetBar.LabelX()
         Me.cbCaja = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.lbCajaSalida = New DevComponents.DotNetBar.LabelX()
         Me.cbSucursal = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
@@ -93,8 +95,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.Highlighter2 = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.cbCajaDestino = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
-        Me.lbCajaDestino = New DevComponents.DotNetBar.LabelX()
+        Me.ReporteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -103,6 +104,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.PanelLEft.SuspendLayout()
         Me.Panel8.SuspendLayout()
         Me.Panel9.SuspendLayout()
+        CType(Me.cbCajaDestino, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbCaja, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbMonto, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -124,7 +126,6 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.Panel15.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cbCajaDestino, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TabControlPrincipal
@@ -142,8 +143,8 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.TabControlPrincipal.ControlBox.MenuBox.Name = ""
         Me.TabControlPrincipal.ControlBox.Name = ""
         Me.TabControlPrincipal.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.TabControlPrincipal.ControlBox.MenuBox, Me.TabControlPrincipal.ControlBox.CloseBox})
-        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel1)
         Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel2)
+        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel1)
         Me.TabControlPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControlPrincipal.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.Location = New System.Drawing.Point(0, 0)
@@ -151,7 +152,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.TabControlPrincipal.ReorderTabsEnabled = True
         Me.TabControlPrincipal.SelectedTabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.SelectedTabIndex = 1
-        Me.TabControlPrincipal.Size = New System.Drawing.Size(982, 524)
+        Me.TabControlPrincipal.Size = New System.Drawing.Size(982, 543)
         Me.TabControlPrincipal.TabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Bottom
         Me.TabControlPrincipal.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.TabIndex = 2
@@ -167,7 +168,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.SuperTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
-        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(982, 493)
+        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(982, 512)
         Me.SuperTabControlPanel1.TabIndex = 1
         Me.SuperTabControlPanel1.TabItem = Me.SuperTabItem1
         '
@@ -178,7 +179,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(982, 493)
+        Me.Panel1.Size = New System.Drawing.Size(982, 512)
         Me.Panel1.TabIndex = 0
         '
         'PanelSuperior
@@ -187,7 +188,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.PanelSuperior.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelSuperior.Location = New System.Drawing.Point(0, 0)
         Me.PanelSuperior.Name = "PanelSuperior"
-        Me.PanelSuperior.Size = New System.Drawing.Size(982, 433)
+        Me.PanelSuperior.Size = New System.Drawing.Size(982, 452)
         Me.PanelSuperior.TabIndex = 1
         '
         'PanelLEft
@@ -196,7 +197,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.PanelLEft.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelLEft.Location = New System.Drawing.Point(0, 0)
         Me.PanelLEft.Name = "PanelLEft"
-        Me.PanelLEft.Size = New System.Drawing.Size(982, 433)
+        Me.PanelLEft.Size = New System.Drawing.Size(982, 452)
         Me.PanelLEft.TabIndex = 0
         '
         'Panel8
@@ -208,7 +209,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.Panel8.Location = New System.Drawing.Point(0, 0)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel8.Size = New System.Drawing.Size(982, 433)
+        Me.Panel8.Size = New System.Drawing.Size(982, 452)
         Me.Panel8.TabIndex = 1
         '
         'Panel9
@@ -238,8 +239,50 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.Panel9.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel9.Location = New System.Drawing.Point(3, 30)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(976, 400)
+        Me.Panel9.Size = New System.Drawing.Size(976, 419)
         Me.Panel9.TabIndex = 2
+        '
+        'cbCajaDestino
+        '
+        Me.cbCajaDestino.BackColor = System.Drawing.Color.Azure
+        Me.cbCajaDestino.ColorScheme = ""
+        Me.cbCajaDestino.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.cbCajaDestino.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
+        Me.cbCajaDestino.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        cbCajaDestino_DesignTimeLayout.LayoutString = resources.GetString("cbCajaDestino_DesignTimeLayout.LayoutString")
+        Me.cbCajaDestino.DesignTimeLayout = cbCajaDestino_DesignTimeLayout
+        Me.cbCajaDestino.FlatBorderColor = System.Drawing.Color.Black
+        Me.cbCajaDestino.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbCajaDestino.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbCajaDestino.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cbCajaDestino.Location = New System.Drawing.Point(312, 287)
+        Me.cbCajaDestino.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbCajaDestino.Name = "cbCajaDestino"
+        Me.cbCajaDestino.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbCajaDestino.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
+        Me.cbCajaDestino.SelectedIndex = -1
+        Me.cbCajaDestino.SelectedItem = Nothing
+        Me.cbCajaDestino.Size = New System.Drawing.Size(239, 26)
+        Me.cbCajaDestino.TabIndex = 231
+        Me.cbCajaDestino.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'lbCajaDestino
+        '
+        Me.lbCajaDestino.AutoSize = True
+        Me.lbCajaDestino.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.lbCajaDestino.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.lbCajaDestino.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbCajaDestino.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.lbCajaDestino.Location = New System.Drawing.Point(312, 260)
+        Me.lbCajaDestino.Margin = New System.Windows.Forms.Padding(4)
+        Me.lbCajaDestino.Name = "lbCajaDestino"
+        Me.lbCajaDestino.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.lbCajaDestino.Size = New System.Drawing.Size(85, 21)
+        Me.lbCajaDestino.TabIndex = 232
+        Me.lbCajaDestino.Text = "Caja Destino:"
         '
         'cbCaja
         '
@@ -681,7 +724,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.PanelButton.Controls.Add(Me.PanelToolBar1)
         Me.PanelButton.Controls.Add(Me.PanelNavegacion)
         Me.PanelButton.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PanelButton.Location = New System.Drawing.Point(0, 433)
+        Me.PanelButton.Location = New System.Drawing.Point(0, 452)
         Me.PanelButton.Name = "PanelButton"
         Me.PanelButton.Size = New System.Drawing.Size(982, 60)
         Me.PanelButton.TabIndex = 3
@@ -894,7 +937,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.SuperTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel2.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel2.Name = "SuperTabControlPanel2"
-        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(982, 493)
+        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(982, 512)
         Me.SuperTabControlPanel2.TabIndex = 2
         Me.SuperTabControlPanel2.TabItem = Me.SuperTabItem2
         '
@@ -907,7 +950,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.Panel17.Location = New System.Drawing.Point(0, 0)
         Me.Panel17.Name = "Panel17"
         Me.Panel17.Padding = New System.Windows.Forms.Padding(5)
-        Me.Panel17.Size = New System.Drawing.Size(982, 493)
+        Me.Panel17.Size = New System.Drawing.Size(982, 512)
         Me.Panel17.TabIndex = 4
         '
         'JGrM_Buscador
@@ -954,7 +997,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.JGrM_Buscador.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.JGrM_Buscador.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.JGrM_Buscador.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.JGrM_Buscador.Size = New System.Drawing.Size(972, 383)
+        Me.JGrM_Buscador.Size = New System.Drawing.Size(972, 402)
         Me.JGrM_Buscador.TabIndex = 2
         Me.JGrM_Buscador.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.JGrM_Buscador.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -967,9 +1010,9 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         'MeuOpciones
         '
         Me.MeuOpciones.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MeuOpciones.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VerToolStripMenuItem1, Me.EditarToolStripMenuItem, Me.EliminarToolStripMenuItem1})
+        Me.MeuOpciones.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VerToolStripMenuItem1, Me.EditarToolStripMenuItem, Me.EliminarToolStripMenuItem1, Me.ReporteToolStripMenuItem})
         Me.MeuOpciones.Name = "MeuOpciones"
-        Me.MeuOpciones.Size = New System.Drawing.Size(146, 112)
+        Me.MeuOpciones.Size = New System.Drawing.Size(180, 168)
         Me.MeuOpciones.Text = "Opciones"
         '
         'VerToolStripMenuItem1
@@ -978,7 +1021,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.VerToolStripMenuItem1.Image = Global.TeVendo.My.Resources.Resources.verRegistros2
         Me.VerToolStripMenuItem1.Name = "VerToolStripMenuItem1"
         Me.VerToolStripMenuItem1.Padding = New System.Windows.Forms.Padding(5)
-        Me.VerToolStripMenuItem1.Size = New System.Drawing.Size(155, 36)
+        Me.VerToolStripMenuItem1.Size = New System.Drawing.Size(189, 36)
         Me.VerToolStripMenuItem1.Text = "Ver"
         '
         'EditarToolStripMenuItem
@@ -987,7 +1030,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.EditarToolStripMenuItem.Image = Global.TeVendo.My.Resources.Resources.edit
         Me.EditarToolStripMenuItem.Name = "EditarToolStripMenuItem"
         Me.EditarToolStripMenuItem.Padding = New System.Windows.Forms.Padding(5)
-        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(155, 36)
+        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(189, 36)
         Me.EditarToolStripMenuItem.Text = "Editar"
         '
         'EliminarToolStripMenuItem1
@@ -996,7 +1039,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.EliminarToolStripMenuItem1.Image = Global.TeVendo.My.Resources.Resources.trash2
         Me.EliminarToolStripMenuItem1.Name = "EliminarToolStripMenuItem1"
         Me.EliminarToolStripMenuItem1.Padding = New System.Windows.Forms.Padding(5)
-        Me.EliminarToolStripMenuItem1.Size = New System.Drawing.Size(155, 36)
+        Me.EliminarToolStripMenuItem1.Size = New System.Drawing.Size(189, 36)
         Me.EliminarToolStripMenuItem1.Text = "Eliminar"
         '
         'Panel4
@@ -1152,53 +1195,19 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         '
         Me.MEP.ContainerControl = Me
         '
-        'cbCajaDestino
+        'ReporteToolStripMenuItem
         '
-        Me.cbCajaDestino.BackColor = System.Drawing.Color.Azure
-        Me.cbCajaDestino.ColorScheme = ""
-        Me.cbCajaDestino.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
-        Me.cbCajaDestino.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
-        Me.cbCajaDestino.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
-        cbCajaDestino_DesignTimeLayout.LayoutString = resources.GetString("cbCajaDestino_DesignTimeLayout.LayoutString")
-        Me.cbCajaDestino.DesignTimeLayout = cbCajaDestino_DesignTimeLayout
-        Me.cbCajaDestino.FlatBorderColor = System.Drawing.Color.Black
-        Me.cbCajaDestino.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbCajaDestino.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.cbCajaDestino.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.cbCajaDestino.Location = New System.Drawing.Point(312, 287)
-        Me.cbCajaDestino.Margin = New System.Windows.Forms.Padding(4)
-        Me.cbCajaDestino.Name = "cbCajaDestino"
-        Me.cbCajaDestino.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.cbCajaDestino.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
-        Me.cbCajaDestino.SelectedIndex = -1
-        Me.cbCajaDestino.SelectedItem = Nothing
-        Me.cbCajaDestino.Size = New System.Drawing.Size(239, 26)
-        Me.cbCajaDestino.TabIndex = 231
-        Me.cbCajaDestino.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        '
-        'lbCajaDestino
-        '
-        Me.lbCajaDestino.AutoSize = True
-        Me.lbCajaDestino.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.lbCajaDestino.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.lbCajaDestino.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbCajaDestino.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.lbCajaDestino.Location = New System.Drawing.Point(312, 260)
-        Me.lbCajaDestino.Margin = New System.Windows.Forms.Padding(4)
-        Me.lbCajaDestino.Name = "lbCajaDestino"
-        Me.lbCajaDestino.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.lbCajaDestino.Size = New System.Drawing.Size(85, 21)
-        Me.lbCajaDestino.TabIndex = 232
-        Me.lbCajaDestino.Text = "Caja Destino:"
+        Me.ReporteToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ReporteToolStripMenuItem.Image = Global.TeVendo.My.Resources.Resources.printee
+        Me.ReporteToolStripMenuItem.Name = "ReporteToolStripMenuItem"
+        Me.ReporteToolStripMenuItem.Size = New System.Drawing.Size(179, 28)
+        Me.ReporteToolStripMenuItem.Text = "Reporte"
         '
         'Tec_ProgramaIngresoEgresoCaja
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(982, 524)
+        Me.ClientSize = New System.Drawing.Size(982, 543)
         Me.Controls.Add(Me.TabControlPrincipal)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Tec_ProgramaIngresoEgresoCaja"
@@ -1212,6 +1221,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.Panel8.ResumeLayout(False)
         Me.Panel9.ResumeLayout(False)
         Me.Panel9.PerformLayout()
+        CType(Me.cbCajaDestino, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbCaja, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbMonto, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1233,7 +1243,6 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.Panel15.ResumeLayout(False)
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cbCajaDestino, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1305,4 +1314,5 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
     Friend WithEvents lbCajaSalida As DevComponents.DotNetBar.LabelX
     Friend WithEvents cbCajaDestino As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents lbCajaDestino As DevComponents.DotNetBar.LabelX
+    Friend WithEvents ReporteToolStripMenuItem As ToolStripMenuItem
 End Class

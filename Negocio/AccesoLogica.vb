@@ -1298,6 +1298,18 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+    Public Shared Function ListarReporteIngresoEgreso(Id As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 8))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@id", Id))
+        _Tabla = D_ProcedimientoConParam("MAM_CajaIngresoEgreso", _listParam)
+
+        Return _Tabla
+    End Function
 
     Public Shared Function ListarVentaProforma(VentaId As String) As DataTable
         Dim _Tabla As DataTable
