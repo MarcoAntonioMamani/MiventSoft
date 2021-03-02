@@ -996,23 +996,23 @@ Public Class Tec_CierreCajaCajero
 
         End If
 
-        If (_MNuevo) Then
+        'If (_MNuevo) Then
 
-            Dim dt As DataTable = L_prListarGeneral("MAM_CierreCajero")
+        '    Dim dt As DataTable = L_prListarGeneral("MAM_CierreCajero")
 
-            Dim fila As DataRow() = dt.Select("SucursalId=" + Str(cbSucursal.Value) + " and EstadoCaja=1")
-            If (Not IsDBNull(fila)) Then
-                If (fila.Count > 0) Then
+        '    Dim fila As DataRow() = dt.Select("SucursalId=" + Str(cbSucursal.Value) + " and EstadoCaja=1")
+        '    If (Not IsDBNull(fila)) Then
+        '        If (fila.Count > 0) Then
 
-                    ToastNotification.Show(Me, "No Es Posible Abrir Una Nueva Caja, por que ya existe una Abierta Para la Sucursal " + cbSucursal.Text, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                    tbDetalle.Focus()
-                    _ok = False
-                    Return _ok
-                End If
+        '            ToastNotification.Show(Me, "No Es Posible Abrir Una Nueva Caja, por que ya existe una Abierta Para la Sucursal " + cbSucursal.Text, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+        '            tbDetalle.Focus()
+        '            _ok = False
+        '            Return _ok
+        '        End If
 
-            End If
+        '    End If
 
-        End If
+        'End If
 
         Return _ok
     End Function
