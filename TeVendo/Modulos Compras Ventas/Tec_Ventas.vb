@@ -677,6 +677,11 @@ Public Class Tec_Ventas
     End Function
     Private Sub grdetalle_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grDetalle.EditingCell
         Try
+            If (tbGlosa.ReadOnly = True) Then
+                e.Cancel = True
+                Return
+            End If
+
             If (grDetalle.GetValue("Tipo") = 2) Then
                 e.Cancel = True
                 Return
