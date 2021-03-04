@@ -2027,13 +2027,25 @@ salirIf:
 
         P_Global.Visualizador = New Visualizador
 
-        Dim objrep As New Recibo
-
+        Dim objrep As New ReporteVentaMasCopia
         objrep.SetDataSource(dt)
-        objrep.SetParameterValue("Monto", li)
-        objrep.SetParameterValue("Fecha", _FechaPar)
-        objrep.SetParameterValue("Total", Str(total))
-        objrep.SetParameterValue("TipoReporte", "NOTA DE VENTA")
+        objrep.Subreports.Item("Recibo.rpt").SetDataSource(dt)
+        objrep.Subreports.Item("Recibo.rpt - 01").SetDataSource(dt)
+        objrep.SetParameterValue("MontoA", li)
+        objrep.SetParameterValue("FechaA", _FechaPar)
+        objrep.SetParameterValue("TotalA", Str(total))
+        objrep.SetParameterValue("TipoReporteA", "NOTA DE VENTA")
+
+
+
+
+        'objrep.SetDataSource(dt)
+
+
+        'objrep.SetParameterValue("Monto", li)
+        'objrep.SetParameterValue("Fecha", _FechaPar)
+        'objrep.SetParameterValue("Total", Str(total))
+        'objrep.SetParameterValue("TipoReporte", "NOTA DE VENTA")
         P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
         P_Global.Visualizador.CrGeneral.Zoom(130)
         P_Global.Visualizador.Show() 'Comentar

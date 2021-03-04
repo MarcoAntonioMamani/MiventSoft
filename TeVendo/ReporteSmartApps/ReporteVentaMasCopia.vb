@@ -18,7 +18,7 @@ Imports System
 Imports System.ComponentModel
 
 
-Public Class Reporte_VentaDetalladas
+Public Class ReporteVentaMasCopia
     Inherits ReportClass
     
     Public Sub New()
@@ -27,7 +27,7 @@ Public Class Reporte_VentaDetalladas
     
     Public Overrides Property ResourceName() As String
         Get
-            Return "Reporte_VentaDetalladas.rpt"
+            Return "ReporteVentaMasCopia.rpt"
         End Get
         Set
             'Do nothing
@@ -45,7 +45,7 @@ Public Class Reporte_VentaDetalladas
     
     Public Overrides Property FullResourceName() As String
         Get
-            Return "TeVendo.Reporte_VentaDetalladas.rpt"
+            Return "TeVendo.ReporteVentaMasCopia.rpt"
         End Get
         Set
             'Do nothing
@@ -91,10 +91,42 @@ Public Class Reporte_VentaDetalladas
             Return Me.ReportDefinition.Sections(4)
         End Get
     End Property
+    
+    <Browsable(false),  _
+     DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
+    Public ReadOnly Property Parameter_TotalA() As CrystalDecisions.[Shared].IParameterField
+        Get
+            Return Me.DataDefinition.ParameterFields(0)
+        End Get
+    End Property
+    
+    <Browsable(false),  _
+     DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
+    Public ReadOnly Property Parameter_MontoA() As CrystalDecisions.[Shared].IParameterField
+        Get
+            Return Me.DataDefinition.ParameterFields(1)
+        End Get
+    End Property
+    
+    <Browsable(false),  _
+     DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
+    Public ReadOnly Property Parameter_FechaA() As CrystalDecisions.[Shared].IParameterField
+        Get
+            Return Me.DataDefinition.ParameterFields(2)
+        End Get
+    End Property
+    
+    <Browsable(false),  _
+     DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
+    Public ReadOnly Property Parameter_TipoReporteA() As CrystalDecisions.[Shared].IParameterField
+        Get
+            Return Me.DataDefinition.ParameterFields(3)
+        End Get
+    End Property
 End Class
 
 <System.Drawing.ToolboxBitmapAttribute(GetType(CrystalDecisions.[Shared].ExportOptions), "report.bmp")>  _
-Public Class CachedReporte_VentaDetalladas
+Public Class CachedReporteVentaMasCopia
     Inherits Component
     Implements ICachedReport
     
@@ -136,7 +168,7 @@ Public Class CachedReporte_VentaDetalladas
     End Property
     
     Public Overridable Function CreateReport() As CrystalDecisions.CrystalReports.Engine.ReportDocument Implements CrystalDecisions.ReportSource.ICachedReport.CreateReport
-        Dim rpt As Reporte_VentaDetalladas = New Reporte_VentaDetalladas()
+        Dim rpt As ReporteVentaMasCopia = New ReporteVentaMasCopia()
         rpt.Site = Me.Site
         Return rpt
     End Function
