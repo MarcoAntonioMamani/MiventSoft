@@ -1432,7 +1432,7 @@ Public Class Tec_CierreCajaCajero
     End Sub
 
     Private Sub grEfectivo_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grEfectivo.EditingCell
-        If btnGrabar.Enabled = True Then
+        If btnGrabar.Visible = True Then
             If (e.Column.Index = grEfectivo.RootTable.Columns("CantidadBs").Index Or
                 e.Column.Index = grEfectivo.RootTable.Columns("CantidadDolares").Index) Then
                 e.Cancel = False

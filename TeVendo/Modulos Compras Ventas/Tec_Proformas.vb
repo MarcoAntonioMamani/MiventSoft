@@ -916,6 +916,9 @@ salirIf:
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = 0
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = 0
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal")
+
+                grDetalle.SetValue("ProcentajeDescuento", 0)
+                grDetalle.SetValue("MontoDescuento", 0)
                 'grdetalle.SetValue("tbcmin", 1)
                 'grdetalle.SetValue("SubTotal", grdetalle.GetValue("tbpbas"))
             Else
@@ -961,6 +964,9 @@ salirIf:
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = 0
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = 0
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal")
+
+                grDetalle.SetValue("ProcentajeDescuento", 0)
+                grDetalle.SetValue("MontoDescuento", 0)
                 'grdetalle.SetValue("tbcmin", 1)
                 'grdetalle.SetValue("SubTotal", grdetalle.GetValue("tbpbas"))
             Else
@@ -1054,6 +1060,32 @@ salirIf:
 
                 End If
             End If
+        End If
+
+        If (e.Column.Index = grDetalle.RootTable.Columns("Precio").Index) Then
+            Dim lin As Integer = grDetalle.GetValue("Id")
+            Dim pos As Integer = -1
+            _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
+            If (grDetalle.GetValue("Precio") < grDetalle.GetValue("PrecioCosto")) Then
+
+                ToastNotification.Show(Me, "El Precio Es Menor Al Precio De Costo Del Producto que Es = " + Str(grDetalle.GetValue("PrecioCosto")), img, 6000, eToastGlowColor.Red, eToastPosition.TopCenter)
+
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = grDetalle.GetValue("PrecioCosto")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = grDetalle.GetValue("PrecioCosto") * grDetalle.GetValue("Cantidad")
+
+                Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+
+                grDetalle.SetValue("Precio", grDetalle.GetValue("PrecioCosto"))
+                grDetalle.SetValue("SubTotal", (grDetalle.GetValue("PrecioCosto") * grDetalle.GetValue("Cantidad")))
+
+
+                Dim rowIndex As Integer = grDetalle.Row
+                P_PonerTotal(rowIndex)
+                If (estado = 1) Then
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                End If
+            End If
+
         End If
     End Sub
 

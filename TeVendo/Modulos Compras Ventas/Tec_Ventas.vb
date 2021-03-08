@@ -915,6 +915,8 @@ salirIf:
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = 0
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = 0
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal")
+                grDetalle.SetValue("ProcentajeDescuento", 0)
+                grDetalle.SetValue("MontoDescuento", 0)
                 'grdetalle.SetValue("tbcmin", 1)
                 'grdetalle.SetValue("SubTotal", grdetalle.GetValue("tbpbas"))
             Else
@@ -940,6 +942,7 @@ salirIf:
                     grDetalle.SetValue("MontoDescuento", 0)
                     grDetalle.SetValue("Total", grDetalle.GetValue("SubTotal"))
                     _prCalcularPrecioTotal()
+
                     'grdetalle.SetValue("tbcmin", 1)
                     'grdetalle.SetValue("SubTotal", grdetalle.GetValue("tbpbas"))
 
@@ -960,6 +963,9 @@ salirIf:
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = 0
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = 0
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal")
+
+                grDetalle.SetValue("ProcentajeDescuento", 0)
+                grDetalle.SetValue("MontoDescuento", 0)
                 'grdetalle.SetValue("tbcmin", 1)
                 'grdetalle.SetValue("SubTotal", grdetalle.GetValue("tbpbas"))
             Else
@@ -1054,6 +1060,33 @@ salirIf:
                 End If
             End If
         End If
+
+        If (e.Column.Index = grDetalle.RootTable.Columns("Precio").Index) Then
+            Dim lin As Integer = grDetalle.GetValue("Id")
+            Dim pos As Integer = -1
+            _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
+            If (grDetalle.GetValue("Precio") < grDetalle.GetValue("PrecioCosto")) Then
+
+                ToastNotification.Show(Me, "El Precio Es Menor Al Precio De Costo Del Producto que Es = " + Str(grDetalle.GetValue("PrecioCosto")), img, 6000, eToastGlowColor.Red, eToastPosition.TopCenter)
+
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = grDetalle.GetValue("PrecioCosto")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = grDetalle.GetValue("PrecioCosto") * grDetalle.GetValue("Cantidad")
+
+                Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+
+                grDetalle.SetValue("Precio", grDetalle.GetValue("PrecioCosto"))
+                grDetalle.SetValue("SubTotal", (grDetalle.GetValue("PrecioCosto") * grDetalle.GetValue("Cantidad")))
+
+
+                Dim rowIndex As Integer = grDetalle.Row
+                P_PonerTotal(rowIndex)
+                If (estado = 1) Then
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                End If
+            End If
+
+        End If
+
     End Sub
 
     Private Sub grdetalle_MouseClick(sender As Object, e As MouseEventArgs) Handles grDetalle.MouseClick
@@ -1302,34 +1335,60 @@ salirIf:
         Dim Res As Boolean
         Try
 
-            Dim ef = New Efecto
-            ef.tipo = 20
-            ef.TotalVenta = tbTotal.Value
-            ef.MontoBs = tbMontoBs.Value
-            ef.MontoDolares = tbMontoDolar.Value
-            ef.MontoTarjeta = tbTarjeta.Value
-            ef.MontoTransferencia = tbTransferencia.Value
-            ef.ShowDialog()
-            Dim bandera As Boolean = False
-            bandera = ef.band
-            If (bandera = True) Then
+            If (swTipoVenta.Value = True) Then
+
+                Dim ef = New Efecto
+                ef.tipo = 20
+                ef.TotalVenta = tbTotal.Value
+                ef.ShowDialog()
+                Dim bandera As Boolean = False
+                bandera = ef.band
+                If (bandera = True) Then
+
+                    Dim dt As DataTable = ListaVentasDetallePago(-1)
+                    'a.Id , a.VentaId, a.MontoBs, a.MontoDolares, a.TarjetaBancaria, a.TransferenciaBancaria, a.TipoCambio, 1 as estado
+                    dt.Rows.Add(0, 0, ef.MontoBs, ef.MontoDolares, ef.MontoTarjeta, ef.MontoTransferencia, Global_TipoCambio, 0)
+
+
+                    Res = VentaModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
+                                   IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
+                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt)
+
+                    If Res Then
+
+                        ReporteVenta(tbCodigo.Text)
+                        ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " Modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                        FilaSelectLote = Nothing
+
+                    Else
+                        ToastNotification.Show(Me, "Error al Modificar la Venta".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+
+                    End If
+                End If
+            Else
+
                 Dim dt As DataTable = ListaVentasDetallePago(-1)
                 'a.Id , a.VentaId, a.MontoBs, a.MontoDolares, a.TarjetaBancaria, a.TransferenciaBancaria, a.TipoCambio, 1 as estado
-                dt.Rows.Add(0, 0, ef.MontoBs, ef.MontoDolares, ef.MontoTarjeta, ef.MontoTransferencia, Global_TipoCambio, 0)
+
+
 
                 Res = VentaModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
                                1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt)
+
                 If Res Then
+
                     ReporteVenta(tbCodigo.Text)
-                    ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
-                    _PSalirRegistro()
+                    ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " Modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                     FilaSelectLote = Nothing
+
                 Else
-                    ToastNotification.Show(Me, "Error al guardar La Venta".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                    ToastNotification.Show(Me, "Error al Modificar la Venta".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
                 End If
             End If
+
+
 
         Catch ex As Exception
             ToastNotification.Show(Me, "Error al modificar La Venta".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
@@ -2027,25 +2086,25 @@ salirIf:
 
         P_Global.Visualizador = New Visualizador
 
-        Dim objrep As New ReporteVentaMasCopia
-        objrep.SetDataSource(dt)
-        objrep.Subreports.Item("Recibo.rpt").SetDataSource(dt)
-        objrep.Subreports.Item("Recibo.rpt - 01").SetDataSource(dt)
-        objrep.SetParameterValue("MontoA", li)
-        objrep.SetParameterValue("FechaA", _FechaPar)
-        objrep.SetParameterValue("TotalA", Str(total))
-        objrep.SetParameterValue("TipoReporteA", "NOTA DE VENTA")
-
-
-
-
+        Dim objrep As New Recibo
         'objrep.SetDataSource(dt)
+        'objrep.Subreports.Item("Recibo.rpt").SetDataSource(dt)
+        'objrep.Subreports.Item("Recibo.rpt - 01").SetDataSource(dt)
+        'objrep.SetParameterValue("MontoA", li)
+        'objrep.SetParameterValue("FechaA", _FechaPar)
+        'objrep.SetParameterValue("TotalA", Str(total))
+        'objrep.SetParameterValue("TipoReporteA", "NOTA DE VENTA")
 
 
-        'objrep.SetParameterValue("Monto", li)
-        'objrep.SetParameterValue("Fecha", _FechaPar)
-        'objrep.SetParameterValue("Total", Str(total))
-        'objrep.SetParameterValue("TipoReporte", "NOTA DE VENTA")
+
+
+        objrep.SetDataSource(dt)
+
+
+        objrep.SetParameterValue("Monto", li)
+        objrep.SetParameterValue("Fecha", _FechaPar)
+        objrep.SetParameterValue("Total", Str(total))
+        objrep.SetParameterValue("TipoReporte", "NOTA DE VENTA")
         P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
         P_Global.Visualizador.CrGeneral.Zoom(130)
         P_Global.Visualizador.Show() 'Comentar

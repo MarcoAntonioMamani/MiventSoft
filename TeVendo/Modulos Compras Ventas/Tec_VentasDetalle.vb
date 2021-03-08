@@ -964,6 +964,45 @@ Public Class Tec_VentasDetalle
 
                 End If
             End If
+
+
+        End If
+
+        If (e.Column.Index = grDetalle.RootTable.Columns("Precio").Index) Then
+            Dim lin As Integer = grDetalle.GetValue("Id")
+            Dim pos As Integer = -1
+            _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
+            If (grDetalle.GetValue("Precio") < grDetalle.GetValue("PrecioCosto")) Then
+
+                ToastNotification.Show(Me, "El Precio Es Menor Al Precio De Costo Del Producto que Es = " + Str(grDetalle.GetValue("PrecioCosto")), img, 6000, eToastGlowColor.Red, eToastPosition.TopCenter)
+
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = grDetalle.GetValue("PrecioCosto")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = grDetalle.GetValue("PrecioCosto") * grDetalle.GetValue("Cantidad")
+
+                Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+
+                grDetalle.SetValue("Precio", grDetalle.GetValue("PrecioCosto"))
+                grDetalle.SetValue("SubTotal", (grDetalle.GetValue("PrecioCosto") * grDetalle.GetValue("Cantidad")))
+
+
+                Dim rowIndex As Integer = grDetalle.Row
+                P_PonerTotal(rowIndex)
+                If (estado = 1) Then
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                End If
+            End If
+
+
+
+
+
+            'Else
+            '    Dim estado As Integer = CType(grProductos.DataSource, DataTable).Rows(pos).Item("estado")
+            '    Dim rowIndex01 As Integer = grProductos.Row
+            '    P_PonerTotal(rowIndex01)
+            '    If (estado = 1) Then
+            '        CType(grProductos.DataSource, DataTable).Rows(pos).Item("estado") = 2
+            '    End If
         End If
     End Sub
     Private Sub grdetalle_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grDetalle.EditingCell
@@ -1446,6 +1485,9 @@ salirIf:
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = 0
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = 0
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal")
+
+                grDetalle.SetValue("ProcentajeDescuento", 0)
+                grDetalle.SetValue("MontoDescuento", 0)
                 'grdetalle.SetValue("tbcmin", 1)
                 'grdetalle.SetValue("SubTotal", grdetalle.GetValue("tbpbas"))
             Else
@@ -1491,7 +1533,8 @@ salirIf:
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = 0
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = 0
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal")
-                'grdetalle.SetValue("tbcmin", 1)
+                grDetalle.SetValue("ProcentajeDescuento", 0)
+                grDetalle.SetValue("MontoDescuento", 0)
                 'grdetalle.SetValue("SubTotal", grdetalle.GetValue("tbpbas"))
             Else
                 If (grDetalle.GetValue("MontoDescuento") > 0 And grDetalle.GetValue("MontoDescuento") <= grDetalle.GetValue("SubTotal")) Then
@@ -1528,6 +1571,15 @@ salirIf:
         Dim rowIndex As Integer = grDetalle.Row
         P_PonerTotal(rowIndex)
     End Sub
+
+    Public Function StringTodouble(Valor As String) As Double
+        Try
+            Return CDbl(Valor)
+        Catch ex As Exception
+            Return 0
+        End Try
+
+    End Function
     Public Sub P_PonerTotal(rowIndex As Integer)
         If (rowIndex < grDetalle.RowCount) Then
 
@@ -1536,7 +1588,7 @@ salirIf:
             _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
             Dim cant As Double = grDetalle.GetValue("Cantidad")
             Dim uni As Double = grDetalle.GetValue("Precio")
-            Dim MontoDesc As Double = grDetalle.GetValue("MontoDescuento")
+            Dim MontoDesc As Double = StringTodouble(grDetalle.GetValue("MontoDescuento").ToString)
             If (pos >= 0) Then
                 Dim TotalUnitario As Double = cant * uni
                 'grDetalle.SetValue("lcmdes", montodesc)
