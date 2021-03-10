@@ -555,7 +555,7 @@ Public Class Tec_Ventas
 
             End If
         End If
-
+        _prCalcularPrecioTotal()
 
     End Sub
 
@@ -927,6 +927,7 @@ salirIf:
         End If
         Dim rowIndex As Integer = grDetalle.Row
         P_PonerTotal(rowIndex)
+        _prCalcularPrecioTotal()
     End Sub
     Public Sub P_PonerTotal(rowIndex As Integer)
         If (rowIndex < grDetalle.RowCount) Then
@@ -965,9 +966,27 @@ salirIf:
         End If
 
         Dim montodesc As Double = tbMdesc.Value
-        Dim pordesc As Double = ((montodesc * 100) / grDetalle.GetTotal(grDetalle.RootTable.Columns("Total"), AggregateFunction.Sum))
+
+        Dim total As Double = 0
+        Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
+
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            If (dt.Rows(i).Item("estado") >= 0) Then
+
+                total += dt.Rows(i).Item("Total")
+            End If
+        Next
+
+
+
+        Dim pordesc As Double = ((montodesc * 100) / total)
         tbPdesc.Value = pordesc
-        tbTotal.Value = grDetalle.GetTotal(grDetalle.RootTable.Columns("Total"), AggregateFunction.Sum) - montodesc
+
+
+
+
+
+        tbTotal.Value = total - montodesc
     End Sub
     Private Sub grdetalle_CellEdited(sender As Object, e As ColumnActionEventArgs) Handles grDetalle.CellEdited
         If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
@@ -985,6 +1004,33 @@ salirIf:
                 End If
             End If
         End If
+
+        If (e.Column.Index = grDetalle.RootTable.Columns("Precio").Index) Then
+            Dim lin As Integer = grDetalle.GetValue("Id")
+            Dim pos As Integer = -1
+            _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
+            If (grDetalle.GetValue("Precio") < grDetalle.GetValue("PrecioCosto")) Then
+
+                ToastNotification.Show(Me, "El Precio Es Menor Al Precio De Costo Del Producto que Es = " + Str(grDetalle.GetValue("PrecioCosto")), img, 6000, eToastGlowColor.Red, eToastPosition.TopCenter)
+
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = grDetalle.GetValue("PrecioCosto")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = grDetalle.GetValue("PrecioCosto") * grDetalle.GetValue("Cantidad")
+
+                Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+
+                grDetalle.SetValue("Precio", grDetalle.GetValue("PrecioCosto"))
+                grDetalle.SetValue("SubTotal", (grDetalle.GetValue("PrecioCosto") * grDetalle.GetValue("Cantidad")))
+
+
+                Dim rowIndex As Integer = grDetalle.Row
+                P_PonerTotal(rowIndex)
+                If (estado = 1) Then
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                End If
+            End If
+
+        End If
+        _prCalcularPrecioTotal()
     End Sub
 
     Private Sub grdetalle_MouseClick(sender As Object, e As MouseEventArgs) Handles grDetalle.MouseClick
