@@ -614,7 +614,7 @@ Public Class Tec_Ventas
 
             End If
         End If
-
+        _prCalcularPrecioTotal()
 
     End Sub
 
@@ -1002,6 +1002,7 @@ salirIf:
         End If
         Dim rowIndex As Integer = grDetalle.Row
         P_PonerTotal(rowIndex)
+        _prCalcularPrecioTotal()
     End Sub
     Public Sub P_PonerTotal(rowIndex As Integer)
         If (rowIndex < grDetalle.RowCount) Then
@@ -1040,9 +1041,27 @@ salirIf:
         End If
 
         Dim montodesc As Double = tbMdesc.Value
-        Dim pordesc As Double = ((montodesc * 100) / grDetalle.GetTotal(grDetalle.RootTable.Columns("Total"), AggregateFunction.Sum))
+
+        Dim total As Double = 0
+        Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
+
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            If (dt.Rows(i).Item("estado") >= 0) Then
+
+                total += dt.Rows(i).Item("Total")
+            End If
+        Next
+
+
+
+        Dim pordesc As Double = ((montodesc * 100) / total)
         tbPdesc.Value = pordesc
-        tbTotal.Value = grDetalle.GetTotal(grDetalle.RootTable.Columns("Total"), AggregateFunction.Sum) - montodesc
+
+
+
+
+
+        tbTotal.Value = total - montodesc
     End Sub
     Private Sub grdetalle_CellEdited(sender As Object, e As ColumnActionEventArgs) Handles grDetalle.CellEdited
         If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
@@ -1086,7 +1105,7 @@ salirIf:
             End If
 
         End If
-
+        _prCalcularPrecioTotal()
     End Sub
 
     Private Sub grdetalle_MouseClick(sender As Object, e As MouseEventArgs) Handles grDetalle.MouseClick
