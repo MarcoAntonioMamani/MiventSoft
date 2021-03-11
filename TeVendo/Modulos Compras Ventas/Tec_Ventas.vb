@@ -1008,7 +1008,7 @@ salirIf:
         If (e.Column.Index = grDetalle.RootTable.Columns("Precio").Index) Then
             Dim lin As Integer = grDetalle.GetValue("Id")
             Dim pos As Integer = -1
-            _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
+            _fnObtenerFilaDetalle(pos, lin)
             If (grDetalle.GetValue("Precio") < grDetalle.GetValue("PrecioCosto")) Then
 
                 ToastNotification.Show(Me, "El Precio Es Menor Al Precio De Costo Del Producto que Es = " + Str(grDetalle.GetValue("PrecioCosto")), img, 6000, eToastGlowColor.Red, eToastPosition.TopCenter)
