@@ -2131,6 +2131,80 @@ salirIf:
 
 
     End Sub
+
+    Private Sub P_GenerarReporteMasCopia(numi As String)
+        Dim dt As DataTable = ListarVentaRecibo(numi)
+
+        Dim total As Decimal = dt.Compute("SUM(Total)", "")
+        total = total - dt.Rows(0).Item("DescuentoVenta")
+        Dim fechaven As String = dt.Rows(0).Item("FechaVenta")
+        Dim dtImage As DataTable = ObtenerImagenEmpresa()
+        If (dtImage.Rows.Count > 0) Then
+            Dim Name As String = dtImage.Rows(0).Item(0)
+            If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Empresa" + Name)) Then
+                Dim im As New Bitmap(New Bitmap(RutaGlobal + "\Imagenes\Imagenes Empresa" + Name))
+                Dim Bin As New MemoryStream
+                Dim img As New Bitmap(im)
+                img.Save(Bin, Imaging.ImageFormat.Png)
+                Bin.Dispose()
+                For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+
+                    dt.Rows(i).Item("imageEmpresa") = Bin.GetBuffer
+                Next
+            End If
+
+
+        End If
+
+        Dim _FechaAct As String
+        Dim _Fecha() As String
+        Dim _FechaPar As String
+        Dim _Meses() As String = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"}
+        _FechaAct = fechaven
+        _Fecha = Split(_FechaAct, "-")
+        _FechaPar = "Santa Cruz, " + _Fecha(0).Trim + " De " + _Meses(_Fecha(1) - 1).Trim + " Del " + _Fecha(2).Trim
+
+        If Not IsNothing(P_Global.Visualizador) Then
+            P_Global.Visualizador.Close()
+        End If
+        Dim ParteEntera As Long
+        Dim ParteDecimal As Decimal
+        ParteEntera = Int(total)
+        ParteDecimal = Math.Round(total - ParteEntera, 2)
+        Dim li As String = Facturacion.ConvertirLiteral.A_fnConvertirLiteral(CDbl(ParteEntera)) + " con " +
+        IIf(ParteDecimal.ToString.Equals("0"), "00", ParteDecimal.ToString) + "/100 Bolivianos"
+
+
+
+        P_Global.Visualizador = New Visualizador
+
+        Dim objrep As New ReporteVentaMasCopia
+        objrep.SetDataSource(dt)
+        objrep.Subreports.Item("Recibo.rpt").SetDataSource(dt)
+        objrep.Subreports.Item("Recibo.rpt - 01").SetDataSource(dt)
+        objrep.SetParameterValue("MontoA", li)
+        objrep.SetParameterValue("FechaA", _FechaPar)
+        objrep.SetParameterValue("TotalA", Str(total))
+        objrep.SetParameterValue("TipoReporteA", "NOTA DE VENTA")
+
+
+
+
+        'objrep.SetDataSource(dt)
+
+
+        'objrep.SetParameterValue("Monto", li)
+        'objrep.SetParameterValue("Fecha", _FechaPar)
+        'objrep.SetParameterValue("Total", Str(total))
+        'objrep.SetParameterValue("TipoReporte", "NOTA DE VENTA")
+        P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+        P_Global.Visualizador.CrGeneral.Zoom(130)
+        P_Global.Visualizador.Show() 'Comentar
+        ''P_Global.Visualizador.BringToFront() 'Comentar
+
+
+    End Sub
     Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles BtnImprimir.Click
         If (Not _fnAccesible() And tbCodigo.Text <> String.Empty) Then
             P_GenerarReporte(tbCodigo.Text)
@@ -2211,6 +2285,20 @@ salirIf:
         End If
 
 
+    End Sub
+
+    Private Sub btnImprimirCopia_Click(sender As Object, e As EventArgs) Handles btnImprimirCopia.Click
+        If (Not _fnAccesible() And tbCodigo.Text <> String.Empty) Then
+            P_GenerarReporteMasCopia(tbCodigo.Text)
+
+        End If
+    End Sub
+
+    Private Sub ButtonX3_Click(sender As Object, e As EventArgs) Handles ButtonX3.Click
+        If (Not _fnAccesible() And tbCodigo.Text <> String.Empty) Then
+            P_GenerarReporteMasCopia(tbCodigo.Text)
+
+        End If
     End Sub
 #End Region
 End Class
