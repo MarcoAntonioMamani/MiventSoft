@@ -22,6 +22,8 @@ Partial Class Tec_ReporteIngresosEgresosMensuales
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim cbAnio_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tec_ReporteIngresosEgresosMensuales))
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.PanelSuperior = New System.Windows.Forms.Panel()
         Me.PanelLEft = New System.Windows.Forms.Panel()
@@ -38,6 +40,9 @@ Partial Class Tec_ReporteIngresosEgresosMensuales
         Me.PanelNavegacion = New System.Windows.Forms.Panel()
         Me.PanelToolBar1 = New System.Windows.Forms.Panel()
         Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
+        Me.btnAnio = New DevComponents.DotNetBar.ButtonX()
+        Me.cbAnio = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.LabelX7 = New DevComponents.DotNetBar.LabelX()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelLEft.SuspendLayout()
@@ -48,7 +53,9 @@ Partial Class Tec_ReporteIngresosEgresosMensuales
         Me.Panel11.SuspendLayout()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelButton.SuspendLayout()
+        Me.PanelNavegacion.SuspendLayout()
         Me.PanelToolBar1.SuspendLayout()
+        CType(Me.cbAnio, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
@@ -199,6 +206,9 @@ Partial Class Tec_ReporteIngresosEgresosMensuales
         '
         'PanelNavegacion
         '
+        Me.PanelNavegacion.Controls.Add(Me.btnAnio)
+        Me.PanelNavegacion.Controls.Add(Me.cbAnio)
+        Me.PanelNavegacion.Controls.Add(Me.LabelX7)
         Me.PanelNavegacion.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelNavegacion.Location = New System.Drawing.Point(0, 0)
         Me.PanelNavegacion.Margin = New System.Windows.Forms.Padding(4)
@@ -238,6 +248,65 @@ Partial Class Tec_ReporteIngresosEgresosMensuales
         Me.ButtonX1.Text = "Generar"
         Me.ButtonX1.TextColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
         '
+        'btnAnio
+        '
+        Me.btnAnio.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnAnio.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnAnio.Font = New System.Drawing.Font("Calibri", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnAnio.ImageFixedSize = New System.Drawing.Size(28, 28)
+        Me.btnAnio.Location = New System.Drawing.Point(440, 25)
+        Me.btnAnio.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnAnio.Name = "btnAnio"
+        Me.btnAnio.Size = New System.Drawing.Size(93, 35)
+        Me.btnAnio.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnAnio.Symbol = ""
+        Me.btnAnio.SymbolColor = System.Drawing.Color.Honeydew
+        Me.btnAnio.TabIndex = 67
+        Me.btnAnio.Text = "Registrar" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Año"
+        Me.btnAnio.TextColor = System.Drawing.Color.White
+        '
+        'cbAnio
+        '
+        Me.cbAnio.BackColor = System.Drawing.Color.Azure
+        Me.cbAnio.ColorScheme = ""
+        Me.cbAnio.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.cbAnio.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
+        Me.cbAnio.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        cbAnio_DesignTimeLayout.LayoutString = resources.GetString("cbAnio_DesignTimeLayout.LayoutString")
+        Me.cbAnio.DesignTimeLayout = cbAnio_DesignTimeLayout
+        Me.cbAnio.FlatBorderColor = System.Drawing.Color.Black
+        Me.cbAnio.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbAnio.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbAnio.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cbAnio.Location = New System.Drawing.Point(33, 32)
+        Me.cbAnio.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbAnio.Name = "cbAnio"
+        Me.cbAnio.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbAnio.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
+        Me.cbAnio.SelectedIndex = -1
+        Me.cbAnio.SelectedItem = Nothing
+        Me.cbAnio.Size = New System.Drawing.Size(399, 28)
+        Me.cbAnio.TabIndex = 65
+        Me.cbAnio.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'LabelX7
+        '
+        Me.LabelX7.AutoSize = True
+        Me.LabelX7.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX7.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX7.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX7.ForeColor = System.Drawing.Color.White
+        Me.LabelX7.Location = New System.Drawing.Point(33, 2)
+        Me.LabelX7.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX7.Name = "LabelX7"
+        Me.LabelX7.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX7.Size = New System.Drawing.Size(36, 23)
+        Me.LabelX7.TabIndex = 66
+        Me.LabelX7.Text = "Año:"
+        '
         'Tec_ReporteIngresosEgresosMensuales
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -258,7 +327,10 @@ Partial Class Tec_ReporteIngresosEgresosMensuales
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelButton.ResumeLayout(False)
         Me.PanelButton.PerformLayout()
+        Me.PanelNavegacion.ResumeLayout(False)
+        Me.PanelNavegacion.PerformLayout()
         Me.PanelToolBar1.ResumeLayout(False)
+        CType(Me.cbAnio, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -279,4 +351,7 @@ Partial Class Tec_ReporteIngresosEgresosMensuales
     Protected WithEvents PanelNavegacion As Panel
     Protected WithEvents PanelToolBar1 As Panel
     Protected WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents btnAnio As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents cbAnio As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents LabelX7 As DevComponents.DotNetBar.LabelX
 End Class
