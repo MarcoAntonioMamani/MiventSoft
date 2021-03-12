@@ -122,7 +122,7 @@ Public Class Tec_ReporteIngresosEgresosMensuales
             objrep.SetDataSource(_dt)
 
             objrep.Subreports.Item("ReporteGraficoIngresoEgreso.rpt").SetDataSource(dtGrafico)
-            objrep.SetParameterValue("Anio", cbAnio.Value)
+            objrep.SetParameterValue("Anio", cbAnio.Text)
             objrep.SetParameterValue("Usuario", L_Usuario)
             MReportViewer.ReportSource = objrep
             MReportViewer.Show()
