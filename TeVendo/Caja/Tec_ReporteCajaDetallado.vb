@@ -13,7 +13,28 @@ Public Class Tec_ReporteCajaDetallado
 
         Me.Text = "MOVIMIENTO CAJAS DETALLADO"
         MReportViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
+        _prCargarComboCaja(cbCaja)
 
+    End Sub
+
+    Private Sub _prCargarComboCaja(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
+        Dim dt As New DataTable
+        dt = L_prListarCaja()
+        dt.Rows.Add(-1, "Todos")
+        With mCombo
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("Id").Width = 70
+            .DropDownList.Columns("Id").Caption = "COD"
+            .DropDownList.Columns.Add("NombreCaja").Width = 200
+            .DropDownList.Columns("NombreCaja").Caption = "Caja"
+            .ValueMember = "Id"
+            .DisplayMember = "NombreCaja"
+            .DataSource = dt
+            .Refresh()
+        End With
+
+
+        mCombo.SelectedIndex = dt.Rows.Count - 1
 
     End Sub
 
@@ -25,12 +46,21 @@ Public Class Tec_ReporteCajaDetallado
 
 
 
-        dt = ReporteIngresoEgresoDetalladoCaja(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"))
+        dt = ReporteIngresoEgresoDetalladoCaja(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"), cbCaja.Value)
 
 
     End Sub
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
+
+        If (cbCaja.SelectedIndex < 0) Then
+
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Debe Seleccionar una Caja".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            cbCaja.Focus()
+            Return
+
+        End If
 
         Dim _dt As New DataTable
         GenerarData(_dt)

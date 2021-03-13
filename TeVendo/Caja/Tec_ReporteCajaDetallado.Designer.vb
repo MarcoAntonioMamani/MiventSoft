@@ -22,6 +22,8 @@ Partial Class Tec_ReporteCajaDetallado
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim cbCaja_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tec_ReporteCajaDetallado))
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.PanelSuperior = New System.Windows.Forms.Panel()
         Me.PanelLEft = New System.Windows.Forms.Panel()
@@ -42,6 +44,8 @@ Partial Class Tec_ReporteCajaDetallado
         Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
         Me.PanelToolBar1 = New System.Windows.Forms.Panel()
         Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
+        Me.cbCaja = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.lbCajaSalida = New DevComponents.DotNetBar.LabelX()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelLEft.SuspendLayout()
@@ -54,6 +58,7 @@ Partial Class Tec_ReporteCajaDetallado
         Me.PanelButton.SuspendLayout()
         Me.PanelNavegacion.SuspendLayout()
         Me.PanelToolBar1.SuspendLayout()
+        CType(Me.cbCaja, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
@@ -204,6 +209,8 @@ Partial Class Tec_ReporteCajaDetallado
         '
         'PanelNavegacion
         '
+        Me.PanelNavegacion.Controls.Add(Me.cbCaja)
+        Me.PanelNavegacion.Controls.Add(Me.lbCajaSalida)
         Me.PanelNavegacion.Controls.Add(Me.cbFechaHasta)
         Me.PanelNavegacion.Controls.Add(Me.LabelX4)
         Me.PanelNavegacion.Controls.Add(Me.cbFechaDesde)
@@ -355,6 +362,48 @@ Partial Class Tec_ReporteCajaDetallado
         Me.ButtonX1.Text = "Generar"
         Me.ButtonX1.TextColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
         '
+        'cbCaja
+        '
+        Me.cbCaja.BackColor = System.Drawing.Color.Azure
+        Me.cbCaja.ColorScheme = ""
+        Me.cbCaja.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.cbCaja.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
+        Me.cbCaja.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        cbCaja_DesignTimeLayout.LayoutString = resources.GetString("cbCaja_DesignTimeLayout.LayoutString")
+        Me.cbCaja.DesignTimeLayout = cbCaja_DesignTimeLayout
+        Me.cbCaja.FlatBorderColor = System.Drawing.Color.Black
+        Me.cbCaja.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbCaja.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbCaja.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cbCaja.Location = New System.Drawing.Point(314, 11)
+        Me.cbCaja.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbCaja.Name = "cbCaja"
+        Me.cbCaja.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbCaja.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
+        Me.cbCaja.SelectedIndex = -1
+        Me.cbCaja.SelectedItem = Nothing
+        Me.cbCaja.Size = New System.Drawing.Size(239, 26)
+        Me.cbCaja.TabIndex = 231
+        Me.cbCaja.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'lbCajaSalida
+        '
+        Me.lbCajaSalida.AutoSize = True
+        Me.lbCajaSalida.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.lbCajaSalida.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.lbCajaSalida.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbCajaSalida.ForeColor = System.Drawing.Color.White
+        Me.lbCajaSalida.Location = New System.Drawing.Point(273, 13)
+        Me.lbCajaSalida.Margin = New System.Windows.Forms.Padding(4)
+        Me.lbCajaSalida.Name = "lbCajaSalida"
+        Me.lbCajaSalida.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.lbCajaSalida.Size = New System.Drawing.Size(33, 21)
+        Me.lbCajaSalida.TabIndex = 232
+        Me.lbCajaSalida.Text = "Caja:"
+        '
         'Tec_ReporteCajaDetallado
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -378,6 +427,7 @@ Partial Class Tec_ReporteCajaDetallado
         Me.PanelNavegacion.ResumeLayout(False)
         Me.PanelNavegacion.PerformLayout()
         Me.PanelToolBar1.ResumeLayout(False)
+        CType(Me.cbCaja, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -402,4 +452,6 @@ Partial Class Tec_ReporteCajaDetallado
     Friend WithEvents LabelX2 As DevComponents.DotNetBar.LabelX
     Protected WithEvents PanelToolBar1 As Panel
     Protected WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents cbCaja As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents lbCajaSalida As DevComponents.DotNetBar.LabelX
 End Class

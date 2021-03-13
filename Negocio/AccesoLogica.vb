@@ -1667,14 +1667,14 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
-    Public Shared Function ReporteIngresoEgresoDetalladoCaja(FechaI As String, FechaF As String) As DataTable
+    Public Shared Function ReporteIngresoEgresoDetalladoCaja(FechaI As String, FechaF As String, CajaId As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 13))
         _listParam.Add(New Datos.DParametro("@FechaI", FechaI))
         _listParam.Add(New Datos.DParametro("@FechaF", FechaF))
-
+        _listParam.Add(New Datos.DParametro("@CajaId", CajaId))
         _Tabla = D_ProcedimientoConParam("MAM_CajaIngresoEgreso", _listParam)
 
         Return _Tabla
