@@ -134,32 +134,29 @@
       <HintPath>..\..\..\DINASES\Google Drive\Librerias\DotNet\DevComponents.TreeGX.dll</HintPath>
     </Reference>
     <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
-    <Reference Include="Gma.QrCodeNet.Encoding">
-      <HintPath>..\..\..\DINASES\Google Drive\Librerias\QrCode\Gma.QrCodeNet.Encoding.dll</HintPath>
-    </Reference>
     <Reference Include="GMap.NET.Core">
-      <HintPath>..\..\..\DINASES\Google Drive\Librerias\GMap\GMap.NET.Core.dll</HintPath>
+      <HintPath>..\..\..\..\DINASES\Google Drive\Librerias\GMap\GMap.NET.Core.dll</HintPath>
     </Reference>
     <Reference Include="GMap.NET.WindowsForms">
-      <HintPath>..\..\..\DINASES\Google Drive\Librerias\GMap\GMap.NET.WindowsForms.dll</HintPath>
+      <HintPath>..\..\..\..\DINASES\Google Drive\Librerias\GMap\GMap.NET.WindowsForms.dll</HintPath>
     </Reference>
     <Reference Include="Janus.Data.v3">
-      <HintPath>..\..\..\DINASES\Google Drive\Librerias\Janus\Janus.Data.v3.dll</HintPath>
+      <HintPath>..\..\..\..\DINASES\Google Drive\Librerias\Janus\Janus.Data.v3.dll</HintPath>
     </Reference>
     <Reference Include="Janus.Windows.CalendarCombo.v3">
-      <HintPath>..\..\..\DINASES\Google Drive\Librerias\Janus\Janus.Windows.CalendarCombo.v3.dll</HintPath>
+      <HintPath>..\..\..\..\DINASES\Google Drive\Librerias\Janus\Janus.Windows.CalendarCombo.v3.dll</HintPath>
     </Reference>
     <Reference Include="Janus.Windows.Common.v3">
-      <HintPath>..\..\..\DINASES\Google Drive\Librerias\Janus\Janus.Windows.Common.v3.dll</HintPath>
+      <HintPath>..\..\..\..\DINASES\Google Drive\Librerias\Janus\Janus.Windows.Common.v3.dll</HintPath>
     </Reference>
     <Reference Include="Janus.Windows.GridEX.v3">
-      <HintPath>..\..\..\DINASES\Google Drive\Librerias\Janus\Janus.Windows.GridEX.v3.dll</HintPath>
+      <HintPath>..\..\..\..\DINASES\Google Drive\Librerias\Janus\Janus.Windows.GridEX.v3.dll</HintPath>
     </Reference>
     <Reference Include="Janus.Windows.Ribbon.v3">
-      <HintPath>..\..\..\DINASES\Google Drive\Librerias\Janus\Janus.Windows.Ribbon.v3.dll</HintPath>
+      <HintPath>..\..\..\..\DINASES\Google Drive\Librerias\Janus\Janus.Windows.Ribbon.v3.dll</HintPath>
     </Reference>
     <Reference Include="Janus.Windows.UI.v3">
-      <HintPath>..\..\..\DINASES\Google Drive\Librerias\Janus\Janus.Windows.UI.v3.dll</HintPath>
+      <HintPath>..\..\..\..\DINASES\Google Drive\Librerias\Janus\Janus.Windows.UI.v3.dll</HintPath>
     </Reference>
     <Reference Include="MaterialSkin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialSkin.Updated.0.2.2\lib\MaterialSkin.dll</HintPath>
