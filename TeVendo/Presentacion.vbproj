@@ -215,6 +215,24 @@
     <Compile Include="Caja\Tec_ProgramaIngresoEgresoCaja.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Caja\Tec_ReporteCajaDetallado.designer.vb">
+      <DependentUpon>Tec_ReporteCajaDetallado.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Caja\Tec_ReporteCajaDetallado.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Caja\Tec_ReporteIngresosEgresosDetallado.designer.vb">
+      <DependentUpon>Tec_ReporteIngresosEgresosDetallado.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Caja\Tec_ReporteIngresosEgresosDetallado.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Caja\Tec_ReporteIngresosEgresosMensuales.designer.vb">
+      <DependentUpon>Tec_ReporteIngresosEgresosMensuales.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Caja\Tec_ReporteIngresosEgresosMensuales.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Control\Imageus.Designer.vb">
       <DependentUpon>Imageus.vb</DependentUpon>
     </Compile>
@@ -589,6 +607,12 @@
       <DependentUpon>Reporte_EstadoCuentasCompras.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ReporteSmartApps\Reporte_IngresosEgresosDetallado.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reporte_IngresosEgresosDetallado.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ReporteSmartApps\Reporte_KardexGeneralProductos.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -599,6 +623,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reporte_Movimiento.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReporteSmartApps\Reporte_MovimientoCajaDetallado.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reporte_MovimientoCajaDetallado.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ReporteSmartApps\Reporte_PagosPendientes.vb">
@@ -635,6 +665,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reporte_Rendimiento_Personal.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReporteSmartApps\Reporte_ResumenIngresoEgresos.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reporte_ResumenIngresoEgresos.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ReporteSmartApps\Reporte_VentaEstadoCuentas.vb">
@@ -770,6 +806,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Caja\Tec_ProgramaIngresoEgresoCaja.resx">
       <DependentUpon>Tec_ProgramaIngresoEgresoCaja.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Caja\Tec_ReporteCajaDetallado.resx">
+      <DependentUpon>Tec_ReporteCajaDetallado.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Caja\Tec_ReporteIngresosEgresosDetallado.resx">
+      <DependentUpon>Tec_ReporteIngresosEgresosDetallado.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Caja\Tec_ReporteIngresosEgresosMensuales.resx">
+      <DependentUpon>Tec_ReporteIngresosEgresosMensuales.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Control\Imageus.resx">
       <DependentUpon>Imageus.vb</DependentUpon>
@@ -970,6 +1015,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Reporte_EstadoCuentasCompras.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\Reporte_IngresosEgresosDetallado.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reporte_IngresosEgresosDetallado.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\Reporte_KardexGeneralProductos.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Reporte_KardexGeneralProductos.vb</LastGenOutput>
@@ -977,6 +1026,10 @@
     <EmbeddedResource Include="ReporteSmartApps\Reporte_Movimiento.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Reporte_Movimiento.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\Reporte_MovimientoCajaDetallado.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reporte_MovimientoCajaDetallado.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\Reporte_PagosPendientes.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -1001,6 +1054,10 @@
     <EmbeddedResource Include="ReporteSmartApps\Reporte_Rendimiento_Personal.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Reporte_Rendimiento_Personal.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\Reporte_ResumenIngresoEgresos.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reporte_ResumenIngresoEgresos.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\Reporte_VentaEstadoCuentas.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
