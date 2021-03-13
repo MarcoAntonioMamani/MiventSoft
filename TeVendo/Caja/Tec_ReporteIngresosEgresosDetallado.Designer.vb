@@ -165,7 +165,7 @@ Partial Class Tec_ReporteIngresosEgresosDetallado
         Me.Label3.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
         Me.Label3.Size = New System.Drawing.Size(321, 25)
         Me.Label3.TabIndex = 2
-        Me.Label3.Text = "Ventas Realizadas"
+        Me.Label3.Text = "INGRESOS O EGRESOS DETALLADO"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Panel12
