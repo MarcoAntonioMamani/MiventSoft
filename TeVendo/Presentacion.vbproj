@@ -218,6 +218,12 @@
     <Compile Include="Caja\Tec_ProgramaIngresoEgresoCaja.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Caja\Tec_ReporteCajaDetallado.Designer.vb">
+      <DependentUpon>Tec_ReporteCajaDetallado.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Caja\Tec_ReporteCajaDetallado.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Caja\Tec_ReporteIngresosEgresosDetallado.Designer.vb">
       <DependentUpon>Tec_ReporteIngresosEgresosDetallado.vb</DependentUpon>
     </Compile>
@@ -622,6 +628,12 @@
       <DependentUpon>Reporte_Movimiento.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ReporteSmartApps\Reporte_MovimientoCajaDetallado.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reporte_MovimientoCajaDetallado.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ReporteSmartApps\Reporte_PagosPendientes.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -800,6 +812,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Caja\Tec_ProgramaIngresoEgresoCaja.resx">
       <DependentUpon>Tec_ProgramaIngresoEgresoCaja.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Caja\Tec_ReporteCajaDetallado.resx">
+      <DependentUpon>Tec_ReporteCajaDetallado.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Caja\Tec_ReporteIngresosEgresosDetallado.resx">
       <DependentUpon>Tec_ReporteIngresosEgresosDetallado.vb</DependentUpon>
@@ -1017,6 +1032,10 @@
     <EmbeddedResource Include="ReporteSmartApps\Reporte_Movimiento.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Reporte_Movimiento.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\Reporte_MovimientoCajaDetallado.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reporte_MovimientoCajaDetallado.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\Reporte_PagosPendientes.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

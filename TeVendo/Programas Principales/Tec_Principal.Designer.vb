@@ -43,6 +43,7 @@ Partial Class Tec_Principal
         Me.btnCierreCajero = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btnCajaGeneral = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btnIngresoEgresosMensuales = New DevComponents.DotNetBar.Metro.MetroTileItem()
+        Me.btnIngresoEgresoDetallado = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.tab_compraventa = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel_Configuracion = New DevComponents.DotNetBar.Metro.MetroTilePanel()
@@ -121,7 +122,7 @@ Partial Class Tec_Principal
         Me.btnCerrarSesion = New DevComponents.DotNetBar.ButtonX()
         Me.PanelLine = New System.Windows.Forms.Panel()
         Me.imguser = New System.Windows.Forms.PictureBox()
-        Me.btnIngresoEgresoDetallado = New DevComponents.DotNetBar.Metro.MetroTileItem()
+        Me.btnReporteCajaDetallado = New DevComponents.DotNetBar.Metro.MetroTileItem()
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlMenu.SuspendLayout()
         Me.SuperTabControlPanel5.SuspendLayout()
@@ -456,7 +457,7 @@ Partial Class Tec_Principal
         Me.ItemContainer8.ItemSpacing = 10
         Me.ItemContainer8.MultiLine = True
         Me.ItemContainer8.Name = "ItemContainer8"
-        Me.ItemContainer8.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnGastos, Me.btnCierreCajero, Me.btnCajaGeneral, Me.btnIngresoEgresosMensuales, Me.btnIngresoEgresoDetallado})
+        Me.ItemContainer8.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnGastos, Me.btnCierreCajero, Me.btnCajaGeneral, Me.btnIngresoEgresosMensuales, Me.btnIngresoEgresoDetallado, Me.btnReporteCajaDetallado})
         '
         '
         '
@@ -559,6 +560,29 @@ Partial Class Tec_Principal
         Me.btnIngresoEgresosMensuales.TitleText = "Ingresos" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Egresos" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Mensuales"
         Me.btnIngresoEgresosMensuales.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
         Me.btnIngresoEgresosMensuales.TitleTextColor = System.Drawing.Color.White
+        '
+        'btnIngresoEgresoDetallado
+        '
+        Me.btnIngresoEgresoDetallado.Image = CType(resources.GetObject("btnIngresoEgresoDetallado.Image"), System.Drawing.Image)
+        Me.btnIngresoEgresoDetallado.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnIngresoEgresoDetallado.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnIngresoEgresoDetallado.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnIngresoEgresoDetallado.Name = "btnIngresoEgresoDetallado"
+        Me.btnIngresoEgresoDetallado.SymbolColor = System.Drawing.Color.Black
+        Me.btnIngresoEgresoDetallado.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnIngresoEgresoDetallado.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btnIngresoEgresoDetallado.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnIngresoEgresoDetallado.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
+        Me.btnIngresoEgresoDetallado.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnIngresoEgresoDetallado.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnIngresoEgresoDetallado.TileStyle.PaddingRight = 20
+        Me.btnIngresoEgresoDetallado.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnIngresoEgresoDetallado.TitleText = "Ingresos" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Egresos" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Detallado"
+        Me.btnIngresoEgresoDetallado.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnIngresoEgresoDetallado.TitleTextColor = System.Drawing.Color.White
         '
         'tab_compraventa
         '
@@ -2102,28 +2126,28 @@ Partial Class Tec_Principal
         Me.imguser.TabIndex = 1
         Me.imguser.TabStop = False
         '
-        'btnIngresoEgresoDetallado
+        'btnReporteCajaDetallado
         '
-        Me.btnIngresoEgresoDetallado.Image = CType(resources.GetObject("btnIngresoEgresoDetallado.Image"), System.Drawing.Image)
-        Me.btnIngresoEgresoDetallado.ImageIndent = New System.Drawing.Point(-50, 0)
-        Me.btnIngresoEgresoDetallado.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
-        Me.btnIngresoEgresoDetallado.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
-        Me.btnIngresoEgresoDetallado.Name = "btnIngresoEgresoDetallado"
-        Me.btnIngresoEgresoDetallado.SymbolColor = System.Drawing.Color.Black
-        Me.btnIngresoEgresoDetallado.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
-        Me.btnIngresoEgresoDetallado.TileSize = New System.Drawing.Size(250, 135)
+        Me.btnReporteCajaDetallado.Image = CType(resources.GetObject("btnReporteCajaDetallado.Image"), System.Drawing.Image)
+        Me.btnReporteCajaDetallado.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnReporteCajaDetallado.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnReporteCajaDetallado.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnReporteCajaDetallado.Name = "btnReporteCajaDetallado"
+        Me.btnReporteCajaDetallado.SymbolColor = System.Drawing.Color.Black
+        Me.btnReporteCajaDetallado.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnReporteCajaDetallado.TileSize = New System.Drawing.Size(250, 135)
         '
         '
         '
-        Me.btnIngresoEgresoDetallado.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.btnIngresoEgresoDetallado.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
-        Me.btnIngresoEgresoDetallado.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
-        Me.btnIngresoEgresoDetallado.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnIngresoEgresoDetallado.TileStyle.PaddingRight = 20
-        Me.btnIngresoEgresoDetallado.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
-        Me.btnIngresoEgresoDetallado.TitleText = "Ingresos" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Egresos" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Detallado"
-        Me.btnIngresoEgresoDetallado.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
-        Me.btnIngresoEgresoDetallado.TitleTextColor = System.Drawing.Color.White
+        Me.btnReporteCajaDetallado.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(159, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.btnReporteCajaDetallado.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.btnReporteCajaDetallado.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnReporteCajaDetallado.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnReporteCajaDetallado.TileStyle.PaddingRight = 20
+        Me.btnReporteCajaDetallado.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnReporteCajaDetallado.TitleText = "Reporte" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Caja" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Detallado"
+        Me.btnReporteCajaDetallado.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnReporteCajaDetallado.TitleTextColor = System.Drawing.Color.White
         '
         'Tec_Principal
         '
@@ -2254,4 +2278,5 @@ Partial Class Tec_Principal
     Friend WithEvents btnKits As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents btnIngresoEgresosMensuales As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents btnIngresoEgresoDetallado As DevComponents.DotNetBar.Metro.MetroTileItem
+    Friend WithEvents btnReporteCajaDetallado As DevComponents.DotNetBar.Metro.MetroTileItem
 End Class
