@@ -1396,6 +1396,7 @@
     <None Include="Resources\trash.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\whatsapp.png" />
     <None Include="Resources\noimage.png" />
     <None Include="Resources\menudistribucion.png" />
     <None Include="Resources\printerplanilla.png" />

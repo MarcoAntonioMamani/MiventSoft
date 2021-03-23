@@ -10,6 +10,8 @@ Imports GMap.NET
 Imports GMap.NET.WindowsForms.Markers
 Imports GMap.NET.WindowsForms
 Imports GMap.NET.WindowsForms.ToolTips
+Imports System.Text.RegularExpressions
+
 Public Class Tec_Clientes
 
 
@@ -495,7 +497,7 @@ Public Class Tec_Clientes
         Try
             Res = ModificarCliente(tbCodigo.Text, cbZona.Value, cbPrecios.Value, tbCodigoExterno.Text, tbNombreCliente.Text,
                                   tbDireccionCliente.Text, tbTelefono.Text, cbTipoDocumento.Value, tbNroDocumento.Text,
-                                  tbRazonSocial.Text, tbnit.Text, IIf(swEstado.Value = True, 1, 0), Now.Date.ToString("dd/MM/yyyy"), _latitud, _longitud)
+                                  tbRazonSocial.Text, tbnit.Text, IIf(swEstado.Value = True, 1, 0), Now.Date.ToString("yyyy/MM/dd"), _latitud, _longitud)
 
             If Res Then
 
@@ -850,6 +852,46 @@ Public Class Tec_Clientes
         _TabControl.SelectedTab = _modulo
         _tab.Close()
         Me.Close()
+    End Sub
+    Private Sub NavigateWebURL(ByVal URL As String, Optional browser As String = "default")
+
+        If Not (browser = "default") Then
+            Try
+                '// try set browser if there was an error (browser not installed)
+                Process.Start(browser, URL)
+            Catch ex As Exception
+                '// use default browser
+                Process.Start(URL)
+            End Try
+
+        Else
+            '// use default browser
+            Process.Start(URL)
+
+        End If
+
+    End Sub
+    Public Function ValidarTelefono(strNumber As String)
+        Dim regex As Regex = New Regex("\A[0-9]{8,8}\z")
+        Dim match As Match = regex.Match(strNumber)
+
+        If (match.Success) Then
+
+            Return True
+
+        Else
+            Return False
+        End If
+
+    End Function
+    Private Sub LinkWhatsappToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LinkWhatsappToolStripMenuItem.Click
+        Dim Url As String = "https://wa.me/+591".ToString + tbTelefono.Text + "/?text="
+        If (ValidarTelefono(tbTelefono.Text)) Then
+            NavigateWebURL(Url)
+
+        Else
+            ToastNotification.Show(Me, "Numero Telefono Invalido".ToUpper, img, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
+        End If
     End Sub
 
 

@@ -221,7 +221,7 @@ Public Class FormularioCliente
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
         If (_PMOValidarCampos()) Then
-            Dim dt As DataTable = InsertarClienteFormularioExterno("", tbNombreCliente.Text, cbTipoDocumento.Value, tbNroDocumento.Text, tbNombreCliente.Text, tbNroDocumento.Text, cbPrecios.Value)
+            Dim dt As DataTable = InsertarClienteFormularioExterno("", tbNombreCliente.Text, cbTipoDocumento.Value, tbNroDocumento.Text, tbNombreCliente.Text, tbNroDocumento.Text, cbPrecios.Value, tbTelefono.Text)
             NuevoCliente = True
             IdCliente = dt.Rows(0).Item("Id")
             NombreCliente = dt.Rows(0).Item("NombreCliente")
@@ -254,5 +254,9 @@ Public Class FormularioCliente
             End If
 
         End If
+    End Sub
+
+    Private Sub btnSi_Paint(sender As Object, e As PaintEventArgs) Handles btnSi.Paint
+
     End Sub
 End Class
