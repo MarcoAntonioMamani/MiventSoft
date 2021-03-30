@@ -235,7 +235,7 @@ Public Class Tec_VentasDetalle
         End With
         With grDetalle.RootTable.Columns("TipoNombre")
             .Width = 60
-            .Visible = True
+            .Visible = False
             .Caption = "Tipo"
         End With
         With grDetalle.RootTable.Columns("KitId")
@@ -245,7 +245,7 @@ Public Class Tec_VentasDetalle
         End With
         With grDetalle.RootTable.Columns("KitNombre")
             .Width = 100
-            .Visible = True
+            .Visible = False
             .Caption = "Kit"
             .WordWrap = True
             .MaxLines = 3
@@ -266,7 +266,7 @@ Public Class Tec_VentasDetalle
         With grDetalle.RootTable.Columns("CantidadKit")
             .Width = 40
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "CantidadKit"
         End With
@@ -822,7 +822,7 @@ Public Class Tec_VentasDetalle
             Dim numiProd As Integer = FilaSelectLote.Item("Id")
             Dim mLote As String = grProducto.GetValue("Lote")
             Dim FechaVenc As Date = grProducto.GetValue("FechaVencimiento")
-            If (Not _fnExisteProductoConLote(numiProd, Lote, FechaVenc, grProducto.GetValue("Tipo"))) Then
+            If (Not _fnExisteProductoConLote(numiProd, Lote, FechaVenc, 1)) Then
                 Dim ef = New Efecto
                 ef.tipo = 5
                 ef.NombreProducto = grProducto.GetValue("NombreProducto")
