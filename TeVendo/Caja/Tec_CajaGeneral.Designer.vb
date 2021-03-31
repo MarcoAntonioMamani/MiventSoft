@@ -44,9 +44,9 @@ Partial Class Tec_CajaGeneral
         Me.cbFechaDesde = New Janus.Windows.CalendarCombo.CalendarCombo()
         Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
         Me.PanelToolBar1 = New System.Windows.Forms.Panel()
+        Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
         Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.btGenerarKardex = New DevComponents.DotNetBar.ButtonX()
-        Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelLEft.SuspendLayout()
@@ -174,7 +174,7 @@ Partial Class Tec_CajaGeneral
         Me.grMovimientos.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
         Me.grMovimientos.AlternatingColors = True
         Me.grMovimientos.BackColor = System.Drawing.Color.White
-        Me.grMovimientos.BorderStyle = Janus.Windows.GridEX.BorderStyle.Raised
+        Me.grMovimientos.BorderStyle = Janus.Windows.GridEX.BorderStyle.Sunken
         Me.grMovimientos.ColumnAutoResize = True
         Me.grMovimientos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grMovimientos.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
@@ -183,6 +183,7 @@ Partial Class Tec_CajaGeneral
         Me.grMovimientos.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
         Me.grMovimientos.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
         Me.grMovimientos.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grMovimientos.GridLineColor = System.Drawing.Color.Black
         Me.grMovimientos.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
         Me.grMovimientos.HeaderFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.grMovimientos.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.Empty
@@ -192,7 +193,7 @@ Partial Class Tec_CajaGeneral
         Me.grMovimientos.Location = New System.Drawing.Point(0, 0)
         Me.grMovimientos.Margin = New System.Windows.Forms.Padding(4)
         Me.grMovimientos.Name = "grMovimientos"
-        Me.grMovimientos.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.grMovimientos.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Black
         Me.grMovimientos.Office2007CustomColor = System.Drawing.Color.DimGray
         Me.grMovimientos.RecordNavigator = True
         Me.grMovimientos.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -201,7 +202,6 @@ Partial Class Tec_CajaGeneral
         Me.grMovimientos.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
         Me.grMovimientos.SelectedFormatStyle.BackColor = System.Drawing.Color.Gold
         Me.grMovimientos.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grMovimientos.SelectedFormatStyle.ForeColor = System.Drawing.Color.Black
         Me.grMovimientos.SelectedInactiveFormatStyle.BackColor = System.Drawing.Color.WhiteSmoke
         Me.grMovimientos.Size = New System.Drawing.Size(1333, 372)
         Me.grMovimientos.TabIndex = 4
@@ -295,7 +295,7 @@ Partial Class Tec_CajaGeneral
         Me.PanelNavegacion.Location = New System.Drawing.Point(0, 0)
         Me.PanelNavegacion.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelNavegacion.Name = "PanelNavegacion"
-        Me.PanelNavegacion.Size = New System.Drawing.Size(924, 83)
+        Me.PanelNavegacion.Size = New System.Drawing.Size(1069, 83)
         Me.PanelNavegacion.TabIndex = 21
         '
         'LabelX5
@@ -447,11 +447,30 @@ Partial Class Tec_CajaGeneral
         Me.PanelToolBar1.Controls.Add(Me.btGenerarKardex)
         Me.PanelToolBar1.Dock = System.Windows.Forms.DockStyle.Right
         Me.PanelToolBar1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.PanelToolBar1.Location = New System.Drawing.Point(924, 0)
+        Me.PanelToolBar1.Location = New System.Drawing.Point(1069, 0)
         Me.PanelToolBar1.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelToolBar1.Name = "PanelToolBar1"
-        Me.PanelToolBar1.Size = New System.Drawing.Size(421, 83)
+        Me.PanelToolBar1.Size = New System.Drawing.Size(276, 83)
         Me.PanelToolBar1.TabIndex = 7
+        '
+        'ButtonX2
+        '
+        Me.ButtonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX2.BackColor = System.Drawing.Color.FromArgb(CType(CType(217, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(79, Byte), Integer))
+        Me.ButtonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.ButtonX2.Dock = System.Windows.Forms.DockStyle.Right
+        Me.ButtonX2.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX2.Image = Global.TeVendo.My.Resources.Resources.atras
+        Me.ButtonX2.ImageFixedSize = New System.Drawing.Size(30, 30)
+        Me.ButtonX2.Location = New System.Drawing.Point(0, 0)
+        Me.ButtonX2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.ButtonX2.Name = "ButtonX2"
+        Me.ButtonX2.Size = New System.Drawing.Size(124, 83)
+        Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
+        Me.ButtonX2.Symbol = ""
+        Me.ButtonX2.TabIndex = 70
+        Me.ButtonX2.Text = "Salir"
+        Me.ButtonX2.TextColor = System.Drawing.Color.White
         '
         'ButtonX1
         '
@@ -483,7 +502,7 @@ Partial Class Tec_CajaGeneral
         Me.btGenerarKardex.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btGenerarKardex.Image = Global.TeVendo.My.Resources.Resources.facturacion
         Me.btGenerarKardex.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.btGenerarKardex.Location = New System.Drawing.Point(269, 0)
+        Me.btGenerarKardex.Location = New System.Drawing.Point(124, 0)
         Me.btGenerarKardex.Margin = New System.Windows.Forms.Padding(4)
         Me.btGenerarKardex.Name = "btGenerarKardex"
         Me.btGenerarKardex.Size = New System.Drawing.Size(152, 83)
@@ -491,25 +510,6 @@ Partial Class Tec_CajaGeneral
         Me.btGenerarKardex.TabIndex = 0
         Me.btGenerarKardex.Text = "Generar Kardex"
         Me.btGenerarKardex.TextColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        '
-        'ButtonX2
-        '
-        Me.ButtonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX2.BackColor = System.Drawing.Color.FromArgb(CType(CType(217, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(79, Byte), Integer))
-        Me.ButtonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.ButtonX2.Dock = System.Windows.Forms.DockStyle.Right
-        Me.ButtonX2.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX2.Image = Global.TeVendo.My.Resources.Resources.atras
-        Me.ButtonX2.ImageFixedSize = New System.Drawing.Size(30, 30)
-        Me.ButtonX2.Location = New System.Drawing.Point(0, 0)
-        Me.ButtonX2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.ButtonX2.Name = "ButtonX2"
-        Me.ButtonX2.Size = New System.Drawing.Size(124, 83)
-        Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
-        Me.ButtonX2.Symbol = ""
-        Me.ButtonX2.TabIndex = 70
-        Me.ButtonX2.Text = "Salir"
-        Me.ButtonX2.TextColor = System.Drawing.Color.White
         '
         'Tec_CajaGeneral
         '
