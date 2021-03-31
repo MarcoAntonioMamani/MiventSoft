@@ -84,7 +84,7 @@ Partial Class F_MonitoreoProductos
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(988, 517)
+        Me.Panel1.Size = New System.Drawing.Size(1205, 517)
         Me.Panel1.TabIndex = 2
         '
         'SuperTabControlMenu
@@ -114,7 +114,7 @@ Partial Class F_MonitoreoProductos
         Me.SuperTabControlMenu.ReorderTabsEnabled = True
         Me.SuperTabControlMenu.SelectedTabFont = New System.Drawing.Font("Calibri", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControlMenu.SelectedTabIndex = 0
-        Me.SuperTabControlMenu.Size = New System.Drawing.Size(988, 476)
+        Me.SuperTabControlMenu.Size = New System.Drawing.Size(1205, 476)
         Me.SuperTabControlMenu.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControlMenu.TabIndex = 0
         Me.SuperTabControlMenu.TabLayoutType = DevComponents.DotNetBar.eSuperTabLayoutType.MultiLineFit
@@ -131,7 +131,7 @@ Partial Class F_MonitoreoProductos
         Me.SuperTabControlPanel6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel6.Location = New System.Drawing.Point(0, 58)
         Me.SuperTabControlPanel6.Name = "SuperTabControlPanel6"
-        Me.SuperTabControlPanel6.Size = New System.Drawing.Size(988, 418)
+        Me.SuperTabControlPanel6.Size = New System.Drawing.Size(1205, 418)
         Me.SuperTabControlPanel6.TabIndex = 6
         Me.SuperTabControlPanel6.TabItem = Me.btnProductosVencidos
         Me.SuperTabControlPanel6.Visible = False
@@ -144,7 +144,7 @@ Partial Class F_MonitoreoProductos
         Me.PanelDatos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelDatos.Location = New System.Drawing.Point(0, 0)
         Me.PanelDatos.Name = "PanelDatos"
-        Me.PanelDatos.Size = New System.Drawing.Size(988, 418)
+        Me.PanelDatos.Size = New System.Drawing.Size(1205, 418)
         Me.PanelDatos.TabIndex = 3
         '
         'Panel8
@@ -155,7 +155,7 @@ Partial Class F_MonitoreoProductos
         Me.Panel8.Location = New System.Drawing.Point(0, 0)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Padding = New System.Windows.Forms.Padding(5)
-        Me.Panel8.Size = New System.Drawing.Size(988, 418)
+        Me.Panel8.Size = New System.Drawing.Size(1205, 418)
         Me.Panel8.TabIndex = 7
         '
         'gr_ProductosVencidos
@@ -163,7 +163,8 @@ Partial Class F_MonitoreoProductos
         Me.gr_ProductosVencidos.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
         Me.gr_ProductosVencidos.AlternatingColors = True
         Me.gr_ProductosVencidos.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.gr_ProductosVencidos.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
+        Me.gr_ProductosVencidos.BlendColor = System.Drawing.SystemColors.InactiveCaptionText
+        Me.gr_ProductosVencidos.BorderStyle = Janus.Windows.GridEX.BorderStyle.Sunken
         Me.gr_ProductosVencidos.ColumnAutoResize = True
         Me.gr_ProductosVencidos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.gr_ProductosVencidos.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None
@@ -173,7 +174,7 @@ Partial Class F_MonitoreoProductos
         Me.gr_ProductosVencidos.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
         Me.gr_ProductosVencidos.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
         Me.gr_ProductosVencidos.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gr_ProductosVencidos.GridLines = Janus.Windows.GridEX.GridLines.None
+        Me.gr_ProductosVencidos.GridLineColor = System.Drawing.Color.Black
         Me.gr_ProductosVencidos.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
         Me.gr_ProductosVencidos.HeaderFormatStyle.Alpha = 0
         Me.gr_ProductosVencidos.HeaderFormatStyle.Appearance = Janus.Windows.GridEX.Appearance.Flat
@@ -187,7 +188,7 @@ Partial Class F_MonitoreoProductos
         Me.gr_ProductosVencidos.Location = New System.Drawing.Point(5, 66)
         Me.gr_ProductosVencidos.Margin = New System.Windows.Forms.Padding(4)
         Me.gr_ProductosVencidos.Name = "gr_ProductosVencidos"
-        Me.gr_ProductosVencidos.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.gr_ProductosVencidos.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Black
         Me.gr_ProductosVencidos.Office2007CustomColor = System.Drawing.Color.DodgerBlue
         Me.gr_ProductosVencidos.RecordNavigator = True
         Me.gr_ProductosVencidos.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -201,7 +202,7 @@ Partial Class F_MonitoreoProductos
         Me.gr_ProductosVencidos.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.gr_ProductosVencidos.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gr_ProductosVencidos.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.gr_ProductosVencidos.Size = New System.Drawing.Size(978, 347)
+        Me.gr_ProductosVencidos.Size = New System.Drawing.Size(1195, 347)
         Me.gr_ProductosVencidos.TabIndex = 2
         Me.gr_ProductosVencidos.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.gr_ProductosVencidos.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -218,7 +219,7 @@ Partial Class F_MonitoreoProductos
         Me.Panel9.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel9.Location = New System.Drawing.Point(5, 5)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(978, 61)
+        Me.Panel9.Size = New System.Drawing.Size(1195, 61)
         Me.Panel9.TabIndex = 4
         '
         'ButtonX3
@@ -231,7 +232,7 @@ Partial Class F_MonitoreoProductos
         Me.ButtonX3.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonX3.Image = Global.TeVendo.My.Resources.Resources.sheets
         Me.ButtonX3.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.ButtonX3.Location = New System.Drawing.Point(751, 0)
+        Me.ButtonX3.Location = New System.Drawing.Point(968, 0)
         Me.ButtonX3.Margin = New System.Windows.Forms.Padding(4)
         Me.ButtonX3.Name = "ButtonX3"
         Me.ButtonX3.Size = New System.Drawing.Size(227, 61)
@@ -358,7 +359,7 @@ Partial Class F_MonitoreoProductos
         Me.SuperTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel5.Location = New System.Drawing.Point(0, 58)
         Me.SuperTabControlPanel5.Name = "SuperTabControlPanel5"
-        Me.SuperTabControlPanel5.Size = New System.Drawing.Size(988, 418)
+        Me.SuperTabControlPanel5.Size = New System.Drawing.Size(1205, 418)
         Me.SuperTabControlPanel5.TabIndex = 5
         Me.SuperTabControlPanel5.TabItem = Me.tabProductosStockMinimo
         Me.SuperTabControlPanel5.Visible = False
@@ -371,7 +372,7 @@ Partial Class F_MonitoreoProductos
         Me.Panel5.Location = New System.Drawing.Point(0, 0)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Padding = New System.Windows.Forms.Padding(5)
-        Me.Panel5.Size = New System.Drawing.Size(988, 418)
+        Me.Panel5.Size = New System.Drawing.Size(1205, 418)
         Me.Panel5.TabIndex = 6
         '
         'grProductosStockMinimo
@@ -379,7 +380,8 @@ Partial Class F_MonitoreoProductos
         Me.grProductosStockMinimo.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
         Me.grProductosStockMinimo.AlternatingColors = True
         Me.grProductosStockMinimo.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.grProductosStockMinimo.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
+        Me.grProductosStockMinimo.BlendColor = System.Drawing.SystemColors.InactiveCaptionText
+        Me.grProductosStockMinimo.BorderStyle = Janus.Windows.GridEX.BorderStyle.Sunken
         Me.grProductosStockMinimo.ColumnAutoResize = True
         Me.grProductosStockMinimo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grProductosStockMinimo.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None
@@ -389,7 +391,7 @@ Partial Class F_MonitoreoProductos
         Me.grProductosStockMinimo.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
         Me.grProductosStockMinimo.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
         Me.grProductosStockMinimo.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grProductosStockMinimo.GridLines = Janus.Windows.GridEX.GridLines.None
+        Me.grProductosStockMinimo.GridLineColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.grProductosStockMinimo.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
         Me.grProductosStockMinimo.HeaderFormatStyle.Alpha = 0
         Me.grProductosStockMinimo.HeaderFormatStyle.Appearance = Janus.Windows.GridEX.Appearance.Flat
@@ -403,7 +405,7 @@ Partial Class F_MonitoreoProductos
         Me.grProductosStockMinimo.Location = New System.Drawing.Point(5, 66)
         Me.grProductosStockMinimo.Margin = New System.Windows.Forms.Padding(4)
         Me.grProductosStockMinimo.Name = "grProductosStockMinimo"
-        Me.grProductosStockMinimo.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.grProductosStockMinimo.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Black
         Me.grProductosStockMinimo.Office2007CustomColor = System.Drawing.Color.DodgerBlue
         Me.grProductosStockMinimo.RecordNavigator = True
         Me.grProductosStockMinimo.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -417,7 +419,7 @@ Partial Class F_MonitoreoProductos
         Me.grProductosStockMinimo.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.grProductosStockMinimo.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grProductosStockMinimo.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grProductosStockMinimo.Size = New System.Drawing.Size(978, 347)
+        Me.grProductosStockMinimo.Size = New System.Drawing.Size(1195, 347)
         Me.grProductosStockMinimo.TabIndex = 2
         Me.grProductosStockMinimo.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grProductosStockMinimo.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -434,7 +436,7 @@ Partial Class F_MonitoreoProductos
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel6.Location = New System.Drawing.Point(5, 5)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(978, 61)
+        Me.Panel6.Size = New System.Drawing.Size(1195, 61)
         Me.Panel6.TabIndex = 4
         '
         'btnStockMinimo
@@ -447,7 +449,7 @@ Partial Class F_MonitoreoProductos
         Me.btnStockMinimo.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnStockMinimo.Image = Global.TeVendo.My.Resources.Resources.sheets
         Me.btnStockMinimo.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.btnStockMinimo.Location = New System.Drawing.Point(751, 0)
+        Me.btnStockMinimo.Location = New System.Drawing.Point(968, 0)
         Me.btnStockMinimo.Margin = New System.Windows.Forms.Padding(4)
         Me.btnStockMinimo.Name = "btnStockMinimo"
         Me.btnStockMinimo.Size = New System.Drawing.Size(227, 61)
@@ -475,7 +477,7 @@ Partial Class F_MonitoreoProductos
         Me.SuperTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel3.Location = New System.Drawing.Point(0, 58)
         Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
-        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(988, 418)
+        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(1205, 418)
         Me.SuperTabControlPanel3.TabIndex = 3
         Me.SuperTabControlPanel3.TabItem = Me.tabProductosSinStock
         '
@@ -487,7 +489,7 @@ Partial Class F_MonitoreoProductos
         Me.Panel17.Location = New System.Drawing.Point(0, 0)
         Me.Panel17.Name = "Panel17"
         Me.Panel17.Padding = New System.Windows.Forms.Padding(5)
-        Me.Panel17.Size = New System.Drawing.Size(988, 418)
+        Me.Panel17.Size = New System.Drawing.Size(1205, 418)
         Me.Panel17.TabIndex = 5
         '
         'gr_ProductosStock0
@@ -534,7 +536,7 @@ Partial Class F_MonitoreoProductos
         Me.gr_ProductosStock0.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.gr_ProductosStock0.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gr_ProductosStock0.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.gr_ProductosStock0.Size = New System.Drawing.Size(978, 347)
+        Me.gr_ProductosStock0.Size = New System.Drawing.Size(1195, 347)
         Me.gr_ProductosStock0.TabIndex = 2
         Me.gr_ProductosStock0.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.gr_ProductosStock0.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -551,7 +553,7 @@ Partial Class F_MonitoreoProductos
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel4.Location = New System.Drawing.Point(5, 5)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(978, 61)
+        Me.Panel4.Size = New System.Drawing.Size(1195, 61)
         Me.Panel4.TabIndex = 4
         '
         'btnProductosSinStock
@@ -564,7 +566,7 @@ Partial Class F_MonitoreoProductos
         Me.btnProductosSinStock.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnProductosSinStock.Image = Global.TeVendo.My.Resources.Resources.sheets
         Me.btnProductosSinStock.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.btnProductosSinStock.Location = New System.Drawing.Point(751, 0)
+        Me.btnProductosSinStock.Location = New System.Drawing.Point(968, 0)
         Me.btnProductosSinStock.Margin = New System.Windows.Forms.Padding(4)
         Me.btnProductosSinStock.Name = "btnProductosSinStock"
         Me.btnProductosSinStock.Size = New System.Drawing.Size(227, 61)
@@ -592,7 +594,7 @@ Partial Class F_MonitoreoProductos
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(988, 41)
+        Me.Panel2.Size = New System.Drawing.Size(1205, 41)
         Me.Panel2.TabIndex = 0
         '
         'Title
@@ -604,7 +606,7 @@ Partial Class F_MonitoreoProductos
         Me.Title.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Title.Location = New System.Drawing.Point(0, 0)
         Me.Title.Name = "Title"
-        Me.Title.Size = New System.Drawing.Size(988, 41)
+        Me.Title.Size = New System.Drawing.Size(1205, 41)
         Me.Title.TabIndex = 1
         '
         'Label1
@@ -647,7 +649,7 @@ Partial Class F_MonitoreoProductos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(988, 517)
+        Me.ClientSize = New System.Drawing.Size(1205, 517)
         Me.Controls.Add(Me.Panel1)
         Me.Name = "F_MonitoreoProductos"
         Me.Text = "Monitoreo de Productos"

@@ -39,6 +39,7 @@ Partial Class Tec_KardexProductos
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.PanelButton = New System.Windows.Forms.Panel()
         Me.PanelNavegacion = New System.Windows.Forms.Panel()
+        Me.btnProveedor = New DevComponents.DotNetBar.ButtonX()
         Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
         Me.tbSaldo = New Janus.Windows.GridEX.EditControls.NumericEditBox()
         Me.cbFechaHasta = New Janus.Windows.CalendarCombo.CalendarCombo()
@@ -50,9 +51,8 @@ Partial Class Tec_KardexProductos
         Me.LabelX3 = New DevComponents.DotNetBar.LabelX()
         Me.tbProducto = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.PanelToolBar1 = New System.Windows.Forms.Panel()
-        Me.btGenerarKardex = New DevComponents.DotNetBar.ButtonX()
-        Me.btnProveedor = New DevComponents.DotNetBar.ButtonX()
         Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
+        Me.btGenerarKardex = New DevComponents.DotNetBar.ButtonX()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelLEft.SuspendLayout()
@@ -181,6 +181,7 @@ Partial Class Tec_KardexProductos
         Me.grMovimientos.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
         Me.grMovimientos.AlternatingColors = True
         Me.grMovimientos.BackColor = System.Drawing.Color.White
+        Me.grMovimientos.BlendColor = System.Drawing.Color.Black
         Me.grMovimientos.BorderStyle = Janus.Windows.GridEX.BorderStyle.Raised
         Me.grMovimientos.ColumnAutoResize = True
         Me.grMovimientos.Dock = System.Windows.Forms.DockStyle.Fill
@@ -190,6 +191,7 @@ Partial Class Tec_KardexProductos
         Me.grMovimientos.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
         Me.grMovimientos.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
         Me.grMovimientos.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grMovimientos.GridLineColor = System.Drawing.Color.Black
         Me.grMovimientos.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
         Me.grMovimientos.HeaderFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.grMovimientos.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.Empty
@@ -199,7 +201,7 @@ Partial Class Tec_KardexProductos
         Me.grMovimientos.Location = New System.Drawing.Point(0, 0)
         Me.grMovimientos.Margin = New System.Windows.Forms.Padding(4)
         Me.grMovimientos.Name = "grMovimientos"
-        Me.grMovimientos.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.grMovimientos.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Black
         Me.grMovimientos.Office2007CustomColor = System.Drawing.Color.DimGray
         Me.grMovimientos.RecordNavigator = True
         Me.grMovimientos.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -208,7 +210,6 @@ Partial Class Tec_KardexProductos
         Me.grMovimientos.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
         Me.grMovimientos.SelectedFormatStyle.BackColor = System.Drawing.Color.Gold
         Me.grMovimientos.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grMovimientos.SelectedFormatStyle.ForeColor = System.Drawing.Color.Black
         Me.grMovimientos.SelectedInactiveFormatStyle.BackColor = System.Drawing.Color.WhiteSmoke
         Me.grMovimientos.Size = New System.Drawing.Size(1427, 362)
         Me.grMovimientos.TabIndex = 4
@@ -309,6 +310,19 @@ Partial Class Tec_KardexProductos
         Me.PanelNavegacion.Name = "PanelNavegacion"
         Me.PanelNavegacion.Size = New System.Drawing.Size(1142, 83)
         Me.PanelNavegacion.TabIndex = 21
+        '
+        'btnProveedor
+        '
+        Me.btnProveedor.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnProveedor.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnProveedor.Image = Global.TeVendo.My.Resources.Resources.search
+        Me.btnProveedor.ImageFixedSize = New System.Drawing.Size(28, 28)
+        Me.btnProveedor.Location = New System.Drawing.Point(362, 2)
+        Me.btnProveedor.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnProveedor.Name = "btnProveedor"
+        Me.btnProveedor.Size = New System.Drawing.Size(35, 31)
+        Me.btnProveedor.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnProveedor.TabIndex = 211
         '
         'LabelX5
         '
@@ -545,38 +559,6 @@ Partial Class Tec_KardexProductos
         Me.PanelToolBar1.Size = New System.Drawing.Size(297, 83)
         Me.PanelToolBar1.TabIndex = 7
         '
-        'btGenerarKardex
-        '
-        Me.btGenerarKardex.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btGenerarKardex.BackColor = System.Drawing.Color.Transparent
-        Me.btGenerarKardex.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
-        Me.btGenerarKardex.DisabledImagesGrayScale = False
-        Me.btGenerarKardex.Dock = System.Windows.Forms.DockStyle.Right
-        Me.btGenerarKardex.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btGenerarKardex.Image = Global.TeVendo.My.Resources.Resources.facturacion
-        Me.btGenerarKardex.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.btGenerarKardex.Location = New System.Drawing.Point(145, 0)
-        Me.btGenerarKardex.Margin = New System.Windows.Forms.Padding(4)
-        Me.btGenerarKardex.Name = "btGenerarKardex"
-        Me.btGenerarKardex.Size = New System.Drawing.Size(152, 83)
-        Me.btGenerarKardex.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btGenerarKardex.TabIndex = 0
-        Me.btGenerarKardex.Text = "Generar Kardex"
-        Me.btGenerarKardex.TextColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        '
-        'btnProveedor
-        '
-        Me.btnProveedor.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnProveedor.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.btnProveedor.Image = Global.TeVendo.My.Resources.Resources.search
-        Me.btnProveedor.ImageFixedSize = New System.Drawing.Size(28, 28)
-        Me.btnProveedor.Location = New System.Drawing.Point(362, 2)
-        Me.btnProveedor.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnProveedor.Name = "btnProveedor"
-        Me.btnProveedor.Size = New System.Drawing.Size(35, 31)
-        Me.btnProveedor.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnProveedor.TabIndex = 211
-        '
         'ButtonX1
         '
         Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
@@ -595,6 +577,25 @@ Partial Class Tec_KardexProductos
         Me.ButtonX1.TabIndex = 1
         Me.ButtonX1.Text = "Imprimir"
         Me.ButtonX1.TextColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        '
+        'btGenerarKardex
+        '
+        Me.btGenerarKardex.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btGenerarKardex.BackColor = System.Drawing.Color.Transparent
+        Me.btGenerarKardex.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.btGenerarKardex.DisabledImagesGrayScale = False
+        Me.btGenerarKardex.Dock = System.Windows.Forms.DockStyle.Right
+        Me.btGenerarKardex.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btGenerarKardex.Image = Global.TeVendo.My.Resources.Resources.facturacion
+        Me.btGenerarKardex.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.btGenerarKardex.Location = New System.Drawing.Point(145, 0)
+        Me.btGenerarKardex.Margin = New System.Windows.Forms.Padding(4)
+        Me.btGenerarKardex.Name = "btGenerarKardex"
+        Me.btGenerarKardex.Size = New System.Drawing.Size(152, 83)
+        Me.btGenerarKardex.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btGenerarKardex.TabIndex = 0
+        Me.btGenerarKardex.Text = "Generar Kardex"
+        Me.btGenerarKardex.TextColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
         '
         'Tec_KardexProductos
         '

@@ -236,7 +236,7 @@ Partial Class Tec_Precios
         '
         Me.grprecio.AlternatingColors = True
         Me.grprecio.BackColor = System.Drawing.Color.White
-        Me.grprecio.BorderStyle = Janus.Windows.GridEX.BorderStyle.Raised
+        Me.grprecio.BorderStyle = Janus.Windows.GridEX.BorderStyle.Sunken
         Me.grprecio.ColumnAutoResize = True
         Me.grprecio.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grprecio.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.NextCell
@@ -248,6 +248,7 @@ Partial Class Tec_Precios
         Me.grprecio.FocusCellFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grprecio.FocusCellFormatStyle.ForeColor = System.Drawing.Color.Black
         Me.grprecio.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grprecio.GridLineColor = System.Drawing.Color.Black
         Me.grprecio.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
         Me.grprecio.HeaderFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.grprecio.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.Empty
@@ -257,7 +258,7 @@ Partial Class Tec_Precios
         Me.grprecio.Location = New System.Drawing.Point(0, 0)
         Me.grprecio.Margin = New System.Windows.Forms.Padding(4)
         Me.grprecio.Name = "grprecio"
-        Me.grprecio.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.grprecio.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Black
         Me.grprecio.Office2007CustomColor = System.Drawing.Color.DodgerBlue
         Me.grprecio.RecordNavigator = True
         Me.grprecio.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))

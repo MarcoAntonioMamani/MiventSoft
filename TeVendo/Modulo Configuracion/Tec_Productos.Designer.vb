@@ -243,7 +243,7 @@ Partial Class Tec_Productos
         Me.JGrM_Buscador.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
         Me.JGrM_Buscador.AlternatingColors = True
         Me.JGrM_Buscador.BackColor = System.Drawing.Color.White
-        Me.JGrM_Buscador.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
+        Me.JGrM_Buscador.BorderStyle = Janus.Windows.GridEX.BorderStyle.Sunken
         Me.JGrM_Buscador.ColumnAutoResize = True
         Me.JGrM_Buscador.ContextMenuStrip = Me.MeuOpciones
         Me.JGrM_Buscador.Dock = System.Windows.Forms.DockStyle.Fill
@@ -268,7 +268,7 @@ Partial Class Tec_Productos
         Me.JGrM_Buscador.Location = New System.Drawing.Point(5, 105)
         Me.JGrM_Buscador.Margin = New System.Windows.Forms.Padding(4)
         Me.JGrM_Buscador.Name = "JGrM_Buscador"
-        Me.JGrM_Buscador.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.JGrM_Buscador.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Black
         Me.JGrM_Buscador.Office2007CustomColor = System.Drawing.Color.DodgerBlue
         Me.JGrM_Buscador.RecordNavigator = True
         Me.JGrM_Buscador.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1129,6 +1129,7 @@ Partial Class Tec_Productos
         Me.LabelX13.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX13.Name = "LabelX13"
         Me.LabelX13.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX13.Size = New System.Drawing.Size(113, 21)
         Me.LabelX13.TabIndex = 29
         Me.LabelX13.Text = "Unid. Venta Min.:"
         '
@@ -1198,6 +1199,7 @@ Partial Class Tec_Productos
         Me.LabelX14.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX14.Name = "LabelX14"
         Me.LabelX14.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX14.Size = New System.Drawing.Size(62, 21)
         Me.LabelX14.TabIndex = 32
         Me.LabelX14.Text = "Cantidad:"
         Me.LabelX14.TextAlignment = System.Drawing.StringAlignment.Far
@@ -1216,6 +1218,7 @@ Partial Class Tec_Productos
         Me.LabelX15.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX15.Name = "LabelX15"
         Me.LabelX15.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX15.Size = New System.Drawing.Size(94, 21)
         Me.LabelX15.TabIndex = 31
         Me.LabelX15.Text = "Unid. Maxima:"
         '
@@ -1233,6 +1236,7 @@ Partial Class Tec_Productos
         Me.LabelX12.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX12.Name = "LabelX12"
         Me.LabelX12.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX12.Size = New System.Drawing.Size(52, 21)
         Me.LabelX12.TabIndex = 58
         Me.LabelX12.Text = "Familia:"
         '
@@ -1250,6 +1254,7 @@ Partial Class Tec_Productos
         Me.LabelX11.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX11.Name = "LabelX11"
         Me.LabelX11.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX11.Size = New System.Drawing.Size(59, 21)
         Me.LabelX11.TabIndex = 56
         Me.LabelX11.Text = "Atributo:"
         '
@@ -1267,6 +1272,7 @@ Partial Class Tec_Productos
         Me.LabelX10.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX10.Name = "LabelX10"
         Me.LabelX10.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX10.Size = New System.Drawing.Size(46, 21)
         Me.LabelX10.TabIndex = 54
         Me.LabelX10.Text = "Marca:"
         '
@@ -1284,6 +1290,7 @@ Partial Class Tec_Productos
         Me.Presentacion.Margin = New System.Windows.Forms.Padding(4)
         Me.Presentacion.Name = "Presentacion"
         Me.Presentacion.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.Presentacion.Size = New System.Drawing.Size(72, 21)
         Me.Presentacion.TabIndex = 52
         Me.Presentacion.Text = "Proveedor:"
         '
@@ -1301,6 +1308,7 @@ Partial Class Tec_Productos
         Me.LabelX8.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX8.Name = "LabelX8"
         Me.LabelX8.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX8.Size = New System.Drawing.Size(69, 21)
         Me.LabelX8.TabIndex = 50
         Me.LabelX8.Text = "Stock Min:"
         '
@@ -1356,6 +1364,7 @@ Partial Class Tec_Productos
         Me.LabelX6.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX6.Name = "LabelX6"
         Me.LabelX6.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX6.Size = New System.Drawing.Size(49, 21)
         Me.LabelX6.TabIndex = 48
         Me.LabelX6.Text = "Estado:"
         '
@@ -1373,6 +1382,7 @@ Partial Class Tec_Productos
         Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX5.Name = "LabelX5"
         Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX5.Size = New System.Drawing.Size(66, 21)
         Me.LabelX5.TabIndex = 46
         Me.LabelX5.Text = "Categoria:"
         '
@@ -1390,6 +1400,7 @@ Partial Class Tec_Productos
         Me.LabelX7.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX7.Name = "LabelX7"
         Me.LabelX7.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX7.Size = New System.Drawing.Size(60, 21)
         Me.LabelX7.TabIndex = 44
         Me.LabelX7.Text = "Empresa:"
         '
@@ -1423,6 +1434,7 @@ Partial Class Tec_Productos
         Me.LabelX4.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX4.Name = "LabelX4"
         Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX4.Size = New System.Drawing.Size(139, 21)
         Me.LabelX4.TabIndex = 41
         Me.LabelX4.Text = "Descripcion Producto:"
         '
@@ -1440,6 +1452,7 @@ Partial Class Tec_Productos
         Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX1.Size = New System.Drawing.Size(118, 21)
         Me.LabelX1.TabIndex = 39
         Me.LabelX1.Text = "Nombre Producto:"
         '
@@ -1472,6 +1485,7 @@ Partial Class Tec_Productos
         Me.LabelX2.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX2.Name = "LabelX2"
         Me.LabelX2.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX2.Size = New System.Drawing.Size(50, 21)
         Me.LabelX2.TabIndex = 37
         Me.LabelX2.Text = "Codigo:"
         '
@@ -1489,6 +1503,7 @@ Partial Class Tec_Productos
         Me.LabelX3.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX3.Name = "LabelX3"
         Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX3.Size = New System.Drawing.Size(101, 21)
         Me.LabelX3.TabIndex = 36
         Me.LabelX3.Text = "Codigo Externo:"
         '
