@@ -79,7 +79,8 @@ Partial Class FormularioAyuda
         Me.grJBuscador.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
         Me.grJBuscador.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
         Me.grJBuscador.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grJBuscador.GridLines = Janus.Windows.GridEX.GridLines.None
+        Me.grJBuscador.GridLineColor = System.Drawing.Color.Black
+        Me.grJBuscador.GridLines = Janus.Windows.GridEX.GridLines.Horizontal
         Me.grJBuscador.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
         Me.grJBuscador.HeaderFormatStyle.Alpha = 0
         Me.grJBuscador.HeaderFormatStyle.Appearance = Janus.Windows.GridEX.Appearance.Flat
@@ -92,7 +93,7 @@ Partial Class FormularioAyuda
         Me.grJBuscador.Location = New System.Drawing.Point(0, 0)
         Me.grJBuscador.Margin = New System.Windows.Forms.Padding(4)
         Me.grJBuscador.Name = "grJBuscador"
-        Me.grJBuscador.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.grJBuscador.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Black
         Me.grJBuscador.Office2007CustomColor = System.Drawing.Color.DodgerBlue
         Me.grJBuscador.RecordNavigator = True
         Me.grJBuscador.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))

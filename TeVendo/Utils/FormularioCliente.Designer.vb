@@ -30,14 +30,17 @@ Partial Class FormularioCliente
         Me.Panel17 = New System.Windows.Forms.Panel()
         Me.grJBuscador = New Janus.Windows.GridEX.GridEX()
         Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.btnSalir = New DevComponents.DotNetBar.ButtonX()
         Me.lbNombreProductos = New DevComponents.DotNetBar.LabelX()
         Me.tbNombre = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.Panel14 = New System.Windows.Forms.Panel()
         Me.Panel15 = New System.Windows.Forms.Panel()
         Me.lbTitulo = New System.Windows.Forms.Label()
         Me.Panel16 = New System.Windows.Forms.Panel()
+        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         Me.PanelCrear = New System.Windows.Forms.Panel()
         Me.btnSi = New System.Windows.Forms.Panel()
+        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.tbNombreCliente = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX11 = New DevComponents.DotNetBar.LabelX()
         Me.tbNroDocumento = New DevComponents.DotNetBar.Controls.TextBoxX()
@@ -52,10 +55,7 @@ Partial Class FormularioCliente
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
-        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.btnSalir = New DevComponents.DotNetBar.ButtonX()
         Me.PanelPrincipal.SuspendLayout()
         Me.PanelBuscador.SuspendLayout()
         Me.Panel17.SuspendLayout()
@@ -63,13 +63,13 @@ Partial Class FormularioCliente
         Me.Panel4.SuspendLayout()
         Me.Panel14.SuspendLayout()
         Me.Panel15.SuspendLayout()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelCrear.SuspendLayout()
         Me.btnSi.SuspendLayout()
         CType(Me.cbPrecios, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbTipoDocumento, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelCabezeraTitulo.SuspendLayout()
         Me.Panel2.SuspendLayout()
-        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -121,7 +121,7 @@ Partial Class FormularioCliente
         Me.grJBuscador.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
         Me.grJBuscador.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
         Me.grJBuscador.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grJBuscador.GridLines = Janus.Windows.GridEX.GridLines.None
+        Me.grJBuscador.GridLineColor = System.Drawing.Color.Black
         Me.grJBuscador.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
         Me.grJBuscador.HeaderFormatStyle.Alpha = 0
         Me.grJBuscador.HeaderFormatStyle.Appearance = Janus.Windows.GridEX.Appearance.Flat
@@ -134,7 +134,7 @@ Partial Class FormularioCliente
         Me.grJBuscador.Location = New System.Drawing.Point(5, 105)
         Me.grJBuscador.Margin = New System.Windows.Forms.Padding(4)
         Me.grJBuscador.Name = "grJBuscador"
-        Me.grJBuscador.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.grJBuscador.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Black
         Me.grJBuscador.Office2007CustomColor = System.Drawing.Color.DodgerBlue
         Me.grJBuscador.RecordNavigator = True
         Me.grJBuscador.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -169,6 +169,23 @@ Partial Class FormularioCliente
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(697, 64)
         Me.Panel4.TabIndex = 0
+        '
+        'btnSalir
+        '
+        Me.btnSalir.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnSalir.BackColor = System.Drawing.Color.FromArgb(CType(CType(217, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(79, Byte), Integer))
+        Me.btnSalir.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnSalir.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSalir.Image = Global.TeVendo.My.Resources.Resources.atras
+        Me.btnSalir.ImageFixedSize = New System.Drawing.Size(30, 30)
+        Me.btnSalir.Location = New System.Drawing.Point(506, 13)
+        Me.btnSalir.Name = "btnSalir"
+        Me.btnSalir.Size = New System.Drawing.Size(129, 40)
+        Me.btnSalir.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
+        Me.btnSalir.Symbol = ""
+        Me.btnSalir.TabIndex = 62
+        Me.btnSalir.Text = "Salir"
+        Me.btnSalir.TextColor = System.Drawing.Color.White
         '
         'lbNombreProductos
         '
@@ -255,6 +272,19 @@ Partial Class FormularioCliente
         Me.Panel16.Size = New System.Drawing.Size(1, 34)
         Me.Panel16.TabIndex = 1
         '
+        'PictureBox4
+        '
+        Me.PictureBox4.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.PictureBox4.Dock = System.Windows.Forms.DockStyle.Left
+        Me.PictureBox4.Image = Global.TeVendo.My.Resources.Resources.tec_triangulo_blanco
+        Me.PictureBox4.Location = New System.Drawing.Point(0, 0)
+        Me.PictureBox4.Name = "PictureBox4"
+        Me.PictureBox4.Padding = New System.Windows.Forms.Padding(15, 5, 15, 5)
+        Me.PictureBox4.Size = New System.Drawing.Size(58, 34)
+        Me.PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox4.TabIndex = 0
+        Me.PictureBox4.TabStop = False
+        '
         'PanelCrear
         '
         Me.PanelCrear.BackColor = System.Drawing.Color.White
@@ -286,6 +316,24 @@ Partial Class FormularioCliente
         Me.btnSi.Name = "btnSi"
         Me.btnSi.Size = New System.Drawing.Size(180, 54)
         Me.btnSi.TabIndex = 224
+        '
+        'ButtonX1
+        '
+        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX1.BackColor = System.Drawing.Color.Transparent
+        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.ButtonX1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ButtonX1.Font = New System.Drawing.Font("Arial", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX1.Image = Global.TeVendo.My.Resources.Resources.iconguardar
+        Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(40, 40)
+        Me.ButtonX1.Location = New System.Drawing.Point(0, 0)
+        Me.ButtonX1.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX1.Name = "ButtonX1"
+        Me.ButtonX1.Size = New System.Drawing.Size(178, 52)
+        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX1.TabIndex = 8
+        Me.ButtonX1.Text = "Guardar Cliente"
+        Me.ButtonX1.TextColor = System.Drawing.Color.White
         '
         'tbNombreCliente
         '
@@ -502,37 +550,6 @@ Partial Class FormularioCliente
         Me.Panel3.Size = New System.Drawing.Size(1, 34)
         Me.Panel3.TabIndex = 1
         '
-        'PictureBox4
-        '
-        Me.PictureBox4.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.PictureBox4.Dock = System.Windows.Forms.DockStyle.Left
-        Me.PictureBox4.Image = Global.TeVendo.My.Resources.Resources.tec_triangulo_blanco
-        Me.PictureBox4.Location = New System.Drawing.Point(0, 0)
-        Me.PictureBox4.Name = "PictureBox4"
-        Me.PictureBox4.Padding = New System.Windows.Forms.Padding(15, 5, 15, 5)
-        Me.PictureBox4.Size = New System.Drawing.Size(58, 34)
-        Me.PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox4.TabIndex = 0
-        Me.PictureBox4.TabStop = False
-        '
-        'ButtonX1
-        '
-        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX1.BackColor = System.Drawing.Color.Transparent
-        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
-        Me.ButtonX1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ButtonX1.Font = New System.Drawing.Font("Arial", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX1.Image = Global.TeVendo.My.Resources.Resources.iconguardar
-        Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(40, 40)
-        Me.ButtonX1.Location = New System.Drawing.Point(0, 0)
-        Me.ButtonX1.Margin = New System.Windows.Forms.Padding(4)
-        Me.ButtonX1.Name = "ButtonX1"
-        Me.ButtonX1.Size = New System.Drawing.Size(178, 52)
-        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX1.TabIndex = 8
-        Me.ButtonX1.Text = "Guardar Cliente"
-        Me.ButtonX1.TextColor = System.Drawing.Color.White
-        '
         'PictureBox1
         '
         Me.PictureBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
@@ -545,23 +562,6 @@ Partial Class FormularioCliente
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
-        '
-        'btnSalir
-        '
-        Me.btnSalir.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnSalir.BackColor = System.Drawing.Color.FromArgb(CType(CType(217, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(79, Byte), Integer))
-        Me.btnSalir.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.btnSalir.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSalir.Image = Global.TeVendo.My.Resources.Resources.atras
-        Me.btnSalir.ImageFixedSize = New System.Drawing.Size(30, 30)
-        Me.btnSalir.Location = New System.Drawing.Point(506, 13)
-        Me.btnSalir.Name = "btnSalir"
-        Me.btnSalir.Size = New System.Drawing.Size(129, 40)
-        Me.btnSalir.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
-        Me.btnSalir.Symbol = ""
-        Me.btnSalir.TabIndex = 62
-        Me.btnSalir.Text = "Salir"
-        Me.btnSalir.TextColor = System.Drawing.Color.White
         '
         'FormularioCliente
         '
@@ -581,6 +581,7 @@ Partial Class FormularioCliente
         Me.Panel4.PerformLayout()
         Me.Panel14.ResumeLayout(False)
         Me.Panel15.ResumeLayout(False)
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelCrear.ResumeLayout(False)
         Me.PanelCrear.PerformLayout()
         Me.btnSi.ResumeLayout(False)
@@ -588,7 +589,6 @@ Partial Class FormularioCliente
         CType(Me.cbTipoDocumento, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelCabezeraTitulo.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
-        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
