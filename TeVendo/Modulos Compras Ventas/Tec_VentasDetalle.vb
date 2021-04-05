@@ -20,6 +20,8 @@ Public Class Tec_VentasDetalle
 
     Public TipoProgramas As Integer = 0   ''1=venta  2 =  proforma
     Public Sub IniciarTodod()
+        P_Global._prCargarComboGenerico(cbCategoriaPrecio, L_prListaCategoriasPrecios(), "Id", "Codigo", "Descripcion", "CategoriaPrecio")
+
         CargarProductosVentas()
         _prCargarProductos()
 
@@ -44,7 +46,7 @@ Public Class Tec_VentasDetalle
 
         End If
 
-        dt = L_prListarProductosVentas(SucursalId, IdCliente)  ''1=Almacen
+        dt = L_prListarProductosVentas(SucursalId, cbCategoriaPrecio.Value)  ''1=Almacen
         dtProductos = dt.Copy
         'a.Id , a.NombreProducto, PCosto.Precio As PrecioCosto,
         ''PVenta.Precio as PrecioVenta
@@ -119,8 +121,9 @@ Public Class Tec_VentasDetalle
             .FormatString = "0.00"
         End With
         With grProducto.RootTable.Columns("PrecioVenta")
-            .Width = 150
-            .Visible = False
+            .Width = 90
+            .Visible = True
+            .Caption = "Precio"
             .FormatString = "0.00"
         End With
         With grProducto
@@ -827,7 +830,12 @@ Public Class Tec_VentasDetalle
                 ef.tipo = 5
                 ef.NombreProducto = grProducto.GetValue("NombreProducto")
                 ef.StockActual = grProducto.GetValue("stock")
-                ef.TipoMovimiento = 3
+                If (TipoProgramas = 1) Then
+                    ef.TipoMovimiento = 3
+                Else
+                    ef.TipoMovimiento = 4
+
+                End If
                 ef.ShowDialog()
                 Dim bandera As Boolean = False
                 bandera = ef.band
@@ -1621,5 +1629,9 @@ salirIf:
         btnProductos.Visible = False
         FilaSelectLote = Nothing
         _HabilitarProductos()
+    End Sub
+
+    Private Sub cbCategoriaPrecio_ValueChanged(sender As Object, e As EventArgs) Handles cbCategoriaPrecio.ValueChanged
+        _prCargarProductos()
     End Sub
 End Class

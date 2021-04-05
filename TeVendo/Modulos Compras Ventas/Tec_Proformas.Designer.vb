@@ -116,6 +116,8 @@ Partial Class Tec_Proformas
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.MenuStripEliminarDetalle = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -161,6 +163,7 @@ Partial Class Tec_Proformas
         Me.Panel15.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStripEliminarDetalle.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControlPrincipal
@@ -1664,6 +1667,23 @@ Partial Class Tec_Proformas
         '
         Me.MEP.ContainerControl = Me
         '
+        'MenuStripEliminarDetalle
+        '
+        Me.MenuStripEliminarDetalle.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStripEliminarDetalle.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem3})
+        Me.MenuStripEliminarDetalle.Name = "MeuOpciones"
+        Me.MenuStripEliminarDetalle.Size = New System.Drawing.Size(221, 68)
+        Me.MenuStripEliminarDetalle.Text = "Opciones"
+        '
+        'ToolStripMenuItem3
+        '
+        Me.ToolStripMenuItem3.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripMenuItem3.Image = Global.TeVendo.My.Resources.Resources.trash2
+        Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
+        Me.ToolStripMenuItem3.Padding = New System.Windows.Forms.Padding(5)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(230, 36)
+        Me.ToolStripMenuItem3.Text = "Eliminar Producto"
+        '
         'Tec_Proformas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -1720,6 +1740,7 @@ Partial Class Tec_Proformas
         Me.Panel15.ResumeLayout(False)
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MenuStripEliminarDetalle.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -1815,4 +1836,6 @@ Partial Class Tec_Proformas
     Friend WithEvents EliminarToolStripMenuItem1 As ToolStripMenuItem
     Protected WithEvents MHighlighterFocus As DevComponents.DotNetBar.Validator.Highlighter
     Protected WithEvents MEP As ErrorProvider
+    Friend WithEvents MenuStripEliminarDetalle As ContextMenuStrip
+    Friend WithEvents ToolStripMenuItem3 As ToolStripMenuItem
 End Class

@@ -99,6 +99,7 @@ Partial Class Tec_Ventas
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.PanelButton = New System.Windows.Forms.Panel()
         Me.PanelToolBar1 = New System.Windows.Forms.Panel()
+        Me.ButtonX3 = New DevComponents.DotNetBar.ButtonX()
         Me.BtnImprimir = New DevComponents.DotNetBar.ButtonX()
         Me.btnSalir = New DevComponents.DotNetBar.ButtonX()
         Me.btnEliminar = New DevComponents.DotNetBar.ButtonX()
@@ -121,6 +122,7 @@ Partial Class Tec_Ventas
         Me.EliminarToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.btnImprimirCopia = New DevComponents.DotNetBar.ButtonX()
         Me.Panel21 = New System.Windows.Forms.Panel()
         Me.btnFiltrarVentas = New DevComponents.DotNetBar.ButtonX()
         Me.tbHasta = New Janus.Windows.CalendarCombo.CalendarCombo()
@@ -139,8 +141,8 @@ Partial Class Tec_Ventas
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.btnImprimirCopia = New DevComponents.DotNetBar.ButtonX()
-        Me.ButtonX3 = New DevComponents.DotNetBar.ButtonX()
+        Me.MenuStripEliminarDetalle = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -196,6 +198,7 @@ Partial Class Tec_Ventas
         Me.Panel15.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStripEliminarDetalle.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControlPrincipal
@@ -213,8 +216,8 @@ Partial Class Tec_Ventas
         Me.TabControlPrincipal.ControlBox.MenuBox.Name = ""
         Me.TabControlPrincipal.ControlBox.Name = ""
         Me.TabControlPrincipal.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.TabControlPrincipal.ControlBox.MenuBox, Me.TabControlPrincipal.ControlBox.CloseBox})
-        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel1)
         Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel2)
+        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel1)
         Me.TabControlPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControlPrincipal.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.Location = New System.Drawing.Point(0, 0)
@@ -318,6 +321,7 @@ Partial Class Tec_Ventas
         Me.grDetalle.BackColor = System.Drawing.Color.White
         Me.grDetalle.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
         Me.grDetalle.ColumnAutoResize = True
+        Me.grDetalle.ContextMenuStrip = Me.MenuStripEliminarDetalle
         Me.grDetalle.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grDetalle.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None
         Me.grDetalle.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
@@ -1488,6 +1492,24 @@ Partial Class Tec_Ventas
         Me.PanelToolBar1.Size = New System.Drawing.Size(819, 50)
         Me.PanelToolBar1.TabIndex = 7
         '
+        'ButtonX3
+        '
+        Me.ButtonX3.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX3.ColorTable = DevComponents.DotNetBar.eButtonColor.Magenta
+        Me.ButtonX3.Dock = System.Windows.Forms.DockStyle.Left
+        Me.ButtonX3.Font = New System.Drawing.Font("Arial", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX3.Image = Global.TeVendo.My.Resources.Resources.tec_print
+        Me.ButtonX3.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.ButtonX3.Location = New System.Drawing.Point(739, 0)
+        Me.ButtonX3.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX3.Name = "ButtonX3"
+        Me.ButtonX3.Size = New System.Drawing.Size(115, 50)
+        Me.ButtonX3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX3.TabIndex = 12
+        Me.ButtonX3.Text = "IMPRIMIR + COPIA"
+        Me.ButtonX3.TextColor = System.Drawing.Color.White
+        Me.ButtonX3.Visible = False
+        '
         'BtnImprimir
         '
         Me.BtnImprimir.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
@@ -1835,9 +1857,28 @@ Partial Class Tec_Ventas
         Me.TableLayoutPanel1.Padding = New System.Windows.Forms.Padding(5, 2, 5, 5)
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 57.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(1361, 64)
         Me.TableLayoutPanel1.TabIndex = 5
+        '
+        'btnImprimirCopia
+        '
+        Me.btnImprimirCopia.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnImprimirCopia.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(179, Byte), Integer), CType(CType(148, Byte), Integer))
+        Me.btnImprimirCopia.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.btnImprimirCopia.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnImprimirCopia.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnImprimirCopia.Image = Global.TeVendo.My.Resources.Resources.tec_print
+        Me.btnImprimirCopia.ImageFixedSize = New System.Drawing.Size(25, 25)
+        Me.btnImprimirCopia.Location = New System.Drawing.Point(927, 6)
+        Me.btnImprimirCopia.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnImprimirCopia.Name = "btnImprimirCopia"
+        Me.btnImprimirCopia.Size = New System.Drawing.Size(208, 49)
+        Me.btnImprimirCopia.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnImprimirCopia.TabIndex = 8
+        Me.btnImprimirCopia.Text = "Imprimir Nota" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "+ Copia"
+        Me.btnImprimirCopia.TextColor = System.Drawing.Color.White
+        Me.btnImprimirCopia.Visible = False
         '
         'Panel21
         '
@@ -2119,40 +2160,22 @@ Partial Class Tec_Ventas
         '
         Me.MEP.ContainerControl = Me
         '
-        'btnImprimirCopia
+        'MenuStripEliminarDetalle
         '
-        Me.btnImprimirCopia.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnImprimirCopia.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(179, Byte), Integer), CType(CType(148, Byte), Integer))
-        Me.btnImprimirCopia.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
-        Me.btnImprimirCopia.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnImprimirCopia.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnImprimirCopia.Image = Global.TeVendo.My.Resources.Resources.tec_print
-        Me.btnImprimirCopia.ImageFixedSize = New System.Drawing.Size(25, 25)
-        Me.btnImprimirCopia.Location = New System.Drawing.Point(927, 6)
-        Me.btnImprimirCopia.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnImprimirCopia.Name = "btnImprimirCopia"
-        Me.btnImprimirCopia.Size = New System.Drawing.Size(208, 49)
-        Me.btnImprimirCopia.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnImprimirCopia.TabIndex = 8
-        Me.btnImprimirCopia.Text = "Imprimir Nota" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "+ Copia"
-        Me.btnImprimirCopia.TextColor = System.Drawing.Color.White
+        Me.MenuStripEliminarDetalle.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStripEliminarDetalle.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem3})
+        Me.MenuStripEliminarDetalle.Name = "MeuOpciones"
+        Me.MenuStripEliminarDetalle.Size = New System.Drawing.Size(221, 40)
+        Me.MenuStripEliminarDetalle.Text = "Opciones"
         '
-        'ButtonX3
+        'ToolStripMenuItem3
         '
-        Me.ButtonX3.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX3.ColorTable = DevComponents.DotNetBar.eButtonColor.Magenta
-        Me.ButtonX3.Dock = System.Windows.Forms.DockStyle.Left
-        Me.ButtonX3.Font = New System.Drawing.Font("Arial", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX3.Image = Global.TeVendo.My.Resources.Resources.tec_print
-        Me.ButtonX3.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.ButtonX3.Location = New System.Drawing.Point(739, 0)
-        Me.ButtonX3.Margin = New System.Windows.Forms.Padding(4)
-        Me.ButtonX3.Name = "ButtonX3"
-        Me.ButtonX3.Size = New System.Drawing.Size(115, 50)
-        Me.ButtonX3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX3.TabIndex = 12
-        Me.ButtonX3.Text = "IMPRIMIR + COPIA"
-        Me.ButtonX3.TextColor = System.Drawing.Color.White
+        Me.ToolStripMenuItem3.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripMenuItem3.Image = Global.TeVendo.My.Resources.Resources.trash2
+        Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
+        Me.ToolStripMenuItem3.Padding = New System.Windows.Forms.Padding(5)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(230, 36)
+        Me.ToolStripMenuItem3.Text = "Eliminar Producto"
         '
         'Tec_Ventas
         '
@@ -2223,6 +2246,7 @@ Partial Class Tec_Ventas
         Me.Panel15.ResumeLayout(False)
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MenuStripEliminarDetalle.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -2343,4 +2367,6 @@ Partial Class Tec_Ventas
     Friend WithEvents btnFiltrarVentas As DevComponents.DotNetBar.ButtonX
     Protected WithEvents btnImprimirCopia As DevComponents.DotNetBar.ButtonX
     Protected WithEvents ButtonX3 As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents MenuStripEliminarDetalle As ContextMenuStrip
+    Friend WithEvents ToolStripMenuItem3 As ToolStripMenuItem
 End Class

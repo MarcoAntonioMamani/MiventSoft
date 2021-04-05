@@ -569,7 +569,7 @@ Public Class Tec_Proformas
                 _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
                 Dim TipoKit As Integer = grDetalle.GetValue("Tipo")
 
-                If (TipoKit = 1) Then  ''Productos
+                If (TipoKit = 1 Or TipoKit = 0) Then  ''Productos
 
 
                     If (estado = 0) Then
@@ -1175,7 +1175,7 @@ salirIf:
         btnCliente.Visible = True
         BtnImprimir.Visible = False
 
-
+        grDetalle.ContextMenuStrip = MenuStripEliminarDetalle
 
 
     End Sub
@@ -1197,7 +1197,7 @@ salirIf:
         btnVendedor.Visible = False
         btnCliente.Visible = False
         BtnImprimir.Visible = True
-
+        grDetalle.ContextMenuStrip = Nothing
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -2004,6 +2004,15 @@ salirIf:
         End If
 
 
+    End Sub
+
+    Private Sub ToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem3.Click
+        Try
+            _prEliminarFila()
+
+        Catch ex As Exception
+
+        End Try
     End Sub
 #End Region
 End Class

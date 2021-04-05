@@ -99,6 +99,8 @@ Public Class Tec_Ventas
 
     Private Sub _PMHabilitar()
         JGrM_Buscador.Enabled = False
+        grDetalle.ContextMenuStrip = MenuStripEliminarDetalle
+
         _PMOHabilitar()
     End Sub
 
@@ -1112,12 +1114,16 @@ salirIf:
         If (Not _fnAccesible()) Then
             Return
         End If
-
-        If (grDetalle.RowCount >= 1) Then
-            If (grDetalle.CurrentColumn.Index = grDetalle.RootTable.Columns("img").Index) Then
-                _prEliminarFila()
+        Try
+            If (grDetalle.RowCount >= 1) Then
+                If (grDetalle.CurrentColumn.Index = grDetalle.RootTable.Columns("img").Index) Then
+                    _prEliminarFila()
+                End If
             End If
-        End If
+        Catch ex As Exception
+
+        End Try
+
 
 
     End Sub
@@ -1195,7 +1201,7 @@ salirIf:
         btnCliente.Visible = True
         BtnImprimir.Visible = False
         tab_Cobro.Visible = False
-
+        grDetalle.ContextMenuStrip = MenuStripEliminarDetalle
 
 
     End Sub
@@ -1218,7 +1224,7 @@ salirIf:
         btnVendedor.Visible = False
         btnCliente.Visible = False
         BtnImprimir.Visible = True
-
+        grDetalle.ContextMenuStrip = Nothing
         tab_Cobro.Visible = True
     End Sub
 
@@ -2299,6 +2305,15 @@ salirIf:
             P_GenerarReporteMasCopia(tbCodigo.Text)
 
         End If
+    End Sub
+
+    Private Sub ToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem3.Click
+        Try
+            _prEliminarFila()
+        Catch ex As Exception
+
+        End Try
+
     End Sub
 #End Region
 End Class
