@@ -853,6 +853,7 @@ Public Class Tec_VentasDetalle
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("Stock")
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Lote") = mLote
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("FechaVencimiento") = FechaVenc
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Tipo") = 1
 
                         tbProducto.Clear()
                         tbProducto.Focus()
@@ -1268,7 +1269,7 @@ salirIf:
                 _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
                 Dim TipoKit As Integer = grDetalle.GetValue("Tipo")
 
-                If (TipoKit = 1) Then  ''Productos
+                If (TipoKit = 1 Or TipoKit = 0) Then  ''Productos
 
                     CambiarEstado(grDetalle.GetValue("ProductoId"), 1)
                     If (estado = 0) Then
