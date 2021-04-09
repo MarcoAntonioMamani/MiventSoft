@@ -393,6 +393,7 @@ Partial Class CrearProveedor
         Me.Controls.Add(Me.Panel14)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "CrearProveedor"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "CrearProveedor"
         Me.Panel14.ResumeLayout(False)
         Me.Panel15.ResumeLayout(False)
