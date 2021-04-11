@@ -28,34 +28,33 @@ Partial Class EfectivoCobranza
         Me.Panel16 = New System.Windows.Forms.Panel()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.LabelX18 = New DevComponents.DotNetBar.LabelX()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Panel20 = New System.Windows.Forms.Panel()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.btnGuardar = New DevComponents.DotNetBar.ButtonX()
+        Me.btnSalir = New DevComponents.DotNetBar.ButtonX()
         Me.tbCambio = New DevComponents.Editors.DoubleInput()
         Me.LabelX17 = New DevComponents.DotNetBar.LabelX()
         Me.tbTotalPagado = New DevComponents.Editors.DoubleInput()
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.chkMontoBs = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.lbDolar = New DevComponents.DotNetBar.LabelX()
+        Me.chkTransferencia = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.chkTarjeta = New DevComponents.DotNetBar.Controls.CheckBoxX()
         Me.tbTransferencia = New DevComponents.Editors.DoubleInput()
         Me.tbTarjeta = New DevComponents.Editors.DoubleInput()
         Me.tbMontoBs = New DevComponents.Editors.DoubleInput()
         Me.tbMontoDolar = New DevComponents.Editors.DoubleInput()
         Me.LabelX13 = New DevComponents.DotNetBar.LabelX()
-        Me.chkTarjeta = New DevComponents.DotNetBar.Controls.CheckBoxX()
-        Me.chkTransferencia = New DevComponents.DotNetBar.Controls.CheckBoxX()
-        Me.btnGuardar = New DevComponents.DotNetBar.ButtonX()
-        Me.btnSalir = New DevComponents.DotNetBar.ButtonX()
-        Me.Highlighter2 = New DevComponents.DotNetBar.Validator.Highlighter()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.tbTotalVenta = New DevComponents.Editors.DoubleInput()
-        Me.lbDolar = New DevComponents.DotNetBar.LabelX()
-        Me.chkMontoBs = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.LabelX18 = New DevComponents.DotNetBar.LabelX()
+        Me.Highlighter2 = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.Panel14.SuspendLayout()
         Me.Panel15.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel20.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -66,6 +65,7 @@ Partial Class EfectivoCobranza
         CType(Me.tbTarjeta, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbMontoBs, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbMontoDolar, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox2.SuspendLayout()
         CType(Me.tbTotalVenta, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -138,40 +138,6 @@ Partial Class EfectivoCobranza
         Me.Panel1.Size = New System.Drawing.Size(1002, 317)
         Me.Panel1.TabIndex = 7
         '
-        'GroupBox2
-        '
-        Me.GroupBox2.BackColor = System.Drawing.Color.DarkSlateGray
-        Me.GroupBox2.Controls.Add(Me.tbTotalVenta)
-        Me.GroupBox2.Controls.Add(Me.LabelX18)
-        Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GroupBox2.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox2.ForeColor = System.Drawing.Color.Cornsilk
-        Me.GroupBox2.Location = New System.Drawing.Point(0, 0)
-        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox2.Size = New System.Drawing.Size(1002, 80)
-        Me.GroupBox2.TabIndex = 50
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Total Venta A Pagar:"
-        '
-        'LabelX18
-        '
-        Me.LabelX18.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX18.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX18.Font = New System.Drawing.Font("Calibri", 16.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX18.ForeColor = System.Drawing.Color.White
-        Me.LabelX18.Location = New System.Drawing.Point(193, 26)
-        Me.LabelX18.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX18.Name = "LabelX18"
-        Me.LabelX18.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX18.Size = New System.Drawing.Size(149, 39)
-        Me.LabelX18.TabIndex = 64
-        Me.LabelX18.Text = "Total Venta:"
-        '
         'Panel2
         '
         Me.Panel2.Controls.Add(Me.Panel20)
@@ -211,6 +177,42 @@ Partial Class EfectivoCobranza
         Me.GroupBox1.TabIndex = 5
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Efectivo Pagado / Cambio:"
+        '
+        'btnGuardar
+        '
+        Me.btnGuardar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnGuardar.BackColor = System.Drawing.Color.Lime
+        Me.btnGuardar.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.btnGuardar.Font = New System.Drawing.Font("Arial", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnGuardar.Image = Global.TeVendo.My.Resources.Resources.iconguardar
+        Me.btnGuardar.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.btnGuardar.Location = New System.Drawing.Point(130, 142)
+        Me.btnGuardar.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnGuardar.Name = "btnGuardar"
+        Me.btnGuardar.Size = New System.Drawing.Size(129, 54)
+        Me.btnGuardar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnGuardar.Symbol = "59500"
+        Me.btnGuardar.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Material
+        Me.btnGuardar.TabIndex = 6
+        Me.btnGuardar.Text = "Continuar"
+        Me.btnGuardar.TextColor = System.Drawing.Color.Black
+        '
+        'btnSalir
+        '
+        Me.btnSalir.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnSalir.BackColor = System.Drawing.Color.OrangeRed
+        Me.btnSalir.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnSalir.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSalir.Image = Global.TeVendo.My.Resources.Resources.atras
+        Me.btnSalir.ImageFixedSize = New System.Drawing.Size(30, 30)
+        Me.btnSalir.Location = New System.Drawing.Point(266, 142)
+        Me.btnSalir.Name = "btnSalir"
+        Me.btnSalir.Size = New System.Drawing.Size(129, 54)
+        Me.btnSalir.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
+        Me.btnSalir.Symbol = ""
+        Me.btnSalir.TabIndex = 7
+        Me.btnSalir.Text = "Salir"
+        Me.btnSalir.TextColor = System.Drawing.Color.White
         '
         'tbCambio
         '
@@ -316,6 +318,87 @@ Partial Class EfectivoCobranza
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Efectivo Recibido:"
         '
+        'chkMontoBs
+        '
+        Me.chkMontoBs.AutoSize = True
+        '
+        '
+        '
+        Me.chkMontoBs.BackgroundStyle.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.DashDot
+        Me.chkMontoBs.BackgroundStyle.BorderColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.MenuBarBackground2
+        Me.chkMontoBs.BackgroundStyle.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.DashDot
+        Me.chkMontoBs.BackgroundStyle.BorderRight = DevComponents.DotNetBar.eStyleBorderType.DashDot
+        Me.chkMontoBs.BackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.DashDot
+        Me.chkMontoBs.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.chkMontoBs.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkMontoBs.Location = New System.Drawing.Point(7, 36)
+        Me.chkMontoBs.Name = "chkMontoBs"
+        Me.chkMontoBs.Size = New System.Drawing.Size(91, 23)
+        Me.chkMontoBs.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
+        Me.chkMontoBs.TabIndex = 74
+        Me.chkMontoBs.Text = "Monto Bs"
+        Me.chkMontoBs.TextColor = System.Drawing.Color.White
+        '
+        'lbDolar
+        '
+        Me.lbDolar.AutoSize = True
+        Me.lbDolar.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.lbDolar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.lbDolar.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbDolar.ForeColor = System.Drawing.Color.White
+        Me.lbDolar.Location = New System.Drawing.Point(410, 67)
+        Me.lbDolar.Margin = New System.Windows.Forms.Padding(4)
+        Me.lbDolar.Name = "lbDolar"
+        Me.lbDolar.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.lbDolar.Size = New System.Drawing.Size(31, 23)
+        Me.lbDolar.TabIndex = 73
+        Me.lbDolar.Text = "0 Bs"
+        '
+        'chkTransferencia
+        '
+        Me.chkTransferencia.AutoSize = True
+        '
+        '
+        '
+        Me.chkTransferencia.BackgroundStyle.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.DashDot
+        Me.chkTransferencia.BackgroundStyle.BorderColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.MenuBarBackground2
+        Me.chkTransferencia.BackgroundStyle.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.DashDot
+        Me.chkTransferencia.BackgroundStyle.BorderRight = DevComponents.DotNetBar.eStyleBorderType.DashDot
+        Me.chkTransferencia.BackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.DashDot
+        Me.chkTransferencia.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.chkTransferencia.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkTransferencia.Location = New System.Drawing.Point(209, 102)
+        Me.chkTransferencia.Name = "chkTransferencia"
+        Me.chkTransferencia.Size = New System.Drawing.Size(188, 23)
+        Me.chkTransferencia.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
+        Me.chkTransferencia.TabIndex = 72
+        Me.chkTransferencia.Text = "Transferencia Bancaria:"
+        Me.chkTransferencia.TextColor = System.Drawing.Color.White
+        '
+        'chkTarjeta
+        '
+        Me.chkTarjeta.AutoSize = True
+        '
+        '
+        '
+        Me.chkTarjeta.BackgroundStyle.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.DashDot
+        Me.chkTarjeta.BackgroundStyle.BorderColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.MenuBarBackground2
+        Me.chkTarjeta.BackgroundStyle.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.DashDot
+        Me.chkTarjeta.BackgroundStyle.BorderRight = DevComponents.DotNetBar.eStyleBorderType.DashDot
+        Me.chkTarjeta.BackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.DashDot
+        Me.chkTarjeta.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.chkTarjeta.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkTarjeta.Location = New System.Drawing.Point(9, 102)
+        Me.chkTarjeta.Name = "chkTarjeta"
+        Me.chkTarjeta.Size = New System.Drawing.Size(73, 23)
+        Me.chkTarjeta.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
+        Me.chkTarjeta.TabIndex = 71
+        Me.chkTarjeta.Text = "Tarjeta"
+        Me.chkTarjeta.TextColor = System.Drawing.Color.White
+        '
         'tbTransferencia
         '
         '
@@ -409,89 +492,22 @@ Partial Class EfectivoCobranza
         Me.LabelX13.TabIndex = 66
         Me.LabelX13.Text = "Monto $u$:"
         '
-        'chkTarjeta
+        'GroupBox2
         '
-        Me.chkTarjeta.AutoSize = True
-        '
-        '
-        '
-        Me.chkTarjeta.BackgroundStyle.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.DashDot
-        Me.chkTarjeta.BackgroundStyle.BorderColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.MenuBarBackground2
-        Me.chkTarjeta.BackgroundStyle.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.DashDot
-        Me.chkTarjeta.BackgroundStyle.BorderRight = DevComponents.DotNetBar.eStyleBorderType.DashDot
-        Me.chkTarjeta.BackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.DashDot
-        Me.chkTarjeta.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.chkTarjeta.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkTarjeta.Location = New System.Drawing.Point(9, 102)
-        Me.chkTarjeta.Name = "chkTarjeta"
-        Me.chkTarjeta.Size = New System.Drawing.Size(73, 23)
-        Me.chkTarjeta.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
-        Me.chkTarjeta.TabIndex = 71
-        Me.chkTarjeta.Text = "Tarjeta"
-        Me.chkTarjeta.TextColor = System.Drawing.Color.White
-        '
-        'chkTransferencia
-        '
-        Me.chkTransferencia.AutoSize = True
-        '
-        '
-        '
-        Me.chkTransferencia.BackgroundStyle.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.DashDot
-        Me.chkTransferencia.BackgroundStyle.BorderColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.MenuBarBackground2
-        Me.chkTransferencia.BackgroundStyle.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.DashDot
-        Me.chkTransferencia.BackgroundStyle.BorderRight = DevComponents.DotNetBar.eStyleBorderType.DashDot
-        Me.chkTransferencia.BackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.DashDot
-        Me.chkTransferencia.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.chkTransferencia.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkTransferencia.Location = New System.Drawing.Point(209, 102)
-        Me.chkTransferencia.Name = "chkTransferencia"
-        Me.chkTransferencia.Size = New System.Drawing.Size(188, 23)
-        Me.chkTransferencia.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
-        Me.chkTransferencia.TabIndex = 72
-        Me.chkTransferencia.Text = "Transferencia Bancaria:"
-        Me.chkTransferencia.TextColor = System.Drawing.Color.White
-        '
-        'btnGuardar
-        '
-        Me.btnGuardar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnGuardar.BackColor = System.Drawing.Color.Lime
-        Me.btnGuardar.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
-        Me.btnGuardar.Font = New System.Drawing.Font("Arial", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnGuardar.Image = Global.TeVendo.My.Resources.Resources.iconguardar
-        Me.btnGuardar.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.btnGuardar.Location = New System.Drawing.Point(130, 142)
-        Me.btnGuardar.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnGuardar.Name = "btnGuardar"
-        Me.btnGuardar.Size = New System.Drawing.Size(129, 54)
-        Me.btnGuardar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnGuardar.Symbol = "59500"
-        Me.btnGuardar.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Material
-        Me.btnGuardar.TabIndex = 6
-        Me.btnGuardar.Text = "Continuar"
-        Me.btnGuardar.TextColor = System.Drawing.Color.Black
-        '
-        'btnSalir
-        '
-        Me.btnSalir.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnSalir.BackColor = System.Drawing.Color.OrangeRed
-        Me.btnSalir.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.btnSalir.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSalir.Image = Global.TeVendo.My.Resources.Resources.atras
-        Me.btnSalir.ImageFixedSize = New System.Drawing.Size(30, 30)
-        Me.btnSalir.Location = New System.Drawing.Point(266, 142)
-        Me.btnSalir.Name = "btnSalir"
-        Me.btnSalir.Size = New System.Drawing.Size(129, 54)
-        Me.btnSalir.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
-        Me.btnSalir.Symbol = ""
-        Me.btnSalir.TabIndex = 7
-        Me.btnSalir.Text = "Salir"
-        Me.btnSalir.TextColor = System.Drawing.Color.White
-        '
-        'Highlighter2
-        '
-        Me.Highlighter2.ContainerControl = Me
-        Me.Highlighter2.CustomHighlightColors = New System.Drawing.Color() {System.Drawing.Color.Cyan}
-        Me.Highlighter2.FocusHighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Orange
+        Me.GroupBox2.BackColor = System.Drawing.Color.DarkSlateGray
+        Me.GroupBox2.Controls.Add(Me.tbTotalVenta)
+        Me.GroupBox2.Controls.Add(Me.LabelX18)
+        Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.GroupBox2.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox2.ForeColor = System.Drawing.Color.Cornsilk
+        Me.GroupBox2.Location = New System.Drawing.Point(0, 0)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox2.Size = New System.Drawing.Size(1002, 80)
+        Me.GroupBox2.TabIndex = 50
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Total Venta A Pagar:"
         '
         'tbTotalVenta
         '
@@ -516,44 +532,28 @@ Partial Class EfectivoCobranza
         Me.tbTotalVenta.Value = 1520.0R
         Me.tbTotalVenta.WatermarkAlignment = DevComponents.Editors.eTextAlignment.Right
         '
-        'lbDolar
+        'LabelX18
         '
-        Me.lbDolar.AutoSize = True
-        Me.lbDolar.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.lbDolar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.lbDolar.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbDolar.ForeColor = System.Drawing.Color.White
-        Me.lbDolar.Location = New System.Drawing.Point(410, 67)
-        Me.lbDolar.Margin = New System.Windows.Forms.Padding(4)
-        Me.lbDolar.Name = "lbDolar"
-        Me.lbDolar.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.lbDolar.Size = New System.Drawing.Size(31, 23)
-        Me.lbDolar.TabIndex = 73
-        Me.lbDolar.Text = "0 Bs"
-        '
-        'chkMontoBs
-        '
-        Me.chkMontoBs.AutoSize = True
+        Me.LabelX18.BackColor = System.Drawing.Color.Transparent
         '
         '
         '
-        Me.chkMontoBs.BackgroundStyle.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.DashDot
-        Me.chkMontoBs.BackgroundStyle.BorderColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.MenuBarBackground2
-        Me.chkMontoBs.BackgroundStyle.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.DashDot
-        Me.chkMontoBs.BackgroundStyle.BorderRight = DevComponents.DotNetBar.eStyleBorderType.DashDot
-        Me.chkMontoBs.BackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.DashDot
-        Me.chkMontoBs.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.chkMontoBs.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkMontoBs.Location = New System.Drawing.Point(7, 36)
-        Me.chkMontoBs.Name = "chkMontoBs"
-        Me.chkMontoBs.Size = New System.Drawing.Size(91, 23)
-        Me.chkMontoBs.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
-        Me.chkMontoBs.TabIndex = 74
-        Me.chkMontoBs.Text = "Monto Bs"
-        Me.chkMontoBs.TextColor = System.Drawing.Color.White
+        Me.LabelX18.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX18.Font = New System.Drawing.Font("Calibri", 16.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX18.ForeColor = System.Drawing.Color.White
+        Me.LabelX18.Location = New System.Drawing.Point(193, 26)
+        Me.LabelX18.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX18.Name = "LabelX18"
+        Me.LabelX18.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX18.Size = New System.Drawing.Size(149, 39)
+        Me.LabelX18.TabIndex = 64
+        Me.LabelX18.Text = "Total Venta:"
+        '
+        'Highlighter2
+        '
+        Me.Highlighter2.ContainerControl = Me
+        Me.Highlighter2.CustomHighlightColors = New System.Drawing.Color() {System.Drawing.Color.Cyan}
+        Me.Highlighter2.FocusHighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Orange
         '
         'EfectivoCobranza
         '
@@ -571,7 +571,6 @@ Partial Class EfectivoCobranza
         Me.Panel15.ResumeLayout(False)
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
-        Me.GroupBox2.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel20.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
@@ -583,6 +582,7 @@ Partial Class EfectivoCobranza
         CType(Me.tbTarjeta, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbMontoBs, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbMontoDolar, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox2.ResumeLayout(False)
         CType(Me.tbTotalVenta, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 

@@ -235,7 +235,7 @@ Public Class Tec_VentasDetalle
         End With
         With grDetalle.RootTable.Columns("TipoNombre")
             .Width = 60
-            .Visible = False
+            .Visible = True
             .Caption = "Tipo"
         End With
         With grDetalle.RootTable.Columns("KitId")
@@ -245,7 +245,7 @@ Public Class Tec_VentasDetalle
         End With
         With grDetalle.RootTable.Columns("KitNombre")
             .Width = 100
-            .Visible = False
+            .Visible = True
             .Caption = "Kit"
             .WordWrap = True
             .MaxLines = 3
@@ -266,7 +266,7 @@ Public Class Tec_VentasDetalle
         With grDetalle.RootTable.Columns("CantidadKit")
             .Width = 40
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = False
+            .Visible = True
             .FormatString = "0.00"
             .Caption = "CantidadKit"
         End With

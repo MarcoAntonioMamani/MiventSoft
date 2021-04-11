@@ -245,7 +245,9 @@ Public Class Tec_Movimientos
 
         'L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
         Me.Text = "Gestion De Movimientos"
-        P_Global._prCargarComboGenerico(cbDepositos, L_prListarDepositos(), "Id", "Codigo", "NombreDeposito", "NombreDeposito")
+        Dim dt As DataTable = L_prListarDepositos()
+        P_Global._prCargarComboGenerico(cbDepositos, dt, "Id", "Codigo", "NombreDeposito", "NombreDeposito")
+        P_Global._prCargarComboGenerico(cbDepositoDestino, dt, "Id", "Codigo", "NombreDeposito", "NombreDeposito")
         P_Global._prCargarComboGenerico(cbTipoMovimiento, L_prListarTiposMovimientos(), "Id", "Codigo", "Descripcion", "TipoMovimiento")
 
         _PMIniciarTodo()
@@ -781,14 +783,55 @@ Public Class Tec_Movimientos
 
 
     End Sub
+    Function _prGuardarTraspaso() As Boolean
+        Dim numi As String = ""
+        Dim res As Boolean
+        '= L_prMovimientoChoferGrabar(numi, tbFecha.Value.ToString("yyyy/MM/dd"), cbConcepto.Value, tbObservacion.Text, cbAlmacenOrigen.Value, cbDepositoDestino.Value, 0, CType(grDetalle.DataSource, DataTable))
+        res = L_prMovimientoInsertar(numi, cbTipoMovimiento.Value, cbDepositos.Value, tbDescripcion.Text,
+                                         1, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), CType(grDetalle.DataSource, DataTable), cbDepositoDestino.Value, 0)
 
+        If res Then
+
+            Dim numDestino As String = ""
+            Dim resDestino As Boolean
+            '= L_prMovimientoChoferGrabar(numDestino, tbFecha.Value.ToString("yyyy/MM/dd"), 5, tbObservacion.Text, cbDepositoDestino.Value, cbAlmacenOrigen.Value, numi, CType(grDetalle.DataSource, DataTable))
+            resDestino = L_prMovimientoInsertar(numDestino, 7, cbDepositoDestino.Value, tbDescripcion.Text,
+                                         1, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), CType(grDetalle.DataSource, DataTable), cbDepositos.Value, numi)
+
+            If resDestino Then
+
+                ReporteVenta(numi)
+
+                ToastNotification.Show(Me, "Codigo de Movimiento ".ToUpper + Str(numi) + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+
+                Return True
+            End If
+
+        Else
+            Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
+            ToastNotification.Show(Me, "Error al Insertar Movimiento".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+
+            Return False
+        End If
+    End Function
     Public Function _PMOGrabarRegistro() As Boolean
         'ByRef _numi As String, ConceptoId As Integer, DepositoId As Integer,Observacion as String,
         'Estado as integer, FechaDocumento As String, _dtDetalle As DataTable
+
+        If (cbTipoMovimiento.Value = 8) Then
+
+            If (cbDepositos.Value = cbDepositoDestino.Value) Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "El deposito Destino debe ser Diferente al Origen".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                Return False
+            End If
+            Return _prGuardarTraspaso()
+        End If
+
         Dim res As Boolean
         Try
             res = L_prMovimientoInsertar(tbCodigo.Text, cbTipoMovimiento.Value, cbDepositos.Value, tbDescripcion.Text,
-                                         1, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), CType(grDetalle.DataSource, DataTable))
+                                         1, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), CType(grDetalle.DataSource, DataTable), 0, 0)
 
             If res Then
                 ReporteVenta(tbCodigo.Text)
@@ -855,7 +898,7 @@ Public Class Tec_Movimientos
             Dim mensajeError As String = ""
             Dim res As Boolean
             Try
-                res = L_prBorrarRegistro(tbCodigo.Text, mensajeError, "MAM_Movimientos")
+                res = L_prBorrarRegistroMovimiento(tbCodigo.Text, mensajeError, "MAM_Movimientos", cbTipoMovimiento.Value)
                 If res Then
 
                     ToastNotification.Show(Me, "Codigo de Movimiento ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
@@ -1104,8 +1147,14 @@ Public Class Tec_Movimientos
 
     Private Sub EditarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditarToolStripMenuItem.Click
         If (JGrM_Buscador.Row >= 0) Then
-            TabControlPrincipal.SelectedTabIndex = 0
-            btnModificar.PerformClick()
+            If (cbTipoMovimiento.Value = 8) Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "No Se puede Modificar un Movimiento de Traspaso. Elimine el Movimiento y Vuelva a Crearlo".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Else
+                TabControlPrincipal.SelectedTabIndex = 0
+                btnModificar.PerformClick()
+            End If
+
 
         End If
     End Sub
@@ -1190,6 +1239,42 @@ Public Class Tec_Movimientos
 
     Private Sub ReporteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReporteToolStripMenuItem.Click
         P_GenerarReporte(JGrM_Buscador.GetValue("Id"))
+    End Sub
+
+    Private Sub cbTipoMovimiento_ValueChanged(sender As Object, e As EventArgs) Handles cbTipoMovimiento.ValueChanged
+        If (cbTipoMovimiento.SelectedIndex >= 0) Then
+            If (cbTipoMovimiento.Value = 8) Then ''''Movimiento 6=Traspaso Salida
+                If (CType(cbDepositos.DataSource, DataTable).Rows.Count > 1) Then
+                    lbDepositoDestino.Visible = True
+                    cbDepositoDestino.Visible = True
+                    lbDepositoOrigen.Text = "Deposito Origen"
+                    lbDepositoDestino.Text = "Deposito Destino"
+                    cbDepositoDestino.SelectedIndex = 1
+                    If (Not _fnAccesible()) Then
+                        btnModificar.Enabled = False
+                    End If
+                Else
+                    lbDepositoDestino.Visible = False
+                    cbDepositoDestino.Visible = False
+                    lbDepositoOrigen.Text = "Deposito:"
+                    If (Not _fnAccesible()) Then
+                        btnModificar.Enabled = True
+                    End If
+                End If
+            Else
+                'btnModificar.Enabled = True
+                lbDepositoDestino.Visible = False
+                cbDepositoDestino.Visible = False
+                lbDepositoOrigen.Text = "Deposito:"
+
+            End If
+            If (_fnAccesible() And tbCodigo.Text = String.Empty And Not (IsNothing(grDetalle.DataSource))) Then
+                CType(grDetalle.DataSource, DataTable).Rows.Clear()
+
+
+            End If
+
+        End If
     End Sub
 #End Region
 End Class

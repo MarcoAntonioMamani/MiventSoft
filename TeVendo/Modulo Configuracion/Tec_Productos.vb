@@ -1277,12 +1277,20 @@ Public Class Tec_Productos
     End Sub
 
     Private Sub btnReporteConImagenes_Click(sender As Object, e As EventArgs) Handles btnReporteConImagenes.Click
-        GenerarReporte(1)
+        GenerarReporte(1, 1)
     End Sub
 
-    Public Sub GenerarReporte(tipo As Integer)
+    Public Sub GenerarReporte(tipo As Integer, PrecioVenta As Integer)
         Dim dt As DataTable
-        dt = GenerarReportePrecios()
+        Dim titulo As String
+        If (PrecioVenta = 1) Then
+            dt = GenerarReportePrecios()
+            titulo = "LISTADO DE PRECIO VENTA"
+        Else
+            dt = GenerarReportePreciosCosto()
+            titulo = "LISTADO DE PRECIO COSTO"
+        End If
+
         Dim dtImage As DataTable = ObtenerImagenEmpresa()
         Dim NombreEmpresa As String = dtImage.Rows(0).Item("Nombre")
         Dim Direccion As String = dtImage.Rows(0).Item("Direccion")
@@ -1368,6 +1376,7 @@ Public Class Tec_Productos
             objrep.SetDataSource(dt)
             objrep.SetParameterValue("NombreEmpresa", NombreEmpresa)
             objrep.SetParameterValue("Ciudad", Direccion)
+
             P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
             P_Global.Visualizador.CrGeneral.Zoom(90)
             P_Global.Visualizador.Show() 'Comentar
@@ -1381,6 +1390,7 @@ Public Class Tec_Productos
             objrep.SetDataSource(dt)
             objrep.SetParameterValue("NombreEmpresa", NombreEmpresa)
             objrep.SetParameterValue("Ciudad", Direccion)
+            objrep.SetParameterValue("Titulo", titulo)
             P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
             P_Global.Visualizador.CrGeneral.Zoom(90)
             P_Global.Visualizador.Show() 'Comentar
@@ -1390,7 +1400,11 @@ Public Class Tec_Productos
     End Sub
 
     Private Sub ButtonX3_Click(sender As Object, e As EventArgs) Handles ButtonX3.Click
-        GenerarReporte(0)
+        GenerarReporte(0, 1)
+    End Sub
+
+    Private Sub ButtonX4_Click(sender As Object, e As EventArgs) Handles ButtonX4.Click
+        GenerarReporte(0, 0)
     End Sub
 #End Region
 End Class

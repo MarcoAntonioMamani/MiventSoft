@@ -85,31 +85,31 @@ Public Class EfectivoCobranza
 
     Private Sub tbTarjeta_ValueChanged(sender As Object, e As EventArgs) Handles tbTarjeta.ValueChanged
 
-        Try
-            If (tbTarjeta.Value > 0) Then
+        'Try
+        '    If (tbTarjeta.Value > 0) Then
 
-                chkTarjeta.CheckValue = True
-            Else
-                chkTarjeta.CheckValue = False
-            End If
-        Catch ex As Exception
-            chkTarjeta.CheckValue = False
-        End Try
+        '        chkTarjeta.CheckValue = True
+        '    Else
+        '        chkTarjeta.CheckValue = False
+        '    End If
+        'Catch ex As Exception
+        '    chkTarjeta.CheckValue = False
+        'End Try
         Calculartotal()
 
     End Sub
 
     Private Sub tbTransferencia_ValueChanged(sender As Object, e As EventArgs) Handles tbTransferencia.ValueChanged
-        Try
-            If (tbTransferencia.Value > 0) Then
+        'Try
+        '    If (tbTransferencia.Value > 0) Then
 
-                chkTransferencia.CheckValue = True
-            Else
-                chkTransferencia.CheckValue = False
-            End If
-        Catch ex As Exception
-            chkTransferencia.CheckValue = False
-        End Try
+        '        chkTransferencia.CheckValue = True
+        '    Else
+        '        chkTransferencia.CheckValue = False
+        '    End If
+        'Catch ex As Exception
+        '    chkTransferencia.CheckValue = False
+        'End Try
         Calculartotal()
     End Sub
 
@@ -174,5 +174,9 @@ Public Class EfectivoCobranza
             btnGuardar.PerformClick()
 
         End If
+    End Sub
+
+    Private Sub tbTransferencia_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles tbTransferencia.Validating
+
     End Sub
 End Class

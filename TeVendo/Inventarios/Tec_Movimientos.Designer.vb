@@ -24,8 +24,9 @@ Partial Class Tec_Movimientos
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim cbDepositos_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tec_Movimientos))
         Dim cbTipoMovimiento_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim cbDepositoDestino_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tec_Movimientos))
         Me.TabControlPrincipal = New DevComponents.DotNetBar.SuperTabControl()
         Me.SuperTabControlPanel1 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -54,7 +55,7 @@ Partial Class Tec_Movimientos
         Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
         Me.tbDescripcion = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
+        Me.lbDepositoOrigen = New DevComponents.DotNetBar.LabelX()
         Me.LabelX7 = New DevComponents.DotNetBar.LabelX()
         Me.Panel10 = New System.Windows.Forms.Panel()
         Me.Panel11 = New System.Windows.Forms.Panel()
@@ -82,6 +83,7 @@ Partial Class Tec_Movimientos
         Me.VerToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.EditarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EliminarToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ReporteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.btnSi = New System.Windows.Forms.Panel()
@@ -94,7 +96,8 @@ Partial Class Tec_Movimientos
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.ReporteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cbDepositoDestino = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.lbDepositoDestino = New DevComponents.DotNetBar.LabelX()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -131,6 +134,7 @@ Partial Class Tec_Movimientos
         Me.Panel15.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbDepositoDestino, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TabControlPrincipal
@@ -391,6 +395,8 @@ Partial Class Tec_Movimientos
         '
         'Panel3
         '
+        Me.Panel3.Controls.Add(Me.cbDepositoDestino)
+        Me.Panel3.Controls.Add(Me.lbDepositoDestino)
         Me.Panel3.Controls.Add(Me.btnSeleccionarProducto)
         Me.Panel3.Controls.Add(Me.tbFechaTransaccion)
         Me.Panel3.Controls.Add(Me.cbDepositos)
@@ -400,7 +406,7 @@ Partial Class Tec_Movimientos
         Me.Panel3.Controls.Add(Me.LabelX2)
         Me.Panel3.Controls.Add(Me.LabelX4)
         Me.Panel3.Controls.Add(Me.tbDescripcion)
-        Me.Panel3.Controls.Add(Me.LabelX1)
+        Me.Panel3.Controls.Add(Me.lbDepositoOrigen)
         Me.Panel3.Controls.Add(Me.LabelX7)
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
@@ -598,23 +604,23 @@ Partial Class Tec_Movimientos
         Me.tbDescripcion.Size = New System.Drawing.Size(270, 71)
         Me.tbDescripcion.TabIndex = 0
         '
-        'LabelX1
+        'lbDepositoOrigen
         '
-        Me.LabelX1.AutoSize = True
-        Me.LabelX1.BackColor = System.Drawing.Color.Transparent
+        Me.lbDepositoOrigen.AutoSize = True
+        Me.lbDepositoOrigen.BackColor = System.Drawing.Color.Transparent
         '
         '
         '
-        Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX1.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX1.Location = New System.Drawing.Point(278, 171)
-        Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX1.Name = "LabelX1"
-        Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX1.Size = New System.Drawing.Size(77, 23)
-        Me.LabelX1.TabIndex = 46
-        Me.LabelX1.Text = "Depositos:"
+        Me.lbDepositoOrigen.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.lbDepositoOrigen.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbDepositoOrigen.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.lbDepositoOrigen.Location = New System.Drawing.Point(278, 171)
+        Me.lbDepositoOrigen.Margin = New System.Windows.Forms.Padding(4)
+        Me.lbDepositoOrigen.Name = "lbDepositoOrigen"
+        Me.lbDepositoOrigen.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.lbDepositoOrigen.Size = New System.Drawing.Size(77, 23)
+        Me.lbDepositoOrigen.TabIndex = 46
+        Me.lbDepositoOrigen.Text = "Depositos:"
         '
         'LabelX7
         '
@@ -987,7 +993,7 @@ Partial Class Tec_Movimientos
         Me.MeuOpciones.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.MeuOpciones.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VerToolStripMenuItem1, Me.EditarToolStripMenuItem, Me.EliminarToolStripMenuItem1, Me.ReporteToolStripMenuItem})
         Me.MeuOpciones.Name = "MeuOpciones"
-        Me.MeuOpciones.Size = New System.Drawing.Size(180, 168)
+        Me.MeuOpciones.Size = New System.Drawing.Size(146, 140)
         Me.MeuOpciones.Text = "Opciones"
         '
         'VerToolStripMenuItem1
@@ -996,7 +1002,7 @@ Partial Class Tec_Movimientos
         Me.VerToolStripMenuItem1.Image = Global.TeVendo.My.Resources.Resources.verRegistros2
         Me.VerToolStripMenuItem1.Name = "VerToolStripMenuItem1"
         Me.VerToolStripMenuItem1.Padding = New System.Windows.Forms.Padding(5)
-        Me.VerToolStripMenuItem1.Size = New System.Drawing.Size(189, 36)
+        Me.VerToolStripMenuItem1.Size = New System.Drawing.Size(155, 36)
         Me.VerToolStripMenuItem1.Text = "Ver"
         '
         'EditarToolStripMenuItem
@@ -1005,7 +1011,7 @@ Partial Class Tec_Movimientos
         Me.EditarToolStripMenuItem.Image = Global.TeVendo.My.Resources.Resources.edit
         Me.EditarToolStripMenuItem.Name = "EditarToolStripMenuItem"
         Me.EditarToolStripMenuItem.Padding = New System.Windows.Forms.Padding(5)
-        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(189, 36)
+        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(155, 36)
         Me.EditarToolStripMenuItem.Text = "Editar"
         '
         'EliminarToolStripMenuItem1
@@ -1014,8 +1020,16 @@ Partial Class Tec_Movimientos
         Me.EliminarToolStripMenuItem1.Image = Global.TeVendo.My.Resources.Resources.trash2
         Me.EliminarToolStripMenuItem1.Name = "EliminarToolStripMenuItem1"
         Me.EliminarToolStripMenuItem1.Padding = New System.Windows.Forms.Padding(5)
-        Me.EliminarToolStripMenuItem1.Size = New System.Drawing.Size(189, 36)
+        Me.EliminarToolStripMenuItem1.Size = New System.Drawing.Size(155, 36)
         Me.EliminarToolStripMenuItem1.Text = "Eliminar"
+        '
+        'ReporteToolStripMenuItem
+        '
+        Me.ReporteToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ReporteToolStripMenuItem.Image = Global.TeVendo.My.Resources.Resources.printee
+        Me.ReporteToolStripMenuItem.Name = "ReporteToolStripMenuItem"
+        Me.ReporteToolStripMenuItem.Size = New System.Drawing.Size(145, 28)
+        Me.ReporteToolStripMenuItem.Text = "Reporte"
         '
         'Panel4
         '
@@ -1144,13 +1158,48 @@ Partial Class Tec_Movimientos
         '
         Me.MEP.ContainerControl = Me
         '
-        'ReporteToolStripMenuItem
+        'cbDepositoDestino
         '
-        Me.ReporteToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ReporteToolStripMenuItem.Image = Global.TeVendo.My.Resources.Resources.printee
-        Me.ReporteToolStripMenuItem.Name = "ReporteToolStripMenuItem"
-        Me.ReporteToolStripMenuItem.Size = New System.Drawing.Size(179, 28)
-        Me.ReporteToolStripMenuItem.Text = "Reporte"
+        Me.cbDepositoDestino.BackColor = System.Drawing.Color.Azure
+        Me.cbDepositoDestino.ColorScheme = ""
+        Me.cbDepositoDestino.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.cbDepositoDestino.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
+        Me.cbDepositoDestino.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        cbDepositoDestino_DesignTimeLayout.LayoutString = resources.GetString("cbDepositoDestino_DesignTimeLayout.LayoutString")
+        Me.cbDepositoDestino.DesignTimeLayout = cbDepositoDestino_DesignTimeLayout
+        Me.cbDepositoDestino.FlatBorderColor = System.Drawing.Color.Black
+        Me.cbDepositoDestino.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbDepositoDestino.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbDepositoDestino.HideSelection = False
+        Me.cbDepositoDestino.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cbDepositoDestino.Location = New System.Drawing.Point(278, 268)
+        Me.cbDepositoDestino.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbDepositoDestino.Name = "cbDepositoDestino"
+        Me.cbDepositoDestino.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbDepositoDestino.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
+        Me.cbDepositoDestino.SelectedIndex = -1
+        Me.cbDepositoDestino.SelectedItem = Nothing
+        Me.cbDepositoDestino.Size = New System.Drawing.Size(218, 28)
+        Me.cbDepositoDestino.TabIndex = 54
+        Me.cbDepositoDestino.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'lbDepositoDestino
+        '
+        Me.lbDepositoDestino.AutoSize = True
+        Me.lbDepositoDestino.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.lbDepositoDestino.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.lbDepositoDestino.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbDepositoDestino.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.lbDepositoDestino.Location = New System.Drawing.Point(278, 237)
+        Me.lbDepositoDestino.Margin = New System.Windows.Forms.Padding(4)
+        Me.lbDepositoDestino.Name = "lbDepositoDestino"
+        Me.lbDepositoDestino.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.lbDepositoDestino.Size = New System.Drawing.Size(77, 23)
+        Me.lbDepositoDestino.TabIndex = 53
+        Me.lbDepositoDestino.Text = "Depositos:"
         '
         'Tec_Movimientos
         '
@@ -1198,6 +1247,7 @@ Partial Class Tec_Movimientos
         Me.Panel15.ResumeLayout(False)
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbDepositoDestino, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1257,7 +1307,7 @@ Partial Class Tec_Movimientos
     Friend WithEvents PictureBox4 As PictureBox
     Friend WithEvents SuperTabItem2 As DevComponents.DotNetBar.SuperTabItem
     Friend WithEvents cbDepositos As Janus.Windows.GridEX.EditControls.MultiColumnCombo
-    Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents lbDepositoOrigen As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX3 As DevComponents.DotNetBar.LabelX
     Friend WithEvents Panel3 As Panel
     Friend WithEvents grDetalle As Janus.Windows.GridEX.GridEX
@@ -1271,4 +1321,6 @@ Partial Class Tec_Movimientos
     Friend WithEvents tbFechaTransaccion As Janus.Windows.CalendarCombo.CalendarCombo
     Friend WithEvents btnSeleccionarProducto As DevComponents.DotNetBar.ButtonX
     Friend WithEvents ReporteToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents cbDepositoDestino As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents lbDepositoDestino As DevComponents.DotNetBar.LabelX
 End Class
