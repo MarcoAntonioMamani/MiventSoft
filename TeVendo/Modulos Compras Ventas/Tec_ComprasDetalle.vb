@@ -134,7 +134,7 @@ Public Class Tec_ComprasDetalle
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.rowdelete, 25, 18)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, 0, "20200101", CDate("01/01/2020"), 0, 0, 0, Bin.GetBuffer, 0, 0)
+        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, 0, 0, 0, 0, "20200101", CDate("01/01/2020"), 0, 0, 0, Bin.GetBuffer, 0, 0)
     End Sub
 
     Public Function _GenerarId()
@@ -234,14 +234,34 @@ Public Class Tec_ComprasDetalle
         End With
 
 
+        With grDetalle.RootTable.Columns("CantidadCompra")
+            .Width = 90
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Cantidad"
+        End With
+        With grDetalle.RootTable.Columns("PorcentajeIncremento")
+            .Width = 90
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "% Incr."
+        End With
+        With grDetalle.RootTable.Columns("CantidadIncremento")
+            .Width = 90
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Cant Incr."
+        End With
         With grDetalle.RootTable.Columns("Cantidad")
             .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "Cantidad".ToUpper
+            .Caption = "Cant. Total"
         End With
-
         With grDetalle.RootTable.Columns("estado")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -568,7 +588,9 @@ Public Class Tec_ComprasDetalle
 
 
         'Habilitar solo las columnas de Precio, %, Monto y Observación
-        If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index Or
+        If (e.Column.Index = grDetalle.RootTable.Columns("CantidadCompra").Index Or
+                e.Column.Index = grDetalle.RootTable.Columns("PorcentajeIncremento").Index Or
+                e.Column.Index = grDetalle.RootTable.Columns("CantidadIncremento").Index Or
                 e.Column.Index = grDetalle.RootTable.Columns("PrecioCosto").Index Or
                  e.Column.Index = grDetalle.RootTable.Columns("PrecioVenta").Index) Then
             e.Cancel = False
@@ -841,12 +863,15 @@ salirIf:
         Dim lin As Integer = grDetalle.GetValue("Id")
         Dim pos As Integer = -1
         _fnObtenerFilaDetalle(pos, lin)
-        If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
-            If (Not IsNumeric(grDetalle.GetValue("Cantidad")) Or grDetalle.GetValue("Cantidad").ToString = String.Empty) Then
+        If (e.Column.Index = grDetalle.RootTable.Columns("CantidadCompra").Index) Then
+            If (Not IsNumeric(grDetalle.GetValue("CantidadCompra")) Or grDetalle.GetValue("CantidadCompra").ToString = String.Empty) Then
 
                 'grDetalle.GetRow(rowIndex).Cells("cant").Value = 1
                 '  grDetalle.CurrentRow.Cells.Item("cant").Value = 1
 
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadCompra") = 1
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PorcentajeIncremento") = 0
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadIncremento") = 0
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
 
                 Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
@@ -856,7 +881,15 @@ salirIf:
                 End If
 
             Else
-                If (grDetalle.GetValue("Cantidad") > 0) Then
+                If (grDetalle.GetValue("CantidadCompra") > 0) Then
+
+
+                    Dim PorcentajeIncremento As Double = grDetalle.GetValue("PorcentajeIncremento")
+                    Dim MontoIncremento As Double = (grDetalle.GetValue("CantidadCompra") * (PorcentajeIncremento / 100))
+
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadIncremento") = MontoIncremento
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = MontoIncremento + grDetalle.GetValue("CantidadCompra")
+
 
                     Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
                     Dim rowIndex As Integer = grDetalle.Row
@@ -867,6 +900,9 @@ salirIf:
 
                 Else
 
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadCompra") = 1
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PorcentajeIncremento") = 0
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadIncremento") = 0
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
                     Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
 
@@ -915,7 +951,7 @@ salirIf:
             Dim lin As Integer = grDetalle.GetValue("Id")
             Dim pos As Integer = -1
             _fnObtenerFilaDetalle(pos, lin)
-            Dim cant As Double = grDetalle.GetValue("Cantidad")
+            Dim cant As Double = grDetalle.GetValue("CantidadCompra")
             Dim uni As Double = grDetalle.GetValue("PrecioCosto")
             If (pos >= 0) Then
                 Dim TotalUnitario As Double = cant * uni
