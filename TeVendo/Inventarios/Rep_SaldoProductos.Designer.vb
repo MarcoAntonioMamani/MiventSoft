@@ -151,7 +151,7 @@ Partial Class Rep_SaldoProductos
         Me.MReportViewer.Location = New System.Drawing.Point(0, 0)
         Me.MReportViewer.Margin = New System.Windows.Forms.Padding(4)
         Me.MReportViewer.Name = "MReportViewer"
-        Me.MReportViewer.Size = New System.Drawing.Size(703, 598)
+        Me.MReportViewer.Size = New System.Drawing.Size(703, 649)
         Me.MReportViewer.TabIndex = 20
         Me.MReportViewer.ToolPanelWidth = 267
         '
@@ -370,7 +370,7 @@ Partial Class Rep_SaldoProductos
         Me.Panel9.Location = New System.Drawing.Point(251, 59)
         Me.Panel9.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(160, 43)
+        Me.Panel9.Size = New System.Drawing.Size(168, 43)
         Me.Panel9.TabIndex = 255
         '
         'CheckTodosAlmacen

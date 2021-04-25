@@ -9,7 +9,7 @@ Public Class Tec_Principal
 
 #Region "Methods Private"
 
-
+    Dim FSearchProductos As FormularioStock
     Sub _prCargarFecha()
         Dim Fecha As String = ""
         Fecha = "     " + Str(Now.Date.Day) + " " + MonthName(Now.Date.Month) + " " + Str(Now.Date.Year)
@@ -36,6 +36,12 @@ Public Class Tec_Principal
         L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
         Me.WindowState = FormWindowState.Maximized
         btnUser.Text = "Bienvenido: " + L_Usuario
+
+
+        FSearchProductos = New FormularioStock With {.TopLevel = False, .AutoSize = True}
+
+        FSearchProductos.Parent = PanelBuscador
+        FSearchProductos.Visible = False
     End Sub
 
 
@@ -304,6 +310,7 @@ Public Class Tec_Principal
             superTabControl3.CloseTab(superTabControl3.Tabs(0))
         Next
 
+        FSearchProductos.Close()
 
 
 
@@ -1022,6 +1029,7 @@ Public Class Tec_Principal
         For i As Integer = 0 To n - 1 Step 1
             superTabControl3.CloseTab(superTabControl3.Tabs(0))
         Next
+        FSearchProductos.Close()
 
 
     End Sub
@@ -1216,5 +1224,9 @@ Public Class Tec_Principal
         Dim blah As New Bitmap(btnReporteCajaDetallado.Image, 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
+    End Sub
+
+    Private Sub tab_InvProductos_Click(sender As Object, e As EventArgs) Handles tab_InvProductos.Click
+        FSearchProductos.Visible = True
     End Sub
 End Class

@@ -1108,16 +1108,24 @@ salirIf:
         _prCalcularPrecioTotal()
     End Sub
 
+
     Private Sub grdetalle_MouseClick(sender As Object, e As MouseEventArgs) Handles grDetalle.MouseClick
         If (Not _fnAccesible()) Then
             Return
         End If
+        Try
+            If (grDetalle.RowCount >= 1) Then
+                If (grDetalle.Row >= 0) Then
+                    If (grDetalle.CurrentColumn.Index = grDetalle.RootTable.Columns("img").Index) Then
+                        _prEliminarFila()
+                    End If
+                End If
 
-        If (grDetalle.RowCount >= 1) Then
-            If (grDetalle.CurrentColumn.Index = grDetalle.RootTable.Columns("img").Index) Then
-                _prEliminarFila()
             End If
-        End If
+        Catch ex As Exception
+
+        End Try
+
 
 
     End Sub

@@ -352,14 +352,14 @@ Public Class Tec_VentasDetalle
         End With
 
         With grDetalle.RootTable.Columns("img")
-                .Width = 80
-                .Caption = "Eliminar".ToUpper
-                .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
-                .Visible = True
-            End With
+            .Width = 80
+            .Caption = "Eliminar".ToUpper
+            .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
+            .Visible = True
+        End With
 
 
-            If (Lote = True) Then
+        If (Lote = True) Then
             With grDetalle.RootTable.Columns("Lote")
                 .Width = 60
                 .Caption = "lote".ToUpper
@@ -668,7 +668,7 @@ Public Class Tec_VentasDetalle
         'a.yfnumi  ,a.yfcdprod1  ,a.yfcdprod2,Sum(b.iccven ) as stock 
         Dim pos As Integer = -1
         grDetalle.Row = grDetalle.RowCount - 1
-        _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"),grDetalle.GetValue("Tipo"))
+        _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"), grDetalle.GetValue("Tipo"))
         Dim posProducto As Integer = 0
         _fnObtenerFilaProducto(posProducto, grProducto.GetValue("Id"))
 
@@ -1320,10 +1320,18 @@ salirIf:
     Private Sub grdetalle_MouseClick(sender As Object, e As MouseEventArgs) Handles grDetalle.MouseClick
 
         Try
+            If (IsDBNull(grDetalle.CurrentColumn.Index)) Then
+                Return
+
+            End If
+
             If (grDetalle.RowCount >= 1) Then
-                If (grDetalle.CurrentColumn.Index = grDetalle.RootTable.Columns("img").Index) Then
-                    _prEliminarFila()
+                If (grDetalle.Row >= 0) Then
+                    If (grDetalle.CurrentColumn.Index = grDetalle.RootTable.Columns("img").Index) Then
+                        _prEliminarFila()
+                    End If
                 End If
+
             End If
 
         Catch ex As Exception

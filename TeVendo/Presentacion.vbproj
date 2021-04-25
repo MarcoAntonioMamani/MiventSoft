@@ -271,6 +271,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Font\Custom.vb" />
+    <Compile Include="Inventarios\FormularioStock.Designer.vb">
+      <DependentUpon>FormularioStock.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Inventarios\FormularioStock.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Inventarios\F_MonitoreoProductos.Designer.vb">
       <DependentUpon>F_MonitoreoProductos.vb</DependentUpon>
     </Compile>
@@ -673,6 +679,12 @@
       <DependentUpon>Reporte_ResumenIngresoEgresos.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ReporteSmartApps\Reporte_StockGeneral.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reporte_StockGeneral.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ReporteSmartApps\Reporte_VentaEstadoCuentas.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -833,6 +845,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Distribucion\Tec_Despachos.resx">
       <DependentUpon>Tec_Despachos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventarios\FormularioStock.resx">
+      <DependentUpon>FormularioStock.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\F_MonitoreoProductos.resx">
       <DependentUpon>F_MonitoreoProductos.vb</DependentUpon>
@@ -1058,6 +1073,10 @@
     <EmbeddedResource Include="ReporteSmartApps\Reporte_ResumenIngresoEgresos.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Reporte_ResumenIngresoEgresos.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\Reporte_StockGeneral.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reporte_StockGeneral.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\Reporte_VentaEstadoCuentas.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
