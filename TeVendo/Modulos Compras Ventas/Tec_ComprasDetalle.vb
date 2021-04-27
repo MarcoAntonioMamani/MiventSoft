@@ -194,7 +194,7 @@ Public Class Tec_ComprasDetalle
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "P.Venta".ToUpper
+            .Caption = "P.Venta"
         End With
 
         With grDetalle.RootTable.Columns("PrecioCosto")
@@ -202,7 +202,7 @@ Public Class Tec_ComprasDetalle
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "P.Costo".ToUpper
+            .Caption = "P.Costo"
         End With
 
 
@@ -211,7 +211,7 @@ Public Class Tec_ComprasDetalle
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "SubTotal".ToUpper
+            .Caption = "SubTotal"
         End With
 
         With grDetalle.RootTable.Columns("CompraId")
@@ -271,8 +271,8 @@ Public Class Tec_ComprasDetalle
 
         With grDetalle.RootTable.Columns("img")
                 .Width = 80
-                .Caption = "Eliminar".ToUpper
-                .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
+            .Caption = "Eliminar"
+            .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
             .Visible = True
             .LeftMargin = 7
             .TopMargin = 5
@@ -285,13 +285,13 @@ Public Class Tec_ComprasDetalle
         If (Lote = True) Then
             With grDetalle.RootTable.Columns("Lote")
                 .Width = 70
-                .Caption = "lote".ToUpper
+                .Caption = "Lote"
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
                 .Visible = True
             End With
             With grDetalle.RootTable.Columns("FechaVencimiento")
                 .Width = 70
-                .Caption = "FECHA VENC.".ToUpper
+                .Caption = "Fecha Venc."
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
                 .FormatString = "dd/MM/yyyy"
                 .Visible = True
@@ -300,13 +300,13 @@ Public Class Tec_ComprasDetalle
 
             With grDetalle.RootTable.Columns("Lote")
                 .Width = 70
-                .Caption = "lote".ToUpper
+                .Caption = "Lote"
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
                 .Visible = False
             End With
             With grDetalle.RootTable.Columns("FechaVencimiento")
                 .Width = 70
-                .Caption = "FECHA VENC.".ToUpper
+                .Caption = "Fecha Venc."
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
                 .FormatString = "dd/MM/yyyy"
                 .Visible = False
@@ -1095,7 +1095,7 @@ salirIf:
             Dim lin As Integer = grDetalle.GetValue("Id")
             Dim pos As Integer = -1
             _fnObtenerFilaDetalle(pos, lin)
-            Dim cant As Double = grDetalle.GetValue("Cantidad")
+            Dim cant As Double = grDetalle.GetValue("CantidadCompra")
             Dim uni As Double = grDetalle.GetValue("PrecioCosto")
             If (pos >= 0) Then
                 Dim TotalUnitario As Double = cant * uni
