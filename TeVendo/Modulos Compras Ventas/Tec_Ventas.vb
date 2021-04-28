@@ -1702,6 +1702,7 @@ salirIf:
             End If
 
         End If
+        tbCliente.Focus()
 
     End Sub
 
@@ -1718,6 +1719,11 @@ salirIf:
 
     Private Sub tbProveedor_KeyDown(sender As Object, e As KeyEventArgs) Handles tbVendedor.KeyDown
         If (_fnAccesible()) Then
+
+            If (e.KeyData = Keys.F1 Or e.KeyData = Keys.LWin) Then
+                btnSeleccionarProducto.PerformClick()
+
+            End If
             'If e.KeyData = Keys.Control + Keys.Enter Then
 
 
@@ -1863,6 +1869,10 @@ salirIf:
     Private Sub tbCliente_KeyDown(sender As Object, e As KeyEventArgs) Handles tbCliente.KeyDown
         If (Not _fnAccesible()) Then
             Return
+        End If
+        If (e.KeyData = Keys.F1 Or e.KeyData = Keys.LWin) Then
+            btnSeleccionarProducto.PerformClick()
+
         End If
         If (e.KeyData = Keys.Control + Keys.Enter) Then '
 
@@ -2098,6 +2108,43 @@ salirIf:
         End If
 
 
+    End Sub
+
+    Private Sub Tec_Ventas_KeyPress(sender As Object, e As KeyPressEventArgs) Handles MyBase.KeyPress
+    End Sub
+
+    Private Sub Tec_Ventas_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+
+    End Sub
+
+    Private Sub tbGlosa_KeyDown(sender As Object, e As KeyEventArgs) Handles tbGlosa.KeyDown
+        If (e.KeyData = Keys.F1 Or e.KeyData = Keys.LWin) Then
+            btnSeleccionarProducto.PerformClick()
+
+        End If
+
+    End Sub
+
+    Private Sub tbFechaVencimientoCredito_KeyDown(sender As Object, e As KeyEventArgs) Handles tbFechaVencimientoCredito.KeyDown
+        If (e.KeyData = Keys.F1 Or e.KeyData = Keys.LWin) Then
+            btnSeleccionarProducto.PerformClick()
+
+        End If
+
+    End Sub
+
+    Private Sub cbSucursal_KeyDown(sender As Object, e As KeyEventArgs) Handles cbSucursal.KeyDown
+        If (e.KeyData = Keys.F1 Or e.KeyData = Keys.LWin) Then
+            btnSeleccionarProducto.PerformClick()
+
+        End If
+    End Sub
+
+    Private Sub swTipoVenta_KeyDown(sender As Object, e As KeyEventArgs) Handles swTipoVenta.KeyDown
+        If (e.KeyData = Keys.F1 Or e.KeyData = Keys.LWin) Then
+            btnSeleccionarProducto.PerformClick()
+
+        End If
     End Sub
 #End Region
 End Class

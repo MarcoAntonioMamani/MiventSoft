@@ -1924,7 +1924,28 @@ Public Class AccesoLogica
     End Function
 #End Region
 #Region "Movimientos TecBrinc"
+    Public Shared Function L_prListarProductosTodosInventario() As DataTable
+        Dim _Tabla As DataTable
 
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 18))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_Movimientos", _listParam)
+
+        Return _Tabla
+    End Function
+    Public Shared Function L_prListarProductosTodosInventarioPrecios() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 19))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_Movimientos", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_prMovimientoInsertar(ByRef _numi As String, ConceptoId As Integer, DepositoId As Integer, Observacion As String, Estado As Integer, FechaDocumento As String, _dtDetalle As DataTable) As Boolean
         Dim _resultado As Boolean
 
