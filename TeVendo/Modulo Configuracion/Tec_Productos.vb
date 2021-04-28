@@ -314,6 +314,8 @@ Public Class Tec_Productos
             .SetHighlightOnFocus(btUniMaxima, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(btnGrabar, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(btnSalir, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbIncrementoVenta, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbGanancia, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
 
         End With
     End Sub
@@ -579,6 +581,9 @@ Public Class Tec_Productos
         cbAtributo.ReadOnly = False
         cbFamilia.ReadOnly = False
         cbUniVenta.ReadOnly = False
+        tbGanancia.IsInputReadOnly = False
+        tbIncrementoVenta.IsInputReadOnly = False
+
         cbUnidMaxima.ReadOnly = False
         tbConversion.IsInputReadOnly = False
         btnDelete.Visible = True
@@ -589,6 +594,8 @@ Public Class Tec_Productos
         btnFamilia.Visible = True
         btUniVenta.Visible = True
         btUniMaxima.Visible = True
+
+
 
         btnAgregarCategoria.Visible = True
         btnAgregarProveedor.Visible = True
@@ -602,6 +609,10 @@ Public Class Tec_Productos
         tbStockMinimo.IsInputReadOnly = True
         swEstado.IsReadOnly = True
         cbEmpresa.ReadOnly = True
+
+        tbGanancia.IsInputReadOnly = True
+        tbIncrementoVenta.IsInputReadOnly = True
+
         cbCategoria.ReadOnly = True
         cbProveedor.ReadOnly = True
         cbMarca.ReadOnly = True
@@ -629,6 +640,10 @@ Public Class Tec_Productos
         tbCodigoExterno.Text = ""
         tbStockMinimo.Value = 0
         tbConversion.Value = 0
+
+        tbGanancia.Value = 0
+        tbIncrementoVenta.Value = 0
+
         swEstado.Value = True
         seleccionarPrimerItemCombo(cbEmpresa)
         seleccionarPrimerItemCombo(cbCategoria)
@@ -681,7 +696,7 @@ Public Class Tec_Productos
             res = L_prProductoInsertar(tbCodigo.Text, tbCodigoExterno.Text, "", tbNombreProducto.Text,
                                                  tbDescripcion.Text, tbStockMinimo.Value, IIf(swEstado.Value = True, 1, 0),
                                                  cbCategoria.Value, cbEmpresa.Value, cbProveedor.Value, cbMarca.Value,
-                                                 cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes)
+                                                 cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes, tbGanancia.Value, tbIncrementoVenta.Value)
 
             If res Then
 
@@ -709,7 +724,7 @@ Public Class Tec_Productos
             Res = L_prProductoModificar(tbCodigo.Text, tbCodigoExterno.Text, "", tbNombreProducto.Text,
                                                 tbDescripcion.Text, tbStockMinimo.Value, IIf(swEstado.Value = True, 1, 0),
                                                 cbCategoria.Value, cbEmpresa.Value, cbProveedor.Value, cbMarca.Value,
-                                                cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes)
+                                                cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes, tbGanancia.Value, tbIncrementoVenta.Value)
 
 
             If Res Then
@@ -937,6 +952,9 @@ Public Class Tec_Productos
         listEstCeldas.Add(New Celda("UnidadMaximaId", False))
         listEstCeldas.Add(New Celda("Conversion", False))
 
+        listEstCeldas.Add(New Celda("GananciaAbonoVenta", False))
+        listEstCeldas.Add(New Celda("IncrementoMaximoVentas", False))
+
 
         Return listEstCeldas
     End Function
@@ -970,6 +988,9 @@ Public Class Tec_Productos
             cbUniVenta.Value = .GetValue("UnidadVentaId")
             cbUnidMaxima.Value = .GetValue("UnidadMaximaId")
             tbConversion.Value = .GetValue("Conversion")
+
+            tbGanancia.Value = .GetValue("GananciaAbonoVenta")
+            tbIncrementoVenta.Value = .GetValue("IncrementoMaximoVentas")
         End With
         TablaImagenes = L_prCargarImagenesRecepcion(tbCodigo.Text)
         _prCargarImagen()
