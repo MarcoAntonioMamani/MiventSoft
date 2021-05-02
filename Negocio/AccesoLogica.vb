@@ -3086,6 +3086,92 @@ Public Class AccesoLogica
 #End Region
 
 
+
+#Region "Servicios"
+
+    Public Shared Function L_prServiciosInsertar(ByRef _id As String, _ProductoId As Integer, _NombreServicio As String,
+                                                 _DescripcionServicio As String, MontoServicio As Double, MontoGanancia As Double, PorcentajeGanancias As Double, PagoAdicional As Double, EmpresaBancariaId As Integer, CategoriaServicioId As Integer, Estado As Integer) As Boolean
+        Dim _resultado As Boolean
+
+        '@Id,@ProductoId,@NombreServicio,@DescripcionServicio,
+        '@MontoServicio,@MontoGanancia,@PorcentajeGanancia,@PagoAdiccional,@EmpresaBancariId,
+        '@CategoriaServicioId,@Estado ,@usuario ,@newFecha,@newHora
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", _id))
+        _listParam.Add(New Datos.DParametro("@NombreServicio", _NombreServicio))
+
+        _listParam.Add(New Datos.DParametro("@ProductoId", _ProductoId))
+        _listParam.Add(New Datos.DParametro("@DescripcionServicio", _DescripcionServicio))
+        _listParam.Add(New Datos.DParametro("@MontoServicio", MontoServicio))
+        _listParam.Add(New Datos.DParametro("@MontoGanancia", MontoGanancia))
+        _listParam.Add(New Datos.DParametro("@PorcentajeGanancia", PorcentajeGanancias))
+        _listParam.Add(New Datos.DParametro("@PagoAdiccional", PagoAdicional))
+        _listParam.Add(New Datos.DParametro("@EmpresaBancariId", EmpresaBancariaId))
+        _listParam.Add(New Datos.DParametro("@CategoriaServicioId", CategoriaServicioId))
+        _listParam.Add(New Datos.DParametro("@Estado", Estado))
+
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+
+        _Tabla = D_ProcedimientoConParam("MAM_Servicios", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _id = _Tabla.Rows(0).Item(0)
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+    Public Shared Function L_prServiciosModificar(ByRef _id As String, _ProductoId As Integer, _NombreServicio As String,
+                                                 _DescripcionServicio As String, MontoServicio As Double, MontoGanancia As Double, PorcentajeGanancias As Double, PagoAdicional As Double, EmpresaBancariaId As Integer, CategoriaServicioId As Integer, Estado As Integer) As Boolean
+        Dim _resultado As Boolean
+
+        '@Id,@ProductoId,@NombreServicio,@DescripcionServicio,
+        '@MontoServicio,@MontoGanancia,@PorcentajeGanancia,@PagoAdiccional,@EmpresaBancariId,
+        '@CategoriaServicioId,@Estado ,@usuario ,@newFecha,@newHora
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@Id", _id))
+        _listParam.Add(New Datos.DParametro("@NombreServicio", _NombreServicio))
+
+        _listParam.Add(New Datos.DParametro("@ProductoId", _ProductoId))
+        _listParam.Add(New Datos.DParametro("@DescripcionServicio", _DescripcionServicio))
+        _listParam.Add(New Datos.DParametro("@MontoServicio", MontoServicio))
+        _listParam.Add(New Datos.DParametro("@MontoGanancia", MontoGanancia))
+        _listParam.Add(New Datos.DParametro("@PorcentajeGanancia", PorcentajeGanancias))
+        _listParam.Add(New Datos.DParametro("@PagoAdiccional", PagoAdicional))
+        _listParam.Add(New Datos.DParametro("@EmpresaBancariId", EmpresaBancariaId))
+        _listParam.Add(New Datos.DParametro("@CategoriaServicioId", CategoriaServicioId))
+        _listParam.Add(New Datos.DParametro("@Estado", Estado))
+
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+
+        _Tabla = D_ProcedimientoConParam("MAM_Servicios", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _id = _Tabla.Rows(0).Item(0)
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+#End Region
+
+
 #Region "Conceptos Fijos"
     Public Shared Function L_prListarCaja() As DataTable
         Dim _Tabla As DataTable
