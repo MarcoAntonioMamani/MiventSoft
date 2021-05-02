@@ -28,8 +28,7 @@ Partial Class FormularioStock
         Me.Paneltop = New System.Windows.Forms.Panel()
         Me.grProducto = New Janus.Windows.GridEX.GridEX()
         Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.btnProductosSinStock = New DevComponents.DotNetBar.ButtonX()
-        Me.btnProductos = New DevComponents.DotNetBar.ButtonX()
+        Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
         Me.btnConfirmarSalir = New DevComponents.DotNetBar.ButtonX()
         Me.LabelX9 = New DevComponents.DotNetBar.LabelX()
         Me.tbProducto = New DevComponents.DotNetBar.Controls.TextBoxX()
@@ -38,7 +37,6 @@ Partial Class FormularioStock
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel12 = New System.Windows.Forms.Panel()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
-        Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Paneltop.SuspendLayout()
         CType(Me.grProducto, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -127,8 +125,6 @@ Partial Class FormularioStock
         'Panel5
         '
         Me.Panel5.Controls.Add(Me.ButtonX2)
-        Me.Panel5.Controls.Add(Me.btnProductosSinStock)
-        Me.Panel5.Controls.Add(Me.btnProductos)
         Me.Panel5.Controls.Add(Me.btnConfirmarSalir)
         Me.Panel5.Controls.Add(Me.LabelX9)
         Me.Panel5.Controls.Add(Me.tbProducto)
@@ -139,44 +135,24 @@ Partial Class FormularioStock
         Me.Panel5.Size = New System.Drawing.Size(1140, 68)
         Me.Panel5.TabIndex = 3
         '
-        'btnProductosSinStock
+        'ButtonX2
         '
-        Me.btnProductosSinStock.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnProductosSinStock.BackColor = System.Drawing.Color.Honeydew
-        Me.btnProductosSinStock.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
-        Me.btnProductosSinStock.DisabledImagesGrayScale = False
-        Me.btnProductosSinStock.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnProductosSinStock.Image = Global.TeVendo.My.Resources.Resources.sheets
-        Me.btnProductosSinStock.ImageFixedSize = New System.Drawing.Size(25, 25)
-        Me.btnProductosSinStock.Location = New System.Drawing.Point(1094, 22)
-        Me.btnProductosSinStock.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnProductosSinStock.Name = "btnProductosSinStock"
-        Me.btnProductosSinStock.Size = New System.Drawing.Size(160, 42)
-        Me.btnProductosSinStock.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnProductosSinStock.TabIndex = 376
-        Me.btnProductosSinStock.Text = "Exportar Excel"
-        Me.btnProductosSinStock.TextColor = System.Drawing.Color.Black
-        Me.btnProductosSinStock.Visible = False
-        '
-        'btnProductos
-        '
-        Me.btnProductos.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnProductos.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.btnProductos.Font = New System.Drawing.Font("Calibri", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnProductos.Image = Global.TeVendo.My.Resources.Resources.search
-        Me.btnProductos.ImageFixedSize = New System.Drawing.Size(24, 24)
-        Me.btnProductos.Location = New System.Drawing.Point(913, 15)
-        Me.btnProductos.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnProductos.Name = "btnProductos"
-        Me.btnProductos.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
-        Me.btnProductos.Size = New System.Drawing.Size(163, 53)
-        Me.btnProductos.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnProductos.Symbol = ""
-        Me.btnProductos.SymbolColor = System.Drawing.Color.DarkOrange
-        Me.btnProductos.SymbolSize = 20.0!
-        Me.btnProductos.TabIndex = 375
-        Me.btnProductos.Text = "Exportar Reporte"
-        Me.btnProductos.Visible = False
+        Me.ButtonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonX2.BackColor = System.Drawing.Color.FromArgb(CType(CType(217, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(79, Byte), Integer))
+        Me.ButtonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.ButtonX2.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX2.Image = Global.TeVendo.My.Resources.Resources.atras
+        Me.ButtonX2.ImageFixedSize = New System.Drawing.Size(30, 30)
+        Me.ButtonX2.Location = New System.Drawing.Point(877, 11)
+        Me.ButtonX2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.ButtonX2.Name = "ButtonX2"
+        Me.ButtonX2.Size = New System.Drawing.Size(251, 51)
+        Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
+        Me.ButtonX2.Symbol = ""
+        Me.ButtonX2.TabIndex = 377
+        Me.ButtonX2.Text = "Salir"
+        Me.ButtonX2.TextColor = System.Drawing.Color.White
         '
         'btnConfirmarSalir
         '
@@ -295,32 +271,15 @@ Partial Class FormularioStock
         Me.PictureBox3.TabIndex = 0
         Me.PictureBox3.TabStop = False
         '
-        'ButtonX2
-        '
-        Me.ButtonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX2.BackColor = System.Drawing.Color.FromArgb(CType(CType(217, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(79, Byte), Integer))
-        Me.ButtonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.ButtonX2.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX2.Image = Global.TeVendo.My.Resources.Resources.atras
-        Me.ButtonX2.ImageFixedSize = New System.Drawing.Size(30, 30)
-        Me.ButtonX2.Location = New System.Drawing.Point(700, 11)
-        Me.ButtonX2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.ButtonX2.Name = "ButtonX2"
-        Me.ButtonX2.Size = New System.Drawing.Size(124, 51)
-        Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
-        Me.ButtonX2.Symbol = ""
-        Me.ButtonX2.TabIndex = 377
-        Me.ButtonX2.Text = "Salir"
-        Me.ButtonX2.TextColor = System.Drawing.Color.White
-        '
         'FormularioStock
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1140, 450)
         Me.Controls.Add(Me.Paneltop)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow
         Me.Name = "FormularioStock"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FormularioStock"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
@@ -339,7 +298,6 @@ Partial Class FormularioStock
     Friend WithEvents Paneltop As Panel
     Friend WithEvents grProducto As Janus.Windows.GridEX.GridEX
     Friend WithEvents Panel5 As Panel
-    Friend WithEvents btnProductos As DevComponents.DotNetBar.ButtonX
     Friend WithEvents btnConfirmarSalir As DevComponents.DotNetBar.ButtonX
     Friend WithEvents LabelX9 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbProducto As DevComponents.DotNetBar.Controls.TextBoxX
@@ -348,6 +306,5 @@ Partial Class FormularioStock
     Friend WithEvents Label3 As Label
     Friend WithEvents Panel12 As Panel
     Friend WithEvents PictureBox3 As PictureBox
-    Protected WithEvents btnProductosSinStock As DevComponents.DotNetBar.ButtonX
     Friend WithEvents ButtonX2 As DevComponents.DotNetBar.ButtonX
 End Class

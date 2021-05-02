@@ -45,8 +45,10 @@ Public Class FormularioStock
         End With
     End Sub
     Private Sub Tec_DespachoDetalle_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.MaximumSize = SystemInformation.PrimaryMonitorMaximizedWindowSize
         IniciarTodod()
         tbProducto.Focus()
+
     End Sub
     Private Sub tbProducto_TextChanged(sender As Object, e As EventArgs) Handles tbProducto.TextChanged
         Dim dtProductoCopy As DataTable
@@ -360,7 +362,7 @@ Public Class FormularioStock
 
     End Sub
 
-    Private Sub btnProductos_Click(sender As Object, e As EventArgs) Handles btnProductos.Click
+    Private Sub btnProductos_Click(sender As Object, e As EventArgs)
         Dim _dt As New DataTable
         _dt = L_prListarProductosTodosInventario()
         If (IsNothing(_dt) Or _dt.Rows.Count = 0) Then
@@ -418,7 +420,7 @@ Public Class FormularioStock
             End If
         End If
     End Sub
-    Private Sub btnProductosSinStock_Click(sender As Object, e As EventArgs) Handles btnProductosSinStock.Click
+    Private Sub btnProductosSinStock_Click(sender As Object, e As EventArgs)
         _prCrearCarpetaReportes()
         Dim imgOk As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
         If (P_ExportarExcel(RutaGlobal + "\Reporte\Reporte Productos", "ProductosStockGeneral")) Then
