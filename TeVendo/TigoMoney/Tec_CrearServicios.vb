@@ -70,10 +70,7 @@ Public Class Tec_CrearServicios
                 End If
             End With
         Next
-        With JGrM_Buscador.RootTable.Columns("imgEstado")
-            .LineAlignment = TextAlignment.Center
 
-        End With
 
         'Habilitar Filtradores
         With JGrM_Buscador
@@ -87,7 +84,7 @@ Public Class Tec_CrearServicios
         End With
 
 
-        CargarIconEstado()
+
     End Sub
     Public Sub CargarIconEstado()
 
@@ -810,6 +807,92 @@ Public Class Tec_CrearServicios
         _TabControl.SelectedTab = _modulo
         _tab.Close()
         Me.Close()
+    End Sub
+
+    Private Sub btnSearchProducto_Click(sender As Object, e As EventArgs) Handles btnSearchProducto.Click
+        Dim dt As DataTable
+
+        dt = ListarProductosKits()
+
+
+        'ProductoId	NombreProducto	NombreCategoria	PrecioVenta	PrecioCosto
+
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("ProductoId,", True, "Cod Producto", 80))
+        listEstCeldas.Add(New Celda("NombreProducto", True, "Producto", 300))
+        listEstCeldas.Add(New Celda("NombreCategoria", True, "Categoria", 120))
+        listEstCeldas.Add(New Celda("PrecioVenta", False, "Precio Venta", 90, "0.00"))
+        listEstCeldas.Add(New Celda("PrecioCosto", False, "PrecioCosto", 120))
+        Dim ef = New Efecto
+        ef.tipo = 22
+        ef.dt = dt
+        ef.SeleclCol = 2
+        ef.listEstCeldasNew = listEstCeldas
+        ef.alto = 50
+        ef.ancho = 350
+        ef.Context = "Seleccione Productos".ToUpper
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+            tbProducto.Text = Row.Cells("NombreProducto").Value
+            ProductoId = Row.Cells("ProductoId").Value
+            cbNegocio.Focus()
+        End If
+    End Sub
+
+    Private Sub tbPorcentajeGanancia_ValueChanged(sender As Object, e As EventArgs) Handles tbPorcentajeGanancia.ValueChanged
+        If (tbPorcentajeGanancia.Focused) Then
+            If (Not tbPorcentajeGanancia.Text = String.Empty And Not tbMontoServicio.Text = String.Empty) Then
+                If (tbPorcentajeGanancia.Value = 0 Or tbPorcentajeGanancia.Value > 100) Then
+                    tbPorcentajeGanancia.Value = 0
+                    tbMontoGanancia.Value = 0
+
+
+
+                Else
+
+                    Dim porcdesc As Double = tbPorcentajeGanancia.Value
+                    Dim montodesc As Double = tbMontoServicio.Value * (porcdesc / 100)
+                    tbMontoGanancia.Value = montodesc
+
+                End If
+
+
+            End If
+            If (tbPorcentajeGanancia.Text = String.Empty) Then
+                tbMontoGanancia.Value = 0
+
+            End If
+        End If
+    End Sub
+
+    Private Sub tbMontoGanancia_ValueChanged(sender As Object, e As EventArgs) Handles tbMontoGanancia.ValueChanged
+        If (tbMontoGanancia.Focused) Then
+
+            Dim total As Double = tbMontoServicio.Value
+            If (Not tbMontoGanancia.Text = String.Empty And Not tbMontoGanancia.Text = String.Empty) Then
+                If (tbMontoGanancia.Value = 0 Or tbMontoGanancia.Value > total) Then
+                    tbMontoGanancia.Value = 0
+                    tbPorcentajeGanancia.Value = 0
+
+                Else
+                    Dim montodesc As Double = tbMontoGanancia.Value
+                    Dim pordesc As Double = ((montodesc * 100) / tbMontoServicio.Value)
+                    tbPorcentajeGanancia.Value = pordesc
+
+
+                End If
+
+            End If
+
+            If (tbMontoGanancia.Text = String.Empty) Then
+                tbMontoGanancia.Value = 0
+
+            End If
+        End If
+
     End Sub
 #End Region
 End Class

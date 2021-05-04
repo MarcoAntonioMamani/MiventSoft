@@ -709,6 +709,12 @@
       <DependentUpon>VentasVsCostos.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="TigoMoney\Tec_CrearServicios.Designer.vb">
+      <DependentUpon>Tec_CrearServicios.vb</DependentUpon>
+    </Compile>
+    <Compile Include="TigoMoney\Tec_CrearServicios.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Utils\ActualizarTipoCambio.Designer.vb">
       <DependentUpon>ActualizarTipoCambio.vb</DependentUpon>
     </Compile>
@@ -1083,6 +1089,9 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>VentasVsCostos.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="TigoMoney\Tec_CrearServicios.resx">
+      <DependentUpon>Tec_CrearServicios.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Utils\ActualizarTipoCambio.resx">
       <DependentUpon>ActualizarTipoCambio.vb</DependentUpon>
     </EmbeddedResource>
@@ -1396,6 +1405,8 @@
     <None Include="Resources\trash.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\tigomoney02.png" />
+    <None Include="Resources\tigomoney.png" />
     <None Include="Resources\whatsapp.png" />
     <None Include="Resources\noimage.png" />
     <None Include="Resources\menudistribucion.png" />

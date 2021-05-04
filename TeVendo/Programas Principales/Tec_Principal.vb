@@ -972,7 +972,7 @@ Public Class Tec_Principal
 
     Private Sub btnDespacho_Click(sender As Object, e As EventArgs) Handles btnDespacho.Click
         SuperTabControlMenu.SelectedTab = tab_ventana
-        Dim frm As New Tec_Despachos 
+        Dim frm As New Tec_CrearServicios
 
         Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
         tab3.RecalcSize()

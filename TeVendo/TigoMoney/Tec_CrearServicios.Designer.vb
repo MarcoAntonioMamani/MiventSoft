@@ -23,9 +23,9 @@ Partial Class Tec_CrearServicios
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim cbNegocio_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbCategoria_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tec_CrearServicios))
+        Dim cbNegocio_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.Highlighter2 = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MeuOpciones = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -39,6 +39,19 @@ Partial Class Tec_CrearServicios
         Me.PanelLEft = New System.Windows.Forms.Panel()
         Me.Panel8 = New System.Windows.Forms.Panel()
         Me.Panel9 = New System.Windows.Forms.Panel()
+        Me.btnSearchProducto = New DevComponents.DotNetBar.ButtonX()
+        Me.tbAdicional = New DevComponents.Editors.DoubleInput()
+        Me.LabelX12 = New DevComponents.DotNetBar.LabelX()
+        Me.tbMontoGanancia = New DevComponents.Editors.DoubleInput()
+        Me.LabelX11 = New DevComponents.DotNetBar.LabelX()
+        Me.tbPorcentajeGanancia = New DevComponents.Editors.DoubleInput()
+        Me.LabelX10 = New DevComponents.DotNetBar.LabelX()
+        Me.cbCategoria = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.LabelX9 = New DevComponents.DotNetBar.LabelX()
+        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
+        Me.tbProducto = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
+        Me.tbDescripcion = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.cbNegocio = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.tbMontoServicio = New DevComponents.Editors.DoubleInput()
         Me.LabelX8 = New DevComponents.DotNetBar.LabelX()
@@ -82,19 +95,6 @@ Partial Class Tec_CrearServicios
         Me.Panel16 = New System.Windows.Forms.Panel()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
-        Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
-        Me.tbDescripcion = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
-        Me.tbProducto = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.cbCategoria = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
-        Me.LabelX9 = New DevComponents.DotNetBar.LabelX()
-        Me.tbPorcentajeGanancia = New DevComponents.Editors.DoubleInput()
-        Me.LabelX10 = New DevComponents.DotNetBar.LabelX()
-        Me.tbMontoGanancia = New DevComponents.Editors.DoubleInput()
-        Me.LabelX11 = New DevComponents.DotNetBar.LabelX()
-        Me.LabelX12 = New DevComponents.DotNetBar.LabelX()
-        Me.tbAdicional = New DevComponents.Editors.DoubleInput()
-        Me.btnSearchProducto = New DevComponents.DotNetBar.ButtonX()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MeuOpciones.SuspendLayout()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -105,6 +105,10 @@ Partial Class Tec_CrearServicios
         Me.PanelLEft.SuspendLayout()
         Me.Panel8.SuspendLayout()
         Me.Panel9.SuspendLayout()
+        CType(Me.tbAdicional, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbMontoGanancia, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbPorcentajeGanancia, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbCategoria, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbNegocio, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbMontoServicio, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel10.SuspendLayout()
@@ -122,10 +126,6 @@ Partial Class Tec_CrearServicios
         Me.Panel14.SuspendLayout()
         Me.Panel15.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cbCategoria, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.tbPorcentajeGanancia, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.tbMontoGanancia, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.tbAdicional, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MEP
@@ -287,6 +287,230 @@ Partial Class Tec_CrearServicios
         Me.Panel9.Name = "Panel9"
         Me.Panel9.Size = New System.Drawing.Size(1144, 423)
         Me.Panel9.TabIndex = 2
+        '
+        'btnSearchProducto
+        '
+        Me.btnSearchProducto.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnSearchProducto.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnSearchProducto.Image = Global.TeVendo.My.Resources.Resources.search
+        Me.btnSearchProducto.ImageFixedSize = New System.Drawing.Size(20, 20)
+        Me.btnSearchProducto.Location = New System.Drawing.Point(425, 242)
+        Me.btnSearchProducto.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnSearchProducto.Name = "btnSearchProducto"
+        Me.btnSearchProducto.Size = New System.Drawing.Size(35, 28)
+        Me.btnSearchProducto.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnSearchProducto.Symbol = ""
+        Me.btnSearchProducto.SymbolColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.btnSearchProducto.TabIndex = 214
+        Me.btnSearchProducto.Visible = False
+        '
+        'tbAdicional
+        '
+        '
+        '
+        '
+        Me.tbAdicional.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbAdicional.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbAdicional.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.tbAdicional.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbAdicional.Increment = 1.0R
+        Me.tbAdicional.Location = New System.Drawing.Point(442, 152)
+        Me.tbAdicional.Name = "tbAdicional"
+        Me.tbAdicional.Size = New System.Drawing.Size(219, 26)
+        Me.tbAdicional.TabIndex = 10
+        '
+        'LabelX12
+        '
+        Me.LabelX12.AutoSize = True
+        Me.LabelX12.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX12.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX12.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX12.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX12.Location = New System.Drawing.Point(442, 124)
+        Me.LabelX12.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX12.Name = "LabelX12"
+        Me.LabelX12.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX12.Size = New System.Drawing.Size(126, 21)
+        Me.LabelX12.TabIndex = 64
+        Me.LabelX12.Text = "Ganancia Adicional:"
+        '
+        'tbMontoGanancia
+        '
+        '
+        '
+        '
+        Me.tbMontoGanancia.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbMontoGanancia.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbMontoGanancia.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.tbMontoGanancia.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbMontoGanancia.Increment = 1.0R
+        Me.tbMontoGanancia.Location = New System.Drawing.Point(680, 92)
+        Me.tbMontoGanancia.Name = "tbMontoGanancia"
+        Me.tbMontoGanancia.Size = New System.Drawing.Size(219, 26)
+        Me.tbMontoGanancia.TabIndex = 9
+        '
+        'LabelX11
+        '
+        Me.LabelX11.AutoSize = True
+        Me.LabelX11.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX11.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX11.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX11.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX11.Location = New System.Drawing.Point(680, 64)
+        Me.LabelX11.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX11.Name = "LabelX11"
+        Me.LabelX11.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX11.Size = New System.Drawing.Size(110, 21)
+        Me.LabelX11.TabIndex = 62
+        Me.LabelX11.Text = "Monto Ganancia:"
+        '
+        'tbPorcentajeGanancia
+        '
+        '
+        '
+        '
+        Me.tbPorcentajeGanancia.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbPorcentajeGanancia.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbPorcentajeGanancia.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.tbPorcentajeGanancia.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbPorcentajeGanancia.Increment = 1.0R
+        Me.tbPorcentajeGanancia.Location = New System.Drawing.Point(442, 92)
+        Me.tbPorcentajeGanancia.Name = "tbPorcentajeGanancia"
+        Me.tbPorcentajeGanancia.Size = New System.Drawing.Size(219, 26)
+        Me.tbPorcentajeGanancia.TabIndex = 8
+        '
+        'LabelX10
+        '
+        Me.LabelX10.AutoSize = True
+        Me.LabelX10.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX10.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX10.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX10.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX10.Location = New System.Drawing.Point(442, 64)
+        Me.LabelX10.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX10.Name = "LabelX10"
+        Me.LabelX10.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX10.Size = New System.Drawing.Size(135, 21)
+        Me.LabelX10.TabIndex = 60
+        Me.LabelX10.Text = "Porcentaje Ganancia:"
+        '
+        'cbCategoria
+        '
+        Me.cbCategoria.BackColor = System.Drawing.Color.Azure
+        Me.cbCategoria.ColorScheme = ""
+        Me.cbCategoria.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.cbCategoria.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
+        Me.cbCategoria.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        cbCategoria_DesignTimeLayout.LayoutString = resources.GetString("cbCategoria_DesignTimeLayout.LayoutString")
+        Me.cbCategoria.DesignTimeLayout = cbCategoria_DesignTimeLayout
+        Me.cbCategoria.FlatBorderColor = System.Drawing.Color.Black
+        Me.cbCategoria.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbCategoria.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbCategoria.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cbCategoria.Location = New System.Drawing.Point(18, 367)
+        Me.cbCategoria.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbCategoria.Name = "cbCategoria"
+        Me.cbCategoria.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbCategoria.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
+        Me.cbCategoria.SelectedIndex = -1
+        Me.cbCategoria.SelectedItem = Nothing
+        Me.cbCategoria.Size = New System.Drawing.Size(399, 26)
+        Me.cbCategoria.TabIndex = 6
+        Me.cbCategoria.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'LabelX9
+        '
+        Me.LabelX9.AutoSize = True
+        Me.LabelX9.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX9.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX9.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX9.Location = New System.Drawing.Point(18, 337)
+        Me.LabelX9.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX9.Name = "LabelX9"
+        Me.LabelX9.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX9.Size = New System.Drawing.Size(66, 21)
+        Me.LabelX9.TabIndex = 58
+        Me.LabelX9.Text = "Categoria:"
+        '
+        'LabelX5
+        '
+        Me.LabelX5.AutoSize = True
+        Me.LabelX5.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX5.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX5.Location = New System.Drawing.Point(18, 219)
+        Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX5.Name = "LabelX5"
+        Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX5.Size = New System.Drawing.Size(124, 21)
+        Me.LabelX5.TabIndex = 56
+        Me.LabelX5.Text = "Producto Asociado:"
+        '
+        'tbProducto
+        '
+        '
+        '
+        '
+        Me.tbProducto.Border.Class = "TextBoxBorder"
+        Me.tbProducto.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbProducto.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbProducto.Location = New System.Drawing.Point(18, 244)
+        Me.tbProducto.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbProducto.Name = "tbProducto"
+        Me.tbProducto.PreventEnterBeep = True
+        Me.tbProducto.Size = New System.Drawing.Size(399, 26)
+        Me.tbProducto.TabIndex = 4
+        '
+        'LabelX4
+        '
+        Me.LabelX4.AutoSize = True
+        Me.LabelX4.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX4.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX4.Location = New System.Drawing.Point(18, 121)
+        Me.LabelX4.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX4.Name = "LabelX4"
+        Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX4.Size = New System.Drawing.Size(103, 21)
+        Me.LabelX4.TabIndex = 54
+        Me.LabelX4.Text = "Detalle Servicio:"
+        '
+        'tbDescripcion
+        '
+        '
+        '
+        '
+        Me.tbDescripcion.Border.Class = "TextBoxBorder"
+        Me.tbDescripcion.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbDescripcion.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbDescripcion.Location = New System.Drawing.Point(18, 146)
+        Me.tbDescripcion.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbDescripcion.Multiline = True
+        Me.tbDescripcion.Name = "tbDescripcion"
+        Me.tbDescripcion.PreventEnterBeep = True
+        Me.tbDescripcion.Size = New System.Drawing.Size(399, 64)
+        Me.tbDescripcion.TabIndex = 3
         '
         'cbNegocio
         '
@@ -962,230 +1186,6 @@ Partial Class Tec_CrearServicios
         Me.SuperTabItem2.Text = "Lista De Datos"
         Me.SuperTabItem2.TextAlignment = DevComponents.DotNetBar.eItemAlignment.Center
         '
-        'LabelX4
-        '
-        Me.LabelX4.AutoSize = True
-        Me.LabelX4.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX4.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX4.Location = New System.Drawing.Point(18, 121)
-        Me.LabelX4.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX4.Name = "LabelX4"
-        Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX4.Size = New System.Drawing.Size(103, 21)
-        Me.LabelX4.TabIndex = 54
-        Me.LabelX4.Text = "Detalle Servicio:"
-        '
-        'tbDescripcion
-        '
-        '
-        '
-        '
-        Me.tbDescripcion.Border.Class = "TextBoxBorder"
-        Me.tbDescripcion.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbDescripcion.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbDescripcion.Location = New System.Drawing.Point(18, 146)
-        Me.tbDescripcion.Margin = New System.Windows.Forms.Padding(4)
-        Me.tbDescripcion.Multiline = True
-        Me.tbDescripcion.Name = "tbDescripcion"
-        Me.tbDescripcion.PreventEnterBeep = True
-        Me.tbDescripcion.Size = New System.Drawing.Size(399, 64)
-        Me.tbDescripcion.TabIndex = 3
-        '
-        'LabelX5
-        '
-        Me.LabelX5.AutoSize = True
-        Me.LabelX5.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX5.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX5.Location = New System.Drawing.Point(18, 219)
-        Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX5.Name = "LabelX5"
-        Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX5.Size = New System.Drawing.Size(124, 21)
-        Me.LabelX5.TabIndex = 56
-        Me.LabelX5.Text = "Producto Asociado:"
-        '
-        'tbProducto
-        '
-        '
-        '
-        '
-        Me.tbProducto.Border.Class = "TextBoxBorder"
-        Me.tbProducto.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbProducto.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbProducto.Location = New System.Drawing.Point(18, 244)
-        Me.tbProducto.Margin = New System.Windows.Forms.Padding(4)
-        Me.tbProducto.Name = "tbProducto"
-        Me.tbProducto.PreventEnterBeep = True
-        Me.tbProducto.Size = New System.Drawing.Size(399, 26)
-        Me.tbProducto.TabIndex = 4
-        '
-        'cbCategoria
-        '
-        Me.cbCategoria.BackColor = System.Drawing.Color.Azure
-        Me.cbCategoria.ColorScheme = ""
-        Me.cbCategoria.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
-        Me.cbCategoria.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
-        Me.cbCategoria.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
-        cbCategoria_DesignTimeLayout.LayoutString = resources.GetString("cbCategoria_DesignTimeLayout.LayoutString")
-        Me.cbCategoria.DesignTimeLayout = cbCategoria_DesignTimeLayout
-        Me.cbCategoria.FlatBorderColor = System.Drawing.Color.Black
-        Me.cbCategoria.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbCategoria.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.cbCategoria.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.cbCategoria.Location = New System.Drawing.Point(18, 367)
-        Me.cbCategoria.Margin = New System.Windows.Forms.Padding(4)
-        Me.cbCategoria.Name = "cbCategoria"
-        Me.cbCategoria.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.cbCategoria.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
-        Me.cbCategoria.SelectedIndex = -1
-        Me.cbCategoria.SelectedItem = Nothing
-        Me.cbCategoria.Size = New System.Drawing.Size(399, 26)
-        Me.cbCategoria.TabIndex = 6
-        Me.cbCategoria.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        '
-        'LabelX9
-        '
-        Me.LabelX9.AutoSize = True
-        Me.LabelX9.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX9.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX9.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX9.Location = New System.Drawing.Point(18, 337)
-        Me.LabelX9.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX9.Name = "LabelX9"
-        Me.LabelX9.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX9.Size = New System.Drawing.Size(66, 21)
-        Me.LabelX9.TabIndex = 58
-        Me.LabelX9.Text = "Categoria:"
-        '
-        'tbPorcentajeGanancia
-        '
-        '
-        '
-        '
-        Me.tbPorcentajeGanancia.BackgroundStyle.Class = "DateTimeInputBackground"
-        Me.tbPorcentajeGanancia.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbPorcentajeGanancia.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
-        Me.tbPorcentajeGanancia.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbPorcentajeGanancia.Increment = 1.0R
-        Me.tbPorcentajeGanancia.Location = New System.Drawing.Point(442, 92)
-        Me.tbPorcentajeGanancia.Name = "tbPorcentajeGanancia"
-        Me.tbPorcentajeGanancia.Size = New System.Drawing.Size(219, 26)
-        Me.tbPorcentajeGanancia.TabIndex = 8
-        '
-        'LabelX10
-        '
-        Me.LabelX10.AutoSize = True
-        Me.LabelX10.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX10.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX10.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX10.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX10.Location = New System.Drawing.Point(442, 64)
-        Me.LabelX10.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX10.Name = "LabelX10"
-        Me.LabelX10.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX10.Size = New System.Drawing.Size(135, 21)
-        Me.LabelX10.TabIndex = 60
-        Me.LabelX10.Text = "Porcentaje Ganancia:"
-        '
-        'tbMontoGanancia
-        '
-        '
-        '
-        '
-        Me.tbMontoGanancia.BackgroundStyle.Class = "DateTimeInputBackground"
-        Me.tbMontoGanancia.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbMontoGanancia.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
-        Me.tbMontoGanancia.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbMontoGanancia.Increment = 1.0R
-        Me.tbMontoGanancia.Location = New System.Drawing.Point(680, 92)
-        Me.tbMontoGanancia.Name = "tbMontoGanancia"
-        Me.tbMontoGanancia.Size = New System.Drawing.Size(219, 26)
-        Me.tbMontoGanancia.TabIndex = 9
-        '
-        'LabelX11
-        '
-        Me.LabelX11.AutoSize = True
-        Me.LabelX11.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX11.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX11.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX11.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX11.Location = New System.Drawing.Point(680, 64)
-        Me.LabelX11.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX11.Name = "LabelX11"
-        Me.LabelX11.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX11.Size = New System.Drawing.Size(110, 21)
-        Me.LabelX11.TabIndex = 62
-        Me.LabelX11.Text = "Monto Ganancia:"
-        '
-        'LabelX12
-        '
-        Me.LabelX12.AutoSize = True
-        Me.LabelX12.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX12.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX12.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX12.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX12.Location = New System.Drawing.Point(442, 124)
-        Me.LabelX12.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX12.Name = "LabelX12"
-        Me.LabelX12.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX12.Size = New System.Drawing.Size(126, 21)
-        Me.LabelX12.TabIndex = 64
-        Me.LabelX12.Text = "Ganancia Adicional:"
-        '
-        'tbAdicional
-        '
-        '
-        '
-        '
-        Me.tbAdicional.BackgroundStyle.Class = "DateTimeInputBackground"
-        Me.tbAdicional.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbAdicional.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
-        Me.tbAdicional.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbAdicional.Increment = 1.0R
-        Me.tbAdicional.Location = New System.Drawing.Point(442, 152)
-        Me.tbAdicional.Name = "tbAdicional"
-        Me.tbAdicional.Size = New System.Drawing.Size(219, 26)
-        Me.tbAdicional.TabIndex = 10
-        '
-        'btnSearchProducto
-        '
-        Me.btnSearchProducto.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnSearchProducto.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.btnSearchProducto.Image = Global.TeVendo.My.Resources.Resources.search
-        Me.btnSearchProducto.ImageFixedSize = New System.Drawing.Size(20, 20)
-        Me.btnSearchProducto.Location = New System.Drawing.Point(425, 242)
-        Me.btnSearchProducto.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnSearchProducto.Name = "btnSearchProducto"
-        Me.btnSearchProducto.Size = New System.Drawing.Size(35, 28)
-        Me.btnSearchProducto.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnSearchProducto.Symbol = ""
-        Me.btnSearchProducto.SymbolColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.btnSearchProducto.TabIndex = 214
-        Me.btnSearchProducto.Visible = False
-        '
         'Tec_CrearServicios
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -1205,6 +1205,10 @@ Partial Class Tec_CrearServicios
         Me.Panel8.ResumeLayout(False)
         Me.Panel9.ResumeLayout(False)
         Me.Panel9.PerformLayout()
+        CType(Me.tbAdicional, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbMontoGanancia, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbPorcentajeGanancia, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbCategoria, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbNegocio, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbMontoServicio, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel10.ResumeLayout(False)
@@ -1222,10 +1226,6 @@ Partial Class Tec_CrearServicios
         Me.Panel14.ResumeLayout(False)
         Me.Panel15.ResumeLayout(False)
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cbCategoria, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.tbPorcentajeGanancia, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.tbMontoGanancia, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.tbAdicional, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
