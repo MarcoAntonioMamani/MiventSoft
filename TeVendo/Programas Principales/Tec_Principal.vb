@@ -995,7 +995,7 @@ Public Class Tec_Principal
 
     Private Sub btnConciliaciones_Click(sender As Object, e As EventArgs) Handles btnConciliaciones.Click
         SuperTabControlMenu.SelectedTab = tab_ventana
-        Dim frm As New Tec_Conciliacion
+        Dim frm As New Tec_VentasTigoMoney
 
         Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
         tab3.RecalcSize()

@@ -517,6 +517,12 @@
     <Compile Include="Modulos Compras Ventas\Tec_VentasDetalle.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modulos Compras Ventas\Tigo Money\Tec_VentasTigoMoney.Designer.vb">
+      <DependentUpon>Tec_VentasTigoMoney.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos Compras Ventas\Tigo Money\Tec_VentasTigoMoney.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Programas Principales\Tec_Login.Designer.vb">
       <DependentUpon>Tec_Login.vb</DependentUpon>
     </Compile>
@@ -962,6 +968,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modulos Compras Ventas\Tec_VentasDetalle.resx">
       <DependentUpon>Tec_VentasDetalle.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulos Compras Ventas\Tigo Money\Tec_VentasTigoMoney.resx">
+      <DependentUpon>Tec_VentasTigoMoney.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Programas Principales\Tec_Login.resx">
       <DependentUpon>Tec_Login.vb</DependentUpon>
@@ -1533,6 +1542,10 @@
     <None Include="Resources\eliminar01.jpg" />
     <None Include="Resources\icongastos.png" />
     <None Include="Resources\iconcierre.png" />
+    <None Include="Resources\icon01tigo.png" />
+    <None Include="Resources\icon02tigo.png" />
+    <None Include="Resources\icon03tigo.png" />
+    <None Include="Resources\icon04tigo.png" />
     <Content Include="Resources\man.png" />
     <None Include="Resources\pdf.png" />
     <None Include="Resources\txt.png" />
