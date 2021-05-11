@@ -314,6 +314,7 @@ Public Class Tec_Productos
             .SetHighlightOnFocus(btUniMaxima, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(btnGrabar, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(btnSalir, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbCodigoBarras, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
 
         End With
     End Sub
@@ -577,6 +578,8 @@ Public Class Tec_Productos
         cbProveedor.ReadOnly = False
         cbMarca.ReadOnly = False
         cbAtributo.ReadOnly = False
+        tbCodigoBarras.ReadOnly = False
+
         cbFamilia.ReadOnly = False
         cbUniVenta.ReadOnly = False
         cbUnidMaxima.ReadOnly = False
@@ -600,6 +603,10 @@ Public Class Tec_Productos
         tbCodigoExterno.ReadOnly = True
         tbDescripcion.ReadOnly = True
         tbStockMinimo.IsInputReadOnly = True
+
+
+        tbCodigoBarras.ReadOnly = True
+
         swEstado.IsReadOnly = True
         cbEmpresa.ReadOnly = True
         cbCategoria.ReadOnly = True
@@ -627,6 +634,7 @@ Public Class Tec_Productos
         tbNombreProducto.Text = ""
         tbDescripcion.Text = ""
         tbCodigoExterno.Text = ""
+        tbCodigoBarras.Text = ""
         tbStockMinimo.Value = 0
         tbConversion.Value = 0
         swEstado.Value = True
@@ -678,7 +686,7 @@ Public Class Tec_Productos
         ''_conversion As Double
         Dim res As Boolean
         Try
-            res = L_prProductoInsertar(tbCodigo.Text, tbCodigoExterno.Text, "", tbNombreProducto.Text,
+            res = L_prProductoInsertar(tbCodigo.Text, tbCodigoExterno.Text, tbCodigoBarras.Text, tbNombreProducto.Text,
                                                  tbDescripcion.Text, tbStockMinimo.Value, IIf(swEstado.Value = True, 1, 0),
                                                  cbCategoria.Value, cbEmpresa.Value, cbProveedor.Value, cbMarca.Value,
                                                  cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes)
@@ -706,7 +714,7 @@ Public Class Tec_Productos
     Public Function _PMOModificarRegistro() As Boolean
         Dim Res As Boolean
         Try
-            Res = L_prProductoModificar(tbCodigo.Text, tbCodigoExterno.Text, "", tbNombreProducto.Text,
+            Res = L_prProductoModificar(tbCodigo.Text, tbCodigoExterno.Text, tbCodigoBarras.Text, tbNombreProducto.Text,
                                                 tbDescripcion.Text, tbStockMinimo.Value, IIf(swEstado.Value = True, 1, 0),
                                                 cbCategoria.Value, cbEmpresa.Value, cbProveedor.Value, cbMarca.Value,
                                                 cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes)
@@ -968,6 +976,7 @@ Public Class Tec_Productos
             cbAtributo.Value = .GetValue("AttributoId")
             cbFamilia.Value = .GetValue("FamiliaId")
             cbUniVenta.Value = .GetValue("UnidadVentaId")
+            tbCodigoBarras.Text = .GetValue("CodigoBarras")
             cbUnidMaxima.Value = .GetValue("UnidadMaximaId")
             tbConversion.Value = .GetValue("Conversion")
         End With
