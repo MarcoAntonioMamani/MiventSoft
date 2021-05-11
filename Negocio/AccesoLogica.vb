@@ -1252,7 +1252,16 @@ Public Class AccesoLogica
 
 
 #Region "Ventas Servicios Tigo Money"
+    Public Shared Function ListarServiciosVentas(CategoriaServicio As Integer) As DataTable
+        Dim _Tabla As DataTable
 
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@CategoriaServicio", CategoriaServicio))
+        _Tabla = D_ProcedimientoConParam("MAM_VentasServicios", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function ListaVentasDetallesServicios(VentaId As String) As DataTable
         Dim _Tabla As DataTable
 

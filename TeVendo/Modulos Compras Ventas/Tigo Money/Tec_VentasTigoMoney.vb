@@ -25,6 +25,8 @@ Public Class Tec_VentasTigoMoney
     Dim IdVendedor As Integer = 0
     Dim IdCliente As Integer = 0
 
+    Dim CategoriaServicio As Integer = 6082
+
 #End Region
 
 #Region "Metodos Overrides"
@@ -2431,17 +2433,140 @@ salirIf:
     End Sub
 
     Private Sub btnSeleccionarProducto_Click(sender As Object, e As EventArgs) Handles btnSeleccionarProducto.Click
-        'Dim ef = New Efecto
-        'ef.tipo = 16
-        'ef.dtDetalle = CType(grDetalle.DataSource, DataTable)
+        If (Not _fnAccesible()) Then
+            Return
+        End If
 
-        'ef.SucursalId = cbSucursal.Value
-        'ef.Lotebool = Lote
-        'ef.TipoPrograma = 1
-        'ef.IdCliente = IdCliente
-        'ef.ShowDialog()
-        'grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
-        '_prCalcularPrecioTotal()
+
+        Dim dt As DataTable
+
+
+        dt = ListarServiciosVentas(CategoriaServicio)
+        'Id	NombreServicio	DescripcionServicio	Descripcion	estado	stock	GananciaAbonoVenta	PagoAdicional
+
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("Id", False, "ID", 50))
+        listEstCeldas.Add(New Celda("Nombre", True, "SERVICIO", 350))
+        listEstCeldas.Add(New Celda("DescripcionServicio", True, "DESCRIPCION", 180))
+        listEstCeldas.Add(New Celda("Descripcion", False, "".ToUpper, 200))
+        listEstCeldas.Add(New Celda("estado", False, "ID", 50))
+        listEstCeldas.Add(New Celda("stock", True, "STOCK", 90, "0.00"))
+        listEstCeldas.Add(New Celda("GananciaAbonoVenta", False, "ID", 50))
+        listEstCeldas.Add(New Celda("PagoAdicional", False, "ID", 50))
+
+        Dim ef = New Efecto
+        ef.tipo = 6
+        ef.dt = dt
+        ef.SeleclCol = 0
+        ef.listEstCeldasNew = listEstCeldas
+        ef.alto = 80
+        ef.ancho = 800
+        ef.Context = "Seleccione Servicio".ToUpper
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+            seleccionarProducto(Row)
+            'IdCliente = Row.Cells("ID").Value
+            'tbCliente.Text = Row.Cells("NombreProveedor").Value.ToString
+
+            'btnSeleccionarProducto.Focus()
+
+
+        Else
+            btnSeleccionarProducto.Focus()
+        End If
+    End Sub
+    Public Sub seleccionarProducto(row As Janus.Windows.GridEX.GridEXRow)
+
+
+        If (row.Cells("stock").Value <= 0 And TipoProgramas = 1) Then
+
+            ToastNotification.Show(Me, "No Existe Stock del Producto Para Proceder con la Venta".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Return
+        Else
+
+            InsertarProductosSinLote(0, row)
+        End If
+
+
+
+
+    End Sub
+
+    Public Sub InsertarProductosSinLote(cantidad As Double, row As Janus.Windows.GridEX.GridEXRow)
+        'a.Id , a.VentaId, a.ProductoId, p.NombreProducto As Producto, a.Cantidad, a.Precio, a.SubTotal,
+        'a.ProcentajeDescuento, a.MontoDescuento, a.Total, a.Detalle, a.PrecioCosto, a.Lote, a.FechaVencimiento,
+        '1 As estado, cast('' as image ) as img
+        ', 0 as stock
+        Dim pos As Integer = -1
+        If (grDetalle.Row < 0) Then
+            _prAddDetalleVenta()
+        End If
+        ''row.Cells("stock").Value
+        Dim existe As Boolean = _fnExisteProducto(row.Cells("Id").Value)
+        If ((Not existe)) Then
+
+
+            If (grDetalle.GetValue("ServicioId") > 0) Then
+                _prAddDetalleVenta()
+            End If
+            grDetalle.Row = grDetalle.RowCount - 1
+                _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"), grDetalle.GetValue("Tipo"))
+                If ((pos >= 0)) Then
+                '   a.Id ,VentaServicioId  ,ProductoId,ServicioId  ,Servicio, PorcentajeGanado,CantidadGanado,
+                '       a.Cantidad , a.Precio, a.SubTotal, a.ProcentajeDescuento, a.MontoDescuento, a.MontoAdicional, a.Total, a.Detalle, a.PrecioCosto 
+                ',a.Lote ,a.FechaVencimiento, Tipo, KitId,CantidadKit ,1 as estado,cast ('' as image ) as img
+                '	, as stock
+
+
+                Dim PorcentajeGanancia As Double = grDetalle.GetValue("PorcentajeGanado")
+                    Dim CantidadGanada As Double = (PorcentajeGanancia * cantidad) / 100
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadGanado") = CantidadGanada
+
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = grProducto.GetValue("Id")
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = grProducto.GetValue("NombreProducto")
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PorcentajeGanado") = grProducto.GetValue("GananciaAbonoVenta")
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadVendida") = cantidad
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = grProducto.GetValue("PrecioVenta")
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = grProducto.GetValue("PrecioVenta") * cantidad
+
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = grProducto.GetValue("PrecioVenta") * cantidad
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCosto") = grProducto.GetValue("PrecioCosto")
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("Stock")
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Tipo") = 1
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("TipoNombre") = "Productos"
+
+
+
+                btnSeleccionarProducto.Focus()
+            End If
+
+
+
+        Else
+            If (existe) Then
+
+
+                ToastNotification.Show(Me, "El producto ya existe en el detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                btnSeleccionarProducto.Focus()
+            End If
+        End If
+
+
+    End Sub
+
+    Private Sub _prAddDetalleVenta()
+        '   a.Id ,VentaServicioId  ,ProductoId,ServicioId  ,Servicio, PorcentajeGanado,CantidadGanado,
+        '       a.Cantidad , a.Precio, a.SubTotal, a.ProcentajeDescuento, a.MontoDescuento, a.MontoAdicional, a.Total, a.Detalle, a.PrecioCosto 
+        ',a.Lote ,a.FechaVencimiento, Tipo, KitId,CantidadKit ,1 as estado,cast ('' as image ) as img
+        '	, as stock
+        Dim Bin As New MemoryStream
+        Dim img As New Bitmap(My.Resources.rowdelete, 25, 18)
+        img.Save(Bin, Imaging.ImageFormat.Png)
+        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, 0, 0, 0, "", 0, "20200101", CDate("2020/01/01"), 0, 0, 0, 0, Bin.GetBuffer, 0)
     End Sub
 
     Private Sub LabelX8_Click(sender As Object, e As EventArgs) Handles LabelX8.Click

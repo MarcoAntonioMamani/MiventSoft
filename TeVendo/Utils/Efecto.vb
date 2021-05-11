@@ -217,6 +217,9 @@ Public Class Efecto
 
     End Sub
 
+
+
+
     Sub _prMostrarFormLibreria()
 
         Dim frmAyuda As CrearLibreria
