@@ -84,7 +84,7 @@ Partial Class Tec_Login
         Me.tbpassword.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tbpassword.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbpassword.Location = New System.Drawing.Point(457, 192)
-        Me.tbpassword.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tbpassword.Margin = New System.Windows.Forms.Padding(4)
         Me.tbpassword.Name = "tbpassword"
         Me.tbpassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.tbpassword.PreventEnterBeep = True
@@ -164,7 +164,7 @@ Partial Class Tec_Login
         Me.tbUsuario.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tbUsuario.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbUsuario.Location = New System.Drawing.Point(457, 130)
-        Me.tbUsuario.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tbUsuario.Margin = New System.Windows.Forms.Padding(4)
         Me.tbUsuario.Name = "tbUsuario"
         Me.tbUsuario.PreventEnterBeep = True
         Me.tbUsuario.Size = New System.Drawing.Size(385, 37)
