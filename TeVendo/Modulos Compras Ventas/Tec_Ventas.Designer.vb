@@ -150,9 +150,6 @@ Partial Class Tec_Ventas
         Me.SuperTabItem4 = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel5 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.DoubleInput1 = New DevComponents.Editors.DoubleInput()
-        Me.LabelX21 = New DevComponents.DotNetBar.LabelX()
-        Me.DoubleInput2 = New DevComponents.Editors.DoubleInput()
         Me.LabelX22 = New DevComponents.DotNetBar.LabelX()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
@@ -213,8 +210,6 @@ Partial Class Tec_Ventas
         Me.Panel22.SuspendLayout()
         Me.SuperTabControlPanel5.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
-        CType(Me.DoubleInput1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DoubleInput2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TabControlPrincipal
@@ -2318,9 +2313,6 @@ Partial Class Tec_Ventas
         'GroupBox3
         '
         Me.GroupBox3.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.GroupBox3.Controls.Add(Me.DoubleInput1)
-        Me.GroupBox3.Controls.Add(Me.LabelX21)
-        Me.GroupBox3.Controls.Add(Me.DoubleInput2)
         Me.GroupBox3.Controls.Add(Me.LabelX22)
         Me.GroupBox3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox3.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -2333,61 +2325,6 @@ Partial Class Tec_Ventas
         Me.GroupBox3.TabIndex = 364
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Datos De Facturación:"
-        '
-        'DoubleInput1
-        '
-        '
-        '
-        '
-        Me.DoubleInput1.BackgroundStyle.Class = "DateTimeInputBackground"
-        Me.DoubleInput1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.DoubleInput1.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
-        Me.DoubleInput1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DoubleInput1.ForeColor = System.Drawing.Color.Black
-        Me.DoubleInput1.Increment = 1.0R
-        Me.DoubleInput1.Location = New System.Drawing.Point(130, 81)
-        Me.DoubleInput1.Margin = New System.Windows.Forms.Padding(4)
-        Me.DoubleInput1.MinValue = 0R
-        Me.DoubleInput1.Name = "DoubleInput1"
-        Me.DoubleInput1.Size = New System.Drawing.Size(160, 27)
-        Me.DoubleInput1.TabIndex = 68
-        Me.DoubleInput1.WatermarkAlignment = DevComponents.Editors.eTextAlignment.Right
-        '
-        'LabelX21
-        '
-        Me.LabelX21.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX21.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX21.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX21.ForeColor = System.Drawing.Color.White
-        Me.LabelX21.Location = New System.Drawing.Point(10, 81)
-        Me.LabelX21.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX21.Name = "LabelX21"
-        Me.LabelX21.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX21.Size = New System.Drawing.Size(113, 22)
-        Me.LabelX21.TabIndex = 67
-        Me.LabelX21.Text = "Cambio:"
-        '
-        'DoubleInput2
-        '
-        '
-        '
-        '
-        Me.DoubleInput2.BackgroundStyle.Class = "DateTimeInputBackground"
-        Me.DoubleInput2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.DoubleInput2.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
-        Me.DoubleInput2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DoubleInput2.ForeColor = System.Drawing.Color.Black
-        Me.DoubleInput2.Increment = 1.0R
-        Me.DoubleInput2.Location = New System.Drawing.Point(130, 37)
-        Me.DoubleInput2.Margin = New System.Windows.Forms.Padding(4)
-        Me.DoubleInput2.MinValue = 0R
-        Me.DoubleInput2.Name = "DoubleInput2"
-        Me.DoubleInput2.Size = New System.Drawing.Size(160, 27)
-        Me.DoubleInput2.TabIndex = 3
-        Me.DoubleInput2.WatermarkAlignment = DevComponents.Editors.eTextAlignment.Right
         '
         'LabelX22
         '
@@ -2480,8 +2417,6 @@ Partial Class Tec_Ventas
         Me.Panel22.PerformLayout()
         Me.SuperTabControlPanel5.ResumeLayout(False)
         Me.GroupBox3.ResumeLayout(False)
-        CType(Me.DoubleInput1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DoubleInput2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2610,9 +2545,6 @@ Partial Class Tec_Ventas
     Friend WithEvents TextBoxX1 As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents SuperTabControlPanel5 As DevComponents.DotNetBar.SuperTabControlPanel
     Friend WithEvents GroupBox3 As GroupBox
-    Friend WithEvents DoubleInput1 As DevComponents.Editors.DoubleInput
-    Friend WithEvents LabelX21 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents DoubleInput2 As DevComponents.Editors.DoubleInput
     Friend WithEvents LabelX22 As DevComponents.DotNetBar.LabelX
     Friend WithEvents SuperTabItem4 As DevComponents.DotNetBar.SuperTabItem
 End Class
