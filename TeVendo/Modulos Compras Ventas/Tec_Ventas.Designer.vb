@@ -151,6 +151,13 @@ Partial Class Tec_Ventas
         Me.SuperTabControlPanel5 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.LabelX22 = New DevComponents.DotNetBar.LabelX()
+        Me.tbNroAutorizacion = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.tbCodigoControl = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX21 = New DevComponents.DotNetBar.LabelX()
+        Me.tbNroFactura = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX23 = New DevComponents.DotNetBar.LabelX()
+        Me.LabelX24 = New DevComponents.DotNetBar.LabelX()
+        Me.tbFechaFactura = New Janus.Windows.CalendarCombo.CalendarCombo()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -656,8 +663,8 @@ Partial Class Tec_Ventas
         Me.SuperTabControl1.ControlBox.Name = ""
         Me.SuperTabControl1.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControl1.ControlBox.MenuBox, Me.SuperTabControl1.ControlBox.CloseBox})
         Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel5)
-        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel4)
         Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel3)
+        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel4)
         Me.SuperTabControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControl1.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControl1.Location = New System.Drawing.Point(0, 0)
@@ -678,7 +685,7 @@ Partial Class Tec_Ventas
         Me.SuperTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel3.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
-        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(1231, 185)
+        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(1186, 185)
         Me.SuperTabControlPanel3.TabIndex = 1
         Me.SuperTabControlPanel3.TabItem = Me.SuperTabItem3
         '
@@ -709,7 +716,7 @@ Partial Class Tec_Ventas
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(1231, 185)
+        Me.Panel3.Size = New System.Drawing.Size(1186, 185)
         Me.Panel3.TabIndex = 49
         '
         'cbSucursal
@@ -1101,7 +1108,7 @@ Partial Class Tec_Ventas
         Me.SuperTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel4.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel4.Name = "SuperTabControlPanel4"
-        Me.SuperTabControlPanel4.Size = New System.Drawing.Size(1173, 185)
+        Me.SuperTabControlPanel4.Size = New System.Drawing.Size(1186, 185)
         Me.SuperTabControlPanel4.TabIndex = 0
         Me.SuperTabControlPanel4.TabItem = Me.tab_Cobro
         '
@@ -1112,7 +1119,7 @@ Partial Class Tec_Ventas
         Me.Panel20.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel20.Location = New System.Drawing.Point(0, 0)
         Me.Panel20.Name = "Panel20"
-        Me.Panel20.Size = New System.Drawing.Size(1173, 185)
+        Me.Panel20.Size = New System.Drawing.Size(1186, 185)
         Me.Panel20.TabIndex = 1
         '
         'GroupBox2
@@ -1129,7 +1136,7 @@ Partial Class Tec_Ventas
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox2.Size = New System.Drawing.Size(517, 185)
+        Me.GroupBox2.Size = New System.Drawing.Size(530, 185)
         Me.GroupBox2.TabIndex = 363
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Efectivo Pagado / Cambio:"
@@ -2245,8 +2252,8 @@ Partial Class Tec_Ventas
         '
         '
         '
-        Me.tbnit.Border.Class = "TextBoxBorder"
-        Me.tbnit.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.TextBoxX1.Border.Class = "TextBoxBorder"
+        Me.TextBoxX1.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbnit.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbnit.Location = New System.Drawing.Point(96, 9)
         Me.tbnit.Margin = New System.Windows.Forms.Padding(4)
@@ -2313,6 +2320,13 @@ Partial Class Tec_Ventas
         'GroupBox3
         '
         Me.GroupBox3.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.GroupBox3.Controls.Add(Me.tbFechaFactura)
+        Me.GroupBox3.Controls.Add(Me.LabelX24)
+        Me.GroupBox3.Controls.Add(Me.tbNroFactura)
+        Me.GroupBox3.Controls.Add(Me.LabelX23)
+        Me.GroupBox3.Controls.Add(Me.tbCodigoControl)
+        Me.GroupBox3.Controls.Add(Me.LabelX21)
+        Me.GroupBox3.Controls.Add(Me.tbNroAutorizacion)
         Me.GroupBox3.Controls.Add(Me.LabelX22)
         Me.GroupBox3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox3.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -2328,6 +2342,7 @@ Partial Class Tec_Ventas
         '
         'LabelX22
         '
+        Me.LabelX22.AutoSize = True
         Me.LabelX22.BackColor = System.Drawing.Color.Transparent
         '
         '
@@ -2339,9 +2354,141 @@ Partial Class Tec_Ventas
         Me.LabelX22.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX22.Name = "LabelX22"
         Me.LabelX22.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX22.Size = New System.Drawing.Size(113, 22)
+        Me.LabelX22.Size = New System.Drawing.Size(127, 23)
         Me.LabelX22.TabIndex = 64
-        Me.LabelX22.Text = "Total Pagado:"
+        Me.LabelX22.Text = "Nro Autorización:"
+        '
+        'tbNroAutorizacion
+        '
+        '
+        '
+        '
+        Me.tbNroAutorizacion.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbNroAutorizacion.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbNroAutorizacion.Location = New System.Drawing.Point(145, 38)
+        Me.tbNroAutorizacion.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbNroAutorizacion.Name = "tbNroAutorizacion"
+        Me.tbNroAutorizacion.PreventEnterBeep = True
+        Me.tbNroAutorizacion.Size = New System.Drawing.Size(349, 26)
+        Me.tbNroAutorizacion.TabIndex = 214
+        '
+        'tbCodigoControl
+        '
+        '
+        '
+        '
+        Me.tbCodigoControl.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCodigoControl.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbCodigoControl.Location = New System.Drawing.Point(145, 72)
+        Me.tbCodigoControl.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbCodigoControl.Name = "tbCodigoControl"
+        Me.tbCodigoControl.PreventEnterBeep = True
+        Me.tbCodigoControl.Size = New System.Drawing.Size(349, 26)
+        Me.tbCodigoControl.TabIndex = 216
+        '
+        'LabelX21
+        '
+        Me.LabelX21.AutoSize = True
+        Me.LabelX21.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX21.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX21.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX21.ForeColor = System.Drawing.Color.White
+        Me.LabelX21.Location = New System.Drawing.Point(10, 75)
+        Me.LabelX21.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX21.Name = "LabelX21"
+        Me.LabelX21.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX21.Size = New System.Drawing.Size(112, 23)
+        Me.LabelX21.TabIndex = 215
+        Me.LabelX21.Text = "Codigo Control:"
+        '
+        'tbNroFactura
+        '
+        '
+        '
+        '
+        Me.tbNroFactura.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbNroFactura.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbNroFactura.Location = New System.Drawing.Point(145, 106)
+        Me.tbNroFactura.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbNroFactura.Name = "tbNroFactura"
+        Me.tbNroFactura.PreventEnterBeep = True
+        Me.tbNroFactura.Size = New System.Drawing.Size(349, 26)
+        Me.tbNroFactura.TabIndex = 218
+        '
+        'LabelX23
+        '
+        Me.LabelX23.AutoSize = True
+        Me.LabelX23.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX23.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX23.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX23.ForeColor = System.Drawing.Color.White
+        Me.LabelX23.Location = New System.Drawing.Point(10, 109)
+        Me.LabelX23.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX23.Name = "LabelX23"
+        Me.LabelX23.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX23.Size = New System.Drawing.Size(90, 23)
+        Me.LabelX23.TabIndex = 217
+        Me.LabelX23.Text = "Nro Factura:"
+        '
+        'LabelX24
+        '
+        Me.LabelX24.AutoSize = True
+        Me.LabelX24.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX24.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX24.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX24.ForeColor = System.Drawing.Color.White
+        Me.LabelX24.Location = New System.Drawing.Point(10, 140)
+        Me.LabelX24.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX24.Name = "LabelX24"
+        Me.LabelX24.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX24.Size = New System.Drawing.Size(105, 23)
+        Me.LabelX24.TabIndex = 219
+        Me.LabelX24.Text = "Fecha Factura:"
+        '
+        'tbFechaFactura
+        '
+        Me.tbFechaFactura.BackColor = System.Drawing.Color.White
+        Me.tbFechaFactura.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.Flat
+        '
+        '
+        '
+        Me.tbFechaFactura.DropDownCalendar.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.None
+        Me.tbFechaFactura.DropDownCalendar.DayOfWeekAbbreviation = Janus.Windows.CalendarCombo.DayOfWeekAbbreviation.UseAbbreviatedName
+        Me.tbFechaFactura.DropDownCalendar.DaysFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.tbFechaFactura.DropDownCalendar.DaysFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.tbFechaFactura.DropDownCalendar.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFechaFactura.DropDownCalendar.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.tbFechaFactura.DropDownCalendar.HeaderAppearance = Janus.Windows.CalendarCombo.ButtonAppearance.PopUp
+        Me.tbFechaFactura.DropDownCalendar.HeaderFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.tbFechaFactura.DropDownCalendar.HeaderFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.tbFechaFactura.DropDownCalendar.Name = ""
+        Me.tbFechaFactura.DropDownCalendar.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.tbFechaFactura.DropDownCalendar.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.tbFechaFactura.DropDownCalendar.TodayRectColor = System.Drawing.Color.DarkCyan
+        Me.tbFechaFactura.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.tbFechaFactura.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
+        Me.tbFechaFactura.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFechaFactura.Location = New System.Drawing.Point(145, 140)
+        Me.tbFechaFactura.Name = "tbFechaFactura"
+        Me.tbFechaFactura.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.tbFechaFactura.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.tbFechaFactura.SecondIncrement = 10
+        Me.tbFechaFactura.Size = New System.Drawing.Size(349, 32)
+        Me.tbFechaFactura.TabIndex = 220
+        Me.tbFechaFactura.TodayButtonText = "Hoy"
+        Me.tbFechaFactura.UseCompatibleTextRendering = False
+        Me.tbFechaFactura.Value = New Date(2020, 6, 21, 0, 0, 0, 0)
+        Me.tbFechaFactura.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.tbFechaFactura.YearIncrement = 10
         '
         'Tec_Ventas
         '
@@ -2417,6 +2564,7 @@ Partial Class Tec_Ventas
         Me.Panel22.PerformLayout()
         Me.SuperTabControlPanel5.ResumeLayout(False)
         Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2547,4 +2695,11 @@ Partial Class Tec_Ventas
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents LabelX22 As DevComponents.DotNetBar.LabelX
     Friend WithEvents SuperTabItem4 As DevComponents.DotNetBar.SuperTabItem
+    Friend WithEvents tbNroAutorizacion As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents tbCodigoControl As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents LabelX21 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbNroFactura As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents LabelX23 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents LabelX24 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbFechaFactura As Janus.Windows.CalendarCombo.CalendarCombo
 End Class
