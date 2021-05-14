@@ -2314,5 +2314,9 @@ salirIf:
 
         End If
     End Sub
+
+    Private Sub LabelX19_Click(sender As Object, e As EventArgs) Handles LabelX19.Click
+
+    End Sub
 #End Region
 End Class
