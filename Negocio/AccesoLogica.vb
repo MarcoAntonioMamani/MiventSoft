@@ -3134,6 +3134,79 @@ Public Class AccesoLogica
 #End Region
 
 
+
+#Region "Dosificacion"
+    Public Shared Function L_prInsertarDosificacion(ByRef _numi As String, SucursalId As Integer, NumeroAutorizacion As String, UltimoNroFactura As Integer, Llave As String, FechaInicio As String, FechaLimite As String, Nota01 As String, Nota02 As String, Estado As Integer, TipoComputarizado As Integer) As Boolean
+        Dim _resultado As Boolean
+
+        '@Id,@SucursalId,@NumeroAutorizacion,@UltimoNroFactura,@Llave,
+        '@FechaInicio,@FechaLimite,@Nota01,@Nota02,@Estado,@TipoComputarizado
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
+        _listParam.Add(New Datos.DParametro("@NumeroAutorizacion", NumeroAutorizacion))
+        _listParam.Add(New Datos.DParametro("@UltimoNroFactura", UltimoNroFactura))
+        _listParam.Add(New Datos.DParametro("@Llave", Llave))
+        _listParam.Add(New Datos.DParametro("@FechaInicio", FechaInicio))
+        _listParam.Add(New Datos.DParametro("@FechaLimite", FechaLimite))
+        _listParam.Add(New Datos.DParametro("@Nota01", Nota01))
+        _listParam.Add(New Datos.DParametro("@Nota02", Nota02))
+        _listParam.Add(New Datos.DParametro("@Estado", Estado))
+        _listParam.Add(New Datos.DParametro("@TipoComputarizado", TipoComputarizado))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_Dosificacion", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _numi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function L_prModificarDosificacion(ByRef _numi As String, SucursalId As Integer, NumeroAutorizacion As String, UltimoNroFactura As Integer, Llave As String, FechaInicio As String, FechaLimite As String, Nota01 As String, Nota02 As String, Estado As Integer, TipoComputarizado As Integer) As Boolean
+        Dim _resultado As Boolean
+
+        '@Id,@SucursalId,@NumeroAutorizacion,@UltimoNroFactura,@Llave,
+        '@FechaInicio,@FechaLimite,@Nota01,@Nota02,@Estado,@TipoComputarizado
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
+        _listParam.Add(New Datos.DParametro("@NumeroAutorizacion", NumeroAutorizacion))
+        _listParam.Add(New Datos.DParametro("@UltimoNroFactura", UltimoNroFactura))
+        _listParam.Add(New Datos.DParametro("@Llave", Llave))
+        _listParam.Add(New Datos.DParametro("@FechaInicio", FechaInicio))
+        _listParam.Add(New Datos.DParametro("@FechaLimite", FechaLimite))
+        _listParam.Add(New Datos.DParametro("@Nota01", Nota01))
+        _listParam.Add(New Datos.DParametro("@Nota02", Nota02))
+        _listParam.Add(New Datos.DParametro("@Estado", Estado))
+        _listParam.Add(New Datos.DParametro("@TipoComputarizado", TipoComputarizado))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_Dosificacion", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _numi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+#End Region
+
 #Region "Conceptos Fijos"
     Public Shared Function L_prListarCaja() As DataTable
         Dim _Tabla As DataTable
