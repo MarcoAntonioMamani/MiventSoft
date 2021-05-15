@@ -158,6 +158,7 @@ Partial Class Tec_Ventas
         Me.LabelX23 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX24 = New DevComponents.DotNetBar.LabelX()
         Me.tbFechaFactura = New Janus.Windows.CalendarCombo.CalendarCombo()
+        Me.QrCodeImage = New Gma.QrCodeNet.Encoding.Windows.Forms.QrCodeImgControl()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -217,6 +218,7 @@ Partial Class Tec_Ventas
         Me.Panel22.SuspendLayout()
         Me.SuperTabControlPanel5.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
+        CType(Me.QrCodeImage, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TabControlPrincipal
@@ -2320,6 +2322,7 @@ Partial Class Tec_Ventas
         'GroupBox3
         '
         Me.GroupBox3.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.GroupBox3.Controls.Add(Me.QrCodeImage)
         Me.GroupBox3.Controls.Add(Me.tbFechaFactura)
         Me.GroupBox3.Controls.Add(Me.LabelX24)
         Me.GroupBox3.Controls.Add(Me.tbNroFactura)
@@ -2490,6 +2493,19 @@ Partial Class Tec_Ventas
         Me.tbFechaFactura.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
         Me.tbFechaFactura.YearIncrement = 10
         '
+        'QrCodeImage
+        '
+        Me.QrCodeImage.ErrorCorrectLevel = Gma.QrCodeNet.Encoding.ErrorCorrectionLevel.M
+        Me.QrCodeImage.Image = CType(resources.GetObject("QrCodeImage.Image"), System.Drawing.Image)
+        Me.QrCodeImage.Location = New System.Drawing.Point(535, 38)
+        Me.QrCodeImage.Name = "QrCodeImage"
+        Me.QrCodeImage.QuietZoneModule = Gma.QrCodeNet.Encoding.Windows.Render.QuietZoneModules.Two
+        Me.QrCodeImage.Size = New System.Drawing.Size(150, 130)
+        Me.QrCodeImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.QrCodeImage.TabIndex = 221
+        Me.QrCodeImage.TabStop = False
+        Me.QrCodeImage.Text = "QrCodeImgControl1"
+        '
         'Tec_Ventas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -2565,6 +2581,7 @@ Partial Class Tec_Ventas
         Me.SuperTabControlPanel5.ResumeLayout(False)
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
+        CType(Me.QrCodeImage, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2702,4 +2719,5 @@ Partial Class Tec_Ventas
     Friend WithEvents LabelX23 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX24 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbFechaFactura As Janus.Windows.CalendarCombo.CalendarCombo
+    Friend WithEvents QrCodeImage As Gma.QrCodeNet.Encoding.Windows.Forms.QrCodeImgControl
 End Class
