@@ -134,6 +134,9 @@
       <HintPath>..\..\..\DINASES\Google Drive\Librerias\DotNet\DevComponents.TreeGX.dll</HintPath>
     </Reference>
     <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="Gma.QrCodeNet.Encoding">
+      <HintPath>..\..\..\..\DINASES\Google Drive\Librerias\QrCode\Gma.QrCodeNet.Encoding.dll</HintPath>
+    </Reference>
     <Reference Include="GMap.NET.Core">
       <HintPath>..\..\..\..\DINASES\Google Drive\Librerias\GMap\GMap.NET.Core.dll</HintPath>
     </Reference>
@@ -164,6 +167,8 @@
     <Reference Include="OnBarcode.Barcode.WinForms">
       <HintPath>C:\Users\usuario\Dropbox\Utilitarios\Aplicaciones\Qrcode_Barcode\OnBarcode.Barcode.WinForms.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -176,6 +181,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
