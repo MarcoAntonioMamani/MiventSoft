@@ -117,27 +117,44 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="cbSucursal_DesignTimeLayout.LayoutString" xml:space="preserve">
+    <value>&lt;GridEXLayoutData&gt;&lt;RootTable&gt;&lt;GroupCondition /&gt;&lt;/RootTable&gt;&lt;RowWithErrorsFormatStyle&gt;&lt;PredefinedStyle&gt;RowWithErrorsFormatStyle&lt;/PredefinedStyle&gt;&lt;/RowWithErrorsFormatStyle&gt;&lt;LinkFormatStyle&gt;&lt;PredefinedStyle&gt;LinkFormatStyle&lt;/PredefinedStyle&gt;&lt;/LinkFormatStyle&gt;&lt;CardCaptionFormatStyle&gt;&lt;PredefinedStyle&gt;CardCaptionFormatStyle&lt;/PredefinedStyle&gt;&lt;/CardCaptionFormatStyle&gt;&lt;GroupByBoxFormatStyle&gt;&lt;PredefinedStyle&gt;GroupByBoxFormatStyle&lt;/PredefinedStyle&gt;&lt;/GroupByBoxFormatStyle&gt;&lt;GroupByBoxInfoFormatStyle&gt;&lt;PredefinedStyle&gt;GroupByBoxInfoFormatStyle&lt;/PredefinedStyle&gt;&lt;/GroupByBoxInfoFormatStyle&gt;&lt;GroupRowFormatStyle&gt;&lt;BackColor&gt;White&lt;/BackColor&gt;&lt;BackColorGradient&gt;White&lt;/BackColorGradient&gt;&lt;PredefinedStyle&gt;GroupRowFormatStyle&lt;/PredefinedStyle&gt;&lt;/GroupRowFormatStyle&gt;&lt;HeaderFormatStyle&gt;&lt;ForeColor&gt;Black&lt;/ForeColor&gt;&lt;BackColorGradient&gt;White&lt;/BackColorGradient&gt;&lt;Font&gt;Calibri, 9pt, style=Bold&lt;/Font&gt;&lt;PredefinedStyle&gt;HeaderFormatStyle&lt;/PredefinedStyle&gt;&lt;/HeaderFormatStyle&gt;&lt;PreviewRowFormatStyle&gt;&lt;PredefinedStyle&gt;PreviewRowFormatStyle&lt;/PredefinedStyle&gt;&lt;/PreviewRowFormatStyle&gt;&lt;RowFormatStyle&gt;&lt;PredefinedStyle&gt;RowFormatStyle&lt;/PredefinedStyle&gt;&lt;/RowFormatStyle&gt;&lt;SelectedFormatStyle&gt;&lt;BackColor&gt;Black&lt;/BackColor&gt;&lt;ForeColor&gt;White&lt;/ForeColor&gt;&lt;Font&gt;Calibri, 10.8pt, style=Bold&lt;/Font&gt;&lt;PredefinedStyle&gt;SelectedFormatStyle&lt;/PredefinedStyle&gt;&lt;/SelectedFormatStyle&gt;&lt;SelectedInactiveFormatStyle&gt;&lt;PredefinedStyle&gt;SelectedInactiveFormatStyle&lt;/PredefinedStyle&gt;&lt;/SelectedInactiveFormatStyle&gt;&lt;FocusCellFormatStyle&gt;&lt;BackColor&gt;Lime&lt;/BackColor&gt;&lt;Font&gt;Calibri, 9pt, style=Bold&lt;/Font&gt;&lt;PredefinedStyle&gt;FocusCellFormatStyle&lt;/PredefinedStyle&gt;&lt;/FocusCellFormatStyle&gt;&lt;GroupRowVisualStyle&gt;UseRowStyle&lt;/GroupRowVisualStyle&gt;&lt;WatermarkImage /&gt;&lt;AlternatingColors&gt;True&lt;/AlternatingColors&gt;&lt;GridLineColor&gt;DarkSlateGray&lt;/GridLineColor&gt;&lt;BorderStyle&gt;Sunken&lt;/BorderStyle&gt;&lt;ThemedAreas&gt;EditControls&lt;/ThemedAreas&gt;&lt;FlatBorderColor&gt;Black&lt;/FlatBorderColor&gt;&lt;BackColor&gt;White&lt;/BackColor&gt;&lt;ControlStyle&gt;&lt;ButtonAppearance&gt;PopUp&lt;/ButtonAppearance&gt;&lt;/ControlStyle&gt;&lt;VisualStyle&gt;Office2007&lt;/VisualStyle&gt;&lt;AllowEdit&gt;False&lt;/AllowEdit&gt;&lt;ExpandableGroups&gt;False&lt;/ExpandableGroups&gt;&lt;GridLines&gt;RowOutline&lt;/GridLines&gt;&lt;GroupByBoxVisible&gt;False&lt;/GroupByBoxVisible&gt;&lt;HideSelection&gt;Highlight&lt;/HideSelection&gt;&lt;/GridEXLayoutData&gt;</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="QrCodeImage.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        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
+        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
 </value>
-  </data>
-  <data name="cbSucursal_DesignTimeLayout.LayoutString" xml:space="preserve">
-    <value>&lt;GridEXLayoutData&gt;&lt;RootTable&gt;&lt;GroupCondition /&gt;&lt;/RootTable&gt;&lt;RowWithErrorsFormatStyle&gt;&lt;PredefinedStyle&gt;RowWithErrorsFormatStyle&lt;/PredefinedStyle&gt;&lt;/RowWithErrorsFormatStyle&gt;&lt;LinkFormatStyle&gt;&lt;PredefinedStyle&gt;LinkFormatStyle&lt;/PredefinedStyle&gt;&lt;/LinkFormatStyle&gt;&lt;CardCaptionFormatStyle&gt;&lt;PredefinedStyle&gt;CardCaptionFormatStyle&lt;/PredefinedStyle&gt;&lt;/CardCaptionFormatStyle&gt;&lt;GroupByBoxFormatStyle&gt;&lt;PredefinedStyle&gt;GroupByBoxFormatStyle&lt;/PredefinedStyle&gt;&lt;/GroupByBoxFormatStyle&gt;&lt;GroupByBoxInfoFormatStyle&gt;&lt;PredefinedStyle&gt;GroupByBoxInfoFormatStyle&lt;/PredefinedStyle&gt;&lt;/GroupByBoxInfoFormatStyle&gt;&lt;GroupRowFormatStyle&gt;&lt;BackColor&gt;White&lt;/BackColor&gt;&lt;BackColorGradient&gt;White&lt;/BackColorGradient&gt;&lt;PredefinedStyle&gt;GroupRowFormatStyle&lt;/PredefinedStyle&gt;&lt;/GroupRowFormatStyle&gt;&lt;HeaderFormatStyle&gt;&lt;ForeColor&gt;Black&lt;/ForeColor&gt;&lt;BackColorGradient&gt;White&lt;/BackColorGradient&gt;&lt;Font&gt;Calibri, 9pt, style=Bold&lt;/Font&gt;&lt;PredefinedStyle&gt;HeaderFormatStyle&lt;/PredefinedStyle&gt;&lt;/HeaderFormatStyle&gt;&lt;PreviewRowFormatStyle&gt;&lt;PredefinedStyle&gt;PreviewRowFormatStyle&lt;/PredefinedStyle&gt;&lt;/PreviewRowFormatStyle&gt;&lt;RowFormatStyle&gt;&lt;PredefinedStyle&gt;RowFormatStyle&lt;/PredefinedStyle&gt;&lt;/RowFormatStyle&gt;&lt;SelectedFormatStyle&gt;&lt;BackColor&gt;Black&lt;/BackColor&gt;&lt;ForeColor&gt;White&lt;/ForeColor&gt;&lt;Font&gt;Calibri, 10.8pt, style=Bold&lt;/Font&gt;&lt;PredefinedStyle&gt;SelectedFormatStyle&lt;/PredefinedStyle&gt;&lt;/SelectedFormatStyle&gt;&lt;SelectedInactiveFormatStyle&gt;&lt;PredefinedStyle&gt;SelectedInactiveFormatStyle&lt;/PredefinedStyle&gt;&lt;/SelectedInactiveFormatStyle&gt;&lt;FocusCellFormatStyle&gt;&lt;BackColor&gt;Lime&lt;/BackColor&gt;&lt;Font&gt;Calibri, 9pt, style=Bold&lt;/Font&gt;&lt;PredefinedStyle&gt;FocusCellFormatStyle&lt;/PredefinedStyle&gt;&lt;/FocusCellFormatStyle&gt;&lt;GroupRowVisualStyle&gt;UseRowStyle&lt;/GroupRowVisualStyle&gt;&lt;WatermarkImage /&gt;&lt;AlternatingColors&gt;True&lt;/AlternatingColors&gt;&lt;GridLineColor&gt;DarkSlateGray&lt;/GridLineColor&gt;&lt;BorderStyle&gt;Sunken&lt;/BorderStyle&gt;&lt;ThemedAreas&gt;EditControls&lt;/ThemedAreas&gt;&lt;FlatBorderColor&gt;Black&lt;/FlatBorderColor&gt;&lt;BackColor&gt;White&lt;/BackColor&gt;&lt;ControlStyle&gt;&lt;ButtonAppearance&gt;PopUp&lt;/ButtonAppearance&gt;&lt;/ControlStyle&gt;&lt;VisualStyle&gt;Office2007&lt;/VisualStyle&gt;&lt;AllowEdit&gt;False&lt;/AllowEdit&gt;&lt;ExpandableGroups&gt;False&lt;/ExpandableGroups&gt;&lt;GridLines&gt;RowOutline&lt;/GridLines&gt;&lt;GroupByBoxVisible&gt;False&lt;/GroupByBoxVisible&gt;&lt;HideSelection&gt;Highlight&lt;/HideSelection&gt;&lt;/GridEXLayoutData&gt;</value>
   </data>
   <metadata name="MeuOpciones.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>168, 103</value>
