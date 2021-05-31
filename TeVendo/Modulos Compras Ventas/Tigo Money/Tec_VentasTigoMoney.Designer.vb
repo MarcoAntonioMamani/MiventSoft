@@ -138,7 +138,7 @@ Partial Class Tec_VentasTigoMoney
         Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.Panel14 = New System.Windows.Forms.Panel()
         Me.Panel15 = New System.Windows.Forms.Panel()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.lbTitulo = New System.Windows.Forms.Label()
         Me.Panel16 = New System.Windows.Forms.Panel()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
@@ -281,7 +281,7 @@ Partial Class Tec_VentasTigoMoney
         Me.TabControlPrincipal.ReorderTabsEnabled = True
         Me.TabControlPrincipal.SelectedTabFont = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.SelectedTabIndex = 1
-        Me.TabControlPrincipal.Size = New System.Drawing.Size(1228, 552)
+        Me.TabControlPrincipal.Size = New System.Drawing.Size(1228, 562)
         Me.TabControlPrincipal.TabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Bottom
         Me.TabControlPrincipal.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.TabIndex = 4
@@ -298,7 +298,7 @@ Partial Class Tec_VentasTigoMoney
         Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
-        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1228, 523)
+        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1228, 533)
         Me.SuperTabControlPanel1.TabIndex = 1
         Me.SuperTabControlPanel1.TabItem = Me.SuperTabItem1
         '
@@ -310,7 +310,7 @@ Partial Class Tec_VentasTigoMoney
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1228, 523)
+        Me.Panel1.Size = New System.Drawing.Size(1228, 533)
         Me.Panel1.TabIndex = 0
         '
         'PanelSuperior
@@ -321,7 +321,7 @@ Partial Class Tec_VentasTigoMoney
         Me.PanelSuperior.Location = New System.Drawing.Point(0, 0)
         Me.PanelSuperior.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PanelSuperior.Name = "PanelSuperior"
-        Me.PanelSuperior.Size = New System.Drawing.Size(1228, 473)
+        Me.PanelSuperior.Size = New System.Drawing.Size(1228, 483)
         Me.PanelSuperior.TabIndex = 1
         '
         'PanelRight
@@ -331,7 +331,7 @@ Partial Class Tec_VentasTigoMoney
         Me.PanelRight.Location = New System.Drawing.Point(0, 182)
         Me.PanelRight.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PanelRight.Name = "PanelRight"
-        Me.PanelRight.Size = New System.Drawing.Size(1228, 291)
+        Me.PanelRight.Size = New System.Drawing.Size(1228, 301)
         Me.PanelRight.TabIndex = 1
         '
         'Panel2
@@ -344,7 +344,7 @@ Partial Class Tec_VentasTigoMoney
         Me.Panel2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Panel2.Size = New System.Drawing.Size(1228, 291)
+        Me.Panel2.Size = New System.Drawing.Size(1228, 301)
         Me.Panel2.TabIndex = 1
         '
         'PanelImagenes
@@ -355,7 +355,7 @@ Partial Class Tec_VentasTigoMoney
         Me.PanelImagenes.Location = New System.Drawing.Point(3, 29)
         Me.PanelImagenes.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PanelImagenes.Name = "PanelImagenes"
-        Me.PanelImagenes.Size = New System.Drawing.Size(1222, 260)
+        Me.PanelImagenes.Size = New System.Drawing.Size(1222, 270)
         Me.PanelImagenes.TabIndex = 2
         '
         'PanelVerImagen
@@ -367,7 +367,7 @@ Partial Class Tec_VentasTigoMoney
         Me.PanelVerImagen.Location = New System.Drawing.Point(0, 0)
         Me.PanelVerImagen.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelVerImagen.Name = "PanelVerImagen"
-        Me.PanelVerImagen.Size = New System.Drawing.Size(1222, 260)
+        Me.PanelVerImagen.Size = New System.Drawing.Size(1222, 270)
         Me.PanelVerImagen.TabIndex = 2
         '
         'grDetalle
@@ -412,7 +412,7 @@ Partial Class Tec_VentasTigoMoney
         Me.grDetalle.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.grDetalle.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grDetalle.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grDetalle.Size = New System.Drawing.Size(1013, 260)
+        Me.grDetalle.Size = New System.Drawing.Size(1013, 270)
         Me.grDetalle.TabIndex = 0
         Me.grDetalle.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grDetalle.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -431,7 +431,7 @@ Partial Class Tec_VentasTigoMoney
         Me.PanelTotal.Location = New System.Drawing.Point(1013, 0)
         Me.PanelTotal.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelTotal.Name = "PanelTotal"
-        Me.PanelTotal.Size = New System.Drawing.Size(209, 260)
+        Me.PanelTotal.Size = New System.Drawing.Size(209, 270)
         Me.PanelTotal.TabIndex = 4
         '
         'Panel13
@@ -448,7 +448,7 @@ Partial Class Tec_VentasTigoMoney
         Me.Panel13.Location = New System.Drawing.Point(0, 0)
         Me.Panel13.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(209, 260)
+        Me.Panel13.Size = New System.Drawing.Size(209, 270)
         Me.Panel13.TabIndex = 39
         '
         'LabelX10
@@ -624,7 +624,7 @@ Partial Class Tec_VentasTigoMoney
         Me.lbprivilegio.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
         Me.lbprivilegio.Size = New System.Drawing.Size(665, 25)
         Me.lbprivilegio.TabIndex = 2
-        Me.lbprivilegio.Text = "Detalle Productos"
+        Me.lbprivilegio.Text = "Detalle De Servicios"
         Me.lbprivilegio.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Panel7
@@ -870,7 +870,7 @@ Partial Class Tec_VentasTigoMoney
         Me.btnSeleccionarProducto.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Material
         Me.btnSeleccionarProducto.SymbolSize = 24.0!
         Me.btnSeleccionarProducto.TabIndex = 214
-        Me.btnSeleccionarProducto.Text = "Agregar Productos"
+        Me.btnSeleccionarProducto.Text = "Agregar Servicios"
         '
         'btnCliente
         '
@@ -1525,7 +1525,7 @@ Partial Class Tec_VentasTigoMoney
         Me.PanelButton.Controls.Add(Me.PanelToolBar1)
         Me.PanelButton.Controls.Add(Me.PanelNavegacion)
         Me.PanelButton.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PanelButton.Location = New System.Drawing.Point(0, 473)
+        Me.PanelButton.Location = New System.Drawing.Point(0, 483)
         Me.PanelButton.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PanelButton.Name = "PanelButton"
         Me.PanelButton.Size = New System.Drawing.Size(1228, 50)
@@ -1777,7 +1777,7 @@ Partial Class Tec_VentasTigoMoney
         Me.SuperTabControlPanel2.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.SuperTabControlPanel2.Name = "SuperTabControlPanel2"
-        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1228, 523)
+        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1228, 533)
         Me.SuperTabControlPanel2.TabIndex = 2
         Me.SuperTabControlPanel2.TabItem = Me.SuperTabItem2
         '
@@ -1791,7 +1791,7 @@ Partial Class Tec_VentasTigoMoney
         Me.Panel17.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel17.Name = "Panel17"
         Me.Panel17.Padding = New System.Windows.Forms.Padding(5)
-        Me.Panel17.Size = New System.Drawing.Size(1228, 523)
+        Me.Panel17.Size = New System.Drawing.Size(1228, 533)
         Me.Panel17.TabIndex = 4
         '
         'JGrM_Buscador
@@ -1838,7 +1838,7 @@ Partial Class Tec_VentasTigoMoney
         Me.JGrM_Buscador.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.JGrM_Buscador.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.JGrM_Buscador.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.JGrM_Buscador.Size = New System.Drawing.Size(1218, 413)
+        Me.JGrM_Buscador.Size = New System.Drawing.Size(1218, 423)
         Me.JGrM_Buscador.TabIndex = 2
         Me.JGrM_Buscador.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.JGrM_Buscador.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -2097,7 +2097,7 @@ Partial Class Tec_VentasTigoMoney
         'Panel15
         '
         Me.Panel15.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.Panel15.Controls.Add(Me.Label2)
+        Me.Panel15.Controls.Add(Me.lbTitulo)
         Me.Panel15.Controls.Add(Me.Panel16)
         Me.Panel15.Controls.Add(Me.PictureBox4)
         Me.Panel15.Dock = System.Windows.Forms.DockStyle.Fill
@@ -2107,19 +2107,19 @@ Partial Class Tec_VentasTigoMoney
         Me.Panel15.Size = New System.Drawing.Size(1216, 34)
         Me.Panel15.TabIndex = 0
         '
-        'Label2
+        'lbTitulo
         '
-        Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Label2.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.Label2.Location = New System.Drawing.Point(60, 0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
-        Me.Label2.Size = New System.Drawing.Size(253, 34)
-        Me.Label2.TabIndex = 2
-        Me.Label2.Text = "LISTADO DE VENTAS"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lbTitulo.BackColor = System.Drawing.Color.Transparent
+        Me.lbTitulo.Dock = System.Windows.Forms.DockStyle.Left
+        Me.lbTitulo.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbTitulo.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.lbTitulo.Location = New System.Drawing.Point(60, 0)
+        Me.lbTitulo.Name = "lbTitulo"
+        Me.lbTitulo.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
+        Me.lbTitulo.Size = New System.Drawing.Size(253, 34)
+        Me.lbTitulo.TabIndex = 2
+        Me.lbTitulo.Text = "LISTADO DE VENTAS"
+        Me.lbTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Panel16
         '
@@ -2159,7 +2159,7 @@ Partial Class Tec_VentasTigoMoney
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1228, 552)
+        Me.ClientSize = New System.Drawing.Size(1228, 562)
         Me.Controls.Add(Me.TabControlPrincipal)
         Me.Name = "Tec_VentasTigoMoney"
         Me.Text = "Ventas Tigo Money"
@@ -2340,7 +2340,7 @@ Partial Class Tec_VentasTigoMoney
     Protected WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
     Friend WithEvents Panel14 As Panel
     Friend WithEvents Panel15 As Panel
-    Friend WithEvents Label2 As Label
+    Friend WithEvents lbTitulo As Label
     Friend WithEvents Panel16 As Panel
     Friend WithEvents PictureBox4 As PictureBox
     Friend WithEvents SuperTabItem2 As DevComponents.DotNetBar.SuperTabItem

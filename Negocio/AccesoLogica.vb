@@ -1280,7 +1280,7 @@ Public Class AccesoLogica
                                            FechaTransacccion As String, PersonalId As Integer, ClienteId As Integer, TipoVenta As Integer,
        FechaVencCredito As String, Moneda As Integer, estado As Integer, glosa As String,
                                            TotalCompra As Double, _dtDetalle As DataTable,
-                                           Descuento As Double, dtPago As DataTable) As Boolean
+                                           Descuento As Double, dtPago As DataTable, CategoriaServicio As Integer) As Boolean
         Dim _resultado As Boolean
 
         '    @Id ,@SucursalId ,@FechaVenta ,@PersonalId ,@TipoVenta ,
@@ -1308,7 +1308,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@VentaDetalleType", "", _dtDetalle))
         _listParam.Add(New Datos.DParametro("@VentaPagos", "", dtPago))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
-
+        _listParam.Add(New Datos.DParametro("@CategoriaServicio", CategoriaServicio))
         _Tabla = D_ProcedimientoConParam("MAM_VentasServicios", _listParam)
 
         If _Tabla.Rows.Count > 0 Then
@@ -1325,7 +1325,7 @@ Public Class AccesoLogica
                                            FechaTransacccion As String, PersonalId As Integer, ClienteId As Integer, TipoVenta As Integer,
        FechaVencCredito As String, Moneda As Integer, estado As Integer, glosa As String,
                                            TotalCompra As Double, _dtDetalle As DataTable,
-                                           Descuento As Double, dtPago As DataTable) As Boolean
+                                           Descuento As Double, dtPago As DataTable, CategoriaServicio As Integer) As Boolean
         Dim _resultado As Boolean
 
         '    @Id ,@SucursalId ,@FechaVenta ,@PersonalId ,@TipoVenta ,
@@ -1353,7 +1353,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@VentaDetalleType", "", _dtDetalle))
         _listParam.Add(New Datos.DParametro("@VentaPagos", "", dtPago))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
-
+        _listParam.Add(New Datos.DParametro("@CategoriaServicio", CategoriaServicio))
         _Tabla = D_ProcedimientoConParam("MAM_VentasServicios", _listParam)
 
         If _Tabla.Rows.Count > 0 Then
@@ -2265,6 +2265,22 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@Desde", Desde))
         _listParam.Add(New Datos.DParametro("@Hasta", Hasta))
         _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
+        _Tabla = D_ProcedimientoConParam(NameSp, _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prListarVentasGeneralFiltroFechaServicio(NameSp As String, Desde As String, Hasta As String, SucursalId As Integer, CategoriaServicio As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@Desde", Desde))
+        _listParam.Add(New Datos.DParametro("@Hasta", Hasta))
+        _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
+        _listParam.Add(New Datos.DParametro("@CategoriaServicio", CategoriaServicio))
         _Tabla = D_ProcedimientoConParam(NameSp, _listParam)
 
         Return _Tabla

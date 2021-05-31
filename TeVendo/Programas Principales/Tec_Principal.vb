@@ -1009,8 +1009,12 @@ Public Class Tec_Principal
         frm._tab = tab3
         frm._TabControl = SuperTabControlMenu
         frm._modulo = tab_distribucion
+        frm.Tipo = 1
+        frm.CategoriaServicio = 6082
+        frm.Nombre = "Gestión Tigo"
+
         frm.Show()
-        tab3.Text = frm.Text
+        tab3.Text = "Gestión Tigo"
         Dim blah As New Bitmap(btnConciliaciones.Image, 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
@@ -1214,6 +1218,60 @@ Public Class Tec_Principal
         frm.Show()
         tab3.Text = frm.Text
         Dim blah As New Bitmap(btnReporteCajaDetallado.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
+    End Sub
+
+    Private Sub btnCierreCaja_Click(sender As Object, e As EventArgs) Handles btnCierreCaja.Click
+        SuperTabControlMenu.SelectedTab = tab_ventana
+        Dim frm As New Tec_VentasTigoMoney
+
+        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
+        tab3.RecalcSize()
+        tab3.ThemeAware = True
+        tab3.ShowSubItems = True
+        tab3.UpdateBindings()
+        'frm._tab = tab3
+        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
+        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
+        tab3.AttachedControl.Controls.Add(panel)
+        frm._tab = tab3
+        frm._TabControl = SuperTabControlMenu
+        frm._modulo = tab_distribucion
+        frm.Tipo = 2
+        frm.CategoriaServicio = 6083
+        frm.Nombre = "Retiros Tigo Money"
+
+        frm.Show()
+        tab3.Text = "Retiros Tigo Money"
+        Dim blah As New Bitmap(btnConciliaciones.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
+    End Sub
+
+    Private Sub btnPagosServicios_Click(sender As Object, e As EventArgs) Handles btnPagosServicios.Click
+        SuperTabControlMenu.SelectedTab = tab_ventana
+        Dim frm As New Tec_VentasTigoMoney
+
+        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
+        tab3.RecalcSize()
+        tab3.ThemeAware = True
+        tab3.ShowSubItems = True
+        tab3.UpdateBindings()
+        'frm._tab = tab3
+        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
+        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
+        tab3.AttachedControl.Controls.Add(panel)
+        frm._tab = tab3
+        frm._TabControl = SuperTabControlMenu
+        frm._modulo = tab_distribucion
+        frm.Tipo = 3
+        frm.CategoriaServicio = 6084
+        frm.Nombre = "Pagos De Servicios"
+
+        frm.Show()
+        tab3.Text = "Pagos De Servicios"
+        Dim blah As New Bitmap(btnConciliaciones.Image, 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub

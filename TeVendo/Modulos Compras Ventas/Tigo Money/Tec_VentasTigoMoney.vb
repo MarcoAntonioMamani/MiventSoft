@@ -25,7 +25,12 @@ Public Class Tec_VentasTigoMoney
     Dim IdVendedor As Integer = 0
     Dim IdCliente As Integer = 0
 
-    Dim CategoriaServicio As Integer = 6082
+    Public CategoriaServicio As Integer = 6082
+
+
+    Public Tipo As Integer = 0   ''1=Gestion Tigo  2=Retiros Tigo Money  3=Pagos de Servicios
+    Public Nombre As String = ""
+
 
 #End Region
 
@@ -246,13 +251,13 @@ Public Class Tec_VentasTigoMoney
         LeerConfiguracion()
 
         'L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
-        Me.Text = "Ventas Tigo Money"
+        Me.Text = "Ventas"
         P_Global._prCargarComboGenerico(cbSucursal, L_fnGeneralSucursales(), "aanumi", "Codigo", "aabdes", "Sucursal")
 
         _PMIniciarTodo()
         _prAsignarPermisos()
 
-
+        lbTitulo.Text = "Listado De Ventas De " + Nombre
 
 
 
@@ -332,17 +337,17 @@ Public Class Tec_VentasTigoMoney
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "Cant. Total".ToUpper
-            .CellStyle.BackColor = Color.SpringGreen
-            .CellStyle.FontBold = TriState.True
-            .TextAlignment = TextAlignment.Far
+            .Caption = "Cant.".ToUpper
+
         End With
 
 
 
         With grDetalle.RootTable.Columns("PorcentajeGanado")
-            .Width = 100
-            .Visible = False
+            .Width = 90
+            .Visible = True
+            .Caption = "% Ganancia"
+            .FormatString = "0.00"
 
         End With
         With grDetalle.RootTable.Columns("CantidadGanado")
@@ -364,15 +369,18 @@ Public Class Tec_VentasTigoMoney
         End With
 
         With grDetalle.RootTable.Columns("Precio")
-            .Width = 50
+            .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .Caption = "Precio"
             .FormatString = "0.00"
+            .CellStyle.BackColor = Color.SpringGreen
+            .CellStyle.FontBold = TriState.True
+            .TextAlignment = TextAlignment.Far
         End With
 
         With grDetalle.RootTable.Columns("SubTotal")
-            .Width = 60
+            .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .Caption = "SubTotal"
@@ -402,13 +410,16 @@ Public Class Tec_VentasTigoMoney
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = False
             .FormatString = "0.00"
-            .Caption = "M.Descuento".ToUpper
+            .Caption = "M.Descuento"
         End With
 
         With grDetalle.RootTable.Columns("MontoAdicional")
             .Width = 60
             .Visible = True
-            .Caption = "Total".ToUpper
+            .Caption = "Adicional"
+            .CellStyle.BackColor = Color.Gold
+            .CellStyle.FontBold = TriState.True
+            .TextAlignment = TextAlignment.Far
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
@@ -417,9 +428,12 @@ Public Class Tec_VentasTigoMoney
         With grDetalle.RootTable.Columns("Total")
             .Width = 60
             .Visible = True
-            .Caption = "Total".ToUpper
+            .Caption = "Total"
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .FormatString = "0.00"
+            .CellStyle.BackColor = Color.SpringGreen
+            .CellStyle.FontBold = TriState.True
+            .TextAlignment = TextAlignment.Far
             .AggregateFunction = AggregateFunction.Sum
         End With
 
@@ -478,7 +492,7 @@ Public Class Tec_VentasTigoMoney
                 .Caption = "FECHA VENC.".ToUpper
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
                 .FormatString = "yyyy/MM/dd"
-                .Visible = True
+                .Visible = False
             End With
         Else
 
@@ -691,11 +705,6 @@ Public Class Tec_VentasTigoMoney
                 Return
             End If
 
-            If (grDetalle.GetValue("Tipo") = 2) Then
-                e.Cancel = True
-                Return
-
-            End If
 
 
             If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index Or e.Column.Index = grDetalle.RootTable.Columns("MontoAdicional").Index) Then
@@ -711,7 +720,7 @@ Public Class Tec_VentasTigoMoney
                     Return
 
                 End If
-                If (Global_ModificarPrecio = 1 And e.Column.Index = grDetalle.RootTable.Columns("Precio").Index) Then
+                If (e.Column.Index = grDetalle.RootTable.Columns("Precio").Index) Then
 
                     e.Cancel = False
                     Return
@@ -738,16 +747,35 @@ Public Class Tec_VentasTigoMoney
         If (Not _fnAccesible()) Then
             Return
         End If
+        If (e.KeyData = Keys.Control + Keys.A) Then
+            If (grDetalle.Col = grDetalle.RootTable.Columns("Precio").Index) Then
 
+
+                btnGrabar.PerformClick()
+
+
+
+            End If
+        End If
         If (e.KeyData = Keys.Enter) Then
             Dim f, c As Integer
             c = grDetalle.Col
             f = grDetalle.Row
 
+
+            If (grDetalle.Col = grDetalle.RootTable.Columns("Precio").Index) Then
+
+
+                btnSeleccionarProducto.PerformClick()
+
+
+
+            End If
+
             If (grDetalle.Col = grDetalle.RootTable.Columns("Cantidad").Index) Then
                 If (grDetalle.GetValue("Servicio") <> String.Empty) Then
 
-                    btnSeleccionarProducto.Focus()
+                    btnSeleccionarProducto.PerformClick()
                 Else
                     ToastNotification.Show(Me, "Seleccione Servicio", img, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
                 End If
@@ -756,7 +784,7 @@ Public Class Tec_VentasTigoMoney
             If (grDetalle.Col = grDetalle.RootTable.Columns("Servicio").Index) Then
                 If (grDetalle.GetValue("Servicio") <> String.Empty) Then
 
-                    btnSeleccionarProducto.Focus()
+                    btnSeleccionarProducto.PerformClick()
                 Else
                     ToastNotification.Show(Me, "Seleccione un Servicio", img, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
                 End If
@@ -769,7 +797,7 @@ salirIf:
             grDetalle.Col = grDetalle.RootTable.Columns("Servicio").Index) Then
             Dim indexfil As Integer = grDetalle.Row
             Dim indexcol As Integer = grDetalle.Col
-            btnSeleccionarProducto.Focus()
+            btnSeleccionarProducto.PerformClick()
 
         End If
         If (e.KeyData = Keys.Escape And grDetalle.Row >= 0) Then
@@ -824,16 +852,7 @@ salirIf:
                 If (grDetalle.GetValue("Cantidad") > 0) Then
                     If (TipoProgramas = 1) Then
                         If (grDetalle.GetValue("Cantidad") <= grDetalle.GetValue("Stock")) Then
-                            ''''''''''''''''''''''''''''''
-                            Dim porcIncremento As Double = grDetalle.GetValue("PorcentajeGanado")
-                            Dim montoIncremento As Double = ((grDetalle.GetValue("Cantidad")) * (porcIncremento / 100))
-                            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadGanado") = montoIncremento
 
-
-                            grDetalle.SetValue("CantidadGanado", montoIncremento)
-
-                            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = montoIncremento + grDetalle.GetValue("Cantidad")
-                            grDetalle.SetValue("Cantidad", montoIncremento + grDetalle.GetValue("Cantidad"))
 
                             '''''''''''''''''''''''''''''''''''''''
 
@@ -1183,7 +1202,7 @@ salirIf:
             Dim uni As Double = grDetalle.GetValue("Precio")
             Dim MontoDesc As Double = grDetalle.GetValue("MontoDescuento")
             Dim PorcentajeGanancia As Double = grDetalle.GetValue("PorcentajeGanado")
-            Dim CantidadGanada As Double = (PorcentajeGanancia * cant) / 100
+            Dim CantidadGanada As Double = (PorcentajeGanancia * (cant * grDetalle.GetValue("Precio"))) / 100
             If (pos >= 0) Then
                 Dim TotalUnitario As Double = cant * uni
                 'grDetalle.SetValue("lcmdes", montodesc)
@@ -1193,8 +1212,8 @@ salirIf:
                 Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadGanado") = CantidadGanada
 
-                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = TotalUnitario - MontoDesc
-                grDetalle.SetValue("Total", TotalUnitario - MontoDesc)
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = (TotalUnitario + grDetalle.GetValue("MontoAdicional")) - MontoDesc
+                grDetalle.SetValue("Total", ((TotalUnitario + grDetalle.GetValue("MontoAdicional")) - MontoDesc))
                 If (estado = 1) Then
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
                 End If
@@ -1476,11 +1495,11 @@ salirIf:
 
                     res = VentaServiciosInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                    IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt)
+                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, CategoriaServicio)
 
                     If res Then
 
-                        ReporteVenta(Id)
+                        ''ReporteVenta(Id)
                         ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                         FilaSelectLote = Nothing
 
@@ -1498,11 +1517,11 @@ salirIf:
 
                 res = VentaServiciosInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt)
+                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, CategoriaServicio)
 
                 If res Then
 
-                    ReporteVenta(Id)
+                    '' ReporteVenta(Id)
                     ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                     FilaSelectLote = Nothing
 
@@ -1546,11 +1565,11 @@ salirIf:
 
                     Res = VentaServiciosModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                    IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt)
+                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, CategoriaServicio)
 
                     If Res Then
 
-                        ReporteVenta(tbCodigo.Text)
+                        '' ReporteVenta(tbCodigo.Text)
                         ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " Modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                         FilaSelectLote = Nothing
 
@@ -1568,11 +1587,11 @@ salirIf:
 
                 Res = VentaServiciosModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt)
+                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, CategoriaServicio)
 
                 If Res Then
 
-                    ReporteVenta(tbCodigo.Text)
+                    '' ReporteVenta(tbCodigo.Text)
                     ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " Modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                     FilaSelectLote = Nothing
 
@@ -1760,7 +1779,7 @@ salirIf:
 
     Public Function _PMOGetTablaBuscador() As DataTable
 
-        Dim dtBuscador As DataTable = L_prListarVentasGeneralFiltroFecha("MAM_VentasServicios", tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"), Global_Sucursal)
+        Dim dtBuscador As DataTable = L_prListarVentasGeneralFiltroFechaServicio("MAM_VentasServicios", tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"), Global_Sucursal, CategoriaServicio)
         Return dtBuscador
     End Function
 
@@ -1975,6 +1994,8 @@ salirIf:
             Else
                 TabControlPrincipal.SelectedTabIndex = 0
                 btnNuevo.PerformClick()
+                btnSeleccionarProducto.PerformClick()
+
             End If
 
         End If
@@ -1987,6 +2008,9 @@ salirIf:
             TabControlPrincipal.SelectedTabIndex = 0
 
         End If
+
+
+
     End Sub
 
 
@@ -2442,7 +2466,7 @@ salirIf:
 
 
         dt = ListarServiciosVentas(CategoriaServicio)
-        'Id	NombreServicio	DescripcionServicio	Descripcion	estado	stock	GananciaAbonoVenta	PagoAdicional
+        'Id	NombreServicio	DescripcionServicio	Descripcion	estado	stock	GananciaAbonoVenta	PagoAdicional,ProductoId
 
         Dim listEstCeldas As New List(Of Celda)
         listEstCeldas.Add(New Celda("Id", False, "ID", 50))
@@ -2453,7 +2477,7 @@ salirIf:
         listEstCeldas.Add(New Celda("stock", True, "STOCK", 90, "0.00"))
         listEstCeldas.Add(New Celda("GananciaAbonoVenta", False, "ID", 50))
         listEstCeldas.Add(New Celda("PagoAdicional", False, "ID", 50))
-
+        listEstCeldas.Add(New Celda("ProductoId", False, "ID", 50))
         Dim ef = New Efecto
         ef.tipo = 6
         ef.dt = dt
@@ -2487,7 +2511,7 @@ salirIf:
             Return
         Else
 
-            InsertarProductosSinLote(0, row)
+            InsertarProductosSinLote(1, row)
         End If
 
 
@@ -2520,28 +2544,52 @@ salirIf:
                 ',a.Lote ,a.FechaVencimiento, Tipo, KitId,CantidadKit ,1 as estado,cast ('' as image ) as img
                 '	, as stock
 
-
-                Dim PorcentajeGanancia As Double = grDetalle.GetValue("PorcentajeGanado")
-                    Dim CantidadGanada As Double = (PorcentajeGanancia * cantidad) / 100
-                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadGanado") = CantidadGanada
-
-                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = grProducto.GetValue("Id")
-                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = grProducto.GetValue("NombreProducto")
-                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
-                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PorcentajeGanado") = grProducto.GetValue("GananciaAbonoVenta")
-                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadVendida") = cantidad
-                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = grProducto.GetValue("PrecioVenta")
-                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = grProducto.GetValue("PrecioVenta") * cantidad
-
-                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = grProducto.GetValue("PrecioVenta") * cantidad
-                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCosto") = grProducto.GetValue("PrecioCosto")
-                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("Stock")
-                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Tipo") = 1
-                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("TipoNombre") = "Productos"
+                'Id  Nombre	DescripcionServicio	Descripcion	estado	stock	GananciaAbonoVenta	PagoAdicional,ProductoId
 
 
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoAdicional") = row.Cells("PagoAdicional").Value
+                Dim PorcentajeGanancia As Double = row.Cells("GananciaAbonoVenta").Value
+                Dim CantidadGanada As Double = (PorcentajeGanancia * 0) / 100
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadGanado") = CantidadGanada
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PorcentajeGanado") = row.Cells("GananciaAbonoVenta").Value
 
-                btnSeleccionarProducto.Focus()
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ServicioId") = row.Cells("Id").Value
+
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = row.Cells("ProductoId").Value
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Servicio") = row.Cells("Nombre").Value
+
+
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = row.Cells("stock").Value
+
+                '       a.Cantidad , a.Precio, a.SubTotal, a.ProcentajeDescuento, a.MontoDescuento, a.MontoAdicional, a.Total, a.Detalle, a.PrecioCosto 
+                ',a.Lote ,a.FechaVencimiento, Tipo, KitId,CantidadKit ,1 as estado,cast ('' as image ) as img
+                '	, as stock
+
+                'Id  NombreServicio	DescripcionServicio	Descripcion	estado	stock	GananciaAbonoVenta	PagoAdicional,ProductoId
+
+
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
+
+
+
+
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = 0
+
+
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = 0
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = 0 + row.Cells("PagoAdicional").Value
+
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCosto") = 0
+
+
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Tipo") = 2
+
+
+                grDetalle.Select()
+                grDetalle.Col = 8
+                grDetalle.Row = grDetalle.RowCount - 1
+
+                '' btnSeleccionarProducto.Focus()
             End If
 
 
