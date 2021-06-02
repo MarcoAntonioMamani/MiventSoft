@@ -6,6 +6,9 @@ Imports DevComponents.DotNetBar.SuperGrid
 Imports DevComponents.DotNetBar.Controls
 Imports Facturacion
 
+
+Imports System
+
 Public Class Tec_Ventas
 #Region "Atributos"
     Public _nameButton As String
@@ -2146,6 +2149,8 @@ salirIf:
 
 
     End Sub
+
+
 
     Private Sub P_GenerarReporteMasCopia(numi As String)
         Dim dt As DataTable = ListarVentaRecibo(numi)
