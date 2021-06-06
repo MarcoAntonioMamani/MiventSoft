@@ -47,7 +47,7 @@ Partial Class Tec_CrearServicios
         Me.tbPorcentajeGanancia = New DevComponents.Editors.DoubleInput()
         Me.LabelX10 = New DevComponents.DotNetBar.LabelX()
         Me.cbCategoria = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
-        Me.LabelX9 = New DevComponents.DotNetBar.LabelX()
+        Me.lbCategoria = New DevComponents.DotNetBar.LabelX()
         Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
         Me.tbProducto = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
@@ -267,7 +267,7 @@ Partial Class Tec_CrearServicios
         Me.Panel9.Controls.Add(Me.tbPorcentajeGanancia)
         Me.Panel9.Controls.Add(Me.LabelX10)
         Me.Panel9.Controls.Add(Me.cbCategoria)
-        Me.Panel9.Controls.Add(Me.LabelX9)
+        Me.Panel9.Controls.Add(Me.lbCategoria)
         Me.Panel9.Controls.Add(Me.LabelX5)
         Me.Panel9.Controls.Add(Me.tbProducto)
         Me.Panel9.Controls.Add(Me.LabelX4)
@@ -333,9 +333,9 @@ Partial Class Tec_CrearServicios
         Me.LabelX12.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX12.Name = "LabelX12"
         Me.LabelX12.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX12.Size = New System.Drawing.Size(126, 21)
+        Me.LabelX12.Size = New System.Drawing.Size(154, 21)
         Me.LabelX12.TabIndex = 64
-        Me.LabelX12.Text = "Ganancia Adicional:"
+        Me.LabelX12.Text = "Ganancia Adicional (BS):"
         '
         'tbMontoGanancia
         '
@@ -351,6 +351,7 @@ Partial Class Tec_CrearServicios
         Me.tbMontoGanancia.Name = "tbMontoGanancia"
         Me.tbMontoGanancia.Size = New System.Drawing.Size(219, 26)
         Me.tbMontoGanancia.TabIndex = 9
+        Me.tbMontoGanancia.Visible = False
         '
         'LabelX11
         '
@@ -369,6 +370,7 @@ Partial Class Tec_CrearServicios
         Me.LabelX11.Size = New System.Drawing.Size(110, 21)
         Me.LabelX11.TabIndex = 62
         Me.LabelX11.Text = "Monto Ganancia:"
+        Me.LabelX11.Visible = False
         '
         'tbPorcentajeGanancia
         '
@@ -399,9 +401,9 @@ Partial Class Tec_CrearServicios
         Me.LabelX10.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX10.Name = "LabelX10"
         Me.LabelX10.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX10.Size = New System.Drawing.Size(135, 21)
+        Me.LabelX10.Size = New System.Drawing.Size(149, 21)
         Me.LabelX10.TabIndex = 60
-        Me.LabelX10.Text = "Porcentaje Ganancia:"
+        Me.LabelX10.Text = "Porcentaje Ganancia %:"
         '
         'cbCategoria
         '
@@ -427,23 +429,23 @@ Partial Class Tec_CrearServicios
         Me.cbCategoria.TabIndex = 6
         Me.cbCategoria.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
-        'LabelX9
+        'lbCategoria
         '
-        Me.LabelX9.AutoSize = True
-        Me.LabelX9.BackColor = System.Drawing.Color.Transparent
+        Me.lbCategoria.AutoSize = True
+        Me.lbCategoria.BackColor = System.Drawing.Color.Transparent
         '
         '
         '
-        Me.LabelX9.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX9.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX9.Location = New System.Drawing.Point(18, 337)
-        Me.LabelX9.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX9.Name = "LabelX9"
-        Me.LabelX9.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX9.Size = New System.Drawing.Size(66, 21)
-        Me.LabelX9.TabIndex = 58
-        Me.LabelX9.Text = "Categoria:"
+        Me.lbCategoria.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.lbCategoria.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbCategoria.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.lbCategoria.Location = New System.Drawing.Point(18, 337)
+        Me.lbCategoria.Margin = New System.Windows.Forms.Padding(4)
+        Me.lbCategoria.Name = "lbCategoria"
+        Me.lbCategoria.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.lbCategoria.Size = New System.Drawing.Size(66, 21)
+        Me.lbCategoria.TabIndex = 58
+        Me.lbCategoria.Text = "Categoria:"
         '
         'LabelX5
         '
@@ -550,6 +552,7 @@ Partial Class Tec_CrearServicios
         Me.tbMontoServicio.Name = "tbMontoServicio"
         Me.tbMontoServicio.Size = New System.Drawing.Size(219, 26)
         Me.tbMontoServicio.TabIndex = 7
+        Me.tbMontoServicio.Visible = False
         '
         'LabelX8
         '
@@ -568,6 +571,7 @@ Partial Class Tec_CrearServicios
         Me.LabelX8.Size = New System.Drawing.Size(101, 21)
         Me.LabelX8.TabIndex = 50
         Me.LabelX8.Text = "Monto Servicio:"
+        Me.LabelX8.Visible = False
         '
         'swEstado
         '
@@ -1291,7 +1295,7 @@ Partial Class Tec_CrearServicios
     Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbProducto As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents cbCategoria As Janus.Windows.GridEX.EditControls.MultiColumnCombo
-    Friend WithEvents LabelX9 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents lbCategoria As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbPorcentajeGanancia As DevComponents.Editors.DoubleInput
     Friend WithEvents LabelX10 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX12 As DevComponents.DotNetBar.LabelX

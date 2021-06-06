@@ -1498,6 +1498,7 @@
     <None Include="Resources\camera.png" />
     <None Include="Resources\caja.png" />
     <None Include="Resources\cfijos.png" />
+    <None Include="Resources\bcp.png" />
     <Content Include="Resources\check-mark.png" />
     <None Include="Resources\cobro.png" />
     <None Include="Resources\creditopagos.png" />

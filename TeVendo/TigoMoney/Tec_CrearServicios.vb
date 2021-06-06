@@ -466,9 +466,17 @@ Public Class Tec_CrearServicios
         ''_AttributoId As Integer, _FamiliaId As Integer, _UnidadVentaId As Integer,
         '_UnidadMaximaId As Integer,
         ''_conversion As Double
+
+        Dim Categoria As Integer = 0
+
+        If (cbCategoria.SelectedIndex > 0) Then
+            Categoria = cbCategoria.Value
+        End If
+
+
         Dim res As Boolean
         Try
-            res = L_prServiciosInsertar(tbCodigo.Text, ProductoId, tbNombreServicio.Text, tbDescripcion.Text, tbMontoServicio.Value, tbMontoGanancia.Value, tbPorcentajeGanancia.Value, tbAdicional.Value, cbNegocio.Value, cbCategoria.Value, IIf(swEstado.Value = True, 1, 0))
+            res = L_prServiciosInsertar(tbCodigo.Text, ProductoId, tbNombreServicio.Text, tbDescripcion.Text, tbMontoServicio.Value, tbMontoGanancia.Value, tbPorcentajeGanancia.Value, tbAdicional.Value, cbNegocio.Value, Categoria, IIf(swEstado.Value = True, 1, 0))
 
             If res Then
 
@@ -491,8 +499,14 @@ Public Class Tec_CrearServicios
 
     Public Function _PMOModificarRegistro() As Boolean
         Dim Res As Boolean
+        Dim Categoria As Integer = 0
+
+        If (cbCategoria.SelectedIndex > 0) Then
+            Categoria = cbCategoria.Value
+        End If
+
         Try
-            Res = L_prServiciosModificar(tbCodigo.Text, ProductoId, tbNombreServicio.Text, tbDescripcion.Text, tbMontoServicio.Value, tbMontoGanancia.Value, tbPorcentajeGanancia.Value, tbAdicional.Value, cbNegocio.Value, cbCategoria.Value, IIf(swEstado.Value = True, 1, 0))
+            Res = L_prServiciosModificar(tbCodigo.Text, ProductoId, tbNombreServicio.Text, tbDescripcion.Text, tbMontoServicio.Value, tbMontoGanancia.Value, tbPorcentajeGanancia.Value, tbAdicional.Value, cbNegocio.Value, Categoria, IIf(swEstado.Value = True, 1, 0))
 
 
             If Res Then
@@ -893,6 +907,16 @@ Public Class Tec_CrearServicios
             End If
         End If
 
+    End Sub
+
+    Private Sub cbNegocio_ValueChanged(sender As Object, e As EventArgs) Handles cbNegocio.ValueChanged
+        If (cbNegocio.SelectedIndex <> 0) Then
+            lbCategoria.Visible = False
+            cbCategoria.Visible = False
+        Else
+            lbCategoria.Visible = True
+            cbCategoria.Visible = True
+        End If
     End Sub
 #End Region
 End Class

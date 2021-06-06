@@ -1244,7 +1244,7 @@ Public Class Tec_Principal
 
         frm.Show()
         tab3.Text = "Retiros Tigo Money"
-        Dim blah As New Bitmap(btnConciliaciones.Image, 20, 20)
+        Dim blah As New Bitmap(btnCierreCaja.Image, 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub
@@ -1271,7 +1271,39 @@ Public Class Tec_Principal
 
         frm.Show()
         tab3.Text = "Pagos De Servicios"
-        Dim blah As New Bitmap(btnConciliaciones.Image, 20, 20)
+        Dim blah As New Bitmap(btnPagosServicios.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
+    End Sub
+
+    Private Sub MetroTileItem3_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub btnServicioBCP_Click(sender As Object, e As EventArgs) Handles btnServicioBCP.Click
+        SuperTabControlMenu.SelectedTab = tab_ventana
+
+        Dim frm As New Tec_VentasTigoMoney
+
+        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
+        tab3.RecalcSize()
+        tab3.ThemeAware = True
+        tab3.ShowSubItems = True
+        tab3.UpdateBindings()
+        'frm._tab = tab3
+        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
+        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
+        tab3.AttachedControl.Controls.Add(panel)
+        frm._tab = tab3
+        frm._TabControl = SuperTabControlMenu
+        frm._modulo = tab_distribucion
+        frm.Tipo = 1
+        frm.CategoriaServicio = -1
+        frm.Nombre = "Servicios BCP"
+
+        frm.Show()
+        tab3.Text = "Servicios BCP"
+        Dim blah As New Bitmap(btnServicioBCP.Image, 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub
