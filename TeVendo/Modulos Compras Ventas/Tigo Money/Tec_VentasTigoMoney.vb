@@ -1717,7 +1717,7 @@ salirIf:
 
         End If
         If (grDetalle.RowCount = 1) Then
-            If (CType(grDetalle.DataSource, DataTable).Rows(0).Item("ProductoId") = 0) Then
+            If (CType(grDetalle.DataSource, DataTable).Rows(0).Item("ServicioId") = 0) Then
 
                 ToastNotification.Show(Me, "Por Favor Inserte un Detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
                 grDetalle.Focus()
@@ -2560,6 +2560,7 @@ salirIf:
 
 
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = row.Cells("stock").Value
+
 
                 '       a.Cantidad , a.Precio, a.SubTotal, a.ProcentajeDescuento, a.MontoDescuento, a.MontoAdicional, a.Total, a.Detalle, a.PrecioCosto 
                 ',a.Lote ,a.FechaVencimiento, Tipo, KitId,CantidadKit ,1 as estado,cast ('' as image ) as img

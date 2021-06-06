@@ -1298,7 +1298,7 @@ Public Class Tec_Principal
         frm._TabControl = SuperTabControlMenu
         frm._modulo = tab_distribucion
         frm.Tipo = 1
-        frm.CategoriaServicio = -1
+        frm.CategoriaServicio = 0
         frm.Nombre = "Servicios BCP"
 
         frm.Show()
