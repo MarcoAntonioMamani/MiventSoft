@@ -289,6 +289,12 @@
     <Compile Include="Inventarios\Reporte_RendimientoPersonal.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Inventarios\Reporte_VentaBCP.Designer.vb">
+      <DependentUpon>Reporte_VentaBCP.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Inventarios\Reporte_VentaBCP.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Inventarios\Reporte_VentasVsCostos.Designer.vb">
       <DependentUpon>Reporte_VentasVsCostos.vb</DependentUpon>
     </Compile>
@@ -860,6 +866,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\Reporte_RendimientoPersonal.resx">
       <DependentUpon>Reporte_RendimientoPersonal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventarios\Reporte_VentaBCP.resx">
+      <DependentUpon>Reporte_VentaBCP.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\Reporte_VentasVsCostos.resx">
       <DependentUpon>Reporte_VentasVsCostos.vb</DependentUpon>

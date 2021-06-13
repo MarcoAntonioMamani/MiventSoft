@@ -122,7 +122,7 @@ Public Class Reporte_VentaBCP
                 ToastNotification.Show(Me, "Seleccione un Personal Por Favor".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
             End If
         End If
-        InsertarLogo(dt)
+
     End Sub
 
 

@@ -126,6 +126,7 @@ Partial Class Tec_Principal
         Me.btnCerrarSesion = New DevComponents.DotNetBar.ButtonX()
         Me.PanelLine = New System.Windows.Forms.Panel()
         Me.imguser = New System.Windows.Forms.PictureBox()
+        Me.btnReporteServicioBCP = New DevComponents.DotNetBar.Metro.MetroTileItem()
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlMenu.SuspendLayout()
         Me.SuperTabControlPanel9.SuspendLayout()
@@ -161,11 +162,11 @@ Partial Class Tec_Principal
         Me.SuperTabControlMenu.ControlBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControlMenu.ControlBox.MenuBox, Me.SuperTabControlMenu.ControlBox.CloseBox})
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel9)
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel4)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel7)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel8)
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel6)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel1)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel2)
@@ -369,7 +370,7 @@ Partial Class Tec_Principal
         Me.ItemContainer9.ItemSpacing = 10
         Me.ItemContainer9.MultiLine = True
         Me.ItemContainer9.Name = "ItemContainer9"
-        Me.ItemContainer9.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnServicioBCP, Me.MetroTileItem6})
+        Me.ItemContainer9.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnServicioBCP, Me.MetroTileItem6, Me.btnReporteServicioBCP})
         '
         '
         '
@@ -2226,6 +2227,29 @@ Partial Class Tec_Principal
         Me.imguser.TabIndex = 1
         Me.imguser.TabStop = False
         '
+        'btnReporteServicioBCP
+        '
+        Me.btnReporteServicioBCP.Image = CType(resources.GetObject("btnReporteServicioBCP.Image"), System.Drawing.Image)
+        Me.btnReporteServicioBCP.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnReporteServicioBCP.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnReporteServicioBCP.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnReporteServicioBCP.Name = "btnReporteServicioBCP"
+        Me.btnReporteServicioBCP.SymbolColor = System.Drawing.Color.Black
+        Me.btnReporteServicioBCP.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnReporteServicioBCP.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btnReporteServicioBCP.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnReporteServicioBCP.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
+        Me.btnReporteServicioBCP.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnReporteServicioBCP.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnReporteServicioBCP.TileStyle.PaddingRight = 20
+        Me.btnReporteServicioBCP.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnReporteServicioBCP.TitleText = "Reporte De" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Ventas BCP"
+        Me.btnReporteServicioBCP.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnReporteServicioBCP.TitleTextColor = System.Drawing.Color.White
+        '
         'Tec_Principal
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -2359,4 +2383,5 @@ Partial Class Tec_Principal
     Friend WithEvents ItemContainer9 As DevComponents.DotNetBar.ItemContainer
     Friend WithEvents btnServicioBCP As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents MetroTileItem6 As DevComponents.DotNetBar.Metro.MetroTileItem
+    Friend WithEvents btnReporteServicioBCP As DevComponents.DotNetBar.Metro.MetroTileItem
 End Class
