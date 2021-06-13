@@ -283,6 +283,12 @@
     <Compile Include="Inventarios\Reporte_ProductoMasVendido.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Inventarios\Reporte_PTigoMoney.Designer.vb">
+      <DependentUpon>Reporte_PTigoMoney.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Inventarios\Reporte_PTigoMoney.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Inventarios\Reporte_RendimientoPersonal.Designer.vb">
       <DependentUpon>Reporte_RendimientoPersonal.vb</DependentUpon>
     </Compile>
@@ -721,6 +727,12 @@
       <DependentUpon>R_SaldosValorados.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ReporteSmartApps\TigoMoney_Ventas.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TigoMoney_Ventas.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ReporteSmartApps\VentasVsCostos.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -863,6 +875,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\Reporte_ProductoMasVendido.resx">
       <DependentUpon>Reporte_ProductoMasVendido.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventarios\Reporte_PTigoMoney.resx">
+      <DependentUpon>Reporte_PTigoMoney.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\Reporte_RendimientoPersonal.resx">
       <DependentUpon>Reporte_RendimientoPersonal.vb</DependentUpon>
@@ -1112,6 +1127,10 @@
     <EmbeddedResource Include="ReporteSmartApps\R_SaldosValorados.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_SaldosValorados.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\TigoMoney_Ventas.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TigoMoney_Ventas.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\VentasVsCostos.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
