@@ -17,6 +17,7 @@ Public Class Tec_VentasDetalle
     Public IdCliente As Integer
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
 
+    Public EmpresaId As Integer = 0
 
     Public TipoProgramas As Integer = 0   ''1=venta  2 =  proforma
     Public Sub IniciarTodod()
@@ -46,7 +47,7 @@ Public Class Tec_VentasDetalle
 
         End If
 
-        dt = L_prListarProductosVentas(SucursalId, cbCategoriaPrecio.Value)  ''1=Almacen
+        dt = L_prListarProductosVentas(SucursalId, cbCategoriaPrecio.Value, EmpresaId)  ''1=Almacen
         dtProductos = dt.Copy
         'a.Id , a.NombreProducto, PCosto.Precio As PrecioCosto,
         ''PVenta.Precio as PrecioVenta

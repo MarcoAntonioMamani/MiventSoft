@@ -1919,6 +1919,8 @@ salirIf:
                     End If
                 End If
 
+        btnSeleccionarProducto.PerformClick()
+
 
 
 
@@ -1997,6 +1999,9 @@ salirIf:
     End Sub
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
+
+
+
         Dim dtCierre As DataTable = L_prListarGeneral("MAM_CierreCajero")
         Dim fila As DataRow()
         If (Global_Sucursal > 0) Then
@@ -2471,11 +2476,41 @@ salirIf:
 
     End Sub
 
-    Private Sub btnSeleccionarProducto_Click(sender As Object, e As EventArgs) Handles btnSeleccionarProducto.Click
+
+    Public Sub SeleccionarCategoria()
+
+        Dim dt As DataTable
+
+        dt = ListarEmpresas()
+        'id,Descripcion 
+
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
+        listEstCeldas.Add(New Celda("Nombre", True, "EMPRESA", 350))
+        Dim ef = New Efecto
+        ef.tipo = 6
+        ef.dt = dt
+        ef.SeleclCol = 2
+        ef.listEstCeldasNew = listEstCeldas
+        ef.alto = 50
+        ef.ancho = 350
+        ef.Context = "Seleccione Empresa"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+
+            Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+            CargarProducto(Row.Cells("Id").Value)
+
+        End If
+    End Sub
+
+    Public Sub CargarProducto(EmpresaId As Integer)
         Dim ef = New Efecto
         ef.tipo = 16
         ef.dtDetalle = CType(grDetalle.DataSource, DataTable)
-
+        ef.EmpresaId = EmpresaId
         ef.SucursalId = cbSucursal.Value
         ef.Lotebool = Lote
         ef.TipoPrograma = 1
@@ -2483,6 +2518,14 @@ salirIf:
         ef.ShowDialog()
         grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
         _prCalcularPrecioTotal()
+    End Sub
+    Private Sub btnSeleccionarProducto_Click(sender As Object, e As EventArgs) Handles btnSeleccionarProducto.Click
+
+
+        SeleccionarCategoria()
+
+
+
     End Sub
 
     Private Sub LabelX8_Click(sender As Object, e As EventArgs) Handles LabelX8.Click
