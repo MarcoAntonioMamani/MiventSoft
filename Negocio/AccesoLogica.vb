@@ -2020,7 +2020,7 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
-    Public Shared Function L_prListarProductosCompras(_deposito As Integer) As DataTable
+    Public Shared Function L_prListarProductosCompras(_deposito As Integer, MarcaId As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
@@ -2028,6 +2028,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@tipo", 5))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@AlmacenId", _deposito))
+        _listParam.Add(New Datos.DParametro("@MarcaId", MarcaId))
         _Tabla = D_ProcedimientoConParam("MAM_Compras", _listParam)
 
         Return _Tabla

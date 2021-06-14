@@ -42,7 +42,7 @@ Public Class Efecto
 
     Public CategoriaId As Integer
     Public ProveedorId As Integer
-    Public EmpresaId As Integer
+    Public MarcaId As Integer
 
 
     Public MontoBs As Double = 0
@@ -295,6 +295,7 @@ Public Class Efecto
         frmAyuda = New Tec_ComprasDetalle(dtDetalle)
         frmAyuda.SucursalId = SucursalId
         frmAyuda.Lote = Lotebool
+        frmAyuda.MarcaId = MarcaId
         frmAyuda.ShowDialog()
         Me.Close()
 
@@ -307,7 +308,7 @@ Public Class Efecto
         frmAyuda = New Tec_VentasDetalle(dtDetalle)
         frmAyuda.SucursalId = SucursalId
         frmAyuda.Lote = Lotebool
-        frmAyuda.EmpresaId = EmpresaId
+        frmAyuda.EmpresaId = MarcaId
         frmAyuda.IdCliente = IdCliente
         frmAyuda.TipoProgramas = TipoPrograma
         frmAyuda.ShowDialog()

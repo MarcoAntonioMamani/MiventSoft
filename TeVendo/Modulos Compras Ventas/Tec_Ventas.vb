@@ -2510,7 +2510,7 @@ salirIf:
         Dim ef = New Efecto
         ef.tipo = 16
         ef.dtDetalle = CType(grDetalle.DataSource, DataTable)
-        ef.EmpresaId = EmpresaId
+        ef.MarcaId = EmpresaId
         ef.SucursalId = cbSucursal.Value
         ef.Lotebool = Lote
         ef.TipoPrograma = 1

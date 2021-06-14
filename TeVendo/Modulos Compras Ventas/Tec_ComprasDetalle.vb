@@ -13,6 +13,7 @@ Public Class Tec_ComprasDetalle
 
     Public TipoMovimientoId As Integer
     Public SucursalId As Integer
+    Public MarcaId As Integer = 0
 
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
     Public Sub IniciarTodod()
@@ -32,7 +33,7 @@ Public Class Tec_ComprasDetalle
         Dim dt As New DataTable
 
 
-        dt = L_prListarProductosCompras(SucursalId)  ''1=Almacen
+        dt = L_prListarProductosCompras(SucursalId, MarcaId)  ''1=Almacen
         dtProductos = dt
         'a.Id , a.NombreProducto, PCosto.Precio As PrecioCosto,
         ''PVenta.Precio as PrecioVenta
