@@ -1228,6 +1228,8 @@ salirIf:
         BtnImprimir.Visible = True
 
         tab_Cobro.Visible = True
+
+        swFacturado.IsReadOnly = True
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -1266,6 +1268,7 @@ salirIf:
 
         tbTotalPagado.Value = 0
         tbCambio.Value = 0
+        swFacturado.Value = False
 
     End Sub
     Public Sub seleccionarPrimerItemCombo(cb As EditControls.MultiColumnCombo)
@@ -1309,7 +1312,7 @@ salirIf:
 
                     res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                    IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt)
+                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0))
 
                     If res Then
 
@@ -1331,7 +1334,7 @@ salirIf:
 
                 res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt)
+                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0))
 
                 If res Then
 
@@ -1379,7 +1382,7 @@ salirIf:
 
                     Res = VentaModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                    IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt)
+                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0))
 
                     If Res Then
 
@@ -1401,7 +1404,7 @@ salirIf:
 
                 Res = VentaModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt)
+                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0))
 
                 If Res Then
 
@@ -1617,6 +1620,7 @@ salirIf:
 
         listEstCeldas.Add(New Celda("MonedaVenta", False))
         listEstCeldas.Add(New Celda("Estado", False))
+        listEstCeldas.Add(New Celda("Facturado", False))
 
         listEstCeldas.Add(New Celda("Glosa", True, " Glosa", 200))
         listEstCeldas.Add(New Celda("NombreAlmacen", True, " Sucursal", 120))
@@ -1650,6 +1654,7 @@ salirIf:
             tbVendedor.Text = .GetValue("Personal").ToString
             swTipoVenta.Value = .GetValue("TipoVenta")
             IdCliente = .GetValue("ClienteId")
+            swFacturado.Value = .GetValue("Facturado")
             tbFechaVencimientoCredito.Value = .GetValue("FechaVencimientoCredito")
             tbCliente.Text = .GetValue("NombreCliente").ToString
 
@@ -2317,6 +2322,16 @@ salirIf:
 
     Private Sub LabelX19_Click(sender As Object, e As EventArgs) Handles LabelX19.Click
 
+    End Sub
+
+    Private Sub swFacturado_ValueChanged(sender As Object, e As EventArgs) Handles swFacturado.ValueChanged
+        If (swFacturado.Value = False) Then
+            GpanelFacturado.Visible = False
+            TabFacturado.Visible = False
+        Else
+            GpanelFacturado.Visible = True
+            TabFacturado.Visible = True
+        End If
     End Sub
 #End Region
 End Class

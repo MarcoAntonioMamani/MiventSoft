@@ -35,8 +35,9 @@ Partial Class Tec_Ventas
         Me.SuperTabControl1 = New DevComponents.DotNetBar.SuperTabControl()
         Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
+        Me.GpanelFacturado = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel22 = New System.Windows.Forms.Panel()
+        Me.tbNit = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX20 = New DevComponents.DotNetBar.LabelX()
         Me.tbRazonSocial = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX19 = New DevComponents.DotNetBar.LabelX()
@@ -71,7 +72,7 @@ Partial Class Tec_Ventas
         Me.LabelX21 = New DevComponents.DotNetBar.LabelX()
         Me.tbNroAutorizacion = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX22 = New DevComponents.DotNetBar.LabelX()
-        Me.SuperTabItem4 = New DevComponents.DotNetBar.SuperTabItem()
+        Me.TabFacturado = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel4 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel20 = New System.Windows.Forms.Panel()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -158,7 +159,8 @@ Partial Class Tec_Ventas
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.tbNit = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX25 = New DevComponents.DotNetBar.LabelX()
+        Me.swFacturado = New DevComponents.DotNetBar.Controls.SwitchButton()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -171,7 +173,7 @@ Partial Class Tec_Ventas
         Me.SuperTabControl1.SuspendLayout()
         Me.SuperTabControlPanel3.SuspendLayout()
         Me.Panel3.SuspendLayout()
-        Me.GroupPanel1.SuspendLayout()
+        Me.GpanelFacturado.SuspendLayout()
         Me.Panel22.SuspendLayout()
         CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlPanel5.SuspendLayout()
@@ -338,8 +340,8 @@ Partial Class Tec_Ventas
         Me.SuperTabControl1.ControlBox.MenuBox.Name = ""
         Me.SuperTabControl1.ControlBox.Name = ""
         Me.SuperTabControl1.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControl1.ControlBox.MenuBox, Me.SuperTabControl1.ControlBox.CloseBox})
-        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel5)
+        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel4)
         Me.SuperTabControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControl1.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -352,7 +354,7 @@ Partial Class Tec_Ventas
         Me.SuperTabControl1.TabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Right
         Me.SuperTabControl1.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControl1.TabIndex = 218
-        Me.SuperTabControl1.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabItem3, Me.tab_Cobro, Me.SuperTabItem4})
+        Me.SuperTabControl1.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabItem3, Me.tab_Cobro, Me.TabFacturado})
         Me.SuperTabControl1.Text = "SuperTabControl1"
         '
         'SuperTabControlPanel3
@@ -368,7 +370,9 @@ Partial Class Tec_Ventas
         'Panel3
         '
         Me.Panel3.AutoScroll = True
-        Me.Panel3.Controls.Add(Me.GroupPanel1)
+        Me.Panel3.Controls.Add(Me.LabelX25)
+        Me.Panel3.Controls.Add(Me.swFacturado)
+        Me.Panel3.Controls.Add(Me.GpanelFacturado)
         Me.Panel3.Controls.Add(Me.cbSucursal)
         Me.Panel3.Controls.Add(Me.tbFechaVencimientoCredito)
         Me.Panel3.Controls.Add(Me.tbFechaTransaccion)
@@ -395,45 +399,46 @@ Partial Class Tec_Ventas
         Me.Panel3.Size = New System.Drawing.Size(1186, 185)
         Me.Panel3.TabIndex = 49
         '
-        'GroupPanel1
+        'GpanelFacturado
         '
-        Me.GroupPanel1.CanvasColor = System.Drawing.SystemColors.Control
-        Me.GroupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
-        Me.GroupPanel1.Controls.Add(Me.Panel22)
-        Me.GroupPanel1.DisabledBackColor = System.Drawing.Color.Empty
-        Me.GroupPanel1.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupPanel1.Location = New System.Drawing.Point(708, 60)
-        Me.GroupPanel1.Name = "GroupPanel1"
-        Me.GroupPanel1.Size = New System.Drawing.Size(469, 121)
-        '
-        '
-        '
-        Me.GroupPanel1.Style.BackColor = System.Drawing.Color.DarkCyan
-        Me.GroupPanel1.Style.BackColor2 = System.Drawing.Color.DarkCyan
-        Me.GroupPanel1.Style.BackColorGradientAngle = 90
-        Me.GroupPanel1.Style.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.GroupPanel1.Style.BorderBottomWidth = 1
-        Me.GroupPanel1.Style.BorderColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
-        Me.GroupPanel1.Style.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.GroupPanel1.Style.BorderLeftWidth = 1
-        Me.GroupPanel1.Style.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.GroupPanel1.Style.BorderRightWidth = 1
-        Me.GroupPanel1.Style.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.GroupPanel1.Style.BorderTopWidth = 1
-        Me.GroupPanel1.Style.CornerDiameter = 4
-        Me.GroupPanel1.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
-        Me.GroupPanel1.Style.TextColor = System.Drawing.Color.White
-        Me.GroupPanel1.Style.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Near
+        Me.GpanelFacturado.CanvasColor = System.Drawing.SystemColors.Control
+        Me.GpanelFacturado.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
+        Me.GpanelFacturado.Controls.Add(Me.Panel22)
+        Me.GpanelFacturado.DisabledBackColor = System.Drawing.Color.Empty
+        Me.GpanelFacturado.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GpanelFacturado.Location = New System.Drawing.Point(708, 60)
+        Me.GpanelFacturado.Name = "GpanelFacturado"
+        Me.GpanelFacturado.Size = New System.Drawing.Size(469, 121)
         '
         '
         '
-        Me.GroupPanel1.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.GpanelFacturado.Style.BackColor = System.Drawing.Color.DarkCyan
+        Me.GpanelFacturado.Style.BackColor2 = System.Drawing.Color.DarkCyan
+        Me.GpanelFacturado.Style.BackColorGradientAngle = 90
+        Me.GpanelFacturado.Style.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GpanelFacturado.Style.BorderBottomWidth = 1
+        Me.GpanelFacturado.Style.BorderColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
+        Me.GpanelFacturado.Style.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GpanelFacturado.Style.BorderLeftWidth = 1
+        Me.GpanelFacturado.Style.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GpanelFacturado.Style.BorderRightWidth = 1
+        Me.GpanelFacturado.Style.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GpanelFacturado.Style.BorderTopWidth = 1
+        Me.GpanelFacturado.Style.CornerDiameter = 4
+        Me.GpanelFacturado.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.GpanelFacturado.Style.TextColor = System.Drawing.Color.White
+        Me.GpanelFacturado.Style.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Near
         '
         '
         '
-        Me.GroupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.GroupPanel1.TabIndex = 218
-        Me.GroupPanel1.Text = "Facturar A:"
+        Me.GpanelFacturado.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        '
+        '
+        '
+        Me.GpanelFacturado.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.GpanelFacturado.TabIndex = 218
+        Me.GpanelFacturado.Text = "Facturar A:"
+        Me.GpanelFacturado.Visible = False
         '
         'Panel22
         '
@@ -446,6 +451,21 @@ Partial Class Tec_Ventas
         Me.Panel22.Name = "Panel22"
         Me.Panel22.Size = New System.Drawing.Size(463, 94)
         Me.Panel22.TabIndex = 0
+        '
+        'tbNit
+        '
+        '
+        '
+        '
+        Me.tbNit.Border.Class = "TextBoxBorder"
+        Me.tbNit.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbNit.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbNit.Location = New System.Drawing.Point(96, 5)
+        Me.tbNit.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbNit.Name = "tbNit"
+        Me.tbNit.PreventEnterBeep = True
+        Me.tbNit.Size = New System.Drawing.Size(349, 26)
+        Me.tbNit.TabIndex = 217
         '
         'LabelX20
         '
@@ -547,7 +567,7 @@ Partial Class Tec_Ventas
         Me.tbFechaVencimientoCredito.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
         Me.tbFechaVencimientoCredito.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
         Me.tbFechaVencimientoCredito.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbFechaVencimientoCredito.Location = New System.Drawing.Point(443, 132)
+        Me.tbFechaVencimientoCredito.Location = New System.Drawing.Point(427, 110)
         Me.tbFechaVencimientoCredito.Name = "tbFechaVencimientoCredito"
         Me.tbFechaVencimientoCredito.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
         Me.tbFechaVencimientoCredito.Office2007CustomColor = System.Drawing.Color.Turquoise
@@ -687,7 +707,7 @@ Partial Class Tec_Ventas
         Me.lbcredito.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.lbcredito.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbcredito.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.lbcredito.Location = New System.Drawing.Point(345, 134)
+        Me.lbcredito.Location = New System.Drawing.Point(329, 112)
         Me.lbcredito.Margin = New System.Windows.Forms.Padding(4)
         Me.lbcredito.Name = "lbcredito"
         Me.lbcredito.SingleLineColor = System.Drawing.SystemColors.Control
@@ -720,14 +740,14 @@ Partial Class Tec_Ventas
         '
         Me.swTipoVenta.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.swTipoVenta.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.swTipoVenta.Location = New System.Drawing.Point(345, 103)
+        Me.swTipoVenta.Location = New System.Drawing.Point(427, 81)
         Me.swTipoVenta.Margin = New System.Windows.Forms.Padding(4)
         Me.swTipoVenta.Name = "swTipoVenta"
         Me.swTipoVenta.OffBackColor = System.Drawing.Color.LawnGreen
         Me.swTipoVenta.OffText = "CREDITO"
         Me.swTipoVenta.OnBackColor = System.Drawing.Color.Gold
         Me.swTipoVenta.OnText = "CONTADO"
-        Me.swTipoVenta.Size = New System.Drawing.Size(309, 22)
+        Me.swTipoVenta.Size = New System.Drawing.Size(227, 22)
         Me.swTipoVenta.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.swTipoVenta.TabIndex = 4
         Me.swTipoVenta.Value = True
@@ -889,7 +909,7 @@ Partial Class Tec_Ventas
         Me.SuperTabControlPanel5.Name = "SuperTabControlPanel5"
         Me.SuperTabControlPanel5.Size = New System.Drawing.Size(1196, 185)
         Me.SuperTabControlPanel5.TabIndex = 0
-        Me.SuperTabControlPanel5.TabItem = Me.SuperTabItem4
+        Me.SuperTabControlPanel5.TabItem = Me.TabFacturado
         '
         'GroupBox3
         '
@@ -1078,16 +1098,17 @@ Partial Class Tec_Ventas
         Me.LabelX22.TabIndex = 64
         Me.LabelX22.Text = "Nro Autorización:"
         '
-        'SuperTabItem4
+        'TabFacturado
         '
-        Me.SuperTabItem4.AttachedControl = Me.SuperTabControlPanel5
-        Me.SuperTabItem4.GlobalItem = False
-        Me.SuperTabItem4.Name = "SuperTabItem4"
-        Me.SuperTabItem4.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Blue
-        Me.SuperTabItem4.SelectedTabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SuperTabItem4.Symbol = ""
-        Me.SuperTabItem4.SymbolSize = 10.0!
-        Me.SuperTabItem4.Text = "Datos Facturación"
+        Me.TabFacturado.AttachedControl = Me.SuperTabControlPanel5
+        Me.TabFacturado.GlobalItem = False
+        Me.TabFacturado.Name = "TabFacturado"
+        Me.TabFacturado.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Blue
+        Me.TabFacturado.SelectedTabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TabFacturado.Symbol = ""
+        Me.TabFacturado.SymbolSize = 10.0!
+        Me.TabFacturado.Text = "Datos Facturación"
+        Me.TabFacturado.Visible = False
         '
         'SuperTabControlPanel4
         '
@@ -2491,20 +2512,41 @@ Partial Class Tec_Ventas
         '
         Me.MEP.ContainerControl = Me
         '
-        'tbNit
+        'LabelX25
+        '
+        Me.LabelX25.AutoSize = True
+        Me.LabelX25.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX25.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX25.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX25.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX25.Location = New System.Drawing.Point(345, 143)
+        Me.LabelX25.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX25.Name = "LabelX25"
+        Me.LabelX25.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX25.Size = New System.Drawing.Size(69, 21)
+        Me.LabelX25.TabIndex = 220
+        Me.LabelX25.Text = "Facturado:"
+        '
+        'swFacturado
         '
         '
         '
         '
-        Me.tbNit.Border.Class = "TextBoxBorder"
-        Me.tbNit.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbNit.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbNit.Location = New System.Drawing.Point(96, 5)
-        Me.tbNit.Margin = New System.Windows.Forms.Padding(4)
-        Me.tbNit.Name = "tbNit"
-        Me.tbNit.PreventEnterBeep = True
-        Me.tbNit.Size = New System.Drawing.Size(349, 26)
-        Me.tbNit.TabIndex = 217
+        Me.swFacturado.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.swFacturado.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.swFacturado.Location = New System.Drawing.Point(427, 143)
+        Me.swFacturado.Margin = New System.Windows.Forms.Padding(4)
+        Me.swFacturado.Name = "swFacturado"
+        Me.swFacturado.OffBackColor = System.Drawing.Color.Orange
+        Me.swFacturado.OffText = "NO"
+        Me.swFacturado.OnBackColor = System.Drawing.Color.Lime
+        Me.swFacturado.OnText = "SI"
+        Me.swFacturado.Size = New System.Drawing.Size(227, 22)
+        Me.swFacturado.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.swFacturado.TabIndex = 219
         '
         'Tec_Ventas
         '
@@ -2529,7 +2571,7 @@ Partial Class Tec_Ventas
         Me.SuperTabControlPanel3.ResumeLayout(False)
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
-        Me.GroupPanel1.ResumeLayout(False)
+        Me.GpanelFacturado.ResumeLayout(False)
         Me.Panel22.ResumeLayout(False)
         Me.Panel22.PerformLayout()
         CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2702,7 +2744,7 @@ Partial Class Tec_Ventas
     Friend WithEvents btnFiltrarVentas As DevComponents.DotNetBar.ButtonX
     Protected WithEvents btnImprimirCopia As DevComponents.DotNetBar.ButtonX
     Protected WithEvents ButtonX3 As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents GroupPanel1 As DevComponents.DotNetBar.Controls.GroupPanel
+    Friend WithEvents GpanelFacturado As DevComponents.DotNetBar.Controls.GroupPanel
     Friend WithEvents Panel22 As Panel
     Friend WithEvents LabelX19 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX20 As DevComponents.DotNetBar.LabelX
@@ -2710,7 +2752,7 @@ Partial Class Tec_Ventas
     Friend WithEvents SuperTabControlPanel5 As DevComponents.DotNetBar.SuperTabControlPanel
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents LabelX22 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents SuperTabItem4 As DevComponents.DotNetBar.SuperTabItem
+    Friend WithEvents TabFacturado As DevComponents.DotNetBar.SuperTabItem
     Friend WithEvents tbNroAutorizacion As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents tbCodigoControl As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX21 As DevComponents.DotNetBar.LabelX
@@ -2720,4 +2762,6 @@ Partial Class Tec_Ventas
     Friend WithEvents tbFechaFactura As Janus.Windows.CalendarCombo.CalendarCombo
     Friend WithEvents QrCodeImage As Gma.QrCodeNet.Encoding.Windows.Forms.QrCodeImgControl
     Friend WithEvents tbNit As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents LabelX25 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents swFacturado As DevComponents.DotNetBar.Controls.SwitchButton
 End Class
