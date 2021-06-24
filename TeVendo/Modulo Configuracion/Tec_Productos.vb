@@ -1334,7 +1334,7 @@ Public Class Tec_Productos
         GenerarReporte(1, 1)
     End Sub
 
-    Public Sub GenerarReporte(tipo As Integer, PrecioVenta As Integer)
+    Public Sub GenerarReporte(tipo As Integer, PrecioVenta As Integer, CategoriaPrecio As Integer)
         Dim dt As DataTable
         Dim titulo As String
         If (PrecioVenta = 1) Then
