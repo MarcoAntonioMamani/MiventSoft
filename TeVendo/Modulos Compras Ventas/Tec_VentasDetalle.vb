@@ -54,7 +54,7 @@ Public Class Tec_VentasDetalle
         With grProducto.RootTable.Columns("Id")
             .Width = 100
             .Caption = "Cod Producto"
-            .Visible = True
+            .Visible = False
 
 
         End With
@@ -67,8 +67,8 @@ Public Class Tec_VentasDetalle
         End With
         With grProducto.RootTable.Columns("CodigoExterno")
             .Width = 100
-            .Caption = "CODIGOP"
-            .Visible = False
+            .Caption = "Cod Externo"
+            .Visible = True
 
         End With
 
@@ -80,7 +80,7 @@ Public Class Tec_VentasDetalle
         With grProducto.RootTable.Columns("NombreProducto")
             .Width = 300
             .Caption = "PRODUCTOS"
-            .Visible = True
+            .Visible = False
             .MaxLines = 2
             .WordWrap = True
         End With
@@ -105,6 +105,13 @@ Public Class Tec_VentasDetalle
             .MaxLines = 2
             .WordWrap = True
             .Caption = "CATEGORIA"
+        End With
+        With grProducto.RootTable.Columns("industria")
+            .Width = 120
+            .Visible = True
+            .MaxLines = 2
+            .WordWrap = True
+            .Caption = "Industria"
         End With
 
         With grProducto.RootTable.Columns("PrecioCosto")
@@ -1143,9 +1150,10 @@ salirIf:
             'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock  NombreCategoria
             For i As Integer = 0 To dt.Rows.Count - 1 Step 1
                 Dim nombre As String = dt.Rows(i).Item("Id").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper +
                     " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("NombreCategoria").ToString.ToUpper
+                    " " + dt.Rows(i).Item("NombreCategoria").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("industria").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("CodigoExterno").ToString.ToUpper
                 Select Case cant
                     Case 1
 

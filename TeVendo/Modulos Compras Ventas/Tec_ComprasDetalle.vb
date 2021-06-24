@@ -42,14 +42,14 @@ Public Class Tec_ComprasDetalle
         With grProducto.RootTable.Columns("Id")
             .Width = 100
             .Caption = "Id"
-            .Visible = True
+            .Visible = False
 
 
         End With
         With grProducto.RootTable.Columns("CodigoExterno")
             .Width = 100
-            .Caption = "CODIGOP"
-            .Visible = False
+            .Caption = "Cod Externo"
+            .Visible = True
 
         End With
 
@@ -61,13 +61,15 @@ Public Class Tec_ComprasDetalle
         With grProducto.RootTable.Columns("NombreProducto")
             .Width = 350
             .Caption = "PRODUCTOS"
-            .Visible = True
+            .Visible = False
 
         End With
 
         With grProducto.RootTable.Columns("DescripcionProducto")
-            .Width = 250
+            .Width = 350
             .Visible = True
+            .WordWrap = True
+            .MaxLines = 3
             .Caption = "DESCRIPCION"
         End With
         With grProducto.RootTable.Columns("NombreCategoria")
@@ -75,7 +77,11 @@ Public Class Tec_ComprasDetalle
             .Visible = True
             .Caption = "CATEGORIA"
         End With
-
+        With grProducto.RootTable.Columns("industria")
+            .Width = 200
+            .Visible = True
+            .Caption = "Industria"
+        End With
         With grProducto.RootTable.Columns("PrecioCosto")
             .Width = 150
             .Visible = False
@@ -702,9 +708,10 @@ salirIf:
             'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock  NombreCategoria
             For i As Integer = 0 To dt.Rows.Count - 1 Step 1
                 Dim nombre As String = dt.Rows(i).Item("Id").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("CodigoExterno").ToString.ToUpper +
                     " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("NombreCategoria").ToString.ToUpper
+                    " " + dt.Rows(i).Item("NombreCategoria").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("industria").ToString.ToUpper
                 Select Case cant
                     Case 1
 

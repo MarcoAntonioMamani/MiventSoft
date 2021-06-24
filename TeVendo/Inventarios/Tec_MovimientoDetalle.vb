@@ -458,14 +458,14 @@ Public Class Tec_MovimientoDetalle
         With grProducto.RootTable.Columns("Id")
             .Width = 100
             .Caption = "Id"
-            .Visible = True
+            .Visible = False
 
 
         End With
         With grProducto.RootTable.Columns("CodigoExterno")
             .Width = 100
-            .Caption = "CODIGOP"
-            .Visible = False
+            .Caption = "Cod Externo"
+            .Visible = True
 
         End With
 
@@ -477,7 +477,7 @@ Public Class Tec_MovimientoDetalle
         With grProducto.RootTable.Columns("NombreProducto")
             .Width = 350
             .Caption = "PRODUCTOS"
-            .Visible = True
+            .Visible = False
             .MaxLines = 2
             .WordWrap = True
         End With
@@ -488,9 +488,17 @@ Public Class Tec_MovimientoDetalle
             .MaxLines = 2
             .WordWrap = True
         End With
+
+        With grProducto.RootTable.Columns("industria")
+            .Width = 150
+            .Caption = "Industria"
+            .Visible = True
+            .MaxLines = 2
+            .WordWrap = True
+        End With
         ''NombreCategoria
         With grProducto.RootTable.Columns("DescripcionProducto")
-            .Width = 250
+            .Width = 350
             .Visible = True
             .Caption = "DESCRIPCION"
             .MaxLines = 2
