@@ -628,7 +628,48 @@ Public Class Tec_Productos
         btnAgregarCategoria.Visible = False
         btnAgregarProveedor.Visible = False
     End Sub
+    Private Sub _prCargarDetallePrecios(ProductoId As String)
+        Dim dt As New DataTable
+        dt = ListPreciosDetalles(ProductoId)
+        grPrecios.DataSource = dt
+        grPrecios.RetrieveStructure()
+        grPrecios.AlternatingColors = True
+        'id  Descripcion	precio
+        With grPrecios.RootTable.Columns("id")
+            .Width = 100
+            .Caption = "CODIGO"
+            .Visible = False
 
+        End With
+
+
+
+        With grPrecios.RootTable.Columns("Descripcion")
+            .Width = 350
+            .Caption = "Categoria Precio"
+            .Visible = True
+        End With
+
+        With grPrecios.RootTable.Columns("precio")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "precio".ToUpper
+        End With
+
+
+        With grPrecios
+            .GroupByBoxVisible = False
+            'diseño de la grilla
+            .VisualStyle = VisualStyle.Office2007
+            .BoundMode = Janus.Data.BoundMode.Bound
+            .RowHeaders = InheritableBoolean.True
+
+            .TotalRowPosition = TotalRowPosition.BottomFixed
+        End With
+        CargarIconEstado()
+    End Sub
     Public Sub _PMOLimpiar()
         tbCodigo.Text = ""
         tbNombreProducto.Text = ""
@@ -648,6 +689,8 @@ Public Class Tec_Productos
         seleccionarPrimerItemCombo(cbUnidMaxima)
         tbNombreProducto.Focus()
         TablaImagenes = L_prCargarImagenesRecepcion(-1)
+
+        _prCargarDetallePrecios(-1)
         _prCargarImagen()
         _prEliminarContenidoImage()
     End Sub
@@ -689,7 +732,7 @@ Public Class Tec_Productos
             res = L_prProductoInsertar(tbCodigo.Text, tbCodigoExterno.Text, tbCodigoBarras.Text, tbNombreProducto.Text,
                                                  tbDescripcion.Text, tbStockMinimo.Value, IIf(swEstado.Value = True, 1, 0),
                                                  cbCategoria.Value, cbEmpresa.Value, cbProveedor.Value, cbMarca.Value,
-                                                 cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes)
+                                                 cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes, CType(grPrecios.DataSource, DataTable))
 
             If res Then
 
@@ -717,7 +760,7 @@ Public Class Tec_Productos
             Res = L_prProductoModificar(tbCodigo.Text, tbCodigoExterno.Text, tbCodigoBarras.Text, tbNombreProducto.Text,
                                                 tbDescripcion.Text, tbStockMinimo.Value, IIf(swEstado.Value = True, 1, 0),
                                                 cbCategoria.Value, cbEmpresa.Value, cbProveedor.Value, cbMarca.Value,
-                                                cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes)
+                                                cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes, CType(grPrecios.DataSource, DataTable))
 
 
             If Res Then
@@ -979,6 +1022,8 @@ Public Class Tec_Productos
             tbCodigoBarras.Text = .GetValue("CodigoBarras")
             cbUnidMaxima.Value = .GetValue("UnidadMaximaId")
             tbConversion.Value = .GetValue("Conversion")
+
+            _prCargarDetallePrecios(tbCodigo.Text)
         End With
         TablaImagenes = L_prCargarImagenesRecepcion(tbCodigo.Text)
         _prCargarImagen()
@@ -1414,6 +1459,39 @@ Public Class Tec_Productos
 
     Private Sub ButtonX4_Click(sender As Object, e As EventArgs) Handles ButtonX4.Click
         GenerarReporte(0, 0)
+    End Sub
+
+    Private Sub grPrecios_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grPrecios.EditingCell
+        If (tbNombreProducto.ReadOnly = False) Then
+            If (e.Column.Index = grPrecios.RootTable.Columns("precio").Index) Then
+                e.Cancel = False
+                Return
+
+            End If
+        Else
+            e.Cancel = True
+            Return
+
+        End If
+        e.Cancel = True
+    End Sub
+
+    Private Sub grPrecios_CellEdited(sender As Object, e As ColumnActionEventArgs) Handles grPrecios.CellEdited
+        If (e.Column.Index = grPrecios.RootTable.Columns("precio").Index) Then
+            If (Not IsNumeric(grPrecios.GetValue("precio")) Or grPrecios.GetValue("precio").ToString = String.Empty) Then
+
+                grPrecios.SetValue("precio", 0)
+            Else
+                If (grPrecios.GetValue("precio") > 0) Then
+
+
+                Else
+
+                    grPrecios.SetValue("Cantidad", 0)
+
+                End If
+            End If
+        End If
     End Sub
 #End Region
 End Class
