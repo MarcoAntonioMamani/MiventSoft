@@ -15,8 +15,8 @@ Public Class FormularioStock
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
 
     Public Sub IniciarTodod()
+        P_Global._prCargarComboGenerico(cbPrecio, L_fnListarCategoriaPrecio(), "ygnumi", "Codigo", "ygdesc", "Cat.Precio")
 
-        _prCargarProductos()
 
         _habilitarFocus()
 
@@ -74,10 +74,11 @@ Public Class FormularioStock
             Dim cant As Integer = vectoraux.Length
             'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock 
             For i As Integer = 0 To dt.Rows.Count - 1 Step 1
-                Dim nombre As String = dt.Rows(i).Item("Id").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper +
+                Dim nombre As String = dt.Rows(i).Item("CodigoExterno").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("industria").ToString.ToUpper +
                     " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("Categoria").ToString.ToUpper
+                    " " + dt.Rows(i).Item("Categoria").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("unidad").ToString.ToUpper
                 Select Case cant
                     Case 1
 
@@ -203,33 +204,39 @@ Public Class FormularioStock
         End If
     End Sub
 
-    Private Sub _prCargarProductos()
+    Private Sub _prCargarProductos(CategoriaPrecio As Integer)
         Dim dt As New DataTable
 
 
 
-        dt = L_prListarProductosTodosInventario()  ''1=Almacen
+        dt = L_prListarProductosTodosInventario(CategoriaPrecio)  ''1=Almacen
         dtProductos = dt
 
-            'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock 
+        'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock 
 
-            grProducto.DataSource = dt
+        grProducto.DataSource = dt
         grProducto.RetrieveStructure()
         grProducto.AlternatingColors = True
         With grProducto.RootTable.Columns("Id")
             .Width = 100
             .Caption = "Id"
+            .Visible = False
+
+
+        End With
+
+        With grProducto.RootTable.Columns("CodigoExterno")
+            .Width = 100
+            .Caption = "Cod. Externo"
             .Visible = True
 
 
         End With
 
-
-
         With grProducto.RootTable.Columns("NombreProducto")
             .Width = 300
             .Caption = "PRODUCTOS"
-            .Visible = True
+            .Visible = False
             .MaxLines = 2
             .WordWrap = True
         End With
@@ -240,9 +247,23 @@ Public Class FormularioStock
             .MaxLines = 2
             .WordWrap = True
         End With
+        With grProducto.RootTable.Columns("industria")
+            .Width = 150
+            .Caption = "Industria"
+            .Visible = True
+            .MaxLines = 2
+            .WordWrap = True
+        End With
+        With grProducto.RootTable.Columns("unidad")
+            .Width = 100
+            .Caption = "Unidad Venta"
+            .Visible = True
+            .MaxLines = 2
+            .WordWrap = True
+        End With
         ''NombreCategoria
         With grProducto.RootTable.Columns("DescripcionProducto")
-            .Width = 250
+            .Width = 300
             .Visible = True
             .Caption = "DESCRIPCION"
             .MaxLines = 2
@@ -255,6 +276,14 @@ Public Class FormularioStock
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Stock Minimo"
+            .MaxLines = 2
+            .WordWrap = True
+        End With
+        With grProducto.RootTable.Columns("precio")
+            .Width = 110
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Precio"
             .MaxLines = 2
             .WordWrap = True
         End With
@@ -290,14 +319,14 @@ Public Class FormularioStock
     End Sub
 
     Private Sub btnConfirmarSalir_Click(sender As Object, e As EventArgs) Handles btnConfirmarSalir.Click
-        _prCargarProductos()
+        _prCargarProductos(cbPrecio.Value)
         tbProducto.Clear()
 
     End Sub
 
     Private Sub btnProductos_Click(sender As Object, e As EventArgs) Handles btnProductos.Click
         Dim _dt As New DataTable
-        _dt = L_prListarProductosTodosInventario()
+        _dt = L_prListarProductosTodosInventario(cbPrecio.Value)
         If (IsNothing(_dt) Or _dt.Rows.Count = 0) Then
 
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
@@ -447,4 +476,8 @@ Public Class FormularioStock
         End If
         Return False
     End Function
+
+    Private Sub cbPrecio_ValueChanged(sender As Object, e As EventArgs) Handles cbPrecio.ValueChanged
+        _prCargarProductos(cbPrecio.Value)
+    End Sub
 End Class
