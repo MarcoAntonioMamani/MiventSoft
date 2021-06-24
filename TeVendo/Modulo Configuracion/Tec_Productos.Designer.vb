@@ -129,7 +129,6 @@ Partial Class Tec_Productos
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.ButtonX4 = New DevComponents.DotNetBar.ButtonX()
-        Me.ButtonX3 = New DevComponents.DotNetBar.ButtonX()
         Me.btnReporteConImagenes = New DevComponents.DotNetBar.ButtonX()
         Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
         Me.btnSi = New System.Windows.Forms.Panel()
@@ -1766,7 +1765,6 @@ Partial Class Tec_Productos
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.ButtonX4, 2, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.ButtonX3, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.btnReporteConImagenes, 3, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.ButtonX2, 5, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.btnSi, 4, 0)
@@ -1796,27 +1794,8 @@ Partial Class Tec_Productos
         Me.ButtonX4.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.ButtonX4.Symbol = ""
         Me.ButtonX4.TabIndex = 10
-        Me.ButtonX4.Text = "Reporte Precios" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & " Costo"
+        Me.ButtonX4.Text = "Reporte Precios"
         Me.ButtonX4.TextColor = System.Drawing.Color.White
-        '
-        'ButtonX3
-        '
-        Me.ButtonX3.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX3.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.ButtonX3.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
-        Me.ButtonX3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ButtonX3.Font = New System.Drawing.Font("Arial", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX3.Image = Global.TeVendo.My.Resources.Resources.iconguardar
-        Me.ButtonX3.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.ButtonX3.Location = New System.Drawing.Point(319, 14)
-        Me.ButtonX3.Margin = New System.Windows.Forms.Padding(4)
-        Me.ButtonX3.Name = "ButtonX3"
-        Me.ButtonX3.Size = New System.Drawing.Size(163, 41)
-        Me.ButtonX3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX3.Symbol = ""
-        Me.ButtonX3.TabIndex = 9
-        Me.ButtonX3.Text = "Reporte Precios" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & " Venta"
-        Me.ButtonX3.TextColor = System.Drawing.Color.White
         '
         'btnReporteConImagenes
         '
@@ -2135,7 +2114,6 @@ Partial Class Tec_Productos
     Friend WithEvents btnAgregarCategoria As DevComponents.DotNetBar.ButtonX
     Friend WithEvents btnAgregarProveedor As DevComponents.DotNetBar.ButtonX
     Protected WithEvents btnReporteConImagenes As DevComponents.DotNetBar.ButtonX
-    Protected WithEvents ButtonX3 As DevComponents.DotNetBar.ButtonX
     Protected WithEvents ButtonX4 As DevComponents.DotNetBar.ButtonX
     Friend WithEvents LabelX9 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbCodigoBarras As DevComponents.DotNetBar.Controls.TextBoxX

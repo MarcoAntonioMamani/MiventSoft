@@ -1331,6 +1331,8 @@ Public Class Tec_Productos
     End Sub
 
     Private Sub btnReporteConImagenes_Click(sender As Object, e As EventArgs) Handles btnReporteConImagenes.Click
+
+
         GenerarReporte(1, 1)
     End Sub
 
@@ -1453,9 +1455,7 @@ Public Class Tec_Productos
 
     End Sub
 
-    Private Sub ButtonX3_Click(sender As Object, e As EventArgs) Handles ButtonX3.Click
-        GenerarReporte(0, 1)
-    End Sub
+
 
     Private Sub ButtonX4_Click(sender As Object, e As EventArgs) Handles ButtonX4.Click
         GenerarReporte(0, 0)
