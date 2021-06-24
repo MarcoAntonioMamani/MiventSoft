@@ -33,18 +33,6 @@ Partial Class Tec_Ventas
         Me.Panel8 = New System.Windows.Forms.Panel()
         Me.Panel9 = New System.Windows.Forms.Panel()
         Me.SuperTabControl1 = New DevComponents.DotNetBar.SuperTabControl()
-        Me.SuperTabControlPanel5 = New DevComponents.DotNetBar.SuperTabControlPanel()
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.QrCodeImage = New Gma.QrCodeNet.Encoding.Windows.Forms.QrCodeImgControl()
-        Me.tbFechaFactura = New Janus.Windows.CalendarCombo.CalendarCombo()
-        Me.LabelX24 = New DevComponents.DotNetBar.LabelX()
-        Me.tbNroFactura = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.LabelX23 = New DevComponents.DotNetBar.LabelX()
-        Me.tbCodigoControl = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.LabelX21 = New DevComponents.DotNetBar.LabelX()
-        Me.tbNroAutorizacion = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.LabelX22 = New DevComponents.DotNetBar.LabelX()
-        Me.TabFacturado = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.LabelX25 = New DevComponents.DotNetBar.LabelX()
@@ -75,6 +63,18 @@ Partial Class Tec_Ventas
         Me.tbGlosa = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX7 = New DevComponents.DotNetBar.LabelX()
         Me.SuperTabItem3 = New DevComponents.DotNetBar.SuperTabItem()
+        Me.SuperTabControlPanel5 = New DevComponents.DotNetBar.SuperTabControlPanel()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.QrCodeImage = New Gma.QrCodeNet.Encoding.Windows.Forms.QrCodeImgControl()
+        Me.tbFechaFactura = New Janus.Windows.CalendarCombo.CalendarCombo()
+        Me.LabelX24 = New DevComponents.DotNetBar.LabelX()
+        Me.tbNroFactura = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX23 = New DevComponents.DotNetBar.LabelX()
+        Me.tbCodigoControl = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX21 = New DevComponents.DotNetBar.LabelX()
+        Me.tbNroAutorizacion = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX22 = New DevComponents.DotNetBar.LabelX()
+        Me.TabFacturado = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel4 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel20 = New System.Windows.Forms.Panel()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -171,14 +171,14 @@ Partial Class Tec_Ventas
         Me.Panel9.SuspendLayout()
         CType(Me.SuperTabControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControl1.SuspendLayout()
-        Me.SuperTabControlPanel5.SuspendLayout()
-        Me.GroupBox3.SuspendLayout()
-        CType(Me.QrCodeImage, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlPanel3.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.GpanelFacturado.SuspendLayout()
         Me.Panel22.SuspendLayout()
         CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SuperTabControlPanel5.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
+        CType(Me.QrCodeImage, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlPanel4.SuspendLayout()
         Me.Panel20.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -356,215 +356,6 @@ Partial Class Tec_Ventas
         Me.SuperTabControl1.TabIndex = 218
         Me.SuperTabControl1.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabItem3, Me.tab_Cobro, Me.TabFacturado})
         Me.SuperTabControl1.Text = "SuperTabControl1"
-        '
-        'SuperTabControlPanel5
-        '
-        Me.SuperTabControlPanel5.Controls.Add(Me.GroupBox3)
-        Me.SuperTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel5.Location = New System.Drawing.Point(0, 0)
-        Me.SuperTabControlPanel5.Name = "SuperTabControlPanel5"
-        Me.SuperTabControlPanel5.Size = New System.Drawing.Size(1196, 185)
-        Me.SuperTabControlPanel5.TabIndex = 0
-        Me.SuperTabControlPanel5.TabItem = Me.TabFacturado
-        '
-        'GroupBox3
-        '
-        Me.GroupBox3.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.GroupBox3.Controls.Add(Me.QrCodeImage)
-        Me.GroupBox3.Controls.Add(Me.tbFechaFactura)
-        Me.GroupBox3.Controls.Add(Me.LabelX24)
-        Me.GroupBox3.Controls.Add(Me.tbNroFactura)
-        Me.GroupBox3.Controls.Add(Me.LabelX23)
-        Me.GroupBox3.Controls.Add(Me.tbCodigoControl)
-        Me.GroupBox3.Controls.Add(Me.LabelX21)
-        Me.GroupBox3.Controls.Add(Me.tbNroAutorizacion)
-        Me.GroupBox3.Controls.Add(Me.LabelX22)
-        Me.GroupBox3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox3.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox3.ForeColor = System.Drawing.Color.Cornsilk
-        Me.GroupBox3.Location = New System.Drawing.Point(0, 0)
-        Me.GroupBox3.Margin = New System.Windows.Forms.Padding(4)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox3.Size = New System.Drawing.Size(1196, 185)
-        Me.GroupBox3.TabIndex = 364
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Datos De Facturación:"
-        '
-        'QrCodeImage
-        '
-        Me.QrCodeImage.ErrorCorrectLevel = Gma.QrCodeNet.Encoding.ErrorCorrectionLevel.M
-        Me.QrCodeImage.Image = CType(resources.GetObject("QrCodeImage.Image"), System.Drawing.Image)
-        Me.QrCodeImage.Location = New System.Drawing.Point(535, 38)
-        Me.QrCodeImage.Name = "QrCodeImage"
-        Me.QrCodeImage.QuietZoneModule = Gma.QrCodeNet.Encoding.Windows.Render.QuietZoneModules.Two
-        Me.QrCodeImage.Size = New System.Drawing.Size(150, 130)
-        Me.QrCodeImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.QrCodeImage.TabIndex = 221
-        Me.QrCodeImage.TabStop = False
-        Me.QrCodeImage.Text = "QrCodeImgControl1"
-        '
-        'tbFechaFactura
-        '
-        Me.tbFechaFactura.BackColor = System.Drawing.Color.White
-        Me.tbFechaFactura.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.Flat
-        '
-        '
-        '
-        Me.tbFechaFactura.DropDownCalendar.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.None
-        Me.tbFechaFactura.DropDownCalendar.DayOfWeekAbbreviation = Janus.Windows.CalendarCombo.DayOfWeekAbbreviation.UseAbbreviatedName
-        Me.tbFechaFactura.DropDownCalendar.DaysFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
-        Me.tbFechaFactura.DropDownCalendar.DaysFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
-        Me.tbFechaFactura.DropDownCalendar.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbFechaFactura.DropDownCalendar.ForeColor = System.Drawing.Color.DarkSlateGray
-        Me.tbFechaFactura.DropDownCalendar.HeaderAppearance = Janus.Windows.CalendarCombo.ButtonAppearance.PopUp
-        Me.tbFechaFactura.DropDownCalendar.HeaderFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
-        Me.tbFechaFactura.DropDownCalendar.HeaderFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
-        Me.tbFechaFactura.DropDownCalendar.Name = ""
-        Me.tbFechaFactura.DropDownCalendar.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
-        Me.tbFechaFactura.DropDownCalendar.Office2007CustomColor = System.Drawing.Color.Turquoise
-        Me.tbFechaFactura.DropDownCalendar.TodayRectColor = System.Drawing.Color.DarkCyan
-        Me.tbFechaFactura.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
-        Me.tbFechaFactura.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
-        Me.tbFechaFactura.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbFechaFactura.Location = New System.Drawing.Point(145, 140)
-        Me.tbFechaFactura.Name = "tbFechaFactura"
-        Me.tbFechaFactura.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
-        Me.tbFechaFactura.Office2007CustomColor = System.Drawing.Color.Turquoise
-        Me.tbFechaFactura.SecondIncrement = 10
-        Me.tbFechaFactura.Size = New System.Drawing.Size(349, 32)
-        Me.tbFechaFactura.TabIndex = 220
-        Me.tbFechaFactura.TodayButtonText = "Hoy"
-        Me.tbFechaFactura.UseCompatibleTextRendering = False
-        Me.tbFechaFactura.Value = New Date(2020, 6, 21, 0, 0, 0, 0)
-        Me.tbFechaFactura.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
-        Me.tbFechaFactura.YearIncrement = 10
-        '
-        'LabelX24
-        '
-        Me.LabelX24.AutoSize = True
-        Me.LabelX24.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX24.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX24.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX24.ForeColor = System.Drawing.Color.White
-        Me.LabelX24.Location = New System.Drawing.Point(10, 140)
-        Me.LabelX24.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX24.Name = "LabelX24"
-        Me.LabelX24.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX24.Size = New System.Drawing.Size(105, 23)
-        Me.LabelX24.TabIndex = 219
-        Me.LabelX24.Text = "Fecha Factura:"
-        '
-        'tbNroFactura
-        '
-        '
-        '
-        '
-        Me.tbNroFactura.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbNroFactura.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbNroFactura.Location = New System.Drawing.Point(145, 106)
-        Me.tbNroFactura.Margin = New System.Windows.Forms.Padding(4)
-        Me.tbNroFactura.Name = "tbNroFactura"
-        Me.tbNroFactura.PreventEnterBeep = True
-        Me.tbNroFactura.Size = New System.Drawing.Size(349, 26)
-        Me.tbNroFactura.TabIndex = 218
-        '
-        'LabelX23
-        '
-        Me.LabelX23.AutoSize = True
-        Me.LabelX23.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX23.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX23.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX23.ForeColor = System.Drawing.Color.White
-        Me.LabelX23.Location = New System.Drawing.Point(10, 109)
-        Me.LabelX23.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX23.Name = "LabelX23"
-        Me.LabelX23.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX23.Size = New System.Drawing.Size(90, 23)
-        Me.LabelX23.TabIndex = 217
-        Me.LabelX23.Text = "Nro Factura:"
-        '
-        'tbCodigoControl
-        '
-        '
-        '
-        '
-        Me.tbCodigoControl.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbCodigoControl.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbCodigoControl.Location = New System.Drawing.Point(145, 72)
-        Me.tbCodigoControl.Margin = New System.Windows.Forms.Padding(4)
-        Me.tbCodigoControl.Name = "tbCodigoControl"
-        Me.tbCodigoControl.PreventEnterBeep = True
-        Me.tbCodigoControl.Size = New System.Drawing.Size(349, 26)
-        Me.tbCodigoControl.TabIndex = 216
-        '
-        'LabelX21
-        '
-        Me.LabelX21.AutoSize = True
-        Me.LabelX21.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX21.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX21.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX21.ForeColor = System.Drawing.Color.White
-        Me.LabelX21.Location = New System.Drawing.Point(10, 75)
-        Me.LabelX21.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX21.Name = "LabelX21"
-        Me.LabelX21.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX21.Size = New System.Drawing.Size(112, 23)
-        Me.LabelX21.TabIndex = 215
-        Me.LabelX21.Text = "Codigo Control:"
-        '
-        'tbNroAutorizacion
-        '
-        '
-        '
-        '
-        Me.tbNroAutorizacion.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbNroAutorizacion.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbNroAutorizacion.Location = New System.Drawing.Point(145, 38)
-        Me.tbNroAutorizacion.Margin = New System.Windows.Forms.Padding(4)
-        Me.tbNroAutorizacion.Name = "tbNroAutorizacion"
-        Me.tbNroAutorizacion.PreventEnterBeep = True
-        Me.tbNroAutorizacion.Size = New System.Drawing.Size(349, 26)
-        Me.tbNroAutorizacion.TabIndex = 214
-        '
-        'LabelX22
-        '
-        Me.LabelX22.AutoSize = True
-        Me.LabelX22.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX22.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX22.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX22.ForeColor = System.Drawing.Color.White
-        Me.LabelX22.Location = New System.Drawing.Point(10, 41)
-        Me.LabelX22.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX22.Name = "LabelX22"
-        Me.LabelX22.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX22.Size = New System.Drawing.Size(127, 23)
-        Me.LabelX22.TabIndex = 64
-        Me.LabelX22.Text = "Nro Autorización:"
-        '
-        'TabFacturado
-        '
-        Me.TabFacturado.AttachedControl = Me.SuperTabControlPanel5
-        Me.TabFacturado.GlobalItem = False
-        Me.TabFacturado.Name = "TabFacturado"
-        Me.TabFacturado.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Blue
-        Me.TabFacturado.SelectedTabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TabFacturado.Symbol = ""
-        Me.TabFacturado.SymbolSize = 10.0!
-        Me.TabFacturado.Text = "Datos Facturación"
-        Me.TabFacturado.Visible = False
         '
         'SuperTabControlPanel3
         '
@@ -1145,6 +936,215 @@ Partial Class Tec_Ventas
         Me.SuperTabItem3.SymbolSize = 10.0!
         Me.SuperTabItem3.TabFont = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabItem3.Text = "Datos Ventas"
+        '
+        'SuperTabControlPanel5
+        '
+        Me.SuperTabControlPanel5.Controls.Add(Me.GroupBox3)
+        Me.SuperTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SuperTabControlPanel5.Location = New System.Drawing.Point(0, 0)
+        Me.SuperTabControlPanel5.Name = "SuperTabControlPanel5"
+        Me.SuperTabControlPanel5.Size = New System.Drawing.Size(1196, 185)
+        Me.SuperTabControlPanel5.TabIndex = 0
+        Me.SuperTabControlPanel5.TabItem = Me.TabFacturado
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.GroupBox3.Controls.Add(Me.QrCodeImage)
+        Me.GroupBox3.Controls.Add(Me.tbFechaFactura)
+        Me.GroupBox3.Controls.Add(Me.LabelX24)
+        Me.GroupBox3.Controls.Add(Me.tbNroFactura)
+        Me.GroupBox3.Controls.Add(Me.LabelX23)
+        Me.GroupBox3.Controls.Add(Me.tbCodigoControl)
+        Me.GroupBox3.Controls.Add(Me.LabelX21)
+        Me.GroupBox3.Controls.Add(Me.tbNroAutorizacion)
+        Me.GroupBox3.Controls.Add(Me.LabelX22)
+        Me.GroupBox3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox3.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox3.ForeColor = System.Drawing.Color.Cornsilk
+        Me.GroupBox3.Location = New System.Drawing.Point(0, 0)
+        Me.GroupBox3.Margin = New System.Windows.Forms.Padding(4)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox3.Size = New System.Drawing.Size(1196, 185)
+        Me.GroupBox3.TabIndex = 364
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Datos De Facturación:"
+        '
+        'QrCodeImage
+        '
+        Me.QrCodeImage.ErrorCorrectLevel = Gma.QrCodeNet.Encoding.ErrorCorrectionLevel.M
+        Me.QrCodeImage.Image = CType(resources.GetObject("QrCodeImage.Image"), System.Drawing.Image)
+        Me.QrCodeImage.Location = New System.Drawing.Point(535, 38)
+        Me.QrCodeImage.Name = "QrCodeImage"
+        Me.QrCodeImage.QuietZoneModule = Gma.QrCodeNet.Encoding.Windows.Render.QuietZoneModules.Two
+        Me.QrCodeImage.Size = New System.Drawing.Size(150, 130)
+        Me.QrCodeImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.QrCodeImage.TabIndex = 221
+        Me.QrCodeImage.TabStop = False
+        Me.QrCodeImage.Text = "QrCodeImgControl1"
+        '
+        'tbFechaFactura
+        '
+        Me.tbFechaFactura.BackColor = System.Drawing.Color.White
+        Me.tbFechaFactura.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.Flat
+        '
+        '
+        '
+        Me.tbFechaFactura.DropDownCalendar.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.None
+        Me.tbFechaFactura.DropDownCalendar.DayOfWeekAbbreviation = Janus.Windows.CalendarCombo.DayOfWeekAbbreviation.UseAbbreviatedName
+        Me.tbFechaFactura.DropDownCalendar.DaysFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.tbFechaFactura.DropDownCalendar.DaysFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.tbFechaFactura.DropDownCalendar.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFechaFactura.DropDownCalendar.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.tbFechaFactura.DropDownCalendar.HeaderAppearance = Janus.Windows.CalendarCombo.ButtonAppearance.PopUp
+        Me.tbFechaFactura.DropDownCalendar.HeaderFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.tbFechaFactura.DropDownCalendar.HeaderFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.tbFechaFactura.DropDownCalendar.Name = ""
+        Me.tbFechaFactura.DropDownCalendar.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.tbFechaFactura.DropDownCalendar.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.tbFechaFactura.DropDownCalendar.TodayRectColor = System.Drawing.Color.DarkCyan
+        Me.tbFechaFactura.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.tbFechaFactura.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
+        Me.tbFechaFactura.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFechaFactura.Location = New System.Drawing.Point(145, 140)
+        Me.tbFechaFactura.Name = "tbFechaFactura"
+        Me.tbFechaFactura.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.tbFechaFactura.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.tbFechaFactura.SecondIncrement = 10
+        Me.tbFechaFactura.Size = New System.Drawing.Size(349, 32)
+        Me.tbFechaFactura.TabIndex = 220
+        Me.tbFechaFactura.TodayButtonText = "Hoy"
+        Me.tbFechaFactura.UseCompatibleTextRendering = False
+        Me.tbFechaFactura.Value = New Date(2020, 6, 21, 0, 0, 0, 0)
+        Me.tbFechaFactura.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.tbFechaFactura.YearIncrement = 10
+        '
+        'LabelX24
+        '
+        Me.LabelX24.AutoSize = True
+        Me.LabelX24.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX24.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX24.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX24.ForeColor = System.Drawing.Color.White
+        Me.LabelX24.Location = New System.Drawing.Point(10, 140)
+        Me.LabelX24.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX24.Name = "LabelX24"
+        Me.LabelX24.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX24.Size = New System.Drawing.Size(105, 23)
+        Me.LabelX24.TabIndex = 219
+        Me.LabelX24.Text = "Fecha Factura:"
+        '
+        'tbNroFactura
+        '
+        '
+        '
+        '
+        Me.tbNroFactura.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbNroFactura.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbNroFactura.Location = New System.Drawing.Point(145, 106)
+        Me.tbNroFactura.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbNroFactura.Name = "tbNroFactura"
+        Me.tbNroFactura.PreventEnterBeep = True
+        Me.tbNroFactura.Size = New System.Drawing.Size(349, 26)
+        Me.tbNroFactura.TabIndex = 218
+        '
+        'LabelX23
+        '
+        Me.LabelX23.AutoSize = True
+        Me.LabelX23.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX23.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX23.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX23.ForeColor = System.Drawing.Color.White
+        Me.LabelX23.Location = New System.Drawing.Point(10, 109)
+        Me.LabelX23.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX23.Name = "LabelX23"
+        Me.LabelX23.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX23.Size = New System.Drawing.Size(90, 23)
+        Me.LabelX23.TabIndex = 217
+        Me.LabelX23.Text = "Nro Factura:"
+        '
+        'tbCodigoControl
+        '
+        '
+        '
+        '
+        Me.tbCodigoControl.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCodigoControl.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbCodigoControl.Location = New System.Drawing.Point(145, 72)
+        Me.tbCodigoControl.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbCodigoControl.Name = "tbCodigoControl"
+        Me.tbCodigoControl.PreventEnterBeep = True
+        Me.tbCodigoControl.Size = New System.Drawing.Size(349, 26)
+        Me.tbCodigoControl.TabIndex = 216
+        '
+        'LabelX21
+        '
+        Me.LabelX21.AutoSize = True
+        Me.LabelX21.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX21.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX21.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX21.ForeColor = System.Drawing.Color.White
+        Me.LabelX21.Location = New System.Drawing.Point(10, 75)
+        Me.LabelX21.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX21.Name = "LabelX21"
+        Me.LabelX21.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX21.Size = New System.Drawing.Size(112, 23)
+        Me.LabelX21.TabIndex = 215
+        Me.LabelX21.Text = "Codigo Control:"
+        '
+        'tbNroAutorizacion
+        '
+        '
+        '
+        '
+        Me.tbNroAutorizacion.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbNroAutorizacion.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbNroAutorizacion.Location = New System.Drawing.Point(145, 38)
+        Me.tbNroAutorizacion.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbNroAutorizacion.Name = "tbNroAutorizacion"
+        Me.tbNroAutorizacion.PreventEnterBeep = True
+        Me.tbNroAutorizacion.Size = New System.Drawing.Size(349, 26)
+        Me.tbNroAutorizacion.TabIndex = 214
+        '
+        'LabelX22
+        '
+        Me.LabelX22.AutoSize = True
+        Me.LabelX22.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX22.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX22.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX22.ForeColor = System.Drawing.Color.White
+        Me.LabelX22.Location = New System.Drawing.Point(10, 41)
+        Me.LabelX22.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX22.Name = "LabelX22"
+        Me.LabelX22.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX22.Size = New System.Drawing.Size(127, 23)
+        Me.LabelX22.TabIndex = 64
+        Me.LabelX22.Text = "Nro Autorización:"
+        '
+        'TabFacturado
+        '
+        Me.TabFacturado.AttachedControl = Me.SuperTabControlPanel5
+        Me.TabFacturado.GlobalItem = False
+        Me.TabFacturado.Name = "TabFacturado"
+        Me.TabFacturado.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Blue
+        Me.TabFacturado.SelectedTabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TabFacturado.Symbol = ""
+        Me.TabFacturado.SymbolSize = 10.0!
+        Me.TabFacturado.Text = "Datos Facturación"
+        Me.TabFacturado.Visible = False
         '
         'SuperTabControlPanel4
         '
@@ -2568,10 +2568,6 @@ Partial Class Tec_Ventas
         Me.Panel9.ResumeLayout(False)
         CType(Me.SuperTabControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuperTabControl1.ResumeLayout(False)
-        Me.SuperTabControlPanel5.ResumeLayout(False)
-        Me.GroupBox3.ResumeLayout(False)
-        Me.GroupBox3.PerformLayout()
-        CType(Me.QrCodeImage, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuperTabControlPanel3.ResumeLayout(False)
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
@@ -2579,6 +2575,10 @@ Partial Class Tec_Ventas
         Me.Panel22.ResumeLayout(False)
         Me.Panel22.PerformLayout()
         CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SuperTabControlPanel5.ResumeLayout(False)
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
+        CType(Me.QrCodeImage, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuperTabControlPanel4.ResumeLayout(False)
         Me.Panel20.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)

@@ -1331,19 +1331,52 @@ Public Class Tec_Productos
     End Sub
 
     Private Sub btnReporteConImagenes_Click(sender As Object, e As EventArgs) Handles btnReporteConImagenes.Click
+        Dim dt As DataTable
 
 
-        GenerarReporte(1, 1)
+        dt = L_fnListarCategoriaPrecioFilter()
+        'a.Id ,a.NombreCliente  as NombreProveedor ,a.DireccionCliente  ,a.Telefono
+
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("ygnumi,", False, "ID", 50))
+        listEstCeldas.Add(New Celda("Nombre", True, "CATEGORIA PRECIO", 350))
+
+
+
+        Dim ef = New Efecto
+        ef.tipo = 6
+        ef.dt = dt
+        ef.SeleclCol = 0
+        ef.listEstCeldasNew = listEstCeldas
+        ef.alto = 80
+        ef.ancho = 800
+        ef.Context = "Seleccione Categoria Precio".ToUpper
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+            Dim CategoriaPrecio As Integer = 0
+            CategoriaPrecio = Row.Cells("ygnumi").Value
+
+
+
+            GenerarReporte(1, 1, CategoriaPrecio)
+
+        End If
+
+
     End Sub
 
     Public Sub GenerarReporte(tipo As Integer, PrecioVenta As Integer, CategoriaPrecio As Integer)
         Dim dt As DataTable
         Dim titulo As String
         If (PrecioVenta = 1) Then
-            dt = GenerarReportePrecios()
+            dt = GenerarReportePrecios(CategoriaPrecio)
             titulo = "LISTADO DE PRECIO VENTA"
         Else
-            dt = GenerarReportePreciosCosto()
+            dt = GenerarReportePrecios(CategoriaPrecio)
             titulo = "LISTADO DE PRECIO COSTO"
         End If
 
@@ -1458,7 +1491,40 @@ Public Class Tec_Productos
 
 
     Private Sub ButtonX4_Click(sender As Object, e As EventArgs) Handles ButtonX4.Click
-        GenerarReporte(0, 0)
+        Dim dt As DataTable
+
+
+        dt = L_fnListarCategoriaPrecioFilter()
+        'a.Id ,a.NombreCliente  as NombreProveedor ,a.DireccionCliente  ,a.Telefono
+
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("ygnumi,", False, "ID", 50))
+        listEstCeldas.Add(New Celda("Nombre", True, "CATEGORIA PRECIO", 350))
+
+
+
+        Dim ef = New Efecto
+        ef.tipo = 6
+        ef.dt = dt
+        ef.SeleclCol = 0
+        ef.listEstCeldasNew = listEstCeldas
+        ef.alto = 80
+        ef.ancho = 800
+        ef.Context = "Seleccione Categoria Precio".ToUpper
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+            Dim CategoriaPrecio As Integer = 0
+            CategoriaPrecio = Row.Cells("ygnumi").Value
+
+            GenerarReporte(0, 0, CategoriaPrecio)
+
+        End If
+
+
     End Sub
 
     Private Sub grPrecios_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grPrecios.EditingCell

@@ -166,6 +166,17 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+    Public Shared Function L_fnListarCategoriaPrecioFilter() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 9))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Precios", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_fnListarProductos() As DataTable
         Dim _Tabla As DataTable
 
@@ -357,13 +368,15 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
-    Public Shared Function GenerarReportePrecios() As DataTable
+    Public Shared Function GenerarReportePrecios(CategoriaPRecio As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 8))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@CategoriaPrecio", CategoriaPRecio))
+
         _Tabla = D_ProcedimientoConParam("MAM_Productos", _listParam)
 
         Return _Tabla
