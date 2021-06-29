@@ -130,7 +130,7 @@ Public Class Tec_Login
     End Sub
 
     Private Sub btnsalir_Click(sender As Object, e As EventArgs) Handles btnsalir.Click
-
+        gs_user = "DEFAULT"
         _prDesvenecerPantalla()
             Me.Close()
 

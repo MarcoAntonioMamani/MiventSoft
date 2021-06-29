@@ -92,6 +92,8 @@ Public Class Tec_Principal
 
             SuperTabControlMenu.Focus()
 
+        Else
+            btnSalir.PerformClick()
 
 
 
