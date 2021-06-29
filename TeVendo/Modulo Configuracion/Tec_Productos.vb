@@ -631,44 +631,54 @@ Public Class Tec_Productos
     Private Sub _prCargarDetallePrecios(ProductoId As String)
         Dim dt As New DataTable
         dt = ListPreciosDetalles(ProductoId)
-        grPrecios.DataSource = dt
-        grPrecios.RetrieveStructure()
-        grPrecios.AlternatingColors = True
-        'id  Descripcion	precio
-        With grPrecios.RootTable.Columns("id")
-            .Width = 100
-            .Caption = "CODIGO"
-            .Visible = False
-
-        End With
 
 
 
-        With grPrecios.RootTable.Columns("Descripcion")
-            .Width = 350
-            .Caption = "Categoria Precio"
-            .Visible = True
-        End With
+        If (IsNothing(grPrecios.DataSource)) Then
+            grPrecios.DataSource = dt
+            grPrecios.RetrieveStructure()
+            grPrecios.AlternatingColors = True
+            'id  Descripcion	precio
+            With grPrecios.RootTable.Columns("id")
+                .Width = 100
+                .Caption = "CODIGO"
+                .Visible = False
 
-        With grPrecios.RootTable.Columns("precio")
-            .Width = 50
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
-            .FormatString = "0.00"
-            .Caption = "precio".ToUpper
-        End With
+            End With
 
 
-        With grPrecios
-            .GroupByBoxVisible = False
-            'diseño de la grilla
-            .VisualStyle = VisualStyle.Office2007
-            .BoundMode = Janus.Data.BoundMode.Bound
-            .RowHeaders = InheritableBoolean.True
 
-            .TotalRowPosition = TotalRowPosition.BottomFixed
-        End With
-        CargarIconEstado()
+            With grPrecios.RootTable.Columns("Descripcion")
+                .Width = 350
+                .Caption = "Categoria Precio"
+                .Visible = True
+            End With
+
+            With grPrecios.RootTable.Columns("precio")
+                .Width = 50
+                .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+                .Visible = True
+                .FormatString = "0.00"
+                .Caption = "precio".ToUpper
+            End With
+
+
+            With grPrecios
+                .GroupByBoxVisible = False
+                'diseño de la grilla
+                .VisualStyle = VisualStyle.Office2007
+                .BoundMode = Janus.Data.BoundMode.Bound
+                .RowHeaders = InheritableBoolean.True
+
+                .TotalRowPosition = TotalRowPosition.BottomFixed
+            End With
+        Else
+            grPrecios.DataSource = dt
+
+        End If
+
+
+
     End Sub
     Public Sub _PMOLimpiar()
         tbCodigo.Text = ""
@@ -906,6 +916,9 @@ Public Class Tec_Productos
             MEP.SetError(cbFamilia, "")
         End If
 
+
+
+
         MHighlighterFocus.UpdateHighlights()
 
         If tbNombreProducto.Text = String.Empty Then
@@ -950,6 +963,34 @@ Public Class Tec_Productos
             tbConversion.Focus()
             Return _ok
         End If
+        If (tbCodigoExterno.Text.Trim <> String.Empty) Then
+
+            Dim dt As DataTable = ObtenerCoincidenciasCodigoExterno(tbCodigoExterno.Text.Trim)
+
+            If _MNuevo Then
+                If (dt.Rows.Count > 0) Then ''Quiere decir que ya existe un producto con ese codigo
+                    Mensaje = Mensaje + Chr(13) + Chr(10) + " Ya existe un Producto con un mismo codigo Externo= " + tbCodigoExterno.Text + " En el Producto " + Str(dt.Rows(0).Item("id")) + "  " + dt.Rows(0).Item("DescripcionProducto")
+
+                    _ok = False
+
+                    ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                    tbCodigoExterno.Focus()
+                    Return _ok
+                End If
+
+            Else
+                If (dt.Rows.Count > 1) Then ''Quiere decir que ya existe un producto con ese codigo
+                    Mensaje = Mensaje + Chr(13) + Chr(10) + " Ya existe un Producto con un mismo codigo Externo"
+                    _ok = False
+
+                    ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                    tbCodigoExterno.Focus()
+                    Return _ok
+                End If
+            End If
+
+        End If
+
         Return _ok
     End Function
 
