@@ -295,10 +295,10 @@ Partial Class Tec_Ventas
         '
         Me.PanelLEft.Controls.Add(Me.Panel8)
         Me.PanelLEft.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelLEft.Location = New System.Drawing.Point(0, 357)
+        Me.PanelLEft.Location = New System.Drawing.Point(0, 316)
         Me.PanelLEft.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PanelLEft.Name = "PanelLEft"
-        Me.PanelLEft.Size = New System.Drawing.Size(1371, 189)
+        Me.PanelLEft.Size = New System.Drawing.Size(1371, 230)
         Me.PanelLEft.TabIndex = 0
         '
         'Panel8
@@ -311,7 +311,7 @@ Partial Class Tec_Ventas
         Me.Panel8.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Panel8.Size = New System.Drawing.Size(1371, 189)
+        Me.Panel8.Size = New System.Drawing.Size(1371, 230)
         Me.Panel8.TabIndex = 1
         '
         'Panel9
@@ -322,7 +322,7 @@ Partial Class Tec_Ventas
         Me.Panel9.Location = New System.Drawing.Point(3, 2)
         Me.Panel9.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(1365, 185)
+        Me.Panel9.Size = New System.Drawing.Size(1365, 226)
         Me.Panel9.TabIndex = 2
         '
         'SuperTabControl1
@@ -350,7 +350,7 @@ Partial Class Tec_Ventas
         Me.SuperTabControl1.ReorderTabsEnabled = True
         Me.SuperTabControl1.SelectedTabFont = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControl1.SelectedTabIndex = 0
-        Me.SuperTabControl1.Size = New System.Drawing.Size(1365, 185)
+        Me.SuperTabControl1.Size = New System.Drawing.Size(1365, 226)
         Me.SuperTabControl1.TabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Right
         Me.SuperTabControl1.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControl1.TabIndex = 218
@@ -363,7 +363,7 @@ Partial Class Tec_Ventas
         Me.SuperTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel3.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
-        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(1186, 185)
+        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(1186, 226)
         Me.SuperTabControlPanel3.TabIndex = 1
         Me.SuperTabControlPanel3.TabItem = Me.SuperTabItem3
         '
@@ -396,7 +396,7 @@ Partial Class Tec_Ventas
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(1186, 185)
+        Me.Panel3.Size = New System.Drawing.Size(1186, 226)
         Me.Panel3.TabIndex = 49
         '
         'LabelX25
@@ -1535,7 +1535,7 @@ Partial Class Tec_Ventas
         Me.PanelRight.Location = New System.Drawing.Point(0, 0)
         Me.PanelRight.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PanelRight.Name = "PanelRight"
-        Me.PanelRight.Size = New System.Drawing.Size(1371, 357)
+        Me.PanelRight.Size = New System.Drawing.Size(1371, 316)
         Me.PanelRight.TabIndex = 1
         '
         'Panel2
@@ -1548,7 +1548,7 @@ Partial Class Tec_Ventas
         Me.Panel2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Panel2.Size = New System.Drawing.Size(1371, 357)
+        Me.Panel2.Size = New System.Drawing.Size(1371, 316)
         Me.Panel2.TabIndex = 1
         '
         'PanelImagenes
@@ -1559,7 +1559,7 @@ Partial Class Tec_Ventas
         Me.PanelImagenes.Location = New System.Drawing.Point(3, 29)
         Me.PanelImagenes.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PanelImagenes.Name = "PanelImagenes"
-        Me.PanelImagenes.Size = New System.Drawing.Size(1365, 326)
+        Me.PanelImagenes.Size = New System.Drawing.Size(1365, 285)
         Me.PanelImagenes.TabIndex = 2
         '
         'PanelVerImagen
@@ -1571,7 +1571,7 @@ Partial Class Tec_Ventas
         Me.PanelVerImagen.Location = New System.Drawing.Point(0, 0)
         Me.PanelVerImagen.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelVerImagen.Name = "PanelVerImagen"
-        Me.PanelVerImagen.Size = New System.Drawing.Size(1365, 326)
+        Me.PanelVerImagen.Size = New System.Drawing.Size(1365, 285)
         Me.PanelVerImagen.TabIndex = 2
         '
         'grDetalle
@@ -1615,7 +1615,7 @@ Partial Class Tec_Ventas
         Me.grDetalle.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.grDetalle.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grDetalle.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grDetalle.Size = New System.Drawing.Size(1156, 326)
+        Me.grDetalle.Size = New System.Drawing.Size(1156, 285)
         Me.grDetalle.TabIndex = 0
         Me.grDetalle.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grDetalle.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -1634,7 +1634,7 @@ Partial Class Tec_Ventas
         Me.PanelTotal.Location = New System.Drawing.Point(1156, 0)
         Me.PanelTotal.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelTotal.Name = "PanelTotal"
-        Me.PanelTotal.Size = New System.Drawing.Size(209, 326)
+        Me.PanelTotal.Size = New System.Drawing.Size(209, 285)
         Me.PanelTotal.TabIndex = 4
         '
         'Panel13
@@ -1651,7 +1651,7 @@ Partial Class Tec_Ventas
         Me.Panel13.Location = New System.Drawing.Point(0, 0)
         Me.Panel13.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(209, 326)
+        Me.Panel13.Size = New System.Drawing.Size(209, 285)
         Me.Panel13.TabIndex = 39
         '
         'LabelX10
@@ -1898,6 +1898,7 @@ Partial Class Tec_Ventas
         Me.ButtonX3.TabIndex = 12
         Me.ButtonX3.Text = "IMPRIMIR + COPIA"
         Me.ButtonX3.TextColor = System.Drawing.Color.White
+        Me.ButtonX3.Visible = False
         '
         'BtnImprimir
         '

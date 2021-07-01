@@ -739,6 +739,12 @@
     <Compile Include="Utils\ActualizarTipoCambio.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Utils\AyudaMultiCategoria.Designer.vb">
+      <DependentUpon>AyudaMultiCategoria.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\AyudaMultiCategoria.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Utils\Celda.vb" />
     <Compile Include="Utils\CrearCategoria.designer.vb">
       <DependentUpon>CrearCategoria.vb</DependentUpon>
@@ -1119,6 +1125,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Utils\ActualizarTipoCambio.resx">
       <DependentUpon>ActualizarTipoCambio.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utils\AyudaMultiCategoria.resx">
+      <DependentUpon>AyudaMultiCategoria.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Utils\CrearCategoria.resx">
       <DependentUpon>CrearCategoria.vb</DependentUpon>

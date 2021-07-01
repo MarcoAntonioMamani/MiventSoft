@@ -53,6 +53,11 @@ Public Class Efecto
     Public TipoPrograma As Integer = 1
     Public Id As Integer = 0
 
+
+    Public SucursalSelected As Integer = 0
+    Public CategoriaPrecioSelected As Integer = 0
+    Public TableCategoria As DataTable
+
     Private Sub Efecto_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.WindowState = FormWindowState.Maximized
 
@@ -102,6 +107,8 @@ Public Class Efecto
                 _prMostrarFormCrearTipoMovimiento()
             Case 22
                 MostrarFormularioAyudaProductos()
+            Case 23
+                MostrarFormularioAyudaCatalogo()
         End Select
     End Sub
 
@@ -337,6 +344,29 @@ Public Class Efecto
         frmAyuda.ShowDialog()
         If frmAyuda.seleccionado = True Then
             Row = frmAyuda.filaSelect
+            band = True
+            Me.Close()
+        Else
+            band = False
+            Me.Close()
+        End If
+    End Sub
+
+    Sub MostrarFormularioAyudaCatalogo()
+        Dim frmAyuda As AyudaMultiCategoria
+        frmAyuda = New AyudaMultiCategoria(alto, ancho, dt, Context.ToUpper, listEstCeldasNew)
+        If (SeleclCol >= 0) Then
+            frmAyuda.Columna = SeleclCol
+            frmAyuda._prSeleccionar()
+
+        End If
+        frmAyuda.ShowDialog()
+        If frmAyuda.seleccionado = True Then
+            Row = frmAyuda.filaSelect
+
+            SucursalSelected = frmAyuda.SucursalSelected
+            CategoriaPrecioSelected = frmAyuda.CategoriaPrecioSelected
+            TableCategoria = frmAyuda.TableCategoria
             band = True
             Me.Close()
         Else
