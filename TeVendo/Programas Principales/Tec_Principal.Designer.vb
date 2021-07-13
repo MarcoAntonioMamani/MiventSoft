@@ -32,7 +32,7 @@ Partial Class Tec_Principal
         Me.btConfRoles = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btConfUsuarios = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btConfCliente = New DevComponents.DotNetBar.Metro.MetroTileItem()
-        Me.btConfProducto = New DevComponents.DotNetBar.Metro.MetroTileItem()
+        Me.btConfProducto01 = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btConfPrecio = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btConfLibreria = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btConfDosificacion = New DevComponents.DotNetBar.Metro.MetroTileItem()
@@ -126,6 +126,7 @@ Partial Class Tec_Principal
         Me.btnCerrarSesion = New DevComponents.DotNetBar.ButtonX()
         Me.PanelLine = New System.Windows.Forms.Panel()
         Me.imguser = New System.Windows.Forms.PictureBox()
+        Me.btConfProducto = New DevComponents.DotNetBar.Metro.MetroTileItem()
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlMenu.SuspendLayout()
         Me.SuperTabControlPanel3.SuspendLayout()
@@ -161,6 +162,7 @@ Partial Class Tec_Principal
         Me.SuperTabControlMenu.ControlBox.MenuBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControlMenu.ControlBox.MenuBox, Me.SuperTabControlMenu.ControlBox.CloseBox})
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel7)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel10)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel8)
@@ -169,7 +171,6 @@ Partial Class Tec_Principal
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel6)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel1)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel2)
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel7)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel4)
         Me.SuperTabControlMenu.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlMenu.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -234,7 +235,7 @@ Partial Class Tec_Principal
         Me.ItemContainerVentTransacciones.ItemSpacing = 10
         Me.ItemContainerVentTransacciones.MultiLine = True
         Me.ItemContainerVentTransacciones.Name = "ItemContainerVentTransacciones"
-        Me.ItemContainerVentTransacciones.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btConfRoles, Me.btConfUsuarios, Me.btConfCliente, Me.btConfProducto, Me.btConfPrecio, Me.btConfLibreria, Me.btConfDosificacion, Me.btComProveedor, Me.btComVendedor, Me.btnConfCategoria, Me.btConfEmpresa, Me.btnKits})
+        Me.ItemContainerVentTransacciones.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btConfRoles, Me.btConfUsuarios, Me.btConfCliente, Me.btConfProducto01, Me.btConfPrecio, Me.btConfLibreria, Me.btConfDosificacion, Me.btComProveedor, Me.btComVendedor, Me.btnConfCategoria, Me.btConfEmpresa, Me.btnKits})
         '
         '
         '
@@ -315,16 +316,16 @@ Partial Class Tec_Principal
         Me.btConfCliente.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
         Me.btConfCliente.TitleTextColor = System.Drawing.Color.White
         '
-        'btConfProducto
+        'btConfProducto01
         '
-        Me.btConfProducto.Image = CType(resources.GetObject("btConfProducto.Image"), System.Drawing.Image)
-        Me.btConfProducto.ImageIndent = New System.Drawing.Point(-50, 0)
-        Me.btConfProducto.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
-        Me.btConfProducto.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
-        Me.btConfProducto.Name = "btConfProducto"
-        Me.btConfProducto.SymbolColor = System.Drawing.Color.Black
-        Me.btConfProducto.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
-        Me.btConfProducto.TileSize = New System.Drawing.Size(250, 135)
+        Me.btConfProducto01.Image = CType(resources.GetObject("btConfProducto01.Image"), System.Drawing.Image)
+        Me.btConfProducto01.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btConfProducto01.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btConfProducto01.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btConfProducto01.Name = "btConfProducto01"
+        Me.btConfProducto01.SymbolColor = System.Drawing.Color.Black
+        Me.btConfProducto01.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btConfProducto01.TileSize = New System.Drawing.Size(250, 135)
         '
         '
         '
@@ -334,9 +335,9 @@ Partial Class Tec_Principal
         Me.btConfProducto.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btConfProducto.TileStyle.PaddingRight = 20
         Me.btConfProducto.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
-        Me.btConfProducto.TitleText = "Gestion De" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Productos"
-        Me.btConfProducto.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
-        Me.btConfProducto.TitleTextColor = System.Drawing.Color.White
+        Me.btConfProducto01.TitleText = "Gestion De" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Productos"
+        Me.btConfProducto01.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btConfProducto01.TitleTextColor = System.Drawing.Color.White
         '
         'btConfPrecio
         '
@@ -1695,9 +1696,9 @@ Partial Class Tec_Principal
         '
         Me.SuperTabControlPanel7.Controls.Add(Me.Panel_Compras)
         Me.SuperTabControlPanel7.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel7.Location = New System.Drawing.Point(213, 0)
+        Me.SuperTabControlPanel7.Location = New System.Drawing.Point(220, 0)
         Me.SuperTabControlPanel7.Name = "SuperTabControlPanel7"
-        Me.SuperTabControlPanel7.Size = New System.Drawing.Size(1245, 690)
+        Me.SuperTabControlPanel7.Size = New System.Drawing.Size(1238, 693)
         Me.SuperTabControlPanel7.TabIndex = 7
         Me.SuperTabControlPanel7.TabItem = Me.tabCompras
         '
@@ -1722,7 +1723,7 @@ Partial Class Tec_Principal
         Me.Panel_Compras.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel_Compras.MultiLine = True
         Me.Panel_Compras.Name = "Panel_Compras"
-        Me.Panel_Compras.Size = New System.Drawing.Size(1245, 690)
+        Me.Panel_Compras.Size = New System.Drawing.Size(1238, 693)
         Me.Panel_Compras.TabIndex = 5
         Me.Panel_Compras.Text = "mtp2Logistica"
         '
@@ -1735,7 +1736,7 @@ Partial Class Tec_Principal
         Me.ItemContainer7.ItemSpacing = 10
         Me.ItemContainer7.MultiLine = True
         Me.ItemContainer7.Name = "ItemContainer7"
-        Me.ItemContainer7.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnCompras, Me.btnCompraCredito, Me.btnProveedores})
+        Me.ItemContainer7.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnCompras, Me.btnCompraCredito, Me.btnProveedores, Me.btConfProducto})
         '
         '
         '
@@ -2186,6 +2187,29 @@ Partial Class Tec_Principal
         Me.imguser.TabIndex = 1
         Me.imguser.TabStop = False
         '
+        'btConfProducto
+        '
+        Me.btConfProducto.Image = CType(resources.GetObject("btConfProducto.Image"), System.Drawing.Image)
+        Me.btConfProducto.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btConfProducto.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btConfProducto.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btConfProducto.Name = "btConfProducto"
+        Me.btConfProducto.SymbolColor = System.Drawing.Color.Black
+        Me.btConfProducto.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btConfProducto.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btConfProducto.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btConfProducto.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
+        Me.btConfProducto.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btConfProducto.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btConfProducto.TileStyle.PaddingRight = 20
+        Me.btConfProducto.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btConfProducto.TitleText = "Gestion De" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Productos"
+        Me.btConfProducto.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btConfProducto.TitleTextColor = System.Drawing.Color.White
+        '
         'Tec_Principal
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -2246,7 +2270,7 @@ Partial Class Tec_Principal
     Friend WithEvents btConfRoles As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents btConfUsuarios As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents btConfCliente As DevComponents.DotNetBar.Metro.MetroTileItem
-    Friend WithEvents btConfProducto As DevComponents.DotNetBar.Metro.MetroTileItem
+    Friend WithEvents btConfProducto01 As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents btConfPrecio As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents btConfLibreria As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents btConfDosificacion As DevComponents.DotNetBar.Metro.MetroTileItem
@@ -2320,4 +2344,5 @@ Partial Class Tec_Principal
     Friend WithEvents SuperTabControlPanel10 As DevComponents.DotNetBar.SuperTabControlPanel
     Friend WithEvents tab_InvProductos As DevComponents.DotNetBar.SuperTabItem
     Friend WithEvents PanelBuscador As Panel
+    Friend WithEvents btConfProducto As DevComponents.DotNetBar.Metro.MetroTileItem
 End Class

@@ -398,11 +398,11 @@ Public Class Tec_Principal
         tab3.Icon = ico
     End Sub
 
-    Private Sub btConfProducto_Click(sender As Object, e As EventArgs) Handles btConfProducto.Click
+    Private Sub btConfProducto_Click(sender As Object, e As EventArgs) Handles btConfProducto01.Click
         SuperTabControlMenu.SelectedTab = tab_ventana
         'Dim frm As New F0_Roles
         Dim frm As New Tec_Productos
-        frm._nameButton = btConfProducto.Name
+        frm._nameButton = btConfProducto01.Name
         'frm._modulo = Panel_Configuracion
 
         Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
@@ -419,7 +419,7 @@ Public Class Tec_Principal
         frm._modulo = tab_configuraciones
         frm.Show()
         tab3.Text = frm.Text
-        Dim blah As New Bitmap(btConfProducto.Image, 20, 20)
+        Dim blah As New Bitmap(btConfProducto01.Image, 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub
@@ -1228,5 +1228,31 @@ Public Class Tec_Principal
 
     Private Sub tab_InvProductos_Click(sender As Object, e As EventArgs) Handles tab_InvProductos.Click
         FSearchProductos.Visible = True
+    End Sub
+
+    Private Sub btConfProducto_Click_1(sender As Object, e As EventArgs) Handles btConfProducto.Click
+        SuperTabControlMenu.SelectedTab = tab_ventana
+        'Dim frm As New F0_Roles
+        Dim frm As New Tec_Productos
+        frm._nameButton = btConfProducto.Name
+        'frm._modulo = Panel_Configuracion
+
+        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
+        tab3.RecalcSize()
+        tab3.ThemeAware = True
+        tab3.ShowSubItems = True
+        tab3.UpdateBindings()
+        frm._tab = tab3
+        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
+        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
+        tab3.AttachedControl.Controls.Add(panel)
+        frm._tab = tab3
+        frm._TabControl = SuperTabControlMenu
+        frm._modulo = tabCompras
+        frm.Show()
+        tab3.Text = frm.Text
+        Dim blah As New Bitmap(btConfProducto.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
     End Sub
 End Class
