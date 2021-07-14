@@ -545,28 +545,7 @@ Public Class Tec_Principal
         tab3.Icon = ico
     End Sub
 
-    Private Sub btInvSaldo_Click(sender As Object, e As EventArgs) Handles btInvSaldo.Click
-        SuperTabControlMenu.SelectedTab = tab_ventana
-        'Dim frm As New F0_Roles
-        Dim frm As New Rep_SaldoProductos
 
-        'frm._modulo = Panel_Configuracion
-
-        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
-        tab3.RecalcSize()
-        tab3.ThemeAware = True
-        tab3.ShowSubItems = True
-        tab3.UpdateBindings()
-
-        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
-        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
-        tab3.AttachedControl.Controls.Add(panel)
-        frm.Show()
-        tab3.Text = frm.Text
-        Dim blah As New Bitmap(btInvSaldo.Image, 20, 20)
-        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
-        tab3.Icon = ico
-    End Sub
 
     Private Sub btnProveedores_Click(sender As Object, e As EventArgs) Handles btnProveedores.Click
         SuperTabControlMenu.SelectedTab = tab_ventana
@@ -676,25 +655,7 @@ Public Class Tec_Principal
         tab3.Icon = ico
     End Sub
 
-    Private Sub btInvKardexReporte_Click(sender As Object, e As EventArgs) Handles btInvKardexReporte.Click
-        SuperTabControlMenu.SelectedTab = tab_ventana
-        Dim frm As New Rep_MovimientosProductos
 
-        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
-        tab3.RecalcSize()
-        tab3.ThemeAware = True
-        tab3.ShowSubItems = True
-        tab3.UpdateBindings()
-        'frm._tab = tab3
-        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
-        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
-        tab3.AttachedControl.Controls.Add(panel)
-        frm.Show()
-        tab3.Text = frm.Text
-        Dim blah As New Bitmap(btInvKardexReporte.Image, 20, 20)
-        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
-        tab3.Icon = ico
-    End Sub
 
     Private Sub btnCompraCredito_Click(sender As Object, e As EventArgs) Handles btnCompraCredito.Click
         SuperTabControlMenu.SelectedTab = tab_ventana
@@ -736,65 +697,10 @@ Public Class Tec_Principal
         tab3.Icon = ico
     End Sub
 
-    Private Sub btVentReporteRealizada_Click(sender As Object, e As EventArgs) Handles btVentReporteRealizada.Click
-        SuperTabControlMenu.SelectedTab = tab_ventana
-        Dim frm As New Rep_VentasRealizadas
 
-        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
-        tab3.RecalcSize()
-        tab3.ThemeAware = True
-        tab3.ShowSubItems = True
-        tab3.UpdateBindings()
-        'frm._tab = tab3
-        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
-        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
-        tab3.AttachedControl.Controls.Add(panel)
-        frm.Show()
-        tab3.Text = frm.Text
-        Dim blah As New Bitmap(btVentReporteRealizada.Image, 20, 20)
-        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
-        tab3.Icon = ico
-    End Sub
 
-    Private Sub btVentReporteVentaVsCosto_Click(sender As Object, e As EventArgs) Handles btVentReporteVentaVsCosto.Click
-        SuperTabControlMenu.SelectedTab = tab_ventana
-        Dim frm As New Reporte_VentasVsCostos
 
-        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
-        tab3.RecalcSize()
-        tab3.ThemeAware = True
-        tab3.ShowSubItems = True
-        tab3.UpdateBindings()
-        'frm._tab = tab3
-        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
-        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
-        tab3.AttachedControl.Controls.Add(panel)
-        frm.Show()
-        tab3.Text = frm.Text
-        Dim blah As New Bitmap(btVentReporteVentaVsCosto.Image, 20, 20)
-        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
-        tab3.Icon = ico
-    End Sub
 
-    Private Sub btVentProdMasVendidos_Click(sender As Object, e As EventArgs) Handles btVentProdMasVendidos.Click
-        SuperTabControlMenu.SelectedTab = tab_ventana
-        Dim frm As New Reporte_ProductoMasVendido
-
-        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
-        tab3.RecalcSize()
-        tab3.ThemeAware = True
-        tab3.ShowSubItems = True
-        tab3.UpdateBindings()
-        'frm._tab = tab3
-        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
-        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
-        tab3.AttachedControl.Controls.Add(panel)
-        frm.Show()
-        tab3.Text = frm.Text
-        Dim blah As New Bitmap(btVentProdMasVendidos.Image, 20, 20)
-        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
-        tab3.Icon = ico
-    End Sub
 
     Private Sub btVentEstad_Click(sender As Object, e As EventArgs) Handles btVentRendimiento.Click
         SuperTabControlMenu.SelectedTab = tab_ventana
@@ -816,25 +722,7 @@ Public Class Tec_Principal
         tab3.Icon = ico
     End Sub
 
-    Private Sub btVentReporteProducto_Click(sender As Object, e As EventArgs) Handles btInvSaldosValorados.Click
-        SuperTabControlMenu.SelectedTab = tab_ventana
-        Dim frm As New Rep_SaldosValoradosP
 
-        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
-        tab3.RecalcSize()
-        tab3.ThemeAware = True
-        tab3.ShowSubItems = True
-        tab3.UpdateBindings()
-        'frm._tab = tab3
-        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
-        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
-        tab3.AttachedControl.Controls.Add(panel)
-        frm.Show()
-        tab3.Text = frm.Text
-        Dim blah As New Bitmap(btInvSaldosValorados.Image, 20, 20)
-        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
-        tab3.Icon = ico
-    End Sub
 
     Private Sub btnInvMonitoreo_Click(sender As Object, e As EventArgs) Handles btnInvMonitoreo.Click
         SuperTabControlMenu.SelectedTab = tab_ventana
@@ -979,7 +867,7 @@ Public Class Tec_Principal
 
     Private Sub btnDespacho_Click(sender As Object, e As EventArgs) Handles btnDespacho.Click
         SuperTabControlMenu.SelectedTab = tab_ventana
-        Dim frm As New Tec_Despachos 
+        Dim frm As New Tec_Despachos
 
         Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
         tab3.RecalcSize()
@@ -1166,65 +1054,11 @@ Public Class Tec_Principal
         tab3.Icon = ico
     End Sub
 
-    Private Sub btnIngresoEgresosMensuales_Click(sender As Object, e As EventArgs) Handles btnIngresoEgresosMensuales.Click
-        SuperTabControlMenu.SelectedTab = tab_ventana
-        Dim frm As New Tec_ReporteIngresosEgresosMensuales
 
-        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
-        tab3.RecalcSize()
-        tab3.ThemeAware = True
-        tab3.ShowSubItems = True
-        tab3.UpdateBindings()
-        'frm._tab = tab3
-        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
-        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
-        tab3.AttachedControl.Controls.Add(panel)
-        frm.Show()
-        tab3.Text = frm.Text
-        Dim blah As New Bitmap(btnIngresoEgresosMensuales.Image, 20, 20)
-        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
-        tab3.Icon = ico
-    End Sub
 
-    Private Sub btnIngresoEgresoDetallado_Click(sender As Object, e As EventArgs) Handles btnIngresoEgresoDetallado.Click
-        SuperTabControlMenu.SelectedTab = tab_ventana
-        Dim frm As New Tec_ReporteIngresosEgresosDetallado
 
-        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
-        tab3.RecalcSize()
-        tab3.ThemeAware = True
-        tab3.ShowSubItems = True
-        tab3.UpdateBindings()
-        'frm._tab = tab3
-        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
-        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
-        tab3.AttachedControl.Controls.Add(panel)
-        frm.Show()
-        tab3.Text = frm.Text
-        Dim blah As New Bitmap(btnIngresoEgresoDetallado.Image, 20, 20)
-        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
-        tab3.Icon = ico
-    End Sub
 
-    Private Sub btnReporteCajaDetallado_Click(sender As Object, e As EventArgs) Handles btnReporteCajaDetallado.Click
-        SuperTabControlMenu.SelectedTab = tab_ventana
-        Dim frm As New Tec_ReporteCajaDetallado
 
-        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
-        tab3.RecalcSize()
-        tab3.ThemeAware = True
-        tab3.ShowSubItems = True
-        tab3.UpdateBindings()
-        'frm._tab = tab3
-        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
-        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
-        tab3.AttachedControl.Controls.Add(panel)
-        frm.Show()
-        tab3.Text = frm.Text
-        Dim blah As New Bitmap(btnReporteCajaDetallado.Image, 20, 20)
-        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
-        tab3.Icon = ico
-    End Sub
 
     Private Sub tab_InvProductos_Click(sender As Object, e As EventArgs) Handles tab_InvProductos.Click
         FSearchProductos.Visible = True
@@ -1252,6 +1086,189 @@ Public Class Tec_Principal
         frm.Show()
         tab3.Text = frm.Text
         Dim blah As New Bitmap(btConfProducto.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
+    End Sub
+
+    Private Sub btVentReporteRealizada_Click_1(sender As Object, e As EventArgs) Handles btVentReporteRealizada.Click
+        SuperTabControlMenu.SelectedTab = tab_ventana
+        Dim frm As New Rep_VentasRealizadas
+
+        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
+        tab3.RecalcSize()
+        tab3.ThemeAware = True
+        tab3.ShowSubItems = True
+        tab3.UpdateBindings()
+        'frm._tab = tab3
+        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
+        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
+        tab3.AttachedControl.Controls.Add(panel)
+        frm.Show()
+        tab3.Text = frm.Text
+        Dim blah As New Bitmap(btVentReporteRealizada.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
+    End Sub
+
+    Private Sub btVentReporteVentaVsCosto_Click_1(sender As Object, e As EventArgs) Handles btVentReporteVentaVsCosto.Click
+        SuperTabControlMenu.SelectedTab = tab_ventana
+        Dim frm As New Reporte_VentasVsCostos
+
+        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
+        tab3.RecalcSize()
+        tab3.ThemeAware = True
+        tab3.ShowSubItems = True
+        tab3.UpdateBindings()
+        'frm._tab = tab3
+        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
+        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
+        tab3.AttachedControl.Controls.Add(panel)
+        frm.Show()
+        tab3.Text = frm.Text
+        Dim blah As New Bitmap(btVentReporteVentaVsCosto.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
+    End Sub
+
+    Private Sub btVentProdMasVendidos_Click_1(sender As Object, e As EventArgs) Handles btVentProdMasVendidos.Click
+        SuperTabControlMenu.SelectedTab = tab_ventana
+        Dim frm As New Reporte_ProductoMasVendido
+
+        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
+        tab3.RecalcSize()
+        tab3.ThemeAware = True
+        tab3.ShowSubItems = True
+        tab3.UpdateBindings()
+        'frm._tab = tab3
+        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
+        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
+        tab3.AttachedControl.Controls.Add(panel)
+        frm.Show()
+        tab3.Text = frm.Text
+        Dim blah As New Bitmap(btVentProdMasVendidos.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
+    End Sub
+
+    Private Sub btnIngresoEgresosMensuales_Click_1(sender As Object, e As EventArgs) Handles btnIngresoEgresosMensuales.Click
+        SuperTabControlMenu.SelectedTab = tab_ventana
+        Dim frm As New Tec_ReporteIngresosEgresosMensuales
+
+        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
+        tab3.RecalcSize()
+        tab3.ThemeAware = True
+        tab3.ShowSubItems = True
+        tab3.UpdateBindings()
+        'frm._tab = tab3
+        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
+        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
+        tab3.AttachedControl.Controls.Add(panel)
+        frm.Show()
+        tab3.Text = frm.Text
+        Dim blah As New Bitmap(btnIngresoEgresosMensuales.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
+    End Sub
+
+    Private Sub btnIngresoEgresoDetallado_Click_1(sender As Object, e As EventArgs) Handles btnIngresoEgresoDetallado.Click
+        SuperTabControlMenu.SelectedTab = tab_ventana
+        Dim frm As New Tec_ReporteIngresosEgresosDetallado
+
+        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
+        tab3.RecalcSize()
+        tab3.ThemeAware = True
+        tab3.ShowSubItems = True
+        tab3.UpdateBindings()
+        'frm._tab = tab3
+        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
+        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
+        tab3.AttachedControl.Controls.Add(panel)
+        frm.Show()
+        tab3.Text = frm.Text
+        Dim blah As New Bitmap(btnIngresoEgresoDetallado.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
+    End Sub
+
+    Private Sub btnReporteCajaDetallado_Click_1(sender As Object, e As EventArgs) Handles btnReporteCajaDetallado.Click
+        SuperTabControlMenu.SelectedTab = tab_ventana
+        Dim frm As New Tec_ReporteCajaDetallado
+
+        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
+        tab3.RecalcSize()
+        tab3.ThemeAware = True
+        tab3.ShowSubItems = True
+        tab3.UpdateBindings()
+        'frm._tab = tab3
+        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
+        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
+        tab3.AttachedControl.Controls.Add(panel)
+        frm.Show()
+        tab3.Text = frm.Text
+        Dim blah As New Bitmap(btnReporteCajaDetallado.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
+    End Sub
+
+    Private Sub btInvSaldo_Click_1(sender As Object, e As EventArgs) Handles btInvSaldo.Click
+        SuperTabControlMenu.SelectedTab = tab_ventana
+        'Dim frm As New F0_Roles
+        Dim frm As New Rep_SaldoProductos
+
+        'frm._modulo = Panel_Configuracion
+
+        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
+        tab3.RecalcSize()
+        tab3.ThemeAware = True
+        tab3.ShowSubItems = True
+        tab3.UpdateBindings()
+
+        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
+        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
+        tab3.AttachedControl.Controls.Add(panel)
+        frm.Show()
+        tab3.Text = frm.Text
+        Dim blah As New Bitmap(btInvSaldo.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
+    End Sub
+
+    Private Sub btInvSaldosValorados_Click(sender As Object, e As EventArgs) Handles btInvSaldosValorados.Click
+        SuperTabControlMenu.SelectedTab = tab_ventana
+        Dim frm As New Rep_SaldosValoradosP
+
+        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
+        tab3.RecalcSize()
+        tab3.ThemeAware = True
+        tab3.ShowSubItems = True
+        tab3.UpdateBindings()
+        'frm._tab = tab3
+        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
+        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
+        tab3.AttachedControl.Controls.Add(panel)
+        frm.Show()
+        tab3.Text = frm.Text
+        Dim blah As New Bitmap(btInvSaldosValorados.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
+    End Sub
+
+    Private Sub btInvKardexReporte_Click_1(sender As Object, e As EventArgs) Handles btInvKardexReporte.Click
+        SuperTabControlMenu.SelectedTab = tab_ventana
+        Dim frm As New Rep_MovimientosProductos
+
+        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
+        tab3.RecalcSize()
+        tab3.ThemeAware = True
+        tab3.ShowSubItems = True
+        tab3.UpdateBindings()
+        'frm._tab = tab3
+        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
+        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
+        tab3.AttachedControl.Controls.Add(panel)
+        frm.Show()
+        tab3.Text = frm.Text
+        Dim blah As New Bitmap(btInvKardexReporte.Image, 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub
