@@ -861,7 +861,8 @@ salirIf:
         swTipoVenta.IsReadOnly = False
         tbFechaVencimientoCredito.ReadOnly = False
         tbFechaTransaccion.ReadOnly = False
-
+        tbNroContenedor.ReadOnly = False
+        tbNroImportacion.ReadOnly = False
 
         tbMdesc.IsInputReadOnly = False
         tbPdesc.IsInputReadOnly = False
@@ -881,6 +882,11 @@ salirIf:
         tbTotal.IsInputReadOnly = True
         tbMdesc.IsInputReadOnly = True
         tbPdesc.IsInputReadOnly = True
+
+
+        tbNroContenedor.ReadOnly = True
+        tbNroImportacion.ReadOnly = True
+
         grDetalle.RootTable.Columns("img").Visible = False
     End Sub
 
@@ -900,6 +906,11 @@ salirIf:
         tbMdesc.Value = 0
         tbPdesc.Value = 0
         tbTotal.Value = 0
+
+        tbNroContenedor.Text = ""
+        tbNroImportacion.Text = ""
+
+
         _prCargarDetalleVenta(-1)
     End Sub
     Public Sub seleccionarPrimerItemCombo(cb As EditControls.MultiColumnCombo)
@@ -927,7 +938,7 @@ salirIf:
         Try
             res = ComprasInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), IdProveedor,
                                   IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                  1, 1, tbGlosa.Text, tbTotal.Value, 1, CType(grDetalle.DataSource, DataTable), tbMdesc.Value)
+                                  1, 1, tbGlosa.Text, tbTotal.Value, 1, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, tbNroContenedor.Text, tbNroImportacion.Text)
 
             If res Then
 
@@ -970,7 +981,7 @@ salirIf:
         Try
             Res = ComprasModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), IdProveedor,
                                   IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                  1, 1, tbGlosa.Text, tbTotal.Value, 1, CType(grDetalle.DataSource, DataTable), tbMdesc.Value)
+                                  1, 1, tbGlosa.Text, tbTotal.Value, 1, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, tbNroContenedor.Text, tbNroImportacion.Text)
             If Res Then
                 ReporteCompra(tbCodigo.Text)
                 ToastNotification.Show(Me, "Codigo de Compra ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
@@ -1132,6 +1143,8 @@ salirIf:
         listEstCeldas.Add(New Celda("descuento", False, "", 70))
         listEstCeldas.Add(New Celda("EmpresaId", False, "", 150))
         listEstCeldas.Add(New Celda("transaccion", False, "", 150))
+        listEstCeldas.Add(New Celda("NroContenedor", True, "NroContenedor", 150))
+        listEstCeldas.Add(New Celda("NroImportacion", True, "NroImportación", 150))
         Return listEstCeldas
     End Function
 
@@ -1154,6 +1167,8 @@ salirIf:
             IdProveedor = .GetValue("ProveedorId")
             tbProveedor.Text = .GetValue("NombreProveedor").ToString
             swTipoVenta.Value = .GetValue("TipoVenta")
+            tbNroContenedor.Text = .GetValue("NroContenedor")
+            tbNroImportacion.Text = .GetValue("NroImportacion")
             tbFechaVencimientoCredito.Value = .GetValue("FechaVencimientoCredito")
 
             tbMdesc.Value = .GetValue("descuento")
