@@ -345,13 +345,16 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
-    Public Shared Function GenerarReportePrecios() As DataTable
+    Public Shared Function GenerarReportePrecios(CategoriaPRecio As Integer, Sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 8))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@CategoriaPrecio", CategoriaPRecio))
+        _listParam.Add(New Datos.DParametro("@SucursalId", Sucursal))
+
         _Tabla = D_ProcedimientoConParam("MAM_Productos", _listParam)
 
         Return _Tabla
@@ -1896,8 +1899,28 @@ Public Class AccesoLogica
 
         Return _resultado
     End Function
+    Public Shared Function L_fnListarCategoriaPrecioFilter() As DataTable
+        Dim _Tabla As DataTable
 
+        Dim _listParam As New List(Of Datos.DParametro)
 
+        _listParam.Add(New Datos.DParametro("@tipo", 9))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Precios", _listParam)
+
+        Return _Tabla
+    End Function
+    Public Shared Function L_fnListarCategoriaProductos() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 10))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Precios", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function ComprasModificar(ByRef _numi As String, AlmacenId As Integer,
                                            FechaTransacccion As String, ProveedorId As Integer, TipoVenta As Integer,
        FechaVencCredito As String, Moneda As Integer, estado As Integer, glosa As String,

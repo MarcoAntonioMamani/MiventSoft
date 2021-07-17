@@ -99,6 +99,13 @@ Public Class Tec_VentasDetalle
             .WordWrap = True
             .Caption = "Tipo"
         End With
+        With grProducto.RootTable.Columns("unidadVenta")
+            .Width = 80
+            .Visible = True
+            .MaxLines = 2
+            .WordWrap = True
+            .Caption = "UN"
+        End With
         With grProducto.RootTable.Columns("NombreCategoria")
             .Width = 120
             .Visible = True
@@ -116,6 +123,13 @@ Public Class Tec_VentasDetalle
             .Width = 150
             .Visible = True
             .Caption = "Stock"
+            .FormatString = "0.00"
+        End With
+
+        With grProducto.RootTable.Columns("QTY")
+            .Width = 80
+            .Visible = True
+            .Caption = "QTY"
             .FormatString = "0.00"
         End With
         With grProducto.RootTable.Columns("PrecioVenta")
@@ -174,14 +188,12 @@ Public Class Tec_VentasDetalle
 
 
     Private Sub _prAddDetalleVenta()
-        '     a.Id , a.VentaId, a.ProductoId, p.NombreProducto As Producto, a.Cantidad, a.Precio, a.SubTotal,
-        '     a.ProcentajeDescuento, a.MontoDescuento, a.Total, a.Detalle, a.PrecioCosto, a.Lote, a.FechaVencimiento,
-        '     1 As estado, cast('' as image ) as img
-        '     , 0 as stock
+        'Id	VentaId	ProductoId	Producto	QTY	UnidadVenta	Cajas	Cantidad	Precio	PrecioCaja	SubTotal
+        'ProcentajeDescuento MontoDescuento	Total	Detalle	PrecioCosto	Lote	FechaVencimiento	Tipo	TipoNombre	KitId	KitNombre	CantidadKit	estado	img	stock
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.rowdelete, 25, 18)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, 0, 0, 0, 0, 0, "", 0, "20200101", CDate("2020/01/01"), 0, "", 0, "", 0, 0, Bin.GetBuffer, 0)
+        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, "", 0, 0, 0, 0, 0, 0, 0, 0, "", 0, "20200101", CDate("2020/01/01"), 0, "", 0, "", 0, 0, Bin.GetBuffer, 0)
     End Sub
 
     Public Function _GenerarId()
@@ -228,14 +240,56 @@ Public Class Tec_VentasDetalle
         End With
 
 
+        With grDetalle.RootTable.Columns("ProductoId")
+            .Width = 30
+            .Visible = True
+            .Caption = "Item"
+        End With
+
+        With grDetalle.RootTable.Columns("Producto")
+            .Width = 150
+            .Caption = "Descripcion"
+            .WordWrap = True
+            .MaxLines = 2
+            .Visible = True
+        End With
+        With grDetalle.RootTable.Columns("QTY")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "QTY"
+        End With
+        With grDetalle.RootTable.Columns("UnidadVenta")
+            .Width = 60
+            .WordWrap = True
+            .MaxLines = 2
+            .Caption = "UN"
+            .Visible = True
+        End With
+        With grDetalle.RootTable.Columns("Cajas")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Cajas"
+        End With
+
+        With grDetalle.RootTable.Columns("Cantidad")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Cantidad"
+        End With
         With grDetalle.RootTable.Columns("Tipo")
             .Width = 100
             .Visible = False
 
         End With
         With grDetalle.RootTable.Columns("TipoNombre")
-            .Width = 60
-            .Visible = True
+            .Width = 40
+            .Visible = False
             .Caption = "Tipo"
         End With
         With grDetalle.RootTable.Columns("KitId")
@@ -244,46 +298,25 @@ Public Class Tec_VentasDetalle
 
         End With
         With grDetalle.RootTable.Columns("KitNombre")
-            .Width = 100
-            .Visible = True
+            .Width = 80
+            .Visible = False
             .Caption = "Kit"
             .WordWrap = True
-            .MaxLines = 3
+            .MaxLines = 2
         End With
-
-        With grDetalle.RootTable.Columns("ProductoId")
-            .Width = 30
-            .Visible = True
-            .Caption = "Cod Producto"
-        End With
-
-        With grDetalle.RootTable.Columns("Producto")
-            .Width = 150
-            .Caption = "Producto"
-            .Visible = True
-        End With
-
-        With grDetalle.RootTable.Columns("CantidadKit")
-            .Width = 40
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
-            .FormatString = "0.00"
-            .Caption = "CantidadKit"
-        End With
-        With grDetalle.RootTable.Columns("Cantidad")
-            .Width = 50
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
-            .FormatString = "0.00"
-            .Caption = "Cantidad".ToUpper
-        End With
-
 
         With grDetalle.RootTable.Columns("Precio")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
-            .Caption = "Precio"
+            .Caption = "Precio UN"
+            .FormatString = "0.00"
+        End With
+        With grDetalle.RootTable.Columns("PrecioCaja")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .Caption = "Precio Caja"
             .FormatString = "0.00"
         End With
 
@@ -298,28 +331,34 @@ Public Class Tec_VentasDetalle
         '     a.ProcentajeDescuento, a.MontoDescuento, a.Total, a.Detalle, a.PrecioCosto, a.Lote, a.FechaVencimiento,
         '     1 As estado, cast('' as image ) as img
         '     ,   as stock
-
+        With grDetalle.RootTable.Columns("CantidadKit")
+            .Width = 40
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = False
+            .FormatString = "0.00"
+            .Caption = "CantidadKit"
+        End With
         With grDetalle.RootTable.Columns("ProcentajeDescuento")
-            .Width = 70
+            .Width = 55
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0"
-            .Caption = "%.Descuento".ToUpper
+            .Caption = "%.Descuento"
         End With
 
         With grDetalle.RootTable.Columns("MontoDescuento")
-            .Width = 70
+            .Width = 55
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "M.Descuento".ToUpper
+            .Caption = "M.Descuento"
         End With
 
 
         With grDetalle.RootTable.Columns("Total")
             .Width = 60
             .Visible = True
-            .Caption = "Total".ToUpper
+            .Caption = "Total"
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
@@ -705,10 +744,24 @@ Public Class Tec_VentasDetalle
                 grDetalle.Row = grDetalle.RowCount - 1
                 _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"), grDetalle.GetValue("Tipo"))
                 If ((pos >= 0)) Then
+                    'Id	VentaId	ProductoId	Producto	QTY	UnidadVenta	Cajas	Cantidad	Precio	PrecioCaja	SubTotal
+                    'ProcentajeDescuento MontoDescuento	Total	Detalle	PrecioCosto	Lote	FechaVencimiento	Tipo	TipoNombre	KitId	KitNombre	CantidadKit	estado	img	stock
+
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("QTY") = grProducto.GetValue("QTY")
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("UnidadVenta") = grProducto.GetValue("unidadVenta")
+
+
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = grProducto.GetValue("Id")
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = grProducto.GetValue("NombreProducto")
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
+
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cajas") = cantidad / grProducto.GetValue("QTY")
+
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCaja") = grProducto.GetValue("PrecioVenta") * grProducto.GetValue("QTY")
+
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = grProducto.GetValue("PrecioVenta")
+
+
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = grProducto.GetValue("PrecioVenta") * cantidad
 
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = grProducto.GetValue("PrecioVenta") * cantidad

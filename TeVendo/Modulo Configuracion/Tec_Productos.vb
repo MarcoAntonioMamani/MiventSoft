@@ -1282,18 +1282,95 @@ Public Class Tec_Productos
     End Sub
 
     Private Sub btnReporteConImagenes_Click(sender As Object, e As EventArgs) Handles btnReporteConImagenes.Click
-        GenerarReporte(1, 1)
-    End Sub
+        Dim dt As DataTable
 
-    Public Sub GenerarReporte(tipo As Integer, PrecioVenta As Integer)
+
+        dt = L_fnListarCategoriaProductos()
+        'a.Id ,a.NombreCliente  as NombreProveedor ,a.DireccionCliente  ,a.Telefono
+
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("id,", False, "ID", 50))
+        listEstCeldas.Add(New Celda("Nombre", True, "CATEGORIA PRECIO", 350))
+        listEstCeldas.Add(New Celda("seleccionado", True, "SELECCIONAR", 150))
+
+
+
+        Dim ef = New Efecto
+        ef.tipo = 23
+        ef.dt = dt
+        ef.SeleclCol = 0
+        ef.listEstCeldasNew = listEstCeldas
+        ef.alto = 80
+        ef.ancho = 800
+        ef.Context = "Seleccione Categoria Precio".ToUpper
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            'Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+            Dim CategoriaPrecio As Integer = ef.CategoriaPrecioSelected
+            Dim SucursalSelected As Integer = ef.SucursalSelected
+            dt = ef.TableCategoria
+
+
+
+
+            GenerarReporte(1, 1, CategoriaPrecio, SucursalSelected, dt)
+
+        End If
+    End Sub
+    Public Function ExisteCategoria(IdCategoria As Integer, dtCategoria As DataTable)
+
+
+        For i As Integer = 0 To dtCategoria.Rows.Count - 1 Step 1
+
+            If (dtCategoria.Rows(i).Item("seleccionado") = True And dtCategoria.Rows(i).Item("id") = IdCategoria) Then
+                Return True
+            End If
+
+
+        Next
+        Return False
+
+    End Function
+    Public Sub GenerarReporte(tipo As Integer, PrecioVenta As Integer, CategoriaPrecio As Integer, Sucursal As Integer, dtCategorias As DataTable)
         Dim dt As DataTable
         Dim titulo As String
         If (PrecioVenta = 1) Then
-            dt = GenerarReportePrecios()
-            titulo = "LISTADO DE PRECIO VENTA"
+            dt = GenerarReportePrecios(CategoriaPrecio, Sucursal)
+
+            Dim dt2 As DataTable = dt.Copy
+            dt2.Rows.Clear()
+
+            For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+                If (ExisteCategoria(dt.Rows(i).Item("CategoriaId"), dtCategorias)) Then
+
+                    dt2.ImportRow(dt.Rows(i))
+                End If
+
+            Next
+            dt = dt2
+
+
+            titulo = "LISTADO DE PRECIOS DE PRODUCTOS"
         Else
-            dt = GenerarReportePreciosCosto()
-            titulo = "LISTADO DE PRECIO COSTO"
+            dt = GenerarReportePrecios(CategoriaPrecio, Sucursal)
+            titulo = "LISTADO DE PRECIOS DE PRODUCTOS"
+            Dim dt2 As DataTable = dt.Copy
+            dt2.Rows.Clear()
+
+            For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+                If (ExisteCategoria(dt.Rows(i).Item("CategoriaId"), dtCategorias)) Then
+
+                    dt2.ImportRow(dt.Rows(i))
+                End If
+
+            Next
+            dt = dt2
+
         End If
 
         Dim dtImage As DataTable = ObtenerImagenEmpresa()
@@ -1404,12 +1481,48 @@ Public Class Tec_Productos
 
     End Sub
 
-    Private Sub ButtonX3_Click(sender As Object, e As EventArgs) Handles ButtonX3.Click
-        GenerarReporte(0, 1)
-    End Sub
 
     Private Sub ButtonX4_Click(sender As Object, e As EventArgs) Handles ButtonX4.Click
-        GenerarReporte(0, 0)
+        'GenerarReporte(0, 0)
+
+        Dim dt As DataTable
+
+
+        dt = L_fnListarCategoriaProductos()
+        'a.Id ,a.NombreCliente  as NombreProveedor ,a.DireccionCliente  ,a.Telefono
+
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("id,", False, "ID", 50))
+        listEstCeldas.Add(New Celda("Nombre", True, "CATEGORIA PRECIO", 350))
+        listEstCeldas.Add(New Celda("seleccionado", True, "SELECCIONAR", 150))
+
+
+        Dim ef = New Efecto
+        ef.tipo = 23
+        ef.dt = dt
+        ef.SeleclCol = 0
+        ef.listEstCeldasNew = listEstCeldas
+        ef.alto = 80
+        ef.ancho = 800
+        ef.Context = "Seleccione Datos".ToUpper
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+
+
+            Dim CategoriaPrecio As Integer = ef.CategoriaPrecioSelected
+            Dim SucursalSelected As Integer = ef.SucursalSelected
+            dt = ef.TableCategoria
+
+
+
+
+            GenerarReporte(0, 0, CategoriaPrecio, SucursalSelected, dt)
+
+
+
+        End If
     End Sub
 #End Region
 End Class
