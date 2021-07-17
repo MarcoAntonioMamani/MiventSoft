@@ -218,7 +218,7 @@ Public Class FormularioStock
         grProducto.AlternatingColors = True
         With grProducto.RootTable.Columns("Id")
             .Width = 100
-            .Caption = "Id"
+            .Caption = "Item"
             .Visible = True
 
 
@@ -228,7 +228,7 @@ Public Class FormularioStock
 
         With grProducto.RootTable.Columns("NombreProducto")
             .Width = 300
-            .Caption = "PRODUCTOS"
+            .Caption = "Descripción"
             .Visible = True
             .MaxLines = 2
             .WordWrap = True
@@ -243,7 +243,7 @@ Public Class FormularioStock
         ''NombreCategoria
         With grProducto.RootTable.Columns("DescripcionProducto")
             .Width = 250
-            .Visible = True
+            .Visible = False
             .Caption = "DESCRIPCION"
             .MaxLines = 2
             .WordWrap = True
@@ -270,7 +270,31 @@ Public Class FormularioStock
             .Width = 150
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "Stock General"
+            .Caption = "Stock UN"
+            .MaxLines = 2
+            .WordWrap = True
+            .CellStyle.BackColor = Color.SpringGreen
+            .CellStyle.FontBold = TriState.True
+            .TextAlignment = TextAlignment.Far
+            .CellStyle.FontSize = 11
+        End With
+        With grProducto.RootTable.Columns("QTY")
+            .Width = 90
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "QTY"
+            .MaxLines = 2
+            .WordWrap = True
+            .CellStyle.BackColor = Color.SpringGreen
+            .CellStyle.FontBold = TriState.True
+            .TextAlignment = TextAlignment.Far
+            .CellStyle.FontSize = 11
+        End With
+        With grProducto.RootTable.Columns("StockCaja")
+            .Width = 100
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Stock Caja"
             .MaxLines = 2
             .WordWrap = True
             .CellStyle.BackColor = Color.SpringGreen
