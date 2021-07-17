@@ -173,7 +173,7 @@ Public Class AyudaCantidadProductosVentas
 
         Dim CantCajasMaximo = CantidadTotal / Qty
 
-        If (tbCajas.Value > CantCajasMaximo) Then
+        If (tbCajas.Value > CantCajasMaximo And TipoMovimiento <> 4) Then
             tbCantidad.Value = 0
             tbCajas.Value = 0
 
@@ -195,7 +195,7 @@ Public Class AyudaCantidadProductosVentas
     Private Sub tbCantidad_ValueChanged(sender As Object, e As EventArgs) Handles tbCantidad.ValueChanged
 
 
-        If (tbCantidad.Value > CantidadTotal) Then
+        If (tbCantidad.Value > CantidadTotal And TipoMovimiento <> 4) Then
             tbCantidad.Value = 0
             tbCajas.Value = 0
 
