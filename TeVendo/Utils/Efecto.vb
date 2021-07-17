@@ -58,6 +58,11 @@ Public Class Efecto
     Public CategoriaPrecioSelected As Integer = 0
     Public TableCategoria As DataTable
 
+
+    Public Precio As Double = 0
+    Public ProductoId As Integer = 0
+    Public QTY As Double = 0
+
     Private Sub Efecto_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.WindowState = FormWindowState.Maximized
 
@@ -109,6 +114,8 @@ Public Class Efecto
                 MostrarFormularioAyudaProductos()
             Case 23
                 MostrarFormularioAyudaCatalogo()
+            Case 24
+                _prMostrarFormularioCantidadVentas()
         End Select
     End Sub
 
@@ -455,6 +462,28 @@ Public Class Efecto
         If frmAyuda.respuesta = True Then
 
             CantidadTransaccion = frmAyuda.CantidadVenta
+            band = True
+            Me.Close()
+        Else
+            band = False
+            Me.Close()
+        End If
+    End Sub
+
+    Sub _prMostrarFormularioCantidadVentas()
+        Dim frmAyuda As AyudaCantidadProductosVentas
+        frmAyuda = New AyudaCantidadProductosVentas
+        frmAyuda.NombreProducto = NombreProducto
+        frmAyuda.CantidadTotal = StockActual
+        frmAyuda.ProductoId = ProductoId
+        frmAyuda.Qty = QTY
+
+        frmAyuda.TipoMovimiento = TipoMovimiento
+        frmAyuda.ShowDialog()
+        If frmAyuda.respuesta = True Then
+
+            CantidadTransaccion = frmAyuda.CantidadVenta
+            Precio = frmAyuda.Precio
             band = True
             Me.Close()
         Else

@@ -349,6 +349,12 @@
     <Compile Include="Inventarios\Tec_Sucursales.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modulo Configuracion\AyudaCantidadProductosVentas.Designer.vb">
+      <DependentUpon>AyudaCantidadProductosVentas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo Configuracion\AyudaCantidadProductosVentas.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Modulo Configuracion\FormularioCantidadProductos.Designer.vb">
       <DependentUpon>FormularioCantidadProductos.vb</DependentUpon>
     </Compile>
@@ -890,6 +896,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\Tec_Sucursales.resx">
       <DependentUpon>Tec_Sucursales.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo Configuracion\AyudaCantidadProductosVentas.resx">
+      <DependentUpon>AyudaCantidadProductosVentas.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo Configuracion\FormularioCantidadProductos.resx">
       <DependentUpon>FormularioCantidadProductos.vb</DependentUpon>
