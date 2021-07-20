@@ -61,13 +61,13 @@ Public Class Tec_ComprasDetalle
         With grProducto.RootTable.Columns("NombreProducto")
             .Width = 350
             .Caption = "PRODUCTOS"
-            .Visible = False
+            .Visible = True
 
         End With
 
         With grProducto.RootTable.Columns("DescripcionProducto")
             .Width = 350
-            .Visible = True
+            .Visible = False
             .WordWrap = True
             .MaxLines = 3
             .Caption = "DESCRIPCION"
@@ -709,7 +709,7 @@ salirIf:
             For i As Integer = 0 To dt.Rows.Count - 1 Step 1
                 Dim nombre As String = dt.Rows(i).Item("Id").ToString.ToUpper +
                     " " + dt.Rows(i).Item("CodigoExterno").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper +
                     " " + dt.Rows(i).Item("NombreCategoria").ToString.ToUpper +
                     " " + dt.Rows(i).Item("industria").ToString.ToUpper
                 Select Case cant

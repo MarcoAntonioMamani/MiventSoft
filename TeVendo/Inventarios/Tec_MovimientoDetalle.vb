@@ -477,7 +477,7 @@ Public Class Tec_MovimientoDetalle
         With grProducto.RootTable.Columns("NombreProducto")
             .Width = 350
             .Caption = "PRODUCTOS"
-            .Visible = False
+            .Visible = True
             .MaxLines = 2
             .WordWrap = True
         End With
@@ -499,7 +499,7 @@ Public Class Tec_MovimientoDetalle
         ''NombreCategoria
         With grProducto.RootTable.Columns("DescripcionProducto")
             .Width = 350
-            .Visible = True
+            .Visible = False
             .Caption = "DESCRIPCION"
             .MaxLines = 2
             .WordWrap = True

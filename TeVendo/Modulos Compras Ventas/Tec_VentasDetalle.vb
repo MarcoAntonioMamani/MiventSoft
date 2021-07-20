@@ -80,14 +80,14 @@ Public Class Tec_VentasDetalle
         With grProducto.RootTable.Columns("NombreProducto")
             .Width = 300
             .Caption = "PRODUCTOS"
-            .Visible = False
+            .Visible = True
             .MaxLines = 2
             .WordWrap = True
         End With
 
         With grProducto.RootTable.Columns("DescripcionProducto")
             .Width = 250
-            .Visible = True
+            .Visible = False
             .MaxLines = 2
             .WordWrap = True
             .Caption = "DESCRIPCION"
@@ -1150,7 +1150,7 @@ salirIf:
             'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock  NombreCategoria
             For i As Integer = 0 To dt.Rows.Count - 1 Step 1
                 Dim nombre As String = dt.Rows(i).Item("Id").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper +
                     " " + dt.Rows(i).Item("NombreCategoria").ToString.ToUpper +
                     " " + dt.Rows(i).Item("industria").ToString.ToUpper +
                     " " + dt.Rows(i).Item("CodigoExterno").ToString.ToUpper

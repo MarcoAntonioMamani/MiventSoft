@@ -24,12 +24,15 @@ Partial Class FormularioStock
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim cbPrecio_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim cbSucursal_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormularioStock))
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.Paneltop = New System.Windows.Forms.Panel()
         Me.grProducto = New Janus.Windows.GridEX.GridEX()
         Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.cbPrecio = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.btnProductosSinStock = New DevComponents.DotNetBar.ButtonX()
         Me.btnProductos = New DevComponents.DotNetBar.ButtonX()
         Me.btnConfirmarSalir = New DevComponents.DotNetBar.ButtonX()
@@ -40,16 +43,17 @@ Partial Class FormularioStock
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel12 = New System.Windows.Forms.Panel()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
-        Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
-        Me.cbPrecio = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.cbSucursal = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Paneltop.SuspendLayout()
         CType(Me.grProducto, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
+        CType(Me.cbPrecio, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel10.SuspendLayout()
         Me.Panel11.SuspendLayout()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cbPrecio, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MEP
@@ -100,7 +104,7 @@ Partial Class FormularioStock
         Me.grProducto.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grProducto.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
         Me.grProducto.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
-        Me.grProducto.Location = New System.Drawing.Point(0, 129)
+        Me.grProducto.Location = New System.Drawing.Point(0, 163)
         Me.grProducto.Margin = New System.Windows.Forms.Padding(4)
         Me.grProducto.Name = "grProducto"
         Me.grProducto.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
@@ -118,7 +122,7 @@ Partial Class FormularioStock
         Me.grProducto.SelectedFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
         Me.grProducto.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grProducto.SelectedFormatStyle.ForeColor = System.Drawing.Color.Black
-        Me.grProducto.Size = New System.Drawing.Size(1140, 321)
+        Me.grProducto.Size = New System.Drawing.Size(1140, 287)
         Me.grProducto.TabIndex = 4
         Me.grProducto.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grProducto.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -130,6 +134,8 @@ Partial Class FormularioStock
         '
         'Panel5
         '
+        Me.Panel5.Controls.Add(Me.cbSucursal)
+        Me.Panel5.Controls.Add(Me.LabelX2)
         Me.Panel5.Controls.Add(Me.cbPrecio)
         Me.Panel5.Controls.Add(Me.LabelX1)
         Me.Panel5.Controls.Add(Me.btnProductosSinStock)
@@ -141,8 +147,50 @@ Partial Class FormularioStock
         Me.Panel5.Location = New System.Drawing.Point(0, 36)
         Me.Panel5.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(1140, 93)
+        Me.Panel5.Size = New System.Drawing.Size(1140, 127)
         Me.Panel5.TabIndex = 3
+        '
+        'cbPrecio
+        '
+        Me.cbPrecio.BackColor = System.Drawing.Color.Azure
+        Me.cbPrecio.ColorScheme = ""
+        Me.cbPrecio.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.cbPrecio.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
+        Me.cbPrecio.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        cbPrecio_DesignTimeLayout.LayoutString = resources.GetString("cbPrecio_DesignTimeLayout.LayoutString")
+        Me.cbPrecio.DesignTimeLayout = cbPrecio_DesignTimeLayout
+        Me.cbPrecio.FlatBorderColor = System.Drawing.Color.Black
+        Me.cbPrecio.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbPrecio.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbPrecio.HideSelection = False
+        Me.cbPrecio.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cbPrecio.Location = New System.Drawing.Point(182, 50)
+        Me.cbPrecio.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbPrecio.Name = "cbPrecio"
+        Me.cbPrecio.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbPrecio.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
+        Me.cbPrecio.SelectedIndex = -1
+        Me.cbPrecio.SelectedItem = Nothing
+        Me.cbPrecio.Size = New System.Drawing.Size(332, 28)
+        Me.cbPrecio.TabIndex = 378
+        Me.cbPrecio.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'LabelX1
+        '
+        Me.LabelX1.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX1.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX1.Location = New System.Drawing.Point(15, 53)
+        Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX1.Name = "LabelX1"
+        Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX1.Size = New System.Drawing.Size(151, 28)
+        Me.LabelX1.TabIndex = 377
+        Me.LabelX1.Text = "Categoria Precio:"
         '
         'btnProductosSinStock
         '
@@ -299,47 +347,47 @@ Partial Class FormularioStock
         Me.PictureBox3.TabIndex = 0
         Me.PictureBox3.TabStop = False
         '
-        'LabelX1
+        'cbSucursal
         '
-        Me.LabelX1.BackColor = System.Drawing.Color.Transparent
+        Me.cbSucursal.BackColor = System.Drawing.Color.Azure
+        Me.cbSucursal.ColorScheme = ""
+        Me.cbSucursal.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.cbSucursal.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
+        Me.cbSucursal.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        cbSucursal_DesignTimeLayout.LayoutString = resources.GetString("cbSucursal_DesignTimeLayout.LayoutString")
+        Me.cbSucursal.DesignTimeLayout = cbSucursal_DesignTimeLayout
+        Me.cbSucursal.FlatBorderColor = System.Drawing.Color.Black
+        Me.cbSucursal.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbSucursal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbSucursal.HideSelection = False
+        Me.cbSucursal.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cbSucursal.Location = New System.Drawing.Point(182, 91)
+        Me.cbSucursal.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbSucursal.Name = "cbSucursal"
+        Me.cbSucursal.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbSucursal.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
+        Me.cbSucursal.SelectedIndex = -1
+        Me.cbSucursal.SelectedItem = Nothing
+        Me.cbSucursal.Size = New System.Drawing.Size(332, 28)
+        Me.cbSucursal.TabIndex = 380
+        Me.cbSucursal.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'LabelX2
+        '
+        Me.LabelX2.BackColor = System.Drawing.Color.Transparent
         '
         '
         '
-        Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX1.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX1.Location = New System.Drawing.Point(15, 53)
-        Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX1.Name = "LabelX1"
-        Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX1.Size = New System.Drawing.Size(151, 28)
-        Me.LabelX1.TabIndex = 377
-        Me.LabelX1.Text = "Categoria Precio:"
-        '
-        'cbPrecio
-        '
-        Me.cbPrecio.BackColor = System.Drawing.Color.Azure
-        Me.cbPrecio.ColorScheme = ""
-        Me.cbPrecio.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
-        Me.cbPrecio.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
-        Me.cbPrecio.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
-        cbPrecio_DesignTimeLayout.LayoutString = resources.GetString("cbPrecio_DesignTimeLayout.LayoutString")
-        Me.cbPrecio.DesignTimeLayout = cbPrecio_DesignTimeLayout
-        Me.cbPrecio.FlatBorderColor = System.Drawing.Color.Black
-        Me.cbPrecio.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbPrecio.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.cbPrecio.HideSelection = False
-        Me.cbPrecio.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.cbPrecio.Location = New System.Drawing.Point(182, 50)
-        Me.cbPrecio.Margin = New System.Windows.Forms.Padding(4)
-        Me.cbPrecio.Name = "cbPrecio"
-        Me.cbPrecio.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.cbPrecio.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
-        Me.cbPrecio.SelectedIndex = -1
-        Me.cbPrecio.SelectedItem = Nothing
-        Me.cbPrecio.Size = New System.Drawing.Size(332, 28)
-        Me.cbPrecio.TabIndex = 378
-        Me.cbPrecio.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX2.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX2.Location = New System.Drawing.Point(15, 89)
+        Me.LabelX2.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX2.Name = "LabelX2"
+        Me.LabelX2.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX2.Size = New System.Drawing.Size(151, 28)
+        Me.LabelX2.TabIndex = 379
+        Me.LabelX2.Text = "Sucursal:"
         '
         'FormularioStock
         '
@@ -356,10 +404,11 @@ Partial Class FormularioStock
         CType(Me.grProducto, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel5.ResumeLayout(False)
         Me.Panel5.PerformLayout()
+        CType(Me.cbPrecio, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel10.ResumeLayout(False)
         Me.Panel11.ResumeLayout(False)
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cbPrecio, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -381,4 +430,6 @@ Partial Class FormularioStock
     Protected WithEvents btnProductosSinStock As DevComponents.DotNetBar.ButtonX
     Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
     Friend WithEvents cbPrecio As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents cbSucursal As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents LabelX2 As DevComponents.DotNetBar.LabelX
 End Class

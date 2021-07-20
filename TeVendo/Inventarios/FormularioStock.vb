@@ -76,7 +76,7 @@ Public Class FormularioStock
             For i As Integer = 0 To dt.Rows.Count - 1 Step 1
                 Dim nombre As String = dt.Rows(i).Item("CodigoExterno").ToString.ToUpper +
                     " " + dt.Rows(i).Item("industria").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper +
                     " " + dt.Rows(i).Item("Categoria").ToString.ToUpper +
                     " " + dt.Rows(i).Item("unidad").ToString.ToUpper
                 Select Case cant
@@ -236,7 +236,7 @@ Public Class FormularioStock
         With grProducto.RootTable.Columns("NombreProducto")
             .Width = 300
             .Caption = "PRODUCTOS"
-            .Visible = False
+            .Visible = True
             .MaxLines = 2
             .WordWrap = True
         End With
@@ -264,7 +264,7 @@ Public Class FormularioStock
         ''NombreCategoria
         With grProducto.RootTable.Columns("DescripcionProducto")
             .Width = 300
-            .Visible = True
+            .Visible = False
             .Caption = "DESCRIPCION"
             .MaxLines = 2
             .WordWrap = True
@@ -292,7 +292,7 @@ Public Class FormularioStock
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Stock"
-            .MaxLines = 2
+            .MaxLines = 5
             .WordWrap = True
         End With
         With grProducto.RootTable.Columns("stockGeneral")
