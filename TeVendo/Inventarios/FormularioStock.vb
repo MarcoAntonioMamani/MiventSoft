@@ -15,7 +15,20 @@ Public Class FormularioStock
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
 
     Public Sub IniciarTodod()
+
+
+        Dim dt As DataTable = L_fnGeneralSucursales()
+
+        dt.Rows.Add(-1, "Todas Sucursales")
+
+        P_Global._prCargarComboGenerico(cbSucursal, dt, "aanumi", "Codigo", "aabdes", "Sucursal")
+
+        cbSucursal.Value = -1
+
+        swfiltroCantidades.Value = True  ''Todos Los Productos
         P_Global._prCargarComboGenerico(cbPrecio, L_fnListarCategoriaPrecio(), "ygnumi", "Codigo", "ygdesc", "Cat.Precio")
+
+
 
 
         _habilitarFocus()
@@ -208,8 +221,33 @@ Public Class FormularioStock
         Dim dt As New DataTable
 
 
+        If (cbSucursal.Value = -1) Then
+            dt = L_prListarProductosTodosInventario(CategoriaPrecio)  ''1=Almacen
 
-        dt = L_prListarProductosTodosInventario(CategoriaPrecio)  ''1=Almacen
+        Else
+            dt = L_prListarProductosTodosInventarioUnaSucursal(CategoriaPrecio, cbSucursal.Value)
+        End If
+
+        Dim dt2 As DataTable = dt.Copy
+
+        If (swfiltroCantidades.Value = False) Then  ''Solo productos con Stock
+            dt2.Rows.Clear()
+
+            For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+                If (dt.Rows(i).Item("stockGeneral") > 0) Then
+                    dt2.ImportRow(dt.Rows(i))
+                End If
+            Next
+            dt = dt2
+
+        End If
+
+
+
+
+
+
         dtProductos = dt
 
         'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock 
@@ -326,7 +364,34 @@ Public Class FormularioStock
 
     Private Sub btnProductos_Click(sender As Object, e As EventArgs) Handles btnProductos.Click
         Dim _dt As New DataTable
-        _dt = L_prListarProductosTodosInventario(cbPrecio.Value)
+        '_dt = L_prListarProductosTodosInventario(cbPrecio.Value)
+
+
+
+        If (cbSucursal.Value = -1) Then
+            _dt = L_prListarProductosTodosInventario(cbPrecio.Value)  ''1=Almacen
+
+        Else
+            _dt = L_prListarProductosTodosInventarioUnaSucursal(cbPrecio.Value, cbSucursal.Value)
+        End If
+
+        Dim dt2 As DataTable = _dt.Copy
+
+        If (swfiltroCantidades.Value = False) Then  ''Solo productos con Stock
+            dt2.Rows.Clear()
+
+            For i As Integer = 0 To _dt.Rows.Count - 1 Step 1
+
+                If (_dt.Rows(i).Item("stockGeneral") > 0) Then
+                    dt2.ImportRow(_dt.Rows(i))
+                End If
+            Next
+            _dt = dt2
+
+        End If
+
+
+
         If (IsNothing(_dt) Or _dt.Rows.Count = 0) Then
 
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
