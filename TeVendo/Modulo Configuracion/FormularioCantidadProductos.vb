@@ -10,6 +10,7 @@ Public Class FormularioCantidadProductos
     Public CantidadTotal As Double = 0
     Public CantidadVenta As Double = 0
     Public TipoMovimiento As Integer = 0  ''4= ingreso 3 = egreso
+    Public Qty As Double = 0
 
 #Region "Button Si"
     Private Sub Panel1_MouseHover(sender As Object, e As EventArgs) Handles btnSi.MouseHover
@@ -25,7 +26,8 @@ Public Class FormularioCantidadProductos
     End Sub
     Private Sub Formulario_Eliminar_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         txtProducto.Text = NombreProducto
-        txtStock.Text = "Cantidad Disponible = " + Str(CantidadTotal)
+
+        txtStock.Text = "Cantidad Unitario Disponible = " + Str(CantidadTotal) + Chr(13) + Chr(10) + "Cantidad Cajas Disponible = " + Str(CantidadTotal / Qty) + Chr(13) + Chr(10) + "QTY = " + Str(Qty)
         _habilitarFocus()
     End Sub
     Public Sub _habilitarFocus()
@@ -73,7 +75,8 @@ Public Class FormularioCantidadProductos
             Else
                 If (CantidadActual > CantidadTotal) Then
 
-                    tbCantidad.Clear()
+                    tbCantidad.Value = 0
+                    tbCajas.Value = 0
                     tbCantidad.Text = Str(CantidadTotal).Trim
                     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
                     ToastNotification.Show(Me, "La cantidad es Superior Al Stock Disponible = " + Str(CantidadTotal), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
@@ -85,7 +88,8 @@ Public Class FormularioCantidadProductos
                         respuesta = True
                         Me.Close()
                     Else
-                        tbCantidad.Clear()
+                        tbCantidad.Value = 0
+                        tbCajas.Value = 0
                         tbCantidad.Text = "0".Trim
                         Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
                         ToastNotification.Show(Me, "La Cantidad debe ser Mayor o igual a 1", img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
@@ -109,7 +113,50 @@ Public Class FormularioCantidadProductos
 
     End Sub
 
-    Private Sub tbCantidad_KeyDown(sender As Object, e As KeyEventArgs) Handles tbCantidad.KeyDown
+    Private Sub tbCajas_ValueChanged(sender As Object, e As EventArgs) Handles tbCajas.ValueChanged
+
+        Dim CantCajasMaximo As Double = CantidadTotal / Qty
+
+        If (tbCajas.Value > CantCajasMaximo And TipoMovimiento <> 4) Then
+            tbCantidad.Value = 0
+            tbCajas.Value = 0
+
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "La cantidad Cajas es Superior Al Stock Disponible = " + Str(CantCajasMaximo), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+
+            tbCajas.Select()
+            tbCajas.Focus()
+
+        Else
+
+            tbCantidad.Value = tbCajas.Value * Qty
+
+
+        End If
+
+    End Sub
+
+    Private Sub tbCantidad_ValueChanged(sender As Object, e As EventArgs) Handles tbCantidad.ValueChanged
+
+
+        If (tbCantidad.Value > CantidadTotal And TipoMovimiento <> 4) Then
+            tbCantidad.Value = 0
+            tbCajas.Value = 0
+
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "La cantidad Unitaria es Superior Al Stock Disponible = " + Str(CantidadTotal), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            tbCantidad.Select()
+
+            tbCantidad.Focus()
+        Else
+
+            tbCajas.Value = tbCantidad.Value / Qty
+
+
+        End If
+    End Sub
+
+    Private Sub tbCantidad_KeyDown(sender As Object, e As KeyEventArgs)
         If (e.KeyData = Keys.Enter) Then
             ValidarStock()
         End If
@@ -120,6 +167,13 @@ Public Class FormularioCantidadProductos
             respuesta = False
             Me.Close()
 
+        End If
+    End Sub
+
+    Private Sub tbCajas_KeyDown(sender As Object, e As KeyEventArgs) Handles tbCajas.KeyDown, tbCantidad.KeyDown
+
+        If (e.KeyData = Keys.Enter) Then
+            ValidarStock()
         End If
     End Sub
 #End Region

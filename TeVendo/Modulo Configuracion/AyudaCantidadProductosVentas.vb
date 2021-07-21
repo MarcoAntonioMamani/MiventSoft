@@ -171,7 +171,7 @@ Public Class AyudaCantidadProductosVentas
 
     Private Sub tbCajas_ValueChanged(sender As Object, e As EventArgs) Handles tbCajas.ValueChanged
 
-        Dim CantCajasMaximo = CantidadTotal / Qty
+        Dim CantCajasMaximo As Double = CantidadTotal / Qty
 
         If (tbCajas.Value > CantCajasMaximo And TipoMovimiento <> 4) Then
             tbCantidad.Value = 0
@@ -209,6 +209,17 @@ Public Class AyudaCantidadProductosVentas
             tbCajas.Value = tbCantidad.Value / Qty
 
 
+        End If
+    End Sub
+
+    Private Sub btnSi_Paint(sender As Object, e As PaintEventArgs) Handles btnSi.Paint
+
+    End Sub
+
+    Private Sub tbCajas_KeyDown(sender As Object, e As KeyEventArgs) Handles tbCajas.KeyDown, tbCantidad.KeyDown
+
+        If (e.KeyData = Keys.Enter) Then
+            ValidarStock()
         End If
     End Sub
 #End Region

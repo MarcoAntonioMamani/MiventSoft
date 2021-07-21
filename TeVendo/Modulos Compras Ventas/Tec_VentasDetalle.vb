@@ -1416,6 +1416,7 @@ salirIf:
                 Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
 
                 grDetalle.SetValue("Cantidad", 1)
+                grDetalle.SetValue("Cajas", 1 / grDetalle.GetValue("QTY"))
                 grDetalle.SetValue("ProcentajeDescuento", 0)
                 grDetalle.SetValue("MontoDescuento", 0)
                 grDetalle.SetValue("SubTotal", grDetalle.GetValue("Precio"))

@@ -58,6 +58,12 @@ Public Class Tec_ComprasDetalle
             .Visible = False
 
         End With
+
+        With grProducto.RootTable.Columns("conversion")
+            .Width = 100
+            .Visible = False
+
+        End With
         With grProducto.RootTable.Columns("NombreProducto")
             .Width = 350
             .Caption = "PRODUCTOS"
@@ -134,7 +140,7 @@ Public Class Tec_ComprasDetalle
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.rowdelete, 25, 18)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, 0, "20200101", CDate("01/01/2020"), 0, 0, 0, Bin.GetBuffer, 0, 0)
+        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, 0, 0, 0, "20200101", CDate("01/01/2020"), 0, 0, 0, Bin.GetBuffer, 0, 0)
     End Sub
 
     Public Function _GenerarId()
@@ -194,7 +200,14 @@ Public Class Tec_ComprasDetalle
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "P.Venta".ToUpper
+            .Caption = "P.Venta"
+        End With
+        With grDetalle.RootTable.Columns("QTY")
+            .Width = 60
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "QTY"
         End With
 
         With grDetalle.RootTable.Columns("PrecioCosto")
@@ -202,7 +215,7 @@ Public Class Tec_ComprasDetalle
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "P.Costo".ToUpper
+            .Caption = "P.Costo"
         End With
 
 
@@ -211,7 +224,7 @@ Public Class Tec_ComprasDetalle
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "SubTotal".ToUpper
+            .Caption = "SubTotal"
         End With
 
         With grDetalle.RootTable.Columns("CompraId")
@@ -239,7 +252,14 @@ Public Class Tec_ComprasDetalle
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "Cantidad".ToUpper
+            .Caption = "Cantidad"
+        End With
+        With grDetalle.RootTable.Columns("Caja")
+            .Width = 90
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Caja"
         End With
 
         With grDetalle.RootTable.Columns("estado")
@@ -408,6 +428,8 @@ Public Class Tec_ComprasDetalle
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("costo") = grProducto.GetValue("PrecioCosto")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("venta") = grProducto.GetValue("PrecioVenta")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Caja") = cantidad / grProducto.GetValue("Conversion")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("QTY") = grProducto.GetValue("Conversion")
 
                 ''    _DesHabilitarProductos()
 
@@ -445,7 +467,9 @@ Public Class Tec_ComprasDetalle
                 ef.tipo = 5
                 ef.NombreProducto = grProducto.GetValue("NombreProducto")
                 ef.StockActual = grProducto.GetValue("stock")
+                ef.QTY = grProducto.GetValue("conversion")
                 ef.TipoMovimiento = 4
+
                 ef.ShowDialog()
                 Dim bandera As Boolean = False
                 bandera = ef.band
@@ -570,7 +594,7 @@ Public Class Tec_ComprasDetalle
         'Habilitar solo las columnas de Precio, %, Monto y Observación
         If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index Or
                 e.Column.Index = grDetalle.RootTable.Columns("PrecioCosto").Index Or
-                 e.Column.Index = grDetalle.RootTable.Columns("PrecioVenta").Index) Then
+                 e.Column.Index = grDetalle.RootTable.Columns("PrecioVenta").Index Or e.Column.Index = grDetalle.RootTable.Columns("Caja").Index) Then
             e.Cancel = False
         Else
             If ((e.Column.Index = grDetalle.RootTable.Columns("Lote").Index Or
@@ -848,9 +872,12 @@ salirIf:
                 '  grDetalle.CurrentRow.Cells.Item("cant").Value = 1
 
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Caja") = 1 / grDetalle.GetValue("QTY")
+
 
                 Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
-
+                grDetalle.SetValue("Cantidad", 1)
+                grDetalle.SetValue("Caja", 1 / grDetalle.GetValue("QTY"))
                 If (estado = 1) Then
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
                 End If
@@ -860,16 +887,70 @@ salirIf:
 
                     Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
                     Dim rowIndex As Integer = grDetalle.Row
+
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Caja") = grDetalle.GetValue("Cantidad") / grDetalle.GetValue("QTY")
+                    grDetalle.SetValue("Caja", grDetalle.GetValue("Cantidad") / grDetalle.GetValue("QTY"))
                     P_PonerTotal(rowIndex)
                     If (estado = 1) Then
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
                     End If
 
                 Else
-
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Caja") = 1 / grDetalle.GetValue("QTY")
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
                     Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+                    grDetalle.SetValue("Cantidad", 1)
+                    grDetalle.SetValue("Caja", 1 / grDetalle.GetValue("QTY"))
+                    If (estado = 1) Then
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                    End If
 
+                End If
+            End If
+        End If
+
+
+        If (e.Column.Index = grDetalle.RootTable.Columns("Caja").Index) Then
+            If (Not IsNumeric(grDetalle.GetValue("Caja")) Or grDetalle.GetValue("Caja").ToString = String.Empty) Then
+
+                'grDetalle.GetRow(rowIndex).Cells("cant").Value = 1
+                '  grDetalle.CurrentRow.Cells.Item("cant").Value = 1
+
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Caja") = 1 / grDetalle.GetValue("QTY")
+
+
+                Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+                grDetalle.SetValue("Cantidad", 1)
+                grDetalle.SetValue("Caja", 1 / grDetalle.GetValue("QTY"))
+                If (estado = 1) Then
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                End If
+
+            Else
+                If (grDetalle.GetValue("Caja") > 0) Then
+
+
+                    Dim CantidadTot As Double = grDetalle.GetValue("Caja") * grDetalle.GetValue("QTY")
+                    grDetalle.SetValue("Cantidad", CantidadTot)
+
+
+                    Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+                    Dim rowIndex As Integer = grDetalle.Row
+
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Caja") = grDetalle.GetValue("Cantidad") / grDetalle.GetValue("QTY")
+                    grDetalle.SetValue("Caja", grDetalle.GetValue("Cantidad") / grDetalle.GetValue("QTY"))
+                    P_PonerTotal(rowIndex)
+                    If (estado = 1) Then
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                    End If
+
+                Else
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Caja") = 1 / grDetalle.GetValue("QTY")
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+                    Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+                    grDetalle.SetValue("Cantidad", 1)
+                    grDetalle.SetValue("Caja", 1 / grDetalle.GetValue("QTY"))
                     If (estado = 1) Then
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
                     End If

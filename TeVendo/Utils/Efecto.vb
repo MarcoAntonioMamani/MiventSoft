@@ -458,6 +458,8 @@ Public Class Efecto
         frmAyuda.NombreProducto = NombreProducto
         frmAyuda.CantidadTotal = StockActual
         frmAyuda.TipoMovimiento = TipoMovimiento
+        frmAyuda.Qty = QTY
+
         frmAyuda.ShowDialog()
         If frmAyuda.respuesta = True Then
 
