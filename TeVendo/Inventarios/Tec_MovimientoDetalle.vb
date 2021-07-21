@@ -80,12 +80,28 @@ Public Class Tec_MovimientoDetalle
         End With
 
 
+        With grDetalle.RootTable.Columns("Cajas")
+            .Width = 90
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Cajas"
+        End With
+
+        With grDetalle.RootTable.Columns("QTY")
+            .Width = 60
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "QTY"
+        End With
+
         With grDetalle.RootTable.Columns("Cantidad")
             .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "Cantidad".ToUpper
+            .Caption = "Cantidad"
         End With
 
         With grDetalle.RootTable.Columns("estado")
@@ -502,7 +518,21 @@ Public Class Tec_MovimientoDetalle
             .Width = 150
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "STOCK"
+            .Caption = "Stock Uni."
+        End With
+
+        With grProducto.RootTable.Columns("QTY")
+            .Width = 60
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "QTY"
+        End With
+
+        With grProducto.RootTable.Columns("StockCaja")
+            .Width = 150
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Stock Caja"
         End With
         With grProducto
             .DefaultFilterRowComparison = FilterConditionOperator.Contains
@@ -535,7 +565,7 @@ Public Class Tec_MovimientoDetalle
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, "20200101", CDate("2020/01/01"), Bin.GetBuffer, 0, 0)
+        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, 0, 0, "20200101", CDate("2020/01/01"), Bin.GetBuffer, 0, 0)
     End Sub
     Public Function _fnExisteProducto(idprod As Integer) As Boolean
         For i As Integer = 0 To CType(grDetalle.DataSource, DataTable).Rows.Count - 1 Step 1
@@ -569,7 +599,9 @@ Public Class Tec_MovimientoDetalle
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = grProducto.GetValue("Id")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = grProducto.GetValue("NombreProducto")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("stock")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("QTY") = grProducto.GetValue("QTY")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cajas") = cantidad / grProducto.GetValue("QTY")
 
                 ''    _DesHabilitarProductos()
 
@@ -757,6 +789,7 @@ Public Class Tec_MovimientoDetalle
                     ef.tipo = 5
                     ef.NombreProducto = grProducto.GetValue("NombreProducto")
                     ef.StockActual = grProducto.GetValue("stock")
+                    ef.QTY = grProducto.GetValue("QTY")
                     ef.TipoMovimiento = TipoMovimientoId
                     ef.ShowDialog()
                     Dim bandera As Boolean = False
@@ -779,6 +812,7 @@ Public Class Tec_MovimientoDetalle
                 ef.tipo = 5
                 ef.NombreProducto = grProducto.GetValue("NombreProducto")
                 ef.StockActual = grProducto.GetValue("stock")
+                ef.QTY = grProducto.GetValue("QTY")
                 ef.TipoMovimiento = TipoMovimientoId
                 ef.ShowDialog()
                 Dim bandera As Boolean = False
@@ -803,6 +837,7 @@ Public Class Tec_MovimientoDetalle
                 ef.tipo = 5
                 ef.NombreProducto = grProducto.GetValue("NombreProducto")
                 ef.StockActual = grProducto.GetValue("stock")
+                ef.QTY = grProducto.GetValue("QTY")
                 ef.TipoMovimiento = TipoMovimientoId
                 ef.ShowDialog()
                 Dim bandera As Boolean = False
@@ -878,7 +913,7 @@ Public Class Tec_MovimientoDetalle
     End Function
 
     Private Sub grDetalle_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grDetalle.EditingCell
-        If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
+        If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index Or e.Column.Index = grDetalle.RootTable.Columns("Cajas").Index) Then
             e.Cancel = False
         Else
             If ((e.Column.Index = grDetalle.RootTable.Columns("Lote").Index Or
@@ -912,8 +947,12 @@ Public Class Tec_MovimientoDetalle
                 Dim pos As Integer = -1
                 _fnObtenerFilaDetalle(pos, lin)
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cajas") = 1 / grDetalle.GetValue("QTY")
 
                 Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+
+                grDetalle.SetValue("Cantidad", 1)
+                grDetalle.SetValue("Cajas", 1 / grDetalle.GetValue("QTY"))
 
                 If (estado = 1) Then
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
@@ -924,6 +963,12 @@ Public Class Tec_MovimientoDetalle
                     Dim lin As Integer = grDetalle.GetValue("Id")
                     Dim pos As Integer = -1
                     _fnObtenerFilaDetalle(pos, lin)
+
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cajas") = grDetalle.GetValue("Cantidad") / grDetalle.GetValue("QTY")
+
+
+
+
                     Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
 
                     If (estado = 1) Then
@@ -935,8 +980,65 @@ Public Class Tec_MovimientoDetalle
                     Dim pos As Integer = -1
                     _fnObtenerFilaDetalle(pos, lin)
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cajas") = 1 / grDetalle.GetValue("QTY")
+                    Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+                    grDetalle.SetValue("Cantidad", 1)
+                    grDetalle.SetValue("Cajas", 1 / grDetalle.GetValue("QTY"))
+                    If (estado = 1) Then
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                    End If
+
+                End If
+            End If
+        End If
+        If (e.Column.Index = grDetalle.RootTable.Columns("Cajas").Index) Then
+            If (Not IsNumeric(grDetalle.GetValue("Cajas")) Or grDetalle.GetValue("Cajas").ToString = String.Empty) Then
+
+                'grDetalle.GetRow(rowIndex).Cells("cant").Value = 1
+                '  grDetalle.CurrentRow.Cells.Item("cant").Value = 1
+                Dim lin As Integer = grDetalle.GetValue("Id")
+                Dim pos As Integer = -1
+                _fnObtenerFilaDetalle(pos, lin)
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cajas") = 1 / grDetalle.GetValue("QTY")
+
+                Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+
+                grDetalle.SetValue("Cantidad", 1)
+                grDetalle.SetValue("Cajas", 1 / grDetalle.GetValue("QTY"))
+
+                If (estado = 1) Then
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                End If
+
+            Else
+                If (grDetalle.GetValue("Cajas") > 0) Then
+
+
+                    Dim lin As Integer = grDetalle.GetValue("Id")
+                    Dim pos As Integer = -1
+                    _fnObtenerFilaDetalle(pos, lin)
+
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = grDetalle.GetValue("Cajas") * grDetalle.GetValue("QTY")
+
+
+
+
                     Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
 
+                    If (estado = 1) Then
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                    End If
+
+                Else
+                    Dim lin As Integer = grDetalle.GetValue("Id")
+                    Dim pos As Integer = -1
+                    _fnObtenerFilaDetalle(pos, lin)
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cajas") = 1 / grDetalle.GetValue("QTY")
+                    Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+                    grDetalle.SetValue("Cantidad", 1)
+                    grDetalle.SetValue("Cajas", 1 / grDetalle.GetValue("QTY"))
                     If (estado = 1) Then
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
                     End If
