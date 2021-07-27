@@ -976,7 +976,7 @@ Public Class AccesoLogica
     Public Shared Function InsertarCliente(_Id As String, IdZona As Integer, IdPrecio As Integer, CodigoExterno As String, NombreCliente As String,
                                            Direccion As String, Telefono As String, TipoDocumento As Integer, NroDocumento As String,
                                            RazonSocial As String, nit As String, estado As Integer, FechaIngreso As String, Latitud As Double,
-                                           Longitud As Double) As Boolean
+                                           Longitud As Double, Observaciones As String) As Boolean
         Dim _Tabla As DataTable
         Dim _resultado As Boolean
         Dim _listParam As New List(Of Datos.DParametro)
@@ -992,7 +992,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@DireccionCliente", Direccion))
         _listParam.Add(New Datos.DParametro("@Telefono", Telefono))
         _listParam.Add(New Datos.DParametro("@estado", estado))
-        _listParam.Add(New Datos.DParametro("@Observacion", ""))
+        _listParam.Add(New Datos.DParametro("@Observacion", Observaciones))
         _listParam.Add(New Datos.DParametro("@TipoDocumento", TipoDocumento))
         _listParam.Add(New Datos.DParametro("@NroDocumento", NroDocumento))
         _listParam.Add(New Datos.DParametro("@RazonSocial", RazonSocial))
@@ -1058,7 +1058,7 @@ Public Class AccesoLogica
     Public Shared Function ModificarCliente(_Id As String, IdZona As Integer, IdPrecio As Integer, CodigoExterno As String, NombreCliente As String,
                                            Direccion As String, Telefono As String, TipoDocumento As Integer, NroDocumento As String,
                                            RazonSocial As String, nit As String, estado As Integer, FechaIngreso As String, Latitud As Double,
-                                           Longitud As Double) As Boolean
+                                           Longitud As Double, Observaciones As String) As Boolean
         Dim _Tabla As DataTable
         Dim _resultado As Boolean
         Dim _listParam As New List(Of Datos.DParametro)
@@ -1074,7 +1074,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@DireccionCliente", Direccion))
         _listParam.Add(New Datos.DParametro("@Telefono", Telefono))
         _listParam.Add(New Datos.DParametro("@estado", estado))
-        _listParam.Add(New Datos.DParametro("@Observacion", ""))
+        _listParam.Add(New Datos.DParametro("@Observacion", Observaciones))
         _listParam.Add(New Datos.DParametro("@TipoDocumento", TipoDocumento))
         _listParam.Add(New Datos.DParametro("@NroDocumento", NroDocumento))
         _listParam.Add(New Datos.DParametro("@RazonSocial", RazonSocial))

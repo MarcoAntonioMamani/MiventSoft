@@ -303,6 +303,7 @@ Public Class Tec_Clientes
             .SetHighlightOnFocus(cbTipoDocumento, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(tbNroDocumento, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(tbRazonSocial, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbObservaciones, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(tbnit, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(cbPrecios, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(cbZona, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
@@ -401,6 +402,7 @@ Public Class Tec_Clientes
         cbZona.ReadOnly = False
         cbPrecios.ReadOnly = False
         btnTipoDocumento.Visible = True
+        tbObservaciones.ReadOnly = False
         tbNombreCliente.Focus()
     End Sub
 
@@ -416,6 +418,7 @@ Public Class Tec_Clientes
         tbNroDocumento.ReadOnly = True
         cbTipoDocumento.ReadOnly = True
         cbZona.ReadOnly = True
+        tbObservaciones.ReadOnly = True
         cbPrecios.ReadOnly = True
         tbRazonSocial.ReadOnly = True
         tbnit.ReadOnly = True
@@ -431,6 +434,8 @@ Public Class Tec_Clientes
         tbNroDocumento.Text = ""
         tbRazonSocial.Text = ""
         tbnit.Text = ""
+        tbObservaciones.Clear()
+
 
         swEstado.Value = True
         seleccionarPrimerItemCombo(cbTipoDocumento)
@@ -471,7 +476,7 @@ Public Class Tec_Clientes
         Try
             res = InsertarCliente(tbCodigo.Text, cbZona.Value, cbPrecios.Value, tbCodigoExterno.Text, tbNombreCliente.Text,
                                   tbDireccionCliente.Text, tbTelefono.Text, cbTipoDocumento.Value, tbNroDocumento.Text,
-                                  tbRazonSocial.Text, tbnit.Text, IIf(swEstado.Value = True, 1, 0), Now.Date.ToString("yyyy/MM/dd"), _latitud, _longitud)
+                                  tbRazonSocial.Text, tbnit.Text, IIf(swEstado.Value = True, 1, 0), Now.Date.ToString("yyyy/MM/dd"), _latitud, _longitud, tbObservaciones.Text)
 
             If res Then
 
@@ -497,7 +502,7 @@ Public Class Tec_Clientes
         Try
             Res = ModificarCliente(tbCodigo.Text, cbZona.Value, cbPrecios.Value, tbCodigoExterno.Text, tbNombreCliente.Text,
                                   tbDireccionCliente.Text, tbTelefono.Text, cbTipoDocumento.Value, tbNroDocumento.Text,
-                                  tbRazonSocial.Text, tbnit.Text, IIf(swEstado.Value = True, 1, 0), Now.Date.ToString("yyyy/MM/dd"), _latitud, _longitud)
+                                  tbRazonSocial.Text, tbnit.Text, IIf(swEstado.Value = True, 1, 0), Now.Date.ToString("yyyy/MM/dd"), _latitud, _longitud, tbObservaciones.Text)
 
             If Res Then
 
@@ -634,6 +639,7 @@ Public Class Tec_Clientes
             tbNroDocumento.Text = .GetValue("NroDocumento")
             tbTelefono.Text = .GetValue("Telefono")
             tbRazonSocial.Text = .GetValue("RazonSocial").ToString
+            tbObservaciones.Text = .GetValue("Observacion").ToString
             tbnit.Text = .GetValue("Nit").ToString
             swEstado.Value = .GetValue("estado")
             _latitud = .GetValue("Latitud")
