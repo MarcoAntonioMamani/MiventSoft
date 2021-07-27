@@ -424,30 +424,8 @@ Public Class Tec_Principal
         tab3.Icon = ico
     End Sub
 
-    Private Sub btConfPrecio_Click(sender As Object, e As EventArgs) Handles btConfPrecio.Click
-        SuperTabControlMenu.SelectedTab = tab_ventana
-        'Dim frm As New F0_Roles
-        Dim frm As New Tec_Precios
-        frm._nameButton = btConfPrecio.Name
-        'frm._modulo = Panel_Configuracion
+    Private Sub btConfPrecio_Click(sender As Object, e As EventArgs)
 
-        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
-        tab3.RecalcSize()
-        tab3.ThemeAware = True
-        tab3.ShowSubItems = True
-        tab3.UpdateBindings()
-        frm._tab = tab3
-        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
-        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
-        tab3.AttachedControl.Controls.Add(panel)
-        frm._tab = tab3
-        frm._TabControl = SuperTabControlMenu
-        frm._modulo = tab_configuraciones
-        frm.Show()
-        tab3.Text = frm.Text
-        Dim blah As New Bitmap(btConfPrecio.Image, 20, 20)
-        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
-        tab3.Icon = ico
     End Sub
 
     Private Sub btZona_Click(sender As Object, e As EventArgs) Handles btZona.Click
@@ -1269,6 +1247,32 @@ Public Class Tec_Principal
         frm.Show()
         tab3.Text = frm.Text
         Dim blah As New Bitmap(btInvKardexReporte.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
+    End Sub
+
+    Private Sub btConfPrecio_Click_1(sender As Object, e As EventArgs) Handles btConfPrecio.Click
+        SuperTabControlMenu.SelectedTab = tab_ventana
+        'Dim frm As New F0_Roles
+        Dim frm As New Tec_Precios
+        frm._nameButton = btConfPrecio.Name
+        'frm._modulo = Panel_Configuracion
+
+        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
+        tab3.RecalcSize()
+        tab3.ThemeAware = True
+        tab3.ShowSubItems = True
+        tab3.UpdateBindings()
+        frm._tab = tab3
+        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
+        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
+        tab3.AttachedControl.Controls.Add(panel)
+        frm._tab = tab3
+        frm._TabControl = SuperTabControlMenu
+        frm._modulo = tab_configuraciones
+        frm.Show()
+        tab3.Text = frm.Text
+        Dim blah As New Bitmap(btConfPrecio.Image, 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub

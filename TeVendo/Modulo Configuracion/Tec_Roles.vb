@@ -318,6 +318,8 @@ Public Class Tec_Roles
         With grModulos.RootTable.Columns("cndesc1")
             .Caption = "MODULO"
             .Width = 240
+            .WordWrap = True
+            .MaxLines = 2
         End With
 
 
@@ -375,6 +377,8 @@ Public Class Tec_Roles
         With grDetalle.RootTable.Columns("DescripcionPrograma")
             .Caption = "PROGRAMAS"
             .Width = 300
+            .WordWrap = True
+            .MaxLines = 2
             .EditType = EditType.NoEdit
         End With
 
