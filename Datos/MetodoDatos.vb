@@ -20,6 +20,7 @@ Public Class MetodoDatos
         Dim _comando As New SqlCommand() 'SqlCommand()
         _comando = _conexion.CreateCommand()
         _comando.CommandType = CommandType.StoredProcedure
+        _comando.CommandText = "SET ARITHABORT ON;"
         'abrir
         _comando.Connection.Open()
         Return _comando

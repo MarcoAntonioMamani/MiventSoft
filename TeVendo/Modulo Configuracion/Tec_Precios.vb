@@ -171,7 +171,7 @@ Public Class Tec_Precios
         btnGrabar.Visible = False
         btnCategoria.Visible = True
         PanelCategoria.Visible = False
-        _prCargarTablaPrecios(True)
+        '' _prCargarTablaPrecios(True)
 
         grcategoria.ContextMenuStrip = Nothing
     End Sub
