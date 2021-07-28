@@ -1872,7 +1872,7 @@ Public Class AccesoLogica
                                            FechaTransacccion As String, ProveedorId As Integer, TipoVenta As Integer,
        FechaVencCredito As String, Moneda As Integer, estado As Integer, glosa As String,
                                            TotalCompra As Double, EmpresaId As Integer, _dtDetalle As DataTable,
-                                           Descuento As Double, NroContenedor As String, NroImportacion As String) As Boolean
+                                           Descuento As Double, NroContenedor As String, NroImportacion As String, Importador As String, Transportista As String) As Boolean
 
         Dim _resultado As Boolean
 
@@ -1900,6 +1900,8 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@NroContenedor", NroContenedor))
         _listParam.Add(New Datos.DParametro("@NroImportacion", NroImportacion))
+        _listParam.Add(New Datos.DParametro("@Importador", Importador))
+        _listParam.Add(New Datos.DParametro("@Transportista", Transportista))
 
         _Tabla = D_ProcedimientoConParam("MAM_Compras", _listParam)
 
@@ -1939,7 +1941,7 @@ Public Class AccesoLogica
                                            FechaTransacccion As String, ProveedorId As Integer, TipoVenta As Integer,
        FechaVencCredito As String, Moneda As Integer, estado As Integer, glosa As String,
                                            TotalCompra As Double, EmpresaId As Integer, _dtDetalle As DataTable,
-                                            Descuento As Double, NroContenedor As String, NroImportacion As String) As Boolean
+                                            Descuento As Double, NroContenedor As String, NroImportacion As String, Importador As String, Transportista As String) As Boolean
         Dim _resultado As Boolean
 
         '     @Id ,@AlmacenId,@FechaTransaccion ,@Proveedor  ,@TipoVenta,
@@ -1966,6 +1968,8 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@NroContenedor", NroContenedor))
         _listParam.Add(New Datos.DParametro("@NroImportacion", NroImportacion))
+        _listParam.Add(New Datos.DParametro("@Importador", Importador))
+        _listParam.Add(New Datos.DParametro("@Transportista", Transportista))
         _Tabla = D_ProcedimientoConParam("MAM_Compras", _listParam)
 
         If _Tabla.Rows.Count > 0 Then

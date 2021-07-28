@@ -51,6 +51,10 @@ Partial Class Tec_Compras
         Me.Panel8 = New System.Windows.Forms.Panel()
         Me.Panel9 = New System.Windows.Forms.Panel()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.LabelX11 = New DevComponents.DotNetBar.LabelX()
+        Me.tbNroImportacion = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
+        Me.tbNroContenedor = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.btnSeleccionarProducto = New DevComponents.DotNetBar.ButtonX()
         Me.cbSucursal = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.tbFechaVencimientoCredito = New Janus.Windows.CalendarCombo.CalendarCombo()
@@ -112,10 +116,10 @@ Partial Class Tec_Compras
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
-        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
-        Me.tbNroContenedor = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.LabelX11 = New DevComponents.DotNetBar.LabelX()
-        Me.tbNroImportacion = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX12 = New DevComponents.DotNetBar.LabelX()
+        Me.tbImportador = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX13 = New DevComponents.DotNetBar.LabelX()
+        Me.tbAgenciaAduanera = New DevComponents.DotNetBar.Controls.TextBoxX()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -588,6 +592,10 @@ Partial Class Tec_Compras
         'Panel3
         '
         Me.Panel3.AutoScroll = True
+        Me.Panel3.Controls.Add(Me.LabelX13)
+        Me.Panel3.Controls.Add(Me.tbAgenciaAduanera)
+        Me.Panel3.Controls.Add(Me.LabelX12)
+        Me.Panel3.Controls.Add(Me.tbImportador)
         Me.Panel3.Controls.Add(Me.LabelX11)
         Me.Panel3.Controls.Add(Me.tbNroImportacion)
         Me.Panel3.Controls.Add(Me.LabelX5)
@@ -614,6 +622,72 @@ Partial Class Tec_Compras
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(1487, 216)
         Me.Panel3.TabIndex = 49
+        '
+        'LabelX11
+        '
+        Me.LabelX11.AutoSize = True
+        Me.LabelX11.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX11.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX11.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX11.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX11.Location = New System.Drawing.Point(711, 60)
+        Me.LabelX11.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX11.Name = "LabelX11"
+        Me.LabelX11.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX11.Size = New System.Drawing.Size(110, 21)
+        Me.LabelX11.TabIndex = 215
+        Me.LabelX11.Text = "Nro Importación:"
+        '
+        'tbNroImportacion
+        '
+        '
+        '
+        '
+        Me.tbNroImportacion.Border.Class = "TextBoxBorder"
+        Me.tbNroImportacion.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbNroImportacion.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbNroImportacion.Location = New System.Drawing.Point(711, 83)
+        Me.tbNroImportacion.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbNroImportacion.Name = "tbNroImportacion"
+        Me.tbNroImportacion.PreventEnterBeep = True
+        Me.tbNroImportacion.Size = New System.Drawing.Size(202, 26)
+        Me.tbNroImportacion.TabIndex = 8
+        '
+        'LabelX5
+        '
+        Me.LabelX5.AutoSize = True
+        Me.LabelX5.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX5.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX5.Location = New System.Drawing.Point(711, 8)
+        Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX5.Name = "LabelX5"
+        Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX5.Size = New System.Drawing.Size(107, 21)
+        Me.LabelX5.TabIndex = 213
+        Me.LabelX5.Text = "Nro Contenedor:"
+        '
+        'tbNroContenedor
+        '
+        '
+        '
+        '
+        Me.tbNroContenedor.Border.Class = "TextBoxBorder"
+        Me.tbNroContenedor.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbNroContenedor.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbNroContenedor.Location = New System.Drawing.Point(711, 31)
+        Me.tbNroContenedor.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbNroContenedor.Name = "tbNroContenedor"
+        Me.tbNroContenedor.PreventEnterBeep = True
+        Me.tbNroContenedor.Size = New System.Drawing.Size(202, 26)
+        Me.tbNroContenedor.TabIndex = 7
         '
         'btnSeleccionarProducto
         '
@@ -1629,71 +1703,73 @@ Partial Class Tec_Compras
         '
         Me.MEP.ContainerControl = Me
         '
-        'LabelX5
+        'LabelX12
         '
-        Me.LabelX5.AutoSize = True
-        Me.LabelX5.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX5.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX5.Location = New System.Drawing.Point(711, 8)
-        Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX5.Name = "LabelX5"
-        Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX5.Size = New System.Drawing.Size(107, 21)
-        Me.LabelX5.TabIndex = 213
-        Me.LabelX5.Text = "Nro Contenedor:"
-        '
-        'tbNroContenedor
+        Me.LabelX12.AutoSize = True
+        Me.LabelX12.BackColor = System.Drawing.Color.Transparent
         '
         '
         '
+        Me.LabelX12.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX12.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX12.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX12.Location = New System.Drawing.Point(711, 117)
+        Me.LabelX12.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX12.Name = "LabelX12"
+        Me.LabelX12.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX12.Size = New System.Drawing.Size(78, 21)
+        Me.LabelX12.TabIndex = 217
+        Me.LabelX12.Text = "Importador:"
         '
-        Me.tbNroContenedor.Border.Class = "TextBoxBorder"
-        Me.tbNroContenedor.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbNroContenedor.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbNroContenedor.Location = New System.Drawing.Point(711, 31)
-        Me.tbNroContenedor.Margin = New System.Windows.Forms.Padding(4)
-        Me.tbNroContenedor.Name = "tbNroContenedor"
-        Me.tbNroContenedor.PreventEnterBeep = True
-        Me.tbNroContenedor.Size = New System.Drawing.Size(202, 26)
-        Me.tbNroContenedor.TabIndex = 7
-        '
-        'LabelX11
-        '
-        Me.LabelX11.AutoSize = True
-        Me.LabelX11.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX11.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX11.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX11.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX11.Location = New System.Drawing.Point(711, 60)
-        Me.LabelX11.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX11.Name = "LabelX11"
-        Me.LabelX11.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX11.Size = New System.Drawing.Size(110, 21)
-        Me.LabelX11.TabIndex = 215
-        Me.LabelX11.Text = "Nro Importación:"
-        '
-        'tbNroImportacion
+        'tbImportador
         '
         '
         '
         '
-        Me.tbNroImportacion.Border.Class = "TextBoxBorder"
-        Me.tbNroImportacion.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbNroImportacion.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbNroImportacion.Location = New System.Drawing.Point(711, 83)
-        Me.tbNroImportacion.Margin = New System.Windows.Forms.Padding(4)
-        Me.tbNroImportacion.Name = "tbNroImportacion"
-        Me.tbNroImportacion.PreventEnterBeep = True
-        Me.tbNroImportacion.Size = New System.Drawing.Size(202, 26)
-        Me.tbNroImportacion.TabIndex = 214
+        Me.tbImportador.Border.Class = "TextBoxBorder"
+        Me.tbImportador.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbImportador.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbImportador.Location = New System.Drawing.Point(711, 140)
+        Me.tbImportador.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbImportador.Multiline = True
+        Me.tbImportador.Name = "tbImportador"
+        Me.tbImportador.PreventEnterBeep = True
+        Me.tbImportador.Size = New System.Drawing.Size(287, 70)
+        Me.tbImportador.TabIndex = 9
+        '
+        'LabelX13
+        '
+        Me.LabelX13.AutoSize = True
+        Me.LabelX13.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX13.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX13.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX13.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX13.Location = New System.Drawing.Point(1023, 117)
+        Me.LabelX13.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX13.Name = "LabelX13"
+        Me.LabelX13.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX13.Size = New System.Drawing.Size(217, 21)
+        Me.LabelX13.TabIndex = 219
+        Me.LabelX13.Text = "Transportista y Agencia Aduanera:"
+        '
+        'tbAgenciaAduanera
+        '
+        '
+        '
+        '
+        Me.tbAgenciaAduanera.Border.Class = "TextBoxBorder"
+        Me.tbAgenciaAduanera.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbAgenciaAduanera.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbAgenciaAduanera.Location = New System.Drawing.Point(1023, 140)
+        Me.tbAgenciaAduanera.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbAgenciaAduanera.Multiline = True
+        Me.tbAgenciaAduanera.Name = "tbAgenciaAduanera"
+        Me.tbAgenciaAduanera.PreventEnterBeep = True
+        Me.tbAgenciaAduanera.Size = New System.Drawing.Size(276, 72)
+        Me.tbAgenciaAduanera.TabIndex = 10
         '
         'Tec_Compras
         '
@@ -1843,4 +1919,8 @@ Partial Class Tec_Compras
     Friend WithEvents tbNroImportacion As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbNroContenedor As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents LabelX13 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbAgenciaAduanera As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents LabelX12 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbImportador As DevComponents.DotNetBar.Controls.TextBoxX
 End Class

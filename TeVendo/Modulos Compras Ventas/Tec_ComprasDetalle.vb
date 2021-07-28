@@ -42,14 +42,14 @@ Public Class Tec_ComprasDetalle
         With grProducto.RootTable.Columns("Id")
             .Width = 100
             .Caption = "Id"
-            .Visible = True
+            .Visible = False
 
 
         End With
         With grProducto.RootTable.Columns("CodigoExterno")
             .Width = 100
-            .Caption = "CODIGOP"
-            .Visible = False
+            .Caption = "Codigo Externo"
+            .Visible = True
 
         End With
 
@@ -61,8 +61,9 @@ Public Class Tec_ComprasDetalle
 
         With grProducto.RootTable.Columns("conversion")
             .Width = 100
-            .Visible = False
-
+            .Visible = True
+            .Caption = "QTY"
+            .FormatString = "0.00"
         End With
         With grProducto.RootTable.Columns("NombreProducto")
             .Width = 350
@@ -78,8 +79,13 @@ Public Class Tec_ComprasDetalle
         End With
         With grProducto.RootTable.Columns("NombreCategoria")
             .Width = 200
-            .Visible = True
+            .Visible = False
             .Caption = "CATEGORIA"
+        End With
+        With grProducto.RootTable.Columns("unidadVenta")
+            .Width = 100
+            .Visible = False
+            .Caption = "UN"
         End With
 
         With grProducto.RootTable.Columns("PrecioCosto")
@@ -90,7 +96,13 @@ Public Class Tec_ComprasDetalle
         With grProducto.RootTable.Columns("stock")
             .Width = 150
             .Visible = True
-            .Caption = "Stock"
+            .Caption = "Stock Unitario"
+            .FormatString = "0.00"
+        End With
+        With grProducto.RootTable.Columns("stockCaja")
+            .Width = 150
+            .Visible = True
+            .Caption = "Stock Caja"
             .FormatString = "0.00"
         End With
         With grProducto.RootTable.Columns("PrecioVenta")
@@ -198,7 +210,7 @@ Public Class Tec_ComprasDetalle
         With grDetalle.RootTable.Columns("PrecioVenta")
             .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "P.Venta"
         End With
@@ -210,12 +222,29 @@ Public Class Tec_ComprasDetalle
             .Caption = "QTY"
         End With
 
+        With grDetalle.RootTable.Columns("UnidadVenta")
+            .Width = 60
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "UN"
+        End With
+
         With grDetalle.RootTable.Columns("PrecioCosto")
             .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "P.Costo"
+            .Caption = "Costo Unitario"
+        End With
+
+
+        With grDetalle.RootTable.Columns("PrecioCaja")
+            .Width = 90
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Costo Caja"
         End With
 
 
@@ -234,8 +263,14 @@ Public Class Tec_ComprasDetalle
 
         With grDetalle.RootTable.Columns("ProductoId")
             .Width = 50
-            .Visible = True
+            .Visible = False
             .Caption = "Cod Producto"
+        End With
+
+        With grDetalle.RootTable.Columns("CodigoExterno")
+            .Width = 50
+            .Visible = True
+            .Caption = "Codigo Externo"
         End With
 
 
@@ -252,14 +287,15 @@ Public Class Tec_ComprasDetalle
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "Cantidad"
+            .Caption = "Cant. Unitario"
         End With
+
         With grDetalle.RootTable.Columns("Caja")
             .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "Caja"
+            .Caption = "Cant. Caja"
         End With
 
         With grDetalle.RootTable.Columns("estado")
@@ -422,7 +458,15 @@ Public Class Tec_ComprasDetalle
             If ((pos >= 0)) Then
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = grProducto.GetValue("Id")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = grProducto.GetValue("NombreProducto")
-                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCosto") = grProducto.GetValue("PrecioCosto")
+
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("UnidadVenta") = grProducto.GetValue("unidadVenta")
+
+
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCosto") = grProducto.GetValue("PrecioCosto") / grProducto.GetValue("Conversion")
+
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCaja") = grProducto.GetValue("PrecioCosto")
+
+
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("TotalCompra") = grProducto.GetValue("PrecioCosto") * cantidad
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioVenta") = grProducto.GetValue("PrecioVenta")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("costo") = grProducto.GetValue("PrecioCosto")
@@ -593,7 +637,7 @@ Public Class Tec_ComprasDetalle
 
         'Habilitar solo las columnas de Precio, %, Monto y Observación
         If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index Or
-                e.Column.Index = grDetalle.RootTable.Columns("PrecioCosto").Index Or
+                e.Column.Index = grDetalle.RootTable.Columns("PrecioCaja").Index Or
                  e.Column.Index = grDetalle.RootTable.Columns("PrecioVenta").Index Or e.Column.Index = grDetalle.RootTable.Columns("Caja").Index) Then
             e.Cancel = False
         Else
@@ -701,10 +745,9 @@ salirIf:
             Dim cant As Integer = vectoraux.Length
             'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock  NombreCategoria
             For i As Integer = 0 To dt.Rows.Count - 1 Step 1
-                Dim nombre As String = dt.Rows(i).Item("Id").ToString.ToUpper +
+                Dim nombre As String = dt.Rows(i).Item("CodigoExterno").ToString.ToUpper +
                     " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("NombreCategoria").ToString.ToUpper
+                    " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper
                 Select Case cant
                     Case 1
 

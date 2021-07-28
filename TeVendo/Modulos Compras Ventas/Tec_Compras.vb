@@ -319,7 +319,7 @@ Public Class Tec_Compras
         With grDetalle.RootTable.Columns("PrecioVenta")
             .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "P.Venta"
         End With
@@ -331,12 +331,29 @@ Public Class Tec_Compras
             .Caption = "QTY"
         End With
 
+        With grDetalle.RootTable.Columns("UnidadVenta")
+            .Width = 60
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "UN"
+        End With
+
         With grDetalle.RootTable.Columns("PrecioCosto")
             .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "P.Costo"
+            .Caption = "Costo Unitario"
+        End With
+
+
+        With grDetalle.RootTable.Columns("PrecioCaja")
+            .Width = 90
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Costo Caja"
         End With
 
 
@@ -355,8 +372,14 @@ Public Class Tec_Compras
 
         With grDetalle.RootTable.Columns("ProductoId")
             .Width = 50
-            .Visible = True
+            .Visible = False
             .Caption = "Cod Producto"
+        End With
+
+        With grDetalle.RootTable.Columns("CodigoExterno")
+            .Width = 50
+            .Visible = True
+            .Caption = "Codigo Externo"
         End With
 
 
@@ -373,7 +396,7 @@ Public Class Tec_Compras
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "Cantidad"
+            .Caption = "Cant. Unitario"
         End With
 
         With grDetalle.RootTable.Columns("Caja")
@@ -381,7 +404,7 @@ Public Class Tec_Compras
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "Caja"
+            .Caption = "Cant. Caja"
         End With
 
         With grDetalle.RootTable.Columns("estado")
@@ -939,6 +962,10 @@ salirIf:
         tbMdesc.IsInputReadOnly = False
         tbPdesc.IsInputReadOnly = False
         grDetalle.RootTable.Columns("img").Visible = True
+
+        tbImportador.ReadOnly = False
+        tbAgenciaAduanera.ReadOnly = False
+
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -955,6 +982,8 @@ salirIf:
         tbMdesc.IsInputReadOnly = True
         tbPdesc.IsInputReadOnly = True
 
+        tbImportador.ReadOnly = True
+        tbAgenciaAduanera.ReadOnly = True
 
         tbNroContenedor.ReadOnly = True
         tbNroImportacion.ReadOnly = True
@@ -972,6 +1001,11 @@ salirIf:
         tbFechaVencimientoCredito.Value = Now.Date
         swTipoVenta.Value = True
         seleccionarPrimerItemCombo(cbSucursal)
+
+        tbImportador.Clear()
+        tbAgenciaAduanera.Clear()
+
+
 
         tbProveedor.Focus()
 
@@ -1010,7 +1044,7 @@ salirIf:
         Try
             res = ComprasInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), IdProveedor,
                                   IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                  1, 1, tbGlosa.Text, tbTotal.Value, 1, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, tbNroContenedor.Text, tbNroImportacion.Text)
+                                  1, 1, tbGlosa.Text, tbTotal.Value, 1, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, tbNroContenedor.Text, tbNroImportacion.Text, tbImportador.Text, tbAgenciaAduanera.Text)
 
             If res Then
 
@@ -1053,7 +1087,7 @@ salirIf:
         Try
             Res = ComprasModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), IdProveedor,
                                   IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                  1, 1, tbGlosa.Text, tbTotal.Value, 1, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, tbNroContenedor.Text, tbNroImportacion.Text)
+                                  1, 1, tbGlosa.Text, tbTotal.Value, 1, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, tbNroContenedor.Text, tbNroImportacion.Text, tbImportador.Text, tbAgenciaAduanera.Text)
             If Res Then
                 ReporteCompra(tbCodigo.Text)
                 ToastNotification.Show(Me, "Codigo de Compra ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
@@ -1217,6 +1251,8 @@ salirIf:
         listEstCeldas.Add(New Celda("transaccion", False, "", 150))
         listEstCeldas.Add(New Celda("NroContenedor", True, "NroContenedor", 150))
         listEstCeldas.Add(New Celda("NroImportacion", True, "NroImportación", 150))
+        listEstCeldas.Add(New Celda("Importador", False, "", 150))
+        listEstCeldas.Add(New Celda("Transportista", False, "", 150))
         Return listEstCeldas
     End Function
 
@@ -1241,6 +1277,10 @@ salirIf:
             swTipoVenta.Value = .GetValue("TipoVenta")
             tbNroContenedor.Text = .GetValue("NroContenedor")
             tbNroImportacion.Text = .GetValue("NroImportacion")
+
+            tbImportador.Text = .GetValue("Importador")
+            tbAgenciaAduanera.Text = .GetValue("Transportista")
+
             tbFechaVencimientoCredito.Value = .GetValue("FechaVencimientoCredito")
 
             tbMdesc.Value = .GetValue("descuento")
