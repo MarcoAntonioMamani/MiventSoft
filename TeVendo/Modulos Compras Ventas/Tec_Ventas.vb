@@ -339,7 +339,7 @@ Public Class Tec_Ventas
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "Cajas"
+            .Caption = "Cant Cajas"
         End With
 
         With grDetalle.RootTable.Columns("Cantidad")
@@ -347,7 +347,7 @@ Public Class Tec_Ventas
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "Cantidad"
+            .Caption = "Cant Unitario"
         End With
         With grDetalle.RootTable.Columns("Tipo")
             .Width = 100
@@ -376,7 +376,7 @@ Public Class Tec_Ventas
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
-            .Caption = "Precio UN"
+            .Caption = "Precio Unitario"
             .FormatString = "0.00"
         End With
         With grDetalle.RootTable.Columns("PrecioCaja")
@@ -390,7 +390,7 @@ Public Class Tec_Ventas
         With grDetalle.RootTable.Columns("SubTotal")
             .Width = 60
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .Caption = "SubTotal"
             .FormatString = "0.00"
         End With
@@ -408,7 +408,7 @@ Public Class Tec_Ventas
         With grDetalle.RootTable.Columns("ProcentajeDescuento")
             .Width = 55
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0"
             .Caption = "%.Descuento"
         End With
@@ -416,7 +416,7 @@ Public Class Tec_Ventas
         With grDetalle.RootTable.Columns("MontoDescuento")
             .Width = 55
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "M.Descuento"
         End With
@@ -731,7 +731,7 @@ Public Class Tec_Ventas
                     Return
 
                 End If
-                If (Global_ModificarPrecio = 1 And e.Column.Index = grDetalle.RootTable.Columns("Precio").Index) Then
+                If (Global_ModificarPrecio = 1 And e.Column.Index = grDetalle.RootTable.Columns("PrecioCaja").Index) Then
 
                     e.Cancel = False
                     Return
@@ -1025,8 +1025,10 @@ salirIf:
 
                 End If
         End If
-        If (e.Column.Index = grDetalle.RootTable.Columns("Precio").Index) Then
-            If (Not IsNumeric(grDetalle.GetValue("Precio")) Or grDetalle.GetValue("Precio").ToString = String.Empty) Then
+
+
+        If (e.Column.Index = grDetalle.RootTable.Columns("PrecioCaja").Index) Then
+            If (Not IsNumeric(grDetalle.GetValue("PrecioCaja")) Or grDetalle.GetValue("PrecioCaja").ToString = String.Empty) Then
 
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = 0
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = 0
@@ -1051,12 +1053,13 @@ salirIf:
 
             Else
 
+                grDetalle.SetValue("Precio", grDetalle.GetValue("PrecioCaja") / grDetalle.GetValue("QTY"))
+
                 Dim porcdesc As Double = grDetalle.GetValue("ProcentajeDescuento")
                 Dim montodesc As Double = ((grDetalle.GetValue("Precio") * grDetalle.GetValue("Cantidad")) * (porcdesc / 100))
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = montodesc
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = grDetalle.GetValue("Precio")
 
-                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCaja") = grDetalle.GetValue("Precio") * grDetalle.GetValue("QTY")
                 grDetalle.SetValue("MontoDescuento", montodesc)
                 Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
                 Dim rowIndex01 As Integer = grDetalle.Row
@@ -1066,8 +1069,6 @@ salirIf:
                 End If
             End If
         End If
-
-
 
         If (e.Column.Index = grDetalle.RootTable.Columns("ProcentajeDescuento").Index) Then
             If (Not IsNumeric(grDetalle.GetValue("ProcentajeDescuento")) Or grDetalle.GetValue("ProcentajeDescuento").ToString = String.Empty) Then

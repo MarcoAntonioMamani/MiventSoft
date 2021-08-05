@@ -31,7 +31,13 @@ Public Class AyudaCantidadProductosVentas
         End With
 
         With grPrecios.RootTable.Columns("Precio")
-            .Caption = "Precio"
+            .Caption = "Precio Caja"
+            .Width = 100
+            .FormatString = "0.00"
+        End With
+
+        With grPrecios.RootTable.Columns("PrecioUnitario")
+            .Caption = "Precio Unitario"
             .Width = 100
             .FormatString = "0.00"
         End With

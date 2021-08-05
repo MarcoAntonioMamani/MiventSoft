@@ -920,8 +920,8 @@ Public Class Tec_Productos
         'a.MarcaId,
         '    a.AttributoId, a.FamiliaId, a.UnidadVentaId, a.UnidadMaximaId, a.Conversion  
         Dim listEstCeldas As New List(Of Celda)
-        listEstCeldas.Add(New Celda("Id", True, "ID", 40))
-        listEstCeldas.Add(New Celda("CodigoExterno", False))
+        listEstCeldas.Add(New Celda("Id", False, "ID", 40))
+        listEstCeldas.Add(New Celda("CodigoExterno", True, "Codigo Externo", 80))
         listEstCeldas.Add(New Celda("CodigoBarras", False))
         listEstCeldas.Add(New Celda("NombreProducto", True, " NombreProducto", 200))
         listEstCeldas.Add(New Celda("DescripcionProducto", True, " Descripcion Producto", 100))
@@ -929,17 +929,18 @@ Public Class Tec_Productos
         listEstCeldas.Add(New Celda("estado", False, "Estado", 70))
         listEstCeldas.Add(New Celda("imgEstado", True, "Estado", 150))
         listEstCeldas.Add(New Celda("CategoriaId", False))
-        listEstCeldas.Add(New Celda("NombreCategoria", True, "Categoria", 80))
+        listEstCeldas.Add(New Celda("NombreCategoria", False, "Categoria", 80))
         listEstCeldas.Add(New Celda("EmpresaId", False))
-        listEstCeldas.Add(New Celda("Empresa", True, "Empresa", 80))
+        listEstCeldas.Add(New Celda("Empresa", False, "Empresa", 80))
 
         listEstCeldas.Add(New Celda("ProveedorId", False))
+        listEstCeldas.Add(New Celda("UnidadVenta", True, "Unidad", 90))
         listEstCeldas.Add(New Celda("MarcaId", False))
         listEstCeldas.Add(New Celda("AttributoId", False))
         listEstCeldas.Add(New Celda("FamiliaId", False))
         listEstCeldas.Add(New Celda("UnidadVentaId", False))
         listEstCeldas.Add(New Celda("UnidadMaximaId", False))
-        listEstCeldas.Add(New Celda("Conversion", False))
+        listEstCeldas.Add(New Celda("Conversion", True, "QTY", 60, "0.00"))
 
 
         Return listEstCeldas

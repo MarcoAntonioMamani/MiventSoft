@@ -219,12 +219,18 @@ Public Class FormularioStock
         With grProducto.RootTable.Columns("Id")
             .Width = 100
             .Caption = "Item"
-            .Visible = True
+            .Visible = False
 
 
         End With
 
+        With grProducto.RootTable.Columns("CodigoExterno")
+            .Width = 100
+            .Caption = "Codigo Externo"
+            .Visible = True
 
+
+        End With
 
         With grProducto.RootTable.Columns("NombreProducto")
             .Width = 300
@@ -236,7 +242,7 @@ Public Class FormularioStock
         With grProducto.RootTable.Columns("Categoria")
             .Width = 150
             .Caption = "CATEGORIA"
-            .Visible = True
+            .Visible = False
             .MaxLines = 2
             .WordWrap = True
         End With
@@ -245,6 +251,13 @@ Public Class FormularioStock
             .Width = 250
             .Visible = False
             .Caption = "DESCRIPCION"
+            .MaxLines = 2
+            .WordWrap = True
+        End With
+        With grProducto.RootTable.Columns("UnidadVenta")
+            .Width = 100
+            .Visible = True
+            .Caption = "Unidad Venta"
             .MaxLines = 2
             .WordWrap = True
         End With
@@ -262,15 +275,15 @@ Public Class FormularioStock
             .Width = 250
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "Stock"
-            .MaxLines = 2
+            .Caption = "Almacenes"
+            .MaxLines = 3
             .WordWrap = True
         End With
         With grProducto.RootTable.Columns("stockGeneral")
             .Width = 150
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "Stock UN"
+            .Caption = "Stock Unitario"
             .MaxLines = 2
             .WordWrap = True
             .CellStyle.BackColor = Color.SpringGreen
