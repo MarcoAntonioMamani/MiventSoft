@@ -16,17 +16,26 @@ Public Class Tec_VentasDetalle
     Public SucursalId As Integer
     Public IdCliente As Integer
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-
+    Dim BanderaAlmacenes As Boolean = True
 
     Public TipoProgramas As Integer = 0   ''1=venta  2 =  proforma
     Public Sub IniciarTodod()
         P_Global._prCargarComboGenerico(cbSucursal, L_fnGeneralSucursales(), "aanumi", "Codigo", "aabdes", "Sucursal")
         CargarProductosVentas()
         '_prCargarProductos()
-        cbSucursal.SelectedIndex = 0
+        cbSucursal.Value = SucursalId
         _habilitarFocus()
         ActualizarProductos()
         tbProducto.Focus()
+        BanderaAlmacenes = False
+
+        If (Global_Sucursal >= 0) Then
+
+            cbSucursal.ReadOnly = True
+        Else
+
+            cbSucursal.ReadOnly = False
+        End If
     End Sub
     Private Sub Tec_DespachoDetalle_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         IniciarTodod()
@@ -1905,7 +1914,24 @@ salirIf:
     End Sub
 
     Private Sub cbSucursal_ValueChanged(sender As Object, e As EventArgs) Handles cbSucursal.ValueChanged
-        _prCargarProductos()
+
+        If (BanderaAlmacenes = False) Then
+            _prCargarProductos()
+
+            Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
+            For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+                CType(grDetalle.DataSource, DataTable).Rows(i).Item("estado") = -1
+            Next
+            SucursalId = cbSucursal.Value
+        Else
+            _prCargarProductos()
+
+        End If
+        If (Not IsNothing(grDetalle.DataSource)) Then
+            grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
+        End If
+
 
     End Sub
 End Class

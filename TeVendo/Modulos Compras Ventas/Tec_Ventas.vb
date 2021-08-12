@@ -1349,7 +1349,7 @@ salirIf:
             cbSucursal.ReadOnly = True
         Else
 
-            cbSucursal.ReadOnly = False
+            cbSucursal.ReadOnly = True
         End If
 
         swTipoVenta.IsReadOnly = False
@@ -1415,7 +1415,9 @@ salirIf:
 
             cbSucursal.Value = Global_Sucursal
         Else
-            seleccionarPrimerItemCombo(cbSucursal)
+            ''seleccionarPrimerItemCombo(cbSucursal)
+            cbSucursal.Value = 3
+
         End If
 
 
@@ -2450,7 +2452,12 @@ salirIf:
         ef.IdCliente = IdCliente
         ef.ShowDialog()
         grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
+
+
         _prCalcularPrecioTotal()
+
+        cbSucursal.Value = ef.SucursalId
+
     End Sub
 
     Private Sub LabelX8_Click(sender As Object, e As EventArgs) Handles LabelX8.Click
@@ -2481,6 +2488,10 @@ salirIf:
             P_GenerarReporteMasCopia(tbCodigo.Text)
 
         End If
+    End Sub
+
+    Private Sub cbSucursal_ValueChanged(sender As Object, e As EventArgs) Handles cbSucursal.ValueChanged
+
     End Sub
 #End Region
 End Class
