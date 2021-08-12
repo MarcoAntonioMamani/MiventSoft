@@ -872,6 +872,7 @@ Public Class Tec_CierreCajaCajero
 
             If Res Then
 
+                ReporteVenta(tbCodigo.Text)
 
                 ToastNotification.Show(Me, "Codigo de Cierre De Caja".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                 _PSalirRegistro()
@@ -1455,6 +1456,24 @@ Public Class Tec_CierreCajaCajero
 
     Private Sub btnImprimir_Click(sender As Object, e As EventArgs) Handles btnImprimir.Click
         P_GenerarReporte(tbCodigo.Text)
+    End Sub
+
+    Public Sub ReporteVenta(Id As String)
+        Dim ef = New Efecto
+
+
+        ef.tipo = 8
+        ef.titulo = "Comprobante de Cierre Caja"
+        ef.descripcion = "¿Desea Generar Reporte Cierre Caja #" + Id + " ?"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            P_GenerarReporte(Id)
+
+
+        End If
+
     End Sub
     Private Sub P_GenerarReporte(numi As String)
         Dim dt As DataTable = ListarReporteCierre(numi)
