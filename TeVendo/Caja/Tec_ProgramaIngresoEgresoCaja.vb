@@ -101,11 +101,15 @@ Public Class Tec_ProgramaIngresoEgresoCaja
         _PMOLimpiarErrores()
 
         _PMOInhabilitar()
+
+
     End Sub
 
     Private Sub _PMHabilitar()
         JGrM_Buscador.Enabled = False
         _PMOHabilitar()
+
+
     End Sub
     Public Sub _PMFiltrar()
         'cargo el buscador
@@ -259,6 +263,68 @@ Public Class Tec_ProgramaIngresoEgresoCaja
 
     End Sub
 
+    Private Sub _prCargarDetalleIngresoEgreso(id As Integer)
+        Dim dt As New DataTable
+
+
+        dt = L_prListarDetalleIngresoEgreso(id)
+
+
+
+        grdetalle.DataSource = dt
+        grdetalle.RetrieveStructure()
+        grdetalle.AlternatingColors = True
+        'id	NroComprobanteVenta	Monto	FechaPago	PersonalId	NombrePersonal
+
+        With grdetalle.RootTable.Columns("id")
+            .Width = 90
+            .Visible = False
+        End With
+        With grdetalle.RootTable.Columns("estado")
+            .Width = 90
+            .Visible = False
+        End With
+        With grdetalle.RootTable.Columns("CierreCajeroId")
+            .Width = 110
+            .Visible = False
+        End With
+        With grdetalle.RootTable.Columns("Descripcion")
+            .Width = 310
+            .Visible = True
+            .Caption = "Detalle"
+            .MaxLines = 3
+            .WordWrap = True
+        End With
+
+        With grdetalle.RootTable.Columns("Monto")
+            .Width = 120
+            .Caption = "Monto"
+            .Visible = True
+            .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+
+
+        With grdetalle
+            .GroupByBoxVisible = False
+            'diseño de la grilla
+            .VisualStyle = VisualStyle.Office2007
+            .BoundMode = Janus.Data.BoundMode.Bound
+            .RowHeaders = InheritableBoolean.True
+            .CellToolTipText = "Ingresos / Egresos"
+
+            .GroupByBoxVisible = False
+            .TotalRow = InheritableBoolean.True
+            .TotalRowFormatStyle.BackColor = Color.Gold
+            .TotalRowFormatStyle.ForeColor = Color.Black
+            .TotalRowFormatStyle.FontBold = TriState.True
+            .TotalRowFormatStyle.FontSize = 11
+            .TotalRowPosition = TotalRowPosition.BottomFixed
+
+        End With
+
+    End Sub
+
     Public Sub _habilitarFocus()
         With Highlighter2
             .SetHighlightOnFocus(tbFecha, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
@@ -365,12 +431,17 @@ Public Class Tec_ProgramaIngresoEgresoCaja
 
         tbFecha.ReadOnly = False
         tbDescripcion.ReadOnly = False
-        tbMonto.IsInputReadOnly = False
+        'tbMonto.IsInputReadOnly = False
         cbSucursal.ReadOnly = False
         cbMotivoMovimiento.ReadOnly = False
         cbCaja.ReadOnly = False
         cbCajaDestino.ReadOnly = False
         btnAgregarMotivoMovimiento.Visible = True
+
+        panelDatos.Visible = True
+
+        grdetalle.ContextMenuStrip = ContextDelete
+
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -383,6 +454,10 @@ Public Class Tec_ProgramaIngresoEgresoCaja
         cbCaja.ReadOnly = True
         cbCajaDestino.ReadOnly = True
         btnAgregarMotivoMovimiento.Visible = False
+        panelDatos.Visible = False
+
+        grdetalle.ContextMenuStrip = Nothing
+
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -396,6 +471,7 @@ Public Class Tec_ProgramaIngresoEgresoCaja
         seleccionarPrimerItemCombo(cbCaja)
         tbDescripcion.Focus()
 
+        _prCargarDetalleIngresoEgreso(-1)
     End Sub
     Public Sub seleccionarPrimerItemCombo(cb As EditControls.MultiColumnCombo)
         If (CType(cb.DataSource, DataTable).Rows.Count > 0) Then
@@ -415,11 +491,11 @@ Public Class Tec_ProgramaIngresoEgresoCaja
     End Sub
     Function _prGuardarTraspaso() As Boolean
         Dim numi As String = ""
-        Dim Res As Boolean = L_prIngresoSalidaInsertar(numi, tbFecha.Value.ToString("yyyy/MM/dd"), tbDescripcion.Text, tbMonto.Value, cbCaja.Value, IIf(swtipo.Value = True, 1, 0), cbMotivoMovimiento.Value, PersonalId, cbSucursal.Value, cbCajaDestino.Value, 0)
+        Dim Res As Boolean = L_prIngresoSalidaInsertar(numi, tbFecha.Value.ToString("yyyy/MM/dd"), tbDescripcion.Text, tbMonto.Value, cbCaja.Value, IIf(swtipo.Value = True, 1, 0), cbMotivoMovimiento.Value, PersonalId, cbSucursal.Value, cbCajaDestino.Value, 0, CType(grdetalle.DataSource, DataTable))
         If res Then
 
             Dim numDestino As String = ""
-            Dim resDestino As Boolean = L_prIngresoSalidaInsertar(numDestino, tbFecha.Value.ToString("yyyy/MM/dd"), tbDescripcion.Text, tbMonto.Value, cbCajaDestino.Value, 1, 10, PersonalId, cbSucursal.Value, cbCaja.Value, numi)
+            Dim resDestino As Boolean = L_prIngresoSalidaInsertar(numDestino, tbFecha.Value.ToString("yyyy/MM/dd"), tbDescripcion.Text, tbMonto.Value, cbCajaDestino.Value, 1, 10, PersonalId, cbSucursal.Value, cbCaja.Value, numi, CType(grdetalle.DataSource, DataTable))
             If resDestino Then
 
                 Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
@@ -454,7 +530,7 @@ Public Class Tec_ProgramaIngresoEgresoCaja
                 Return _prGuardarTraspaso()
             End If
 
-            res = L_prIngresoSalidaInsertar(tbCodigo.Text, tbFecha.Value.ToString("yyyy/MM/dd"), tbDescripcion.Text, tbMonto.Value, cbCaja.Value, IIf(swtipo.Value = True, 1, 0), cbMotivoMovimiento.Value, PersonalId, cbSucursal.Value, 0, 0)
+            res = L_prIngresoSalidaInsertar(tbCodigo.Text, tbFecha.Value.ToString("yyyy/MM/dd"), tbDescripcion.Text, tbMonto.Value, cbCaja.Value, IIf(swtipo.Value = True, 1, 0), cbMotivoMovimiento.Value, PersonalId, cbSucursal.Value, 0, 0, CType(grdetalle.DataSource, DataTable))
 
             If res Then
 
@@ -478,7 +554,7 @@ Public Class Tec_ProgramaIngresoEgresoCaja
     Public Function _PMOModificarRegistro() As Boolean
         Dim Res As Boolean
         Try
-            Res = L_prIngresoSalidaModificar(tbCodigo.Text, tbFecha.Value.ToString("yyyy/MM/dd"), tbDescripcion.Text, tbMonto.Value, cbCaja.Value, IIf(swtipo.Value = True, 1, 0), cbMotivoMovimiento.Value, PersonalId, cbSucursal.Value, 0)
+            Res = L_prIngresoSalidaModificar(tbCodigo.Text, tbFecha.Value.ToString("yyyy/MM/dd"), tbDescripcion.Text, tbMonto.Value, cbCaja.Value, IIf(swtipo.Value = True, 1, 0), cbMotivoMovimiento.Value, PersonalId, cbSucursal.Value, 0, CType(grdetalle.DataSource, DataTable))
 
 
             If Res Then
@@ -747,6 +823,7 @@ Public Class Tec_ProgramaIngresoEgresoCaja
             PersonalId = .GetValue("PersonalId")
             tbPersonal.Text = .GetValue("NombrePersonal").ToString
             cbSucursal.Value = .GetValue("SucursalId")
+            _prCargarDetalleIngresoEgreso(.GetValue("Id"))
         End With
 
         LblPaginacion.Text = Str(_MPos + 1) + "/" + JGrM_Buscador.RowCount.ToString
@@ -1048,6 +1125,93 @@ Public Class Tec_ProgramaIngresoEgresoCaja
         P_Global.Visualizador.CrGeneral.Zoom(90)
         P_Global.Visualizador.Show() 'Comentar
         ''P_Global.Visualizador.BringToFront() 'Comentar
+
+
+    End Sub
+
+    Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
+        If (tbdetalle.Text.Trim.Length <= 0) Then
+
+            tbdetalle.Focus()
+            ToastNotification.Show(Me, "Ingrese Un Detalle Valido", img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Return
+
+        End If
+
+        If (tbMontoIng.Value <= 0) Then
+
+            tbMontoIng.Focus()
+            ToastNotification.Show(Me, "Ingrese Un Monto Valido", img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Return
+
+        End If
+
+        CType(grdetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, tbdetalle.Text, tbMontoIng.Value, 0)
+
+        tbMontoIng.Value = 0
+        tbdetalle.Clear()
+
+        Calculartotal()
+        grdetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grdetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
+        tbdetalle.Focus()
+    End Sub
+
+    Public Sub Calculartotal()
+
+        Dim suma As Double = 0
+
+        For i As Integer = 0 To CType(grdetalle.DataSource, DataTable).Rows.Count - 1 Step 1
+
+            If (CType(grdetalle.DataSource, DataTable).Rows(i).Item("estado") >= 0) Then
+                suma += CType(grdetalle.DataSource, DataTable).Rows(i).Item("Monto")
+            End If
+
+        Next
+
+        tbMonto.Value = suma
+
+    End Sub
+    Public Function _GenerarId()
+        Dim dt As DataTable = CType(grdetalle.DataSource, DataTable)
+        Dim mayor As Integer = 0
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            Dim data As Integer = IIf(IsDBNull(CType(grdetalle.DataSource, DataTable).Rows(i).Item("Id")), 0, CType(grdetalle.DataSource, DataTable).Rows(i).Item("Id"))
+            If (data > mayor) Then
+                mayor = data
+
+            End If
+        Next
+        Return mayor
+    End Function
+    Public Sub _fnObtenerFilaDetalle(ByRef pos As Integer, numi As Integer)
+        For i As Integer = 0 To CType(grdetalle.DataSource, DataTable).Rows.Count - 1 Step 1
+            Dim _numi As Integer = CType(grdetalle.DataSource, DataTable).Rows(i).Item("Id")
+            If (_numi = numi) Then
+                pos = i
+                Return
+            End If
+        Next
+
+    End Sub
+    Private Sub ToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem3.Click
+
+        Try
+            If (grdetalle.Row >= 0) Then
+
+                Dim Posicion As Integer = 0
+                _fnObtenerFilaDetalle(Posicion, grdetalle.GetValue("id"))
+
+                If (Posicion >= 0) Then
+
+                    CType(grdetalle.DataSource, DataTable).Rows(Posicion).Item("estado") = -1
+
+                End If
+            End If
+            grdetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grdetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
+            Calculartotal()
+        Catch ex As Exception
+
+        End Try
 
 
     End Sub

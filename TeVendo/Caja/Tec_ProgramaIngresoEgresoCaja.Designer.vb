@@ -35,6 +35,14 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.PanelLEft = New System.Windows.Forms.Panel()
         Me.Panel8 = New System.Windows.Forms.Panel()
         Me.Panel9 = New System.Windows.Forms.Panel()
+        Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
+        Me.grdetalle = New Janus.Windows.GridEX.GridEX()
+        Me.panelDatos = New System.Windows.Forms.Panel()
+        Me.btnAgregar = New DevComponents.DotNetBar.ButtonX()
+        Me.tbMontoIng = New DevComponents.Editors.DoubleInput()
+        Me.LabelX9 = New DevComponents.DotNetBar.LabelX()
+        Me.tbdetalle = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX8 = New DevComponents.DotNetBar.LabelX()
         Me.cbCajaDestino = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.lbCajaDestino = New DevComponents.DotNetBar.LabelX()
         Me.cbCaja = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
@@ -82,6 +90,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.VerToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.EditarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EliminarToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ReporteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
@@ -95,7 +104,8 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.Highlighter2 = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.ReporteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ContextDelete = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -104,6 +114,10 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.PanelLEft.SuspendLayout()
         Me.Panel8.SuspendLayout()
         Me.Panel9.SuspendLayout()
+        Me.GroupPanel1.SuspendLayout()
+        CType(Me.grdetalle, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.panelDatos.SuspendLayout()
+        CType(Me.tbMontoIng, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbCajaDestino, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbCaja, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -126,6 +140,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.Panel15.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ContextDelete.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControlPrincipal
@@ -143,8 +158,8 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.TabControlPrincipal.ControlBox.MenuBox.Name = ""
         Me.TabControlPrincipal.ControlBox.Name = ""
         Me.TabControlPrincipal.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.TabControlPrincipal.ControlBox.MenuBox, Me.TabControlPrincipal.ControlBox.CloseBox})
-        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel2)
         Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel1)
+        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel2)
         Me.TabControlPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControlPrincipal.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.Location = New System.Drawing.Point(0, 0)
@@ -152,7 +167,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.TabControlPrincipal.ReorderTabsEnabled = True
         Me.TabControlPrincipal.SelectedTabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.SelectedTabIndex = 1
-        Me.TabControlPrincipal.Size = New System.Drawing.Size(982, 543)
+        Me.TabControlPrincipal.Size = New System.Drawing.Size(1230, 543)
         Me.TabControlPrincipal.TabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Bottom
         Me.TabControlPrincipal.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.TabIndex = 2
@@ -168,7 +183,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.SuperTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
-        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(982, 512)
+        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1230, 512)
         Me.SuperTabControlPanel1.TabIndex = 1
         Me.SuperTabControlPanel1.TabItem = Me.SuperTabItem1
         '
@@ -179,7 +194,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(982, 512)
+        Me.Panel1.Size = New System.Drawing.Size(1230, 512)
         Me.Panel1.TabIndex = 0
         '
         'PanelSuperior
@@ -188,7 +203,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.PanelSuperior.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelSuperior.Location = New System.Drawing.Point(0, 0)
         Me.PanelSuperior.Name = "PanelSuperior"
-        Me.PanelSuperior.Size = New System.Drawing.Size(982, 452)
+        Me.PanelSuperior.Size = New System.Drawing.Size(1230, 452)
         Me.PanelSuperior.TabIndex = 1
         '
         'PanelLEft
@@ -197,7 +212,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.PanelLEft.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelLEft.Location = New System.Drawing.Point(0, 0)
         Me.PanelLEft.Name = "PanelLEft"
-        Me.PanelLEft.Size = New System.Drawing.Size(982, 452)
+        Me.PanelLEft.Size = New System.Drawing.Size(1230, 452)
         Me.PanelLEft.TabIndex = 0
         '
         'Panel8
@@ -209,12 +224,13 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.Panel8.Location = New System.Drawing.Point(0, 0)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel8.Size = New System.Drawing.Size(982, 452)
+        Me.Panel8.Size = New System.Drawing.Size(1230, 452)
         Me.Panel8.TabIndex = 1
         '
         'Panel9
         '
         Me.Panel9.BackColor = System.Drawing.Color.White
+        Me.Panel9.Controls.Add(Me.GroupPanel1)
         Me.Panel9.Controls.Add(Me.cbCajaDestino)
         Me.Panel9.Controls.Add(Me.lbCajaDestino)
         Me.Panel9.Controls.Add(Me.cbCaja)
@@ -239,8 +255,160 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.Panel9.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel9.Location = New System.Drawing.Point(3, 30)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(976, 419)
+        Me.Panel9.Size = New System.Drawing.Size(1224, 419)
         Me.Panel9.TabIndex = 2
+        '
+        'GroupPanel1
+        '
+        Me.GroupPanel1.CanvasColor = System.Drawing.SystemColors.Control
+        Me.GroupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
+        Me.GroupPanel1.Controls.Add(Me.grdetalle)
+        Me.GroupPanel1.Controls.Add(Me.panelDatos)
+        Me.GroupPanel1.DisabledBackColor = System.Drawing.Color.Empty
+        Me.GroupPanel1.Dock = System.Windows.Forms.DockStyle.Right
+        Me.GroupPanel1.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupPanel1.Location = New System.Drawing.Point(599, 0)
+        Me.GroupPanel1.Name = "GroupPanel1"
+        Me.GroupPanel1.Size = New System.Drawing.Size(625, 419)
+        '
+        '
+        '
+        Me.GroupPanel1.Style.BackColor2 = System.Drawing.Color.MidnightBlue
+        Me.GroupPanel1.Style.BackColorGradientAngle = 90
+        Me.GroupPanel1.Style.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.CustomizeText
+        Me.GroupPanel1.Style.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel1.Style.BorderBottomWidth = 1
+        Me.GroupPanel1.Style.BorderColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
+        Me.GroupPanel1.Style.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel1.Style.BorderLeftWidth = 1
+        Me.GroupPanel1.Style.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel1.Style.BorderRightWidth = 1
+        Me.GroupPanel1.Style.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel1.Style.BorderTopWidth = 1
+        Me.GroupPanel1.Style.CornerDiameter = 4
+        Me.GroupPanel1.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.GroupPanel1.Style.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.GroupPanel1.Style.TextColor = System.Drawing.Color.White
+        Me.GroupPanel1.Style.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Near
+        '
+        '
+        '
+        Me.GroupPanel1.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        '
+        '
+        '
+        Me.GroupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.GroupPanel1.TabIndex = 233
+        Me.GroupPanel1.Text = "Detalle Ingreso / Egreso"
+        '
+        'grdetalle
+        '
+        Me.grdetalle.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
+        Me.grdetalle.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grdetalle.Location = New System.Drawing.Point(0, 141)
+        Me.grdetalle.Name = "grdetalle"
+        Me.grdetalle.Size = New System.Drawing.Size(619, 251)
+        Me.grdetalle.TabIndex = 1
+        '
+        'panelDatos
+        '
+        Me.panelDatos.Controls.Add(Me.btnAgregar)
+        Me.panelDatos.Controls.Add(Me.tbMontoIng)
+        Me.panelDatos.Controls.Add(Me.LabelX9)
+        Me.panelDatos.Controls.Add(Me.tbdetalle)
+        Me.panelDatos.Controls.Add(Me.LabelX8)
+        Me.panelDatos.Dock = System.Windows.Forms.DockStyle.Top
+        Me.panelDatos.Location = New System.Drawing.Point(0, 0)
+        Me.panelDatos.Name = "panelDatos"
+        Me.panelDatos.Size = New System.Drawing.Size(619, 141)
+        Me.panelDatos.TabIndex = 0
+        '
+        'btnAgregar
+        '
+        Me.btnAgregar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnAgregar.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.btnAgregar.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.btnAgregar.Font = New System.Drawing.Font("Arial", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnAgregar.Image = Global.TeVendo.My.Resources.Resources.iconguardar
+        Me.btnAgregar.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.btnAgregar.Location = New System.Drawing.Point(397, 83)
+        Me.btnAgregar.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnAgregar.Name = "btnAgregar"
+        Me.btnAgregar.Size = New System.Drawing.Size(188, 47)
+        Me.btnAgregar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnAgregar.Symbol = "59500"
+        Me.btnAgregar.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Material
+        Me.btnAgregar.TabIndex = 11
+        Me.btnAgregar.Text = "Agregar"
+        Me.btnAgregar.TextColor = System.Drawing.Color.White
+        '
+        'tbMontoIng
+        '
+        '
+        '
+        '
+        Me.tbMontoIng.BackgroundStyle.BackColor = System.Drawing.Color.Gold
+        Me.tbMontoIng.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbMontoIng.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbMontoIng.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.tbMontoIng.Font = New System.Drawing.Font("Arial", 19.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbMontoIng.Increment = 1.0R
+        Me.tbMontoIng.Location = New System.Drawing.Point(397, 24)
+        Me.tbMontoIng.Name = "tbMontoIng"
+        Me.tbMontoIng.Size = New System.Drawing.Size(188, 45)
+        Me.tbMontoIng.TabIndex = 10
+        '
+        'LabelX9
+        '
+        Me.LabelX9.AutoSize = True
+        Me.LabelX9.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX9.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX9.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX9.Location = New System.Drawing.Point(348, 24)
+        Me.LabelX9.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX9.Name = "LabelX9"
+        Me.LabelX9.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX9.Size = New System.Drawing.Size(57, 21)
+        Me.LabelX9.TabIndex = 225
+        Me.LabelX9.Text = "Monto: "
+        '
+        'tbdetalle
+        '
+        '
+        '
+        '
+        Me.tbdetalle.Border.Class = "TextBoxBorder"
+        Me.tbdetalle.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbdetalle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbdetalle.Location = New System.Drawing.Point(66, 25)
+        Me.tbdetalle.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbdetalle.Multiline = True
+        Me.tbdetalle.Name = "tbdetalle"
+        Me.tbdetalle.PreventEnterBeep = True
+        Me.tbdetalle.Size = New System.Drawing.Size(262, 105)
+        Me.tbdetalle.TabIndex = 9
+        '
+        'LabelX8
+        '
+        Me.LabelX8.AutoSize = True
+        Me.LabelX8.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX8.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX8.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX8.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX8.Location = New System.Drawing.Point(10, 25)
+        Me.LabelX8.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX8.Name = "LabelX8"
+        Me.LabelX8.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX8.Size = New System.Drawing.Size(59, 21)
+        Me.LabelX8.TabIndex = 223
+        Me.LabelX8.Text = "Detalle: "
         '
         'cbCajaDestino
         '
@@ -340,14 +508,14 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.cbSucursal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
         Me.cbSucursal.HideSelection = False
         Me.cbSucursal.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.cbSucursal.Location = New System.Drawing.Point(561, 109)
+        Me.cbSucursal.Location = New System.Drawing.Point(312, 348)
         Me.cbSucursal.Margin = New System.Windows.Forms.Padding(4)
         Me.cbSucursal.Name = "cbSucursal"
         Me.cbSucursal.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.cbSucursal.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
         Me.cbSucursal.SelectedIndex = -1
         Me.cbSucursal.SelectedItem = Nothing
-        Me.cbSucursal.Size = New System.Drawing.Size(317, 28)
+        Me.cbSucursal.Size = New System.Drawing.Size(239, 28)
         Me.cbSucursal.TabIndex = 8
         Me.cbSucursal.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -361,7 +529,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX5.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX5.Location = New System.Drawing.Point(561, 86)
+        Me.LabelX5.Location = New System.Drawing.Point(312, 325)
         Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX5.Name = "LabelX5"
         Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
@@ -379,7 +547,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX4.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX4.Location = New System.Drawing.Point(561, 24)
+        Me.LabelX4.Location = New System.Drawing.Point(18, 325)
         Me.LabelX4.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX4.Name = "LabelX4"
         Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
@@ -395,12 +563,12 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.tbPersonal.Border.Class = "TextBoxBorder"
         Me.tbPersonal.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbPersonal.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbPersonal.Location = New System.Drawing.Point(561, 49)
+        Me.tbPersonal.Location = New System.Drawing.Point(18, 350)
         Me.tbPersonal.Margin = New System.Windows.Forms.Padding(4)
         Me.tbPersonal.Name = "tbPersonal"
         Me.tbPersonal.PreventEnterBeep = True
         Me.tbPersonal.ReadOnly = True
-        Me.tbPersonal.Size = New System.Drawing.Size(317, 26)
+        Me.tbPersonal.Size = New System.Drawing.Size(275, 26)
         Me.tbPersonal.TabIndex = 225
         '
         'btnAgregarMotivoMovimiento
@@ -450,9 +618,9 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.LabelX3.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX3.Name = "LabelX3"
         Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX3.Size = New System.Drawing.Size(49, 21)
+        Me.LabelX3.Size = New System.Drawing.Size(84, 21)
         Me.LabelX3.TabIndex = 222
-        Me.LabelX3.Text = "Monto:"
+        Me.LabelX3.Text = "Monto Total:"
         '
         'tbFecha
         '
@@ -667,7 +835,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.Panel10.Location = New System.Drawing.Point(3, 3)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel10.Size = New System.Drawing.Size(976, 27)
+        Me.Panel10.Size = New System.Drawing.Size(1224, 27)
         Me.Panel10.TabIndex = 1
         '
         'Panel11
@@ -679,7 +847,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.Panel11.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel11.Location = New System.Drawing.Point(1, 1)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(974, 25)
+        Me.Panel11.Size = New System.Drawing.Size(1222, 25)
         Me.Panel11.TabIndex = 0
         '
         'Label3
@@ -726,7 +894,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.PanelButton.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.PanelButton.Location = New System.Drawing.Point(0, 452)
         Me.PanelButton.Name = "PanelButton"
-        Me.PanelButton.Size = New System.Drawing.Size(982, 60)
+        Me.PanelButton.Size = New System.Drawing.Size(1230, 60)
         Me.PanelButton.TabIndex = 3
         '
         'PanelToolBar1
@@ -837,7 +1005,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.PanelNavegacion.Controls.Add(Me.btnAnterior)
         Me.PanelNavegacion.Controls.Add(Me.btnPrimero)
         Me.PanelNavegacion.Dock = System.Windows.Forms.DockStyle.Right
-        Me.PanelNavegacion.Location = New System.Drawing.Point(515, 0)
+        Me.PanelNavegacion.Location = New System.Drawing.Point(763, 0)
         Me.PanelNavegacion.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelNavegacion.Name = "PanelNavegacion"
         Me.PanelNavegacion.Size = New System.Drawing.Size(467, 60)
@@ -937,7 +1105,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.SuperTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel2.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel2.Name = "SuperTabControlPanel2"
-        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(982, 512)
+        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1230, 512)
         Me.SuperTabControlPanel2.TabIndex = 2
         Me.SuperTabControlPanel2.TabItem = Me.SuperTabItem2
         '
@@ -950,7 +1118,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.Panel17.Location = New System.Drawing.Point(0, 0)
         Me.Panel17.Name = "Panel17"
         Me.Panel17.Padding = New System.Windows.Forms.Padding(5)
-        Me.Panel17.Size = New System.Drawing.Size(982, 512)
+        Me.Panel17.Size = New System.Drawing.Size(1230, 512)
         Me.Panel17.TabIndex = 4
         '
         'JGrM_Buscador
@@ -997,7 +1165,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.JGrM_Buscador.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.JGrM_Buscador.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.JGrM_Buscador.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.JGrM_Buscador.Size = New System.Drawing.Size(972, 402)
+        Me.JGrM_Buscador.Size = New System.Drawing.Size(1220, 402)
         Me.JGrM_Buscador.TabIndex = 2
         Me.JGrM_Buscador.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.JGrM_Buscador.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -1012,7 +1180,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.MeuOpciones.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.MeuOpciones.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VerToolStripMenuItem1, Me.EditarToolStripMenuItem, Me.EliminarToolStripMenuItem1, Me.ReporteToolStripMenuItem})
         Me.MeuOpciones.Name = "MeuOpciones"
-        Me.MeuOpciones.Size = New System.Drawing.Size(180, 168)
+        Me.MeuOpciones.Size = New System.Drawing.Size(146, 140)
         Me.MeuOpciones.Text = "Opciones"
         '
         'VerToolStripMenuItem1
@@ -1021,7 +1189,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.VerToolStripMenuItem1.Image = Global.TeVendo.My.Resources.Resources.verRegistros2
         Me.VerToolStripMenuItem1.Name = "VerToolStripMenuItem1"
         Me.VerToolStripMenuItem1.Padding = New System.Windows.Forms.Padding(5)
-        Me.VerToolStripMenuItem1.Size = New System.Drawing.Size(189, 36)
+        Me.VerToolStripMenuItem1.Size = New System.Drawing.Size(155, 36)
         Me.VerToolStripMenuItem1.Text = "Ver"
         '
         'EditarToolStripMenuItem
@@ -1030,7 +1198,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.EditarToolStripMenuItem.Image = Global.TeVendo.My.Resources.Resources.edit
         Me.EditarToolStripMenuItem.Name = "EditarToolStripMenuItem"
         Me.EditarToolStripMenuItem.Padding = New System.Windows.Forms.Padding(5)
-        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(189, 36)
+        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(155, 36)
         Me.EditarToolStripMenuItem.Text = "Editar"
         '
         'EliminarToolStripMenuItem1
@@ -1039,8 +1207,16 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.EliminarToolStripMenuItem1.Image = Global.TeVendo.My.Resources.Resources.trash2
         Me.EliminarToolStripMenuItem1.Name = "EliminarToolStripMenuItem1"
         Me.EliminarToolStripMenuItem1.Padding = New System.Windows.Forms.Padding(5)
-        Me.EliminarToolStripMenuItem1.Size = New System.Drawing.Size(189, 36)
+        Me.EliminarToolStripMenuItem1.Size = New System.Drawing.Size(155, 36)
         Me.EliminarToolStripMenuItem1.Text = "Eliminar"
+        '
+        'ReporteToolStripMenuItem
+        '
+        Me.ReporteToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ReporteToolStripMenuItem.Image = Global.TeVendo.My.Resources.Resources.printee
+        Me.ReporteToolStripMenuItem.Name = "ReporteToolStripMenuItem"
+        Me.ReporteToolStripMenuItem.Size = New System.Drawing.Size(145, 28)
+        Me.ReporteToolStripMenuItem.Text = "Reporte"
         '
         'Panel4
         '
@@ -1049,7 +1225,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel4.Location = New System.Drawing.Point(5, 41)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(972, 64)
+        Me.Panel4.Size = New System.Drawing.Size(1220, 64)
         Me.Panel4.TabIndex = 4
         '
         'TableLayoutPanel1
@@ -1066,7 +1242,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.TableLayoutPanel1.Padding = New System.Windows.Forms.Padding(30, 10, 5, 5)
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(972, 64)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1220, 64)
         Me.TableLayoutPanel1.TabIndex = 5
         '
         'ButtonX2
@@ -1078,9 +1254,9 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.ButtonX2.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonX2.Image = Global.TeVendo.My.Resources.Resources.atras
         Me.ButtonX2.ImageFixedSize = New System.Drawing.Size(30, 30)
-        Me.ButtonX2.Location = New System.Drawing.Point(840, 13)
+        Me.ButtonX2.Location = New System.Drawing.Point(1054, 13)
         Me.ButtonX2.Name = "ButtonX2"
-        Me.ButtonX2.Size = New System.Drawing.Size(124, 43)
+        Me.ButtonX2.Size = New System.Drawing.Size(158, 43)
         Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
         Me.ButtonX2.Symbol = ""
         Me.ButtonX2.SymbolSize = 15.0!
@@ -1094,9 +1270,9 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.btnSi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.btnSi.Controls.Add(Me.ButtonX1)
         Me.btnSi.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnSi.Location = New System.Drawing.Point(711, 13)
+        Me.btnSi.Location = New System.Drawing.Point(891, 13)
         Me.btnSi.Name = "btnSi"
-        Me.btnSi.Size = New System.Drawing.Size(123, 43)
+        Me.btnSi.Size = New System.Drawing.Size(157, 43)
         Me.btnSi.TabIndex = 4
         '
         'ButtonX1
@@ -1111,7 +1287,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.ButtonX1.Location = New System.Drawing.Point(0, 0)
         Me.ButtonX1.Margin = New System.Windows.Forms.Padding(4)
         Me.ButtonX1.Name = "ButtonX1"
-        Me.ButtonX1.Size = New System.Drawing.Size(121, 41)
+        Me.ButtonX1.Size = New System.Drawing.Size(155, 41)
         Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.ButtonX1.TabIndex = 7
         Me.ButtonX1.Text = "Nuevo Registro"
@@ -1125,7 +1301,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.Panel14.Location = New System.Drawing.Point(5, 5)
         Me.Panel14.Name = "Panel14"
         Me.Panel14.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel14.Size = New System.Drawing.Size(972, 36)
+        Me.Panel14.Size = New System.Drawing.Size(1220, 36)
         Me.Panel14.TabIndex = 3
         '
         'Panel15
@@ -1137,7 +1313,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.Panel15.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel15.Location = New System.Drawing.Point(1, 1)
         Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(970, 34)
+        Me.Panel15.Size = New System.Drawing.Size(1218, 34)
         Me.Panel15.TabIndex = 0
         '
         'Label2
@@ -1195,19 +1371,28 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         '
         Me.MEP.ContainerControl = Me
         '
-        'ReporteToolStripMenuItem
+        'ContextDelete
         '
-        Me.ReporteToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ReporteToolStripMenuItem.Image = Global.TeVendo.My.Resources.Resources.printee
-        Me.ReporteToolStripMenuItem.Name = "ReporteToolStripMenuItem"
-        Me.ReporteToolStripMenuItem.Size = New System.Drawing.Size(179, 28)
-        Me.ReporteToolStripMenuItem.Text = "Reporte"
+        Me.ContextDelete.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.ContextDelete.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem3})
+        Me.ContextDelete.Name = "MeuOpciones"
+        Me.ContextDelete.Size = New System.Drawing.Size(215, 68)
+        Me.ContextDelete.Text = "Opciones"
+        '
+        'ToolStripMenuItem3
+        '
+        Me.ToolStripMenuItem3.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripMenuItem3.Image = Global.TeVendo.My.Resources.Resources.trash2
+        Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
+        Me.ToolStripMenuItem3.Padding = New System.Windows.Forms.Padding(5)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(224, 36)
+        Me.ToolStripMenuItem3.Text = "Eliminar"
         '
         'Tec_ProgramaIngresoEgresoCaja
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(982, 543)
+        Me.ClientSize = New System.Drawing.Size(1230, 543)
         Me.Controls.Add(Me.TabControlPrincipal)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Tec_ProgramaIngresoEgresoCaja"
@@ -1221,6 +1406,11 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.Panel8.ResumeLayout(False)
         Me.Panel9.ResumeLayout(False)
         Me.Panel9.PerformLayout()
+        Me.GroupPanel1.ResumeLayout(False)
+        CType(Me.grdetalle, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.panelDatos.ResumeLayout(False)
+        Me.panelDatos.PerformLayout()
+        CType(Me.tbMontoIng, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbCajaDestino, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbCaja, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1243,6 +1433,7 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
         Me.Panel15.ResumeLayout(False)
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ContextDelete.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -1315,4 +1506,14 @@ Partial Class Tec_ProgramaIngresoEgresoCaja
     Friend WithEvents cbCajaDestino As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents lbCajaDestino As DevComponents.DotNetBar.LabelX
     Friend WithEvents ReporteToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents GroupPanel1 As DevComponents.DotNetBar.Controls.GroupPanel
+    Friend WithEvents grdetalle As Janus.Windows.GridEX.GridEX
+    Friend WithEvents panelDatos As Panel
+    Friend WithEvents tbMontoIng As DevComponents.Editors.DoubleInput
+    Friend WithEvents LabelX9 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbdetalle As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents LabelX8 As DevComponents.DotNetBar.LabelX
+    Protected WithEvents btnAgregar As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents ContextDelete As ContextMenuStrip
+    Friend WithEvents ToolStripMenuItem3 As ToolStripMenuItem
 End Class

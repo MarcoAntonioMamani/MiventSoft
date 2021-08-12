@@ -3291,6 +3291,19 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
+    Public Shared Function L_prListarDetalleIngresoEgreso(Id As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 14))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@Id", Id))
+        _Tabla = D_ProcedimientoConParam("MAM_CajaIngresoEgreso", _listParam)
+
+        Return _Tabla
+    End Function
+
     Public Shared Function L_prCierreCajeroInsertar(ByRef _numi As String, Fecha As String, PersonalId As Integer, SucursalId As Integer, MontoInicial As Double, EstadoCaja As Integer, TipoCambio As Double, TotalVenta As Double, TotalCobranzas As Double, TotalIngresos As Double, TotalEgresos As Double, TotalCaja As Double, TotalEfectivo As Double, TotalTransferencia As Double, TotalTarjeta As Double, TotalEfectivoRecibido As Double, Diferencia As Double, Observacion As String) As Boolean
         Dim _resultado As Boolean
 
@@ -3379,7 +3392,7 @@ Public Class AccesoLogica
 
         Return _resultado
     End Function
-    Public Shared Function L_prIngresoSalidaInsertar(ByRef _numi As String, Fecha As String, Descripcion As String, Monto As Double, CajaId As Integer, IngresoEgreso As Integer, CajaTipoMovimientoId As Integer, PersonalId As Integer, SucursalId As Integer, CajaIdDestino As Integer, IdIngresoEgreso As Integer) As Boolean
+    Public Shared Function L_prIngresoSalidaInsertar(ByRef _numi As String, Fecha As String, Descripcion As String, Monto As Double, CajaId As Integer, IngresoEgreso As Integer, CajaTipoMovimientoId As Integer, PersonalId As Integer, SucursalId As Integer, CajaIdDestino As Integer, IdIngresoEgreso As Integer, dt As DataTable) As Boolean
         Dim _resultado As Boolean
 
         '@id,@CierreCajeroId ,@Fecha ,@Descripcion ,@Monto ,@CajaId ,@IngresoEgreso ,@CajaTipoMovimientoId,
@@ -3404,6 +3417,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@CajaIngresoEgresoIdDestino", IdIngresoEgreso))
         _listParam.Add(New Datos.DParametro("@CajaIdDestino", CajaIdDestino))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@Detalle", "", dt))
         _Tabla = D_ProcedimientoConParam("MAM_CajaIngresoEgreso", _listParam)
 
         If _Tabla.Rows.Count > 0 Then
@@ -3417,7 +3431,7 @@ Public Class AccesoLogica
         Return _resultado
     End Function
 
-    Public Shared Function L_prIngresoSalidaModificar(ByRef _numi As String, Fecha As String, Descripcion As String, Monto As Double, CajaId As Integer, IngresoEgreso As Integer, CajaTipoMovimientoId As Integer, PersonalId As Integer, SucursalId As Integer, CajaIdDestino As Integer) As Boolean
+    Public Shared Function L_prIngresoSalidaModificar(ByRef _numi As String, Fecha As String, Descripcion As String, Monto As Double, CajaId As Integer, IngresoEgreso As Integer, CajaTipoMovimientoId As Integer, PersonalId As Integer, SucursalId As Integer, CajaIdDestino As Integer, dt As DataTable) As Boolean
         Dim _resultado As Boolean
 
         '@id,@CierreCajeroId ,@Fecha ,@Descripcion ,@Monto ,@CajaId ,@IngresoEgreso ,@CajaTipoMovimientoId,
@@ -3442,6 +3456,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@CajaIngresoEgresoIdDestino", 0))
         _listParam.Add(New Datos.DParametro("@CajaIdDestino", CajaIdDestino))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@Detalle", "", dt))
         _Tabla = D_ProcedimientoConParam("MAM_CajaIngresoEgreso", _listParam)
 
         If _Tabla.Rows.Count > 0 Then
