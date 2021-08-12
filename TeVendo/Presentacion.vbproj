@@ -697,6 +697,12 @@
       <DependentUpon>Reporte_VentasRealizadas.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ReporteSmartApps\Rep_CierreCaja.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rep_CierreCaja.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ReporteSmartApps\R_KardexProducto.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1085,6 +1091,10 @@
     <EmbeddedResource Include="ReporteSmartApps\Reporte_VentasRealizadas.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Reporte_VentasRealizadas.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\Rep_CierreCaja.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rep_CierreCaja.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\R_KardexProducto.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

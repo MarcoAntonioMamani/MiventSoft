@@ -1381,6 +1381,19 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
+    Public Shared Function ListarReporteCierre(Id As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 12))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@id", Id))
+        _Tabla = D_ProcedimientoConParam("MAM_CierreCajero", _listParam)
+
+        Return _Tabla
+    End Function
+
     Public Shared Function ListarReporteMovimientoProductos(Id As String) As DataTable
         Dim _Tabla As DataTable
 
