@@ -343,6 +343,8 @@ Public Class Efecto
         frmAyuda.IdCliente = IdCliente
         frmAyuda.TipoProgramas = TipoPrograma
         frmAyuda.ShowDialog()
+
+        SucursalId = frmAyuda.SucursalId
         Me.Close()
 
 
