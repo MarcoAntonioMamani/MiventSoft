@@ -2087,8 +2087,12 @@ salirIf:
         ef.TipoPrograma = 2
         ef.IdCliente = IdCliente
         ef.ShowDialog()
+
+
         grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
         _prCalcularPrecioTotal()
+
+        cbSucursal.Value = ef.SucursalId
     End Sub
 
     Private Sub LabelX8_Click(sender As Object, e As EventArgs) Handles LabelX8.Click
