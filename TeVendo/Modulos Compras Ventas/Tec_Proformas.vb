@@ -1998,11 +1998,34 @@ salirIf:
 
 
                     dt.Rows(i).Item("imageEmpresa") = Bin.GetBuffer
+
+
                 Next
             End If
 
 
         End If
+
+        '''''Imagen Producto
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+            Name = dt.Rows(i).Item("RutaImagenProducto")
+            If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Productos\ProductosTodos" + Name)) Then
+                Dim im As New Bitmap(New Bitmap(RutaGlobal + "\Imagenes\Imagenes Productos\ProductosTodos" + Name))
+                Dim Bin As New MemoryStream
+                Dim img As New Bitmap(im)
+                img.Save(Bin, Imaging.ImageFormat.Png)
+                Bin.Dispose()
+                dt.Rows(i).Item("ImageProducto") = Bin.GetBuffer
+            End If
+
+
+
+        Next
+
+
+        '''
+
 
         Dim _FechaAct As String
         Dim _Fecha() As String
@@ -2026,7 +2049,7 @@ salirIf:
 
         P_Global.Visualizador = New Visualizador
 
-        Dim objrep As New Recibo
+        Dim objrep As New ReciboProforma
 
         objrep.SetDataSource(dt)
         objrep.SetParameterValue("Monto", li)
