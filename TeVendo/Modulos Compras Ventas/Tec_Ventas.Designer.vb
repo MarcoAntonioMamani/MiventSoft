@@ -731,7 +731,6 @@ Partial Class Tec_Ventas
         Me.btnVendedor.Size = New System.Drawing.Size(35, 28)
         Me.btnVendedor.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnVendedor.TabIndex = 210
-        Me.btnVendedor.Visible = False
         '
         'lbcredito
         '

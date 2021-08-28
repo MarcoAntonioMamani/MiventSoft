@@ -1199,7 +1199,7 @@ salirIf:
         End If
 
 
-        btnVendedor.Visible = False
+        btnVendedor.Visible = True
         btnCliente.Visible = True
         BtnImprimir.Visible = False
         tab_Cobro.Visible = False

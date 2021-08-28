@@ -21,6 +21,7 @@ Public Class Tec_VentasDetalle
     Public TipoProgramas As Integer = 0   ''1=venta  2 =  proforma
     Public Sub IniciarTodod()
         CargarProductosVentas()
+        P_Global._prCargarComboGenerico(cbPrecios, L_prListaCategoriasPrecios(), "Id", "Codigo", "Descripcion", "CategoriaPrecio")
         _prCargarProductos()
 
         _habilitarFocus()
@@ -44,7 +45,7 @@ Public Class Tec_VentasDetalle
 
         End If
 
-        dt = L_prListarProductosVentas(SucursalId, IdCliente)  ''1=Almacen
+        dt = L_prListarProductosVentas(SucursalId, cbPrecios.Value)  ''1=Almacen
         dtProductos = dt.Copy
         'a.Id , a.NombreProducto, PCosto.Precio As PrecioCosto,
         ''PVenta.Precio as PrecioVenta
@@ -127,7 +128,8 @@ Public Class Tec_VentasDetalle
         End With
         With grProducto.RootTable.Columns("PrecioVenta")
             .Width = 150
-            .Visible = False
+            .Visible = True
+            .Caption = "Precio"
             .FormatString = "0.00"
         End With
         With grProducto
@@ -1636,5 +1638,9 @@ salirIf:
         btnProductos.Visible = False
         FilaSelectLote = Nothing
         _HabilitarProductos()
+    End Sub
+
+    Private Sub cbPrecios_ValueChanged(sender As Object, e As EventArgs) Handles cbPrecios.ValueChanged
+        _prCargarProductos()
     End Sub
 End Class

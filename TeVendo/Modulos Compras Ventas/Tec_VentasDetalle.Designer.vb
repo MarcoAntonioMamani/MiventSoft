@@ -23,6 +23,8 @@ Partial Class Tec_VentasDetalle
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim cbPrecios_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tec_VentasDetalle))
         Me.Paneltop = New System.Windows.Forms.Panel()
         Me.grProducto = New Janus.Windows.GridEX.GridEX()
         Me.Panel5 = New System.Windows.Forms.Panel()
@@ -44,6 +46,8 @@ Partial Class Tec_VentasDetalle
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
+        Me.cbPrecios = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.Paneltop.SuspendLayout()
         CType(Me.grProducto, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
@@ -56,6 +60,7 @@ Partial Class Tec_VentasDetalle
         Me.Panel3.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbPrecios, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Paneltop
@@ -97,8 +102,8 @@ Partial Class Tec_VentasDetalle
         Me.grProducto.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grProducto.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
         Me.grProducto.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
-        Me.grProducto.Location = New System.Drawing.Point(0, 104)
-        Me.grProducto.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grProducto.Location = New System.Drawing.Point(0, 143)
+        Me.grProducto.Margin = New System.Windows.Forms.Padding(4)
         Me.grProducto.Name = "grProducto"
         Me.grProducto.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.grProducto.Office2007CustomColor = System.Drawing.Color.DodgerBlue
@@ -114,7 +119,7 @@ Partial Class Tec_VentasDetalle
         Me.grProducto.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.grProducto.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grProducto.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grProducto.Size = New System.Drawing.Size(1095, 479)
+        Me.grProducto.Size = New System.Drawing.Size(1095, 440)
         Me.grProducto.TabIndex = 4
         Me.grProducto.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grProducto.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -126,6 +131,8 @@ Partial Class Tec_VentasDetalle
         '
         'Panel5
         '
+        Me.Panel5.Controls.Add(Me.cbPrecios)
+        Me.Panel5.Controls.Add(Me.LabelX1)
         Me.Panel5.Controls.Add(Me.btnProductos)
         Me.Panel5.Controls.Add(Me.btnConfirmarSalir)
         Me.Panel5.Controls.Add(Me.LabelX9)
@@ -134,7 +141,7 @@ Partial Class Tec_VentasDetalle
         Me.Panel5.Location = New System.Drawing.Point(0, 36)
         Me.Panel5.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(1095, 68)
+        Me.Panel5.Size = New System.Drawing.Size(1095, 107)
         Me.Panel5.TabIndex = 3
         '
         'btnProductos
@@ -145,7 +152,7 @@ Partial Class Tec_VentasDetalle
         Me.btnProductos.Image = Global.TeVendo.My.Resources.Resources.search
         Me.btnProductos.ImageFixedSize = New System.Drawing.Size(24, 24)
         Me.btnProductos.Location = New System.Drawing.Point(883, 7)
-        Me.btnProductos.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnProductos.Margin = New System.Windows.Forms.Padding(4)
         Me.btnProductos.Name = "btnProductos"
         Me.btnProductos.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
         Me.btnProductos.Size = New System.Drawing.Size(199, 53)
@@ -166,7 +173,7 @@ Partial Class Tec_VentasDetalle
         Me.btnConfirmarSalir.Image = Global.TeVendo.My.Resources.Resources.search
         Me.btnConfirmarSalir.ImageFixedSize = New System.Drawing.Size(22, 22)
         Me.btnConfirmarSalir.Location = New System.Drawing.Point(605, 7)
-        Me.btnConfirmarSalir.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnConfirmarSalir.Margin = New System.Windows.Forms.Padding(4)
         Me.btnConfirmarSalir.Name = "btnConfirmarSalir"
         Me.btnConfirmarSalir.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
         Me.btnConfirmarSalir.Size = New System.Drawing.Size(253, 53)
@@ -188,7 +195,7 @@ Partial Class Tec_VentasDetalle
         Me.LabelX9.Font = New System.Drawing.Font("Georgia", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
         Me.LabelX9.Location = New System.Drawing.Point(84, 17)
-        Me.LabelX9.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.LabelX9.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX9.Name = "LabelX9"
         Me.LabelX9.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX9.Size = New System.Drawing.Size(151, 28)
@@ -206,7 +213,7 @@ Partial Class Tec_VentasDetalle
         Me.tbProducto.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbProducto.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tbProducto.Location = New System.Drawing.Point(251, 18)
-        Me.tbProducto.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tbProducto.Margin = New System.Windows.Forms.Padding(4)
         Me.tbProducto.Name = "tbProducto"
         Me.tbProducto.PreventEnterBeep = True
         Me.tbProducto.Size = New System.Drawing.Size(332, 24)
@@ -312,7 +319,7 @@ Partial Class Tec_VentasDetalle
         Me.grDetalle.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
         Me.grDetalle.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
         Me.grDetalle.Location = New System.Drawing.Point(0, 36)
-        Me.grDetalle.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grDetalle.Margin = New System.Windows.Forms.Padding(4)
         Me.grDetalle.Name = "grDetalle"
         Me.grDetalle.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.grDetalle.Office2007CustomColor = System.Drawing.Color.DodgerBlue
@@ -409,6 +416,48 @@ Partial Class Tec_VentasDetalle
         '
         Me.MEP.ContainerControl = Me
         '
+        'LabelX1
+        '
+        Me.LabelX1.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX1.Font = New System.Drawing.Font("Georgia", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX1.Location = New System.Drawing.Point(84, 53)
+        Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX1.Name = "LabelX1"
+        Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX1.Size = New System.Drawing.Size(151, 28)
+        Me.LabelX1.TabIndex = 377
+        Me.LabelX1.Text = "Categoria Precio:"
+        '
+        'cbPrecios
+        '
+        Me.cbPrecios.BackColor = System.Drawing.Color.Azure
+        Me.cbPrecios.ColorScheme = ""
+        Me.cbPrecios.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.cbPrecios.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
+        Me.cbPrecios.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        cbPrecios_DesignTimeLayout.LayoutString = resources.GetString("cbPrecios_DesignTimeLayout.LayoutString")
+        Me.cbPrecios.DesignTimeLayout = cbPrecios_DesignTimeLayout
+        Me.cbPrecios.FlatBorderColor = System.Drawing.Color.Black
+        Me.cbPrecios.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbPrecios.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbPrecios.HideSelection = False
+        Me.cbPrecios.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cbPrecios.Location = New System.Drawing.Point(251, 53)
+        Me.cbPrecios.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbPrecios.Name = "cbPrecios"
+        Me.cbPrecios.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbPrecios.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
+        Me.cbPrecios.SelectedIndex = -1
+        Me.cbPrecios.SelectedItem = Nothing
+        Me.cbPrecios.Size = New System.Drawing.Size(332, 28)
+        Me.cbPrecios.TabIndex = 378
+        Me.cbPrecios.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
         'Tec_VentasDetalle
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -425,6 +474,7 @@ Partial Class Tec_VentasDetalle
         Me.Paneltop.ResumeLayout(False)
         CType(Me.grProducto, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel5.ResumeLayout(False)
+        Me.Panel5.PerformLayout()
         Me.Panel10.ResumeLayout(False)
         Me.Panel11.ResumeLayout(False)
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
@@ -434,6 +484,7 @@ Partial Class Tec_VentasDetalle
         Me.Panel3.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbPrecios, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -459,4 +510,6 @@ Partial Class Tec_VentasDetalle
     Protected WithEvents MHighlighterFocus As DevComponents.DotNetBar.Validator.Highlighter
     Protected WithEvents MEP As ErrorProvider
     Friend WithEvents btnProductos As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents cbPrecios As Janus.Windows.GridEX.EditControls.MultiColumnCombo
 End Class
