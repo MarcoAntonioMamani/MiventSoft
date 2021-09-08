@@ -634,6 +634,7 @@ Public Class Tec_Productos
 
 
 
+
         If (IsNothing(grPrecios.DataSource)) Then
             grPrecios.DataSource = dt
             grPrecios.RetrieveStructure()

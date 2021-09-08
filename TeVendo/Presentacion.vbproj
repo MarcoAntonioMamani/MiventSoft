@@ -164,6 +164,10 @@
     <Reference Include="MaterialSkin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialSkin.Updated.0.2.2\lib\MaterialSkin.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="OnBarcode.Barcode.WinForms">
       <HintPath>C:\Users\usuario\Dropbox\Utilitarios\Aplicaciones\Qrcode_Barcode\OnBarcode.Barcode.WinForms.dll</HintPath>
     </Reference>
@@ -473,6 +477,12 @@
       <DependentUpon>Tec_VisualizarConceptosVariablesPlanilla.vb</DependentUpon>
     </Compile>
     <Compile Include="Modulo RecusosHumanos\Tec_VisualizarConceptosVariablesPlanilla.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModuloFacturas\FPruebaImportacion.designer.vb">
+      <DependentUpon>FPruebaImportacion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ModuloFacturas\FPruebaImportacion.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ModuloFacturas\Tec_Dosificacion.Designer.vb">
@@ -786,6 +796,7 @@
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -962,6 +973,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo RecusosHumanos\Tec_VisualizarConceptosVariablesPlanilla.resx">
       <DependentUpon>Tec_VisualizarConceptosVariablesPlanilla.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModuloFacturas\FPruebaImportacion.resx">
+      <DependentUpon>FPruebaImportacion.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ModuloFacturas\Tec_Dosificacion.resx">
       <DependentUpon>Tec_Dosificacion.vb</DependentUpon>

@@ -241,7 +241,7 @@ Public Class FormularioStock
             .WordWrap = True
         End With
         With grProducto.RootTable.Columns("Categoria")
-            .Width = 150
+            .Width = 200
             .Caption = "CATEGORIA"
             .Visible = True
             .MaxLines = 2
@@ -250,7 +250,7 @@ Public Class FormularioStock
         With grProducto.RootTable.Columns("industria")
             .Width = 150
             .Caption = "Industria"
-            .Visible = True
+            .Visible = False
             .MaxLines = 2
             .WordWrap = True
         End With

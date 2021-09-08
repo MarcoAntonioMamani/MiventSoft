@@ -24,10 +24,10 @@ Module P_Global
 #Region "Conexión a la Base de Datos"
 
     'Variables del archivo de configuración
-    Public gs_Ip As String = "127.0.0.1"
+    Public gs_Ip As String = "DESKTOP-SB2Q2F5\SQLSERVER2017"
     Public gs_UsuarioSql As String = "sa"
     Public gs_ClaveSql As String = "123"
-    Public gs_NombreBD As String = "DBDinoM"
+    Public gs_NombreBD As String = "MInventSoftMoto"
     Public gs_CarpetaRaiz As String = "C:\BD"
 
 #End Region
