@@ -164,6 +164,7 @@ Public Class Tec_Precios
             cbAlmacen.SelectedIndex = 0
         End If
     End Sub
+
     Private Sub _prInhabiliitar()
 
         GPanelAddCategoria.Visible = False
@@ -637,6 +638,125 @@ Public Class Tec_Precios
         btnGrabar.Visible = False
         PanelCategoria.Visible = True
         GPanelAddCategoria.Visible = True
+    End Sub
+
+    Private Sub btnImportarDatos_Click(sender As Object, e As EventArgs) Handles btnImportarDatos.Click
+        importarExcel()
+    End Sub
+    Public Shared Function ExcelToDatatable(ByVal _xlPath As String, ByVal _namePage As String) As System.Data.DataTable
+        Dim xlApp As Microsoft.Office.Interop.Excel.Application = New Microsoft.Office.Interop.Excel.Application()
+        Dim xlBook As Microsoft.Office.Interop.Excel.Workbook = xlApp.Workbooks.Open(_xlPath)
+        Dim workSheet As Microsoft.Office.Interop.Excel.Worksheet = CType(xlBook.Worksheets(_namePage), Microsoft.Office.Interop.Excel.Worksheet)
+        Dim rowIndex As Object = 1
+        Dim dt As System.Data.DataTable = New System.Data.DataTable()
+        Dim row As DataRow
+        Dim temp As Integer = 1
+
+        While (CType(workSheet.Cells(rowIndex, temp), Microsoft.Office.Interop.Excel.Range)).Value2 IsNot Nothing
+            dt.Columns.Add(Convert.ToString((CType(workSheet.Cells(rowIndex, temp), Microsoft.Office.Interop.Excel.Range)).Value2))
+            temp += 1
+        End While
+
+        rowIndex = Convert.ToInt32(rowIndex) + 1
+        Dim columnCount As Integer = temp
+        temp = 1
+
+        While (CType(workSheet.Cells(rowIndex, temp), Microsoft.Office.Interop.Excel.Range)).Value2 IsNot Nothing
+            row = dt.NewRow()
+
+            For i As Integer = 1 To columnCount - 1
+                row(i - 1) = Convert.ToString((CType(workSheet.Cells(rowIndex, i), Microsoft.Office.Interop.Excel.Range)).Value2)
+            Next
+
+            dt.Rows.Add(row)
+            rowIndex = Convert.ToInt32(rowIndex) + 1
+            temp = 1
+        End While
+
+        xlApp.Workbooks.Close()
+        Return dt
+    End Function
+    Sub importarExcel()
+
+
+        Dim myFileDialog As New OpenFileDialog()
+        Dim xSheet As String = ""
+        Dim dt As DataTable
+        With myFileDialog
+            .Filter = "Excel Files |*.*"
+            .Title = "Open File"
+            .ShowDialog()
+        End With
+        If myFileDialog.FileName.ToString <> "" Then
+            Dim ExcelFile As String = myFileDialog.FileName.ToString
+
+
+
+            Try
+                dt = ExcelToDatatable(ExcelFile, "precios")
+
+
+
+
+
+            Catch ex As Exception
+                MsgBox("Inserte un nombre valido de la Hoja que desea importar", MsgBoxStyle.Information, "Informacion")
+            Finally
+
+            End Try
+        End If
+
+        Try
+            ''' Tabla Precio  
+            For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+                Dim PrecioProducto As String = dt.Rows(i).Item("Descuento")
+                PrecioProducto = PrecioProducto.Replace(",", ".")
+
+                Dim CodigoGenerado As String = dt.Rows(i).Item("Codigo")
+
+                If (CodigoGenerado = "1027" Or i = 28) Then
+                    Dim ii As Integer = 0
+                End If
+
+                Dim result As DataRow() = precio.Select("CodigoExterno='" + CodigoGenerado.Trim + "' and yhcatpre = 4")
+                For j As Integer = 0 To result.Length - 1 Step 1
+                    Dim rowIndex As Integer = precio.Rows.IndexOf(result(j))
+                    precio.Rows(rowIndex).Item("estado") = 2
+                    precio.Rows(rowIndex).Item("yhprecio") = PrecioProducto
+                Next
+
+
+            Next
+
+
+            ''' Datatble
+            For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+                Dim PrecioProducto As String = dt.Rows(i).Item("Descuento")
+                PrecioProducto = PrecioProducto.Replace(",", ".")
+
+                Dim CodigoGenerado As String = dt.Rows(i).Item("Codigo")
+
+                Dim dtGrilla As DataTable = CType(grprecio.DataSource, DataTable)
+                If (CodigoGenerado = "1027" Or i = 28) Then
+                    Dim ii As Integer = 0
+                End If
+                Dim result As DataRow() = dtGrilla.Select("yfcprod='" + CodigoGenerado.Trim + "'")
+                For j As Integer = 0 To result.Length - 1 Step 1
+                    Dim rowIndex As Integer = dtGrilla.Rows.IndexOf(result(j))
+
+                    dtGrilla.Rows(rowIndex).Item("4") = PrecioProducto
+                Next
+
+
+            Next
+        Catch ex As Exception
+
+        End Try
+
+
+        MsgBox("Se ha cargado los datos correctamente", MsgBoxStyle.Information, "Importado con exito")
     End Sub
 #End Region
 
