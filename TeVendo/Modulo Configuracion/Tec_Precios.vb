@@ -172,7 +172,7 @@ Public Class Tec_Precios
         btnCategoria.Visible = True
         PanelCategoria.Visible = False
         '' _prCargarTablaPrecios(True)
-
+        btnImportarDatos.Visible = False
         grcategoria.ContextMenuStrip = Nothing
     End Sub
     Private Sub _prhabilitar()
@@ -444,6 +444,7 @@ Public Class Tec_Precios
         btnCategoria.Visible = False
         btnModificar.Visible = False
 
+        btnImportarDatos.Visible = True
     End Sub
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click

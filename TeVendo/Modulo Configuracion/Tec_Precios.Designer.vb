@@ -79,6 +79,7 @@ Partial Class Tec_Precios
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.Highlighter1 = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.ErrorProvider1 = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.btnImportarDatos = New DevComponents.DotNetBar.ButtonX()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -657,6 +658,7 @@ Partial Class Tec_Precios
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.btnImportarDatos, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Panel15, 1, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
@@ -890,6 +892,25 @@ Partial Class Tec_Precios
         '
         Me.ErrorProvider1.ContainerControl = Me
         '
+        'btnImportarDatos
+        '
+        Me.btnImportarDatos.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnImportarDatos.BackColor = System.Drawing.Color.Honeydew
+        Me.btnImportarDatos.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.btnImportarDatos.DisabledImagesGrayScale = False
+        Me.btnImportarDatos.Dock = System.Windows.Forms.DockStyle.Right
+        Me.btnImportarDatos.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnImportarDatos.Image = Global.TeVendo.My.Resources.Resources.sheets
+        Me.btnImportarDatos.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.btnImportarDatos.Location = New System.Drawing.Point(128, 4)
+        Me.btnImportarDatos.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnImportarDatos.Name = "btnImportarDatos"
+        Me.btnImportarDatos.Size = New System.Drawing.Size(227, 55)
+        Me.btnImportarDatos.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnImportarDatos.TabIndex = 35
+        Me.btnImportarDatos.Text = "Importar Precios"
+        Me.btnImportarDatos.TextColor = System.Drawing.Color.Black
+        '
         'Tec_Precios
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -994,4 +1015,5 @@ Partial Class Tec_Precios
     Friend WithEvents grprecio As Janus.Windows.GridEX.GridEX
     Friend WithEvents grcategoria As Janus.Windows.GridEX.GridEX
     Protected WithEvents btnCategoria As DevComponents.DotNetBar.ButtonX
+    Protected WithEvents btnImportarDatos As DevComponents.DotNetBar.ButtonX
 End Class
