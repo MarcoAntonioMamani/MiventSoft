@@ -1813,6 +1813,8 @@ salirIf:
             Else
                 TabControlPrincipal.SelectedTabIndex = 0
                 btnNuevo.PerformClick()
+                btnSeleccionarProducto.PerformClick()
+
             End If
 
         End If
