@@ -18,15 +18,25 @@ Public Class Tec_VentasDetalle
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
 
 
+    Public CategoriaPrecio As Integer
+
     Public TipoProgramas As Integer = 0   ''1=venta  2 =  proforma
+
+    Public BanderaPrimeraVes As Boolean = False
     Public Sub IniciarTodod()
+        BanderaPrimeraVes = True
         CargarProductosVentas()
         P_Global._prCargarComboGenerico(cbPrecios, L_prListaCategoriasPrecios(), "Id", "Codigo", "Descripcion", "CategoriaPrecio")
+        cbPrecios.Value = CategoriaPrecio
+        BanderaPrimeraVes = False
         _prCargarProductos()
 
         _habilitarFocus()
         ActualizarProductos()
         tbProducto.Focus()
+
+
+
     End Sub
     Private Sub Tec_DespachoDetalle_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         IniciarTodod()
@@ -1631,6 +1641,8 @@ salirIf:
 
     End Sub
     Private Sub btnConfirmarSalir_Click(sender As Object, e As EventArgs) Handles btnConfirmarSalir.Click
+
+        CategoriaPrecio = cbPrecios.Value
         Me.Close()
     End Sub
 
@@ -1641,6 +1653,11 @@ salirIf:
     End Sub
 
     Private Sub cbPrecios_ValueChanged(sender As Object, e As EventArgs) Handles cbPrecios.ValueChanged
-        _prCargarProductos()
+        If (BanderaPrimeraVes = False) Then
+            CategoriaPrecio = cbPrecios.Value
+
+            _prCargarProductos()
+        End If
+
     End Sub
 End Class

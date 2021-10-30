@@ -24,6 +24,7 @@ Partial Class Tec_Ventas
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim cbSucursal_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim cbPrecios_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tec_Ventas))
         Me.TabControlPrincipal = New DevComponents.DotNetBar.SuperTabControl()
         Me.SuperTabControlPanel1 = New DevComponents.DotNetBar.SuperTabControlPanel()
@@ -161,6 +162,8 @@ Partial Class Tec_Ventas
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.cbPrecios = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.lbPrecios = New DevComponents.DotNetBar.LabelX()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -221,6 +224,7 @@ Partial Class Tec_Ventas
         Me.Panel15.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbPrecios, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TabControlPrincipal
@@ -370,6 +374,8 @@ Partial Class Tec_Ventas
         'Panel3
         '
         Me.Panel3.AutoScroll = True
+        Me.Panel3.Controls.Add(Me.lbPrecios)
+        Me.Panel3.Controls.Add(Me.cbPrecios)
         Me.Panel3.Controls.Add(Me.LabelX25)
         Me.Panel3.Controls.Add(Me.swFacturado)
         Me.Panel3.Controls.Add(Me.GpanelFacturado)
@@ -442,7 +448,7 @@ Partial Class Tec_Ventas
         Me.GpanelFacturado.Controls.Add(Me.Panel22)
         Me.GpanelFacturado.DisabledBackColor = System.Drawing.Color.Empty
         Me.GpanelFacturado.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GpanelFacturado.Location = New System.Drawing.Point(708, 60)
+        Me.GpanelFacturado.Location = New System.Drawing.Point(708, 143)
         Me.GpanelFacturado.Name = "GpanelFacturado"
         Me.GpanelFacturado.Size = New System.Drawing.Size(469, 121)
         '
@@ -2548,6 +2554,49 @@ Partial Class Tec_Ventas
         '
         Me.MEP.ContainerControl = Me
         '
+        'cbPrecios
+        '
+        Me.cbPrecios.BackColor = System.Drawing.Color.Azure
+        Me.cbPrecios.ColorScheme = ""
+        Me.cbPrecios.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.cbPrecios.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
+        Me.cbPrecios.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        cbPrecios_DesignTimeLayout.LayoutString = resources.GetString("cbPrecios_DesignTimeLayout.LayoutString")
+        Me.cbPrecios.DesignTimeLayout = cbPrecios_DesignTimeLayout
+        Me.cbPrecios.FlatBorderColor = System.Drawing.Color.Black
+        Me.cbPrecios.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbPrecios.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbPrecios.HideSelection = False
+        Me.cbPrecios.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cbPrecios.Location = New System.Drawing.Point(708, 81)
+        Me.cbPrecios.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbPrecios.Name = "cbPrecios"
+        Me.cbPrecios.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbPrecios.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
+        Me.cbPrecios.SelectedIndex = -1
+        Me.cbPrecios.SelectedItem = Nothing
+        Me.cbPrecios.Size = New System.Drawing.Size(332, 28)
+        Me.cbPrecios.TabIndex = 380
+        Me.cbPrecios.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'lbPrecios
+        '
+        Me.lbPrecios.AutoSize = True
+        Me.lbPrecios.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.lbPrecios.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.lbPrecios.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbPrecios.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.lbPrecios.Location = New System.Drawing.Point(708, 58)
+        Me.lbPrecios.Margin = New System.Windows.Forms.Padding(4)
+        Me.lbPrecios.Name = "lbPrecios"
+        Me.lbPrecios.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.lbPrecios.Size = New System.Drawing.Size(237, 21)
+        Me.lbPrecios.TabIndex = 381
+        Me.lbPrecios.Text = "Seleccione Categoria Precio a Vender:"
+        '
         'Tec_Ventas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -2624,6 +2673,7 @@ Partial Class Tec_Ventas
         Me.Panel15.ResumeLayout(False)
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbPrecios, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2764,4 +2814,6 @@ Partial Class Tec_Ventas
     Friend WithEvents tbNit As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX25 As DevComponents.DotNetBar.LabelX
     Friend WithEvents swFacturado As DevComponents.DotNetBar.Controls.SwitchButton
+    Friend WithEvents lbPrecios As DevComponents.DotNetBar.LabelX
+    Friend WithEvents cbPrecios As Janus.Windows.GridEX.EditControls.MultiColumnCombo
 End Class

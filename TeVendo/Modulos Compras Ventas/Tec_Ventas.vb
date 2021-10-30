@@ -245,7 +245,7 @@ Public Class Tec_Ventas
         'L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
         Me.Text = "Gestion De Ventas"
         P_Global._prCargarComboGenerico(cbSucursal, L_fnGeneralSucursales(), "aanumi", "Codigo", "aabdes", "Sucursal")
-
+        P_Global._prCargarComboGenerico(cbPrecios, L_prListaCategoriasPrecios(), "Id", "Codigo", "Descripcion", "CategoriaPrecio")
         _PMIniciarTodo()
         _prAsignarPermisos()
 
@@ -317,6 +317,8 @@ Public Class Tec_Ventas
             .Width = 150
             .Caption = "Producto"
             .Visible = True
+            .WordWrap = True
+            .MaxLines = 3
         End With
 
         With grDetalle.RootTable.Columns("Cantidad")
@@ -1204,7 +1206,8 @@ salirIf:
         BtnImprimir.Visible = False
         tab_Cobro.Visible = False
 
-
+        lbPrecios.Visible = True
+        cbPrecios.Visible = True
 
     End Sub
 
@@ -1230,6 +1233,9 @@ salirIf:
         tab_Cobro.Visible = True
 
         swFacturado.IsReadOnly = True
+
+        lbPrecios.Visible = False
+        cbPrecios.Visible = False
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -1269,6 +1275,8 @@ salirIf:
         tbTotalPagado.Value = 0
         tbCambio.Value = 0
         swFacturado.Value = False
+
+        cbPrecios.SelectedIndex = 0
 
     End Sub
     Public Sub seleccionarPrimerItemCombo(cb As EditControls.MultiColumnCombo)
@@ -2104,7 +2112,7 @@ salirIf:
             Dim _Meses() As String = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"}
             _FechaAct = fechaven
             _Fecha = Split(_FechaAct, "-")
-            _FechaPar = "Santa Cruz, " + _Fecha(0).Trim + " De " + _Meses(_Fecha(1) - 1).Trim + " Del " + _Fecha(2).Trim
+            _FechaPar = "La Paz, " + _Fecha(0).Trim + " De " + _Meses(_Fecha(1) - 1).Trim + " Del " + _Fecha(2).Trim
 
             If Not IsNothing(P_Global.Visualizador) Then
                 P_Global.Visualizador.Close()
@@ -2182,7 +2190,7 @@ salirIf:
         Dim _Meses() As String = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"}
         _FechaAct = fechaven
         _Fecha = Split(_FechaAct, "-")
-        _FechaPar = "Santa Cruz, " + _Fecha(0).Trim + " De " + _Meses(_Fecha(1) - 1).Trim + " Del " + _Fecha(2).Trim
+        _FechaPar = "La Paz, " + _Fecha(0).Trim + " De " + _Meses(_Fecha(1) - 1).Trim + " Del " + _Fecha(2).Trim
 
         If Not IsNothing(P_Global.Visualizador) Then
             P_Global.Visualizador.Close()
@@ -2285,9 +2293,11 @@ salirIf:
         ef.Lotebool = Lote
         ef.TipoPrograma = 1
         ef.IdCliente = IdCliente
+        ef.CategoriaPrecioSelected = cbPrecios.Value
         ef.ShowDialog()
         grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
         _prCalcularPrecioTotal()
+        cbPrecios.Value = ef.CategoriaPrecioSelected
     End Sub
 
     Private Sub LabelX8_Click(sender As Object, e As EventArgs) Handles LabelX8.Click

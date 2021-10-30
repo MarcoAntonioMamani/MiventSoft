@@ -312,7 +312,10 @@ Public Class Efecto
         frmAyuda.Lote = Lotebool
         frmAyuda.IdCliente = IdCliente
         frmAyuda.TipoProgramas = TipoPrograma
+        frmAyuda.CategoriaPrecio = CategoriaPrecioSelected
         frmAyuda.ShowDialog()
+
+        CategoriaPrecioSelected = frmAyuda.CategoriaPrecio
         Me.Close()
 
 
