@@ -249,7 +249,7 @@ Public Class FormularioStock
         End With
         With grProducto.RootTable.Columns("industria")
             .Width = 150
-            .Caption = "Industria"
+            .Caption = "Linea"
             .Visible = True
             .MaxLines = 2
             .WordWrap = True

@@ -60,14 +60,16 @@ Public Class Tec_ComprasDetalle
         End With
         With grProducto.RootTable.Columns("NombreProducto")
             .Width = 350
-            .Caption = "PRODUCTOS"
-            .Visible = False
+            .Caption = "DESCRIPCION"
+            .Visible = True
+            .WordWrap = True
+            .MaxLines = 3
 
         End With
 
         With grProducto.RootTable.Columns("DescripcionProducto")
             .Width = 350
-            .Visible = True
+            .Visible = False
             .WordWrap = True
             .MaxLines = 3
             .Caption = "DESCRIPCION"
@@ -250,21 +252,21 @@ Public Class Tec_ComprasDetalle
         With grDetalle.RootTable.Columns("PorcentajeIncremento")
             .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "% Bonif."
         End With
         With grDetalle.RootTable.Columns("CantidadIncremento")
             .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "Cant Bonif."
         End With
         With grDetalle.RootTable.Columns("Cantidad")
             .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "Cant. Total"
         End With

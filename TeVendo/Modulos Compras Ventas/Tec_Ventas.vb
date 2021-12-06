@@ -1573,31 +1573,7 @@ salirIf:
             Return _ok
         End If
 
-        Dim dt As DataTable = L_prListarGeneral("MAM_CierreCajero")
 
-        Dim fila As DataRow() = dt.Select("SucursalId=" + Str(cbSucursal.Value) + " and EstadoCaja=1")
-        If (Not IsDBNull(fila)) Then
-            If (fila.Count <= 0) Then
-
-                ToastNotification.Show(Me, "No Es Posible Hacer EL Movimiento Por que no Existe Caja Chica con Estado Abierto Para Esta Fecha =" + tbFechaTransaccion.Value.ToString("dd/MM/yyy"), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                tbFechaTransaccion.Focus()
-                _ok = False
-                Return _ok
-            Else
-                Dim bandera As Boolean = False
-                For Each item As Object In fila
-                    If (item("Fecha") = tbFechaTransaccion.Value) Then
-                        bandera = True
-                    End If
-                Next
-                If (bandera = False) Then
-                    ToastNotification.Show(Me, "No Es Posible Hacer EL Movimiento Por que no Existe Caja Chica con Estado Abierto Para Esta Fecha =" + tbFechaTransaccion.Value.ToString("dd/MM/yyy"), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                    tbFechaTransaccion.Focus()
-                    _ok = False
-                    Return _ok
-                End If
-            End If
-        End If
 
         Return _ok
     End Function
@@ -1804,26 +1780,16 @@ salirIf:
     End Sub
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
-        Dim dtCierre As DataTable = L_prListarGeneral("MAM_CierreCajero")
-        Dim fila As DataRow()
-        If (Global_Sucursal > 0) Then
 
-            fila = dtCierre.Select("SucursalId=" + Str(Global_Sucursal) + " and EstadoCaja=1")
-        Else
-            fila = dtCierre.Select("EstadoCaja=1")
-        End If
 
-        If (Not IsDBNull(fila)) Then
-            If (fila.Count <= 0) Then
 
-                ToastNotification.Show(Me, "No Es Posible Hacer La Venta Por que no Existe Caja Chica con Estado Abierta", img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                Return
-            Else
-                TabControlPrincipal.SelectedTabIndex = 0
+
+
+
+        TabControlPrincipal.SelectedTabIndex = 0
                 btnNuevo.PerformClick()
-            End If
 
-        End If
+
 
     End Sub
 

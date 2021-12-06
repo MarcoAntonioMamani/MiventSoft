@@ -371,21 +371,21 @@ Public Class Tec_Compras
         With grDetalle.RootTable.Columns("PorcentajeIncremento")
             .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "% Bonif."
         End With
         With grDetalle.RootTable.Columns("CantidadIncremento")
             .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "Cant Bonif."
         End With
         With grDetalle.RootTable.Columns("Cantidad")
             .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "Cant. Total"
         End With
