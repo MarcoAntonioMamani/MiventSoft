@@ -23,9 +23,9 @@ Partial Class Tec_Ventas
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim cbSucursal_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbPrecios_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tec_Ventas))
+        Dim cbSucursal_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.TabControlPrincipal = New DevComponents.DotNetBar.SuperTabControl()
         Me.SuperTabControlPanel1 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -36,6 +36,8 @@ Partial Class Tec_Ventas
         Me.SuperTabControl1 = New DevComponents.DotNetBar.SuperTabControl()
         Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.lbPrecios = New DevComponents.DotNetBar.LabelX()
+        Me.cbPrecios = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.LabelX25 = New DevComponents.DotNetBar.LabelX()
         Me.swFacturado = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.GpanelFacturado = New DevComponents.DotNetBar.Controls.GroupPanel()
@@ -107,6 +109,8 @@ Partial Class Tec_Ventas
         Me.grDetalle = New Janus.Windows.GridEX.GridEX()
         Me.PanelTotal = New System.Windows.Forms.Panel()
         Me.Panel13 = New System.Windows.Forms.Panel()
+        Me.LabelX26 = New DevComponents.DotNetBar.LabelX()
+        Me.tbSubTotal = New DevComponents.Editors.DoubleInput()
         Me.LabelX10 = New DevComponents.DotNetBar.LabelX()
         Me.tbTotal = New DevComponents.Editors.DoubleInput()
         Me.LabelX9 = New DevComponents.DotNetBar.LabelX()
@@ -162,8 +166,6 @@ Partial Class Tec_Ventas
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.cbPrecios = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
-        Me.lbPrecios = New DevComponents.DotNetBar.LabelX()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -176,6 +178,7 @@ Partial Class Tec_Ventas
         Me.SuperTabControl1.SuspendLayout()
         Me.SuperTabControlPanel3.SuspendLayout()
         Me.Panel3.SuspendLayout()
+        CType(Me.cbPrecios, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GpanelFacturado.SuspendLayout()
         Me.Panel22.SuspendLayout()
         CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -202,6 +205,7 @@ Partial Class Tec_Ventas
         CType(Me.grDetalle, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelTotal.SuspendLayout()
         Me.Panel13.SuspendLayout()
+        CType(Me.tbSubTotal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbTotal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbMdesc, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbPdesc, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -224,7 +228,6 @@ Partial Class Tec_Ventas
         Me.Panel15.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cbPrecios, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TabControlPrincipal
@@ -404,6 +407,49 @@ Partial Class Tec_Ventas
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(1186, 226)
         Me.Panel3.TabIndex = 49
+        '
+        'lbPrecios
+        '
+        Me.lbPrecios.AutoSize = True
+        Me.lbPrecios.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.lbPrecios.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.lbPrecios.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbPrecios.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.lbPrecios.Location = New System.Drawing.Point(708, 58)
+        Me.lbPrecios.Margin = New System.Windows.Forms.Padding(4)
+        Me.lbPrecios.Name = "lbPrecios"
+        Me.lbPrecios.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.lbPrecios.Size = New System.Drawing.Size(237, 21)
+        Me.lbPrecios.TabIndex = 381
+        Me.lbPrecios.Text = "Seleccione Categoria Precio a Vender:"
+        '
+        'cbPrecios
+        '
+        Me.cbPrecios.BackColor = System.Drawing.Color.Azure
+        Me.cbPrecios.ColorScheme = ""
+        Me.cbPrecios.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.cbPrecios.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
+        Me.cbPrecios.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        cbPrecios_DesignTimeLayout.LayoutString = resources.GetString("cbPrecios_DesignTimeLayout.LayoutString")
+        Me.cbPrecios.DesignTimeLayout = cbPrecios_DesignTimeLayout
+        Me.cbPrecios.FlatBorderColor = System.Drawing.Color.Black
+        Me.cbPrecios.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbPrecios.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbPrecios.HideSelection = False
+        Me.cbPrecios.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cbPrecios.Location = New System.Drawing.Point(708, 81)
+        Me.cbPrecios.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbPrecios.Name = "cbPrecios"
+        Me.cbPrecios.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbPrecios.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
+        Me.cbPrecios.SelectedIndex = -1
+        Me.cbPrecios.SelectedItem = Nothing
+        Me.cbPrecios.Size = New System.Drawing.Size(332, 28)
+        Me.cbPrecios.TabIndex = 380
+        Me.cbPrecios.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'LabelX25
         '
@@ -1646,6 +1692,8 @@ Partial Class Tec_Ventas
         '
         Me.Panel13.AutoScroll = True
         Me.Panel13.BackColor = System.Drawing.Color.Transparent
+        Me.Panel13.Controls.Add(Me.LabelX26)
+        Me.Panel13.Controls.Add(Me.tbSubTotal)
         Me.Panel13.Controls.Add(Me.LabelX10)
         Me.Panel13.Controls.Add(Me.tbTotal)
         Me.Panel13.Controls.Add(Me.LabelX9)
@@ -1659,6 +1707,60 @@ Partial Class Tec_Ventas
         Me.Panel13.Size = New System.Drawing.Size(209, 285)
         Me.Panel13.TabIndex = 39
         '
+        'LabelX26
+        '
+        Me.LabelX26.AutoSize = True
+        Me.LabelX26.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX26.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX26.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX26.ForeColor = System.Drawing.Color.White
+        Me.LabelX26.Location = New System.Drawing.Point(8, 6)
+        Me.LabelX26.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX26.Name = "LabelX26"
+        Me.LabelX26.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX26.Size = New System.Drawing.Size(65, 21)
+        Me.LabelX26.TabIndex = 55
+        Me.LabelX26.Text = "Sub Total:"
+        '
+        'tbSubTotal
+        '
+        '
+        '
+        '
+        Me.tbSubTotal.BackgroundStyle.BackColor2 = System.Drawing.Color.ForestGreen
+        Me.tbSubTotal.BackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarCaptionBackground2
+        Me.tbSubTotal.BackgroundStyle.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.[Double]
+        Me.tbSubTotal.BackgroundStyle.BorderBottomColor = System.Drawing.Color.Red
+        Me.tbSubTotal.BackgroundStyle.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.[Double]
+        Me.tbSubTotal.BackgroundStyle.BorderRight = DevComponents.DotNetBar.eStyleBorderType.[Double]
+        Me.tbSubTotal.BackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.[Double]
+        Me.tbSubTotal.BackgroundStyle.BorderTopColor = System.Drawing.Color.Gold
+        Me.tbSubTotal.BackgroundStyle.BorderTopWidth = 1
+        Me.tbSubTotal.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbSubTotal.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.tbSubTotal.BackgroundStyle.CornerTypeBottomLeft = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.tbSubTotal.BackgroundStyle.CornerTypeBottomRight = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.tbSubTotal.BackgroundStyle.CornerTypeTopLeft = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.tbSubTotal.BackgroundStyle.CornerTypeTopRight = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.tbSubTotal.BackgroundStyle.Font = New System.Drawing.Font("Arial", 16.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbSubTotal.BackgroundStyle.TextColor = System.Drawing.Color.White
+        Me.tbSubTotal.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.tbSubTotal.Font = New System.Drawing.Font("Arial", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbSubTotal.ForeColor = System.Drawing.Color.White
+        Me.tbSubTotal.Increment = 1.0R
+        Me.tbSubTotal.IsInputReadOnly = True
+        Me.tbSubTotal.Location = New System.Drawing.Point(11, 28)
+        Me.tbSubTotal.LockUpdateChecked = False
+        Me.tbSubTotal.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbSubTotal.MinValue = 0R
+        Me.tbSubTotal.Name = "tbSubTotal"
+        Me.tbSubTotal.Size = New System.Drawing.Size(173, 27)
+        Me.tbSubTotal.TabIndex = 54
+        Me.tbSubTotal.WatermarkAlignment = DevComponents.Editors.eTextAlignment.Right
+        '
         'LabelX10
         '
         Me.LabelX10.AutoSize = True
@@ -1669,7 +1771,7 @@ Partial Class Tec_Ventas
         Me.LabelX10.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX10.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX10.ForeColor = System.Drawing.Color.White
-        Me.LabelX10.Location = New System.Drawing.Point(8, 118)
+        Me.LabelX10.Location = New System.Drawing.Point(10, 171)
         Me.LabelX10.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX10.Name = "LabelX10"
         Me.LabelX10.SingleLineColor = System.Drawing.SystemColors.Control
@@ -1698,7 +1800,7 @@ Partial Class Tec_Ventas
         Me.tbTotal.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
         Me.tbTotal.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbTotal.Increment = 1.0R
-        Me.tbTotal.Location = New System.Drawing.Point(9, 143)
+        Me.tbTotal.Location = New System.Drawing.Point(11, 196)
         Me.tbTotal.LockUpdateChecked = False
         Me.tbTotal.Margin = New System.Windows.Forms.Padding(4)
         Me.tbTotal.MinValue = 0R
@@ -1717,7 +1819,7 @@ Partial Class Tec_Ventas
         Me.LabelX9.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX9.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX9.ForeColor = System.Drawing.Color.White
-        Me.LabelX9.Location = New System.Drawing.Point(8, 63)
+        Me.LabelX9.Location = New System.Drawing.Point(10, 117)
         Me.LabelX9.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX9.Name = "LabelX9"
         Me.LabelX9.SingleLineColor = System.Drawing.SystemColors.Control
@@ -1743,7 +1845,7 @@ Partial Class Tec_Ventas
         Me.tbMdesc.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
         Me.tbMdesc.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbMdesc.Increment = 1.0R
-        Me.tbMdesc.Location = New System.Drawing.Point(75, 85)
+        Me.tbMdesc.Location = New System.Drawing.Point(8, 134)
         Me.tbMdesc.LockUpdateChecked = False
         Me.tbMdesc.Margin = New System.Windows.Forms.Padding(4)
         Me.tbMdesc.MinValue = 0R
@@ -1762,7 +1864,7 @@ Partial Class Tec_Ventas
         Me.LabelX8.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX8.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX8.ForeColor = System.Drawing.Color.White
-        Me.LabelX8.Location = New System.Drawing.Point(8, 7)
+        Me.LabelX8.Location = New System.Drawing.Point(10, 62)
         Me.LabelX8.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX8.Name = "LabelX8"
         Me.LabelX8.SingleLineColor = System.Drawing.SystemColors.Control
@@ -1788,7 +1890,7 @@ Partial Class Tec_Ventas
         Me.tbPdesc.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
         Me.tbPdesc.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbPdesc.Increment = 1.0R
-        Me.tbPdesc.Location = New System.Drawing.Point(75, 31)
+        Me.tbPdesc.Location = New System.Drawing.Point(8, 81)
         Me.tbPdesc.LockUpdateChecked = False
         Me.tbPdesc.Margin = New System.Windows.Forms.Padding(4)
         Me.tbPdesc.MinValue = 0R
@@ -2554,49 +2656,6 @@ Partial Class Tec_Ventas
         '
         Me.MEP.ContainerControl = Me
         '
-        'cbPrecios
-        '
-        Me.cbPrecios.BackColor = System.Drawing.Color.Azure
-        Me.cbPrecios.ColorScheme = ""
-        Me.cbPrecios.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
-        Me.cbPrecios.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
-        Me.cbPrecios.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
-        cbPrecios_DesignTimeLayout.LayoutString = resources.GetString("cbPrecios_DesignTimeLayout.LayoutString")
-        Me.cbPrecios.DesignTimeLayout = cbPrecios_DesignTimeLayout
-        Me.cbPrecios.FlatBorderColor = System.Drawing.Color.Black
-        Me.cbPrecios.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbPrecios.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.cbPrecios.HideSelection = False
-        Me.cbPrecios.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.cbPrecios.Location = New System.Drawing.Point(708, 81)
-        Me.cbPrecios.Margin = New System.Windows.Forms.Padding(4)
-        Me.cbPrecios.Name = "cbPrecios"
-        Me.cbPrecios.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.cbPrecios.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
-        Me.cbPrecios.SelectedIndex = -1
-        Me.cbPrecios.SelectedItem = Nothing
-        Me.cbPrecios.Size = New System.Drawing.Size(332, 28)
-        Me.cbPrecios.TabIndex = 380
-        Me.cbPrecios.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        '
-        'lbPrecios
-        '
-        Me.lbPrecios.AutoSize = True
-        Me.lbPrecios.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.lbPrecios.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.lbPrecios.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbPrecios.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.lbPrecios.Location = New System.Drawing.Point(708, 58)
-        Me.lbPrecios.Margin = New System.Windows.Forms.Padding(4)
-        Me.lbPrecios.Name = "lbPrecios"
-        Me.lbPrecios.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.lbPrecios.Size = New System.Drawing.Size(237, 21)
-        Me.lbPrecios.TabIndex = 381
-        Me.lbPrecios.Text = "Seleccione Categoria Precio a Vender:"
-        '
         'Tec_Ventas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -2620,6 +2679,7 @@ Partial Class Tec_Ventas
         Me.SuperTabControlPanel3.ResumeLayout(False)
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
+        CType(Me.cbPrecios, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GpanelFacturado.ResumeLayout(False)
         Me.Panel22.ResumeLayout(False)
         Me.Panel22.PerformLayout()
@@ -2650,6 +2710,7 @@ Partial Class Tec_Ventas
         Me.PanelTotal.ResumeLayout(False)
         Me.Panel13.ResumeLayout(False)
         Me.Panel13.PerformLayout()
+        CType(Me.tbSubTotal, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbTotal, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbMdesc, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbPdesc, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2673,7 +2734,6 @@ Partial Class Tec_Ventas
         Me.Panel15.ResumeLayout(False)
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cbPrecios, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2816,4 +2876,6 @@ Partial Class Tec_Ventas
     Friend WithEvents swFacturado As DevComponents.DotNetBar.Controls.SwitchButton
     Friend WithEvents lbPrecios As DevComponents.DotNetBar.LabelX
     Friend WithEvents cbPrecios As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents LabelX26 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbSubTotal As DevComponents.Editors.DoubleInput
 End Class

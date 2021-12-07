@@ -1038,6 +1038,16 @@ salirIf:
 
     End Sub
     Public Sub _prCalcularPrecioTotal()
+
+
+
+        Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
+
+        If (IsNothing(dt)) Then
+            Return
+
+        End If
+
         If (tbMdesc.Text.ToString = String.Empty) Then
             tbMdesc.Value = 0
         End If
@@ -1045,8 +1055,6 @@ salirIf:
         Dim montodesc As Double = tbMdesc.Value
 
         Dim total As Double = 0
-        Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
-
         For i As Integer = 0 To dt.Rows.Count - 1 Step 1
             If (dt.Rows(i).Item("estado") >= 0) Then
 
@@ -1062,8 +1070,9 @@ salirIf:
 
 
 
-
+        tbSubTotal.Value = total
         tbTotal.Value = total - montodesc
+
     End Sub
     Private Sub grdetalle_CellEdited(sender As Object, e As ColumnActionEventArgs) Handles grDetalle.CellEdited
         If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
@@ -1200,6 +1209,7 @@ salirIf:
             tbPdesc.IsInputReadOnly = True
         End If
 
+        tbTotal.IsInputReadOnly = False
 
         btnVendedor.Visible = True
         btnCliente.Visible = True
@@ -1217,7 +1227,7 @@ salirIf:
         tbVendedor.ReadOnly = True
         tbCliente.ReadOnly = True
         tbGlosa.ReadOnly = True
-
+        tbTotal.IsInputReadOnly = True
         cbSucursal.ReadOnly = True
         swTipoVenta.IsReadOnly = True
         tbFechaVencimientoCredito.ReadOnly = True
@@ -1276,7 +1286,7 @@ salirIf:
         tbCambio.Value = 0
         swFacturado.Value = False
 
-        cbPrecios.SelectedIndex = 0
+        cbPrecios.Value = 3
 
     End Sub
     Public Sub seleccionarPrimerItemCombo(cb As EditControls.MultiColumnCombo)
@@ -2342,6 +2352,59 @@ salirIf:
             GpanelFacturado.Visible = True
             TabFacturado.Visible = True
         End If
+    End Sub
+
+    Private Sub DoubleInput1_ValueChanged(sender As Object, e As EventArgs) Handles tbSubTotal.ValueChanged
+
+    End Sub
+
+    Private Sub tbTotal_ValueChanged(sender As Object, e As EventArgs) Handles tbTotal.ValueChanged
+
+
+        If (tbGlosa.ReadOnly = False) Then  '' pregunto si es editable
+
+
+            If (IsNothing(grDetalle.DataSource)) Then
+                Return
+
+            End If
+
+            If (tbTotal.Value <= tbSubTotal.Value) Then
+                Dim Descuento As Double = 0
+
+                Descuento = tbSubTotal.Value - tbTotal.Value
+
+                tbMdesc.Value = Descuento
+
+            Else
+
+                tbMdesc.Value = 0
+
+                tbPdesc.Value = 0
+                tbTotal.Value = tbSubTotal.Value
+                ToastNotification.Show(Me, "El total Ingresado es Superior al monto total de la venta", img, 5000, eToastGlowColor.Red, eToastPosition.BottomRight)
+            End If
+
+            ''' Descuentos
+
+            If (Not tbMdesc.Text = String.Empty And Not tbMdesc.Text = String.Empty) Then
+
+                Dim montodesc As Double = tbMdesc.Value
+                    Dim pordesc As Double = ((montodesc * 100) / grDetalle.GetTotal(grDetalle.RootTable.Columns("Total"), AggregateFunction.Sum))
+                    tbPdesc.Value = pordesc
+
+
+
+            End If
+
+            If (tbMdesc.Text = String.Empty) Then
+                tbMdesc.Value = 0
+
+            End If
+
+
+        End If
+
     End Sub
 #End Region
 End Class
