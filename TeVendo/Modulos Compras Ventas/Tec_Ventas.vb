@@ -2138,7 +2138,12 @@ salirIf:
 
             P_Global.Visualizador = New Visualizador
 
-            Dim objrep As New Recibo
+            ''Dim objrep As New Recibo
+
+
+            Dim objrep As New Recibo07_1000
+
+
             'objrep.SetDataSource(dt)
             'objrep.Subreports.Item("Recibo.rpt").SetDataSource(dt)
             'objrep.Subreports.Item("Recibo.rpt - 01").SetDataSource(dt)
@@ -2151,12 +2156,12 @@ salirIf:
 
 
             objrep.SetDataSource(dt)
+            objrep.SetParameterValue("Literal1", li)
 
-
-            objrep.SetParameterValue("Monto", li)
-            objrep.SetParameterValue("Fecha", _FechaPar)
-            objrep.SetParameterValue("Total", Str(total))
-            objrep.SetParameterValue("TipoReporte", "NOTA DE VENTA")
+            'objrep.SetParameterValue("Monto", li)
+            'objrep.SetParameterValue("Fecha", _FechaPar)
+            'objrep.SetParameterValue("Total", Str(total))
+            'objrep.SetParameterValue("TipoReporte", "NOTA DE VENTA")
             P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
             P_Global.Visualizador.CrGeneral.Zoom(130)
             P_Global.Visualizador.Show() 'Comentar
