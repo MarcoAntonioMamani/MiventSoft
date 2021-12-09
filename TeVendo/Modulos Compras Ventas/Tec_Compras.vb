@@ -262,27 +262,27 @@ Public Class Tec_Compras
         End If
     End Sub
 
-
     Private Sub _prAsignarPermisos()
 
-        'Dim dtRolUsu As DataTable = L_prRolDetalleGeneral(gi_userRol, _nameButton)
+        Dim dtRolUsu As DataTable = L_prRolDetalleGeneralByPrograma(gi_userRol, 26)
 
-        'Dim show As Boolean = dtRolUsu.Rows(0).Item("ycshow")
-        'Dim add As Boolean = dtRolUsu.Rows(0).Item("ycadd")
-        'Dim modif As Boolean = dtRolUsu.Rows(0).Item("ycmod")
-        'Dim del As Boolean = dtRolUsu.Rows(0).Item("ycdel")
+        Dim show As Boolean = dtRolUsu.Rows(0).Item("Ver")
+        Dim add As Boolean = dtRolUsu.Rows(0).Item("Insertar")
+        Dim modif As Boolean = dtRolUsu.Rows(0).Item("Modificar")
+        Dim del As Boolean = dtRolUsu.Rows(0).Item("Eliminar")
 
-        'If add = False Then
-        '    btnNuevo.Visible = False
-        'End If
-        'If modif = False Then
-        '    btnModificar.Visible = False
-        'End If
-        'If del = False Then
-        '    btnEliminar.Visible = False
-        'End If
+        If add = False Then
+            btnNuevaCompra.Visible = False
+        End If
+        If modif = False Then
+            ItemEditar.Visible = False
+        End If
+        If del = False Then
+            ItemEliminar.Visible = False
+        End If
 
     End Sub
+
 
 
     Private Sub _prCargarDetalleVenta(_numi As String)
@@ -1250,7 +1250,7 @@ salirIf:
         btnSi.BackColor = Color.FromArgb(26, 179, 148)
     End Sub
 
-    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
+    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles btnNuevaCompra.Click
         TabControlPrincipal.SelectedTabIndex = 0
         btnNuevo.PerformClick()
 
@@ -1444,7 +1444,7 @@ salirIf:
         End If
     End Sub
 
-    Private Sub EditarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditarToolStripMenuItem.Click
+    Private Sub EditarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ItemEditar.Click
         If (JGrM_Buscador.Row >= 0) Then
             TabControlPrincipal.SelectedTabIndex = 0
             btnModificar.PerformClick()
@@ -1452,7 +1452,7 @@ salirIf:
         End If
     End Sub
 
-    Private Sub EliminarToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles EliminarToolStripMenuItem1.Click
+    Private Sub EliminarToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ItemEliminar.Click
         If (JGrM_Buscador.Row >= 0) Then
 
             btnEliminar.PerformClick()

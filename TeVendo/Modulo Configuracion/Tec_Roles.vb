@@ -384,20 +384,20 @@ Public Class Tec_Roles
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center
         End With
         With grDetalle.RootTable.Columns("Insertar")
-            .Caption = "AGREGAR"
-            .Visible = False
+            .Caption = "Puede Crear"
+            .Visible = True
             .Width = 150
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center
         End With
         With grDetalle.RootTable.Columns("Modificar")
-            .Caption = "EDITAR"
-            .Visible = False
+            .Caption = "Puede Modificar"
+            .Visible = True
             .Width = 150
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center
         End With
         With grDetalle.RootTable.Columns("Eliminar")
-            .Caption = "ELIMINAR"
-            .Visible = False
+            .Caption = "Puede Eliminar"
+            .Visible = True
             .Width = 150
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center
         End With

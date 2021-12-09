@@ -2789,6 +2789,21 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
+    Public Shared Function L_prRolDetalleGeneralByPrograma(_numi As String, ProgramaId As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@ProgramaId", ProgramaId))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Roles", _listParam)
+
+        Return _Tabla
+    End Function
+
 
     Public Shared Function L_prRolGrabar(ByRef _numi As String, _rol As String, _detalle As DataTable) As Boolean
         Dim _resultado As Boolean

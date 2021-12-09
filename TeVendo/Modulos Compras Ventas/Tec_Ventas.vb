@@ -264,22 +264,22 @@ Public Class Tec_Ventas
 
     Private Sub _prAsignarPermisos()
 
-        'Dim dtRolUsu As DataTable = L_prRolDetalleGeneral(gi_userRol, _nameButton)
+        Dim dtRolUsu As DataTable = L_prRolDetalleGeneralByPrograma(gi_userRol, 12)
 
-        'Dim show As Boolean = dtRolUsu.Rows(0).Item("ycshow")
-        'Dim add As Boolean = dtRolUsu.Rows(0).Item("ycadd")
-        'Dim modif As Boolean = dtRolUsu.Rows(0).Item("ycmod")
-        'Dim del As Boolean = dtRolUsu.Rows(0).Item("ycdel")
+        Dim show As Boolean = dtRolUsu.Rows(0).Item("Ver")
+        Dim add As Boolean = dtRolUsu.Rows(0).Item("Insertar")
+        Dim modif As Boolean = dtRolUsu.Rows(0).Item("Modificar")
+        Dim del As Boolean = dtRolUsu.Rows(0).Item("Eliminar")
 
-        'If add = False Then
-        '    btnNuevo.Visible = False
-        'End If
-        'If modif = False Then
-        '    btnModificar.Visible = False
-        'End If
-        'If del = False Then
-        '    btnEliminar.Visible = False
-        'End If
+        If add = False Then
+            btnNuevaVenta.Visible = False
+        End If
+        If modif = False Then
+            ItemEditar.Visible = False
+        End If
+        If del = False Then
+            ItemEliminar.Visible = False
+        End If
 
     End Sub
 
@@ -1790,7 +1790,7 @@ salirIf:
         btnSi.BackColor = Color.FromArgb(26, 179, 148)
     End Sub
 
-    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
+    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles btnNuevaVenta.Click
         Dim dtCierre As DataTable = L_prListarGeneral("MAM_CierreCajero")
         Dim fila As DataRow()
         If (Global_Sucursal > 0) Then
@@ -2240,7 +2240,7 @@ salirIf:
         End If
     End Sub
 
-    Private Sub EditarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditarToolStripMenuItem.Click
+    Private Sub EditarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ItemEditar.Click
 
         If (JGrM_Buscador.GetValue("CierreModulo") > 0) Then
             ToastNotification.Show(Me, "No Es Posible Modificar La Venta Ya que Pertenece A un cierre De Caja Cerrado # " + Str(JGrM_Buscador.GetValue("CierreModulo")), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
@@ -2254,7 +2254,7 @@ salirIf:
         End If
     End Sub
 
-    Private Sub EliminarToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles EliminarToolStripMenuItem1.Click
+    Private Sub EliminarToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ItemEliminar.Click
         If (JGrM_Buscador.GetValue("CierreModulo") > 0) Then
             ToastNotification.Show(Me, "No Es Posible Eliminar La Venta Ya que Pertenece A un cierre De Caja Cerrado # " + Str(JGrM_Buscador.GetValue("CierreModulo")), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
             Return
