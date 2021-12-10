@@ -2141,30 +2141,50 @@ salirIf:
             ''Dim objrep As New Recibo
 
 
-            Dim objrep As New Recibo07_1000
+            Dim ef = New Efecto
 
 
-            'objrep.SetDataSource(dt)
-            'objrep.Subreports.Item("Recibo.rpt").SetDataSource(dt)
-            'objrep.Subreports.Item("Recibo.rpt - 01").SetDataSource(dt)
-            'objrep.SetParameterValue("MontoA", li)
-            'objrep.SetParameterValue("FechaA", _FechaPar)
-            'objrep.SetParameterValue("TotalA", Str(total))
-            'objrep.SetParameterValue("TipoReporteA", "NOTA DE VENTA")
-
+            ef.tipo = 8
+            ef.titulo = "Reporte"
+            ef.descripcion = "¿Desea Generar Reporte Tamaño Media Carta ?"
+            ef.ShowDialog()
+            Dim bandera As Boolean = False
+            bandera = ef.band
 
 
 
-            objrep.SetDataSource(dt)
-            objrep.SetParameterValue("Literal1", li)
+            If (bandera = True) Then
+                Dim objrep As New Recibo
 
-            'objrep.SetParameterValue("Monto", li)
-            'objrep.SetParameterValue("Fecha", _FechaPar)
-            'objrep.SetParameterValue("Total", Str(total))
-            'objrep.SetParameterValue("TipoReporte", "NOTA DE VENTA")
-            P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
-            P_Global.Visualizador.CrGeneral.Zoom(130)
-            P_Global.Visualizador.Show() 'Comentar
+                objrep.SetDataSource(dt)
+
+
+                objrep.SetParameterValue("Monto", li)
+                objrep.SetParameterValue("Fecha", _FechaPar)
+                objrep.SetParameterValue("Total", Str(total))
+                objrep.SetParameterValue("TipoReporte", "NOTA DE VENTA")
+                P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+                P_Global.Visualizador.CrGeneral.Zoom(130)
+                P_Global.Visualizador.Show() 'Comentar
+            Else
+
+                Dim objrep As New Recibo07_1000
+
+
+
+                objrep.SetDataSource(dt)
+                objrep.SetParameterValue("Literal1", li)
+
+                P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+                P_Global.Visualizador.CrGeneral.Zoom(130)
+                P_Global.Visualizador.Show() 'Comentar
+            End If
+
+
+
+
+
+
             ''P_Global.Visualizador.BringToFront() 'Comentar
 
         Catch ex As Exception
@@ -2173,6 +2193,8 @@ salirIf:
 
 
     End Sub
+
+
 
     Private Sub P_GenerarReporteMasCopia(numi As String)
         Dim dt As DataTable = ListarVentaRecibo(numi)
