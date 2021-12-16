@@ -32,7 +32,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.TeVendo.Tec_Login
+            Me.MainForm = Global.TeVendo.FPruebaImportacion
         End Sub
     End Class
 End Namespace

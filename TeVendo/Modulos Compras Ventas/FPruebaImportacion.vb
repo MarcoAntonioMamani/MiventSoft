@@ -1,6 +1,7 @@
-﻿Public Class FPruebaImportacion
+﻿Imports Negocio.AccesoLogica
+Public Class FPruebaImportacion
     Private Sub FPruebaImportacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        L_prAbrirConexion("DESKTOP-SB2Q2F5\SQLSERVER2017", "sa", "123", "MinventSoftDisfaCorp")
     End Sub
 
     Public Shared Function ExcelToDatatable(ByVal _xlPath As String, ByVal _namePage As String) As System.Data.DataTable
@@ -55,7 +56,7 @@
 
 
             Try
-                dt = ExcelToDatatable(ExcelFile, "Hoja2")
+                dt = ExcelToDatatable(ExcelFile, "Productos")
             Catch ex As Exception
                 MsgBox("Inserte un nombre valido de la Hoja que desea importar", MsgBoxStyle.Information, "Informacion")
             Finally
@@ -64,6 +65,19 @@
         End If
 
         Dim dt02 As DataTable = dt
+
+        Dim Res As Boolean
+        Dim TablaImagenes As DataTable
+
+        TablaImagenes = L_prCargarImagenesRecepcion(-1)
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+
+            Res = L_prProductoInsertar("", dt.Rows(i).Item("CodigoSap"), "", dt.Rows(i).Item("Descripcion"), dt.Rows(i).Item("Observacion"), 0, 1, 1, 1, 1, 10, 13, dt.Rows(i).Item("CodigoLinea"), 22, 7078, 1, TablaImagenes)
+
+        Next
+
+
         MsgBox("Se ha cargado la importacion correctamente", MsgBoxStyle.Information, "Importado con exito")
     End Sub
 End Class
