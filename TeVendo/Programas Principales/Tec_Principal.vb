@@ -36,6 +36,12 @@ Public Class Tec_Principal
         L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
         Me.WindowState = FormWindowState.Maximized
         btnUser.Text = "Bienvenido: " + L_Usuario
+
+
+        FSearchProductos = New FormularioStock With {.TopLevel = False, .AutoSize = True}
+
+        FSearchProductos.Parent = PanelBuscador
+        FSearchProductos.Visible = False
     End Sub
 
 
@@ -234,6 +240,10 @@ Public Class Tec_Principal
         Me.Refresh()
     End Sub
 #End Region
+
+
+
+    Dim FSearchProductos As FormularioStock
     Private Sub SuperTabControl1_SelectedTabChanged(sender As Object, e As DevComponents.DotNetBar.SuperTabStripSelectedTabChangedEventArgs) Handles SuperTabControlMenu.SelectedTabChanged
 
     End Sub
@@ -1050,5 +1060,9 @@ Public Class Tec_Principal
         Dim frm As New Tec_CierreCaja
         frm.Show()
 
+    End Sub
+
+    Private Sub tab_InvProductos_Click(sender As Object, e As EventArgs) Handles tab_InvProductos.Click
+        FSearchProductos.Visible = True
     End Sub
 End Class
