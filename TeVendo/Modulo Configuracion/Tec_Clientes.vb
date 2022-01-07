@@ -326,7 +326,7 @@ Public Class Tec_Clientes
         Else
 
             _Overlay.Markers.Clear()
-            Gmc_Cliente.Position = New PointLatLng(-14.8325109, -64.9159598)
+            Gmc_Cliente.Position = New PointLatLng(-19.566845, -65.7667348)
         End If
 
         Gmc_Cliente.MinZoom = 0
@@ -653,7 +653,7 @@ Public Class Tec_Clientes
 
 
             _Overlay.Markers.Clear()
-            Gmc_Cliente.Position = New PointLatLng(-17.3931784, -66.1738852)
+            Gmc_Cliente.Position = New PointLatLng(-19.566845, -65.7667348)
         End If
     End Sub
     Private Sub P_AgregarPunto(pointLatLng As PointLatLng, _nombre As String, _ci As String)

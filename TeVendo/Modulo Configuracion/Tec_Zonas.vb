@@ -342,7 +342,7 @@ Public Class Tec_Zonas
         Else
 
             _Overlay.Markers.Clear()
-            Gmc_Cliente.Position = New PointLatLng(-17.4120653, -66.1825898)
+            Gmc_Cliente.Position = New PointLatLng(-19.566845, -65.7667348)
         End If
 
         Gmc_Cliente.MinZoom = 0
