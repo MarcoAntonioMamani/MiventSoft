@@ -135,7 +135,7 @@ Partial Class Tec_Login
         Me.PictureBox1.Location = New System.Drawing.Point(67, 41)
         Me.PictureBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Padding = New System.Windows.Forms.Padding(20)
+        Me.PictureBox1.Padding = New System.Windows.Forms.Padding(20, 50, 20, 50)
         Me.PictureBox1.Size = New System.Drawing.Size(293, 272)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 22
@@ -167,7 +167,7 @@ Partial Class Tec_Login
         Me.tbUsuario.Margin = New System.Windows.Forms.Padding(4)
         Me.tbUsuario.Name = "tbUsuario"
         Me.tbUsuario.PreventEnterBeep = True
-        Me.tbUsuario.Size = New System.Drawing.Size(385, 37)
+        Me.tbUsuario.Size = New System.Drawing.Size(385, 33)
         Me.tbUsuario.TabIndex = 0
         Me.tbUsuario.WatermarkBehavior = DevComponents.DotNetBar.eWatermarkBehavior.HideNonEmpty
         Me.tbUsuario.WatermarkColor = System.Drawing.Color.DarkGray
@@ -181,7 +181,7 @@ Partial Class Tec_Login
         Me.Label2.ForeColor = System.Drawing.Color.White
         Me.Label2.Location = New System.Drawing.Point(453, 107)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(446, 21)
+        Me.Label2.Size = New System.Drawing.Size(357, 17)
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "Por Favor Acceda Al sistema con sus credenciales autorizados :"
         '
@@ -193,7 +193,7 @@ Partial Class Tec_Login
         Me.Label1.ForeColor = System.Drawing.Color.White
         Me.Label1.Location = New System.Drawing.Point(440, 50)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(466, 49)
+        Me.Label1.Size = New System.Drawing.Size(371, 39)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Autentificación De Usuario"
         '

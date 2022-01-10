@@ -179,7 +179,7 @@ Partial Class Tec_Principal
         Me.SuperTabControlMenu.ReorderTabsEnabled = True
         Me.SuperTabControlMenu.SelectedTabFont = New System.Drawing.Font("Calibri", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControlMenu.SelectedTabIndex = 1
-        Me.SuperTabControlMenu.Size = New System.Drawing.Size(1458, 693)
+        Me.SuperTabControlMenu.Size = New System.Drawing.Size(1346, 685)
         Me.SuperTabControlMenu.TabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Left
         Me.SuperTabControlMenu.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControlMenu.TabIndex = 0
@@ -194,9 +194,9 @@ Partial Class Tec_Principal
         '
         Me.SuperTabControlPanel3.Controls.Add(Me.Panel_Configuracion)
         Me.SuperTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel3.Location = New System.Drawing.Point(220, 0)
+        Me.SuperTabControlPanel3.Location = New System.Drawing.Point(190, 0)
         Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
-        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(1238, 693)
+        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(1156, 685)
         Me.SuperTabControlPanel3.TabIndex = 3
         Me.SuperTabControlPanel3.TabItem = Me.tab_configuraciones
         '
@@ -221,7 +221,7 @@ Partial Class Tec_Principal
         Me.Panel_Configuracion.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel_Configuracion.MultiLine = True
         Me.Panel_Configuracion.Name = "Panel_Configuracion"
-        Me.Panel_Configuracion.Size = New System.Drawing.Size(1238, 693)
+        Me.Panel_Configuracion.Size = New System.Drawing.Size(1156, 685)
         Me.Panel_Configuracion.TabIndex = 3
         Me.Panel_Configuracion.Text = "mtp2Logistica"
         '
@@ -2020,7 +2020,7 @@ Partial Class Tec_Principal
         Me.PanelPrincipal.Location = New System.Drawing.Point(0, 0)
         Me.PanelPrincipal.Name = "PanelPrincipal"
         Me.PanelPrincipal.Padding = New System.Windows.Forms.Padding(10)
-        Me.PanelPrincipal.Size = New System.Drawing.Size(1478, 753)
+        Me.PanelPrincipal.Size = New System.Drawing.Size(1366, 745)
         Me.PanelPrincipal.TabIndex = 1
         '
         'PanelContentSuperior
@@ -2037,7 +2037,7 @@ Partial Class Tec_Principal
         Me.PanelContentSuperior.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelContentSuperior.Location = New System.Drawing.Point(10, 10)
         Me.PanelContentSuperior.Name = "PanelContentSuperior"
-        Me.PanelContentSuperior.Size = New System.Drawing.Size(1458, 40)
+        Me.PanelContentSuperior.Size = New System.Drawing.Size(1346, 40)
         Me.PanelContentSuperior.TabIndex = 1
         '
         'btnSucursal
@@ -2050,7 +2050,7 @@ Partial Class Tec_Principal
         Me.btnSucursal.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSucursal.Image = CType(resources.GetObject("btnSucursal.Image"), System.Drawing.Image)
         Me.btnSucursal.ImageFixedSize = New System.Drawing.Size(25, 25)
-        Me.btnSucursal.Location = New System.Drawing.Point(612, 0)
+        Me.btnSucursal.Location = New System.Drawing.Point(500, 0)
         Me.btnSucursal.Margin = New System.Windows.Forms.Padding(4)
         Me.btnSucursal.Name = "btnSucursal"
         Me.btnSucursal.Size = New System.Drawing.Size(132, 40)
@@ -2072,7 +2072,7 @@ Partial Class Tec_Principal
         Me.btnTipoCambio.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnTipoCambio.Image = CType(resources.GetObject("btnTipoCambio.Image"), System.Drawing.Image)
         Me.btnTipoCambio.ImageFixedSize = New System.Drawing.Size(25, 25)
-        Me.btnTipoCambio.Location = New System.Drawing.Point(744, 0)
+        Me.btnTipoCambio.Location = New System.Drawing.Point(632, 0)
         Me.btnTipoCambio.Margin = New System.Windows.Forms.Padding(4)
         Me.btnTipoCambio.Name = "btnTipoCambio"
         Me.btnTipoCambio.Size = New System.Drawing.Size(197, 43)
@@ -2095,7 +2095,7 @@ Partial Class Tec_Principal
         Me.btnUser.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnUser.Image = CType(resources.GetObject("btnUser.Image"), System.Drawing.Image)
         Me.btnUser.ImageFixedSize = New System.Drawing.Size(25, 25)
-        Me.btnUser.Location = New System.Drawing.Point(941, 0)
+        Me.btnUser.Location = New System.Drawing.Point(829, 0)
         Me.btnUser.Margin = New System.Windows.Forms.Padding(4)
         Me.btnUser.Name = "btnUser"
         Me.btnUser.Size = New System.Drawing.Size(128, 40)
@@ -2119,7 +2119,7 @@ Partial Class Tec_Principal
         Me.btnFecha.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnFecha.Image = CType(resources.GetObject("btnFecha.Image"), System.Drawing.Image)
         Me.btnFecha.ImageFixedSize = New System.Drawing.Size(25, 25)
-        Me.btnFecha.Location = New System.Drawing.Point(1069, 0)
+        Me.btnFecha.Location = New System.Drawing.Point(957, 0)
         Me.btnFecha.Margin = New System.Windows.Forms.Padding(4)
         Me.btnFecha.Name = "btnFecha"
         Me.btnFecha.Size = New System.Drawing.Size(148, 40)
@@ -2137,7 +2137,7 @@ Partial Class Tec_Principal
         Me.btnSalir.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSalir.Image = CType(resources.GetObject("btnSalir.Image"), System.Drawing.Image)
         Me.btnSalir.ImageFixedSize = New System.Drawing.Size(25, 25)
-        Me.btnSalir.Location = New System.Drawing.Point(1217, 0)
+        Me.btnSalir.Location = New System.Drawing.Point(1105, 0)
         Me.btnSalir.Margin = New System.Windows.Forms.Padding(4)
         Me.btnSalir.Name = "btnSalir"
         Me.btnSalir.Size = New System.Drawing.Size(98, 43)
@@ -2155,7 +2155,7 @@ Partial Class Tec_Principal
         Me.btnCerrarSesion.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnCerrarSesion.Image = Global.TeVendo.My.Resources.Resources.atras1
         Me.btnCerrarSesion.ImageFixedSize = New System.Drawing.Size(25, 25)
-        Me.btnCerrarSesion.Location = New System.Drawing.Point(1315, 0)
+        Me.btnCerrarSesion.Location = New System.Drawing.Point(1203, 0)
         Me.btnCerrarSesion.Margin = New System.Windows.Forms.Padding(4)
         Me.btnCerrarSesion.Name = "btnCerrarSesion"
         Me.btnCerrarSesion.Size = New System.Drawing.Size(143, 43)
@@ -2168,7 +2168,7 @@ Partial Class Tec_Principal
         '
         Me.PanelLine.BackColor = System.Drawing.Color.White
         Me.PanelLine.Dock = System.Windows.Forms.DockStyle.Left
-        Me.PanelLine.Location = New System.Drawing.Point(201, 0)
+        Me.PanelLine.Location = New System.Drawing.Point(195, 0)
         Me.PanelLine.Name = "PanelLine"
         Me.PanelLine.Size = New System.Drawing.Size(2, 40)
         Me.PanelLine.TabIndex = 2
@@ -2181,7 +2181,7 @@ Partial Class Tec_Principal
         Me.imguser.Location = New System.Drawing.Point(0, 0)
         Me.imguser.Name = "imguser"
         Me.imguser.Padding = New System.Windows.Forms.Padding(30, 0, 30, 0)
-        Me.imguser.Size = New System.Drawing.Size(201, 40)
+        Me.imguser.Size = New System.Drawing.Size(195, 40)
         Me.imguser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.imguser.TabIndex = 1
         Me.imguser.TabStop = False
@@ -2191,7 +2191,7 @@ Partial Class Tec_Principal
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.AutoSize = True
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(1478, 753)
+        Me.ClientSize = New System.Drawing.Size(1366, 745)
         Me.Controls.Add(Me.PanelPrincipal)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Name = "Tec_Principal"
