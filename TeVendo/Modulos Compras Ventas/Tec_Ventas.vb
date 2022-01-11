@@ -1126,6 +1126,16 @@ salirIf:
         Dim res As Boolean
         Dim Id As String = "0"
         Try
+            If (VentaDirecta = 1) Then '' Validar si tiene conciliacion Abierta
+                Dim dt As DataTable = L_prVerificarConcicliacionAbierta(IdVendedor)
+
+                If (dt.Rows(0).Item(0) = 0) Then '' Aqui pregunto si es que no tiene conciliacion termino el proceso
+                    ToastNotification.Show(Me, "No es posible guardar la venta por que El Vendedor " + tbVendedor.Text + " No tiene conciliación abierta", img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                    Return False
+                End If
+            End If
+
+
             res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                 IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"), 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, cbEstadoPedido.Value, cbFechaEntregado.Value.ToString("yyyy/MM/dd"), VentaDirecta)
 
@@ -1852,6 +1862,17 @@ salirIf:
     End Sub
 
     Private Sub btnSeleccionarProducto_Click(sender As Object, e As EventArgs) Handles btnSeleccionarProducto.Click
+
+        If (VentaDirecta = 1) Then
+            Dim dt As DataTable = L_prVerificarConcicliacionAbierta(IdVendedor)
+
+            If (dt.Rows(0).Item(0) = 0) Then '' Aqui pregunto si es que no tiene conciliacion termino el proceso
+                ToastNotification.Show(Me, "No es posible Crear ventas para El Vendedor " + tbVendedor.Text + " No tiene conciliación abierta", img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                Return
+            End If
+        End If
+
+
         Dim ef = New Efecto
         ef.tipo = 16
         ef.dtDetalle = CType(grDetalle.DataSource, DataTable)
@@ -1859,6 +1880,8 @@ salirIf:
         ef.SucursalId = cbSucursal.Value
         ef.Lotebool = Lote
         ef.IdCliente = IdCliente
+        ef.VentaDirecta = VentaDirecta
+        ef.DistribuidorId = IdVendedor
         ef.ShowDialog()
         grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
         _prCalcularPrecioTotal()
@@ -1870,6 +1893,9 @@ salirIf:
 
     Private Sub ButtonX3_Click(sender As Object, e As EventArgs) Handles ButtonX3.Click
         VentaDirecta = 1
+
+
+
         TabControlPrincipal.SelectedTabIndex = 0
         btnNuevo.PerformClick()
     End Sub

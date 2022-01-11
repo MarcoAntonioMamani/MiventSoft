@@ -32,7 +32,7 @@ Public Class Efecto
     Public SueldoNeto As Double = 0
     Public dtGeneral As DataTable
     Public Fila As Integer
-
+    Public VentaDirecta As Integer
 
     Public dtDetalle As DataTable
     Public TipoMovimientoId As Integer
@@ -40,6 +40,7 @@ Public Class Efecto
     Public SucursalId As Integer
 
     Public VentaId As Integer
+    Public DistribuidorId As Integer
 
 
     Public CategoriaId As Integer
@@ -266,6 +267,8 @@ Public Class Efecto
         frmAyuda.SucursalId = SucursalId
         frmAyuda.Lote = Lotebool
         frmAyuda.IdCliente = IdCliente
+        frmAyuda.VentaDirecta = VentaDirecta
+        frmAyuda.DistribuidorId = DistribuidorId
         frmAyuda.ShowDialog()
         Me.Close()
 

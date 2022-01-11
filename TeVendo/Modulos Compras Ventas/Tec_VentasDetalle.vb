@@ -11,11 +11,14 @@ Public Class Tec_VentasDetalle
     Public dtProductos As DataTable
     Public dtDetalle As DataTable
     Public Lote As Boolean
-
+    Public VentaDirecta As Integer = 0
     Public TipoMovimientoId As Integer
     Public SucursalId As Integer
     Public IdCliente As Integer
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+    Public DistribuidorId As Integer = 0
+
+
 
     Public Sub IniciarTodod()
         CargarProductosVentas()
@@ -42,7 +45,14 @@ Public Class Tec_VentasDetalle
 
         End If
 
-        dt = L_prListarProductosVentas(SucursalId, IdCliente)  ''1=Almacen
+        If (VentaDirecta = 1) Then
+            dt = L_prListarProductosVentasConciliaciones(SucursalId, IdCliente, DistribuidorId)  ''1=Almacen
+        Else
+            dt = L_prListarProductosVentas(SucursalId, IdCliente)  ''1=Almacen
+        End If
+
+
+
         dtProductos = dt.Copy
         'a.Id , a.NombreProducto, PCosto.Precio As PrecioCosto,
         ''PVenta.Precio as PrecioVenta

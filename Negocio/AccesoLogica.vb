@@ -1464,6 +1464,34 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+
+    Public Shared Function L_prListarProductosVentasConciliaciones(_deposito As Integer, _ClienteId As Integer, ChoferId As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 20))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@SucursalId", _deposito))
+        _listParam.Add(New Datos.DParametro("@ClienteId", _ClienteId))
+        _listParam.Add(New Datos.DParametro("@ChoferId", ChoferId))
+        _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prVerificarConcicliacionAbierta(_ChoferId As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 19))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@ChoferId", _ChoferId))
+        _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function VentaInsertarAsignaciones(_dtDetalle As DataTable, ChoferId As Integer) As Boolean
         Dim _resultado As Boolean
 
