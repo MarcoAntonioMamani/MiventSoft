@@ -935,7 +935,7 @@ Public Class Tec_CierreCaja
 
 
 
-        listEstCeldas.Add(New Celda("EfectivoRecibido", True, "Efectivo Recibido", 120))
+        listEstCeldas.Add(New Celda("EfectivoRecibido", True, "Efectivo Recibido", 120, "0.00"))
         listEstCeldas.Add(New Celda("Diferencia", False))
 
 
@@ -968,7 +968,7 @@ Public Class Tec_CierreCaja
             tbEfectivoRecibido.Value = .GetValue("EfectivoRecibido")
             tbDiferencia.Value = .GetValue("Diferencia")
 
-
+            tbContadoCobranzas.Value = .GetValue("VentasContado") + .GetValue("TotalCobros")
 
         End With
         _prCargarTablaGastos(tbCodigo.Text)

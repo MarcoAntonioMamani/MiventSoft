@@ -111,11 +111,11 @@ Public Class Reporte_VentasVsCostos
 
         If (chkTodos.Checked = True) Then
 
-            dt = ReporteVentasUtilidadesTodos(cbFechaDesde.Value.ToString("dd/MM/yyyy"), cbFechaHasta.Value.ToString("dd/MM/yyyy"))
+            dt = ReporteVentasUtilidadesTodos(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"))
         Else
             If (IdPersonal > 0) Then
 
-                dt = ReporteVentasUtilidadesTodosUnVendedor(cbFechaDesde.Value.ToString("dd/MM/yyyy"), cbFechaHasta.Value.ToString("dd/MM/yyyy"), IdPersonal)
+                dt = ReporteVentasUtilidadesTodosUnVendedor(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"), IdPersonal)
             Else
                 tbVendedor.Focus()
                 Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)

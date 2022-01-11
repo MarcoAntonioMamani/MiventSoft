@@ -727,6 +727,7 @@ Public Class Tec_Conciliacion
         listEstCeldas.Add(New Celda("PersonalId", False))
         listEstCeldas.Add(New Celda("Fecha", True, "Fecha Conciliación", 100, "dd/MM/yyyy"))
         listEstCeldas.Add(New Celda("Estado", False))
+        listEstCeldas.Add(New Celda("CierreCaja", False))
         listEstCeldas.Add(New Celda("NombrePersonal", True, "Nombre Personal", 300))
         listEstCeldas.Add(New Celda("SucursalId", False))
         listEstCeldas.Add(New Celda("Observacion", True, "Detalle Conciliación", 250))
@@ -837,6 +838,12 @@ Public Class Tec_Conciliacion
 
     Private Sub EditarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditarToolStripMenuItem.Click
         If (JGrM_Buscador.Row >= 0) Then
+
+            If (JGrM_Buscador.GetValue("CierreCaja") > 0) Then
+
+                ToastNotification.Show(Me, "No se puede Modificar la Conciliación por que ya tiene un Cierre de Caja Asociado".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                Return
+            End If
 
             TabControlPrincipal.SelectedTabIndex = 0
                 btnModificar.PerformClick()

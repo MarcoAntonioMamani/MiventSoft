@@ -112,11 +112,11 @@ Public Class Rep_VentasRealizadas
 
         If (chkTodos.Checked = True) Then
 
-            dt = ReporteVentasAtendidasTodos(cbFechaDesde.Value.ToString("dd/MM/yyyy"), cbFechaHasta.Value.ToString("dd/MM/yyyy"))
+            dt = ReporteVentasAtendidasTodos(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"))
         Else
             If (IdPersonal > 0) Then
 
-                dt = ReporteVentasAtendidasTodosUnVendedor(cbFechaDesde.Value.ToString("dd/MM/yyyy"), cbFechaHasta.Value.ToString("dd/MM/yyyy"), IdPersonal)
+                dt = ReporteVentasAtendidasTodosUnVendedor(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"), IdPersonal)
             Else
 
                 Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
@@ -166,8 +166,8 @@ Public Class Rep_VentasRealizadas
 
                 Dim objrep As New Reporte_VentasRealizadas
                 objrep.SetDataSource(_dt)
-                Dim fechaI As String = cbFechaDesde.Value.ToString("dd/MM/yyyy")
-                Dim fechaF As String = cbFechaHasta.Value.ToString("dd/MM/yyyy")
+                Dim fechaI As String = cbFechaDesde.Value.ToString("yyyy/MM/dd")
+                Dim fechaF As String = cbFechaHasta.Value.ToString("yyyy/MM/dd")
                 objrep.SetParameterValue("FechaDesde", fechaI)
                 objrep.SetParameterValue("FechaHasta", fechaF)
                 objrep.SetParameterValue("Usuario", L_Usuario)
@@ -195,8 +195,8 @@ Public Class Rep_VentasRealizadas
 
                 Dim objrep As New ReporteGraficoVentasRealizadas
                 objrep.SetDataSource(_dt)
-                Dim fechaI As String = cbFechaDesde.Value.ToString("dd/MM/yyyy")
-                Dim fechaF As String = cbFechaHasta.Value.ToString("dd/MM/yyyy")
+                Dim fechaI As String = cbFechaDesde.Value.ToString("yyyy/MM/dd")
+                Dim fechaF As String = cbFechaHasta.Value.ToString("yyyy/MM/dd")
                 objrep.SetParameterValue("FechaDesde", fechaI)
                 objrep.SetParameterValue("FechaHasta", fechaF)
                 objrep.SetParameterValue("Usuario", L_Usuario)

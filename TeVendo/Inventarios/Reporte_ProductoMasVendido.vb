@@ -21,7 +21,7 @@ Public Class Reporte_ProductoMasVendido
     Public Sub GenerarData(ByRef dt As DataTable)
 
 
-        dt = ReporteVentasProductosMasVendido(cbFechaDesde.Value.ToString("dd/MM/yyyy"), cbFechaHasta.Value.ToString("dd/MM/yyyy"))
+        dt = ReporteVentasProductosMasVendido(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"))
 
         InsertarLogo(dt)
     End Sub
