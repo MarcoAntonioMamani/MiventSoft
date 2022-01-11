@@ -27,6 +27,27 @@ Partial Class Tec_Mapa
         Me.PanelLEft = New System.Windows.Forms.Panel()
         Me.Panel8 = New System.Windows.Forms.Panel()
         Me.PanelDatos = New System.Windows.Forms.Panel()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.PanelZona = New System.Windows.Forms.Panel()
+        Me.Zonas = New DevComponents.DotNetBar.Controls.GroupPanel()
+        Me.PanelTable = New System.Windows.Forms.Panel()
+        Me.grZona = New Janus.Windows.GridEX.GridEX()
+        Me.GroupPanel3 = New DevComponents.DotNetBar.Controls.GroupPanel()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.LabelX3 = New DevComponents.DotNetBar.LabelX()
+        Me.tbColor = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.tbDescripcionZona = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
+        Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
+        Me.tbNombreZona = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
+        Me.tbCodigo = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.PanelMapa = New System.Windows.Forms.Panel()
+        Me.btLimpiar = New DevComponents.DotNetBar.ButtonX()
+        Me.ButtonX4 = New DevComponents.DotNetBar.ButtonX()
+        Me.ButtonX3 = New DevComponents.DotNetBar.ButtonX()
+        Me.BtAdicionar = New DevComponents.DotNetBar.ButtonX()
+        Me.Gmc_Cliente = New GMap.NET.WindowsForms.GMapControl()
         Me.Panel10 = New System.Windows.Forms.Panel()
         Me.Panel11 = New System.Windows.Forms.Panel()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -45,38 +66,11 @@ Partial Class Tec_Mapa
         Me.btnSiguiente = New DevComponents.DotNetBar.ButtonX()
         Me.btnAnterior = New DevComponents.DotNetBar.ButtonX()
         Me.btnPrimero = New DevComponents.DotNetBar.ButtonX()
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.PanelZona = New System.Windows.Forms.Panel()
-        Me.Zonas = New DevComponents.DotNetBar.Controls.GroupPanel()
-        Me.PanelTable = New System.Windows.Forms.Panel()
-        Me.grZona = New Janus.Windows.GridEX.GridEX()
-        Me.GroupPanel3 = New DevComponents.DotNetBar.Controls.GroupPanel()
-        Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.PanelMapa = New System.Windows.Forms.Panel()
-        Me.btLimpiar = New DevComponents.DotNetBar.ButtonX()
-        Me.ButtonX4 = New DevComponents.DotNetBar.ButtonX()
-        Me.ButtonX3 = New DevComponents.DotNetBar.ButtonX()
-        Me.BtAdicionar = New DevComponents.DotNetBar.ButtonX()
-        Me.Gmc_Cliente = New GMap.NET.WindowsForms.GMapControl()
-        Me.tbDescripcionZona = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
-        Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
-        Me.tbNombreZona = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
-        Me.tbCodigo = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.tbColor = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.LabelX3 = New DevComponents.DotNetBar.LabelX()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelLEft.SuspendLayout()
         Me.Panel8.SuspendLayout()
         Me.PanelDatos.SuspendLayout()
-        Me.Panel10.SuspendLayout()
-        Me.Panel11.SuspendLayout()
-        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.PanelButton.SuspendLayout()
-        Me.PanelToolBar1.SuspendLayout()
-        Me.PanelNavegacion.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.PanelZona.SuspendLayout()
         Me.Zonas.SuspendLayout()
@@ -85,6 +79,12 @@ Partial Class Tec_Mapa
         Me.GroupPanel3.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.PanelMapa.SuspendLayout()
+        Me.Panel10.SuspendLayout()
+        Me.Panel11.SuspendLayout()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PanelButton.SuspendLayout()
+        Me.PanelToolBar1.SuspendLayout()
+        Me.PanelNavegacion.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
@@ -136,6 +136,412 @@ Partial Class Tec_Mapa
         Me.PanelDatos.Name = "PanelDatos"
         Me.PanelDatos.Size = New System.Drawing.Size(1323, 461)
         Me.PanelDatos.TabIndex = 2
+        '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.ColumnCount = 2
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.PanelZona, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.PanelMapa, 1, 0)
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(4)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 1
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1323, 461)
+        Me.TableLayoutPanel1.TabIndex = 23
+        '
+        'PanelZona
+        '
+        Me.PanelZona.Controls.Add(Me.Zonas)
+        Me.PanelZona.Controls.Add(Me.GroupPanel3)
+        Me.PanelZona.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PanelZona.Location = New System.Drawing.Point(4, 4)
+        Me.PanelZona.Margin = New System.Windows.Forms.Padding(4)
+        Me.PanelZona.Name = "PanelZona"
+        Me.PanelZona.Size = New System.Drawing.Size(521, 453)
+        Me.PanelZona.TabIndex = 20
+        '
+        'Zonas
+        '
+        Me.Zonas.CanvasColor = System.Drawing.SystemColors.Control
+        Me.Zonas.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
+        Me.Zonas.Controls.Add(Me.PanelTable)
+        Me.Zonas.DisabledBackColor = System.Drawing.Color.Empty
+        Me.Zonas.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Zonas.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Zonas.Location = New System.Drawing.Point(0, 210)
+        Me.Zonas.Margin = New System.Windows.Forms.Padding(4)
+        Me.Zonas.Name = "Zonas"
+        Me.Zonas.Size = New System.Drawing.Size(521, 243)
+        '
+        '
+        '
+        Me.Zonas.Style.BackColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Zonas.Style.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Zonas.Style.BackColorGradientAngle = 90
+        Me.Zonas.Style.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.Zonas.Style.BorderBottomWidth = 1
+        Me.Zonas.Style.BorderColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Zonas.Style.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.Zonas.Style.BorderLeftWidth = 1
+        Me.Zonas.Style.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.Zonas.Style.BorderRightWidth = 1
+        Me.Zonas.Style.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.Zonas.Style.BorderTopWidth = 1
+        Me.Zonas.Style.CornerDiameter = 4
+        Me.Zonas.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.Zonas.Style.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.Zonas.Style.TextColor = System.Drawing.Color.White
+        Me.Zonas.Style.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Near
+        '
+        '
+        '
+        Me.Zonas.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        '
+        '
+        '
+        Me.Zonas.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.Zonas.TabIndex = 2
+        Me.Zonas.Text = "ZONAS"
+        '
+        'PanelTable
+        '
+        Me.PanelTable.AutoScroll = True
+        Me.PanelTable.BackColor = System.Drawing.Color.White
+        Me.PanelTable.Controls.Add(Me.grZona)
+        Me.PanelTable.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PanelTable.Location = New System.Drawing.Point(0, 0)
+        Me.PanelTable.Margin = New System.Windows.Forms.Padding(4)
+        Me.PanelTable.Name = "PanelTable"
+        Me.PanelTable.Size = New System.Drawing.Size(515, 214)
+        Me.PanelTable.TabIndex = 0
+        '
+        'grZona
+        '
+        Me.grZona.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
+        Me.grZona.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grZona.FlatBorderColor = System.Drawing.Color.DodgerBlue
+        Me.grZona.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
+        Me.grZona.FocusStyle = Janus.Windows.GridEX.FocusStyle.Solid
+        Me.grZona.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grZona.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
+        Me.grZona.GroupRowVisualStyle = Janus.Windows.GridEX.GroupRowVisualStyle.UseRowStyle
+        Me.grZona.HeaderFormatStyle.Font = New System.Drawing.Font("Georgia", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grZona.HeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.grZona.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
+        Me.grZona.Location = New System.Drawing.Point(0, 0)
+        Me.grZona.Margin = New System.Windows.Forms.Padding(4)
+        Me.grZona.Name = "grZona"
+        Me.grZona.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.grZona.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.grZona.SelectedFormatStyle.BackColor = System.Drawing.Color.Gold
+        Me.grZona.Size = New System.Drawing.Size(515, 214)
+        Me.grZona.TabIndex = 0
+        Me.grZona.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'GroupPanel3
+        '
+        Me.GroupPanel3.CanvasColor = System.Drawing.SystemColors.Control
+        Me.GroupPanel3.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
+        Me.GroupPanel3.Controls.Add(Me.Panel4)
+        Me.GroupPanel3.DisabledBackColor = System.Drawing.Color.Empty
+        Me.GroupPanel3.Dock = System.Windows.Forms.DockStyle.Top
+        Me.GroupPanel3.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupPanel3.Location = New System.Drawing.Point(0, 0)
+        Me.GroupPanel3.Margin = New System.Windows.Forms.Padding(4)
+        Me.GroupPanel3.Name = "GroupPanel3"
+        Me.GroupPanel3.Size = New System.Drawing.Size(521, 210)
+        '
+        '
+        '
+        Me.GroupPanel3.Style.BackColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.GroupPanel3.Style.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.GroupPanel3.Style.BackColorGradientAngle = 90
+        Me.GroupPanel3.Style.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel3.Style.BorderBottomWidth = 1
+        Me.GroupPanel3.Style.BorderColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.GroupPanel3.Style.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel3.Style.BorderLeftWidth = 1
+        Me.GroupPanel3.Style.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel3.Style.BorderRightWidth = 1
+        Me.GroupPanel3.Style.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel3.Style.BorderTopWidth = 1
+        Me.GroupPanel3.Style.CornerDiameter = 4
+        Me.GroupPanel3.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.GroupPanel3.Style.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.GroupPanel3.Style.TextColor = System.Drawing.Color.White
+        Me.GroupPanel3.Style.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Near
+        '
+        '
+        '
+        Me.GroupPanel3.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        '
+        '
+        '
+        Me.GroupPanel3.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.GroupPanel3.TabIndex = 1
+        Me.GroupPanel3.Text = "DATOS GENERALES"
+        '
+        'Panel4
+        '
+        Me.Panel4.AutoScroll = True
+        Me.Panel4.BackColor = System.Drawing.Color.White
+        Me.Panel4.Controls.Add(Me.LabelX3)
+        Me.Panel4.Controls.Add(Me.tbColor)
+        Me.Panel4.Controls.Add(Me.tbDescripcionZona)
+        Me.Panel4.Controls.Add(Me.LabelX4)
+        Me.Panel4.Controls.Add(Me.LabelX1)
+        Me.Panel4.Controls.Add(Me.tbNombreZona)
+        Me.Panel4.Controls.Add(Me.LabelX2)
+        Me.Panel4.Controls.Add(Me.tbCodigo)
+        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel4.Location = New System.Drawing.Point(0, 0)
+        Me.Panel4.Margin = New System.Windows.Forms.Padding(4)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(515, 181)
+        Me.Panel4.TabIndex = 0
+        '
+        'LabelX3
+        '
+        Me.LabelX3.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX3.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX3.Location = New System.Drawing.Point(307, 10)
+        Me.LabelX3.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX3.Name = "LabelX3"
+        Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX3.Size = New System.Drawing.Size(99, 28)
+        Me.LabelX3.TabIndex = 238
+        Me.LabelX3.Text = "Color:"
+        '
+        'tbColor
+        '
+        '
+        '
+        '
+        Me.tbColor.Border.Class = "TextBoxBorder"
+        Me.tbColor.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbColor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbColor.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tbColor.Location = New System.Drawing.Point(414, 12)
+        Me.tbColor.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbColor.Name = "tbColor"
+        Me.tbColor.PreventEnterBeep = True
+        Me.tbColor.Size = New System.Drawing.Size(84, 26)
+        Me.tbColor.TabIndex = 237
+        Me.tbColor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'tbDescripcionZona
+        '
+        '
+        '
+        '
+        Me.tbDescripcionZona.Border.Class = "TextBoxBorder"
+        Me.tbDescripcionZona.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbDescripcionZona.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbDescripcionZona.Location = New System.Drawing.Point(174, 86)
+        Me.tbDescripcionZona.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbDescripcionZona.Multiline = True
+        Me.tbDescripcionZona.Name = "tbDescripcionZona"
+        Me.tbDescripcionZona.PreventEnterBeep = True
+        Me.tbDescripcionZona.Size = New System.Drawing.Size(324, 71)
+        Me.tbDescripcionZona.TabIndex = 46
+        '
+        'LabelX4
+        '
+        Me.LabelX4.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX4.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX4.Location = New System.Drawing.Point(11, 84)
+        Me.LabelX4.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX4.Name = "LabelX4"
+        Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX4.Size = New System.Drawing.Size(149, 28)
+        Me.LabelX4.TabIndex = 47
+        Me.LabelX4.Text = "Descripcion Zona:"
+        '
+        'LabelX1
+        '
+        Me.LabelX1.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX1.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX1.Location = New System.Drawing.Point(11, 48)
+        Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX1.Name = "LabelX1"
+        Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX1.Size = New System.Drawing.Size(149, 28)
+        Me.LabelX1.TabIndex = 45
+        Me.LabelX1.Text = "Nombre Zona:"
+        '
+        'tbNombreZona
+        '
+        '
+        '
+        '
+        Me.tbNombreZona.Border.Class = "TextBoxBorder"
+        Me.tbNombreZona.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbNombreZona.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbNombreZona.Location = New System.Drawing.Point(174, 47)
+        Me.tbNombreZona.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbNombreZona.Name = "tbNombreZona"
+        Me.tbNombreZona.PreventEnterBeep = True
+        Me.tbNombreZona.Size = New System.Drawing.Size(324, 29)
+        Me.tbNombreZona.TabIndex = 44
+        '
+        'LabelX2
+        '
+        Me.LabelX2.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX2.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX2.Location = New System.Drawing.Point(11, 12)
+        Me.LabelX2.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX2.Name = "LabelX2"
+        Me.LabelX2.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX2.Size = New System.Drawing.Size(99, 28)
+        Me.LabelX2.TabIndex = 43
+        Me.LabelX2.Text = "Codigo:"
+        '
+        'tbCodigo
+        '
+        '
+        '
+        '
+        Me.tbCodigo.Border.Class = "TextBoxBorder"
+        Me.tbCodigo.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCodigo.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbCodigo.Location = New System.Drawing.Point(174, 14)
+        Me.tbCodigo.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbCodigo.Name = "tbCodigo"
+        Me.tbCodigo.PreventEnterBeep = True
+        Me.tbCodigo.Size = New System.Drawing.Size(107, 29)
+        Me.tbCodigo.TabIndex = 42
+        Me.tbCodigo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'PanelMapa
+        '
+        Me.PanelMapa.BackColor = System.Drawing.Color.Transparent
+        Me.PanelMapa.Controls.Add(Me.btLimpiar)
+        Me.PanelMapa.Controls.Add(Me.ButtonX4)
+        Me.PanelMapa.Controls.Add(Me.ButtonX3)
+        Me.PanelMapa.Controls.Add(Me.BtAdicionar)
+        Me.PanelMapa.Controls.Add(Me.Gmc_Cliente)
+        Me.PanelMapa.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PanelMapa.Location = New System.Drawing.Point(533, 4)
+        Me.PanelMapa.Margin = New System.Windows.Forms.Padding(4)
+        Me.PanelMapa.Name = "PanelMapa"
+        Me.PanelMapa.Size = New System.Drawing.Size(786, 453)
+        Me.PanelMapa.TabIndex = 21
+        '
+        'btLimpiar
+        '
+        Me.btLimpiar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btLimpiar.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground
+        Me.btLimpiar.Image = Global.TeVendo.My.Resources.Resources.delete
+        Me.btLimpiar.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.btLimpiar.Location = New System.Drawing.Point(9, 108)
+        Me.btLimpiar.Margin = New System.Windows.Forms.Padding(4)
+        Me.btLimpiar.Name = "btLimpiar"
+        Me.btLimpiar.Size = New System.Drawing.Size(152, 49)
+        Me.btLimpiar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btLimpiar.TabIndex = 8
+        Me.btLimpiar.Text = "Eliminar Todos"
+        Me.btLimpiar.Visible = False
+        '
+        'ButtonX4
+        '
+        Me.ButtonX4.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX4.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground
+        Me.ButtonX4.Image = Global.TeVendo.My.Resources.Resources.iconalejar
+        Me.ButtonX4.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.ButtonX4.Location = New System.Drawing.Point(9, 57)
+        Me.ButtonX4.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX4.Name = "ButtonX4"
+        Me.ButtonX4.Size = New System.Drawing.Size(53, 49)
+        Me.ButtonX4.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX4.TabIndex = 7
+        '
+        'ButtonX3
+        '
+        Me.ButtonX3.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX3.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground
+        Me.ButtonX3.Image = Global.TeVendo.My.Resources.Resources.iconacercar
+        Me.ButtonX3.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.ButtonX3.Location = New System.Drawing.Point(9, 6)
+        Me.ButtonX3.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX3.Name = "ButtonX3"
+        Me.ButtonX3.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
+        Me.ButtonX3.Size = New System.Drawing.Size(53, 49)
+        Me.ButtonX3.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
+        Me.ButtonX3.TabIndex = 6
+        '
+        'BtAdicionar
+        '
+        Me.BtAdicionar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.BtAdicionar.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground
+        Me.BtAdicionar.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtAdicionar.Image = Global.TeVendo.My.Resources.Resources.MapaClientes
+        Me.BtAdicionar.ImageFixedSize = New System.Drawing.Size(40, 40)
+        Me.BtAdicionar.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
+        Me.BtAdicionar.Location = New System.Drawing.Point(69, 5)
+        Me.BtAdicionar.Margin = New System.Windows.Forms.Padding(4)
+        Me.BtAdicionar.Name = "BtAdicionar"
+        Me.BtAdicionar.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(4)
+        Me.BtAdicionar.Size = New System.Drawing.Size(92, 102)
+        Me.BtAdicionar.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
+        Me.BtAdicionar.SubItemsExpandWidth = 10
+        Me.BtAdicionar.TabIndex = 2
+        Me.BtAdicionar.Text = "Marcar Puntos"
+        Me.BtAdicionar.TextColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.BtAdicionar.Visible = False
+        '
+        'Gmc_Cliente
+        '
+        Me.Gmc_Cliente.AutoScroll = True
+        Me.Gmc_Cliente.AutoSize = True
+        Me.Gmc_Cliente.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Gmc_Cliente.Bearing = 0!
+        Me.Gmc_Cliente.CanDragMap = True
+        Me.Gmc_Cliente.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Gmc_Cliente.EmptyTileColor = System.Drawing.Color.Navy
+        Me.Gmc_Cliente.GrayScaleMode = False
+        Me.Gmc_Cliente.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow
+        Me.Gmc_Cliente.LevelsKeepInMemmory = 5
+        Me.Gmc_Cliente.Location = New System.Drawing.Point(0, 0)
+        Me.Gmc_Cliente.Margin = New System.Windows.Forms.Padding(4)
+        Me.Gmc_Cliente.MarkersEnabled = True
+        Me.Gmc_Cliente.MaxZoom = 2
+        Me.Gmc_Cliente.MinZoom = 2
+        Me.Gmc_Cliente.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter
+        Me.Gmc_Cliente.Name = "Gmc_Cliente"
+        Me.Gmc_Cliente.NegativeMode = False
+        Me.Gmc_Cliente.PolygonsEnabled = True
+        Me.Gmc_Cliente.RetryLoadTile = 0
+        Me.Gmc_Cliente.RoutesEnabled = True
+        Me.Gmc_Cliente.ScaleMode = GMap.NET.WindowsForms.ScaleModes.[Integer]
+        Me.Gmc_Cliente.SelectedAreaFillColor = System.Drawing.Color.FromArgb(CType(CType(33, Byte), Integer), CType(CType(65, Byte), Integer), CType(CType(105, Byte), Integer), CType(CType(225, Byte), Integer))
+        Me.Gmc_Cliente.ShowTileGridLines = False
+        Me.Gmc_Cliente.Size = New System.Drawing.Size(786, 453)
+        Me.Gmc_Cliente.TabIndex = 0
+        Me.Gmc_Cliente.Zoom = 0R
         '
         'Panel10
         '
@@ -398,411 +804,6 @@ Partial Class Tec_Mapa
         Me.btnPrimero.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnPrimero.TabIndex = 11
         '
-        'TableLayoutPanel1
-        '
-        Me.TableLayoutPanel1.ColumnCount = 2
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.PanelZona, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.PanelMapa, 1, 0)
-        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(4)
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 1
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1323, 461)
-        Me.TableLayoutPanel1.TabIndex = 23
-        '
-        'PanelZona
-        '
-        Me.PanelZona.Controls.Add(Me.Zonas)
-        Me.PanelZona.Controls.Add(Me.GroupPanel3)
-        Me.PanelZona.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelZona.Location = New System.Drawing.Point(4, 4)
-        Me.PanelZona.Margin = New System.Windows.Forms.Padding(4)
-        Me.PanelZona.Name = "PanelZona"
-        Me.PanelZona.Size = New System.Drawing.Size(521, 453)
-        Me.PanelZona.TabIndex = 20
-        '
-        'Zonas
-        '
-        Me.Zonas.CanvasColor = System.Drawing.SystemColors.Control
-        Me.Zonas.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
-        Me.Zonas.Controls.Add(Me.PanelTable)
-        Me.Zonas.DisabledBackColor = System.Drawing.Color.Empty
-        Me.Zonas.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Zonas.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Zonas.Location = New System.Drawing.Point(0, 210)
-        Me.Zonas.Margin = New System.Windows.Forms.Padding(4)
-        Me.Zonas.Name = "Zonas"
-        Me.Zonas.Size = New System.Drawing.Size(521, 243)
-        '
-        '
-        '
-        Me.Zonas.Style.BackColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.Zonas.Style.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.Zonas.Style.BackColorGradientAngle = 90
-        Me.Zonas.Style.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.Zonas.Style.BorderBottomWidth = 1
-        Me.Zonas.Style.BorderColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.Zonas.Style.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.Zonas.Style.BorderLeftWidth = 1
-        Me.Zonas.Style.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.Zonas.Style.BorderRightWidth = 1
-        Me.Zonas.Style.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.Zonas.Style.BorderTopWidth = 1
-        Me.Zonas.Style.CornerDiameter = 4
-        Me.Zonas.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
-        Me.Zonas.Style.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
-        Me.Zonas.Style.TextColor = System.Drawing.Color.White
-        Me.Zonas.Style.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Near
-        '
-        '
-        '
-        Me.Zonas.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        '
-        '
-        '
-        Me.Zonas.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.Zonas.TabIndex = 2
-        Me.Zonas.Text = "ZONAS"
-        '
-        'PanelTable
-        '
-        Me.PanelTable.AutoScroll = True
-        Me.PanelTable.BackColor = System.Drawing.Color.White
-        Me.PanelTable.Controls.Add(Me.grZona)
-        Me.PanelTable.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelTable.Location = New System.Drawing.Point(0, 0)
-        Me.PanelTable.Margin = New System.Windows.Forms.Padding(4)
-        Me.PanelTable.Name = "PanelTable"
-        Me.PanelTable.Size = New System.Drawing.Size(515, 214)
-        Me.PanelTable.TabIndex = 0
-        '
-        'grZona
-        '
-        Me.grZona.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
-        Me.grZona.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grZona.FlatBorderColor = System.Drawing.Color.DodgerBlue
-        Me.grZona.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
-        Me.grZona.FocusStyle = Janus.Windows.GridEX.FocusStyle.Solid
-        Me.grZona.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grZona.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
-        Me.grZona.GroupRowVisualStyle = Janus.Windows.GridEX.GroupRowVisualStyle.UseRowStyle
-        Me.grZona.HeaderFormatStyle.Font = New System.Drawing.Font("Georgia", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grZona.HeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.grZona.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
-        Me.grZona.Location = New System.Drawing.Point(0, 0)
-        Me.grZona.Margin = New System.Windows.Forms.Padding(4)
-        Me.grZona.Name = "grZona"
-        Me.grZona.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.grZona.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.grZona.SelectedFormatStyle.BackColor = System.Drawing.Color.Gold
-        Me.grZona.Size = New System.Drawing.Size(515, 214)
-        Me.grZona.TabIndex = 0
-        Me.grZona.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        '
-        'GroupPanel3
-        '
-        Me.GroupPanel3.CanvasColor = System.Drawing.SystemColors.Control
-        Me.GroupPanel3.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
-        Me.GroupPanel3.Controls.Add(Me.Panel4)
-        Me.GroupPanel3.DisabledBackColor = System.Drawing.Color.Empty
-        Me.GroupPanel3.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GroupPanel3.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupPanel3.Location = New System.Drawing.Point(0, 0)
-        Me.GroupPanel3.Margin = New System.Windows.Forms.Padding(4)
-        Me.GroupPanel3.Name = "GroupPanel3"
-        Me.GroupPanel3.Size = New System.Drawing.Size(521, 210)
-        '
-        '
-        '
-        Me.GroupPanel3.Style.BackColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.GroupPanel3.Style.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.GroupPanel3.Style.BackColorGradientAngle = 90
-        Me.GroupPanel3.Style.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.GroupPanel3.Style.BorderBottomWidth = 1
-        Me.GroupPanel3.Style.BorderColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.GroupPanel3.Style.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.GroupPanel3.Style.BorderLeftWidth = 1
-        Me.GroupPanel3.Style.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.GroupPanel3.Style.BorderRightWidth = 1
-        Me.GroupPanel3.Style.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.GroupPanel3.Style.BorderTopWidth = 1
-        Me.GroupPanel3.Style.CornerDiameter = 4
-        Me.GroupPanel3.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
-        Me.GroupPanel3.Style.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
-        Me.GroupPanel3.Style.TextColor = System.Drawing.Color.White
-        Me.GroupPanel3.Style.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Near
-        '
-        '
-        '
-        Me.GroupPanel3.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        '
-        '
-        '
-        Me.GroupPanel3.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.GroupPanel3.TabIndex = 1
-        Me.GroupPanel3.Text = "DATOS GENERALES"
-        '
-        'Panel4
-        '
-        Me.Panel4.AutoScroll = True
-        Me.Panel4.BackColor = System.Drawing.Color.White
-        Me.Panel4.Controls.Add(Me.LabelX3)
-        Me.Panel4.Controls.Add(Me.tbColor)
-        Me.Panel4.Controls.Add(Me.tbDescripcionZona)
-        Me.Panel4.Controls.Add(Me.LabelX4)
-        Me.Panel4.Controls.Add(Me.LabelX1)
-        Me.Panel4.Controls.Add(Me.tbNombreZona)
-        Me.Panel4.Controls.Add(Me.LabelX2)
-        Me.Panel4.Controls.Add(Me.tbCodigo)
-        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel4.Location = New System.Drawing.Point(0, 0)
-        Me.Panel4.Margin = New System.Windows.Forms.Padding(4)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(515, 181)
-        Me.Panel4.TabIndex = 0
-        '
-        'PanelMapa
-        '
-        Me.PanelMapa.BackColor = System.Drawing.Color.Transparent
-        Me.PanelMapa.Controls.Add(Me.btLimpiar)
-        Me.PanelMapa.Controls.Add(Me.ButtonX4)
-        Me.PanelMapa.Controls.Add(Me.ButtonX3)
-        Me.PanelMapa.Controls.Add(Me.BtAdicionar)
-        Me.PanelMapa.Controls.Add(Me.Gmc_Cliente)
-        Me.PanelMapa.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelMapa.Location = New System.Drawing.Point(533, 4)
-        Me.PanelMapa.Margin = New System.Windows.Forms.Padding(4)
-        Me.PanelMapa.Name = "PanelMapa"
-        Me.PanelMapa.Size = New System.Drawing.Size(786, 453)
-        Me.PanelMapa.TabIndex = 21
-        '
-        'btLimpiar
-        '
-        Me.btLimpiar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btLimpiar.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground
-        Me.btLimpiar.Image = Global.TeVendo.My.Resources.Resources.delete
-        Me.btLimpiar.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.btLimpiar.Location = New System.Drawing.Point(9, 108)
-        Me.btLimpiar.Margin = New System.Windows.Forms.Padding(4)
-        Me.btLimpiar.Name = "btLimpiar"
-        Me.btLimpiar.Size = New System.Drawing.Size(53, 49)
-        Me.btLimpiar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btLimpiar.TabIndex = 8
-        Me.btLimpiar.Visible = False
-        '
-        'ButtonX4
-        '
-        Me.ButtonX4.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX4.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground
-        Me.ButtonX4.Image = Global.TeVendo.My.Resources.Resources.iconalejar
-        Me.ButtonX4.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.ButtonX4.Location = New System.Drawing.Point(9, 57)
-        Me.ButtonX4.Margin = New System.Windows.Forms.Padding(4)
-        Me.ButtonX4.Name = "ButtonX4"
-        Me.ButtonX4.Size = New System.Drawing.Size(53, 49)
-        Me.ButtonX4.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX4.TabIndex = 7
-        '
-        'ButtonX3
-        '
-        Me.ButtonX3.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX3.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground
-        Me.ButtonX3.Image = Global.TeVendo.My.Resources.Resources.iconacercar
-        Me.ButtonX3.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.ButtonX3.Location = New System.Drawing.Point(9, 6)
-        Me.ButtonX3.Margin = New System.Windows.Forms.Padding(4)
-        Me.ButtonX3.Name = "ButtonX3"
-        Me.ButtonX3.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
-        Me.ButtonX3.Size = New System.Drawing.Size(53, 49)
-        Me.ButtonX3.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
-        Me.ButtonX3.TabIndex = 6
-        '
-        'BtAdicionar
-        '
-        Me.BtAdicionar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.BtAdicionar.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground
-        Me.BtAdicionar.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtAdicionar.Image = Global.TeVendo.My.Resources.Resources.MapaClientes
-        Me.BtAdicionar.ImageFixedSize = New System.Drawing.Size(40, 40)
-        Me.BtAdicionar.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.BtAdicionar.Location = New System.Drawing.Point(69, 5)
-        Me.BtAdicionar.Margin = New System.Windows.Forms.Padding(4)
-        Me.BtAdicionar.Name = "BtAdicionar"
-        Me.BtAdicionar.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(4)
-        Me.BtAdicionar.Size = New System.Drawing.Size(92, 102)
-        Me.BtAdicionar.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
-        Me.BtAdicionar.SubItemsExpandWidth = 10
-        Me.BtAdicionar.TabIndex = 2
-        Me.BtAdicionar.Text = "Marcar Puntos"
-        Me.BtAdicionar.TextColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.BtAdicionar.Visible = False
-        '
-        'Gmc_Cliente
-        '
-        Me.Gmc_Cliente.AutoScroll = True
-        Me.Gmc_Cliente.AutoSize = True
-        Me.Gmc_Cliente.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Gmc_Cliente.Bearing = 0!
-        Me.Gmc_Cliente.CanDragMap = True
-        Me.Gmc_Cliente.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Gmc_Cliente.EmptyTileColor = System.Drawing.Color.Navy
-        Me.Gmc_Cliente.GrayScaleMode = False
-        Me.Gmc_Cliente.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow
-        Me.Gmc_Cliente.LevelsKeepInMemmory = 5
-        Me.Gmc_Cliente.Location = New System.Drawing.Point(0, 0)
-        Me.Gmc_Cliente.Margin = New System.Windows.Forms.Padding(4)
-        Me.Gmc_Cliente.MarkersEnabled = True
-        Me.Gmc_Cliente.MaxZoom = 2
-        Me.Gmc_Cliente.MinZoom = 2
-        Me.Gmc_Cliente.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter
-        Me.Gmc_Cliente.Name = "Gmc_Cliente"
-        Me.Gmc_Cliente.NegativeMode = False
-        Me.Gmc_Cliente.PolygonsEnabled = True
-        Me.Gmc_Cliente.RetryLoadTile = 0
-        Me.Gmc_Cliente.RoutesEnabled = True
-        Me.Gmc_Cliente.ScaleMode = GMap.NET.WindowsForms.ScaleModes.[Integer]
-        Me.Gmc_Cliente.SelectedAreaFillColor = System.Drawing.Color.FromArgb(CType(CType(33, Byte), Integer), CType(CType(65, Byte), Integer), CType(CType(105, Byte), Integer), CType(CType(225, Byte), Integer))
-        Me.Gmc_Cliente.ShowTileGridLines = False
-        Me.Gmc_Cliente.Size = New System.Drawing.Size(786, 453)
-        Me.Gmc_Cliente.TabIndex = 0
-        Me.Gmc_Cliente.Zoom = 0R
-        '
-        'tbDescripcionZona
-        '
-        '
-        '
-        '
-        Me.tbDescripcionZona.Border.Class = "TextBoxBorder"
-        Me.tbDescripcionZona.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbDescripcionZona.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbDescripcionZona.Location = New System.Drawing.Point(174, 86)
-        Me.tbDescripcionZona.Margin = New System.Windows.Forms.Padding(4)
-        Me.tbDescripcionZona.Multiline = True
-        Me.tbDescripcionZona.Name = "tbDescripcionZona"
-        Me.tbDescripcionZona.PreventEnterBeep = True
-        Me.tbDescripcionZona.Size = New System.Drawing.Size(324, 71)
-        Me.tbDescripcionZona.TabIndex = 46
-        '
-        'LabelX4
-        '
-        Me.LabelX4.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX4.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX4.Location = New System.Drawing.Point(11, 84)
-        Me.LabelX4.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX4.Name = "LabelX4"
-        Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX4.Size = New System.Drawing.Size(149, 28)
-        Me.LabelX4.TabIndex = 47
-        Me.LabelX4.Text = "Descripcion Zona:"
-        '
-        'LabelX1
-        '
-        Me.LabelX1.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX1.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX1.Location = New System.Drawing.Point(11, 48)
-        Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX1.Name = "LabelX1"
-        Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX1.Size = New System.Drawing.Size(149, 28)
-        Me.LabelX1.TabIndex = 45
-        Me.LabelX1.Text = "Nombre Zona:"
-        '
-        'tbNombreZona
-        '
-        '
-        '
-        '
-        Me.tbNombreZona.Border.Class = "TextBoxBorder"
-        Me.tbNombreZona.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbNombreZona.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbNombreZona.Location = New System.Drawing.Point(174, 47)
-        Me.tbNombreZona.Margin = New System.Windows.Forms.Padding(4)
-        Me.tbNombreZona.Name = "tbNombreZona"
-        Me.tbNombreZona.PreventEnterBeep = True
-        Me.tbNombreZona.Size = New System.Drawing.Size(324, 29)
-        Me.tbNombreZona.TabIndex = 44
-        '
-        'LabelX2
-        '
-        Me.LabelX2.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX2.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX2.Location = New System.Drawing.Point(11, 12)
-        Me.LabelX2.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX2.Name = "LabelX2"
-        Me.LabelX2.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX2.Size = New System.Drawing.Size(99, 28)
-        Me.LabelX2.TabIndex = 43
-        Me.LabelX2.Text = "Codigo:"
-        '
-        'tbCodigo
-        '
-        '
-        '
-        '
-        Me.tbCodigo.Border.Class = "TextBoxBorder"
-        Me.tbCodigo.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbCodigo.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbCodigo.Location = New System.Drawing.Point(174, 14)
-        Me.tbCodigo.Margin = New System.Windows.Forms.Padding(4)
-        Me.tbCodigo.Name = "tbCodigo"
-        Me.tbCodigo.PreventEnterBeep = True
-        Me.tbCodigo.Size = New System.Drawing.Size(107, 29)
-        Me.tbCodigo.TabIndex = 42
-        Me.tbCodigo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'tbColor
-        '
-        '
-        '
-        '
-        Me.tbColor.Border.Class = "TextBoxBorder"
-        Me.tbColor.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbColor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbColor.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbColor.Location = New System.Drawing.Point(414, 12)
-        Me.tbColor.Margin = New System.Windows.Forms.Padding(4)
-        Me.tbColor.Name = "tbColor"
-        Me.tbColor.PreventEnterBeep = True
-        Me.tbColor.Size = New System.Drawing.Size(84, 26)
-        Me.tbColor.TabIndex = 237
-        Me.tbColor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'LabelX3
-        '
-        Me.LabelX3.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX3.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX3.Location = New System.Drawing.Point(307, 10)
-        Me.LabelX3.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX3.Name = "LabelX3"
-        Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX3.Size = New System.Drawing.Size(99, 28)
-        Me.LabelX3.TabIndex = 238
-        Me.LabelX3.Text = "Color:"
-        '
         'Tec_Mapa
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -816,12 +817,6 @@ Partial Class Tec_Mapa
         Me.PanelLEft.ResumeLayout(False)
         Me.Panel8.ResumeLayout(False)
         Me.PanelDatos.ResumeLayout(False)
-        Me.Panel10.ResumeLayout(False)
-        Me.Panel11.ResumeLayout(False)
-        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.PanelButton.ResumeLayout(False)
-        Me.PanelToolBar1.ResumeLayout(False)
-        Me.PanelNavegacion.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.PanelZona.ResumeLayout(False)
         Me.Zonas.ResumeLayout(False)
@@ -831,6 +826,12 @@ Partial Class Tec_Mapa
         Me.Panel4.ResumeLayout(False)
         Me.PanelMapa.ResumeLayout(False)
         Me.PanelMapa.PerformLayout()
+        Me.Panel10.ResumeLayout(False)
+        Me.Panel11.ResumeLayout(False)
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PanelButton.ResumeLayout(False)
+        Me.PanelToolBar1.ResumeLayout(False)
+        Me.PanelNavegacion.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub

@@ -371,6 +371,7 @@ Public Class Tec_Zonas
         tbDescripcionZona.ReadOnly = False
         BtAdicionar.Visible = True
         btLimpiar.Visible = True
+        btnLimpiarUltimo.Visible = True
         grZonas.Enabled = False
 
     End Sub
@@ -382,7 +383,7 @@ Public Class Tec_Zonas
         tbColor.ReadOnly = True
         BtAdicionar.Visible = False
         btLimpiar.Visible = False
-
+        btnLimpiarUltimo.Visible = False
         _prCargarZonasTable()
         grZonas.Enabled = True
         If (grZonas.RowCount > 0) Then
@@ -879,4 +880,46 @@ Public Class Tec_Zonas
 
         End Try
     End Sub
+
+    Private Sub btnLimpiarUltimo_Click(sender As Object, e As EventArgs) Handles btnLimpiarUltimo.Click
+
+        If (_fnEsNuevo() Or _fnModificar()) Then
+
+            Dim result As DataRow() = _TablePoint.Select("estado>=0")
+            If (result.Length > 0) Then  '' Pregunto si hay activos para eliminar
+
+                _Overlay.Markers.Clear()
+                _TablePoint.Rows.RemoveAt(ObtenerUltimaPosicionValida())
+
+                _ListPuntos.RemoveAt(_ListPuntos.Count - 1)
+
+                result = _TablePoint.Select("estado>=0")
+                Dim lati, longi As Double
+                For i As Integer = 0 To result.Length - 1 Step 1
+                    Dim rowIndex As Integer = _TablePoint.Rows.IndexOf(result(i))
+                    lati = _TablePoint.Rows(rowIndex).Item("zblat")
+                    longi = _TablePoint.Rows(rowIndex).Item("zblongi")
+                    Dim plg As PointLatLng = New PointLatLng(lati, longi)
+
+                    _AgregarPunto(plg)
+                Next
+
+
+
+            End If
+
+
+        End If
+
+    End Sub
+
+    Public Function ObtenerUltimaPosicionValida() As Integer
+
+
+        Dim result As DataRow() = _TablePoint.Select("estado>=0")
+
+        Dim rowIndex As Integer = _TablePoint.Rows.IndexOf(result(result.Length - 1))
+        Return rowIndex
+
+    End Function
 End Class
