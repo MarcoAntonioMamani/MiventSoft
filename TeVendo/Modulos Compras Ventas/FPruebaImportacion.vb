@@ -56,7 +56,7 @@ Public Class FPruebaImportacion
 
 
             Try
-                dt = ExcelToDatatable(ExcelFile, "Productos")
+                dt = ExcelToDatatable(ExcelFile, "Hoja1")
             Catch ex As Exception
                 MsgBox("Inserte un nombre valido de la Hoja que desea importar", MsgBoxStyle.Information, "Informacion")
             Finally
@@ -73,7 +73,7 @@ Public Class FPruebaImportacion
         For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
 
-            Res = L_prProductoInsertar("", dt.Rows(i).Item("CodigoSap"), "", dt.Rows(i).Item("Descripcion"), dt.Rows(i).Item("Observacion"), 0, 1, 1, 1, 1, 10, 13, dt.Rows(i).Item("CodigoLinea"), 22, 7078, 1, TablaImagenes)
+            Res = L_prProductoInsertar("", dt.Rows(i).Item("Codigo"), dt.Rows(i).Item("CodigoDist"), dt.Rows(i).Item("Descripcion"), dt.Rows(i).Item("Descripcion"), 0, 1, dt.Rows(i).Item("Categoria"), 1, 1, 10, 13, dt.Rows(i).Item("FamiliaID"), 22, 7078, dt.Rows(i).Item("Precio"), TablaImagenes)
 
         Next
 
