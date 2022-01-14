@@ -2193,9 +2193,11 @@ Partial Class Tec_Principal
         Me.BackColor = System.Drawing.Color.Black
         Me.ClientSize = New System.Drawing.Size(1478, 753)
         Me.Controls.Add(Me.PanelPrincipal)
+        Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Tec_Principal"
-        Me.Text = "PARTYLAND"
+        Me.Text = "LIZARD GROUP"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuperTabControlMenu.ResumeLayout(False)
