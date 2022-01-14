@@ -1,7 +1,8 @@
 ﻿Imports Negocio.AccesoLogica
+Imports System.IO
 Public Class FPruebaImportacion
     Private Sub FPruebaImportacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        L_prAbrirConexion("DESKTOP-SB2Q2F5\SQLSERVER2017", "sa", "123", "MinventSoftDisfaCorp")
+        L_prAbrirConexion("DESKTOP-SB2Q2F5\SQLSERVER2017", "sa", "123", "MinventSoftHenry")
     End Sub
 
     Public Shared Function ExcelToDatatable(ByVal _xlPath As String, ByVal _namePage As String) As System.Data.DataTable
@@ -56,7 +57,7 @@ Public Class FPruebaImportacion
 
 
             Try
-                dt = ExcelToDatatable(ExcelFile, "Hoja1")
+                dt = ExcelToDatatable(ExcelFile, "productos")
             Catch ex As Exception
                 MsgBox("Inserte un nombre valido de la Hoja que desea importar", MsgBoxStyle.Information, "Informacion")
             Finally
@@ -71,13 +72,52 @@ Public Class FPruebaImportacion
 
         TablaImagenes = L_prCargarImagenesRecepcion(-1)
         For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            '' StockMinimo=Precio Minimo  Atributo=Cliente Id
+            Dim id As String = ""
+            Res = L_prProductoInsertar(id, "", "", dt.Rows(i).Item("DESCRIPCION"), "", dt.Rows(i).Item("PrecioMinimo"), 1, dt.Rows(i).Item("IdCategoria"), 1, 1, 10, dt.Rows(i).Item("IdCliente"), 17, dt.Rows(i).Item("IdUnidadVenta"), 7078, dt.Rows(i).Item("CostoBs"), TablaImagenes)
 
+            dt.Rows(i).Item("IdSistema") = id
+        Next
 
-            Res = L_prProductoInsertar("", dt.Rows(i).Item("Codigo"), dt.Rows(i).Item("CodigoDist"), dt.Rows(i).Item("Descripcion"), dt.Rows(i).Item("Descripcion"), 0, 1, dt.Rows(i).Item("Categoria"), 1, 1, 10, 13, dt.Rows(i).Item("FamiliaID"), 22, 7078, dt.Rows(i).Item("Precio"), TablaImagenes)
+        Dim dtdetalle As DataTable = L_prListarDetalleMovimiento(-1)
+        'a.id , a.MovimientoId, a.ProductoId, b.NombreProducto  As Producto, a.Cantidad,
+        '    a.Lote, a.FechaVencimiento, CAST('' as image ) as img, 1 as estado 
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+            If (dt.Rows(i).Item("INVENTARIO") > 0) Then
+
+                _prAddDetalleVenta(dtdetalle)
+
+                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("ProductoId") = dt.Rows(i).Item("IdSistema")
+                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("Cantidad") = dt.Rows(i).Item("INVENTARIO")
+            End If
+
 
         Next
 
+        L_prMovimientoInsertar("", 4, 1, "Inventario Inicial Migrado",
+                                         1, Now.Date.ToString("yyyy/MM/dd"), dtdetalle, 1, 0)
 
         MsgBox("Se ha cargado la importacion correctamente", MsgBoxStyle.Information, "Importado con exito")
     End Sub
+    Private Sub _prAddDetalleVenta(ByRef dtDetalle As DataTable)
+        'a.id , a.MovimientoId, a.ProductoId, b.NombreProducto  As Producto, a.Cantidad,
+        '    a.Lote, a.FechaVencimiento, CAST('' as image ) as img, 1 as estado ,Sum(stock .Cantidad )as stock
+        Dim Bin As New MemoryStream
+        Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
+        img.Save(Bin, Imaging.ImageFormat.Png)
+        dtDetalle.Rows.Add(_GenerarId(dtDetalle) + 1, 0, 0, "", 0, "20200101", CDate("2020/01/01"), Bin.GetBuffer, 0, 0)
+    End Sub
+    Public Function _GenerarId(dt As DataTable)
+
+        Dim mayor As Integer = 0
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            Dim data As Integer = IIf(IsDBNull(dt.Rows(i).Item("Id")), 0, dt.Rows(i).Item("Id"))
+            If (data > mayor) Then
+                mayor = data
+
+            End If
+        Next
+        Return mayor
+    End Function
 End Class

@@ -2,6 +2,7 @@
 Imports System.Data
 Imports System.Data.SqlClient
 Imports Datos.AccesoDatos
+Imports System.IO
 
 Public Class AccesoLogica
 
