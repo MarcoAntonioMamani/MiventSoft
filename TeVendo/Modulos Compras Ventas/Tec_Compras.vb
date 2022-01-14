@@ -321,7 +321,7 @@ Public Class Tec_Compras
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "P.Venta"
+            .Caption = "P.Minimo"
         End With
 
         With grDetalle.RootTable.Columns("PrecioCosto")

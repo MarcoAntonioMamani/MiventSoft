@@ -42,14 +42,14 @@ Public Class Tec_ComprasDetalle
         With grProducto.RootTable.Columns("Id")
             .Width = 100
             .Caption = "Id"
-            .Visible = False
+            .Visible = True
 
 
         End With
         With grProducto.RootTable.Columns("CodigoExterno")
             .Width = 100
             .Caption = "Cod Externo"
-            .Visible = True
+            .Visible = False
 
         End With
 
@@ -79,10 +79,12 @@ Public Class Tec_ComprasDetalle
             .Visible = True
             .Caption = "CATEGORIA"
         End With
-        With grProducto.RootTable.Columns("industria")
+        With grProducto.RootTable.Columns("cliente")
             .Width = 200
             .Visible = True
-            .Caption = "Industria"
+            .WordWrap = True
+            .MaxLines = 2
+            .Caption = "Cliente"
         End With
         With grProducto.RootTable.Columns("PrecioCosto")
             .Width = 150
@@ -202,7 +204,7 @@ Public Class Tec_ComprasDetalle
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "P.Venta"
+            .Caption = "P.Minimo"
         End With
 
         With grDetalle.RootTable.Columns("PrecioCosto")
@@ -713,7 +715,7 @@ salirIf:
                     " " + dt.Rows(i).Item("CodigoExterno").ToString.ToUpper +
                     " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
                     " " + dt.Rows(i).Item("NombreCategoria").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("industria").ToString.ToUpper
+                    " " + dt.Rows(i).Item("cliente").ToString.ToUpper
                 Select Case cant
                     Case 1
 

@@ -305,6 +305,11 @@ Public Class Tec_Ventas
             .Visible = False
 
         End With
+        With grDetalle.RootTable.Columns("PrecioMinimo")
+            .Width = 100
+            .Visible = False
+
+        End With
 
 
         With grDetalle.RootTable.Columns("ProductoId")
@@ -1086,17 +1091,17 @@ salirIf:
             Dim lin As Integer = grDetalle.GetValue("Id")
             Dim pos As Integer = -1
             _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
-            If (grDetalle.GetValue("Precio") < grDetalle.GetValue("PrecioCosto")) Then
+            If (grDetalle.GetValue("Precio") < grDetalle.GetValue("PrecioMinimo")) Then
 
-                ToastNotification.Show(Me, "El Precio Es Menor Al Precio De Costo Del Producto que Es = " + Str(grDetalle.GetValue("PrecioCosto")), img, 6000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "El Precio Es inferior al Precio Minimo Configurado Del Producto que Es = " + Str(grDetalle.GetValue("PrecioMinimo")), img, 6000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
-                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = grDetalle.GetValue("PrecioCosto")
-                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = grDetalle.GetValue("PrecioCosto") * grDetalle.GetValue("Cantidad")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = grDetalle.GetValue("PrecioMinimo")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = grDetalle.GetValue("PrecioMinimo") * grDetalle.GetValue("Cantidad")
 
                 Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
 
-                grDetalle.SetValue("Precio", grDetalle.GetValue("PrecioCosto"))
-                grDetalle.SetValue("SubTotal", (grDetalle.GetValue("PrecioCosto") * grDetalle.GetValue("Cantidad")))
+                grDetalle.SetValue("Precio", grDetalle.GetValue("PrecioMinimo"))
+                grDetalle.SetValue("SubTotal", (grDetalle.GetValue("PrecioMinimo") * grDetalle.GetValue("Cantidad")))
 
 
                 Dim rowIndex As Integer = grDetalle.Row

@@ -250,7 +250,8 @@ Public Class Tec_MovimientoDetalle
                 Dim nombre As String = dt.Rows(i).Item("CodigoExterno").ToString.ToUpper +
                     " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper +
                     " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("NombreCategoria").ToString.ToUpper
+                    " " + dt.Rows(i).Item("NombreCategoria").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("cliente").ToString.ToUpper
                 Select Case cant
                     Case 1
 
@@ -457,15 +458,15 @@ Public Class Tec_MovimientoDetalle
         grProducto.AlternatingColors = True
         With grProducto.RootTable.Columns("Id")
             .Width = 100
-            .Caption = "Id"
-            .Visible = False
+            .Caption = "Codigo"
+            .Visible = True
 
 
         End With
         With grProducto.RootTable.Columns("CodigoExterno")
             .Width = 100
             .Caption = "Cod Externo"
-            .Visible = True
+            .Visible = False
 
         End With
 
@@ -489,9 +490,9 @@ Public Class Tec_MovimientoDetalle
             .WordWrap = True
         End With
 
-        With grProducto.RootTable.Columns("industria")
+        With grProducto.RootTable.Columns("cliente")
             .Width = 150
-            .Caption = "Industria"
+            .Caption = "Clientes"
             .Visible = True
             .MaxLines = 2
             .WordWrap = True

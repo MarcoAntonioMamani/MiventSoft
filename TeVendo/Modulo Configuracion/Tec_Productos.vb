@@ -24,7 +24,7 @@ Public Class Tec_Productos
     Dim Modificado As Boolean = False
     Dim nameImg As String = "Default.jpg"
 
-
+    Dim IdCliente As Integer = 0
     Dim TablaImagenes As DataTable
     Dim TablaInventario As DataTable
     Dim RutaGlobal As String = gs_CarpetaRaiz
@@ -275,7 +275,7 @@ Public Class Tec_Productos
 
         P_Global._prCargarComboGenerico(cbProveedor, L_prListarProveedores(), "Id", "Codigo", "NombreProveedor", "Proveedor")
         P_Global._prCargarComboGenerico(cbMarca, L_prLibreriaDetalleGeneral(3), "cnnum", "Codigo", "cndesc1", "Marca")
-        P_Global._prCargarComboGenerico(cbAtributo, L_prLibreriaDetalleGeneral(4), "cnnum", "Codigo", "cndesc1", "Industria")
+
         P_Global._prCargarComboGenerico(cbFamilia, L_prLibreriaDetalleGeneral(5), "cnnum", "Codigo", "cndesc1", "Familia")
 
         P_Global._prCargarComboGenerico(cbUniVenta, L_prLibreriaDetalleGeneral(6), "cnnum", "Codigo", "cndesc1", "Unidad Venta")
@@ -302,13 +302,13 @@ Public Class Tec_Productos
             .SetHighlightOnFocus(cbProveedor, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(tbStockMinimo, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(cbMarca, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
-            .SetHighlightOnFocus(cbAtributo, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbCliente, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(cbFamilia, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(cbUniVenta, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(cbUnidMaxima, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(tbConversion, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(btnMarca, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
-            .SetHighlightOnFocus(btnAtributo, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnCliente, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(btnFamilia, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(btUniVenta, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(btUniMaxima, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
@@ -577,7 +577,7 @@ Public Class Tec_Productos
         cbCategoria.ReadOnly = False
         cbProveedor.ReadOnly = False
         cbMarca.ReadOnly = False
-        cbAtributo.ReadOnly = False
+
         tbCodigoBarras.ReadOnly = False
 
         cbFamilia.ReadOnly = False
@@ -588,7 +588,7 @@ Public Class Tec_Productos
         btnImagen.Visible = True
 
         btnMarca.Visible = True
-        btnAtributo.Visible = True
+        btnCliente.Visible = True
         btnFamilia.Visible = True
         btUniVenta.Visible = True
         btUniMaxima.Visible = True
@@ -612,7 +612,7 @@ Public Class Tec_Productos
         cbCategoria.ReadOnly = True
         cbProveedor.ReadOnly = True
         cbMarca.ReadOnly = True
-        cbAtributo.ReadOnly = True
+        tbCliente.ReadOnly = True
         cbFamilia.ReadOnly = True
         cbUniVenta.ReadOnly = True
         cbUnidMaxima.ReadOnly = True
@@ -621,7 +621,7 @@ Public Class Tec_Productos
         tbConversion.IsInputReadOnly = True
 
         btnMarca.Visible = False
-        btnAtributo.Visible = False
+        btnCliente.Visible = False
         btnFamilia.Visible = False
         btUniVenta.Visible = False
         btUniMaxima.Visible = False
@@ -693,7 +693,8 @@ Public Class Tec_Productos
         seleccionarPrimerItemCombo(cbCategoria)
         seleccionarPrimerItemCombo(cbProveedor)
         seleccionarPrimerItemCombo(cbMarca)
-        seleccionarPrimerItemCombo(cbAtributo)
+        tbCliente.Text = ""
+        IdCliente = 0
         seleccionarPrimerItemCombo(cbFamilia)
         seleccionarPrimerItemCombo(cbUniVenta)
         seleccionarPrimerItemCombo(cbUnidMaxima)
@@ -722,7 +723,7 @@ Public Class Tec_Productos
 
         cbProveedor.BackColor = Color.White
         cbMarca.BackColor = Color.White
-        cbAtributo.BackColor = Color.White
+        tbCliente.BackColor = Color.White
         cbFamilia.BackColor = Color.White
         cbUniVenta.BackColor = Color.White
         cbUnidMaxima.BackColor = Color.White
@@ -742,7 +743,7 @@ Public Class Tec_Productos
             res = L_prProductoInsertar(tbCodigo.Text, tbCodigoExterno.Text, tbCodigoBarras.Text, tbNombreProducto.Text,
                                                  tbDescripcion.Text, tbStockMinimo.Value, IIf(swEstado.Value = True, 1, 0),
                                                  cbCategoria.Value, cbEmpresa.Value, cbProveedor.Value, cbMarca.Value,
-                                                 cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes, CType(grPrecios.DataSource, DataTable))
+                                                 IdCliente, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes, CType(grPrecios.DataSource, DataTable))
 
             If res Then
 
@@ -770,7 +771,7 @@ Public Class Tec_Productos
             Res = L_prProductoModificar(tbCodigo.Text, tbCodigoExterno.Text, tbCodigoBarras.Text, tbNombreProducto.Text,
                                                 tbDescripcion.Text, tbStockMinimo.Value, IIf(swEstado.Value = True, 1, 0),
                                                 cbCategoria.Value, cbEmpresa.Value, cbProveedor.Value, cbMarca.Value,
-                                                cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes, CType(grPrecios.DataSource, DataTable))
+                                                IdCliente, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes, CType(grPrecios.DataSource, DataTable))
 
 
             If Res Then
@@ -897,14 +898,14 @@ Public Class Tec_Productos
             cbMarca.BackColor = Color.White
             MEP.SetError(cbMarca, "")
         End If
-        If (cbAtributo.SelectedIndex < 0) Then
-            cbAtributo.BackColor = Color.Red
-            MEP.SetError(cbAtributo, "Seleccione un Atributo")
-            Mensaje = Mensaje + Chr(13) + Chr(10) + " Attributo"
+        If (IdCliente = 0) Then
+            tbCliente.BackColor = Color.Red
+            MEP.SetError(tbCliente, "Seleccione un Cliente")
+            Mensaje = Mensaje + Chr(13) + Chr(10) + " Cliente"
             _ok = False
         Else
-            cbAtributo.BackColor = Color.White
-            MEP.SetError(cbAtributo, "")
+            tbCliente.BackColor = Color.White
+            MEP.SetError(tbCliente, "")
         End If
         If (cbFamilia.SelectedIndex < 0) Then
             cbFamilia.BackColor = Color.Red
@@ -953,9 +954,9 @@ Public Class Tec_Productos
             cbMarca.Focus()
             Return _ok
         End If
-        If (cbAtributo.SelectedIndex < 0) Then
+        If (IdCliente = 0) Then
             ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-            cbAtributo.Focus()
+            tbCliente.Focus()
             Return _ok
         End If
         If (tbConversion.Text.Length <= 0) Then
@@ -1012,7 +1013,8 @@ Public Class Tec_Productos
         listEstCeldas.Add(New Celda("CodigoExterno", False))
         listEstCeldas.Add(New Celda("CodigoBarras", False))
         listEstCeldas.Add(New Celda("NombreProducto", True, " NombreProducto", 200))
-        listEstCeldas.Add(New Celda("DescripcionProducto", True, " Descripcion Producto", 100))
+        listEstCeldas.Add(New Celda("DescripcionProducto", False, " Descripcion Producto", 100))
+        listEstCeldas.Add(New Celda("cliente", True, "Cliente", 100))
         listEstCeldas.Add(New Celda("StockMinimo", True, "Stock Minimo", 90, "0.00"))
         listEstCeldas.Add(New Celda("estado", False, "Estado", 70))
         listEstCeldas.Add(New Celda("imgEstado", True, "Estado", 150))
@@ -1057,7 +1059,8 @@ Public Class Tec_Productos
             cbEmpresa.Value = .GetValue("EmpresaId")
             cbProveedor.Value = .GetValue("ProveedorId")
             cbMarca.Value = .GetValue("MarcaId")
-            cbAtributo.Value = .GetValue("AttributoId")
+            tbCliente.Text = .GetValue("cliente")
+            IdCliente = .GetValue("AttributoId")
             cbFamilia.Value = .GetValue("FamiliaId")
             cbUniVenta.Value = .GetValue("UnidadVentaId")
             tbCodigoBarras.Text = .GetValue("CodigoBarras")
@@ -1171,24 +1174,53 @@ Public Class Tec_Productos
 
 
     End Sub
+    Private Sub btnCliente_Click(sender As Object, e As EventArgs) Handles btnCliente.Click
+        If (tbNombreProducto.ReadOnly) Then
+            Return
+        End If
 
-    Private Sub btnAtributo_Click(sender As Object, e As EventArgs) Handles btnAtributo.Click
-        Dim numi As String = ""
+
+        Dim dt As DataTable
+
+
+        dt = ListarCliente()
+        'a.Id ,a.NombreCliente  as NombreProveedor ,a.DireccionCliente  ,a.Telefono
+
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
+        listEstCeldas.Add(New Celda("NombreCliente", True, "NOMBRE", 350))
+        listEstCeldas.Add(New Celda("DireccionCliente", True, "DIRECCION", 180))
+        listEstCeldas.Add(New Celda("Telefono", True, "Telefono".ToUpper, 200))
+
+
         Dim ef = New Efecto
-        ef.tipo = 10
-        ef.ModuloLibreria = 4
-        ef.titulo = "Crear Nueva Industria"
+        ef.tipo = 7
+        ef.dt = dt
+        ef.SeleclCol = 0
+        ef.listEstCeldasNew = listEstCeldas
+        ef.alto = 80
+        ef.ancho = 800
+        ef.Context = "Seleccione Cliente".ToUpper
         ef.ShowDialog()
         Dim bandera As Boolean = False
         bandera = ef.band
         If (bandera = True) Then
-            P_Global._prCargarComboGenerico(cbAtributo, L_prLibreriaDetalleGeneral(4), "cnnum", "Codigo", "cndesc1", "Industria")
-            cbAtributo.SelectedIndex = CType(cbAtributo.DataSource, DataTable).Rows.Count - 1
-            cbAtributo.Focus()
+            Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+            IdCliente = Row.Cells("ID").Value
+            tbCliente.Text = Row.Cells("NombreProveedor").Value.ToString
+            cbFamilia.Focus()
+        Else
+            If (ef.NewCliente) Then
+                IdCliente = ef.IdCliente
+                tbCliente.Text = ef.NombreCliente
+                cbFamilia.Focus()
+            End If
         End If
 
-
     End Sub
+
+
 
     Private Sub btnFamilia_Click(sender As Object, e As EventArgs) Handles btnFamilia.Click
         Dim numi As String = ""
@@ -1651,5 +1683,7 @@ Public Class Tec_Productos
             End If
         End If
     End Sub
+
+
 #End Region
 End Class

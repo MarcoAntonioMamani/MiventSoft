@@ -65,7 +65,7 @@ Public Class Tec_VentasDetalle
         With grProducto.RootTable.Columns("Id")
             .Width = 100
             .Caption = "Cod Producto"
-            .Visible = False
+            .Visible = True
 
 
         End With
@@ -79,11 +79,17 @@ Public Class Tec_VentasDetalle
         With grProducto.RootTable.Columns("CodigoExterno")
             .Width = 100
             .Caption = "Cod Externo"
-            .Visible = True
+            .Visible = False
 
         End With
 
         With grProducto.RootTable.Columns("estado")
+            .Width = 100
+            .Visible = False
+
+        End With
+
+        With grProducto.RootTable.Columns("PrecioMinimo")
             .Width = 100
             .Visible = False
 
@@ -117,12 +123,12 @@ Public Class Tec_VentasDetalle
             .WordWrap = True
             .Caption = "CATEGORIA"
         End With
-        With grProducto.RootTable.Columns("industria")
+        With grProducto.RootTable.Columns("cliente")
             .Width = 120
             .Visible = True
             .MaxLines = 2
             .WordWrap = True
-            .Caption = "Industria"
+            .Caption = "Cliente"
         End With
 
         With grProducto.RootTable.Columns("PrecioCosto")
@@ -200,7 +206,7 @@ Public Class Tec_VentasDetalle
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.rowdelete, 25, 18)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, 0, 0, 0, 0, 0, "", 0, "20200101", CDate("2020/01/01"), 0, "", 0, "", 0, 0, Bin.GetBuffer, 0)
+        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, 0, 0, 0, 0, 0, "", 0, "20200101", CDate("2020/01/01"), 0, "", 0, "", 0, 0, Bin.GetBuffer, 0, 0)
     End Sub
 
     Public Function _GenerarId()
@@ -248,6 +254,11 @@ Public Class Tec_VentasDetalle
 
 
         With grDetalle.RootTable.Columns("Tipo")
+            .Width = 100
+            .Visible = False
+
+        End With
+        With grDetalle.RootTable.Columns("PrecioMinimo")
             .Width = 100
             .Visible = False
 
@@ -732,6 +743,7 @@ Public Class Tec_VentasDetalle
 
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = grProducto.GetValue("PrecioVenta") * cantidad
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCosto") = grProducto.GetValue("PrecioCosto")
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioMinimo") = grProducto.GetValue("PrecioMinimo")
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("Stock")
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Tipo") = 1
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("TipoNombre") = "Productos"
@@ -991,17 +1003,17 @@ Public Class Tec_VentasDetalle
             Dim lin As Integer = grDetalle.GetValue("Id")
             Dim pos As Integer = -1
             _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
-            If (grDetalle.GetValue("Precio") < grDetalle.GetValue("PrecioCosto")) Then
+            If (grDetalle.GetValue("Precio") < grDetalle.GetValue("PrecioMinimo")) Then
 
-                ToastNotification.Show(Me, "El Precio Es Menor Al Precio De Costo Del Producto que Es = " + Str(grDetalle.GetValue("PrecioCosto")), img, 6000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "El Precio Es inferior al Precio Minimo configurado Del Producto que Es = " + Str(grDetalle.GetValue("PrecioMinimo")), img, 6000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
-                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = grDetalle.GetValue("PrecioCosto")
-                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = grDetalle.GetValue("PrecioCosto") * grDetalle.GetValue("Cantidad")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = grDetalle.GetValue("PrecioMinimo")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = grDetalle.GetValue("PrecioMinimo") * grDetalle.GetValue("Cantidad")
 
                 Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
 
-                grDetalle.SetValue("Precio", grDetalle.GetValue("PrecioCosto"))
-                grDetalle.SetValue("SubTotal", (grDetalle.GetValue("PrecioCosto") * grDetalle.GetValue("Cantidad")))
+                grDetalle.SetValue("Precio", grDetalle.GetValue("PrecioMinimo"))
+                grDetalle.SetValue("SubTotal", (grDetalle.GetValue("PrecioMinimo") * grDetalle.GetValue("Cantidad")))
 
 
                 Dim rowIndex As Integer = grDetalle.Row
@@ -1164,7 +1176,7 @@ salirIf:
                 Dim nombre As String = dt.Rows(i).Item("Id").ToString.ToUpper +
                     " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
                     " " + dt.Rows(i).Item("NombreCategoria").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("industria").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("cliente").ToString.ToUpper +
                     " " + dt.Rows(i).Item("CodigoExterno").ToString.ToUpper
                 Select Case cant
                     Case 1
