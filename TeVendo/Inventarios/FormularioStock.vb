@@ -219,8 +219,8 @@ Public Class FormularioStock
         grProducto.AlternatingColors = True
         With grProducto.RootTable.Columns("Id")
             .Width = 100
-            .Caption = "Id"
-            .Visible = False
+            .Caption = "Codigo"
+            .Visible = True
 
 
         End With
@@ -228,7 +228,7 @@ Public Class FormularioStock
         With grProducto.RootTable.Columns("CodigoExterno")
             .Width = 100
             .Caption = "Cod. Externo"
-            .Visible = True
+            .Visible = False
 
 
         End With
@@ -249,7 +249,7 @@ Public Class FormularioStock
         End With
         With grProducto.RootTable.Columns("industria")
             .Width = 150
-            .Caption = "Linea"
+            .Caption = "Clientes"
             .Visible = True
             .MaxLines = 2
             .WordWrap = True
