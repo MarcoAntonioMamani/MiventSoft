@@ -140,6 +140,7 @@ Partial Class Tec_Productos
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.swTipo = New DevComponents.DotNetBar.Controls.SwitchButton()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -538,6 +539,7 @@ Partial Class Tec_Productos
         '
         Me.Panel9.AutoScroll = True
         Me.Panel9.BackColor = System.Drawing.Color.White
+        Me.Panel9.Controls.Add(Me.swTipo)
         Me.Panel9.Controls.Add(Me.btnCliente)
         Me.Panel9.Controls.Add(Me.tbCliente)
         Me.Panel9.Controls.Add(Me.LabelX9)
@@ -783,14 +785,14 @@ Partial Class Tec_Productos
         Me.cbEmpresa.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
         Me.cbEmpresa.HideSelection = False
         Me.cbEmpresa.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.cbEmpresa.Location = New System.Drawing.Point(304, 385)
+        Me.cbEmpresa.Location = New System.Drawing.Point(572, 385)
         Me.cbEmpresa.Margin = New System.Windows.Forms.Padding(4)
         Me.cbEmpresa.Name = "cbEmpresa"
         Me.cbEmpresa.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.cbEmpresa.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
         Me.cbEmpresa.SelectedIndex = -1
         Me.cbEmpresa.SelectedItem = Nothing
-        Me.cbEmpresa.Size = New System.Drawing.Size(333, 26)
+        Me.cbEmpresa.Size = New System.Drawing.Size(65, 26)
         Me.cbEmpresa.TabIndex = 13
         Me.cbEmpresa.Visible = False
         Me.cbEmpresa.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
@@ -1199,10 +1201,9 @@ Partial Class Tec_Productos
         Me.LabelX7.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX7.Name = "LabelX7"
         Me.LabelX7.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX7.Size = New System.Drawing.Size(60, 21)
+        Me.LabelX7.Size = New System.Drawing.Size(72, 21)
         Me.LabelX7.TabIndex = 44
-        Me.LabelX7.Text = "Empresa:"
-        Me.LabelX7.Visible = False
+        Me.LabelX7.Text = "Es Servicio:"
         '
         'tbDescripcion
         '
@@ -1932,6 +1933,29 @@ Partial Class Tec_Productos
         '
         Me.MEP.ContainerControl = Me
         '
+        'swTipo
+        '
+        '
+        '
+        '
+        Me.swTipo.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.swTipo.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.swTipo.Location = New System.Drawing.Point(305, 384)
+        Me.swTipo.Margin = New System.Windows.Forms.Padding(4)
+        Me.swTipo.Name = "swTipo"
+        Me.swTipo.OffBackColor = System.Drawing.Color.Red
+        Me.swTipo.OffText = "NO"
+        Me.swTipo.OffTextColor = System.Drawing.Color.White
+        Me.swTipo.OnBackColor = System.Drawing.Color.MediumTurquoise
+        Me.swTipo.OnText = "SI"
+        Me.swTipo.OnTextColor = System.Drawing.Color.White
+        Me.swTipo.Size = New System.Drawing.Size(261, 27)
+        Me.swTipo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.swTipo.TabIndex = 218
+        Me.swTipo.ValueFalse = "0"
+        Me.swTipo.ValueObject = "0"
+        Me.swTipo.ValueTrue = "1"
+        '
         'Tec_Productos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -2106,4 +2130,5 @@ Partial Class Tec_Productos
     Friend WithEvents grPrecios As Janus.Windows.GridEX.GridEX
     Friend WithEvents btnCliente As DevComponents.DotNetBar.ButtonX
     Friend WithEvents tbCliente As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents swTipo As DevComponents.DotNetBar.Controls.SwitchButton
 End Class

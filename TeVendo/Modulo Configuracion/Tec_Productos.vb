@@ -595,6 +595,8 @@ Public Class Tec_Productos
 
         btnAgregarCategoria.Visible = True
         btnAgregarProveedor.Visible = True
+
+        swTipo.IsReadOnly = False
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -603,7 +605,7 @@ Public Class Tec_Productos
         tbCodigoExterno.ReadOnly = True
         tbDescripcion.ReadOnly = True
         tbStockMinimo.IsInputReadOnly = True
-
+        swTipo.IsReadOnly = True
 
         tbCodigoBarras.ReadOnly = True
 
@@ -704,6 +706,8 @@ Public Class Tec_Productos
         _prCargarDetallePrecios(-1)
         _prCargarImagen()
         _prEliminarContenidoImage()
+
+        swTipo.Value = False
     End Sub
     Public Sub seleccionarPrimerItemCombo(cb As EditControls.MultiColumnCombo)
         If (CType(cb.DataSource, DataTable).Rows.Count > 0) Then
@@ -743,7 +747,7 @@ Public Class Tec_Productos
             res = L_prProductoInsertar(tbCodigo.Text, tbCodigoExterno.Text, tbCodigoBarras.Text, tbNombreProducto.Text,
                                                  tbDescripcion.Text, tbStockMinimo.Value, IIf(swEstado.Value = True, 1, 0),
                                                  cbCategoria.Value, cbEmpresa.Value, cbProveedor.Value, cbMarca.Value,
-                                                 IdCliente, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes, CType(grPrecios.DataSource, DataTable))
+                                                 IdCliente, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes, CType(grPrecios.DataSource, DataTable), IIf(swTipo.Value = True, 1, 0))
 
             If res Then
 
@@ -771,7 +775,7 @@ Public Class Tec_Productos
             Res = L_prProductoModificar(tbCodigo.Text, tbCodigoExterno.Text, tbCodigoBarras.Text, tbNombreProducto.Text,
                                                 tbDescripcion.Text, tbStockMinimo.Value, IIf(swEstado.Value = True, 1, 0),
                                                 cbCategoria.Value, cbEmpresa.Value, cbProveedor.Value, cbMarca.Value,
-                                                IdCliente, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes, CType(grPrecios.DataSource, DataTable))
+                                                IdCliente, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes, CType(grPrecios.DataSource, DataTable), IIf(swTipo.Value = True, 1, 0))
 
 
             If Res Then
@@ -1021,7 +1025,8 @@ Public Class Tec_Productos
         listEstCeldas.Add(New Celda("CategoriaId", False))
         listEstCeldas.Add(New Celda("NombreCategoria", True, "Categoria", 80))
         listEstCeldas.Add(New Celda("EmpresaId", False))
-        listEstCeldas.Add(New Celda("Empresa", True, "Empresa", 80))
+        listEstCeldas.Add(New Celda("Empresa", False, "Empresa", 80))
+        listEstCeldas.Add(New Celda("EsServicio", True, "Es Servicio?", 80))
 
         listEstCeldas.Add(New Celda("ProveedorId", False))
         listEstCeldas.Add(New Celda("MarcaId", False))
@@ -1066,6 +1071,9 @@ Public Class Tec_Productos
             tbCodigoBarras.Text = .GetValue("CodigoBarras")
             cbUnidMaxima.Value = .GetValue("UnidadMaximaId")
             tbConversion.Value = .GetValue("Conversion")
+
+
+            swTipo.Value = .GetValue("EsServicio")
 
             _prCargarDetallePrecios(tbCodigo.Text)
         End With
@@ -1682,6 +1690,10 @@ Public Class Tec_Productos
                 End If
             End If
         End If
+    End Sub
+
+    Private Sub SwitchButton1_ValueChanged(sender As Object, e As EventArgs) Handles swTipo.ValueChanged
+
     End Sub
 
 
