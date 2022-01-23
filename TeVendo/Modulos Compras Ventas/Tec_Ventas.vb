@@ -1213,7 +1213,10 @@ salirIf:
 
         lbPrecios.Visible = True
         cbPrecios.Visible = True
+        swFacturado.IsReadOnly = False
 
+
+        tbFacturaNro.ReadOnly = False
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -1241,6 +1244,9 @@ salirIf:
 
         lbPrecios.Visible = False
         cbPrecios.Visible = False
+
+
+        tbFacturaNro.ReadOnly = True
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -1280,6 +1286,11 @@ salirIf:
         tbTotalPagado.Value = 0
         tbCambio.Value = 0
         swFacturado.Value = False
+
+        lbFacturaNro.Visible = False
+        tbFacturaNro.Visible = False
+
+        tbFacturaNro.Text = ""
 
         cbPrecios.SelectedIndex = 0
 
@@ -1325,7 +1336,7 @@ salirIf:
 
                     res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                    IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0))
+                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbFacturaNro.Text)
 
                     If res Then
 
@@ -1347,7 +1358,7 @@ salirIf:
 
                 res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0))
+                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbFacturaNro.Text)
 
                 If res Then
 
@@ -1395,7 +1406,7 @@ salirIf:
 
                     Res = VentaModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                    IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0))
+                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbFacturaNro.Text)
 
                     If Res Then
 
@@ -1417,7 +1428,7 @@ salirIf:
 
                 Res = VentaModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0))
+                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbFacturaNro.Text)
 
                 If Res Then
 
@@ -1644,6 +1655,7 @@ salirIf:
             swTipoVenta.Value = .GetValue("TipoVenta")
             IdCliente = .GetValue("ClienteId")
             swFacturado.Value = .GetValue("Facturado")
+            tbFacturaNro.Text = .GetValue("NroFactura")
             tbFechaVencimientoCredito.Value = .GetValue("FechaVencimientoCredito")
             tbCliente.Text = .GetValue("NombreCliente").ToString
 
@@ -2309,9 +2321,14 @@ salirIf:
         If (swFacturado.Value = False) Then
             GpanelFacturado.Visible = False
             TabFacturado.Visible = False
+
+            lbFacturaNro.Visible = False
+            tbFacturaNro.Visible = False
         Else
-            GpanelFacturado.Visible = True
-            TabFacturado.Visible = True
+            'GpanelFacturado.Visible = True
+            'TabFacturado.Visible = True
+            lbFacturaNro.Visible = True
+            tbFacturaNro.Visible = True
         End If
     End Sub
 #End Region
