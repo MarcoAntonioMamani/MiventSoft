@@ -1246,7 +1246,7 @@ salirIf:
     Public Sub _PMOLimpiar()
         tbCodigo.Text = ""
 
-        tbGlosa.Text = ""
+        tbGlosa.Text = "Nota De Entrega "
         tbCliente.Text = ""
         tbVendedor.Text = ""
         IdVendedor = 0
