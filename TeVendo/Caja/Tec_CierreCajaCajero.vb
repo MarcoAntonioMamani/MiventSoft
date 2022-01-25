@@ -1260,8 +1260,8 @@ Public Class Tec_CierreCajaCajero
 
 
     Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles ButtonX2.Click
-        _TabControl.SelectedTab = _modulo
-        _tab.Close()
+        '_TabControl.SelectedTab = _modulo
+        '_tab.Close()
         Me.Close()
     End Sub
 

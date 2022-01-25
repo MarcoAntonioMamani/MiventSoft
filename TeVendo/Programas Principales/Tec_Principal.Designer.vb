@@ -161,11 +161,11 @@ Partial Class Tec_Principal
         Me.SuperTabControlMenu.ControlBox.MenuBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControlMenu.ControlBox.MenuBox, Me.SuperTabControlMenu.ControlBox.CloseBox})
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel10)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel8)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel9)
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel6)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel1)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel2)
@@ -194,9 +194,9 @@ Partial Class Tec_Principal
         '
         Me.SuperTabControlPanel3.Controls.Add(Me.Panel_Configuracion)
         Me.SuperTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel3.Location = New System.Drawing.Point(190, 0)
+        Me.SuperTabControlPanel3.Location = New System.Drawing.Point(220, 0)
         Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
-        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(1156, 685)
+        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(1126, 685)
         Me.SuperTabControlPanel3.TabIndex = 3
         Me.SuperTabControlPanel3.TabItem = Me.tab_configuraciones
         '
@@ -221,7 +221,7 @@ Partial Class Tec_Principal
         Me.Panel_Configuracion.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel_Configuracion.MultiLine = True
         Me.Panel_Configuracion.Name = "Panel_Configuracion"
-        Me.Panel_Configuracion.Size = New System.Drawing.Size(1156, 685)
+        Me.Panel_Configuracion.Size = New System.Drawing.Size(1126, 685)
         Me.Panel_Configuracion.TabIndex = 3
         Me.Panel_Configuracion.Text = "mtp2Logistica"
         '
@@ -820,9 +820,9 @@ Partial Class Tec_Principal
         '
         Me.SuperTabControlPanel5.Controls.Add(Me.Panel_Ventas)
         Me.SuperTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel5.Location = New System.Drawing.Point(213, 0)
+        Me.SuperTabControlPanel5.Location = New System.Drawing.Point(220, 0)
         Me.SuperTabControlPanel5.Name = "SuperTabControlPanel5"
-        Me.SuperTabControlPanel5.Size = New System.Drawing.Size(1245, 693)
+        Me.SuperTabControlPanel5.Size = New System.Drawing.Size(1126, 685)
         Me.SuperTabControlPanel5.TabIndex = 5
         Me.SuperTabControlPanel5.TabItem = Me.tab_compraventa
         '
@@ -842,12 +842,11 @@ Partial Class Tec_Principal
         Me.Panel_Ventas.DragDropSupport = True
         Me.Panel_Ventas.Items.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.ItemContainer2, Me.ItemContainer8})
         Me.Panel_Ventas.ItemSpacing = 10
-        Me.Panel_Ventas.LayoutOrientation = DevComponents.DotNetBar.eOrientation.Vertical
         Me.Panel_Ventas.Location = New System.Drawing.Point(0, 0)
         Me.Panel_Ventas.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel_Ventas.MultiLine = True
         Me.Panel_Ventas.Name = "Panel_Ventas"
-        Me.Panel_Ventas.Size = New System.Drawing.Size(1245, 693)
+        Me.Panel_Ventas.Size = New System.Drawing.Size(1126, 685)
         Me.Panel_Ventas.TabIndex = 4
         Me.Panel_Ventas.Text = "mtp2Logistica"
         '
