@@ -291,6 +291,16 @@ Public Class Tec_CierreCajaCajero
             .Caption = "Comprobante Venta"
             .Visible = True
         End With
+
+        With grCobranzas.RootTable.Columns("FormaCobranzas")
+            .Width = 90
+            .Caption = "Forma Cobranza"
+            .Visible = True
+        End With
+        With grCobranzas.RootTable.Columns("BancoId")
+            .Width = 110
+            .Visible = False
+        End With
         With grCobranzas.RootTable.Columns("PersonalId")
             .Width = 110
             .Visible = False
@@ -1314,7 +1324,10 @@ Public Class Tec_CierreCajaCajero
         '' Calculo total Cobranza
         Dim dtPagos As DataTable = CType(grCobranzas.DataSource, DataTable)
         For i As Integer = 0 To dtPagos.Rows.Count - 1 Step 1
-            totalPago += dtPagos.Rows(i).Item("Monto")
+            If (dtPagos.Rows(i).Item("BancoId") = 0) Then
+                totalPago += dtPagos.Rows(i).Item("Monto")
+            End If
+
         Next
         '''Calculo Ingresos o Egresos
 
