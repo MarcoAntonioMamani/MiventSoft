@@ -814,7 +814,7 @@ salirIf:
                 End If
 
             Else
-                If (grDetalle.GetValue("Cantidad") > 0) Then
+                If (grDetalle.GetValue("Cantidad") >= 0) Then
 
                     If (grDetalle.GetValue("Cantidad") <= grDetalle.GetValue("Stock")) Then
                         Dim porcdesc As Double = grDetalle.GetValue("ProcentajeDescuento")

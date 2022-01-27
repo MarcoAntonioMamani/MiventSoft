@@ -36,6 +36,8 @@ Partial Class Tec_Ventas
         Me.SuperTabControl1 = New DevComponents.DotNetBar.SuperTabControl()
         Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.lbFacturaNro = New DevComponents.DotNetBar.LabelX()
+        Me.tbFacturaNro = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.lbPrecios = New DevComponents.DotNetBar.LabelX()
         Me.cbPrecios = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.LabelX25 = New DevComponents.DotNetBar.LabelX()
@@ -164,8 +166,6 @@ Partial Class Tec_Ventas
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.tbFacturaNro = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.lbFacturaNro = New DevComponents.DotNetBar.LabelX()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -408,6 +408,42 @@ Partial Class Tec_Ventas
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(1186, 245)
         Me.Panel3.TabIndex = 49
+        '
+        'lbFacturaNro
+        '
+        Me.lbFacturaNro.AutoSize = True
+        Me.lbFacturaNro.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.lbFacturaNro.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.lbFacturaNro.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbFacturaNro.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.lbFacturaNro.Location = New System.Drawing.Point(334, 176)
+        Me.lbFacturaNro.Margin = New System.Windows.Forms.Padding(4)
+        Me.lbFacturaNro.Name = "lbFacturaNro"
+        Me.lbFacturaNro.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.lbFacturaNro.Size = New System.Drawing.Size(80, 21)
+        Me.lbFacturaNro.TabIndex = 383
+        Me.lbFacturaNro.Text = "Nro Factura:"
+        Me.lbFacturaNro.Visible = False
+        '
+        'tbFacturaNro
+        '
+        '
+        '
+        '
+        Me.tbFacturaNro.Border.Class = "TextBoxBorder"
+        Me.tbFacturaNro.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFacturaNro.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFacturaNro.Location = New System.Drawing.Point(427, 177)
+        Me.tbFacturaNro.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbFacturaNro.Name = "tbFacturaNro"
+        Me.tbFacturaNro.PreventEnterBeep = True
+        Me.tbFacturaNro.Size = New System.Drawing.Size(227, 26)
+        Me.tbFacturaNro.TabIndex = 382
+        Me.tbFacturaNro.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.tbFacturaNro.Visible = False
         '
         'lbPrecios
         '
@@ -2600,40 +2636,6 @@ Partial Class Tec_Ventas
         'MEP
         '
         Me.MEP.ContainerControl = Me
-        '
-        'tbFacturaNro
-        '
-        '
-        '
-        '
-        Me.tbFacturaNro.Border.Class = "TextBoxBorder"
-        Me.tbFacturaNro.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbFacturaNro.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbFacturaNro.Location = New System.Drawing.Point(427, 177)
-        Me.tbFacturaNro.Margin = New System.Windows.Forms.Padding(4)
-        Me.tbFacturaNro.Name = "tbFacturaNro"
-        Me.tbFacturaNro.PreventEnterBeep = True
-        Me.tbFacturaNro.Size = New System.Drawing.Size(227, 26)
-        Me.tbFacturaNro.TabIndex = 382
-        Me.tbFacturaNro.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'lbFacturaNro
-        '
-        Me.lbFacturaNro.AutoSize = True
-        Me.lbFacturaNro.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.lbFacturaNro.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.lbFacturaNro.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbFacturaNro.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.lbFacturaNro.Location = New System.Drawing.Point(334, 176)
-        Me.lbFacturaNro.Margin = New System.Windows.Forms.Padding(4)
-        Me.lbFacturaNro.Name = "lbFacturaNro"
-        Me.lbFacturaNro.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.lbFacturaNro.Size = New System.Drawing.Size(80, 21)
-        Me.lbFacturaNro.TabIndex = 383
-        Me.lbFacturaNro.Text = "Nro Factura:"
         '
         'Tec_Ventas
         '

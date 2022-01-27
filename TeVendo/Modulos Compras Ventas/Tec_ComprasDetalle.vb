@@ -241,6 +241,8 @@ Public Class Tec_ComprasDetalle
             .Width = 150
             .Caption = "Producto"
             .Visible = True
+            .WordWrap = True
+            .MaxLines = 3
         End With
 
 
