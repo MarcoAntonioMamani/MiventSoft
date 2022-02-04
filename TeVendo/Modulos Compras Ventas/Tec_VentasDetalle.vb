@@ -314,7 +314,7 @@ Public Class Tec_VentasDetalle
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .Caption = "Precio"
-            .FormatString = "0.00"
+            .FormatString = "0.0000"
         End With
 
         With grDetalle.RootTable.Columns("SubTotal")
@@ -322,7 +322,7 @@ Public Class Tec_VentasDetalle
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .Caption = "SubTotal"
-            .FormatString = "0.00"
+            .FormatString = "0.0000"
         End With
         '     a.Id , a.VentaId, a.ProductoId, p.NombreProducto As Producto, a.Cantidad, a.Precio, a.SubTotal,
         '     a.ProcentajeDescuento, a.MontoDescuento, a.Total, a.Detalle, a.PrecioCosto, a.Lote, a.FechaVencimiento,
@@ -351,7 +351,7 @@ Public Class Tec_VentasDetalle
             .Visible = True
             .Caption = "Total".ToUpper
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .FormatString = "0.00"
+            .FormatString = "0.0000"
             .AggregateFunction = AggregateFunction.Sum
         End With
 
