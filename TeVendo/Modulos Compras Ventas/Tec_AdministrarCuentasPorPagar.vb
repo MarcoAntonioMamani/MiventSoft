@@ -324,11 +324,11 @@ Public Class Tec_AdministrarCuentasPorPagar
         End With
 
 
-        With gr_CreditoPendientes.RootTable.Columns("A Cuenta")
+        With gr_CreditoPendientes.RootTable.Columns("Abonado")
             .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
-            .Caption = "Abonado"
+            .Caption = "A Cuenta"
             .FormatString = "0.00"
         End With
 
@@ -570,6 +570,7 @@ Public Class Tec_AdministrarCuentasPorPagar
         listEstCeldas.Add(New Celda("Id", False, "Credito", 50))
         listEstCeldas.Add(New Celda("Credito", True, "Credito", 90))
         listEstCeldas.Add(New Celda("Compra", True, "Compra", 90))
+        listEstCeldas.Add(New Celda("FechaCompra", True, "Fecha Compra", 100, "dd/MM/yyyy"))
         listEstCeldas.Add(New Celda("Nombre", True, "Proveedor", 350))
         listEstCeldas.Add(New Celda("Monto", True, "Monto", 90, "0.00"))
         listEstCeldas.Add(New Celda("abonado", True, "Abonado", 90, "0.00"))
@@ -692,7 +693,7 @@ Public Class Tec_AdministrarCuentasPorPagar
         tbNroComprobante.Clear()
         tbSaldo.Value = tbSaldo.Value - tbMontoAPagar.Value
         tbMontoAPagar.Value = 0
-
+        swTransferencia.Value = False
     End Sub
 
     Private Sub ButtonX4_Click(sender As Object, e As EventArgs) Handles ButtonX4.Click
@@ -701,7 +702,7 @@ Public Class Tec_AdministrarCuentasPorPagar
 
             Dim id As String = ""
             Try
-                If (L_prGrabarPagosCreditoCompras(id, IdCredito, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), IdPersonal, tbGlosa.Text, tbNroComprobante.Text, tbMontoAPagar.Value)) Then
+                If (L_prGrabarPagosCreditoCompras(id, IdCredito, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), IdPersonal, tbGlosa.Text, tbNroComprobante.Text, tbMontoAPagar.Value, IIf(swTransferencia.Value = True, 1, 0))) Then
 
                     Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
                     ToastNotification.Show(Me, "El Pago Ha sido Registrado con Exito", img, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
