@@ -1601,7 +1601,7 @@ Public Class AccesoLogica
                                            FechaTransacccion As String, PersonalId As Integer, ClienteId As Integer, TipoVenta As Integer,
        FechaVencCredito As String, Moneda As Integer, estado As Integer, glosa As String,
                                            TotalCompra As Double, _dtDetalle As DataTable,
-                                           Descuento As Double, dtPago As DataTable, Facturado As Integer, NroFactura As String) As Boolean
+                                           Descuento As Double, dtPago As DataTable, Facturado As Integer, NroFactura As String, EsMigrada As Integer) As Boolean
         Dim _resultado As Boolean
 
         '    @Id ,@SucursalId ,@FechaVenta ,@PersonalId ,@TipoVenta ,
@@ -1631,7 +1631,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@Facturado", Facturado))
         _listParam.Add(New Datos.DParametro("@NroFactura", NroFactura))
-
+        _listParam.Add(New Datos.DParametro("@EsMigrada", EsMigrada))
         _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
 
         If _Tabla.Rows.Count > 0 Then
@@ -1649,7 +1649,7 @@ Public Class AccesoLogica
                                            FechaTransacccion As String, PersonalId As Integer, ClienteId As Integer, TipoVenta As Integer,
        FechaVencCredito As String, Moneda As Integer, estado As Integer, glosa As String,
                                            TotalCompra As Double, _dtDetalle As DataTable,
-                                           Descuento As Double, dtPago As DataTable, Facturado As Integer, NroFactura As String) As Boolean
+                                           Descuento As Double, dtPago As DataTable, Facturado As Integer, NroFactura As String, EsMigrada As Integer) As Boolean
         Dim _resultado As Boolean
 
         '    @Id ,@SucursalId ,@FechaVenta ,@PersonalId ,@TipoVenta ,
@@ -1678,6 +1678,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@VentaPagos", "", dtPago))
         _listParam.Add(New Datos.DParametro("@NroFactura", NroFactura))
+        _listParam.Add(New Datos.DParametro("@EsMigrada", EsMigrada))
         _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
 
         If _Tabla.Rows.Count > 0 Then

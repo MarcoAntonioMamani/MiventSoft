@@ -166,6 +166,8 @@ Partial Class Tec_Ventas
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.LabelX26 = New DevComponents.DotNetBar.LabelX()
+        Me.swVentaMigrada = New DevComponents.DotNetBar.Controls.SwitchButton()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -376,6 +378,8 @@ Partial Class Tec_Ventas
         'Panel3
         '
         Me.Panel3.AutoScroll = True
+        Me.Panel3.Controls.Add(Me.swVentaMigrada)
+        Me.Panel3.Controls.Add(Me.LabelX26)
         Me.Panel3.Controls.Add(Me.lbFacturaNro)
         Me.Panel3.Controls.Add(Me.tbFacturaNro)
         Me.Panel3.Controls.Add(Me.lbPrecios)
@@ -2637,6 +2641,42 @@ Partial Class Tec_Ventas
         '
         Me.MEP.ContainerControl = Me
         '
+        'LabelX26
+        '
+        Me.LabelX26.AutoSize = True
+        Me.LabelX26.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX26.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX26.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX26.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX26.Location = New System.Drawing.Point(17, 164)
+        Me.LabelX26.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX26.Name = "LabelX26"
+        Me.LabelX26.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX26.Size = New System.Drawing.Size(58, 39)
+        Me.LabelX26.TabIndex = 384
+        Me.LabelX26.Text = "Venta" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Migrada:"
+        '
+        'swVentaMigrada
+        '
+        '
+        '
+        '
+        Me.swVentaMigrada.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.swVentaMigrada.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.swVentaMigrada.Location = New System.Drawing.Point(85, 172)
+        Me.swVentaMigrada.Margin = New System.Windows.Forms.Padding(4)
+        Me.swVentaMigrada.Name = "swVentaMigrada"
+        Me.swVentaMigrada.OffBackColor = System.Drawing.Color.Orange
+        Me.swVentaMigrada.OffText = "NO"
+        Me.swVentaMigrada.OnBackColor = System.Drawing.Color.Lime
+        Me.swVentaMigrada.OnText = "SI"
+        Me.swVentaMigrada.Size = New System.Drawing.Size(209, 22)
+        Me.swVentaMigrada.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.swVentaMigrada.TabIndex = 385
+        '
         'Tec_Ventas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -2858,4 +2898,6 @@ Partial Class Tec_Ventas
     Friend WithEvents cbPrecios As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents lbFacturaNro As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbFacturaNro As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents swVentaMigrada As DevComponents.DotNetBar.Controls.SwitchButton
+    Friend WithEvents LabelX26 As DevComponents.DotNetBar.LabelX
 End Class

@@ -818,7 +818,7 @@ salirIf:
             Else
                 If (grDetalle.GetValue("Cantidad") >= 0) Then
 
-                    If (grDetalle.GetValue("Cantidad") <= grDetalle.GetValue("Stock")) Then
+                    If (grDetalle.GetValue("Cantidad") <= grDetalle.GetValue("Stock") Or swVentaMigrada.Value = True) Then
                         Dim porcdesc As Double = grDetalle.GetValue("ProcentajeDescuento")
                         Dim montodesc As Double = ((grDetalle.GetValue("Precio") * grDetalle.GetValue("Cantidad")) * (porcdesc / 100))
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = montodesc
@@ -1217,7 +1217,7 @@ salirIf:
         cbPrecios.Visible = True
         swFacturado.IsReadOnly = False
 
-
+        swVentaMigrada.IsReadOnly = False
         tbFacturaNro.ReadOnly = False
     End Sub
 
@@ -1243,7 +1243,7 @@ salirIf:
         tab_Cobro.Visible = True
 
         swFacturado.IsReadOnly = True
-
+        swVentaMigrada.IsReadOnly = True
         lbPrecios.Visible = False
         cbPrecios.Visible = False
 
@@ -1288,7 +1288,7 @@ salirIf:
         tbTotalPagado.Value = 0
         tbCambio.Value = 0
         swFacturado.Value = False
-
+        swVentaMigrada.Value = False
         lbFacturaNro.Visible = False
         tbFacturaNro.Visible = False
 
@@ -1338,7 +1338,7 @@ salirIf:
 
                     res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                    IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbFacturaNro.Text)
+                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbFacturaNro.Text, IIf(swVentaMigrada.Value = True, 1, 0))
 
                     If res Then
 
@@ -1360,7 +1360,7 @@ salirIf:
 
                 res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbFacturaNro.Text)
+                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbFacturaNro.Text, IIf(swVentaMigrada.Value = True, 1, 0))
 
                 If res Then
 
@@ -1408,7 +1408,7 @@ salirIf:
 
                     Res = VentaModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                    IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbFacturaNro.Text)
+                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbFacturaNro.Text, IIf(swVentaMigrada.Value = True, 1, 0))
 
                     If Res Then
 
@@ -1430,7 +1430,7 @@ salirIf:
 
                 Res = VentaModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbFacturaNro.Text)
+                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbFacturaNro.Text, IIf(swVentaMigrada.Value = True, 1, 0))
 
                 If Res Then
 
