@@ -50,6 +50,8 @@ Public Class Tec_Ventas
                 If _MListEstBuscador.Item(i).visible = True Then
                     .Caption = _MListEstBuscador.Item(i).titulo
                     .Width = _MListEstBuscador.Item(i).tamano
+                    .WordWrap = True
+                    .MaxLines = 3
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
 
                     Dim col As DataColumn = dtBuscador.Columns(campo)
