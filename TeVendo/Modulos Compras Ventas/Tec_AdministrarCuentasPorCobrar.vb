@@ -308,7 +308,7 @@ Public Class Tec_AdministrarCuentasPorCobrar
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0"
-            .Caption = "Mora"
+            .Caption = "Mora (Dias)"
         End With
         With gr_CreditoPendientes.RootTable.Columns("Credito")
             .Width = 110
@@ -324,6 +324,8 @@ Public Class Tec_AdministrarCuentasPorCobrar
         With gr_CreditoPendientes.RootTable.Columns("Nombrecliente")
             .Width = 150
             .Caption = "Cliente"
+            .WordWrap = True
+            .MaxLines = 2
             .Visible = True
         End With
         With gr_CreditoPendientes.RootTable.Columns("Monto")
@@ -339,7 +341,7 @@ Public Class Tec_AdministrarCuentasPorCobrar
             .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
-            .Caption = "Abonado"
+            .Caption = "A Cuenta"
             .FormatString = "0.00"
         End With
 
