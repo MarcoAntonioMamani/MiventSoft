@@ -592,7 +592,7 @@ Public Class Tec_Productos
         btnFamilia.Visible = True
         btUniVenta.Visible = True
         btUniMaxima.Visible = True
-
+        PanelCodigoBarras.Visible = True
         btnAgregarCategoria.Visible = True
         btnAgregarProveedor.Visible = True
     End Sub
@@ -627,6 +627,9 @@ Public Class Tec_Productos
         btUniMaxima.Visible = False
         btnAgregarCategoria.Visible = False
         btnAgregarProveedor.Visible = False
+
+
+        PanelCodigoBarras.Visible = False
     End Sub
     Private Sub _prCargarDetallePrecios(ProductoId As String)
         Dim dt As New DataTable
@@ -1650,6 +1653,10 @@ Public Class Tec_Productos
                 End If
             End If
         End If
+    End Sub
+
+    Private Sub grCodigoBarras_FormattingRow(sender As Object, e As RowLoadEventArgs) Handles grCodigoBarras.FormattingRow
+
     End Sub
 #End Region
 End Class
