@@ -48,6 +48,8 @@ Public Class Tec_Compras
                     .Caption = _MListEstBuscador.Item(i).titulo
                     .Width = _MListEstBuscador.Item(i).tamano
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                    .WordWrap = True
+                    .MaxLines = 3
 
                     Dim col As DataColumn = dtBuscador.Columns(campo)
                     Dim tipo As Type = col.DataType
@@ -358,6 +360,8 @@ Public Class Tec_Compras
             .Width = 150
             .Caption = "Producto"
             .Visible = True
+            .WordWrap = True
+            .MaxLines = 3
         End With
 
 
