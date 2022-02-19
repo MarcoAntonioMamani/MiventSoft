@@ -492,7 +492,7 @@ Public Class Tec_MovimientoDetalle
         With grProducto.RootTable.Columns("industria")
             .Width = 150
             .Caption = "Industria"
-            .Visible = True
+            .Visible = False
             .MaxLines = 2
             .WordWrap = True
         End With

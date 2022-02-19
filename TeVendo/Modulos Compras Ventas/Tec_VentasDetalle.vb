@@ -121,7 +121,7 @@ Public Class Tec_VentasDetalle
             .Width = 120
             .Visible = True
             .MaxLines = 2
-            .WordWrap = True
+            .WordWrap = False
             .Caption = "Industria"
         End With
 
