@@ -595,6 +595,9 @@ Public Class Tec_Productos
         PanelCodigoBarras.Visible = True
         btnAgregarCategoria.Visible = True
         btnAgregarProveedor.Visible = True
+
+        grCodigoBarras.ContextMenuStrip = MenuEliminar
+
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -630,6 +633,9 @@ Public Class Tec_Productos
 
 
         PanelCodigoBarras.Visible = False
+
+        grCodigoBarras.ContextMenuStrip = Nothing
+
     End Sub
     Private Sub _prCargarDetallePrecios(ProductoId As String)
         Dim dt As New DataTable
@@ -683,6 +689,61 @@ Public Class Tec_Productos
 
 
     End Sub
+
+    Private Sub _prCargarCodigoBarras(ProductoId As String)
+        Dim dt As New DataTable
+        dt = ListProductoCodigoBarra(ProductoId)
+
+
+
+        If (IsNothing(grCodigoBarras.DataSource)) Then
+            grCodigoBarras.DataSource = dt
+            grCodigoBarras.RetrieveStructure()
+            grCodigoBarras.AlternatingColors = True
+            'id  Descripcion	precio
+            With grCodigoBarras.RootTable.Columns("id")
+                .Width = 100
+                .Caption = "CODIGO"
+                .Visible = False
+
+            End With
+            With grCodigoBarras.RootTable.Columns("ProductoId")
+                .Width = 100
+                .Visible = False
+
+            End With
+            With grCodigoBarras.RootTable.Columns("estado")
+                .Width = 100
+                .Visible = False
+
+            End With
+
+            With grCodigoBarras.RootTable.Columns("CodigoBarras")
+                .Width = 350
+                .Caption = "Codigo Barras"
+                .Visible = True
+            End With
+
+
+
+
+            With grCodigoBarras
+                .GroupByBoxVisible = False
+                'diseño de la grilla
+                .VisualStyle = VisualStyle.Office2007
+                .BoundMode = Janus.Data.BoundMode.Bound
+                .RowHeaders = InheritableBoolean.True
+
+                .TotalRowPosition = TotalRowPosition.BottomFixed
+            End With
+        Else
+            grCodigoBarras.DataSource = dt
+
+        End If
+
+
+
+    End Sub
     Public Sub _PMOLimpiar()
         tbCodigo.Text = ""
         tbNombreProducto.Text = ""
@@ -704,6 +765,7 @@ Public Class Tec_Productos
         TablaImagenes = L_prCargarImagenesRecepcion(-1)
 
         _prCargarDetallePrecios(-1)
+        _prCargarCodigoBarras(-1)
         _prCargarImagen()
         _prEliminarContenidoImage()
     End Sub
@@ -745,7 +807,7 @@ Public Class Tec_Productos
             res = L_prProductoInsertar(tbCodigo.Text, tbCodigoExterno.Text, tbCodigoBarras.Text, tbNombreProducto.Text,
                                                  tbDescripcion.Text, tbStockMinimo.Value, IIf(swEstado.Value = True, 1, 0),
                                                  cbCategoria.Value, cbEmpresa.Value, cbProveedor.Value, cbMarca.Value,
-                                                 cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes, CType(grPrecios.DataSource, DataTable))
+                                                 cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes, CType(grPrecios.DataSource, DataTable), CType(grCodigoBarras.DataSource, DataTable))
 
             If res Then
 
@@ -773,7 +835,7 @@ Public Class Tec_Productos
             Res = L_prProductoModificar(tbCodigo.Text, tbCodigoExterno.Text, tbCodigoBarras.Text, tbNombreProducto.Text,
                                                 tbDescripcion.Text, tbStockMinimo.Value, IIf(swEstado.Value = True, 1, 0),
                                                 cbCategoria.Value, cbEmpresa.Value, cbProveedor.Value, cbMarca.Value,
-                                                cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes, CType(grPrecios.DataSource, DataTable))
+                                                cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes, CType(grPrecios.DataSource, DataTable), CType(grCodigoBarras.DataSource, DataTable))
 
 
             If Res Then
@@ -1068,6 +1130,7 @@ Public Class Tec_Productos
             tbConversion.Value = .GetValue("Conversion")
 
             _prCargarDetallePrecios(tbCodigo.Text)
+            _prCargarCodigoBarras(tbCodigo.Text)
         End With
         TablaImagenes = L_prCargarImagenesRecepcion(tbCodigo.Text)
         _prCargarImagen()
@@ -1657,6 +1720,69 @@ Public Class Tec_Productos
 
     Private Sub grCodigoBarras_FormattingRow(sender As Object, e As RowLoadEventArgs) Handles grCodigoBarras.FormattingRow
 
+    End Sub
+    Public Function _GenerarId()
+        Dim dt As DataTable = CType(grCodigoBarras.DataSource, DataTable)
+        Dim mayor As Integer = 0
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            Dim data As Integer = IIf(IsDBNull(CType(grCodigoBarras.DataSource, DataTable).Rows(i).Item("Id")), 0, CType(grCodigoBarras.DataSource, DataTable).Rows(i).Item("Id"))
+            If (data > mayor) Then
+                mayor = data
+
+            End If
+        Next
+        Return mayor
+    End Function
+    Private Sub btnAgregarCodigoBarras_Click(sender As Object, e As EventArgs) Handles btnAgregarCodigoBarras.Click
+        If (tbCodigoBarras.Text.Trim <> String.Empty) Then
+            CType(grCodigoBarras.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, tbCodigoBarras.Text.Trim, 0)
+
+            tbCodigoBarras.Text = ""
+            grCodigoBarras.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grCodigoBarras.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
+            tbCodigoBarras.Focus()
+        Else
+            tbCodigoBarras.Focus()
+            ToastNotification.Show(Me, "Ingrese un Numero de Codigo de Barras Valido".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+
+        End If
+
+
+    End Sub
+    Public Sub _fnObtenerFilaDetalle(ByRef pos As Integer, numi As Integer)
+        For i As Integer = 0 To CType(grCodigoBarras.DataSource, DataTable).Rows.Count - 1 Step 1
+            Dim _numi As Integer = CType(grCodigoBarras.DataSource, DataTable).Rows(i).Item("Id")
+            If (_numi = numi) Then
+                pos = i
+                Return
+            End If
+        Next
+
+    End Sub
+    Private Sub ToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem3.Click
+        Try
+
+            If (grCodigoBarras.Row >= 0) Then
+
+                Dim Posicion As Integer
+
+                Dim numi As Integer = grCodigoBarras.GetValue("id")
+                _fnObtenerFilaDetalle(Posicion, numi)
+
+                If (Posicion >= 0) Then
+
+
+                    CType(grCodigoBarras.DataSource, DataTable).Rows(Posicion).Item("estado") = -1
+
+                    grCodigoBarras.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grCodigoBarras.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
+                End If
+
+
+            End If
+
+
+        Catch ex As Exception
+
+        End Try
     End Sub
 #End Region
 End Class
