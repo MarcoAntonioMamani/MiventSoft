@@ -2227,11 +2227,23 @@ Public Class AccesoLogica
 
         Return _resultado
     End Function
+    Public Shared Function ListProductoCodigoBarra(ProductoId As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 12))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@id", ProductoId))
+        _Tabla = D_ProcedimientoConParam("MAM_Productos", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_prProductoInsertar(ByRef _numi As String, _CodigoExterno As String,
                                                 _CodigoBarra As String, _NombreProducto As String,
         _Descripcion As String, _stockMinimo As Decimal, _estado As Integer, _CategoriaId As Integer, _EmpresaId As Integer, _ProveedorId As Integer, _MarcaId As Integer,
         _AttributoId As Integer, _FamiliaId As Integer, _UnidadVentaId As Integer, _UnidadMaximaId As Integer,
-        _conversion As Double, _dtImagenes As DataTable, Optional Commpra As Decimal = 0) As Boolean
+        _conversion As Double, _dtImagenes As DataTable, Optional dtCodigoBarras As DataTable = Nothing) As Boolean
         Dim _resultado As Boolean
 
         '(@Id,@CodigoExterno ,@CodigoBarras ,@NombreProducto ,@DescripcionProducto ,
@@ -2262,7 +2274,7 @@ Public Class AccesoLogica
 
         _listParam.Add(New Datos.DParametro("@TCL0064", "", _dtImagenes))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
-        _listParam.Add(New Datos.DParametro("@Compra", Commpra))
+        _listParam.Add(New Datos.DParametro("@CodigoBarraType", "", dtCodigoBarras))
 
         _Tabla = D_ProcedimientoConParam("MAM_Productos", _listParam)
 

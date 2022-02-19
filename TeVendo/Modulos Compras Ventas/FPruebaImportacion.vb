@@ -2,7 +2,7 @@
 Imports System.IO
 Public Class FPruebaImportacion
     Private Sub FPruebaImportacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        L_prAbrirConexion("DESKTOP-SB2Q2F5\SQLSERVER2017", "sa", "123", "MinventSoftKailiIndustrial")
+        L_prAbrirConexion("DESKTOP-SB2Q2F5\SQLSERVER2017", "sa", "123", "MinventSoftRoteland")
     End Sub
 
     Public Shared Function ExcelToDatatable(ByVal _xlPath As String, ByVal _namePage As String) As System.Data.DataTable
@@ -72,9 +72,25 @@ Public Class FPruebaImportacion
 
         TablaImagenes = L_prCargarImagenesRecepcion(-1)
         For i As Integer = 0 To dt.Rows.Count - 1 Step 1
-            '' StockMinimo=Precio Minimo  Atributo=Cliente Id
+            '' StockMinimo=Precio Precio compra   conversion =precio venta 
             Dim id As String = ""
-            Res = L_prProductoInsertar(id, dt.Rows(i).Item("Codigo"), "", dt.Rows(i).Item("Producto"), "", dt.Rows(i).Item("Facturado"), 1, 1, 1, 1, 10, 13, 17, 20, 22, dt.Rows(i).Item("Mayorista"), TablaImagenes, dt.Rows(i).Item("Compra"))
+
+            Dim dtCodigoBarras = ListProductoCodigoBarra(-1)
+            Dim CodigoBarras As String = dt.Rows(i).Item("codigobarra")
+            Dim vectoraux() As String
+            vectoraux = CodigoBarras.Trim.Split("_")
+
+            Dim pos As Integer = 0
+            For Each item As String In vectoraux
+                Console.WriteLine("'{0}'", item)
+                If (item.Trim <> String.Empty) Then
+                    dtCodigoBarras.Rows.Add(pos + 1, 0, item.Trim, 0)
+                    pos += 1
+                End If
+
+            Next
+
+            Res = L_prProductoInsertar(id, "", "", dt.Rows(i).Item("producto"), "", dt.Rows(i).Item("compra"), 1, 1, 1, 1, 10, 13, 17, 20, 22, dt.Rows(i).Item("venta"), TablaImagenes, dtCodigoBarras)
 
             dt.Rows(i).Item("IdSistema") = id
         Next
@@ -86,82 +102,44 @@ Public Class FPruebaImportacion
         '    a.Lote, a.FechaVencimiento, CAST('' as image ) as img, 1 as estado 
         For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
-            If (dt.Rows(i).Item("TIENDA") > 0) Then
+            If (dt.Rows(i).Item("stock") > 0) Then
 
                 _prAddDetalleVenta(dtdetalle)
 
                 dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("ProductoId") = dt.Rows(i).Item("IdSistema")
-                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("Cantidad") = dt.Rows(i).Item("TIENDA")
+                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("Cantidad") = dt.Rows(i).Item("stock")
             End If
 
 
         Next
 
-        L_prMovimientoInsertar("", 4, 1, "Inventario Inicial Migrado Tienda",
+        L_prMovimientoInsertar("", 4, 1, "Inventario Inicial Migrado",
                                          1, Now.Date.ToString("yyyy/MM/dd"), dtdetalle, 1, 0)
 
 
 
 
         ''''''' Cuarto A   '''''''''''''''
-        dtdetalle = L_prListarDetalleMovimiento(-1)
-        'a.id , a.MovimientoId, a.ProductoId, b.NombreProducto  As Producto, a.Cantidad,
-        '    a.Lote, a.FechaVencimiento, CAST('' as image ) as img, 1 as estado 
-        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+        'dtdetalle = L_prListarDetalleMovimiento(-1)
+        ''a.id , a.MovimientoId, a.ProductoId, b.NombreProducto  As Producto, a.Cantidad,
+        ''    a.Lote, a.FechaVencimiento, CAST('' as image ) as img, 1 as estado 
+        'For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
-            If (dt.Rows(i).Item("CUARTOA") > 0) Then
+        '    If (dt.Rows(i).Item("CUARTOA") > 0) Then
 
-                _prAddDetalleVenta(dtdetalle)
+        '        _prAddDetalleVenta(dtdetalle)
 
-                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("ProductoId") = dt.Rows(i).Item("IdSistema")
-                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("Cantidad") = dt.Rows(i).Item("CUARTOA")
-            End If
-
-
-        Next
-
-        L_prMovimientoInsertar("", 4, 2, "Inventario Inicial Migrado Cuarto A",
-                                         1, Now.Date.ToString("yyyy/MM/dd"), dtdetalle, 1, 0)
-
-        ''''''' Cuarto B   '''''''''''''''
-        dtdetalle = L_prListarDetalleMovimiento(-1)
-        'a.id , a.MovimientoId, a.ProductoId, b.NombreProducto  As Producto, a.Cantidad,
-        '    a.Lote, a.FechaVencimiento, CAST('' as image ) as img, 1 as estado 
-        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
-
-            If (dt.Rows(i).Item("CUARTOB") > 0) Then
-
-                _prAddDetalleVenta(dtdetalle)
-
-                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("ProductoId") = dt.Rows(i).Item("IdSistema")
-                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("Cantidad") = dt.Rows(i).Item("CUARTOB")
-            End If
+        '        dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("ProductoId") = dt.Rows(i).Item("IdSistema")
+        '        dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("Cantidad") = dt.Rows(i).Item("CUARTOA")
+        '    End If
 
 
-        Next
+        'Next
 
-        L_prMovimientoInsertar("", 4, 3, "Inventario Inicial Migrado Cuarto B",
-                                         1, Now.Date.ToString("yyyy/MM/dd"), dtdetalle, 1, 0)
-
-        ''''''' Cuarto C   '''''''''''''''
-        dtdetalle = L_prListarDetalleMovimiento(-1)
-        'a.id , a.MovimientoId, a.ProductoId, b.NombreProducto  As Producto, a.Cantidad,
-        '    a.Lote, a.FechaVencimiento, CAST('' as image ) as img, 1 as estado 
-        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
-
-            If (dt.Rows(i).Item("CUARTOC") > 0) Then
-
-                _prAddDetalleVenta(dtdetalle)
-
-                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("ProductoId") = dt.Rows(i).Item("IdSistema")
-                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("Cantidad") = dt.Rows(i).Item("CUARTOC")
-            End If
+        'L_prMovimientoInsertar("", 4, 2, "Inventario Inicial Migrado Cuarto A",
+        '                                 1, Now.Date.ToString("yyyy/MM/dd"), dtdetalle, 1, 0)
 
 
-        Next
-
-        L_prMovimientoInsertar("", 4, 4, "Inventario Inicial Migrado Cuarto C",
-                                         1, Now.Date.ToString("yyyy/MM/dd"), dtdetalle, 1, 0)
 
 
         MsgBox("Se ha cargado la importacion correctamente", MsgBoxStyle.Information, "Importado con exito")
