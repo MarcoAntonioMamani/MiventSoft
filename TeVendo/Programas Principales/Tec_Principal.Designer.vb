@@ -22,8 +22,8 @@ Partial Class Tec_Principal
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim SuperTabColorTable2 As DevComponents.DotNetBar.Rendering.SuperTabColorTable = New DevComponents.DotNetBar.Rendering.SuperTabColorTable()
-        Dim SuperTabLinearGradientColorTable2 As DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable = New DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable()
+        Dim SuperTabColorTable1 As DevComponents.DotNetBar.Rendering.SuperTabColorTable = New DevComponents.DotNetBar.Rendering.SuperTabColorTable()
+        Dim SuperTabLinearGradientColorTable1 As DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable = New DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tec_Principal))
         Me.SuperTabControlMenu = New DevComponents.DotNetBar.SuperTabControl()
         Me.SuperTabControlPanel5 = New DevComponents.DotNetBar.SuperTabControlPanel()
@@ -31,6 +31,7 @@ Partial Class Tec_Principal
         Me.ItemContainer2 = New DevComponents.DotNetBar.ItemContainer()
         Me.btnProforma = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btVentVenta = New DevComponents.DotNetBar.Metro.MetroTileItem()
+        Me.btVentVentaDirecto = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btVentReporteRealizada = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btVentGrafica = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btVentReporteVentaVsCosto = New DevComponents.DotNetBar.Metro.MetroTileItem()
@@ -161,8 +162,8 @@ Partial Class Tec_Principal
         Me.SuperTabControlMenu.ControlBox.MenuBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControlMenu.ControlBox.MenuBox, Me.SuperTabControlMenu.ControlBox.CloseBox})
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel10)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel8)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel9)
@@ -184,9 +185,9 @@ Partial Class Tec_Principal
         Me.SuperTabControlMenu.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControlMenu.TabIndex = 0
         Me.SuperTabControlMenu.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.tab_configuraciones, Me.tab_compraventa, Me.tab_ingresoproducto, Me.tab_mapa, Me.tab_almacenes, Me.tabCompras, Me.tabPagosSalarios, Me.tab_distribucion, Me.tab_ventana, Me.tab_InvProductos})
-        SuperTabLinearGradientColorTable2.Colors = New System.Drawing.Color() {System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))}
-        SuperTabColorTable2.Background = SuperTabLinearGradientColorTable2
-        Me.SuperTabControlMenu.TabStripColor = SuperTabColorTable2
+        SuperTabLinearGradientColorTable1.Colors = New System.Drawing.Color() {System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))}
+        SuperTabColorTable1.Background = SuperTabLinearGradientColorTable1
+        Me.SuperTabControlMenu.TabStripColor = SuperTabColorTable1
         Me.SuperTabControlMenu.TabStyle = DevComponents.DotNetBar.eSuperTabStyle.Office2010BackstageBlue
         Me.SuperTabControlMenu.Text = "SuperTabControl1"
         '
@@ -234,7 +235,7 @@ Partial Class Tec_Principal
         Me.ItemContainer2.ItemSpacing = 10
         Me.ItemContainer2.MultiLine = True
         Me.ItemContainer2.Name = "ItemContainer2"
-        Me.ItemContainer2.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnProforma, Me.btVentVenta, Me.btVentReporteRealizada, Me.btVentGrafica, Me.btVentReporteVentaVsCosto, Me.btInvUtilidad, Me.btVentProdMasVendidos, Me.btVentRendimiento, Me.btnCredPago})
+        Me.ItemContainer2.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnProforma, Me.btVentVenta, Me.btVentVentaDirecto, Me.btVentReporteRealizada, Me.btVentGrafica, Me.btVentReporteVentaVsCosto, Me.btInvUtilidad, Me.btVentProdMasVendidos, Me.btVentRendimiento, Me.btnCredPago})
         '
         '
         '
@@ -291,6 +292,29 @@ Partial Class Tec_Principal
         Me.btVentVenta.TitleText = "Gestion De" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Ventas"
         Me.btVentVenta.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
         Me.btVentVenta.TitleTextColor = System.Drawing.Color.White
+        '
+        'btVentVentaDirecto
+        '
+        Me.btVentVentaDirecto.Image = Global.TeVendo.My.Resources.Resources.iconcierre
+        Me.btVentVentaDirecto.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btVentVentaDirecto.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btVentVentaDirecto.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btVentVentaDirecto.Name = "btVentVentaDirecto"
+        Me.btVentVentaDirecto.SymbolColor = System.Drawing.Color.Black
+        Me.btVentVentaDirecto.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btVentVentaDirecto.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btVentVentaDirecto.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(159, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.btVentVentaDirecto.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.btVentVentaDirecto.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btVentVentaDirecto.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btVentVentaDirecto.TileStyle.PaddingRight = 20
+        Me.btVentVentaDirecto.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btVentVentaDirecto.TitleText = "Vender" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Directo"
+        Me.btVentVentaDirecto.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btVentVentaDirecto.TitleTextColor = System.Drawing.Color.White
         '
         'btVentReporteRealizada
         '
@@ -2320,4 +2344,5 @@ Partial Class Tec_Principal
     Friend WithEvents SuperTabControlPanel10 As DevComponents.DotNetBar.SuperTabControlPanel
     Friend WithEvents tab_InvProductos As DevComponents.DotNetBar.SuperTabItem
     Friend WithEvents PanelBuscador As Panel
+    Friend WithEvents btVentVentaDirecto As DevComponents.DotNetBar.Metro.MetroTileItem
 End Class

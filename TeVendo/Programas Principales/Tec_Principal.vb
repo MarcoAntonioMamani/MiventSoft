@@ -1257,4 +1257,12 @@ Public Class Tec_Principal
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub
+
+    Private Sub btVentVentaDirecto_Click(sender As Object, e As EventArgs) Handles btVentVentaDirecto.Click
+        Dim f1 As VenderDirecto = New VenderDirecto
+
+
+        f1.Show()
+
+    End Sub
 End Class
