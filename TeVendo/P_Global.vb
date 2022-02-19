@@ -29,7 +29,8 @@ Module P_Global
     Public gs_ClaveSql As String = "123"
     Public gs_NombreBD As String = "DBDinoM"
     Public gs_CarpetaRaiz As String = "C:\BD"
-
+    Public gs_NombreImpresora As String = ""
+    Public gs_ImprimirDirecto As String = ""
 #End Region
 
 #Region "Librerias"

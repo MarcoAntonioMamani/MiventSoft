@@ -25,7 +25,6 @@ Partial Class VenderDirecto
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(VenderDirecto))
         Me.CmDetalle = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.ModificarCantidadMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.EliminarProductoMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.PrintDialog1 = New System.Windows.Forms.PrintDialog()
         Me.PanelDatos = New System.Windows.Forms.Panel()
@@ -89,21 +88,14 @@ Partial Class VenderDirecto
         'CmDetalle
         '
         Me.CmDetalle.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.CmDetalle.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ModificarCantidadMenu, Me.EliminarProductoMenu})
+        Me.CmDetalle.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EliminarProductoMenu})
         Me.CmDetalle.Name = "CmDetalle"
-        Me.CmDetalle.Size = New System.Drawing.Size(207, 52)
-        '
-        'ModificarCantidadMenu
-        '
-        Me.ModificarCantidadMenu.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.ModificarCantidadMenu.Name = "ModificarCantidadMenu"
-        Me.ModificarCantidadMenu.Size = New System.Drawing.Size(206, 24)
-        Me.ModificarCantidadMenu.Text = "Modificar Cantidad"
+        Me.CmDetalle.Size = New System.Drawing.Size(197, 28)
         '
         'EliminarProductoMenu
         '
         Me.EliminarProductoMenu.Name = "EliminarProductoMenu"
-        Me.EliminarProductoMenu.Size = New System.Drawing.Size(206, 24)
+        Me.EliminarProductoMenu.Size = New System.Drawing.Size(210, 24)
         Me.EliminarProductoMenu.Text = "Eliminar Producto"
         '
         'PrintDialog1
@@ -274,9 +266,9 @@ Partial Class VenderDirecto
         Me.Label3.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.Location = New System.Drawing.Point(599, 10)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(206, 18)
+        Me.Label3.Size = New System.Drawing.Size(177, 18)
         Me.Label3.TabIndex = 11
-        Me.Label3.Text = "Tecla Ctrl +C: Modificar Cantidad"
+        Me.Label3.Text = "Tecla Ctrl +S: Guardar Venta"
         '
         'lbNit
         '
@@ -457,7 +449,6 @@ Partial Class VenderDirecto
         Me.GPanelProductos.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.GPanelProductos.TabIndex = 4
         Me.GPanelProductos.Text = "Productos A Vender"
-        Me.GPanelProductos.Visible = False
         '
         'Panel5
         '
@@ -662,7 +653,6 @@ Partial Class VenderDirecto
     End Sub
 
     Friend WithEvents CmDetalle As ContextMenuStrip
-    Friend WithEvents ModificarCantidadMenu As ToolStripMenuItem
     Friend WithEvents EliminarProductoMenu As ToolStripMenuItem
     Friend WithEvents PrintDialog1 As PrintDialog
     Friend WithEvents PanelDatos As Panel

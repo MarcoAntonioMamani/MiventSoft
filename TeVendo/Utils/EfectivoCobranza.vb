@@ -19,6 +19,9 @@ Public Class EfectivoCobranza
 
         Calculartotal()
         _habilitarFocus()
+        chkMontoBs.CheckValue = True
+
+
         tbMontoBs.Focus()
 
 

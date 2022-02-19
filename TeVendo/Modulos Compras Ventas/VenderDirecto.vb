@@ -30,6 +30,8 @@ Public Class VenderDirecto
     Dim dtDescuentos As DataTable = Nothing
     Public Programa As String
     Dim Lote As Boolean = False
+
+    Dim dtCodigoBarras As DataTable
     Private Sub _IniciarTodo()
         Me.WindowState = FormWindowState.Maximized
         LeerConfiguracion()
@@ -39,6 +41,9 @@ Public Class VenderDirecto
         Dim blah As New Bitmap(New Bitmap(My.Resources.iconcierre), 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         Me.Icon = ico
+
+
+        dtCodigoBarras = ListProductoCodigoBarraAll()
 
     End Sub
     Public Sub LeerConfiguracion()
@@ -285,7 +290,7 @@ Public Class VenderDirecto
         tbProducto.Clear()
         tbTotal.Value = 0
         lbFecha.Text = Now.Date.ToString("dd/MM/yyyy")
-        lbCliente.Text = "S/N"
+
         lbNit.Text = "0"
 
 
@@ -296,10 +301,10 @@ Public Class VenderDirecto
 
 
 
-        If (GPanelProductos.Visible = True) Then
-            GPanelProductos.Visible = False
+        'If (GPanelProductos.Visible = True) Then
+        '    GPanelProductos.Visible = False
 
-        End If
+        'End If
         With grdetalle.RootTable.Columns("img")
             .Width = 55
             .Caption = "Eliminar"
@@ -318,6 +323,9 @@ Public Class VenderDirecto
         tbDescripcion.Clear()
         tbPrecio.Text = ""
         tbDescuento.Value = 0
+
+        _prCargarProductos()
+
 
     End Sub
     Public Sub _prGuardar()
@@ -358,9 +366,11 @@ Public Class VenderDirecto
 
                 If res Then
 
-                    'P_GenerarReporte(Id)
+                    P_GenerarReporte(Id)
                     ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + Id + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                     FilaSelectLote = Nothing
+
+                    _Limpiar()
 
                 Else
                     ToastNotification.Show(Me, "Error al guardar la Venta".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
@@ -442,22 +452,32 @@ Public Class VenderDirecto
                 objrep.SetDataSource(dt)
                 objrep.SetParameterValue("Literal1", li)
 
-            'P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
-            'P_Global.Visualizador.CrGeneral.Zoom(130)
-            'P_Global.Visualizador.Show() 'Comentar
+            If (gs_ImprimirDirecto.Equals("Si")) Then
+                Dim pd As New PrintDocument()
 
-            'Dim pd As New PrintDocument()
+                'Dim _Ds3 = L_ObtenerRutaImpresora("2") ' Datos de Impresion de Facturación
+                Dim NombreImpresora As String = ""
+                pd.PrinterSettings.PrinterName = gs_NombreImpresora
 
-            'Dim _Ds3 = L_ObtenerRutaImpresora("2") ' Datos de Impresion de Facturación
-            'pd.PrinterSettings.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
-            'If (Not pd.PrinterSettings.IsValid) Then
-            '    ToastNotification.Show(Me, "La Impresora ".ToUpper + _Ds3.Tables(0).Rows(0).Item("cbrut").ToString + Chr(13) + "No Existe".ToUpper,
-            '                           My.Resources.mensaje, 5 * 1000,
-            '                           eToastGlowColor.Blue, eToastPosition.BottomRight)
-            'Else
-            '    objrep.PrintOptions.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
-            '    objrep.PrintToPrinter(1, True, 0, 0)
-            'End If
+                If (Not pd.PrinterSettings.IsValid) Then
+                    ToastNotification.Show(Me, "La Impresora ".ToUpper + NombreImpresora + Chr(13) + "No Existe".ToUpper,
+                                      img, 5 * 1000,
+                                       eToastGlowColor.Blue, eToastPosition.BottomRight)
+                Else
+                    objrep.PrintOptions.PrinterName = NombreImpresora
+
+                    objrep.PrintToPrinter(1, True, 0, 0)
+                End If
+
+
+            Else
+                P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+                P_Global.Visualizador.CrGeneral.Zoom(130)
+                P_Global.Visualizador.Show() 'Comentar
+            End If
+
+
+
 
 
 
@@ -540,7 +560,7 @@ Public Class VenderDirecto
             .Width = 300
             .Caption = "PRODUCTOS"
             .Visible = True
-            .MaxLines = 2
+            .MaxLines = 3
             .WordWrap = True
         End With
 
@@ -759,12 +779,19 @@ Public Class VenderDirecto
         grdetalle.Col = grdetalle.RootTable.Columns("cantidad").Index
     End Sub
     Private Sub _DesHabilitarProductos()
-        GPanelProductos.Visible = False
+        'GPanelProductos.Visible = False
 
-        'tbProducto.Focus()
-        grdetalle.Select()
-        grdetalle.Col = grdetalle.RootTable.Columns("cantidad").Index
-        grdetalle.Row = grdetalle.RowCount - 1
+        tbProducto.Focus()
+        Try
+            grdetalle.Select()
+            grdetalle.Col = grdetalle.RootTable.Columns("cantidad").Index
+            grdetalle.Row = grdetalle.RowCount - 1
+        Catch ex As Exception
+
+        End Try
+
+
+
 
     End Sub
     Public Function _fnExisteProducto(idprod As Integer, Tipo As Integer) As Boolean
@@ -876,7 +903,7 @@ Public Class VenderDirecto
             End If
 
         Next
-        grProductos.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grProductos.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.Equal, 1))
+        'grProductos.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grProductos.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.Equal, 1))
     End Sub
     Public Sub _prEliminarFila()
         If (grdetalle.Row >= 0) Then
@@ -933,6 +960,7 @@ Public Class VenderDirecto
             End If
         End If
 
+        _prCalcularPrecioTotal()
 
     End Sub
 
@@ -971,6 +999,7 @@ Public Class VenderDirecto
     Private Sub F0_VentasSupermercado_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         _IniciarTodo()
         _Limpiar()
+
         tbProducto.Focus()
     End Sub
 
@@ -1025,15 +1054,70 @@ Public Class VenderDirecto
             If _ValidarCampos() = False Then
                 Exit Sub
             End If
+            _prGuardar()
 
 
         End If
         If (e.KeyData = Keys.Enter) Then
             '''''Aqui se inserta por codigo de barras
 
-        Else
-            grdetalle.DataChanged = False
-            ToastNotification.Show(Me, "El código de barra del producto no existe", img, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            If (tbProducto.Text.Trim <> String.Empty) Then
+                Dim CodigoB As String = tbProducto.Text.Trim
+
+                Dim fila As DataRow() = dtCodigoBarras.Select("CodigoBarras='" + CodigoB + "'")
+
+
+                If (Not IsDBNull(fila)) Then
+                    If (fila.Count <= 0) Then
+
+                        ToastNotification.Show(Me, "Codigo de Barras No esta Relacionado a ningun producto = " + tbProducto.Text, img, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
+
+                        tbProducto.Text = ""
+                        tbProducto.Focus()
+                        Return
+                    Else
+                        grProductos.RemoveFilters()
+
+                        Dim ProductoId As Integer = fila(0).Item("ProductoId")
+
+                        Dim posicion As Integer = 0
+                        Dim dt As DataTable = CType(grProductos.DataSource, DataTable)
+
+                        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+                            If (dt.Rows(i).Item("Id") = ProductoId) Then
+
+                                posicion = i
+                                Exit For
+
+                            End If
+
+                        Next
+                        If (posicion >= 0) Then
+                            grProductos.Row = posicion
+
+                            seleccionarProductoCodigoBarra()
+
+
+                        End If
+
+
+                    End If
+
+                Else
+
+                    ToastNotification.Show(Me, "Ingrese Codigo de Barras Valido", img, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
+
+                End If
+
+            End If
+
+
+
+
+            'Else
+            '    grdetalle.DataChanged = False
+            '    ToastNotification.Show(Me, "El código de barra del producto no existe", img, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
         End If
 
         If e.KeyData = Keys.Escape Then
@@ -1204,6 +1288,11 @@ Public Class VenderDirecto
                     'grProductos.RemoveFilters()
                     tbProducto.Clear()
                     tbProducto.Focus()
+
+                    tbDescripcion.Text = grProductos.GetValue("NombreProducto")
+                    tbPrecio.Text = grProductos.GetValue("PrecioVenta")
+
+
                 End If
 
             Else ''Inserto Kits
@@ -1235,7 +1324,10 @@ Public Class VenderDirecto
                         CType(grdetalle.DataSource, DataTable).Rows(pos).Item("KitNombre") = grProductos.GetValue("NombreProducto")
 
                         CType(grdetalle.DataSource, DataTable).Rows(pos).Item("CantidadKit") = cantidad
+                        tbDescripcion.Text = grProductos.GetValue("NombreProducto")
+                        tbPrecio.Text = grProductos.GetValue("PrecioVenta")
 
+                        tbProducto.Text = ""
                     End If
 
                 Next
@@ -1250,7 +1342,40 @@ Public Class VenderDirecto
             If (existe) Then
                 If (grProductos.GetValue("Tipo") = 1) Then
 
-                    ToastNotification.Show(Me, "El producto ya existe en el detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+
+                    Dim PosicionP As Integer = -1
+
+                    For i As Integer = 0 To CType(grdetalle.DataSource, DataTable).Rows.Count - 1 Step 1
+
+                        If (CType(grdetalle.DataSource, DataTable).Rows(i).Item("ProductoId") = grProductos.GetValue("Id")) Then
+                            PosicionP = i
+                            Exit For
+
+                        End If
+
+                    Next
+
+                    If (PosicionP >= 0) Then
+
+                        CType(grdetalle.DataSource, DataTable).Rows(PosicionP).Item("Cantidad") = CType(grdetalle.DataSource, DataTable).Rows(PosicionP).Item("Cantidad") + 1
+                        Dim porcdesc As Double = grdetalle.GetValue("ProcentajeDescuento")
+                        Dim montodesc As Double = ((CType(grdetalle.DataSource, DataTable).Rows(PosicionP).Item("Precio") * CType(grdetalle.DataSource, DataTable).Rows(PosicionP).Item("Cantidad")) * (porcdesc / 100))
+                        CType(grdetalle.DataSource, DataTable).Rows(PosicionP).Item("MontoDescuento") = montodesc
+                        grdetalle.SetValue("MontoDescuento", montodesc)
+
+
+                        CType(grdetalle.DataSource, DataTable).Rows(PosicionP).Item("SubTotal") = CType(grdetalle.DataSource, DataTable).Rows(PosicionP).Item("Precio") * CType(grdetalle.DataSource, DataTable).Rows(PosicionP).Item("Cantidad")
+
+
+                        CType(grdetalle.DataSource, DataTable).Rows(PosicionP).Item("Total") = CType(grdetalle.DataSource, DataTable).Rows(PosicionP).Item("Precio") * CType(grdetalle.DataSource, DataTable).Rows(PosicionP).Item("Cantidad") - montodesc
+
+
+                        tbDescripcion.Text = CType(grdetalle.DataSource, DataTable).Rows(PosicionP).Item("Producto")
+                        tbPrecio.Text = CType(grdetalle.DataSource, DataTable).Rows(PosicionP).Item("Precio")
+
+                        tbProducto.Text = ""
+                    End If
+
                 Else
 
                     ToastNotification.Show(Me, "El Kit Ya Existe En el Detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
@@ -1289,6 +1414,92 @@ Public Class VenderDirecto
                     InsertarProductosSinLote(ef.CantidadTransaccion)
 
                 End If
+            End If
+
+
+        Else
+
+            Dim numiProd As Integer = FilaSelectLote.Item("Id")
+            Dim mLote As String = grProductos.GetValue("Lote")
+            Dim FechaVenc As Date = grProductos.GetValue("FechaVencimiento")
+            If (Not _fnExisteProductoConLote(numiProd, Lote, FechaVenc, 1)) Then
+                Dim ef = New Efecto
+                ef.tipo = 5
+                ef.NombreProducto = grProductos.GetValue("NombreProducto")
+                ef.StockActual = grProductos.GetValue("stock")
+                ef.TipoMovimiento = 4
+                ef.ShowDialog()
+                Dim bandera As Boolean = False
+                bandera = ef.band
+                Dim CantidadVenta As Double = 0
+                If (bandera = True) Then
+                    CantidadVenta = ef.CantidadTransaccion
+                    If (grdetalle.GetValue("ProductoId") > 0) Then
+                        _prAddDetalleVenta()
+                    End If
+                    Dim pos As Integer = -1
+                    grdetalle.Row = grdetalle.RowCount - 1
+                    _fnObtenerFilaDetalle(pos, grdetalle.GetValue("Id"), grdetalle.GetValue("Tipo"))
+
+                    If ((pos >= 0)) Then
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = numiProd
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("Producto") = FilaSelectLote.Item("NombreProducto")
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = CantidadVenta
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("Precio") = FilaSelectLote.Item("PrecioVenta")
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = FilaSelectLote.Item("PrecioVenta") * CantidadVenta
+
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("Total") = FilaSelectLote.Item("PrecioVenta") * CantidadVenta
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("PrecioCosto") = FilaSelectLote.Item("PrecioCosto")
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProductos.GetValue("Stock")
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("Lote") = mLote
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("FechaVencimiento") = FechaVenc
+
+                        tbProducto.Clear()
+                        tbProducto.Focus()
+
+                    End If
+
+                    ''''''''
+
+                    FilaSelectLote = Nothing
+                    _DesHabilitarProductos()
+                    tbProducto.Focus()
+                    _prCargarProductos()
+                End If
+
+            Else
+                If (grProductos.GetValue("Tipo") = 1) Then
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    ToastNotification.Show(Me, "El producto con el lote ya existe modifique su cantidad".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                Else
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    ToastNotification.Show(Me, "El producto con el lote ya existe modifique su cantidad".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                End If
+
+            End If
+
+
+        End If
+
+        _prCalcularPrecioTotal()
+
+    End Sub
+
+
+    Public Sub seleccionarProductoCodigoBarra()
+        If (IsNothing(FilaSelectLote)) Then
+
+
+            ''''''''''''''''''''''''
+
+
+
+            If (Lote = True) Then
+                InsertarProductosConLote()
+            Else
+
+                InsertarProductosSinLote(1)
+
             End If
 
 
@@ -1629,6 +1840,11 @@ Public Class VenderDirecto
 
 
 
+
+    End Sub
+
+    Private Sub EliminarProductoMenu_Click(sender As Object, e As EventArgs) Handles EliminarProductoMenu.Click
+        _prEliminarFila()
 
     End Sub
 End Class

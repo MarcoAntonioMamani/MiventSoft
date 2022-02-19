@@ -41,6 +41,8 @@ Public Class Tec_Login
         gs_ClaveSql = Archivo(2).Split("=")(1).Trim
         gs_NombreBD = Archivo(3).Split("=")(1).Trim
         gs_CarpetaRaiz = Archivo(4).Split("=")(1).Trim
+        gs_NombreImpresora = Archivo(5).Split("=")(1).Trim
+        gs_ImprimirDirecto = Archivo(6).Split("=")(1).Trim
     End Sub
 #End Region
     Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
