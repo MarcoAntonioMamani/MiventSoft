@@ -95,7 +95,7 @@ Partial Class VenderDirecto
         'EliminarProductoMenu
         '
         Me.EliminarProductoMenu.Name = "EliminarProductoMenu"
-        Me.EliminarProductoMenu.Size = New System.Drawing.Size(210, 24)
+        Me.EliminarProductoMenu.Size = New System.Drawing.Size(196, 24)
         Me.EliminarProductoMenu.Text = "Eliminar Producto"
         '
         'PrintDialog1

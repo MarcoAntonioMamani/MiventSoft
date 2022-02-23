@@ -521,7 +521,7 @@ Public Class Tec_VentasDetalle
     Public Sub _fnObtenerFilaDetalle(ByRef pos As Integer, numi As Integer, Tipo As Integer)
         For i As Integer = 0 To CType(grDetalle.DataSource, DataTable).Rows.Count - 1 Step 1
             Dim _numi As Integer = CType(grDetalle.DataSource, DataTable).Rows(i).Item("Id")
-            If (_numi = numi And CType(grDetalle.DataSource, DataTable).Rows(i).Item("Tipo") = Tipo) Then
+            If (_numi = numi And CType(grDetalle.DataSource, DataTable).Rows(i).Item("Tipo") = Tipo And CType(grDetalle.DataSource, DataTable).Rows(i).Item("estado") >= 0) Then
                 pos = i
                 Return
             End If

@@ -846,7 +846,7 @@ Public Class VenderDirecto
     Public Sub _fnObtenerFilaDetalle(ByRef pos As Integer, numi As Integer, Tipo As Integer)
         For i As Integer = 0 To CType(grdetalle.DataSource, DataTable).Rows.Count - 1 Step 1
             Dim _numi As Integer = CType(grdetalle.DataSource, DataTable).Rows(i).Item("Id")
-            If (_numi = numi And CType(grdetalle.DataSource, DataTable).Rows(i).Item("Tipo") = Tipo) Then
+            If (_numi = numi And CType(grdetalle.DataSource, DataTable).Rows(i).Item("Tipo") = Tipo And CType(grdetalle.DataSource, DataTable).Rows(i).Item("estado") >= 0) Then
                 pos = i
                 Return
             End If
@@ -1044,12 +1044,12 @@ Public Class VenderDirecto
             End If
             tbProducto.Focus()
         End If
-        If e.KeyData = Keys.Control + Keys.Enter Then
+        'If e.KeyData = Keys.Control + Keys.Enter Then
 
-            _HabilitarProductos()
-            Return
+        '    _HabilitarProductos()
+        '    Return
 
-        End If
+        'End If
         If (e.KeyData = Keys.Control + Keys.S) Then
             If _ValidarCampos() = False Then
                 Exit Sub
@@ -1347,7 +1347,7 @@ Public Class VenderDirecto
 
                     For i As Integer = 0 To CType(grdetalle.DataSource, DataTable).Rows.Count - 1 Step 1
 
-                        If (CType(grdetalle.DataSource, DataTable).Rows(i).Item("ProductoId") = grProductos.GetValue("Id")) Then
+                        If (CType(grdetalle.DataSource, DataTable).Rows(i).Item("ProductoId") = grProductos.GetValue("Id") And CType(grdetalle.DataSource, DataTable).Rows(i).Item("estado") >= 0) Then
                             PosicionP = i
                             Exit For
 
