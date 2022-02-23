@@ -127,6 +127,7 @@ Partial Class Tec_Principal
         Me.btnCerrarSesion = New DevComponents.DotNetBar.ButtonX()
         Me.PanelLine = New System.Windows.Forms.Panel()
         Me.imguser = New System.Windows.Forms.PictureBox()
+        Me.btnCierreCajero02 = New DevComponents.DotNetBar.Metro.MetroTileItem()
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlMenu.SuspendLayout()
         Me.SuperTabControlPanel5.SuspendLayout()
@@ -162,14 +163,14 @@ Partial Class Tec_Principal
         Me.SuperTabControlMenu.ControlBox.MenuBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControlMenu.ControlBox.MenuBox, Me.SuperTabControlMenu.ControlBox.CloseBox})
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel9)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel3)
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel2)
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel6)
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel10)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel8)
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel9)
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel6)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel1)
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel2)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel7)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel4)
         Me.SuperTabControlMenu.Dock = System.Windows.Forms.DockStyle.Fill
@@ -220,7 +221,6 @@ Partial Class Tec_Principal
         Me.Panel_Ventas.LayoutOrientation = DevComponents.DotNetBar.eOrientation.Vertical
         Me.Panel_Ventas.Location = New System.Drawing.Point(0, 0)
         Me.Panel_Ventas.Margin = New System.Windows.Forms.Padding(4)
-        Me.Panel_Ventas.MultiLine = True
         Me.Panel_Ventas.Name = "Panel_Ventas"
         Me.Panel_Ventas.Size = New System.Drawing.Size(1238, 693)
         Me.Panel_Ventas.TabIndex = 4
@@ -486,7 +486,7 @@ Partial Class Tec_Principal
         Me.ItemContainer8.ItemSpacing = 10
         Me.ItemContainer8.MultiLine = True
         Me.ItemContainer8.Name = "ItemContainer8"
-        Me.ItemContainer8.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnGastos, Me.btnCierreCajero, Me.btnCajaGeneral, Me.btnIngresoEgresosMensuales, Me.btnIngresoEgresoDetallado, Me.btnReporteCajaDetallado})
+        Me.ItemContainer8.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnGastos, Me.btnCierreCajero, Me.btnCajaGeneral, Me.btnCierreCajero02, Me.btnIngresoEgresosMensuales, Me.btnIngresoEgresoDetallado, Me.btnReporteCajaDetallado})
         '
         '
         '
@@ -932,7 +932,7 @@ Partial Class Tec_Principal
         Me.btnConfCategoria.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnConfCategoria.TileStyle.PaddingRight = 30
         Me.btnConfCategoria.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
-        Me.btnConfCategoria.TitleText = "Gestion De" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & " Categorias"
+        Me.btnConfCategoria.TitleText = " Registrar" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & " Categorias"
         Me.btnConfCategoria.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
         Me.btnConfCategoria.TitleTextColor = System.Drawing.Color.White
         '
@@ -1097,9 +1097,9 @@ Partial Class Tec_Principal
         '
         Me.SuperTabControlPanel9.Controls.Add(Me.Panel_Distribucion)
         Me.SuperTabControlPanel9.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel9.Location = New System.Drawing.Point(213, 0)
+        Me.SuperTabControlPanel9.Location = New System.Drawing.Point(220, 0)
         Me.SuperTabControlPanel9.Name = "SuperTabControlPanel9"
-        Me.SuperTabControlPanel9.Size = New System.Drawing.Size(1245, 693)
+        Me.SuperTabControlPanel9.Size = New System.Drawing.Size(1238, 693)
         Me.SuperTabControlPanel9.TabIndex = 0
         Me.SuperTabControlPanel9.TabItem = Me.tab_distribucion
         '
@@ -1124,7 +1124,7 @@ Partial Class Tec_Principal
         Me.Panel_Distribucion.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel_Distribucion.MultiLine = True
         Me.Panel_Distribucion.Name = "Panel_Distribucion"
-        Me.Panel_Distribucion.Size = New System.Drawing.Size(1245, 693)
+        Me.Panel_Distribucion.Size = New System.Drawing.Size(1238, 693)
         Me.Panel_Distribucion.TabIndex = 7
         Me.Panel_Distribucion.Text = "mtp2Logistica"
         '
@@ -1279,9 +1279,9 @@ Partial Class Tec_Principal
         '
         Me.SuperTabControlPanel6.Controls.Add(Me.Panel_ingresos)
         Me.SuperTabControlPanel6.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel6.Location = New System.Drawing.Point(213, 0)
+        Me.SuperTabControlPanel6.Location = New System.Drawing.Point(220, 0)
         Me.SuperTabControlPanel6.Name = "SuperTabControlPanel6"
-        Me.SuperTabControlPanel6.Size = New System.Drawing.Size(1245, 690)
+        Me.SuperTabControlPanel6.Size = New System.Drawing.Size(1238, 693)
         Me.SuperTabControlPanel6.TabIndex = 6
         Me.SuperTabControlPanel6.TabItem = Me.tab_ingresoproducto
         '
@@ -1306,7 +1306,7 @@ Partial Class Tec_Principal
         Me.Panel_ingresos.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel_ingresos.MultiLine = True
         Me.Panel_ingresos.Name = "Panel_ingresos"
-        Me.Panel_ingresos.Size = New System.Drawing.Size(1245, 690)
+        Me.Panel_ingresos.Size = New System.Drawing.Size(1238, 693)
         Me.Panel_ingresos.TabIndex = 6
         Me.Panel_ingresos.Text = "mtp2Logistica"
         '
@@ -1601,9 +1601,9 @@ Partial Class Tec_Principal
         '
         Me.SuperTabControlPanel2.Controls.Add(Me.Panel_Almacen)
         Me.SuperTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel2.Location = New System.Drawing.Point(213, 0)
+        Me.SuperTabControlPanel2.Location = New System.Drawing.Point(220, 0)
         Me.SuperTabControlPanel2.Name = "SuperTabControlPanel2"
-        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1245, 690)
+        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1238, 693)
         Me.SuperTabControlPanel2.TabIndex = 2
         Me.SuperTabControlPanel2.TabItem = Me.tab_almacenes
         '
@@ -1628,7 +1628,7 @@ Partial Class Tec_Principal
         Me.Panel_Almacen.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel_Almacen.MultiLine = True
         Me.Panel_Almacen.Name = "Panel_Almacen"
-        Me.Panel_Almacen.Size = New System.Drawing.Size(1245, 690)
+        Me.Panel_Almacen.Size = New System.Drawing.Size(1238, 693)
         Me.Panel_Almacen.TabIndex = 7
         Me.Panel_Almacen.Text = "mtp2Logistica"
         '
@@ -2210,6 +2210,29 @@ Partial Class Tec_Principal
         Me.imguser.TabIndex = 1
         Me.imguser.TabStop = False
         '
+        'btnCierreCajero02
+        '
+        Me.btnCierreCajero02.Image = Global.TeVendo.My.Resources.Resources.iconcierre
+        Me.btnCierreCajero02.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnCierreCajero02.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnCierreCajero02.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnCierreCajero02.Name = "btnCierreCajero02"
+        Me.btnCierreCajero02.SymbolColor = System.Drawing.Color.Black
+        Me.btnCierreCajero02.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnCierreCajero02.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btnCierreCajero02.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnCierreCajero02.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
+        Me.btnCierreCajero02.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnCierreCajero02.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnCierreCajero02.TileStyle.PaddingRight = 20
+        Me.btnCierreCajero02.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnCierreCajero02.TitleText = "Realizar" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Cierre Caja"
+        Me.btnCierreCajero02.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnCierreCajero02.TitleTextColor = System.Drawing.Color.White
+        '
         'Tec_Principal
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -2345,4 +2368,5 @@ Partial Class Tec_Principal
     Friend WithEvents tab_InvProductos As DevComponents.DotNetBar.SuperTabItem
     Friend WithEvents PanelBuscador As Panel
     Friend WithEvents btVentVentaDirecto As DevComponents.DotNetBar.Metro.MetroTileItem
+    Friend WithEvents btnCierreCajero02 As DevComponents.DotNetBar.Metro.MetroTileItem
 End Class

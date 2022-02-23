@@ -305,6 +305,21 @@ Public Class Tec_Roles
     Private Sub _prCargarGridModulos()
         Dim dt As New DataTable
         dt = L_prLibreriaDetalleGeneral(1)
+
+        Dim dt2 As DataTable = dt.Copy
+        dt2.Rows.Clear()
+
+
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+            If (dt.Rows(i).Item("cnnum") <> 5 And dt.Rows(i).Item("cnnum") <> 4071) Then
+
+                dt2.ImportRow(dt.Rows(i))
+            End If
+
+        Next
+        dt = dt2.Copy
+
         dt.DefaultView.Table.DefaultView.Sort = "cnnum asc"
         grModulos.DataSource = dt
         grModulos.RetrieveStructure()
