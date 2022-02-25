@@ -209,6 +209,12 @@
     <Compile Include="Caja\Tec_CierreCajaCajero.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Caja\Tec_IngresoEgresoPorTipo.Designer.vb">
+      <DependentUpon>Tec_IngresoEgresoPorTipo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Caja\Tec_IngresoEgresoPorTipo.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Caja\Tec_Kits.Designer.vb">
       <DependentUpon>Tec_Kits.vb</DependentUpon>
     </Compile>
@@ -836,6 +842,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Caja\Tec_CierreCajaCajero.resx">
       <DependentUpon>Tec_CierreCajaCajero.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Caja\Tec_IngresoEgresoPorTipo.resx">
+      <DependentUpon>Tec_IngresoEgresoPorTipo.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Caja\Tec_Kits.resx">
       <DependentUpon>Tec_Kits.vb</DependentUpon>
