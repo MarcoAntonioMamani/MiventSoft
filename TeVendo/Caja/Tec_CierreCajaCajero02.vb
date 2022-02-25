@@ -1455,7 +1455,47 @@ Public Class Tec_CierreCajaCajero02
 
 
     End Sub
+    Public Sub generarReporte(Id As Integer)
+        Dim dt As DataTable = L_prReporteCierreCajero(Id)
+        If Not IsNothing(P_Global.Visualizador) Then
+            P_Global.Visualizador.Close()
+        End If
 
+
+        P_Global.Visualizador = New Visualizador
+
+        Dim objrep As New ReporteCierreCaja
+
+
+        objrep.SetDataSource(dt)
+
+        P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+        P_Global.Visualizador.CrGeneral.Zoom(110)
+        P_Global.Visualizador.Show() 'Comentar
+        ''P_Global.Visualizador.BringToFront() 'Comentar
+    End Sub
+
+    Private Sub btnImprimir_Click(sender As Object, e As EventArgs) Handles btnImprimir.Click
+        If (tbCodigo.Text.Trim <> String.Empty) Then
+
+            generarReporte(tbCodigo.Text)
+
+
+        End If
+
+
+
+
+    End Sub
+
+    Private Sub ImprimirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ImprimirToolStripMenuItem.Click
+        If (tbCodigo.Text.Trim <> String.Empty) Then
+
+            generarReporte(tbCodigo.Text)
+
+
+        End If
+    End Sub
 
 #End Region
 End Class

@@ -559,6 +559,12 @@
     <Compile Include="Programas Principales\Tec_Principal.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ReporteSmartApps\ReporteCierreCaja.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteCierreCaja.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ReporteSmartApps\Recibo.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1022,6 +1028,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Programas Principales\Tec_Principal.resx">
       <DependentUpon>Tec_Principal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\ReporteCierreCaja.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteCierreCaja.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\Recibo.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
