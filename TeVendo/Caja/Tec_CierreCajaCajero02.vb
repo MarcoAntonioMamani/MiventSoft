@@ -3,6 +3,7 @@ Imports Negocio.AccesoLogica
 Imports DevComponents.DotNetBar
 Imports Janus.Windows.GridEX
 Imports System.IO
+Imports System.Drawing.Printing
 Public Class Tec_CierreCajaCajero02
 #Region "Atributos"
     Public _nameButton As String
@@ -1469,9 +1470,33 @@ Public Class Tec_CierreCajaCajero02
 
         objrep.SetDataSource(dt)
 
-        P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
-        P_Global.Visualizador.CrGeneral.Zoom(110)
-        P_Global.Visualizador.Show() 'Comentar
+
+        If (gs_ImprimirDirecto.Equals("Si")) Then
+            Dim pd As New PrintDocument()
+
+            'Dim _Ds3 = L_ObtenerRutaImpresora("2") ' Datos de Impresion de Facturación
+            Dim NombreImpresora As String = ""
+            pd.PrinterSettings.PrinterName = gs_NombreImpresora
+
+            If (Not pd.PrinterSettings.IsValid) Then
+                ToastNotification.Show(Me, "La Impresora ".ToUpper + NombreImpresora + Chr(13) + "No Existe".ToUpper,
+                                      img, 5 * 1000,
+                                       eToastGlowColor.Blue, eToastPosition.BottomRight)
+            Else
+                objrep.PrintOptions.PrinterName = NombreImpresora
+
+                objrep.PrintToPrinter(1, True, 0, 0)
+            End If
+
+
+        Else
+            P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+            P_Global.Visualizador.CrGeneral.Zoom(110)
+            P_Global.Visualizador.Show() 'Comentar
+        End If
+
+
+
         ''P_Global.Visualizador.BringToFront() 'Comentar
     End Sub
 
