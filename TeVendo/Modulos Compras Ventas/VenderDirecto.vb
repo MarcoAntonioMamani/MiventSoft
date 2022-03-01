@@ -506,6 +506,32 @@ Public Class VenderDirecto
 
             End If
 
+            Dim dt As DataTable = L_prListarGeneral("MAM_CierreCajero")
+
+            Dim fila As DataRow() = dt.Select("SucursalId=" + Str(1) + " and EstadoCaja=1")
+            If (Not IsDBNull(fila)) Then
+                If (fila.Count <= 0) Then
+
+                    ToastNotification.Show(Me, "No Es Posible Hacer EL Movimiento Por que no Existe Caja Chica con Estado Abierto Para Esta Fecha =" + Now.Date.ToString("dd/MM/yyy"), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                    tbProducto.Focus()
+
+                    Return False
+                Else
+                    Dim bandera As Boolean = False
+                    For Each item As Object In fila
+                        If (item("Fecha") = Now.Date) Then
+                            bandera = True
+                        End If
+                    Next
+                    If (bandera = False) Then
+                        ToastNotification.Show(Me, "No Es Posible Hacer EL Movimiento Por que no Existe Caja Chica con Estado Abierto Para Esta Fecha =" + Now.Date.ToString("dd/MM/yyy"), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                        tbProducto.Focus()
+
+                        Return False
+                    End If
+                End If
+            End If
+
             'Validación para controlar caducidad de Dosificacion
 
 
