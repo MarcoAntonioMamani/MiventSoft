@@ -1425,25 +1425,36 @@ Public Class VenderDirecto
             If (Lote = True) Then
                 InsertarProductosConLote()
             Else
-                Dim ef = New Efecto
-                ef.tipo = 5
-                ef.NombreProducto = grProductos.GetValue("NombreProducto")
-                ef.StockActual = grProductos.GetValue("stock")
 
-                ef.TipoMovimiento = 4
+                Dim existe As Boolean = _fnExisteProducto(grProductos.GetValue("Id"), grProductos.GetValue("Tipo"))
+                If ((Not existe)) Then
+                    Dim ef = New Efecto
+                    ef.tipo = 5
+                    ef.NombreProducto = grProductos.GetValue("NombreProducto")
+                    ef.StockActual = grProductos.GetValue("stock")
+
+                    ef.TipoMovimiento = 4
 
 
-                ef.ShowDialog()
-                Dim bandera As Boolean = False
-                bandera = ef.band
-                If (bandera = True) Then
-                    InsertarProductosSinLote(ef.CantidadTransaccion)
+                    ef.ShowDialog()
+                    Dim bandera As Boolean = False
+                    bandera = ef.band
+                    If (bandera = True) Then
+                        InsertarProductosSinLote(ef.CantidadTransaccion)
 
+                    End If
+
+                Else
+                    InsertarProductosSinLote(1)
                 End If
+
+
+
+
             End If
 
 
-        Else
+                Else
 
             Dim numiProd As Integer = FilaSelectLote.Item("Id")
             Dim mLote As String = grProductos.GetValue("Lote")
