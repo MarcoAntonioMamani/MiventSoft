@@ -58,6 +58,8 @@ Public Class Efecto
     Public CategoriaPrecioSelected As Integer = 0
     Public TableCategoria As DataTable
 
+    Public TipGrabado As Integer = 0
+
     Private Sub Efecto_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.WindowState = FormWindowState.Maximized
 
@@ -176,6 +178,7 @@ Public Class Efecto
             MontoDolares = frmAyuda.MontoDolares
             MontoTarjeta = frmAyuda.MontoTarjeta
             MontoTransferencia = frmAyuda.MontoTransferencia
+            TipGrabado = frmAyuda.TipoGrabado
 
             band = True
             Me.Close()

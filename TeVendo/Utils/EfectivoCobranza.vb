@@ -10,6 +10,8 @@ Public Class EfectivoCobranza
     Public Bandera As Boolean = False
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
 
+    Public TipoGrabado As Integer = 0  '' 0= Grabar sin imprimir   1= Grabar con impresion
+
     Private Sub EfectivoCobranza_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         tbMontoBs.Value = MontoBs
         tbMontoDolar.Value = MontoDolares
@@ -147,6 +149,7 @@ Public Class EfectivoCobranza
             MontoTarjeta = tbTarjeta.Value
             MontoTransferencia = tbTransferencia.Value
             Bandera = True
+            TipoGrabado = 0
             Me.Close()
 
 
@@ -181,5 +184,26 @@ Public Class EfectivoCobranza
 
     Private Sub tbTransferencia_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles tbTransferencia.Validating
 
+    End Sub
+
+    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
+        If (tbTotalPagado.Value >= tbTotalVenta.Value) Then
+
+
+            MontoBs = tbMontoBs.Value
+            MontoDolares = tbMontoDolar.Value
+            MontoTarjeta = tbTarjeta.Value
+            MontoTransferencia = tbTransferencia.Value
+            Bandera = True
+            TipoGrabado = 1
+            Me.Close()
+
+
+        Else
+            ToastNotification.Show(Me, "El Monto Pagado Es Menor Al Monto Total De La Venta", img, 5000, eToastGlowColor.Red, eToastPosition.BottomRight)
+            tbMontoBs.Focus()
+            Return
+
+        End If
     End Sub
 End Class

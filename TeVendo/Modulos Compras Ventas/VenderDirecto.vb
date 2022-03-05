@@ -366,7 +366,11 @@ Public Class VenderDirecto
 
                 If res Then
 
-                    P_GenerarReporte(Id)
+
+                    If (ef.TipGrabado = 1) Then
+                        P_GenerarReporte(Id)
+                    End If
+
                     ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + Id + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                     FilaSelectLote = Nothing
 
@@ -1154,6 +1158,19 @@ Public Class VenderDirecto
             grdetalle.Focus()
 
         End If
+
+        If e.KeyData = Keys.Control + Keys.B Then
+            Dim FRow As GridEXRow = grProductos.FilterRow
+
+
+            If (Not IsDBNull(FRow)) Then
+                grProductos.Focus()
+                grProductos.Row = -2
+                grProductos.Col = grProductos.RootTable.Columns("NombreProducto").Index
+            End If
+
+
+        End If
     End Sub
 
     Private Sub grProductos_DoubleClick(sender As Object, e As EventArgs) Handles grProductos.DoubleClick
@@ -1617,6 +1634,12 @@ Public Class VenderDirecto
                 seleccionarProducto()
 
             End If
+        End If
+        If (e.KeyData = Keys.Control + Keys.H) Then
+
+
+
+            tbProducto.Focus()
         End If
         If e.KeyData = Keys.Escape Then
 

@@ -51,6 +51,7 @@ Partial Class EfectivoCobranza
         Me.tbTotalVenta = New DevComponents.Editors.DoubleInput()
         Me.LabelX18 = New DevComponents.DotNetBar.LabelX()
         Me.Highlighter2 = New DevComponents.DotNetBar.Validator.Highlighter()
+        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.Panel14.SuspendLayout()
         Me.Panel15.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -160,6 +161,7 @@ Partial Class EfectivoCobranza
         'GroupBox1
         '
         Me.GroupBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.GroupBox1.Controls.Add(Me.ButtonX1)
         Me.GroupBox1.Controls.Add(Me.btnGuardar)
         Me.GroupBox1.Controls.Add(Me.btnSalir)
         Me.GroupBox1.Controls.Add(Me.tbCambio)
@@ -186,7 +188,7 @@ Partial Class EfectivoCobranza
         Me.btnGuardar.Font = New System.Drawing.Font("Arial", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnGuardar.Image = Global.TeVendo.My.Resources.Resources.iconguardar
         Me.btnGuardar.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.btnGuardar.Location = New System.Drawing.Point(130, 142)
+        Me.btnGuardar.Location = New System.Drawing.Point(10, 142)
         Me.btnGuardar.Margin = New System.Windows.Forms.Padding(4)
         Me.btnGuardar.Name = "btnGuardar"
         Me.btnGuardar.Size = New System.Drawing.Size(129, 54)
@@ -194,7 +196,7 @@ Partial Class EfectivoCobranza
         Me.btnGuardar.Symbol = "59500"
         Me.btnGuardar.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Material
         Me.btnGuardar.TabIndex = 6
-        Me.btnGuardar.Text = "Continuar"
+        Me.btnGuardar.Text = "Grabar" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Venta"
         Me.btnGuardar.TextColor = System.Drawing.Color.Black
         '
         'btnSalir
@@ -204,8 +206,8 @@ Partial Class EfectivoCobranza
         Me.btnSalir.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
         Me.btnSalir.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSalir.Image = Global.TeVendo.My.Resources.Resources.atras
-        Me.btnSalir.ImageFixedSize = New System.Drawing.Size(30, 30)
-        Me.btnSalir.Location = New System.Drawing.Point(266, 142)
+        Me.btnSalir.ImageFixedSize = New System.Drawing.Size(20, 20)
+        Me.btnSalir.Location = New System.Drawing.Point(283, 142)
         Me.btnSalir.Name = "btnSalir"
         Me.btnSalir.Size = New System.Drawing.Size(129, 54)
         Me.btnSalir.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
@@ -555,6 +557,24 @@ Partial Class EfectivoCobranza
         Me.Highlighter2.CustomHighlightColors = New System.Drawing.Color() {System.Drawing.Color.Cyan}
         Me.Highlighter2.FocusHighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Orange
         '
+        'ButtonX1
+        '
+        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX1.BackColor = System.Drawing.Color.Cyan
+        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.ButtonX1.Font = New System.Drawing.Font("Arial", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX1.Image = Global.TeVendo.My.Resources.Resources.iconguardar
+        Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.ButtonX1.Location = New System.Drawing.Point(147, 142)
+        Me.ButtonX1.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX1.Name = "ButtonX1"
+        Me.ButtonX1.Size = New System.Drawing.Size(129, 54)
+        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX1.Symbol = ""
+        Me.ButtonX1.TabIndex = 69
+        Me.ButtonX1.Text = "Grabar" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Imprimir"
+        Me.ButtonX1.TextColor = System.Drawing.Color.Black
+        '
         'EfectivoCobranza
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -617,4 +637,5 @@ Partial Class EfectivoCobranza
     Friend WithEvents tbTotalVenta As DevComponents.Editors.DoubleInput
     Friend WithEvents lbDolar As DevComponents.DotNetBar.LabelX
     Friend WithEvents chkMontoBs As DevComponents.DotNetBar.Controls.CheckBoxX
+    Protected WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
 End Class
