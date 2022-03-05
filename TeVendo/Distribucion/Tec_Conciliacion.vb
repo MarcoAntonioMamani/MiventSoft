@@ -331,6 +331,7 @@ Public Class Tec_Conciliacion
                 '' Aqui estamos agregando la columna salida
                 Dim idSalida As Integer = dtIdSalidas.Rows(i).Item("IdSalida")
                 dt.Columns.Add(Str(dtIdSalidas.Rows(i).Item("IdSalida")))
+                dt.Columns.Add("F_" + Str(Str(i).Trim))
 
                 For j As Integer = 0 To dt.Rows.Count - 1 Step 1   ''Aqui recorremos el Datatable Principal
 
@@ -340,8 +341,10 @@ Public Class Tec_Conciliacion
                     If (dtSalProducto.Count = 1) Then
 
                         dt.Rows(j).Item(Str(idSalida)) = dtSalProducto(0).Item("Cantidad")
+                        dt.Rows(j).Item("F_" + Str(i)) = dtSalProducto(0).Item("Cantidad")
                     Else
                         dt.Rows(j).Item(Str(idSalida)) = Nothing
+                        dt.Rows(j).Item(Str(i)) = 0
                     End If
 
                 Next
@@ -507,6 +510,11 @@ Public Class Tec_Conciliacion
                 .Caption = "Sal.#0".Trim + Str(i + 1).Trim
                 .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
                 .Visible = True
+            End With
+
+            With grDetalle.RootTable.Columns("F_" + Str(i))
+
+                .Visible = False
             End With
 
         Next
