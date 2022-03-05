@@ -21,12 +21,17 @@ Public Class Tec_VentasDetalle
 
 
     Public Sub IniciarTodod()
+
+        P_Global._prCargarComboGenerico(cbPrecios, L_prListaCategoriasPrecios(), "Id", "Codigo", "Descripcion", "CategoriaPrecio")
         CargarProductosVentas()
+
         _prCargarProductos()
 
         _habilitarFocus()
         ActualizarProductos()
         tbProducto.Focus()
+
+
     End Sub
     Private Sub Tec_DespachoDetalle_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         IniciarTodod()
@@ -46,9 +51,9 @@ Public Class Tec_VentasDetalle
         End If
 
         If (VentaDirecta = 1) Then
-            dt = L_prListarProductosVentasConciliaciones(SucursalId, IdCliente, DistribuidorId)  ''1=Almacen
+            dt = L_prListarProductosVentasConciliaciones(SucursalId, IdCliente, DistribuidorId, cbPrecios.Value)  ''1=Almacen
         Else
-            dt = L_prListarProductosVentas(SucursalId, IdCliente)  ''1=Almacen
+            dt = L_prListarProductosVentas(SucursalId, IdCliente, cbPrecios.Value)  ''1=Almacen
         End If
 
 
@@ -115,7 +120,8 @@ Public Class Tec_VentasDetalle
         End With
         With grProducto.RootTable.Columns("PrecioVenta")
             .Width = 150
-            .Visible = False
+            .Visible = True
+            .Caption = "Precio"
             .FormatString = "0.00"
         End With
         With grProducto
@@ -1329,5 +1335,9 @@ salirIf:
         btnProductos.Visible = False
         FilaSelectLote = Nothing
         _HabilitarProductos()
+    End Sub
+
+    Private Sub cbPrecios_ValueChanged(sender As Object, e As EventArgs) Handles cbPrecios.ValueChanged
+        _prCargarProductos()
     End Sub
 End Class
