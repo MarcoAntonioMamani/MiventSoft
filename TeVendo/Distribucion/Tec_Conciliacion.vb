@@ -331,7 +331,7 @@ Public Class Tec_Conciliacion
                 '' Aqui estamos agregando la columna salida
                 Dim idSalida As Integer = dtIdSalidas.Rows(i).Item("IdSalida")
                 dt.Columns.Add(Str(dtIdSalidas.Rows(i).Item("IdSalida")))
-                dt.Columns.Add("F_" + Str(Str(i).Trim))
+                dt.Columns.Add("F_" + Str(i).Trim)
 
                 For j As Integer = 0 To dt.Rows.Count - 1 Step 1   ''Aqui recorremos el Datatable Principal
 
@@ -341,10 +341,10 @@ Public Class Tec_Conciliacion
                     If (dtSalProducto.Count = 1) Then
 
                         dt.Rows(j).Item(Str(idSalida)) = dtSalProducto(0).Item("Cantidad")
-                        dt.Rows(j).Item("F_" + Str(i)) = dtSalProducto(0).Item("Cantidad")
+                        dt.Rows(j).Item("F_" + Str(i).Trim) = dtSalProducto(0).Item("Cantidad")
                     Else
                         dt.Rows(j).Item(Str(idSalida)) = Nothing
-                        dt.Rows(j).Item(Str(i)) = 0
+                        dt.Rows(j).Item(Str(i).Trim) = 0
                     End If
 
                 Next
@@ -512,7 +512,7 @@ Public Class Tec_Conciliacion
                 .Visible = True
             End With
 
-            With grDetalle.RootTable.Columns("F_" + Str(i))
+            With grDetalle.RootTable.Columns("F_" + Str(i).Trim)
 
                 .Visible = False
             End With
@@ -659,6 +659,8 @@ Public Class Tec_Conciliacion
 
             Res = ModificarConciliacion(tbCodigo.Text, tbFechaConciliacion.Value.ToString("yyyy/MM/dd"), IIf(swEstado.Value = True, 1, 0), tbDetalle.Text, CType(grDetalle.DataSource, DataTable).DefaultView.ToTable(False, "ProductoId", "TotalSalida", "TotalDevoluciones", "TotalEntregado", "Diferencia"))
             If Res Then
+
+                GenerarReporte(tbCodigo.Text)
 
                 ToastNotification.Show(Me, "Conciliación # ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                 _PSalirRegistro()
@@ -916,6 +918,138 @@ Public Class Tec_Conciliacion
         End If
     End Sub
 
+    Private Sub btnImprimir_Click(sender As Object, e As EventArgs) Handles btnImprimir.Click
+
+        If (_MNuevo = False) Then
+            GenerarReporte(tbCodigo.Text)
+        End If
+
+
+    End Sub
+
+    Public Sub GenerarReporte(id As String)
+        Dim dtSalidas = ListarTodasSalidas(id)
+        Dim dtIdSalidas = GenerarIdSalidas(dtSalidas)
+        Dim n As Integer = 0
+        n = dtSalidas.Rows(0).Item("CantidadSalidas")
+
+        Dim dtDatos As DataTable
+
+        If (n = 1) Then
+            dtDatos = CType(grDetalle.DataSource, DataTable).DefaultView.ToTable(False, "ProductoId", "NombreProducto", "F_0".Trim, "TotalSalida", "TotalDevoluciones", "TotalDevolucionesCalculado", "TotalEntregado", "Diferencia")
+
+
+            If Not IsNothing(P_Global.Visualizador) Then
+                P_Global.Visualizador.Close()
+            End If
+
+            P_Global.Visualizador = New Visualizador
+
+            Dim objrep As New Reporte_Conciliacion01
+
+            objrep.SetDataSource(dtDatos)
+            objrep.SetParameterValue("FechaConciliacion", tbFechaConciliacion.Value.ToString("dd/MM/yyyy"))
+            objrep.SetParameterValue("Distribuidor", tbPersonal.Text)
+            objrep.SetParameterValue("Detalle", tbDetalle.Text)
+            objrep.SetParameterValue("NumeroConciliacion", id)
+            P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+            P_Global.Visualizador.CrGeneral.Zoom(90)
+            P_Global.Visualizador.Show() 'Comentar
+            ''P_Global.Visualizador.BringToFront() 'Comentar
+
+        End If
+        If (n = 2) Then
+            dtDatos = CType(grDetalle.DataSource, DataTable).DefaultView.ToTable(False, "ProductoId", "NombreProducto", "F_0", "F_1", "TotalSalida", "TotalDevoluciones", "TotalDevolucionesCalculado", "TotalEntregado", "Diferencia")
+
+            If Not IsNothing(P_Global.Visualizador) Then
+                P_Global.Visualizador.Close()
+            End If
+
+            P_Global.Visualizador = New Visualizador
+
+            Dim objrep As New Reporte_conciliacion02
+
+            objrep.SetDataSource(dtDatos)
+            objrep.SetParameterValue("FechaConciliacion", tbFechaConciliacion.Value.ToString("dd/MM/yyyy"))
+            objrep.SetParameterValue("Distribuidor", tbPersonal.Text)
+            objrep.SetParameterValue("Detalle", tbDetalle.Text)
+            objrep.SetParameterValue("NumeroConciliacion", id)
+            P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+            P_Global.Visualizador.CrGeneral.Zoom(90)
+            P_Global.Visualizador.Show() 'Comentar
+            ''P_Global.Visualizador.BringToFront() 'Comentar
+
+        End If
+        If (n = 3) Then
+            dtDatos = CType(grDetalle.DataSource, DataTable).DefaultView.ToTable(False, "ProductoId", "NombreProducto", "F_0", "F_1", "F_2", "TotalSalida", "TotalDevoluciones", "TotalDevolucionesCalculado", "TotalEntregado", "Diferencia")
+
+            If Not IsNothing(P_Global.Visualizador) Then
+                P_Global.Visualizador.Close()
+            End If
+
+            P_Global.Visualizador = New Visualizador
+
+            Dim objrep As New ReporteConciliacion03
+
+            objrep.SetDataSource(dtDatos)
+            objrep.SetParameterValue("FechaConciliacion", tbFechaConciliacion.Value.ToString("dd/MM/yyyy"))
+            objrep.SetParameterValue("Distribuidor", tbPersonal.Text)
+            objrep.SetParameterValue("Detalle", tbDetalle.Text)
+            objrep.SetParameterValue("NumeroConciliacion", id)
+            P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+            P_Global.Visualizador.CrGeneral.Zoom(90)
+            P_Global.Visualizador.Show() 'Comentar
+            ''P_Global.Visualizador.BringToFront() 'Comentar
+
+        End If
+        If (n = 4) Then
+            dtDatos = CType(grDetalle.DataSource, DataTable).DefaultView.ToTable(False, "ProductoId", "NombreProducto", "F_0", "F_1", "F_2", "F_3", "TotalSalida", "TotalDevoluciones", "TotalDevolucionesCalculado", "TotalEntregado", "Diferencia")
+
+            If Not IsNothing(P_Global.Visualizador) Then
+                P_Global.Visualizador.Close()
+            End If
+
+            P_Global.Visualizador = New Visualizador
+
+            Dim objrep As New ReporteConciliacion04
+
+            objrep.SetDataSource(dtDatos)
+            objrep.SetParameterValue("FechaConciliacion", tbFechaConciliacion.Value.ToString("dd/MM/yyyy"))
+            objrep.SetParameterValue("Distribuidor", tbPersonal.Text)
+            objrep.SetParameterValue("Detalle", tbDetalle.Text)
+            objrep.SetParameterValue("NumeroConciliacion", id)
+            P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+            P_Global.Visualizador.CrGeneral.Zoom(90)
+            P_Global.Visualizador.Show() 'Comentar
+            ''P_Global.Visualizador.BringToFront() 'Comentar
+
+        End If
+        If (n = 5) Then
+            dtDatos = CType(grDetalle.DataSource, DataTable).DefaultView.ToTable(False, "ProductoId", "NombreProducto", "F_0", "F_1", "F_2", "F_3", "F_4", "TotalSalida", "TotalDevoluciones", "TotalDevolucionesCalculado", "TotalEntregado", "Diferencia")
+
+            If Not IsNothing(P_Global.Visualizador) Then
+                P_Global.Visualizador.Close()
+            End If
+
+            P_Global.Visualizador = New Visualizador
+
+            Dim objrep As New ReporteConciliacion05
+
+            objrep.SetDataSource(dtDatos)
+            objrep.SetParameterValue("FechaConciliacion", tbFechaConciliacion.Value.ToString("dd/MM/yyyy"))
+            objrep.SetParameterValue("Distribuidor", tbPersonal.Text)
+            objrep.SetParameterValue("Detalle", tbDetalle.Text)
+            objrep.SetParameterValue("NumeroConciliacion", id)
+            P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+            P_Global.Visualizador.CrGeneral.Zoom(90)
+            P_Global.Visualizador.Show() 'Comentar
+            ''P_Global.Visualizador.BringToFront() 'Comentar
+
+        End If
+
+
+
+    End Sub
 
 
 
