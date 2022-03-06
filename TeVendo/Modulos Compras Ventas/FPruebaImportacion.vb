@@ -2,7 +2,7 @@
 Imports System.IO
 Public Class FPruebaImportacion
     Private Sub FPruebaImportacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        L_prAbrirConexion("DESKTOP-SB2Q2F5\SQLSERVER2017", "sa", "123", "MinventSoftRoteland")
+        L_prAbrirConexion("DESKTOP-SB2Q2F5\SQLSERVER2017", "sa", "123", "MinventSoftFarmacia")
     End Sub
 
     Public Shared Function ExcelToDatatable(ByVal _xlPath As String, ByVal _namePage As String) As System.Data.DataTable
@@ -40,7 +40,9 @@ Public Class FPruebaImportacion
     End Function
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        importarExcel()
+        'importarExcel()
+
+        importarExcelClientes()
     End Sub
     Sub importarExcel()
         Dim myFileDialog As New OpenFileDialog()
@@ -76,45 +78,45 @@ Public Class FPruebaImportacion
             Dim id As String = ""
 
             Dim dtCodigoBarras = ListProductoCodigoBarra(-1)
-            Dim CodigoBarras As String = dt.Rows(i).Item("codigobarra")
-            Dim vectoraux() As String
-            vectoraux = CodigoBarras.Trim.Split("_")
+            'Dim CodigoBarras As String = dt.Rows(i).Item("codigobarra")
+            'Dim vectoraux() As String
+            'vectoraux = CodigoBarras.Trim.Split("_")
 
-            Dim pos As Integer = 0
-            For Each item As String In vectoraux
-                Console.WriteLine("'{0}'", item)
-                If (item.Trim <> String.Empty) Then
-                    dtCodigoBarras.Rows.Add(pos + 1, 0, item.Trim, 0)
-                    pos += 1
-                End If
+            'Dim pos As Integer = 0
+            'For Each item As String In vectoraux
+            '    Console.WriteLine("'{0}'", item)
+            '    If (item.Trim <> String.Empty) Then
+            '        dtCodigoBarras.Rows.Add(pos + 1, 0, item.Trim, 0)
+            '        pos += 1
+            '    End If
 
-            Next
+            'Next
 
-            Res = L_prProductoInsertar(id, "", "", dt.Rows(i).Item("producto"), "", dt.Rows(i).Item("compra"), 1, 1, 1, 1, 10, 13, 17, 20, 22, dt.Rows(i).Item("venta"), TablaImagenes, dtCodigoBarras)
+            Res = L_prProductoInsertar(id, dt.Rows(i).Item("codigoExterno"), "", dt.Rows(i).Item("descripcion"), dt.Rows(i).Item("detalle"), dt.Rows(i).Item("precioVenta"), 1, 1, 1, 1, 10, 13, 17, 20, 22, dt.Rows(i).Item("PrecioPronto"), TablaImagenes, dtCodigoBarras)
 
-            dt.Rows(i).Item("IdSistema") = id
+            'dt.Rows(i).Item("IdSistema") = id
         Next
 
 
-        ''''''' Tienda   '''''''''''''''
-        Dim dtdetalle As DataTable = L_prListarDetalleMovimiento(-1)
-        'a.id , a.MovimientoId, a.ProductoId, b.NombreProducto  As Producto, a.Cantidad,
-        '    a.Lote, a.FechaVencimiento, CAST('' as image ) as img, 1 as estado 
-        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+        '''''''' Tienda   '''''''''''''''
+        'Dim dtdetalle As DataTable = L_prListarDetalleMovimiento(-1)
+        ''a.id , a.MovimientoId, a.ProductoId, b.NombreProducto  As Producto, a.Cantidad,
+        ''    a.Lote, a.FechaVencimiento, CAST('' as image ) as img, 1 as estado 
+        'For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
-            If (dt.Rows(i).Item("stock") > 0) Then
+        '    If (dt.Rows(i).Item("stock") > 0) Then
 
-                _prAddDetalleVenta(dtdetalle)
+        '        _prAddDetalleVenta(dtdetalle)
 
-                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("ProductoId") = dt.Rows(i).Item("IdSistema")
-                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("Cantidad") = dt.Rows(i).Item("stock")
-            End If
+        '        dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("ProductoId") = dt.Rows(i).Item("IdSistema")
+        '        dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("Cantidad") = dt.Rows(i).Item("stock")
+        '    End If
 
 
-        Next
+        'Next
 
-        L_prMovimientoInsertar("", 4, 1, "Inventario Inicial Migrado",
-                                         1, Now.Date.ToString("yyyy/MM/dd"), dtdetalle, 1, 0)
+        'L_prMovimientoInsertar("", 4, 1, "Inventario Inicial Migrado",
+        '                                 1, Now.Date.ToString("yyyy/MM/dd"), dtdetalle, 1, 0)
 
 
 
@@ -142,6 +144,46 @@ Public Class FPruebaImportacion
 
 
 
+        MsgBox("Se ha cargado la importacion correctamente", MsgBoxStyle.Information, "Importado con exito")
+
+    End Sub
+
+    Sub importarExcelClientes()
+        Dim myFileDialog As New OpenFileDialog()
+        Dim xSheet As String = ""
+        Dim dt As DataTable
+        With myFileDialog
+            .Filter = "Excel Files |*.xlsx"
+            .Title = "Open File"
+            .ShowDialog()
+        End With
+        If myFileDialog.FileName.ToString <> "" Then
+            Dim ExcelFile As String = myFileDialog.FileName.ToString
+
+
+
+            Try
+                dt = ExcelToDatatable(ExcelFile, "clientes")
+            Catch ex As Exception
+                MsgBox("Inserte un nombre valido de la Hoja que desea importar", MsgBoxStyle.Information, "Informacion")
+            Finally
+
+            End Try
+        End If
+
+        Dim dt02 As DataTable = dt
+
+        Dim Res As Boolean
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            '' StockMinimo=Precio Precio compra   conversion =precio venta 
+            Dim id As String = ""
+
+
+            Res = InsertarCliente(id, 1, 1, dt.Rows(i).Item("codigo"), dt.Rows(i).Item("nombre"), dt.Rows(i).Item("direccion"), "", 1, "",
+                                  dt.Rows(i).Item("razonSocial"), dt.Rows(i).Item("nit"), 1, Now.Date.ToString("yyyy/MM/dd"), 0, 0)
+
+            'dt.Rows(i).Item("IdSistema") = id
+        Next
         MsgBox("Se ha cargado la importacion correctamente", MsgBoxStyle.Information, "Importado con exito")
 
     End Sub
