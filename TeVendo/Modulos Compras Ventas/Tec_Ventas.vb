@@ -1286,7 +1286,7 @@ salirIf:
         tbCambio.Value = 0
         swFacturado.Value = False
 
-        cbPrecios.Value = 3
+        cbPrecios.SelectedIndex = 0
 
     End Sub
     Public Sub seleccionarPrimerItemCombo(cb As EditControls.MultiColumnCombo)
