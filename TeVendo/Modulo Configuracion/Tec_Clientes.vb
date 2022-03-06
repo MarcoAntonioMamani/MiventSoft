@@ -69,7 +69,8 @@ Public Class Tec_Clientes
                     .Caption = _MListEstBuscador.Item(i).titulo
                     .Width = _MListEstBuscador.Item(i).tamano
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-
+                    .MaxLines = 2
+                    .WordWrap = True
                     Dim col As DataColumn = dtBuscador.Columns(campo)
                     Dim tipo As Type = col.DataType
                     If tipo.ToString = "System.Int32" Or tipo.ToString = "System.Decimal" Or tipo.ToString = "System.Double" Then
@@ -591,24 +592,24 @@ Public Class Tec_Clientes
         '    a.RazonSocial, a.Nit, a.Estado, a.FechaIngreso, a.FechaUltimaVenta, a.ImagenCliente, a.Latitud, a.Longitud  
         Dim listEstCeldas As New List(Of Celda)
         listEstCeldas.Add(New Celda("Id", True, "ID", 40))
-        listEstCeldas.Add(New Celda("CodigoExterno", False))
+        listEstCeldas.Add(New Celda("CodigoExterno", True, "Cod. Externo", 80))
         listEstCeldas.Add(New Celda("NombreCliente", True, " NombreCliente", 200))
         listEstCeldas.Add(New Celda("DireccionCliente", True, " Direccion", 120))
-        listEstCeldas.Add(New Celda("Telefono", True, "Telefono", 90))
+        listEstCeldas.Add(New Celda("Telefono", False, "Telefono", 90))
         listEstCeldas.Add(New Celda("TipoDocumento", False))
-        listEstCeldas.Add(New Celda("NroDocumento", True, " NroDocumento", 120))
-        listEstCeldas.Add(New Celda("RazonSocial", False, "Razon Social", 80))
-        listEstCeldas.Add(New Celda("Nit", False, "nit", 70))
+        listEstCeldas.Add(New Celda("NroDocumento", False, " NroDocumento", 120))
+        listEstCeldas.Add(New Celda("RazonSocial", True, "Razon Social", 80))
+        listEstCeldas.Add(New Celda("Nit", True, "nit", 70))
         listEstCeldas.Add(New Celda("Estado", False, "Estado", 60))
         listEstCeldas.Add(New Celda("imgEstado", True, "Estado", 80))
-        listEstCeldas.Add(New Celda("FechaIngreso", True, "FechaIngreso", 90))
+        listEstCeldas.Add(New Celda("FechaIngreso", False, "FechaIngreso", 90))
         listEstCeldas.Add(New Celda("FechaUltimaVenta", False))
         listEstCeldas.Add(New Celda("ImagenCliente", False))
         listEstCeldas.Add(New Celda("Latitud", False))
         listEstCeldas.Add(New Celda("Longitud", False))
         listEstCeldas.Add(New Celda("PrecioCategoriaId", False))
         listEstCeldas.Add(New Celda("ZonaId", False))
-
+        listEstCeldas.Add(New Celda("Observacion", False))
 
         Return listEstCeldas
     End Function

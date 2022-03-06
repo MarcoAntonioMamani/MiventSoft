@@ -2056,7 +2056,8 @@ salirIf:
 
         Dim listEstCeldas As New List(Of Celda)
         listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
-        listEstCeldas.Add(New Celda("NombreCliente", True, "NOMBRE", 350))
+        listEstCeldas.Add(New Celda("CodigoExterno,", True, "Cod Ext.", 70))
+        listEstCeldas.Add(New Celda("NombreProveedor", True, "NOMBRE", 350))
         listEstCeldas.Add(New Celda("DireccionCliente", True, "DIRECCION", 180))
         listEstCeldas.Add(New Celda("Telefono", True, "Telefono".ToUpper, 200))
 
