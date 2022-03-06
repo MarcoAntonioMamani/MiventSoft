@@ -512,7 +512,9 @@ Public Class VenderDirecto
 
             Dim dt As DataTable = L_prListarGeneral("MAM_CierreCajero")
 
-            Dim fila As DataRow() = dt.Select("SucursalId=" + Str(1) + " and EstadoCaja=1")
+            Dim fila As DataRow() = dt.Select("SucursalId=" + Str(1) + " and EstadoCaja=1 and PersonalId=" + Str(Global_IdPersonal).Trim)
+
+
             If (Not IsDBNull(fila)) Then
                 If (fila.Count <= 0) Then
 
@@ -1042,7 +1044,7 @@ Public Class VenderDirecto
             'a.Id ,a.NombreCliente  as NombreProveedor ,a.DireccionCliente  ,a.Telefono
 
             Dim listEstCeldas As New List(Of Celda)
-            listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
+            listEstCeldas.Add(New Celda("Id, ", False, "ID", 50))
             listEstCeldas.Add(New Celda("NombreCliente", True, "NOMBRE", 350))
             listEstCeldas.Add(New Celda("DireccionCliente", True, "DIRECCION", 180))
             listEstCeldas.Add(New Celda("Telefono", True, "Telefono".ToUpper, 200))
@@ -1097,7 +1099,7 @@ Public Class VenderDirecto
                 Dim fila As DataRow() = dtCodigoBarras.Select("CodigoBarras='" + CodigoB + "'")
 
 
-                If (Not IsDBNull(fila)) Then
+            If (Not IsDBNull(fila)) Then
                     If (fila.Count <= 0) Then
 
                         ToastNotification.Show(Me, "Codigo de Barras No esta Relacionado a ningun producto = " + tbProducto.Text, img, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)

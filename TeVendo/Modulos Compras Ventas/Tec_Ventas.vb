@@ -1585,7 +1585,7 @@ salirIf:
 
         Dim dt As DataTable = L_prListarGeneral("MAM_CierreCajero")
 
-        Dim fila As DataRow() = dt.Select("SucursalId=" + Str(cbSucursal.Value) + " and EstadoCaja=1")
+        Dim fila As DataRow() = dt.Select("SucursalId=" + Str(cbSucursal.Value) + " and EstadoCaja=1 and PersonalId=" + Str(Global_IdPersonal).Trim)
         If (Not IsDBNull(fila)) Then
             If (fila.Count <= 0) Then
 
