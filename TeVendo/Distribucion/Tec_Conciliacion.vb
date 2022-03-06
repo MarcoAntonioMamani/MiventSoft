@@ -344,7 +344,7 @@ Public Class Tec_Conciliacion
                         dt.Rows(j).Item("F_" + Str(i).Trim) = dtSalProducto(0).Item("Cantidad")
                     Else
                         dt.Rows(j).Item(Str(idSalida)) = Nothing
-                        dt.Rows(j).Item(Str(i).Trim) = 0
+                        dt.Rows(j).Item("F_" + Str(i).Trim) = Nothing
                     End If
 
                 Next
