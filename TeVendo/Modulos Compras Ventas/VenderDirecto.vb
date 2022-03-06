@@ -1647,7 +1647,7 @@ Public Class VenderDirecto
         If e.KeyData = Keys.Escape Then
 
             If (IsNothing(FilaSelectLote)) Then
-                CType(grProductos.DataSource, DataTable).Rows.Clear()
+                'CType(grProductos.DataSource, DataTable).Rows.Clear()
 
                 _DesHabilitarProductos()
             Else

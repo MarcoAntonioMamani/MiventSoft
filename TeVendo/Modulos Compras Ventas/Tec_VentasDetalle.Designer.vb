@@ -48,6 +48,8 @@ Partial Class Tec_VentasDetalle
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
+        Me.tbCodigoBarras = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.Paneltop.SuspendLayout()
         CType(Me.grProducto, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
@@ -73,7 +75,7 @@ Partial Class Tec_VentasDetalle
         Me.Paneltop.Location = New System.Drawing.Point(0, 0)
         Me.Paneltop.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Paneltop.Name = "Paneltop"
-        Me.Paneltop.Size = New System.Drawing.Size(1095, 583)
+        Me.Paneltop.Size = New System.Drawing.Size(1271, 583)
         Me.Paneltop.TabIndex = 3
         '
         'grProducto
@@ -119,7 +121,7 @@ Partial Class Tec_VentasDetalle
         Me.grProducto.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.grProducto.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grProducto.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grProducto.Size = New System.Drawing.Size(1095, 440)
+        Me.grProducto.Size = New System.Drawing.Size(1271, 440)
         Me.grProducto.TabIndex = 4
         Me.grProducto.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grProducto.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -131,6 +133,8 @@ Partial Class Tec_VentasDetalle
         '
         'Panel5
         '
+        Me.Panel5.Controls.Add(Me.LabelX2)
+        Me.Panel5.Controls.Add(Me.tbCodigoBarras)
         Me.Panel5.Controls.Add(Me.cbPrecios)
         Me.Panel5.Controls.Add(Me.LabelX1)
         Me.Panel5.Controls.Add(Me.btnProductos)
@@ -141,7 +145,7 @@ Partial Class Tec_VentasDetalle
         Me.Panel5.Location = New System.Drawing.Point(0, 36)
         Me.Panel5.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(1095, 107)
+        Me.Panel5.Size = New System.Drawing.Size(1271, 107)
         Me.Panel5.TabIndex = 3
         '
         'cbPrecios
@@ -193,16 +197,16 @@ Partial Class Tec_VentasDetalle
         Me.btnProductos.Font = New System.Drawing.Font("Calibri", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnProductos.Image = Global.TeVendo.My.Resources.Resources.search
         Me.btnProductos.ImageFixedSize = New System.Drawing.Size(24, 24)
-        Me.btnProductos.Location = New System.Drawing.Point(883, 7)
+        Me.btnProductos.Location = New System.Drawing.Point(845, 53)
         Me.btnProductos.Margin = New System.Windows.Forms.Padding(4)
         Me.btnProductos.Name = "btnProductos"
         Me.btnProductos.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
-        Me.btnProductos.Size = New System.Drawing.Size(199, 53)
+        Me.btnProductos.Size = New System.Drawing.Size(150, 46)
         Me.btnProductos.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnProductos.Symbol = "57410"
         Me.btnProductos.SymbolColor = System.Drawing.Color.DarkOrange
         Me.btnProductos.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Material
-        Me.btnProductos.SymbolSize = 30.0!
+        Me.btnProductos.SymbolSize = 20.0!
         Me.btnProductos.TabIndex = 376
         Me.btnProductos.Text = "Volver a Productos"
         Me.btnProductos.Visible = False
@@ -214,16 +218,16 @@ Partial Class Tec_VentasDetalle
         Me.btnConfirmarSalir.Font = New System.Drawing.Font("Calibri", 9.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnConfirmarSalir.Image = Global.TeVendo.My.Resources.Resources.search
         Me.btnConfirmarSalir.ImageFixedSize = New System.Drawing.Size(22, 22)
-        Me.btnConfirmarSalir.Location = New System.Drawing.Point(639, 7)
+        Me.btnConfirmarSalir.Location = New System.Drawing.Point(653, 46)
         Me.btnConfirmarSalir.Margin = New System.Windows.Forms.Padding(4)
         Me.btnConfirmarSalir.Name = "btnConfirmarSalir"
         Me.btnConfirmarSalir.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
-        Me.btnConfirmarSalir.Size = New System.Drawing.Size(219, 53)
+        Me.btnConfirmarSalir.Size = New System.Drawing.Size(171, 53)
         Me.btnConfirmarSalir.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnConfirmarSalir.Symbol = "57695"
         Me.btnConfirmarSalir.SymbolColor = System.Drawing.Color.MediumTurquoise
         Me.btnConfirmarSalir.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Material
-        Me.btnConfirmarSalir.SymbolSize = 30.0!
+        Me.btnConfirmarSalir.SymbolSize = 25.0!
         Me.btnConfirmarSalir.TabIndex = 3
         Me.btnConfirmarSalir.Text = "Confirmar / Salir"
         '
@@ -270,7 +274,7 @@ Partial Class Tec_VentasDetalle
         Me.Panel10.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel10.Size = New System.Drawing.Size(1095, 36)
+        Me.Panel10.Size = New System.Drawing.Size(1271, 36)
         Me.Panel10.TabIndex = 2
         '
         'Panel11
@@ -283,7 +287,7 @@ Partial Class Tec_VentasDetalle
         Me.Panel11.Location = New System.Drawing.Point(1, 1)
         Me.Panel11.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(1093, 34)
+        Me.Panel11.Size = New System.Drawing.Size(1269, 34)
         Me.Panel11.TabIndex = 0
         '
         'Label3
@@ -333,7 +337,7 @@ Partial Class Tec_VentasDetalle
         Me.Panel2.Location = New System.Drawing.Point(0, 583)
         Me.Panel2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1095, 205)
+        Me.Panel2.Size = New System.Drawing.Size(1271, 205)
         Me.Panel2.TabIndex = 4
         '
         'grDetalle
@@ -377,7 +381,7 @@ Partial Class Tec_VentasDetalle
         Me.grDetalle.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.grDetalle.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grDetalle.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grDetalle.Size = New System.Drawing.Size(1095, 169)
+        Me.grDetalle.Size = New System.Drawing.Size(1271, 169)
         Me.grDetalle.TabIndex = 5
         Me.grDetalle.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grDetalle.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -396,7 +400,7 @@ Partial Class Tec_VentasDetalle
         Me.Panel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel1.Size = New System.Drawing.Size(1095, 36)
+        Me.Panel1.Size = New System.Drawing.Size(1271, 36)
         Me.Panel1.TabIndex = 2
         '
         'Panel3
@@ -409,7 +413,7 @@ Partial Class Tec_VentasDetalle
         Me.Panel3.Location = New System.Drawing.Point(1, 1)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(1093, 34)
+        Me.Panel3.Size = New System.Drawing.Size(1269, 34)
         Me.Panel3.TabIndex = 0
         '
         'Label1
@@ -452,17 +456,53 @@ Partial Class Tec_VentasDetalle
         '
         'MHighlighterFocus
         '
+        Me.MHighlighterFocus.ContainerControl = Me
         Me.MHighlighterFocus.FocusHighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Orange
         '
         'MEP
         '
         Me.MEP.ContainerControl = Me
         '
+        'LabelX2
+        '
+        Me.LabelX2.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX2.Font = New System.Drawing.Font("Georgia", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX2.Location = New System.Drawing.Point(654, 13)
+        Me.LabelX2.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX2.Name = "LabelX2"
+        Me.LabelX2.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX2.Size = New System.Drawing.Size(115, 28)
+        Me.LabelX2.TabIndex = 380
+        Me.LabelX2.Text = "Codigo Barras:"
+        '
+        'tbCodigoBarras
+        '
+        Me.tbCodigoBarras.BackColor = System.Drawing.Color.White
+        '
+        '
+        '
+        Me.tbCodigoBarras.Border.Class = "TextBoxBorder"
+        Me.tbCodigoBarras.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCodigoBarras.FocusHighlightEnabled = True
+        Me.tbCodigoBarras.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbCodigoBarras.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tbCodigoBarras.Location = New System.Drawing.Point(778, 14)
+        Me.tbCodigoBarras.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbCodigoBarras.Name = "tbCodigoBarras"
+        Me.tbCodigoBarras.PreventEnterBeep = True
+        Me.tbCodigoBarras.Size = New System.Drawing.Size(332, 24)
+        Me.tbCodigoBarras.TabIndex = 379
+        '
         'Tec_VentasDetalle
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1095, 788)
+        Me.ClientSize = New System.Drawing.Size(1271, 788)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Paneltop)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
@@ -512,4 +552,6 @@ Partial Class Tec_VentasDetalle
     Friend WithEvents btnProductos As DevComponents.DotNetBar.ButtonX
     Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
     Friend WithEvents cbPrecios As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents LabelX2 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbCodigoBarras As DevComponents.DotNetBar.Controls.TextBoxX
 End Class

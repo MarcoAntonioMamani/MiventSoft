@@ -12,6 +12,7 @@ Public Class Tec_VentasDetalle
     Public dtDetalle As DataTable
     Public Lote As Boolean
 
+    Dim dtCodigoBarras As DataTable
     Public TipoMovimientoId As Integer
     Public SucursalId As Integer
     Public IdCliente As Integer
@@ -36,7 +37,18 @@ Public Class Tec_VentasDetalle
         tbProducto.Focus()
 
 
+        dtCodigoBarras = ListProductoCodigoBarraAll()
 
+    End Sub
+
+
+    Public Sub _habilitarFocus()
+        With MHighlighterFocus
+            .SetHighlightOnFocus(tbCodigoBarras, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbProducto, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(btnConfirmarSalir, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+
+            End With
     End Sub
     Private Sub Tec_DespachoDetalle_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         IniciarTodod()
@@ -215,12 +227,7 @@ Public Class Tec_VentasDetalle
         Next
         Return mayor
     End Function
-    Public Sub _habilitarFocus()
-        With MHighlighterFocus
-            .SetHighlightOnFocus(tbProducto, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
-            .SetHighlightOnFocus(btnConfirmarSalir, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
-        End With
-    End Sub
+
     Public Sub New(dtv As DataTable)
         InitializeComponent()
 
@@ -1659,5 +1666,70 @@ salirIf:
             _prCargarProductos()
         End If
 
+    End Sub
+
+    Private Sub tbCodigoBarras_KeyDown(sender As Object, e As KeyEventArgs) Handles tbCodigoBarras.KeyDown
+        If (e.KeyData = Keys.Enter) Then
+            '''''Aqui se inserta por codigo de barras
+
+            If (tbCodigoBarras.Text.Trim <> String.Empty) Then
+                Dim CodigoB As String = tbCodigoBarras.Text.Trim
+
+                Dim fila As DataRow() = dtCodigoBarras.Select("CodigoBarras='" + CodigoB + "'")
+
+
+                If (Not IsDBNull(fila)) Then
+                    If (fila.Count <= 0) Then
+
+                        ToastNotification.Show(Me, "Codigo de Barras No esta Relacionado a ningun producto = " + tbCodigoBarras.Text, img, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
+
+                        tbCodigoBarras.Text = ""
+                        tbCodigoBarras.Focus()
+                        Return
+                    Else
+                        grProducto.RemoveFilters()
+
+                        Dim ProductoId As Integer = fila(0).Item("ProductoId")
+
+                        Dim posicion As Integer = 0
+                        Dim dt As DataTable = CType(grProducto.DataSource, DataTable)
+
+                        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+                            If (dt.Rows(i).Item("Id") = ProductoId) Then
+
+                                posicion = i
+                                Exit For
+
+                            End If
+
+                        Next
+                        If (posicion >= 0) Then
+                            grProducto.Row = posicion
+                            seleccionarProducto()
+
+
+                            tbCodigoBarras.Text = ""
+
+                        End If
+
+
+                    End If
+
+                Else
+
+                    ToastNotification.Show(Me, "Ingrese Codigo de Barras Valido", img, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
+
+                End If
+
+            End If
+
+
+
+
+            'Else
+            '    grdetalle.DataChanged = False
+            '    ToastNotification.Show(Me, "El código de barra del producto no existe", img, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
+        End If
     End Sub
 End Class
