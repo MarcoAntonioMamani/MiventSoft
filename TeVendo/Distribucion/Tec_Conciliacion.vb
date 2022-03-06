@@ -1051,6 +1051,13 @@ Public Class Tec_Conciliacion
 
     End Sub
 
+    Private Sub ReporteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReporteToolStripMenuItem.Click
+        If (_MNuevo = False) Then
+            GenerarReporte(tbCodigo.Text)
+        End If
+
+    End Sub
+
 
 
 
