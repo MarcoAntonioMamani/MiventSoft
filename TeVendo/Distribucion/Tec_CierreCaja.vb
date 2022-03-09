@@ -812,7 +812,9 @@ Public Class Tec_CierreCaja
         Dim Res As Boolean
         Try
 
-            Res = ModificarCierreCaja(tbCodigo.Text, ConciliacionID, PersonalId, tbFechaCierre.Value.ToString("yyyy/MM/dd"), tbGastos.Value, tbVentasCredito.Value, tbVentasContado.Value, tbCobranzas.Value, tbEfectivoCalculado.Value, tbEfectivoRecibido.Value, tbDiferencia.Value, CType(grGastos.DataSource, DataTable), CType(grGastos.DataSource, DataTable))
+
+
+            Res = ModificarCierreCaja(tbCodigo.Text, ConciliacionID, PersonalId, tbFechaCierre.Value.ToString("yyyy/MM/dd"), tbGastos.Value, tbVentasCredito.Value, tbVentasContado.Value, tbCobranzas.Value, tbEfectivoCalculado.Value, tbEfectivoRecibido.Value, tbDiferencia.Value, CType(grGastos.DataSource, DataTable), CType(grCobranzas.DataSource, DataTable))
             If Res Then
 
                 ToastNotification.Show(Me, "Codigo de Cierre De Caja ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
