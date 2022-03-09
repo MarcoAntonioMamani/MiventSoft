@@ -566,7 +566,7 @@ Public Class VenderDirecto
             .Width = 100
             .Caption = "Cod Producto"
             .Visible = True
-
+            .AllowSort = False
 
         End With
         With grProductos.RootTable.Columns("Tipo")
@@ -594,6 +594,7 @@ Public Class VenderDirecto
             .Visible = True
             .MaxLines = 3
             .WordWrap = True
+            .AllowSort = False
         End With
 
         With grProductos.RootTable.Columns("DescripcionProducto")
@@ -602,6 +603,7 @@ Public Class VenderDirecto
             .MaxLines = 2
             .WordWrap = True
             .Caption = "DESCRIPCION"
+            .AllowSort = False
         End With
         With grProductos.RootTable.Columns("NombreTipo")
             .Width = 90
@@ -609,6 +611,7 @@ Public Class VenderDirecto
             .MaxLines = 2
             .WordWrap = True
             .Caption = "Tipo"
+            .AllowSort = False
         End With
         With grProductos.RootTable.Columns("NombreCategoria")
             .Width = 120
@@ -635,11 +638,13 @@ Public Class VenderDirecto
             .Visible = True
             .Caption = "Stock"
             .FormatString = "0.00"
+            .AllowSort = False
         End With
         With grProductos.RootTable.Columns("PrecioVenta")
             .Width = 150
             .Visible = True
             .Caption = "Precio"
+            .AllowSort = False
             .FormatString = "0.00"
         End With
         With grProductos
@@ -1099,7 +1104,7 @@ Public Class VenderDirecto
                 Dim fila As DataRow() = dtCodigoBarras.Select("CodigoBarras='" + CodigoB + "'")
 
 
-            If (Not IsDBNull(fila)) Then
+                If (Not IsDBNull(fila)) Then
                     If (fila.Count <= 0) Then
 
                         ToastNotification.Show(Me, "Codigo de Barras No esta Relacionado a ningun producto = " + tbProducto.Text, img, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
@@ -1473,7 +1478,7 @@ Public Class VenderDirecto
             End If
 
 
-                Else
+        Else
 
             Dim numiProd As Integer = FilaSelectLote.Item("Id")
             Dim mLote As String = grProductos.GetValue("Lote")
