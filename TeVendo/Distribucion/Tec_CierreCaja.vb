@@ -959,6 +959,7 @@ Public Class Tec_CierreCaja
             tbPersonal.Text = .GetValue("NombrePersonal").ToString
             PersonalId = .GetValue("PersonalId")
             ConciliacionID = .GetValue("NroConciliacion")
+            tbNroConciliacion.Text = .GetValue("NroConciliacion")
             tbFechaCierre.Value = .GetValue("FechaCierre")
             tbDetalle.Text = .GetValue("Detalle").ToString
             tbGastos.Value = .GetValue("TotalGastos")
@@ -1138,6 +1139,7 @@ Public Class Tec_CierreCaja
             PersonalId = Row.Cells("PersonalID").Value
             tbPersonal.Text = Row.Cells("NombrePersonal").Value
             ConciliacionID = Row.Cells("NroConciliacion").Value
+            tbNroConciliacion.Text = Str(Row.Cells("NroConciliacion").Value)
             btnAgregarGastos.Focus()
 
             _prCargarPedidosConciliacion(ConciliacionID)

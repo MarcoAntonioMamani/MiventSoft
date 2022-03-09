@@ -119,7 +119,7 @@ Partial Class Tec_CierreCaja
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.LabelX14 = New DevComponents.DotNetBar.LabelX()
-        Me.TextBoxX1 = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.tbNroConciliacion = New DevComponents.DotNetBar.Controls.TextBoxX()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -867,9 +867,9 @@ Partial Class Tec_CierreCaja
         Me.GroupPanel1.DisabledBackColor = System.Drawing.Color.Empty
         Me.GroupPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupPanel1.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupPanel1.Location = New System.Drawing.Point(3, 238)
+        Me.GroupPanel1.Location = New System.Drawing.Point(3, 258)
         Me.GroupPanel1.Name = "GroupPanel1"
-        Me.GroupPanel1.Size = New System.Drawing.Size(627, 429)
+        Me.GroupPanel1.Size = New System.Drawing.Size(627, 409)
         '
         '
         '
@@ -944,7 +944,7 @@ Partial Class Tec_CierreCaja
         Me.grGastos.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.grGastos.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grGastos.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grGastos.Size = New System.Drawing.Size(621, 399)
+        Me.grGastos.Size = New System.Drawing.Size(621, 379)
         Me.grGastos.TabIndex = 4
         Me.grGastos.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grGastos.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -958,7 +958,7 @@ Partial Class Tec_CierreCaja
         '
         Me.Panel9.BackColor = System.Drawing.Color.White
         Me.Panel9.Controls.Add(Me.LabelX14)
-        Me.Panel9.Controls.Add(Me.TextBoxX1)
+        Me.Panel9.Controls.Add(Me.tbNroConciliacion)
         Me.Panel9.Controls.Add(Me.btnSearchPersonal)
         Me.Panel9.Controls.Add(Me.btnAgregarGastos)
         Me.Panel9.Controls.Add(Me.LabelX3)
@@ -972,7 +972,7 @@ Partial Class Tec_CierreCaja
         Me.Panel9.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel9.Location = New System.Drawing.Point(3, 30)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(627, 208)
+        Me.Panel9.Size = New System.Drawing.Size(627, 228)
         Me.Panel9.TabIndex = 2
         '
         'btnSearchPersonal
@@ -1265,7 +1265,7 @@ Partial Class Tec_CierreCaja
         Me.btnImprimir.Font = New System.Drawing.Font("Arial", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnImprimir.Image = Global.TeVendo.My.Resources.Resources.iconatras
         Me.btnImprimir.ImageFixedSize = New System.Drawing.Size(30, 30)
-        Me.btnImprimir.Location = New System.Drawing.Point(640, 0)
+        Me.btnImprimir.Location = New System.Drawing.Point(697, 0)
         Me.btnImprimir.Margin = New System.Windows.Forms.Padding(4)
         Me.btnImprimir.Name = "btnImprimir"
         Me.btnImprimir.Size = New System.Drawing.Size(120, 60)
@@ -1283,7 +1283,7 @@ Partial Class Tec_CierreCaja
         Me.btnSalir.Font = New System.Drawing.Font("Arial", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSalir.Image = Global.TeVendo.My.Resources.Resources.iconatras
         Me.btnSalir.ImageFixedSize = New System.Drawing.Size(30, 30)
-        Me.btnSalir.Location = New System.Drawing.Point(520, 0)
+        Me.btnSalir.Location = New System.Drawing.Point(577, 0)
         Me.btnSalir.Margin = New System.Windows.Forms.Padding(4)
         Me.btnSalir.Name = "btnSalir"
         Me.btnSalir.Size = New System.Drawing.Size(120, 60)
@@ -1297,10 +1297,10 @@ Partial Class Tec_CierreCaja
         Me.btnEliminar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnEliminar.ColorTable = DevComponents.DotNetBar.eButtonColor.Magenta
         Me.btnEliminar.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnEliminar.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnEliminar.Font = New System.Drawing.Font("Arial", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnEliminar.Image = Global.TeVendo.My.Resources.Resources.iconeliminar
         Me.btnEliminar.ImageFixedSize = New System.Drawing.Size(45, 45)
-        Me.btnEliminar.Location = New System.Drawing.Point(390, 0)
+        Me.btnEliminar.Location = New System.Drawing.Point(447, 0)
         Me.btnEliminar.Margin = New System.Windows.Forms.Padding(4)
         Me.btnEliminar.Name = "btnEliminar"
         Me.btnEliminar.Size = New System.Drawing.Size(130, 60)
@@ -1317,7 +1317,7 @@ Partial Class Tec_CierreCaja
         Me.btnGrabar.Font = New System.Drawing.Font("Arial", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnGrabar.Image = Global.TeVendo.My.Resources.Resources.iconguardar
         Me.btnGrabar.ImageFixedSize = New System.Drawing.Size(30, 30)
-        Me.btnGrabar.Location = New System.Drawing.Point(260, 0)
+        Me.btnGrabar.Location = New System.Drawing.Point(317, 0)
         Me.btnGrabar.Margin = New System.Windows.Forms.Padding(4)
         Me.btnGrabar.Name = "btnGrabar"
         Me.btnGrabar.Size = New System.Drawing.Size(130, 60)
@@ -1331,13 +1331,13 @@ Partial Class Tec_CierreCaja
         Me.btnModificar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnModificar.ColorTable = DevComponents.DotNetBar.eButtonColor.Magenta
         Me.btnModificar.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnModificar.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnModificar.Font = New System.Drawing.Font("Arial", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnModificar.Image = Global.TeVendo.My.Resources.Resources.iconeditar
         Me.btnModificar.ImageFixedSize = New System.Drawing.Size(45, 45)
-        Me.btnModificar.Location = New System.Drawing.Point(120, 0)
+        Me.btnModificar.Location = New System.Drawing.Point(148, 0)
         Me.btnModificar.Margin = New System.Windows.Forms.Padding(4)
         Me.btnModificar.Name = "btnModificar"
-        Me.btnModificar.Size = New System.Drawing.Size(140, 60)
+        Me.btnModificar.Size = New System.Drawing.Size(169, 60)
         Me.btnModificar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnModificar.TabIndex = 7
         Me.btnModificar.Text = "MODIFICAR"
@@ -1349,13 +1349,13 @@ Partial Class Tec_CierreCaja
         Me.btnNuevo.BackColor = System.Drawing.Color.Transparent
         Me.btnNuevo.ColorTable = DevComponents.DotNetBar.eButtonColor.Magenta
         Me.btnNuevo.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnNuevo.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnNuevo.Font = New System.Drawing.Font("Arial", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnNuevo.Image = Global.TeVendo.My.Resources.Resources.iconadd
         Me.btnNuevo.ImageFixedSize = New System.Drawing.Size(45, 45)
         Me.btnNuevo.Location = New System.Drawing.Point(0, 0)
         Me.btnNuevo.Margin = New System.Windows.Forms.Padding(4)
         Me.btnNuevo.Name = "btnNuevo"
-        Me.btnNuevo.Size = New System.Drawing.Size(120, 60)
+        Me.btnNuevo.Size = New System.Drawing.Size(148, 60)
         Me.btnNuevo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnNuevo.TabIndex = 7
         Me.btnNuevo.Text = "NUEVO"
@@ -1753,22 +1753,22 @@ Partial Class Tec_CierreCaja
         Me.LabelX14.TabIndex = 222
         Me.LabelX14.Text = "Nro Conciliación:"
         '
-        'TextBoxX1
+        'tbNroConciliacion
         '
         '
         '
         '
-        Me.TextBoxX1.Border.Class = "TextBoxBorder"
-        Me.TextBoxX1.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.TextBoxX1.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBoxX1.Location = New System.Drawing.Point(284, 25)
-        Me.TextBoxX1.Margin = New System.Windows.Forms.Padding(4)
-        Me.TextBoxX1.Name = "TextBoxX1"
-        Me.TextBoxX1.PreventEnterBeep = True
-        Me.TextBoxX1.ReadOnly = True
-        Me.TextBoxX1.Size = New System.Drawing.Size(172, 26)
-        Me.TextBoxX1.TabIndex = 221
-        Me.TextBoxX1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.tbNroConciliacion.Border.Class = "TextBoxBorder"
+        Me.tbNroConciliacion.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbNroConciliacion.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbNroConciliacion.Location = New System.Drawing.Point(284, 25)
+        Me.tbNroConciliacion.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbNroConciliacion.Name = "tbNroConciliacion"
+        Me.tbNroConciliacion.PreventEnterBeep = True
+        Me.tbNroConciliacion.ReadOnly = True
+        Me.tbNroConciliacion.Size = New System.Drawing.Size(172, 26)
+        Me.tbNroConciliacion.TabIndex = 221
+        Me.tbNroConciliacion.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Tec_CierreCaja
         '
@@ -1930,5 +1930,5 @@ Partial Class Tec_CierreCaja
     Friend WithEvents LabelX13 As DevComponents.DotNetBar.LabelX
     Friend WithEvents btnSearchPersonal As DevComponents.DotNetBar.ButtonX
     Friend WithEvents LabelX14 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents TextBoxX1 As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents tbNroConciliacion As DevComponents.DotNetBar.Controls.TextBoxX
 End Class
