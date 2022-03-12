@@ -1117,7 +1117,7 @@ Public Class VenderDirecto
 
                         Dim ProductoId As Integer = fila(0).Item("ProductoId")
 
-                        Dim posicion As Integer = 0
+                        Dim posicion As Integer = -1
                         Dim dt As DataTable = CType(grProductos.DataSource, DataTable)
 
                         For i As Integer = 0 To dt.Rows.Count - 1 Step 1
@@ -1135,7 +1135,8 @@ Public Class VenderDirecto
 
                             seleccionarProductoCodigoBarra()
 
-
+                        Else
+                            ToastNotification.Show(Me, "Prducto No Existe", img, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
                         End If
 
 
