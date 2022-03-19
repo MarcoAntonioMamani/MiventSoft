@@ -1711,7 +1711,7 @@ Public Class Tec_Productos
 
                 Else
 
-                    grPrecios.SetValue("Cantidad", 0)
+                    grPrecios.SetValue("precio", 0)
 
                 End If
             End If
