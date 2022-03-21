@@ -1341,7 +1341,7 @@ Public Class Tec_CierreCajaCajero
         TbTotalTransferencia.Value = Totaltransferencia
 
 
-        tbEfectivoRecibido.Value = tbTotalCortesEfectivo.Value + totalTarjeta + Totaltransferencia
+        tbEfectivoRecibido.Value = tbTotalCortesEfectivo.Value
 
         tbDiferencia.Value = tbEfectivoRecibido.Value - tbTotalCaja.Value
 

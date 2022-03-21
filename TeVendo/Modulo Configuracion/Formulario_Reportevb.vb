@@ -45,6 +45,20 @@
         respuesta = True
         Me.Close()
     End Sub
+
+    Private Sub Formulario_Reportevb_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        If (e.KeyData = Keys.S) Then
+
+            respuesta = True
+            Me.Close()
+        End If
+
+        If (e.KeyData = Keys.N) Then
+            respuesta = False
+            Me.Close()
+
+        End If
+    End Sub
 #End Region
 
 
