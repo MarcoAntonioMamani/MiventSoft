@@ -1286,7 +1286,7 @@ salirIf:
         tbCambio.Value = 0
         swFacturado.Value = False
 
-        cbPrecios.Value = 3
+        cbPrecios.Value = 1
 
     End Sub
     Public Sub seleccionarPrimerItemCombo(cb As EditControls.MultiColumnCombo)
@@ -2162,7 +2162,7 @@ salirIf:
                 objrep.SetParameterValue("Monto", li)
                 objrep.SetParameterValue("Fecha", _FechaPar)
                 objrep.SetParameterValue("Total", Str(total))
-                objrep.SetParameterValue("TipoReporte", "NOTA DE VENTA")
+                objrep.SetParameterValue("TipoReporte", "PROFORMA")
                 P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
                 P_Global.Visualizador.CrGeneral.Zoom(130)
                 P_Global.Visualizador.Show() 'Comentar

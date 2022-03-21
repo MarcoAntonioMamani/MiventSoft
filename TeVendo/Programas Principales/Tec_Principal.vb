@@ -61,6 +61,8 @@ Public Class Tec_Principal
         _prCargarConfiguracionSistema()
         P_prCargarParametros()
         _prValidarMayusculas()
+
+        btnImpresion.Text = gs_NombreImpresora
     End Sub
 
     Private Sub _prSolicitarLogin()
@@ -80,7 +82,7 @@ Public Class Tec_Principal
             _prValidarMayusculas()
 
 
-            btnSucursal.Text = "Suc. " + Global_NombreSucursal
+            'btnImpresion.Text = "Suc. " + Global_NombreSucursal
             btnTipoCambio.Text = "Tipo Cambio: " + Str(Global_TipoCambio)
 
             Dim n As Integer = superTabControl3.Tabs.Count
@@ -296,7 +298,7 @@ Public Class Tec_Principal
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         Me.Icon = ico
 
-        btnSucursal.Text = "Suc. " + Global_NombreSucursal
+        'btnImpresion.Text = "Suc. " + Global_NombreSucursal
         btnTipoCambio.Text = "Tipo Cambio: " + Str(Global_TipoCambio)
 
     End Sub
@@ -981,7 +983,7 @@ Public Class Tec_Principal
 
     Private Sub btnDespacho_Click(sender As Object, e As EventArgs) Handles btnDespacho.Click
         SuperTabControlMenu.SelectedTab = tab_ventana
-        Dim frm As New Tec_Despachos 
+        Dim frm As New Tec_Despachos
 
         Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
         tab3.RecalcSize()
@@ -1256,5 +1258,18 @@ Public Class Tec_Principal
         Dim blah As New Bitmap(btConfDosificacion.Image, 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
+    End Sub
+
+    Private Sub btnSucursal_Click(sender As Object, e As EventArgs) Handles btnImpresion.Click
+        Dim frm As F1_Impresion = New F1_Impresion
+        frm.Impresora = gs_NombreImpresora
+        frm.ShowDialog()
+
+        If (frm.Bandera = True) Then
+
+            btnImpresion.Text = gs_NombreImpresora
+
+            ToastNotification.Show(Me, "Nombre Impresora Actualizado Correctamente", My.Resources.GRABACION_EXITOSA, 1500, eToastGlowColor.Green, eToastPosition.TopRight)
+        End If
     End Sub
 End Class

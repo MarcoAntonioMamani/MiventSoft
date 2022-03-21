@@ -805,6 +805,12 @@
     </Compile>
     <Compile Include="P_Encrypt.vb" />
     <Compile Include="P_Global.vb" />
+    <Compile Include="Utils\F1_Impresion.Designer.vb">
+      <DependentUpon>F1_Impresion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\F1_Impresion.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Utils\FormulariiAyudaProductos.Designer.vb">
       <DependentUpon>FormulariiAyudaProductos.vb</DependentUpon>
     </Compile>
@@ -1163,6 +1169,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utils\F1_Impresion.resx">
+      <DependentUpon>F1_Impresion.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Utils\FormulariiAyudaProductos.resx">
       <DependentUpon>FormulariiAyudaProductos.vb</DependentUpon>

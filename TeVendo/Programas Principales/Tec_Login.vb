@@ -41,6 +41,8 @@ Public Class Tec_Login
         gs_ClaveSql = Archivo(2).Split("=")(1).Trim
         gs_NombreBD = Archivo(3).Split("=")(1).Trim
         gs_CarpetaRaiz = Archivo(4).Split("=")(1).Trim
+
+
     End Sub
 #End Region
     Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
@@ -110,6 +112,14 @@ Public Class Tec_Login
             Global_ModificarDescuento = dtUsuario.Rows(0).Item("AplicarDescuentoVenta")
             Global_TipoCambio = dtUsuario.Rows(0).Item("Monto")
             Global_NombreSucursal = dtUsuario.Rows(0).Item("NombreSucursal")
+
+
+            Dim dt2 As DataTable = L_prLeerConfiguracion()
+            If (dt2.Rows.Count > 0) Then
+                gs_NombreImpresora = IIf(IsDBNull(dt2.Rows(0).Item("Impresora")), "", dt2.Rows(0).Item("Impresora"))
+
+            End If
+
             'gb_userTodasSuc = IIf(dtUsuario.Rows(0).Item("ydall") = 1, True, False)
 
             _prDesvenecerPantalla()

@@ -18,6 +18,7 @@ Module P_Global
 
     Public gs_RutaImagenes As String = "C:\Imagenes"
     Public gs_RutaArchivos As String = "C:\Doc"
+    Public gs_NombreImpresora As String = ""
 
 #End Region
 
