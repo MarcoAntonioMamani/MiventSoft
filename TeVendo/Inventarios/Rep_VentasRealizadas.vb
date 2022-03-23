@@ -8,13 +8,16 @@ Public Class Rep_VentasRealizadas
     Dim RutaGlobal As String = gs_CarpetaRaiz
     Dim RutaTemporal As String = "C:\Temporal"
     Dim IdPersonal As Integer = 0
+    Dim IdCliente As Integer = 0
 
     Public Sub _prIniciarTodo()
         cbFechaDesde.Value = Now.Date
         cbFechaHasta.Value = Now.Date
         chkTodos.CheckValue = True
+        chkTodosClientes.CheckValue = True
         swTipoReporte.Value = True
         tbVendedor.ReadOnly = True
+        tbClientes.ReadOnly = True
         Me.Text = "REPORTE DE VENTAS REALIZADAS"
         MReportViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
 
@@ -207,6 +210,88 @@ Public Class Rep_VentasRealizadas
                 Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
                 ToastNotification.Show(Me, "No Existen Datos Para Mostrar. con Los Filtros Seleccionados".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
             End If
+        End If
+    End Sub
+
+    Private Sub chkTodosClientes_CheckedChanged(sender As Object, e As EventArgs) Handles chkTodosClientes.CheckedChanged
+        If (chkTodosClientes.Checked = True) Then
+            tbClientes.Enabled = False
+            btnClientes.Visible = False
+            tbClientes.BackColor = Color.DarkGray
+        Else
+            tbClientes.Enabled = True
+            btnClientes.Visible = True
+            tbClientes.BackColor = Color.White
+            tbClientes.Focus()
+        End If
+    End Sub
+
+    Private Sub tbClientes_KeyDown(sender As Object, e As KeyEventArgs) Handles tbClientes.KeyDown
+        If e.KeyData = Keys.Control + Keys.Enter Then
+
+
+            Dim dt As DataTable
+
+            dt = ListarCliente()
+            'a.Id ,a.NombreProveedor ,a.Direccion ,a.Telefono01
+
+            Dim listEstCeldas As New List(Of Celda)
+            listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
+            listEstCeldas.Add(New Celda("NombreProveedor", True, "NOMBRE", 350))
+            listEstCeldas.Add(New Celda("DireccionCliente", True, "DIRECCION", 180))
+            listEstCeldas.Add(New Celda("Telefono", True, "Telefono".ToUpper, 200))
+            Dim ef = New Efecto
+            ef.tipo = 6
+            ef.dt = dt
+            ef.SeleclCol = 2
+            ef.listEstCeldasNew = listEstCeldas
+            ef.alto = 50
+            ef.ancho = 350
+            ef.Context = "Seleccione Cliente".ToUpper
+            ef.ShowDialog()
+            Dim bandera As Boolean = False
+            bandera = ef.band
+            If (bandera = True) Then
+                Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+                IdCliente = Row.Cells("Id").Value
+                tbClientes.Text = Row.Cells("NombreProveedor").Value
+                cbFechaDesde.Focus()
+
+            End If
+
+        End If
+    End Sub
+
+    Private Sub btnClientes_Click(sender As Object, e As EventArgs) Handles btnClientes.Click
+        Dim dt As DataTable
+
+        dt = ListarCliente()
+        'a.Id ,a.NombreProveedor ,a.Direccion ,a.Telefono01
+
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
+        listEstCeldas.Add(New Celda("NombreProveedor", True, "NOMBRE", 350))
+        listEstCeldas.Add(New Celda("DireccionCliente", True, "DIRECCION", 180))
+        listEstCeldas.Add(New Celda("Telefono", True, "Telefono".ToUpper, 200))
+        Dim ef = New Efecto
+        ef.tipo = 6
+        ef.dt = dt
+        ef.SeleclCol = 2
+        ef.listEstCeldasNew = listEstCeldas
+        ef.alto = 50
+        ef.ancho = 350
+        ef.Context = "Seleccione Cliente".ToUpper
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+            IdCliente = Row.Cells("Id").Value
+            tbClientes.Text = Row.Cells("NombreProveedor").Value
+            cbFechaDesde.Focus()
+
         End If
     End Sub
 End Class
