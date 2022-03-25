@@ -2289,6 +2289,56 @@ Public Class AccesoLogica
         Return _resultado
     End Function
 
+    Public Shared Function L_prProductoInsertarKailin(ByRef _numi As String, _CodigoExterno As String,
+                                                _CodigoBarra As String, _NombreProducto As String,
+        _Descripcion As String, _stockMinimo As Decimal, _estado As Integer, _CategoriaId As Integer, _EmpresaId As Integer, _ProveedorId As Integer, _MarcaId As Integer,
+        _AttributoId As Integer, _FamiliaId As Integer, _UnidadVentaId As Integer, _UnidadMaximaId As Integer,
+        _conversion As Double, _dtImagenes As DataTable, PrecioCosto As Double) As Boolean
+        Dim _resultado As Boolean
+
+        '(@Id,@CodigoExterno ,@CodigoBarras ,@NombreProducto ,@DescripcionProducto ,
+        '@StockMinimo ,@estado ,@CategoriaId ,@EmpresaId ,@ProveedorId ,@MarcaId ,@AttributoId ,@FamiliaId ,
+        '@UnidadVentaId ,@UnidadMaximaId ,@Conversion ,@newFecha,@newHora,@usuario )
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@CodigoExterno", _CodigoExterno))
+        _listParam.Add(New Datos.DParametro("@CodigoBarras", _CodigoBarra))
+        _listParam.Add(New Datos.DParametro("@NombreProducto", _NombreProducto))
+        _listParam.Add(New Datos.DParametro("@DescripcionProducto", _Descripcion))
+        _listParam.Add(New Datos.DParametro("@Estado", _estado))
+        _listParam.Add(New Datos.DParametro("@StockMinimo", _stockMinimo))
+        _listParam.Add(New Datos.DParametro("@CategoriaId", _CategoriaId))
+        _listParam.Add(New Datos.DParametro("@EmpresaId", _EmpresaId))
+        _listParam.Add(New Datos.DParametro("@ProveedorId", _ProveedorId))
+        _listParam.Add(New Datos.DParametro("@MarcaId", _MarcaId))
+        _listParam.Add(New Datos.DParametro("@AttributoId", _AttributoId))
+        _listParam.Add(New Datos.DParametro("@FamiliaId", _FamiliaId))
+
+        _listParam.Add(New Datos.DParametro("@UnidadVentaId", _UnidadVentaId))
+        _listParam.Add(New Datos.DParametro("@UnidadMaximaId", _UnidadMaximaId))
+        _listParam.Add(New Datos.DParametro("@Conversion", _conversion))
+
+        _listParam.Add(New Datos.DParametro("@TCL0064", "", _dtImagenes))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@Compra", PrecioCosto))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Productos", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _numi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
     Public Shared Function L_prProductoModificar(ByRef _numi As String, _CodigoExterno As String,
                                                 _CodigoBarra As String, _NombreProducto As String,
         _Descripcion As String, _stockMinimo As Decimal, _estado As Integer, _CategoriaId As Integer, _EmpresaId As Integer, _ProveedorId As Integer, _MarcaId As Integer,
