@@ -36,6 +36,10 @@ Partial Class Rep_VentasRealizadas
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.PanelButton = New System.Windows.Forms.Panel()
         Me.PanelNavegacion = New System.Windows.Forms.Panel()
+        Me.chkTodosClientes = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.btnClientes = New DevComponents.DotNetBar.ButtonX()
+        Me.tbClientes = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
         Me.chkTodos = New DevComponents.DotNetBar.Controls.CheckBoxX()
         Me.btnVendedor = New DevComponents.DotNetBar.ButtonX()
         Me.tbVendedor = New DevComponents.DotNetBar.Controls.TextBoxX()
@@ -48,10 +52,6 @@ Partial Class Rep_VentasRealizadas
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.PanelToolBar1 = New System.Windows.Forms.Panel()
         Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
-        Me.btnClientes = New DevComponents.DotNetBar.ButtonX()
-        Me.tbClientes = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
-        Me.chkTodosClientes = New DevComponents.DotNetBar.Controls.CheckBoxX()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelLEft.SuspendLayout()
@@ -235,6 +235,69 @@ Partial Class Rep_VentasRealizadas
         Me.PanelNavegacion.Name = "PanelNavegacion"
         Me.PanelNavegacion.Size = New System.Drawing.Size(898, 83)
         Me.PanelNavegacion.TabIndex = 21
+        '
+        'chkTodosClientes
+        '
+        '
+        '
+        '
+        Me.chkTodosClientes.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.chkTodosClientes.CheckSignSize = New System.Drawing.Size(16, 16)
+        Me.chkTodosClientes.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkTodosClientes.Location = New System.Drawing.Point(341, 45)
+        Me.chkTodosClientes.Name = "chkTodosClientes"
+        Me.chkTodosClientes.Size = New System.Drawing.Size(85, 23)
+        Me.chkTodosClientes.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.chkTodosClientes.TabIndex = 216
+        Me.chkTodosClientes.Text = "Todos"
+        Me.chkTodosClientes.TextColor = System.Drawing.Color.White
+        '
+        'btnClientes
+        '
+        Me.btnClientes.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnClientes.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnClientes.Image = Global.TeVendo.My.Resources.Resources.search
+        Me.btnClientes.ImageFixedSize = New System.Drawing.Size(28, 28)
+        Me.btnClientes.Location = New System.Drawing.Point(299, 45)
+        Me.btnClientes.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnClientes.Name = "btnClientes"
+        Me.btnClientes.Size = New System.Drawing.Size(35, 31)
+        Me.btnClientes.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnClientes.TabIndex = 215
+        Me.btnClientes.Visible = False
+        '
+        'tbClientes
+        '
+        '
+        '
+        '
+        Me.tbClientes.Border.Class = "TextBoxBorder"
+        Me.tbClientes.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbClientes.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbClientes.Location = New System.Drawing.Point(85, 47)
+        Me.tbClientes.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbClientes.Name = "tbClientes"
+        Me.tbClientes.PreventEnterBeep = True
+        Me.tbClientes.Size = New System.Drawing.Size(206, 29)
+        Me.tbClientes.TabIndex = 214
+        '
+        'LabelX5
+        '
+        Me.LabelX5.AutoSize = True
+        Me.LabelX5.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX5.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX5.ForeColor = System.Drawing.Color.White
+        Me.LabelX5.Location = New System.Drawing.Point(19, 48)
+        Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX5.Name = "LabelX5"
+        Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX5.Size = New System.Drawing.Size(56, 21)
+        Me.LabelX5.TabIndex = 213
+        Me.LabelX5.Text = "Clientes:"
         '
         'chkTodos
         '
@@ -477,69 +540,6 @@ Partial Class Rep_VentasRealizadas
         Me.ButtonX1.TabIndex = 1
         Me.ButtonX1.Text = "Generar"
         Me.ButtonX1.TextColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        '
-        'btnClientes
-        '
-        Me.btnClientes.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnClientes.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.btnClientes.Image = Global.TeVendo.My.Resources.Resources.search
-        Me.btnClientes.ImageFixedSize = New System.Drawing.Size(28, 28)
-        Me.btnClientes.Location = New System.Drawing.Point(299, 45)
-        Me.btnClientes.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnClientes.Name = "btnClientes"
-        Me.btnClientes.Size = New System.Drawing.Size(35, 31)
-        Me.btnClientes.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnClientes.TabIndex = 215
-        Me.btnClientes.Visible = False
-        '
-        'tbClientes
-        '
-        '
-        '
-        '
-        Me.tbClientes.Border.Class = "TextBoxBorder"
-        Me.tbClientes.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbClientes.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbClientes.Location = New System.Drawing.Point(85, 47)
-        Me.tbClientes.Margin = New System.Windows.Forms.Padding(4)
-        Me.tbClientes.Name = "tbClientes"
-        Me.tbClientes.PreventEnterBeep = True
-        Me.tbClientes.Size = New System.Drawing.Size(206, 29)
-        Me.tbClientes.TabIndex = 214
-        '
-        'LabelX5
-        '
-        Me.LabelX5.AutoSize = True
-        Me.LabelX5.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX5.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX5.ForeColor = System.Drawing.Color.White
-        Me.LabelX5.Location = New System.Drawing.Point(19, 48)
-        Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX5.Name = "LabelX5"
-        Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX5.Size = New System.Drawing.Size(56, 21)
-        Me.LabelX5.TabIndex = 213
-        Me.LabelX5.Text = "Clientes:"
-        '
-        'chkTodosClientes
-        '
-        '
-        '
-        '
-        Me.chkTodosClientes.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
-        Me.chkTodosClientes.CheckSignSize = New System.Drawing.Size(16, 16)
-        Me.chkTodosClientes.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkTodosClientes.Location = New System.Drawing.Point(341, 45)
-        Me.chkTodosClientes.Name = "chkTodosClientes"
-        Me.chkTodosClientes.Size = New System.Drawing.Size(85, 23)
-        Me.chkTodosClientes.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.chkTodosClientes.TabIndex = 216
-        Me.chkTodosClientes.Text = "Todos"
-        Me.chkTodosClientes.TextColor = System.Drawing.Color.White
         '
         'Rep_VentasRealizadas
         '

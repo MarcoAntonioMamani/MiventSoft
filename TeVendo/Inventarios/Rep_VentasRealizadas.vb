@@ -115,11 +115,42 @@ Public Class Rep_VentasRealizadas
 
         If (chkTodos.Checked = True) Then
 
-            dt = ReporteVentasAtendidasTodos(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"))
+            If (chkTodosClientes.Checked = True) Then
+
+                dt = ReporteVentasAtendidasTodos(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"))
+
+            Else
+                If (IdCliente > 0) Then
+                    dt = ReporteVentasAtendidasTodosUnCliente(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"), IdCliente)
+
+
+                Else
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    ToastNotification.Show(Me, "Seleccione un Ciente".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                End If
+
+
+            End If
+
+
         Else
             If (IdPersonal > 0) Then
 
-                dt = ReporteVentasAtendidasTodosUnVendedor(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"), IdPersonal)
+                If (chkTodosClientes.Checked = True) Then
+                    dt = ReporteVentasAtendidasTodosUnVendedorUnCliente(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"), IdPersonal, IdCliente)
+
+
+                Else
+                    If (IdCliente > 0) Then
+
+                        dt = ReporteVentasAtendidasTodosUnVendedor(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"), IdPersonal)
+                    Else
+                        Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                        ToastNotification.Show(Me, "Seleccione un Ciente".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                    End If
+                End If
+
+
             Else
 
                 Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
