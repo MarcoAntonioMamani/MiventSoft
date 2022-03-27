@@ -1988,6 +1988,7 @@ salirIf:
         ef.Lotebool = Lote
         ef.TipoPrograma = 2
         ef.IdCliente = IdCliente
+        ef.CategoriaPrecioSelected = 1
         ef.ShowDialog()
         grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
         _prCalcularPrecioTotal()

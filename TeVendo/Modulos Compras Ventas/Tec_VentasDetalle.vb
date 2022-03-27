@@ -112,7 +112,7 @@ Public Class Tec_VentasDetalle
         End With
         With grProducto.RootTable.Columns("NombreCategoria")
             .Width = 120
-            .Visible = True
+            .Visible = False
             .MaxLines = 2
             .WordWrap = True
             .Caption = "CATEGORIA"
@@ -122,7 +122,7 @@ Public Class Tec_VentasDetalle
             .Visible = True
             .MaxLines = 2
             .WordWrap = True
-            .Caption = "Industria"
+            .Caption = "Marca"
         End With
 
         With grProducto.RootTable.Columns("PrecioCosto")
