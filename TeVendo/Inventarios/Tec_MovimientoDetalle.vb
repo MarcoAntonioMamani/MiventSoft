@@ -133,8 +133,8 @@ Public Class Tec_MovimientoDetalle
         End If
         With grDetalle.RootTable.Columns("stock")
             .Width = 120
-            .Caption = "stock".ToUpper
-            .Visible = False
+            .Caption = "Stock Actual"
+            .Visible = Visible
         End With
         With grDetalle
             .GroupByBoxVisible = False
@@ -920,8 +920,8 @@ Public Class Tec_MovimientoDetalle
                 End If
 
             Else
-                If (grDetalle.GetValue("Cantidad") > 0) Then
-                    Dim lin As Integer = grDetalle.GetValue("Id")
+
+                Dim lin As Integer = grDetalle.GetValue("Id")
                     Dim pos As Integer = -1
                     _fnObtenerFilaDetalle(pos, lin)
                     Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
@@ -930,19 +930,8 @@ Public Class Tec_MovimientoDetalle
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
                     End If
 
-                Else
-                    Dim lin As Integer = grDetalle.GetValue("Id")
-                    Dim pos As Integer = -1
-                    _fnObtenerFilaDetalle(pos, lin)
-                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
-                    Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
-
-                    If (estado = 1) Then
-                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
-                    End If
 
                 End If
-            End If
         End If
     End Sub
 
@@ -963,8 +952,8 @@ Public Class Tec_MovimientoDetalle
 
                 grDetalle.SetValue("Cantidad", 1)
             Else
-                If (grDetalle.GetValue("Cantidad") > 0) Then
-                    Dim stock As Double = grDetalle.GetValue("stock")
+
+                Dim stock As Double = grDetalle.GetValue("stock")
                     If (grDetalle.GetValue("Cantidad") > stock And TipoMovimientoId <> 4) Then
                         Dim lin As Integer = grDetalle.GetValue("Id")
                         Dim pos As Integer = -1
@@ -978,11 +967,8 @@ Public Class Tec_MovimientoDetalle
                           eToastGlowColor.Blue,
                           eToastPosition.BottomLeft)
                     End If
-                Else
 
-                    grDetalle.SetValue("Cantidad", 1)
 
-                End If
             End If
         End If
     End Sub
