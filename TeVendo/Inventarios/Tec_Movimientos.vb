@@ -376,12 +376,27 @@ Public Class Tec_Movimientos
                 .Width = 120
                 .Caption = "Stock Actual"
                 .Visible = False
+                .FormatString = "0.00"
+            End With
+
+            With grDetalle.RootTable.Columns("stockFinal")
+                .Width = 120
+                .Caption = "Stock Final"
+                .FormatString = "0.00"
+                .Visible = False
             End With
 
         Else
             With grDetalle.RootTable.Columns("stock")
                 .Width = 120
                 .Caption = "Stock Actual"
+                .FormatString = "0.00"
+                .Visible = True
+            End With
+            With grDetalle.RootTable.Columns("stockFinal")
+                .Width = 120
+                .Caption = "Stock Final"
+                .FormatString = "0.00"
                 .Visible = True
             End With
 
@@ -469,7 +484,7 @@ Public Class Tec_Movimientos
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, "20200101", CDate("2020/01/01"), Bin.GetBuffer, 0, 0)
+        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, 0, "20200101", CDate("2020/01/01"), Bin.GetBuffer, 0, 0)
     End Sub
     Public Function _GenerarId()
         Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
@@ -646,12 +661,21 @@ Public Class Tec_Movimientos
                     _fnObtenerFilaDetalle(pos, lin)
                     Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
 
-                    If (estado = 1) Then
-                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
-                    End If
+                If (estado = 1) Then
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                End If
 
+                If (cbTipoMovimiento.Value = 3) Then  '' Es salida
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stockFinal") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") - grDetalle.GetValue("Cantidad")
+
+                Else
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stockFinal") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") + grDetalle.GetValue("Cantidad")
 
                 End If
+
+
+
+            End If
         End If
     End Sub
 
@@ -738,7 +762,7 @@ Public Class Tec_Movimientos
 
 
         grDetalle.RootTable.Columns("stock").Visible = True
-
+        grDetalle.RootTable.Columns("stockFinal").Visible = True
 
 
     End Sub
@@ -753,6 +777,9 @@ Public Class Tec_Movimientos
         tbDescripcion.ReadOnly = True
         tbFechaTransaccion.ReadOnly = True
 
+
+        grDetalle.RootTable.Columns("stock").Visible = False
+        grDetalle.RootTable.Columns("stockFinal").Visible = False
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -1130,6 +1157,19 @@ Public Class Tec_Movimientos
         ef.DepositoId = cbDepositos.Value
         ef.Lotebool = Lote
         ef.ShowDialog()
+    End Sub
+
+    Private Sub cbTipoMovimiento_ValueChanged(sender As Object, e As EventArgs) Handles cbTipoMovimiento.ValueChanged
+
+        If (tbDescripcion.ReadOnly = False And Not IsNothing(grDetalle.DataSource)) Then
+
+            CType(grDetalle.DataSource, DataTable).Rows.Clear()
+
+
+
+        End If
+
+
     End Sub
 #End Region
 End Class

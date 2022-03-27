@@ -134,6 +134,13 @@ Public Class Tec_MovimientoDetalle
         With grDetalle.RootTable.Columns("stock")
             .Width = 120
             .Caption = "Stock Actual"
+            .FormatString = "0.00"
+            .Visible = Visible
+        End With
+        With grDetalle.RootTable.Columns("stockFinal")
+            .Width = 120
+            .Caption = "Stock Final"
+            .FormatString = "0.00"
             .Visible = Visible
         End With
         With grDetalle
@@ -535,7 +542,7 @@ Public Class Tec_MovimientoDetalle
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, "20200101", CDate("2020/01/01"), Bin.GetBuffer, 0, 0)
+        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, 0, "20200101", CDate("2020/01/01"), Bin.GetBuffer, 0, 0)
     End Sub
     Public Function _fnExisteProducto(idprod As Integer) As Boolean
         For i As Integer = 0 To CType(grDetalle.DataSource, DataTable).Rows.Count - 1 Step 1
@@ -569,21 +576,37 @@ Public Class Tec_MovimientoDetalle
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = grProducto.GetValue("Id")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = grProducto.GetValue("NombreProducto")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("stock")
+
+
+                If (TipoMovimientoId = 3) Then  '' Es salida
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stockFinal") = grProducto.GetValue("stock") - cantidad
+
+                Else
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stockFinal") = grProducto.GetValue("stock") + cantidad
+
+                End If
+
+
+
+
+
+
+
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
 
-                ''    _DesHabilitarProductos()
+                    ''    _DesHabilitarProductos()
 
 
-                CambiarEstado(grProducto.GetValue("Id"), 0)
-                'grproducto.RemoveFilters()
-                tbProducto.Clear()
-                tbProducto.Focus()
-            End If
+                    CambiarEstado(grProducto.GetValue("Id"), 0)
+                    'grproducto.RemoveFilters()
+                    tbProducto.Clear()
+                    tbProducto.Focus()
+                End If
 
 
 
 
-        Else
+            Else
             If (existe) Then
                 Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
                 ToastNotification.Show(Me, "El producto ya existe en el detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
@@ -926,12 +949,20 @@ Public Class Tec_MovimientoDetalle
                     _fnObtenerFilaDetalle(pos, lin)
                     Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
 
-                    If (estado = 1) Then
-                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
-                    End If
+                If (estado = 1) Then
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                End If
 
+                If (TipoMovimientoId = 3) Then  '' Es salida
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stockFinal") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") - grDetalle.GetValue("Cantidad")
+
+                Else
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stockFinal") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") + grDetalle.GetValue("Cantidad")
 
                 End If
+
+
+            End If
         End If
     End Sub
 
