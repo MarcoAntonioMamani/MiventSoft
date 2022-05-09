@@ -59,7 +59,7 @@ Public Class Tec_VentasDetalle
         Dim dt As New DataTable
         btnProductos.Visible = False
 
-        If (SucursalId < 0 Or IdCliente = 0) Then
+        If (SucursalId < 0) Then
             If (Not IsNothing(grProducto.DataSource)) Then
                 CType(grProducto.DataSource, DataTable).Rows.Clear()
             End If

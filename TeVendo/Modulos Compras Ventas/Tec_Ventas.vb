@@ -1714,27 +1714,27 @@ salirIf:
 
 
         _PMNuevo()
-                Dim dt As DataTable = ListarPersonalById(Global_IdPersonal)
-                If (dt.Rows.Count > 0) Then
-                    IdVendedor = Global_IdPersonal
-                    tbVendedor.Text = dt.Rows(0).Item("Nombre")
-                    tbCliente.Focus()
+        'Dim dt As DataTable = ListarPersonalById(Global_IdPersonal)
+        'If (dt.Rows.Count > 0) Then
+        '    IdVendedor = Global_IdPersonal
+        '    tbVendedor.Text = dt.Rows(0).Item("Nombre")
+        '    tbCliente.Focus()
 
-                Else
-                    tbVendedor.Focus()
-                End If
-                Dim dtclientes As DataTable = L_prListarGeneral("MAM_Clientes")
+        'Else
+        '    tbVendedor.Focus()
+        'End If
+        'Dim dtclientes As DataTable = L_prListarGeneral("MAM_Clientes")
 
-                Dim fila01 As DataRow() = dtclientes.Select("Id =1")
-                If (Not IsDBNull(fila01)) Then
-                    If (fila01.Count > 0) Then
+        '        Dim fila01 As DataRow() = dtclientes.Select("Id =1")
+        '        If (Not IsDBNull(fila01)) Then
+        '            If (fila01.Count > 0) Then
 
-                        IdCliente = fila01(0).Item("Id")
-                        tbCliente.Text = fila01(0).Item("NombreCliente").ToString
-                        btnSeleccionarProducto.Focus()
+        '                IdCliente = fila01(0).Item("Id")
+        '                tbCliente.Text = fila01(0).Item("NombreCliente").ToString
+        '                btnSeleccionarProducto.Focus()
 
-                    End If
-                End If
+        '            End If
+        '        End If
 
 
 
