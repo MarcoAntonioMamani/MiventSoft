@@ -2123,7 +2123,7 @@ salirIf:
             Dim _Meses() As String = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"}
             _FechaAct = fechaven
             _Fecha = Split(_FechaAct, "-")
-            _FechaPar = "La Paz, " + _Fecha(0).Trim + " De " + _Meses(_Fecha(1) - 1).Trim + " Del " + _Fecha(2).Trim
+            _FechaPar = "Tarija, " + _Fecha(0).Trim + " De " + _Meses(_Fecha(1) - 1).Trim + " Del " + _Fecha(2).Trim
 
             If Not IsNothing(P_Global.Visualizador) Then
                 P_Global.Visualizador.Close()
@@ -2142,20 +2142,20 @@ salirIf:
             ''Dim objrep As New Recibo
 
 
-            Dim ef = New Efecto
+            'Dim ef = New Efecto
 
 
-            ef.tipo = 8
-            ef.titulo = "Reporte"
-            ef.descripcion = "¿Desea Generar Reporte Tamaño Media Carta ?"
-            ef.ShowDialog()
-            Dim bandera As Boolean = False
-            bandera = ef.band
+            'ef.tipo = 8
+            'ef.titulo = "Reporte"
+            'ef.descripcion = "¿Desea Generar Reporte Tamaño Media Carta ?"
+            'ef.ShowDialog()
+            'Dim bandera As Boolean = False
+            'bandera = ef.band
 
 
 
-            If (bandera = True) Then
-                Dim objrep As New Recibo
+            'If (bandera = True) Then
+            Dim objrep As New Recibo
 
                 objrep.SetDataSource(dt)
 
@@ -2167,19 +2167,19 @@ salirIf:
                 P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
                 P_Global.Visualizador.CrGeneral.Zoom(130)
                 P_Global.Visualizador.Show() 'Comentar
-            Else
+            'Else
 
-                Dim objrep As New Recibo07_1000
+            '    Dim objrep As New Recibo07_1000
 
 
 
-                objrep.SetDataSource(dt)
-                objrep.SetParameterValue("Literal1", li)
+            '    objrep.SetDataSource(dt)
+            '    objrep.SetParameterValue("Literal1", li)
 
-                P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
-                P_Global.Visualizador.CrGeneral.Zoom(130)
-                P_Global.Visualizador.Show() 'Comentar
-            End If
+            '    P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+            '    P_Global.Visualizador.CrGeneral.Zoom(130)
+            '    P_Global.Visualizador.Show() 'Comentar
+            'End If
 
 
 
