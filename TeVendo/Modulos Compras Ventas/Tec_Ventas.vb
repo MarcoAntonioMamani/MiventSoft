@@ -2103,6 +2103,7 @@ salirIf:
                 Dim Name As String = dtImage.Rows(0).Item(0)
                 If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Empresa" + Name)) Then
                     Dim im As New Bitmap(New Bitmap(RutaGlobal + "\Imagenes\Imagenes Empresa" + Name))
+                    Dim rt As String = RutaGlobal + "\Imagenes\Imagenes Empresa" + Name
                     Dim Bin As New MemoryStream
                     Dim img As New Bitmap(im)
                     img.Save(Bin, Imaging.ImageFormat.Png)
