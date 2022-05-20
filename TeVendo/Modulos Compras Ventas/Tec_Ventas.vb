@@ -1933,10 +1933,14 @@ salirIf:
         If (swTipoVenta.Value = True) Then
             tbFechaVencimientoCredito.Visible = False
             lbcredito.Visible = False
+
+            cbPrecios.Value = 1
+
+
         Else
             lbcredito.Visible = True
             tbFechaVencimientoCredito.Visible = True
-
+            cbPrecios.Value = 3
         End If
     End Sub
 
@@ -2055,11 +2059,11 @@ salirIf:
         'a.Id ,a.NombreCliente  as NombreProveedor ,a.DireccionCliente  ,a.Telefono
 
         Dim listEstCeldas As New List(Of Celda)
-        listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
+        listEstCeldas.Add(New Celda("Id,", False, "Codigo", 50))
         listEstCeldas.Add(New Celda("CodigoExterno,", True, "Cod Ext.", 70))
-        listEstCeldas.Add(New Celda("NombreProveedor", True, "NOMBRE", 350))
-        listEstCeldas.Add(New Celda("DireccionCliente", True, "DIRECCION", 180))
-        listEstCeldas.Add(New Celda("Telefono", True, "Telefono".ToUpper, 200))
+        listEstCeldas.Add(New Celda("NombreProveedor", True, "Nombre", 350))
+        listEstCeldas.Add(New Celda("DireccionCliente", True, "Direccion", 180))
+        listEstCeldas.Add(New Celda("NombreZona", True, "Zona".ToUpper, 200))
 
 
         Dim ef = New Efecto
@@ -2076,8 +2080,8 @@ salirIf:
         If (bandera = True) Then
             Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
 
-            IdCliente = Row.Cells("ID").Value
-            tbCliente.Text = Row.Cells("NombreProveedor").Value.ToString
+            IdCliente = Row.Cells("Id").Value
+            tbCliente.Text = Row.Cells("NombreProveedor").Value.ToString + " - " + Row.Cells("NombreZona").Value.ToString
 
             btnSeleccionarProducto.Focus()
         Else
