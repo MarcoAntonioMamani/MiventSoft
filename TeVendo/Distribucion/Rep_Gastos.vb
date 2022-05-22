@@ -29,6 +29,31 @@ Public Class Rep_Gastos
         _prIniciarTodo()
     End Sub
 
+
+    Sub InterpretarDatos(ByRef dt As DataTable)
+
+        Dim dtDatos As DataTable = ReporteGastosFecha(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"))
+
+        If (cbGastos.Value = -1) Then
+
+            dt = dtDatos
+
+        Else
+            dt = dtDatos.Copy
+            dt.Rows.Clear()
+            For i As Integer = 0 To dtDatos.Rows.Count - 1 Step 1
+
+                If (dtDatos.Rows(i).Item("TipoGastoId") = cbGastos.Value) Then
+                    dt.ImportRow(dtDatos.Rows(i))
+                End If
+
+
+            Next
+
+
+
+        End If
+    End Sub
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
 
         If (cbGastos.SelectedIndex < 0) Then
@@ -41,7 +66,8 @@ Public Class Rep_Gastos
         End If
 
         Dim _dt As New DataTable
-        ''_prObtenerKardexGeneral(_dt)
+
+        InterpretarDatos(_dt)
         If (_dt.Rows.Count > 0) Then
 
             Dim objrep As New Reporte_KardexGeneralProductos
@@ -50,6 +76,7 @@ Public Class Rep_Gastos
             Dim fechaF As String = cbFechaHasta.Value.ToString("dd/MM/yyyy")
             objrep.SetParameterValue("FechaDesde", fechaI)
             objrep.SetParameterValue("FechaHasta", fechaF)
+            objrep.SetParameterValue("Usuario", L_Usuario)
             MReportViewer.ReportSource = objrep
             MReportViewer.Show()
             MReportViewer.BringToFront()
