@@ -6,6 +6,7 @@ Public Class Rep_Gastos
     'gb_FacturaIncluirICE 
     Public _nameButton As String
     Public _tab As SuperTabItem
+    Public _modulo As SuperTabItem
     Dim Lote As Boolean = False
     Dim Dt1Kardex As DataTable
     Dim Dt2KardexTotal As DataTable

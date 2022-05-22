@@ -1071,8 +1071,8 @@ Public Class Tec_Principal
         'Dim frm As New F0_Roles
         Dim frm As New Rep_Gastos
 
-        'frm._modulo = Panel_Configuracion
-
+        frm._modulo = tab_distribucion
+        frm._tab = tab_distribucion
         Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
         tab3.RecalcSize()
         tab3.ThemeAware = True
@@ -1094,11 +1094,13 @@ Public Class Tec_Principal
         'Dim frm As New F0_Roles
         Dim frm As New Tec_ProgramaIngresoEgresoCaja
 
-        'frm._modulo = Panel_Configuracion
+        frm._modulo = tab_distribucion
 
+        frm._TabControl = SuperTabControlMenu
         Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
         tab3.RecalcSize()
         tab3.ThemeAware = True
+        frm._tab = tab3
         tab3.ShowSubItems = True
         tab3.UpdateBindings()
 
@@ -1117,7 +1119,8 @@ Public Class Tec_Principal
         'Dim frm As New F0_Roles
         Dim frm As New Tec_ReporteIngresosEgresosMensuales
 
-        'frm._modulo = Panel_Configuracion
+        frm._modulo = tab_distribucion
+        frm._tab = tab_distribucion
 
         Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
         tab3.RecalcSize()
@@ -1131,6 +1134,30 @@ Public Class Tec_Principal
         frm.Show()
         tab3.Text = frm.Text
         Dim blah As New Bitmap(btnCierreReporteAnual.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
+    End Sub
+
+    Private Sub btnCierreReporteDetallado_Click(sender As Object, e As EventArgs) Handles btnCierreReporteDetallado.Click
+        SuperTabControlMenu.SelectedTab = tab_ventana
+        'Dim frm As New F0_Roles
+        Dim frm As New Tec_ReporteIngresosEgresosDetallado
+
+        'frm._modulo = tab_distribucion
+        'frm._tab = tab_distribucion
+
+        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
+        tab3.RecalcSize()
+        tab3.ThemeAware = True
+        tab3.ShowSubItems = True
+        tab3.UpdateBindings()
+
+        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
+        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
+        tab3.AttachedControl.Controls.Add(panel)
+        frm.Show()
+        tab3.Text = frm.Text
+        Dim blah As New Bitmap(btnCierreReporteDetallado.Image, 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub

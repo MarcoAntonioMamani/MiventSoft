@@ -7,6 +7,8 @@ Imports Janus.Data
 Public Class Tec_ReporteIngresosEgresosMensuales
     Dim RutaGlobal As String = gs_CarpetaRaiz
     Dim RutaTemporal As String = "C:\Temporal"
+    Public _tab As SuperTabItem
+    Public _modulo As SuperTabItem
     Public Sub _prIniciarTodo()
 
         Me.Text = "REPORTE INGRESOS/EGRESOS MENSUALES"
