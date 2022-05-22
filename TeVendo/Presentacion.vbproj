@@ -197,6 +197,12 @@
     <Compile Include="CierreIngresoEgresoGeneral\Tec_ProgramaIngresoEgresoCaja.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="CierreIngresoEgresoGeneral\Tec_ReporteIngresosEgresosMensuales.designer.vb">
+      <DependentUpon>Tec_ReporteIngresosEgresosMensuales.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CierreIngresoEgresoGeneral\Tec_ReporteIngresosEgresosMensuales.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Control\Imageus.Designer.vb">
       <DependentUpon>Imageus.vb</DependentUpon>
     </Compile>
@@ -685,6 +691,12 @@
       <DependentUpon>Reporte_Rendimiento_Personal.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ReporteSmartApps\Reporte_ResumenIngresoEgresos.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reporte_ResumenIngresoEgresos.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ReporteSmartApps\Reporte_StockGeneral.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -803,6 +815,9 @@
   <ItemGroup>
     <EmbeddedResource Include="CierreIngresoEgresoGeneral\Tec_ProgramaIngresoEgresoCaja.resx">
       <DependentUpon>Tec_ProgramaIngresoEgresoCaja.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CierreIngresoEgresoGeneral\Tec_ReporteIngresosEgresosMensuales.resx">
+      <DependentUpon>Tec_ReporteIngresosEgresosMensuales.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Control\Imageus.resx">
       <DependentUpon>Imageus.vb</DependentUpon>
@@ -1071,6 +1086,10 @@
     <EmbeddedResource Include="ReporteSmartApps\Reporte_Rendimiento_Personal.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Reporte_Rendimiento_Personal.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\Reporte_ResumenIngresoEgresos.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reporte_ResumenIngresoEgresos.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\Reporte_StockGeneral.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
