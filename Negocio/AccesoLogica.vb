@@ -1968,7 +1968,144 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+    Public Shared Function L_prIngresoSalidaInsertar(ByRef _numi As String, Fecha As String, Descripcion As String, Monto As Double, CajaId As Integer, IngresoEgreso As Integer, CajaTipoMovimientoId As Integer, PersonalId As Integer, SucursalId As Integer, CajaIdDestino As Integer, IdIngresoEgreso As Integer) As Boolean
+        Dim _resultado As Boolean
 
+        '@id,@CierreCajeroId ,@Fecha ,@Descripcion ,@Monto ,@CajaId ,@IngresoEgreso ,@CajaTipoMovimientoId,
+        '@PersonalId ,@Modulo,@IdModulo ,@SucursalId ,@CajaIngresoEgresoIdDestino,@CajaIdDestino,@Usuario ,@newFecha,@newHora 
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@CierreCajeroId", 0))
+        _listParam.Add(New Datos.DParametro("@Fecha", Fecha))
+        _listParam.Add(New Datos.DParametro("@Descripcion", Descripcion))
+        _listParam.Add(New Datos.DParametro("@Monto", Monto))
+        _listParam.Add(New Datos.DParametro("@CajaId", CajaId))
+        _listParam.Add(New Datos.DParametro("@IngresoEgreso", IngresoEgreso))
+        _listParam.Add(New Datos.DParametro("@CajaTipoMovimientoId", CajaTipoMovimientoId))
+        _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
+        _listParam.Add(New Datos.DParametro("@Modulo", 0))
+        _listParam.Add(New Datos.DParametro("@IdModulo", 0))
+        _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
+        _listParam.Add(New Datos.DParametro("@CajaIngresoEgresoIdDestino", IdIngresoEgreso))
+        _listParam.Add(New Datos.DParametro("@CajaIdDestino", CajaIdDestino))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_CajaIngresoEgreso", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _numi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+    Public Shared Function L_prIngresoSalidaModificar(ByRef _numi As String, Fecha As String, Descripcion As String, Monto As Double, CajaId As Integer, IngresoEgreso As Integer, CajaTipoMovimientoId As Integer, PersonalId As Integer, SucursalId As Integer, CajaIdDestino As Integer) As Boolean
+        Dim _resultado As Boolean
+
+        '@id,@CierreCajeroId ,@Fecha ,@Descripcion ,@Monto ,@CajaId ,@IngresoEgreso ,@CajaTipoMovimientoId,
+        '@PersonalId ,@Modulo,@IdModulo ,@SucursalId ,@CajaIngresoEgresoIdDestino,@CajaIdDestino,@Usuario ,@newFecha,@newHora 
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@CierreCajeroId", 0))
+        _listParam.Add(New Datos.DParametro("@Fecha", Fecha))
+        _listParam.Add(New Datos.DParametro("@Descripcion", Descripcion))
+        _listParam.Add(New Datos.DParametro("@Monto", Monto))
+        _listParam.Add(New Datos.DParametro("@CajaId", CajaId))
+        _listParam.Add(New Datos.DParametro("@IngresoEgreso", IngresoEgreso))
+        _listParam.Add(New Datos.DParametro("@CajaTipoMovimientoId", CajaTipoMovimientoId))
+        _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
+        _listParam.Add(New Datos.DParametro("@Modulo", 0))
+        _listParam.Add(New Datos.DParametro("@IdModulo", 0))
+        _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
+        _listParam.Add(New Datos.DParametro("@CajaIngresoEgresoIdDestino", 0))
+        _listParam.Add(New Datos.DParametro("@CajaIdDestino", CajaIdDestino))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_CajaIngresoEgreso", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _numi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+    Public Shared Function L_prListarTipoMovimientoCaja() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_CajaIngresoEgreso", _listParam)
+
+        Return _Tabla
+    End Function
+    Public Shared Function ListarReporteIngresoEgreso(Id As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 8))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@id", Id))
+        _Tabla = D_ProcedimientoConParam("MAM_CajaIngresoEgreso", _listParam)
+
+        Return _Tabla
+    End Function
+    Public Shared Function InsertarTipoMovimiento(ByRef _numi As String, Descripcion As String, Tipo As Integer) As Boolean
+        Dim _resultado As Boolean
+
+        '    @Id ,@SucursalId ,@FechaVenta ,@PersonalId ,@TipoVenta ,
+        '@FechaVencimientoCredito ,@ClienteId ,@MonedaVenta ,@Estado ,@Glosa ,
+        '@Descuento ,@TotalVenta 
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 21))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@Descripcion", Descripcion))
+        _listParam.Add(New Datos.DParametro("@TipoMovimiento", Tipo))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _numi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+    Public Shared Function L_prListarCaja() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_CajaIngresoEgreso", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function ReporteGastosFecha(FechaI As String, FechaF As String) As DataTable
         Dim _Tabla As DataTable
 

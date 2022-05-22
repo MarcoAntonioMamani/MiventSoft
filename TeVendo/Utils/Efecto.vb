@@ -49,6 +49,19 @@ Public Class Efecto
 
 
 
+    Public MontoBs As Double = 0
+    Public MontoDolares As Double = 0
+    Public MontoTarjeta As Double = 0
+    Public MontoTransferencia As Double = 0
+    Public TotalVenta As Double = 0
+
+    Public TipoPrograma As Integer = 1
+    Public Id As Integer = 0
+
+
+    Public SucursalSelected As Integer = 0
+    Public CategoriaPrecioSelected As Integer = 0
+    Public TableCategoria As DataTable
 
     Private Sub Efecto_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.WindowState = FormWindowState.Maximized
@@ -95,12 +108,32 @@ Public Class Efecto
                 _prMostrarFormCrearCategoria()
             Case 19
                 _prMostrarFormCrearProveedor()
+
+            Case 21
+                _prMostrarFormCrearTipoMovimiento()
+
         End Select
     End Sub
     Public Sub _prLogin()
         Dim Frm As New Tec_Login
         Frm.ShowDialog()
         Me.Close()
+    End Sub
+
+    Sub _prMostrarFormCrearTipoMovimiento()
+
+        Dim frmAyuda As Crear_TipoMovimientoCaja
+        frmAyuda = New Crear_TipoMovimientoCaja
+        frmAyuda.ShowDialog()
+        If frmAyuda.Bandera = True Then
+            Id = frmAyuda.IdTipoMovimiento
+            band = True
+            Me.Close()
+        Else
+            band = False
+            Me.Close()
+        End If
+
     End Sub
     Sub _prMostrarFormAyuda()
 

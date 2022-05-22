@@ -191,6 +191,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CierreIngresoEgresoGeneral\Tec_ProgramaIngresoEgresoCaja.designer.vb">
+      <DependentUpon>Tec_ProgramaIngresoEgresoCaja.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CierreIngresoEgresoGeneral\Tec_ProgramaIngresoEgresoCaja.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Control\Imageus.Designer.vb">
       <DependentUpon>Imageus.vb</DependentUpon>
     </Compile>
@@ -577,6 +583,12 @@
       <DependentUpon>ReporteGraficoVentasRealizadas.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ReporteSmartApps\ReporteIngresoEgreso.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteIngresoEgreso.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ReporteSmartApps\ReportePagosPagados.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -740,6 +752,12 @@
     <Compile Include="Utils\CrearProveedor.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Utils\Crear_TipoMovimientoCaja.designer.vb">
+      <DependentUpon>Crear_TipoMovimientoCaja.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Crear_TipoMovimientoCaja.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Utils\Efecto.Designer.vb">
       <DependentUpon>Efecto.vb</DependentUpon>
     </Compile>
@@ -783,6 +801,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CierreIngresoEgresoGeneral\Tec_ProgramaIngresoEgresoCaja.resx">
+      <DependentUpon>Tec_ProgramaIngresoEgresoCaja.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Control\Imageus.resx">
       <DependentUpon>Imageus.vb</DependentUpon>
     </EmbeddedResource>
@@ -983,6 +1004,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReporteGraficoVentasRealizadas.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\ReporteIngresoEgreso.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteIngresoEgreso.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\ReportePagosPagados.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReportePagosPagados.vb</LastGenOutput>
@@ -1087,6 +1112,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Utils\CrearProveedor.resx">
       <DependentUpon>CrearProveedor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utils\Crear_TipoMovimientoCaja.resx">
+      <DependentUpon>Crear_TipoMovimientoCaja.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Utils\Efecto.resx">
       <DependentUpon>Efecto.vb</DependentUpon>
