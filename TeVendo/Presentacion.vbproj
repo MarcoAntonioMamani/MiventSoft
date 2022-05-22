@@ -210,6 +210,12 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="CustomersRow.vb" />
+    <Compile Include="Distribucion\Rep_Gastos.Designer.vb">
+      <DependentUpon>Rep_Gastos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Distribucion\Rep_Gastos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Distribucion\Tec_AdministrarAsignacionesPedidos.Designer.vb">
       <DependentUpon>Tec_AdministrarAsignacionesPedidos.vb</DependentUpon>
     </Compile>
@@ -685,6 +691,12 @@
       <DependentUpon>Reporte_VentasRealizadas.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ReporteSmartApps\R_Gastos.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_Gastos.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ReporteSmartApps\R_KardexProducto.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -779,6 +791,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Control\UCLavadero.resx">
       <DependentUpon>UCLavadero.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Distribucion\Rep_Gastos.resx">
+      <DependentUpon>Rep_Gastos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Distribucion\Tec_AdministrarAsignacionesPedidos.resx">
       <DependentUpon>Tec_AdministrarAsignacionesPedidos.vb</DependentUpon>
@@ -1043,6 +1058,10 @@
     <EmbeddedResource Include="ReporteSmartApps\Reporte_VentasRealizadas.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Reporte_VentasRealizadas.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\R_Gastos.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_Gastos.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\R_KardexProducto.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

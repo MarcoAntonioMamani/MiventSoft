@@ -1065,4 +1065,27 @@ Public Class Tec_Principal
     Private Sub tab_InvProductos_Click(sender As Object, e As EventArgs) Handles tab_InvProductos.Click
         FSearchProductos.Visible = True
     End Sub
+
+    Private Sub btnCierreReporteGastos_Click(sender As Object, e As EventArgs) Handles btnCierreReporteGastos.Click
+        SuperTabControlMenu.SelectedTab = tab_ventana
+        'Dim frm As New F0_Roles
+        Dim frm As New Rep_Gastos
+
+        'frm._modulo = Panel_Configuracion
+
+        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
+        tab3.RecalcSize()
+        tab3.ThemeAware = True
+        tab3.ShowSubItems = True
+        tab3.UpdateBindings()
+
+        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
+        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
+        tab3.AttachedControl.Controls.Add(panel)
+        frm.Show()
+        tab3.Text = frm.Text
+        Dim blah As New Bitmap(btnCierreReporteGastos.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
+    End Sub
 End Class
