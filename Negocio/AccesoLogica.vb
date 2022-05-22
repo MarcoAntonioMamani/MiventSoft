@@ -3392,7 +3392,7 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
-    Public Shared Function L_prListarMovimientosIngresoEgresoCierrePendiente(SucursalId As Integer, Fecha As String) As DataTable
+    Public Shared Function L_prListarMovimientosIngresoEgresoCierrePendiente(SucursalId As Integer, Fecha As String, PersonalId As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
@@ -3401,11 +3401,12 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
         _listParam.Add(New Datos.DParametro("@Fecha", Fecha))
+        _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
         _Tabla = D_ProcedimientoConParam("MAM_CierreCajero", _listParam)
 
         Return _Tabla
     End Function
-    Public Shared Function L_prListarCobrosCajaPendiente(Fecha As String) As DataTable
+    Public Shared Function L_prListarCobrosCajaPendiente(Fecha As String, PersonalId As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
@@ -3413,6 +3414,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@tipo", 7))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@Fecha", Fecha))
+        _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
         _Tabla = D_ProcedimientoConParam("MAM_CierreCajero", _listParam)
 
         Return _Tabla

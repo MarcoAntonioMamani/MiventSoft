@@ -270,7 +270,7 @@ Public Class Tec_CierreCajaCajero
 
         If (id = 0) Then
 
-            dt = L_prListarCobrosCajaPendiente(tbFechaCierre.Value.ToString("yyyy/MM/dd"))
+            dt = L_prListarCobrosCajaPendiente(tbFechaCierre.Value.ToString("yyyy/MM/dd"), PersonalId)
         Else
             dt = L_prListarCobranzaCierresCaja(id)
         End If
@@ -447,7 +447,7 @@ Public Class Tec_CierreCajaCajero
 
         If (id = 0) Then
 
-            dt = L_prListarMovimientosIngresoEgresoCierrePendiente(cbSucursal.Value, tbFechaCierre.Value.ToString("yyyy/MM/dd"))
+            dt = L_prListarMovimientosIngresoEgresoCierrePendiente(cbSucursal.Value, tbFechaCierre.Value.ToString("yyyy/MM/dd"), PersonalId)
         Else
             dt = L_prListarMovimientosIngresoEgresoCierre(id)
         End If
@@ -1341,7 +1341,7 @@ Public Class Tec_CierreCajaCajero
         TbTotalTransferencia.Value = Totaltransferencia
 
 
-        tbEfectivoRecibido.Value = tbTotalCortesEfectivo.Value + totalTarjeta + Totaltransferencia
+        tbEfectivoRecibido.Value = tbTotalCortesEfectivo.Value
 
         tbDiferencia.Value = tbEfectivoRecibido.Value - tbTotalCaja.Value
 
