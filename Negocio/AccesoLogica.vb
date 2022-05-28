@@ -339,7 +339,7 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
-    Public Shared Function ListaCobranzasPorPersonalSinCierre(PersonalId As String) As DataTable
+    Public Shared Function ListaCobranzasPorPersonalSinCierre(PersonalId As String, Fecha As String) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
@@ -347,6 +347,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@tipo", 7))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
+        _listParam.Add(New Datos.DParametro("@FechaCierre", Fecha))
         _Tabla = D_ProcedimientoConParam("MAM_CierreCaja", _listParam)
 
         Return _Tabla

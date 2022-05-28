@@ -441,7 +441,7 @@ Public Class Tec_CierreCaja
 
     Private Sub _prCargarCobranzasSinCierreCaja(PersonalId As String)
         Dim dt As New DataTable
-        dt = ListaCobranzasPorPersonalSinCierre(PersonalId)
+        dt = ListaCobranzasPorPersonalSinCierre(PersonalId, tbFechaCierre.Value.ToString("yyyy/MM/dd"))
 
 
         grCobranzas.DataSource = dt
@@ -713,6 +713,9 @@ Public Class Tec_CierreCaja
 
         PersonalId = 0
         ConciliacionID = 0
+
+        _prCargarPedidosConciliacion(-1)
+        _prCargarCobranzasConCierreCaja(-1)
     End Sub
 
 
