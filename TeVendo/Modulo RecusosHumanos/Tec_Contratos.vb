@@ -61,6 +61,7 @@ Public Class Tec_Contratos
                     .Caption = _MListEstBuscador.Item(i).titulo
                     .Width = _MListEstBuscador.Item(i).tamano
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                    .TextAlignment = TextAlignment.Center
                     .MaxLines = 2
                     .WordWrap = True
                     Dim col As DataColumn = dtBuscador.Columns(campo)
@@ -298,6 +299,8 @@ Public Class Tec_Contratos
             .Width = 90
             .Caption = "Id"
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grConceptos.RootTable.Columns("ContratoId")
             .Width = 110
@@ -311,12 +314,16 @@ Public Class Tec_Contratos
             .Width = 300
             .Visible = True
             .Caption = "Concepto"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
 
         With grConceptos.RootTable.Columns("PorcentajeConcepto")
             .Width = 110
             .Caption = "Porcentaje"
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
         End With

@@ -91,6 +91,7 @@ Public Class Tec_Precios
                     .Caption = ""
                     .Width = 150
                     .Visible = False
+
                     .FormatString = "0"
                 End With
 
@@ -98,8 +99,10 @@ Public Class Tec_Precios
                     .Caption = fc.Item("ygdesc").ToString
                     .Width = 90
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-                    .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+                    .TextAlignment = TextAlignment.Center
                     .Visible = True
+                    .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                    .TextAlignment = TextAlignment.Center
                     .FormatString = "0.00"
                 End With
 
@@ -110,6 +113,8 @@ Public Class Tec_Precios
                 .Caption = "Cod"
                 .Width = 40
                 .Visible = True
+                .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                .TextAlignment = TextAlignment.Center
             End With
             With grprecio.RootTable.Columns("yfnumi")
                 .Caption = "Cod P"
@@ -120,16 +125,22 @@ Public Class Tec_Precios
                 .Caption = "Producto"
                 .Width = 200
                 .Visible = True
+                .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                .TextAlignment = TextAlignment.Center
             End With
             With grprecio.RootTable.Columns("NombreCategoria")
                 .Caption = "Categoria"
                 .Width = 120
                 .Visible = True
+                .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                .TextAlignment = TextAlignment.Center
             End With
             With grprecio.RootTable.Columns("proveedor")
                 .Caption = "Proveedor"
                 .Width = 120
                 .Visible = True
+                .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                .TextAlignment = TextAlignment.Center
             End With
             'Habilitar Filtradores
             With grprecio
@@ -202,12 +213,16 @@ Public Class Tec_Precios
             .Width = 40
             .Visible = True
             .Caption = "Cod"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
 
         With grcategoria.RootTable.Columns("ygdesc")
             .Caption = "Descripcion"
             .Width = 150
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
 
 
         End With
@@ -225,7 +240,8 @@ Public Class Tec_Precios
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .Visible = True
             .Caption = "Tipo"
-
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
 
 

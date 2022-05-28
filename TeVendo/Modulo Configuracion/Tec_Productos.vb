@@ -57,6 +57,7 @@ Public Class Tec_Productos
                     .Caption = _MListEstBuscador.Item(i).titulo
                     .Width = _MListEstBuscador.Item(i).tamano
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                    .TextAlignment = TextAlignment.Center
                     .WordWrap = True
                     .MaxLines = 4
                     Dim col As DataColumn = dtBuscador.Columns(campo)

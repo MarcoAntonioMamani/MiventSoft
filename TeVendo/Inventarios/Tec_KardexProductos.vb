@@ -111,7 +111,8 @@ Public Class Tec_KardexProductos
             .Width = 70
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .CellStyle.FontSize = 9
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             '.CellStyle.BackColor = Color.AliceBlue
         End With
@@ -121,7 +122,8 @@ Public Class Tec_KardexProductos
             .Width = 120
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .CellStyle.FontSize = 9
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             '.CellStyle.BackColor = Color.AliceBlue
         End With
@@ -131,7 +133,8 @@ Public Class Tec_KardexProductos
             .Width = 0
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .CellStyle.FontSize = 9
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = False
             '.CellStyle.BackColor = Color.AliceBlue
         End With
@@ -141,7 +144,8 @@ Public Class Tec_KardexProductos
             .Width = 180
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .CellStyle.FontSize = 9
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             '.CellStyle.BackColor = Color.AliceBlue
         End With
@@ -150,7 +154,8 @@ Public Class Tec_KardexProductos
             .Width = 400
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .CellStyle.FontSize = 9
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             '.CellStyle.BackColor = Color.AliceBlue
         End With
@@ -162,7 +167,8 @@ Public Class Tec_KardexProductos
             .Width = 100
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .CellStyle.FontSize = 9
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             '.CellStyle.BackColor = Color.AliceBlue
         End With
@@ -171,7 +177,8 @@ Public Class Tec_KardexProductos
             .Width = 100
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .CellStyle.FontSize = 9
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             '.CellStyle.BackColor = Color.AliceBlue
         End With
@@ -184,7 +191,8 @@ Public Class Tec_KardexProductos
             .Width = 0
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .CellStyle.FontSize = 9
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = False
             '.CellStyle.BackColor = Color.AliceBlue
         End With
@@ -193,7 +201,8 @@ Public Class Tec_KardexProductos
             .Width = 0
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .CellStyle.FontSize = 9
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = False
             '.CellStyle.BackColor = Color.AliceBlue
         End With
@@ -202,7 +211,8 @@ Public Class Tec_KardexProductos
             .Width = 0
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .CellStyle.FontSize = 9
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = False
             '.CellStyle.BackColor = Color.AliceBlue
         End With
@@ -211,7 +221,8 @@ Public Class Tec_KardexProductos
             .Width = 80
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .CellStyle.FontSize = 9
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = False
             '.CellStyle.BackColor = Color.AliceBlue
             .FormatString = "0.00"
@@ -221,7 +232,8 @@ Public Class Tec_KardexProductos
             .Width = 200
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .CellStyle.FontSize = 9
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = False
             '.CellStyle.BackColor = Color.AliceBlue
         End With
@@ -232,7 +244,8 @@ Public Class Tec_KardexProductos
             .Width = 80
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .CellStyle.FontSize = 9
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             '.CellStyle.BackColor = Color.AliceBlue
             .FormatString = "0.00"
@@ -242,7 +255,8 @@ Public Class Tec_KardexProductos
             .Width = 80
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .CellStyle.FontSize = 9
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             '.CellStyle.BackColor = Color.AliceBlue
             .FormatString = "0.00"
@@ -252,7 +266,8 @@ Public Class Tec_KardexProductos
             .Width = 80
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .CellStyle.FontSize = 9
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             '.CellStyle.BackColor = Color.AliceBlue
             .FormatString = "0.00"
@@ -262,7 +277,8 @@ Public Class Tec_KardexProductos
             .Width = 300
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .CellStyle.FontSize = 9
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = False
             .Position = 2
         End With

@@ -63,6 +63,7 @@ Public Class Tec_Despachos
                     .Caption = _MListEstBuscador.Item(i).titulo
                     .Width = _MListEstBuscador.Item(i).tamano
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                    .TextAlignment = TextAlignment.Center
                     .MaxLines = 2
                     .WordWrap = True
 
@@ -313,11 +314,15 @@ Public Class Tec_Despachos
         With grDetalle.RootTable.Columns("ProductoId")
             .Width = 110
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Caption = "Cod. Producto"
         End With
         With grDetalle.RootTable.Columns("NombreProducto")
             .Width = 300
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Caption = "Producto"
         End With
 
@@ -325,7 +330,8 @@ Public Class Tec_Despachos
             .Width = 110
             .Caption = "Cantidad"
             .Visible = True
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
         End With

@@ -37,18 +37,23 @@ Public Class Tec_VisualizarDetallePedido
         With grDetalle.RootTable.Columns("ProductoId")
             .Width = 30
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Caption = "Cod Producto"
         End With
 
         With grDetalle.RootTable.Columns("Producto")
             .Width = 150
             .Caption = "Producto"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
 
         With grDetalle.RootTable.Columns("Cantidad")
             .Width = 50
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Cantidad".ToUpper
@@ -57,7 +62,8 @@ Public Class Tec_VisualizarDetallePedido
 
         With grDetalle.RootTable.Columns("Precio")
             .Width = 50
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             .Caption = "Precio"
             .FormatString = "0.00"
@@ -65,7 +71,8 @@ Public Class Tec_VisualizarDetallePedido
 
         With grDetalle.RootTable.Columns("SubTotal")
             .Width = 60
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             .Caption = "SubTotal"
             .FormatString = "0.00"
@@ -77,7 +84,8 @@ Public Class Tec_VisualizarDetallePedido
 
         With grDetalle.RootTable.Columns("ProcentajeDescuento")
             .Width = 70
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             .FormatString = "0"
             .Caption = "P.Descuento".ToUpper
@@ -85,7 +93,8 @@ Public Class Tec_VisualizarDetallePedido
 
         With grDetalle.RootTable.Columns("MontoDescuento")
             .Width = 70
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             .FormatString = "0.00"
             .Caption = "M.Descuento".ToUpper
@@ -96,26 +105,30 @@ Public Class Tec_VisualizarDetallePedido
             .Width = 60
             .Visible = True
             .Caption = "Total".ToUpper
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
         End With
 
         With grDetalle.RootTable.Columns("Detalle")
             .Width = 50
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = False
         End With
 
         With grDetalle.RootTable.Columns("PrecioCosto")
             .Width = 90
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .FormatString = "0.00"
             .Visible = False
         End With
         With grDetalle.RootTable.Columns("stock")
             .Width = 90
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .FormatString = "0.00"
             .Visible = False
         End With
@@ -123,7 +136,8 @@ Public Class Tec_VisualizarDetallePedido
 
         With grDetalle.RootTable.Columns("estado")
             .Width = 50
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = False
         End With
 

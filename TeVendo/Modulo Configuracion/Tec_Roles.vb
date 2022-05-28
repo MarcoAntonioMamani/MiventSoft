@@ -51,6 +51,7 @@ Public Class Tec_Roles
                     .Caption = _MListEstBuscador.Item(i).titulo
                     .Width = _MListEstBuscador.Item(i).tamano
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                    .TextAlignment = TextAlignment.Center
 
                     Dim col As DataColumn = dtBuscador.Columns(campo)
                     Dim tipo As Type = col.DataType
@@ -90,6 +91,7 @@ Public Class Tec_Roles
                     .Caption = _MListEstBuscador.Item(i).titulo
                     .Width = _MListEstBuscador.Item(i).tamano
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                    .TextAlignment = TextAlignment.Center
 
                     Dim col As DataColumn = dtBuscador.Columns(i)
                     Dim tipo As Type = col.DataType
@@ -318,6 +320,8 @@ Public Class Tec_Roles
         With grModulos.RootTable.Columns("cndesc1")
             .Caption = "MODULO"
             .Width = 240
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
 
 
@@ -362,7 +366,8 @@ Public Class Tec_Roles
         With grDetalle.RootTable.Columns("ProgramaId")
             .Caption = "CODIGO"
             .Width = 80
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .EditType = EditType.NoEdit
         End With
 
@@ -376,30 +381,36 @@ Public Class Tec_Roles
             .Caption = "PROGRAMAS"
             .Width = 300
             .EditType = EditType.NoEdit
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
 
         With grDetalle.RootTable.Columns("Ver")
             .Caption = "Asignar"
             .Width = 150
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grDetalle.RootTable.Columns("Insertar")
             .Caption = "AGREGAR"
             .Visible = False
             .Width = 150
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grDetalle.RootTable.Columns("Modificar")
             .Caption = "EDITAR"
             .Visible = False
             .Width = 150
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grDetalle.RootTable.Columns("Eliminar")
             .Caption = "ELIMINAR"
             .Visible = False
             .Width = 150
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
 
         With grDetalle.RootTable.Columns("estado")

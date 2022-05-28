@@ -29,22 +29,29 @@ Public Class F_MonitoreoProductos
         With gr_ProductosStock0.RootTable.Columns("Id")
             .Width = 90
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Caption = "Id Producto"
         End With
 
         With gr_ProductosStock0.RootTable.Columns("NombreCategoria")
             .Width = 150
             .Caption = "Categoria"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
         With gr_ProductosStock0.RootTable.Columns("NombreProducto")
             .Width = 250
             .Caption = "Producto"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
         With gr_ProductosStock0.RootTable.Columns("cantidad")
             .Width = 110
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Cantidad Disponible"
@@ -85,22 +92,30 @@ Public Class F_MonitoreoProductos
         With grProductosStockMinimo.RootTable.Columns("Id")
             .Width = 90
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Caption = "Id Producto"
         End With
 
         With grProductosStockMinimo.RootTable.Columns("NombreCategoria")
             .Width = 150
             .Caption = "Categoria"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
         With grProductosStockMinimo.RootTable.Columns("NombreProducto")
             .Width = 250
             .Caption = "Producto"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
         With grProductosStockMinimo.RootTable.Columns("StockMinimo")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Stock Minimo"
@@ -109,6 +124,8 @@ Public Class F_MonitoreoProductos
         With grProductosStockMinimo.RootTable.Columns("cantidadActual")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Stock Actual"
@@ -148,28 +165,37 @@ Public Class F_MonitoreoProductos
         With gr_ProductosVencidos.RootTable.Columns("Id")
             .Width = 90
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Caption = "Id Producto"
         End With
 
         With gr_ProductosVencidos.RootTable.Columns("lote")
             .Width = 70
             .Caption = "Lote"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
         With gr_ProductosVencidos.RootTable.Columns("FechaVencimiento")
             .Width = 100
             .FormatString = "dd/MM/yyyy"
             .Caption = "Fecha Vencimiento"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
         With gr_ProductosVencidos.RootTable.Columns("NombreProducto")
             .Width = 250
             .Caption = "Producto"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
         With gr_ProductosVencidos.RootTable.Columns("cantidad")
             .Width = 100
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Stock Actual"

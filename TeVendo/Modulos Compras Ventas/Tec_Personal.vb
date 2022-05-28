@@ -58,11 +58,12 @@ Public Class Tec_Personal
                     .Caption = _MListEstBuscador.Item(i).titulo
                     .Width = _MListEstBuscador.Item(i).tamano
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                    .TextAlignment = TextAlignment.Center
 
                     Dim col As DataColumn = dtBuscador.Columns(campo)
                     Dim tipo As Type = col.DataType
                     If tipo.ToString = "System.Int32" Or tipo.ToString = "System.Decimal" Or tipo.ToString = "System.Double" Then
-                        .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+
                     End If
                     If _MListEstBuscador.Item(i).formato <> String.Empty Then
                         .FormatString = _MListEstBuscador.Item(i).formato

@@ -34,6 +34,8 @@ Public Class Tec_VisualizarConceptoFijosPlanilla
             .Width = 250
             .Visible = True
             .Caption = "CONCEPTO FIJO"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
 
         With grConceptoFijo.RootTable.Columns("Porcentaje")
@@ -41,6 +43,8 @@ Public Class Tec_VisualizarConceptoFijosPlanilla
             .Visible = True
             .FormatString = "0.00"
             .Caption = "PORCENTAJE %"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .AggregateFunction = AggregateFunction.Sum
         End With
 
@@ -50,6 +54,8 @@ Public Class Tec_VisualizarConceptoFijosPlanilla
         With grConceptoFijo.RootTable.Columns("Monto")
             .Width = 110
             .Caption = "Monto"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum

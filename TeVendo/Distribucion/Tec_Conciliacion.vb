@@ -65,6 +65,7 @@ Public Class Tec_Conciliacion
                     .Caption = _MListEstBuscador.Item(i).titulo
                     .Width = _MListEstBuscador.Item(i).tamano
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                    .TextAlignment = TextAlignment.Center
                     .MaxLines = 2
                     .WordWrap = True
 
@@ -464,19 +465,22 @@ Public Class Tec_Conciliacion
         With grDetalle.RootTable.Columns("TotalSalida")
             .Width = 70
             .Caption = "Tot Salidas."
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             .CellStyle.BackColor = Color.Lime
             .CellStyle.FontBold = TriState.True
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+
             .FormatString = "0.00"
         End With
         With grDetalle.RootTable.Columns("TotalDevoluciones")
             .Width = 70
             .Caption = "Devoluciones."
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .CellStyle.BackColor = Color.Gold
             .CellStyle.FontBold = TriState.True
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .FormatString = "0.00"
         End With
 
@@ -486,20 +490,23 @@ Public Class Tec_Conciliacion
             .Visible = True
             .CellStyle.BackColor = Color.Lime
             .CellStyle.FontBold = TriState.True
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .FormatString = "0.00"
         End With
         With grDetalle.RootTable.Columns("Diferencia")
             .Width = 70
             .Caption = "Diferencia"
             .Visible = True
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .FormatString = "0.00"
         End With
         With grDetalle.RootTable.Columns("TotalDevolucionesCalculado")
 
             .Visible = False
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .FormatString = "0.00"
         End With
         'TotalDevolucionesCalculado
@@ -508,7 +515,8 @@ Public Class Tec_Conciliacion
             With grDetalle.RootTable.Columns(Str(idSalida))
                 .Width = 70
                 .Caption = "Sal.#0".Trim + Str(i + 1).Trim
-                .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+                .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                .TextAlignment = TextAlignment.Center
                 .Visible = True
             End With
 
@@ -520,6 +528,8 @@ Public Class Tec_Conciliacion
         Next
         With grDetalle.RootTable.Columns("ProductoId")
             .Width = 40
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Caption = "Item"
             .Visible = True
         End With
@@ -527,6 +537,8 @@ Public Class Tec_Conciliacion
             .Width = 250
             .MaxLines = 2
             .WordWrap = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             .Caption = "Producto"
         End With

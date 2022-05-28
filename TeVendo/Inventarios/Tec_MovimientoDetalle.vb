@@ -65,6 +65,8 @@ Public Class Tec_MovimientoDetalle
         With grDetalle.RootTable.Columns("ProductoId")
             .Width = 50
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Caption = "Cod Producto"
         End With
         With grDetalle.RootTable.Columns("MovimientoId")
@@ -77,6 +79,8 @@ Public Class Tec_MovimientoDetalle
             .Width = 150
             .Caption = "Producto"
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
 
 
@@ -85,6 +89,8 @@ Public Class Tec_MovimientoDetalle
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Caption = "Cantidad".ToUpper
         End With
 
@@ -105,6 +111,8 @@ Public Class Tec_MovimientoDetalle
                 .Caption = "lote".ToUpper
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
                 .Visible = True
+                .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                .TextAlignment = TextAlignment.Center
             End With
             With grDetalle.RootTable.Columns("FechaVencimiento")
                 .Width = 100
@@ -112,6 +120,8 @@ Public Class Tec_MovimientoDetalle
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
                 .FormatString = "yyyy/MM/dd"
                 .Visible = True
+                .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                .TextAlignment = TextAlignment.Center
             End With
         Else
 
@@ -134,6 +144,8 @@ Public Class Tec_MovimientoDetalle
         With grDetalle.RootTable.Columns("stock")
             .Width = 120
             .Caption = "Stock Actual"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .FormatString = "0.00"
             .Visible = Visible
         End With
@@ -142,6 +154,8 @@ Public Class Tec_MovimientoDetalle
             .Caption = "Stock Final"
             .FormatString = "0.00"
             .Visible = Visible
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grDetalle
             .GroupByBoxVisible = False
@@ -466,7 +480,8 @@ Public Class Tec_MovimientoDetalle
             .Width = 100
             .Caption = "Id"
             .Visible = True
-
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
 
         End With
         With grProducto.RootTable.Columns("CodigoExterno")
@@ -487,12 +502,16 @@ Public Class Tec_MovimientoDetalle
             .Visible = True
             .MaxLines = 2
             .WordWrap = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grProducto.RootTable.Columns("NombreCategoria")
             .Width = 150
             .Caption = "CATEGORIA"
             .Visible = True
             .MaxLines = 2
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .WordWrap = True
         End With
         ''NombreCategoria
@@ -501,6 +520,9 @@ Public Class Tec_MovimientoDetalle
             .Visible = True
             .Caption = "DESCRIPCION"
             .MaxLines = 2
+
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .WordWrap = True
         End With
 
@@ -510,6 +532,8 @@ Public Class Tec_MovimientoDetalle
             .Visible = True
             .FormatString = "0.00"
             .Caption = "STOCK"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grProducto
             .DefaultFilterRowComparison = FilterConditionOperator.Contains
@@ -675,14 +699,16 @@ Public Class Tec_MovimientoDetalle
             .Width = 150
             .Caption = "Lote"
             .Visible = True
-
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grProducto.RootTable.Columns("FechaVencimiento")
             .Width = 160
             .Caption = "Fecha Vencimiento"
             .FormatString = "yyyy/MM/dd"
             .Visible = True
-
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
 
         With grProducto.RootTable.Columns("stock")
@@ -691,6 +717,8 @@ Public Class Tec_MovimientoDetalle
             .Caption = "Stock"
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
 
 

@@ -56,6 +56,8 @@ Public Class Tec_Listarplanilla
             .Width = 30
             .Visible = True
             .Caption = "Nº"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grplanilla.RootTable.Columns("PlanillaId")
             .Width = 90
@@ -67,12 +69,16 @@ Public Class Tec_Listarplanilla
             .Width = 50
             .Visible = True
             .Caption = "Año"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .MaxLines = 2
             .WordWrap = True
         End With
         With grplanilla.RootTable.Columns("Mes")
             .Width = 50
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Caption = "Mes"
             .MaxLines = 2
             .WordWrap = True
@@ -81,6 +87,8 @@ Public Class Tec_Listarplanilla
             .Width = 220
             .Visible = True
             .Caption = "Trabajador"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .MaxLines = 2
             .WordWrap = True
         End With
@@ -91,24 +99,32 @@ Public Class Tec_Listarplanilla
             .Visible = True
             .Caption = "Inicio Contrato"
             .FormatString = "dd/MM/yyyy"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grplanilla.RootTable.Columns("FinContrato")
             .Width = 90
             .Visible = True
             .Caption = "Fin Contrato"
             .FormatString = "dd/MM/yyyy"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grplanilla.RootTable.Columns("Cargo")
             .Width = 120
             .Visible = True
             .Caption = "Cargo"
             .MaxLines = 2
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .WordWrap = True
         End With
         'fila	PlanillaId	Anio	Mes	Trabajador	InicioContrato	FinContrato	Cargo	Sueldo	ConceptoFijos	SueldoBruto	ConceptoVariable	SueldoNeto	Reporte
         With grplanilla.RootTable.Columns("Sueldo")
             .Width = 80
             .Caption = "Sueldo"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
@@ -117,11 +133,15 @@ Public Class Tec_Listarplanilla
             .Width = 90
             .Visible = True
             .Caption = "C.Fijos"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grplanilla.RootTable.Columns("SueldoBruto")
             .Width = 100
             .Caption = "Sueldo Bruto"
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
         End With
@@ -130,12 +150,16 @@ Public Class Tec_Listarplanilla
             .Visible = True
             .Caption = "C.Variable"
             .LeftMargin = 10
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .TopMargin = 10
             .BottomMargin = 10
         End With
         With grplanilla.RootTable.Columns("SueldoNeto")
             .Width = 100
             .Caption = "Sueldo Neto"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
@@ -144,6 +168,8 @@ Public Class Tec_Listarplanilla
             .Width = 90
             .Visible = True
             .Caption = "Reporte"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grplanilla
             .GroupByBoxVisible = False

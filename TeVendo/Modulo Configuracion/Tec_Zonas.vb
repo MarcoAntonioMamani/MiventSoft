@@ -62,6 +62,7 @@ Public Class Tec_Zonas
                     .Caption = _MListEstBuscador.Item(i).titulo
                     .Width = _MListEstBuscador.Item(i).tamano
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                    .TextAlignment = TextAlignment.Center
 
                     Dim col As DataColumn = dtBuscador.Columns(campo)
                     Dim tipo As Type = col.DataType
@@ -273,17 +274,23 @@ Public Class Tec_Zonas
             .Caption = "Id"
             .Width = 40
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .FormatString = "0"
         End With
         With grZonas.RootTable.Columns("NombreZona")
             .Caption = "Nombre Zona"
             .Width = 150
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .FormatString = ""
         End With
         With grZonas.RootTable.Columns("DescripcionZona")
             .Caption = "Descripcion"
             .Width = 150
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
 
         End With

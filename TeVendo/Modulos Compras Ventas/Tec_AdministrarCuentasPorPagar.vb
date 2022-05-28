@@ -43,6 +43,8 @@ Public Class Tec_AdministrarCuentasPorPagar
             .Width = 80
             .Caption = "Fecha De Pago"
             .FormatString = "dd/MM/yyyy"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
 
@@ -50,6 +52,8 @@ Public Class Tec_AdministrarCuentasPorPagar
         With grPagos.RootTable.Columns("Monto")
             .Width = 70
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Caption = "Monto Pagado"
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
@@ -65,17 +69,23 @@ Public Class Tec_AdministrarCuentasPorPagar
             .Width = 120
             .Caption = "Glosa"
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
 
         With grPagos.RootTable.Columns("NroComprobante")
             .Width = 70
             .Caption = "Comprobante"
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grPagos.RootTable.Columns("NombrePersonal")
             .Width = 150
             .Caption = "Personal"
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
 
         With grPagos.RootTable.Columns("Id")
@@ -118,6 +128,8 @@ Public Class Tec_AdministrarCuentasPorPagar
         With grPagosTodos.RootTable.Columns("FechaPago")
             .Width = 80
             .Caption = "Fecha De Pago"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .FormatString = "dd/MM/yyyy"
             .Visible = True
         End With
@@ -127,18 +139,24 @@ Public Class Tec_AdministrarCuentasPorPagar
             .Width = 70
             .Visible = True
             .Caption = "Monto Pagado"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
         End With
         With grPagosTodos.RootTable.Columns("img")
             .Width = 70
             .Caption = "Eliminar"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
 
 
         With grPagosTodos.RootTable.Columns("Glosa")
             .Width = 120
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Caption = "Glosa"
             .Visible = True
         End With
@@ -146,11 +164,15 @@ Public Class Tec_AdministrarCuentasPorPagar
         With grPagosTodos.RootTable.Columns("NroComprobante")
             .Width = 70
             .Caption = "Comprobante"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
         With grPagosTodos.RootTable.Columns("NombrePersonal")
             .Width = 150
             .Caption = "Personal"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
 
@@ -206,11 +228,15 @@ Public Class Tec_AdministrarCuentasPorPagar
         With grCreditoPagados.RootTable.Columns("FechaUltimaPago")
             .Width = 110
             .Caption = "Ultimo Pago"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
         With grCreditoPagados.RootTable.Columns("FechaVencimientoCredito")
             .Width = 110
             .Caption = "Venc. Credito"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
 
@@ -218,24 +244,32 @@ Public Class Tec_AdministrarCuentasPorPagar
             .Width = 110
             .Visible = True
             .Caption = "Credito"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
 
         With grCreditoPagados.RootTable.Columns("Compra")
             .Width = 110
             .Caption = "Compra"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
         With grCreditoPagados.RootTable.Columns("NombreProveedor")
             .Width = 150
             .Caption = "Proveedor"
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grCreditoPagados.RootTable.Columns("Monto")
             .Width = 90
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Monto"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
 
 
@@ -243,7 +277,8 @@ Public Class Tec_AdministrarCuentasPorPagar
 
         With grCreditoPagados.RootTable.Columns("Pagado")
             .Width = 90
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             .Caption = "Pagado"
             .FormatString = "0.00"
@@ -290,11 +325,14 @@ Public Class Tec_AdministrarCuentasPorPagar
         With gr_CreditoPendientes.RootTable.Columns("FechaVencimientoCredito")
             .Width = 110
             .Caption = "Venc. Credito"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
         With gr_CreditoPendientes.RootTable.Columns("DiasMora")
             .Width = 90
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             .FormatString = "0"
             .Caption = "Mora"
@@ -303,21 +341,28 @@ Public Class Tec_AdministrarCuentasPorPagar
             .Width = 110
             .Visible = True
             .Caption = "Credito"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
 
         With gr_CreditoPendientes.RootTable.Columns("Compra")
             .Width = 110
             .Caption = "Compra"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
         With gr_CreditoPendientes.RootTable.Columns("NombreProveedor")
             .Width = 150
             .Caption = "Proveedor"
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With gr_CreditoPendientes.RootTable.Columns("Monto")
             .Width = 90
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Monto"
@@ -326,7 +371,8 @@ Public Class Tec_AdministrarCuentasPorPagar
 
         With gr_CreditoPendientes.RootTable.Columns("abonado")
             .Width = 90
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             .Caption = "Abonado"
             .FormatString = "0.00"
@@ -334,7 +380,8 @@ Public Class Tec_AdministrarCuentasPorPagar
 
         With gr_CreditoPendientes.RootTable.Columns("Restante")
             .Width = 90
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             .Caption = "Restante"
             .FormatString = "0.00"

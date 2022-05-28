@@ -68,6 +68,8 @@ Public Class Tec_RegistrarPersonalAPlanilla
             .Width = 300
             .Visible = True
             .Caption = "TRABAJADOR"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grContrato.RootTable.Columns("ContratoId")
             .Width = 90
@@ -77,29 +79,39 @@ Public Class Tec_RegistrarPersonalAPlanilla
             .Width = 90
             .Visible = True
             .Caption = "Inicio Contrato"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .FormatString = "dd/MM/yyyy"
         End With
         With grContrato.RootTable.Columns("FinContrato")
             .Width = 90
             .Visible = True
             .Caption = "Fin Contrato"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .FormatString = "dd/MM/yyyy"
         End With
         With grContrato.RootTable.Columns("Cargo")
             .Width = 120
             .Visible = True
             .Caption = "Cargo"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grContrato.RootTable.Columns("SueldoBase")
             .Width = 110
             .Caption = "Sueldo Base"
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
         End With
         With grContrato.RootTable.Columns("SueldoBruto")
             .Width = 110
             .Caption = "Sueldo Bruto"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum

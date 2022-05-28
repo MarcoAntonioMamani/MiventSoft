@@ -58,6 +58,8 @@ Public Class Tec_VisualizarConceptosVariablesPlanilla
             .Width = 250
             .Visible = True
             .Caption = "CONCEPTO VARIABLE"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .MaxLines = 2
             .WordWrap = True
         End With
@@ -65,6 +67,8 @@ Public Class Tec_VisualizarConceptosVariablesPlanilla
         With grConceptoVariable.RootTable.Columns("Porcentaje")
             .Width = 90
             .Visible = False
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .FormatString = "0.00"
             .Caption = "PORCENTAJE %"
 
@@ -77,6 +81,8 @@ Public Class Tec_VisualizarConceptosVariablesPlanilla
             .Width = 110
             .Caption = "Monto"
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
         End With
@@ -88,12 +94,16 @@ Public Class Tec_VisualizarConceptosVariablesPlanilla
             .Width = 300
             .Visible = True
             .MaxLines = 2
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .WordWrap = True
             .Caption = "Descripcion"
         End With
         With grConceptoVariable.RootTable.Columns("Fecha")
             .Width = 90
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Caption = "Fecha Registro"
             .FormatString = "dd/MM/yyyy"
         End With
@@ -107,6 +117,8 @@ Public Class Tec_VisualizarConceptosVariablesPlanilla
             .Caption = "Eliminar"
             .TopMargin = 5
             .LeftMargin = 7
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .BottomMargin = 5
         End With
         With grConceptoVariable

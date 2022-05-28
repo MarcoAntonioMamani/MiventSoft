@@ -229,7 +229,8 @@ Public Class FormularioStock
             .Width = 100
             .Caption = "Cod. Externo"
             .Visible = True
-
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
 
         End With
 
@@ -238,6 +239,8 @@ Public Class FormularioStock
             .Caption = "PRODUCTOS"
             .Visible = False
             .MaxLines = 2
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .WordWrap = True
         End With
         With grProducto.RootTable.Columns("Categoria")
@@ -245,6 +248,8 @@ Public Class FormularioStock
             .Caption = "CATEGORIA"
             .Visible = True
             .MaxLines = 2
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .WordWrap = True
         End With
         With grProducto.RootTable.Columns("industria")
@@ -252,6 +257,8 @@ Public Class FormularioStock
             .Caption = "Industria"
             .Visible = True
             .MaxLines = 2
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .WordWrap = True
         End With
         With grProducto.RootTable.Columns("unidad")
@@ -259,6 +266,8 @@ Public Class FormularioStock
             .Caption = "Unidad Venta"
             .Visible = True
             .MaxLines = 2
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .WordWrap = True
         End With
         ''NombreCategoria
@@ -267,6 +276,8 @@ Public Class FormularioStock
             .Visible = True
             .Caption = "DESCRIPCION"
             .MaxLines = 2
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .WordWrap = True
         End With
 
@@ -277,12 +288,16 @@ Public Class FormularioStock
             .FormatString = "0.00"
             .Caption = "Stock Minimo"
             .MaxLines = 2
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .WordWrap = True
         End With
         With grProducto.RootTable.Columns("precio")
             .Width = 110
             .Visible = True
             .FormatString = "0.00"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Caption = "Precio"
             .MaxLines = 2
             .WordWrap = True
@@ -291,6 +306,8 @@ Public Class FormularioStock
             .Width = 250
             .Visible = True
             .FormatString = "0.00"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Caption = "Stock"
             .MaxLines = 2
             .WordWrap = True
@@ -302,6 +319,8 @@ Public Class FormularioStock
             .Caption = "Stock General"
             .MaxLines = 2
             .WordWrap = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .CellStyle.BackColor = Color.SpringGreen
             .CellStyle.FontBold = TriState.True
             .TextAlignment = TextAlignment.Far

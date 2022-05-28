@@ -67,6 +67,7 @@ Public Class FormularioAyuda
                     .Caption = listEstrucGrilla.Item(i).titulo
                     .Width = listEstrucGrilla.Item(i).tamano
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                    .TextAlignment = TextAlignment.Center
                     .CellStyle.FontSize = 9
                     .MaxLines = 5
                     .WordWrap = True

@@ -40,6 +40,8 @@ Public Class Tec_DespachoDetalle
         With grDetalle.RootTable.Columns("Id")
             .Width = 90
             .Caption = "Id"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
         With grDetalle.RootTable.Columns("DespachoProductosId")
@@ -53,6 +55,8 @@ Public Class Tec_DespachoDetalle
         With grDetalle.RootTable.Columns("NombreProducto")
             .Width = 300
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Caption = "Producto"
         End With
 
@@ -61,7 +65,8 @@ Public Class Tec_DespachoDetalle
             .Caption = "Cantidad"
             .Visible = True
             .FormatString = "0.00"
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .AggregateFunction = AggregateFunction.Sum
         End With
         With grDetalle.RootTable.Columns("Stock")
@@ -69,6 +74,8 @@ Public Class Tec_DespachoDetalle
             .Caption = "Stock"
             .Visible = True
             .FormatString = "0.00"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .AggregateFunction = AggregateFunction.Sum
         End With
         With grDetalle.RootTable.Columns("estado")
@@ -145,13 +152,15 @@ Public Class Tec_DespachoDetalle
             .Width = 40
             .Caption = "Codigo"
             .Visible = True
-
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grProductos.RootTable.Columns("CodigoExterno")
             .Width = 100
             .Caption = "CodigoExterno"
             .Visible = False
-
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
 
 
@@ -159,15 +168,18 @@ Public Class Tec_DespachoDetalle
             .Width = 300
             .Caption = "Nombre Producto"
             .MaxLines = 2
-            .CellStyle.LineAlignment = TextAlignment.Near
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .WordWrap = True
+
             .Visible = True
         End With
         With grProductos.RootTable.Columns("DescripcionProducto")
             .Width = 300
             .Caption = "Descripcion Producto"
             .MaxLines = 200
-            .CellStyle.LineAlignment = TextAlignment.Near
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .WordWrap = True
             .Visible = True
         End With
@@ -175,7 +187,8 @@ Public Class Tec_DespachoDetalle
             .Width = 150
             .Caption = "Nombre Categoria"
             .MaxLines = 150
-            .CellStyle.LineAlignment = TextAlignment.Near
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .WordWrap = True
             .Visible = True
         End With
@@ -188,7 +201,8 @@ Public Class Tec_DespachoDetalle
         End With
         With grProductos.RootTable.Columns("estado")
             .Width = 120
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = False
         End With
         With grProductos

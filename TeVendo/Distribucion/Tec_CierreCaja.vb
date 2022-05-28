@@ -62,6 +62,7 @@ Public Class Tec_CierreCaja
                     .Caption = _MListEstBuscador.Item(i).titulo
                     .Width = _MListEstBuscador.Item(i).tamano
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                    .TextAlignment = TextAlignment.Center
                     .MaxLines = 2
                     .WordWrap = True
 
@@ -296,6 +297,8 @@ Public Class Tec_CierreCaja
             .Caption = "Concepto Gasto"
             .MaxLines = 2
             .WordWrap = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grGastos.RootTable.Columns("Detalle")
             .Width = 250
@@ -303,11 +306,15 @@ Public Class Tec_CierreCaja
             .Caption = "Detalle"
             .MaxLines = 3
             .WordWrap = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grGastos.RootTable.Columns("Monto")
             .Width = 110
             .Caption = "Monto"
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
@@ -361,6 +368,8 @@ Public Class Tec_CierreCaja
         With grVentas.RootTable.Columns("ClienteId")
             .Width = 90
             .Caption = "Cod Cliente"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             .LeftMargin = 7
             .TopMargin = 5
@@ -373,6 +382,8 @@ Public Class Tec_CierreCaja
             .Width = 300
             .Visible = True
             .Caption = "Nombre Cliente"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .MaxLines = 2
             .WordWrap = True
         End With
@@ -385,15 +396,18 @@ Public Class Tec_CierreCaja
         With grVentas.RootTable.Columns("FechaEntregado")
             .Width = 120
             .Visible = True
-            .TextAlignment = TextAlignment.Far
+
             .Caption = "Fecha Entregado"
             .MaxLines = 3
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .WordWrap = True
         End With
         With grVentas.RootTable.Columns("NroNotaVenta")
             .Width = 120
             .Visible = True
-            .TextAlignment = TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Caption = "Nro Nota Venta"
             .MaxLines = 3
             .WordWrap = True
@@ -402,7 +416,8 @@ Public Class Tec_CierreCaja
             .Width = 150
             .Caption = "Contado"
             .Visible = True
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
         End With
@@ -410,7 +425,8 @@ Public Class Tec_CierreCaja
             .Width = 150
             .Caption = "Credito"
             .Visible = True
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
         End With
@@ -461,6 +477,8 @@ Public Class Tec_CierreCaja
             .Caption = "Cod Cliente"
             .Visible = True
             .LeftMargin = 7
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .TopMargin = 5
             .BottomMargin = 5
         End With
@@ -472,6 +490,8 @@ Public Class Tec_CierreCaja
             .Visible = True
             .Caption = "Nombre Cliente"
             .MaxLines = 2
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .WordWrap = True
         End With
 
@@ -479,7 +499,8 @@ Public Class Tec_CierreCaja
         With grCobranzas.RootTable.Columns("NroNotaVenta")
             .Width = 120
             .Visible = True
-            .TextAlignment = TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Caption = "Nro Nota Venta"
             .MaxLines = 3
             .WordWrap = True
@@ -488,7 +509,8 @@ Public Class Tec_CierreCaja
             .Width = 150
             .Caption = "Monto Cobrado"
             .Visible = True
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
         End With
@@ -539,6 +561,8 @@ Public Class Tec_CierreCaja
             .Width = 90
             .Caption = "Cod Cliente"
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .LeftMargin = 7
             .TopMargin = 5
             .BottomMargin = 5
@@ -550,6 +574,8 @@ Public Class Tec_CierreCaja
             .Width = 300
             .Visible = True
             .Caption = "Nombre Cliente"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .MaxLines = 2
             .WordWrap = True
         End With
@@ -558,7 +584,8 @@ Public Class Tec_CierreCaja
         With grCobranzas.RootTable.Columns("NroNotaVenta")
             .Width = 120
             .Visible = True
-            .TextAlignment = TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Caption = "Nro Nota Venta"
             .MaxLines = 3
             .WordWrap = True
@@ -567,7 +594,8 @@ Public Class Tec_CierreCaja
             .Width = 150
             .Caption = "Monto Cobrado"
             .Visible = True
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
         End With

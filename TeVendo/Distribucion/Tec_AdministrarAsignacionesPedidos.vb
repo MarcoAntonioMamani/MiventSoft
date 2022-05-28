@@ -33,14 +33,16 @@ Public Class Tec_AdministrarAsignacionesPedidos
             .Width = 60
             .Caption = "Nro Pedido"
             .Visible = True
-
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grPedidosPendientes.RootTable.Columns("FechaPedido")
             .Width = 90
             .Visible = True
             .Caption = "Fecha Pedido"
             .FormatString = "dd/MM/yyyy"
-
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grPedidosPendientes.RootTable.Columns("detalle")
             .Width = 90
@@ -48,23 +50,31 @@ Public Class Tec_AdministrarAsignacionesPedidos
             .LeftMargin = 4
             .TopMargin = 4
             .BottomMargin = 4
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Caption = "Detalle Pedido"
         End With
         With grPedidosPendientes.RootTable.Columns("NombrePersonal")
             .Width = 250
             .Caption = "Vendedor"
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
 
         With grPedidosPendientes.RootTable.Columns("NombreCliente")
             .Width = 250
             .Caption = "Cliente"
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grPedidosPendientes.RootTable.Columns("Asignar")
             .Width = 90
             .Caption = "Seleccionar"
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grPedidosPendientes.RootTable.Columns("PersonalId")
             .Visible = False
@@ -72,10 +82,12 @@ Public Class Tec_AdministrarAsignacionesPedidos
 
         With grPedidosPendientes.RootTable.Columns("totalPedido")
             .Width = 70
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Total".ToUpper
+
             .AggregateFunction = AggregateFunction.Sum
         End With
 
@@ -99,6 +111,7 @@ Public Class Tec_AdministrarAsignacionesPedidos
             .TotalRowFormatStyle.FontBold = TriState.True
             .TotalRowFormatStyle.FontSize = 9
             .TotalRowPosition = TotalRowPosition.BottomFixed
+
         End With
         CargarIconos()
     End Sub
@@ -114,14 +127,16 @@ Public Class Tec_AdministrarAsignacionesPedidos
             .Width = 60
             .Caption = "Nro Pedido"
             .Visible = True
-
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grAsignados.RootTable.Columns("FechaPedido")
             .Width = 90
             .Visible = True
             .Caption = "Fecha Pedido"
             .FormatString = "dd/MM/yyyy"
-
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grAsignados.RootTable.Columns("detalle")
             .Width = 90
@@ -130,22 +145,30 @@ Public Class Tec_AdministrarAsignacionesPedidos
             .TopMargin = 4
             .BottomMargin = 4
             .Caption = "Detalle Pedido"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grAsignados.RootTable.Columns("NombrePersonal")
             .Width = 250
             .Caption = "Vendedor"
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
 
         With grAsignados.RootTable.Columns("NombreCliente")
             .Width = 250
             .Caption = "Cliente"
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grAsignados.RootTable.Columns("Asignar")
             .Width = 110
             .Caption = "Seleccionar"
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grAsignados.RootTable.Columns("PersonalId")
             .Visible = False
@@ -156,6 +179,8 @@ Public Class Tec_AdministrarAsignacionesPedidos
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Caption = "Total".ToUpper
             .AggregateFunction = AggregateFunction.Sum
         End With
@@ -200,14 +225,16 @@ Public Class Tec_AdministrarAsignacionesPedidos
             .Width = 60
             .Caption = "Nro Pedido"
             .Visible = True
-
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grPedidosEntregados.RootTable.Columns("FechaPedido")
             .Width = 90
             .Visible = True
             .Caption = "Fecha Pedido"
             .FormatString = "dd/MM/yyyy"
-
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grPedidosEntregados.RootTable.Columns("detalle")
             .Width = 90
@@ -216,22 +243,30 @@ Public Class Tec_AdministrarAsignacionesPedidos
             .TopMargin = 4
             .BottomMargin = 4
             .Caption = "Detalle Pedido"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grPedidosEntregados.RootTable.Columns("NombrePersonal")
             .Width = 250
             .Caption = "Vendedor"
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
 
         With grPedidosEntregados.RootTable.Columns("NombreCliente")
             .Width = 250
             .Caption = "Cliente"
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grPedidosEntregados.RootTable.Columns("Asignar")
             .Width = 110
             .Caption = "Seleccionar"
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grPedidosEntregados.RootTable.Columns("PersonalId")
             .Visible = False
@@ -246,6 +281,8 @@ Public Class Tec_AdministrarAsignacionesPedidos
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Total".ToUpper
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .AggregateFunction = AggregateFunction.Sum
         End With
 
@@ -285,21 +322,24 @@ Public Class Tec_AdministrarAsignacionesPedidos
             .Width = 60
             .Caption = "Nro Pedido"
             .Visible = True
-
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grPedidosAnulados.RootTable.Columns("FechaPedido")
             .Width = 90
             .Visible = True
             .Caption = "Fecha Pedido"
             .FormatString = "dd/MM/yyyy"
-
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grPedidosAnulados.RootTable.Columns("FechaAnulacion")
             .Width = 90
             .Visible = True
             .Caption = "Fecha Anulada"
             .FormatString = "dd/MM/yyyy"
-
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grPedidosAnulados.RootTable.Columns("detalle")
             .Width = 90
@@ -308,21 +348,29 @@ Public Class Tec_AdministrarAsignacionesPedidos
             .TopMargin = 4
             .BottomMargin = 4
             .Caption = "Detalle Pedido"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grPedidosAnulados.RootTable.Columns("NombrePersonal")
             .Width = 250
             .Caption = "Vendedor"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
 
         With grPedidosAnulados.RootTable.Columns("NombreCliente")
             .Width = 250
             .Caption = "Cliente"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
         With grPedidosAnulados.RootTable.Columns("Asignar")
             .Width = 110
             .Caption = "Seleccionar"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
         With grPedidosAnulados.RootTable.Columns("PersonalId")
@@ -336,6 +384,8 @@ Public Class Tec_AdministrarAsignacionesPedidos
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Total".ToUpper
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .AggregateFunction = AggregateFunction.Sum
         End With
 

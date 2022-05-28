@@ -60,7 +60,8 @@ Public Class Tec_Mapaclientes
         With grCliente.RootTable.Columns("id")
             .Width = 60
             .Caption = "CODIGO"
-
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
 
         End With
@@ -68,12 +69,15 @@ Public Class Tec_Mapaclientes
         With grCliente.RootTable.Columns("NombreCliente")
             .Width = 300
             .Caption = "CLIENTE"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
         With grCliente.RootTable.Columns("Telefono")
             .Width = 90
             .Caption = "TELEFONO"
-
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
         With grCliente.RootTable.Columns("Latitud")

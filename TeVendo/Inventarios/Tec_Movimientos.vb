@@ -53,6 +53,7 @@ Public Class Tec_Movimientos
                     .Caption = _MListEstBuscador.Item(i).titulo
                     .Width = _MListEstBuscador.Item(i).tamano
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                    .TextAlignment = TextAlignment.Center
 
                     Dim col As DataColumn = dtBuscador.Columns(campo)
                     Dim tipo As Type = col.DataType
@@ -304,6 +305,8 @@ Public Class Tec_Movimientos
             .Width = 50
             .Visible = True
             .Caption = "Cod Producto"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
         With grDetalle.RootTable.Columns("MovimientoId")
             .Width = 90
@@ -315,12 +318,15 @@ Public Class Tec_Movimientos
             .Width = 150
             .Caption = "Producto"
             .Visible = True
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
         End With
 
 
         With grDetalle.RootTable.Columns("Cantidad")
             .Width = 90
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Cantidad".ToUpper
@@ -328,13 +334,15 @@ Public Class Tec_Movimientos
 
         With grDetalle.RootTable.Columns("estado")
             .Width = 50
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = False
         End With
         With grDetalle.RootTable.Columns("img")
             .Width = 80
             .Caption = "Eliminar".ToUpper
-            .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
             .Visible = False
         End With
         If (Lote = True) Then
@@ -342,12 +350,16 @@ Public Class Tec_Movimientos
                 .Width = 100
                 .Caption = "lote".ToUpper
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
+                .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                .TextAlignment = TextAlignment.Center
                 .Visible = True
             End With
             With grDetalle.RootTable.Columns("FechaVencimiento")
                 .Width = 100
                 .Caption = "FECHA VENC.".ToUpper
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
+                .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                .TextAlignment = TextAlignment.Center
                 .FormatString = "yyyy/MM/dd"
                 .Visible = True
             End With
@@ -357,12 +369,16 @@ Public Class Tec_Movimientos
                 .Width = 120
                 .Caption = "lote".ToUpper
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
+                .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                .TextAlignment = TextAlignment.Center
                 .Visible = False
             End With
             With grDetalle.RootTable.Columns("FechaVencimiento")
                 .Width = 120
                 .Caption = "FECHA VENC.".ToUpper
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
+                .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                .TextAlignment = TextAlignment.Center
                 .FormatString = "yyyy/MM/dd"
                 .Visible = False
             End With
@@ -391,12 +407,16 @@ Public Class Tec_Movimientos
                 .Width = 120
                 .Caption = "Stock Actual"
                 .FormatString = "0.00"
+                .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                .TextAlignment = TextAlignment.Center
                 .Visible = True
             End With
             With grDetalle.RootTable.Columns("stockFinal")
                 .Width = 120
                 .Caption = "Stock Final"
                 .FormatString = "0.00"
+                .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                .TextAlignment = TextAlignment.Center
                 .Visible = True
             End With
 
