@@ -7,13 +7,15 @@ Public Class Reporte_VentasVsCostos
     Dim RutaGlobal As String = gs_CarpetaRaiz
     Dim RutaTemporal As String = "C:\Temporal"
     Dim IdPersonal As Integer = 0
-
+    Dim IdCliente As Integer = 0
     Public Sub _prIniciarTodo()
         cbFechaDesde.Value = Now.Date
         cbFechaHasta.Value = Now.Date
         chkTodos.CheckValue = True
+        chkTodosClientes.Checked = True
         swTipoReporte.Value = True
         tbVendedor.ReadOnly = True
+        tbCliente.ReadOnly = True
         Me.Text = "REPORTE DE UTILIDADES VENTAS"
         MReportViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
 
@@ -151,6 +153,7 @@ Public Class Reporte_VentasVsCostos
         If (swTipoReporte.Value = True) Then ''' Generar Reporte de Datos
             Dim _dt As New DataTable
             GenerarData(_dt)
+
             If (IsNothing(_dt) Or _dt.Rows.Count = 0) Then
 
                 Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
@@ -163,23 +166,45 @@ Public Class Reporte_VentasVsCostos
 
             If (_dt.Rows.Count > 0) Then
 
+                If (chkTodosClientes.Checked = False And IdCliente > 0) Then
+                    Dim dtc As DataTable = _dt.Copy
+                    dtc.Rows.Clear()
+
+                    For i As Integer = 0 To _dt.Rows.Count - 1 Step 1
+
+                        If (IdCliente = _dt.Rows(i).Item("ClienteId")) Then
+                            dtc.ImportRow(_dt.Rows(i))
+                        End If
+
+                    Next
+                    _dt = dtc
+
+                Else
+                    If (chkTodosClientes.Checked = False) Then
+                        Return
+                    End If
+                End If
+
+
+
                 Dim objrep As New VentasVsCostos
-                objrep.SetDataSource(_dt)
-                Dim fechaI As String = cbFechaDesde.Value.ToString("dd/MM/yyyy")
-                Dim fechaF As String = cbFechaHasta.Value.ToString("dd/MM/yyyy")
-                objrep.SetParameterValue("FechaDesde", fechaI)
-                objrep.SetParameterValue("FechaHasta", fechaF)
-                objrep.SetParameterValue("Usuario", L_Usuario)
-                MReportViewer.ReportSource = objrep
-                MReportViewer.Show()
-                MReportViewer.BringToFront()
-            Else
-                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    objrep.SetDataSource(_dt)
+                    Dim fechaI As String = cbFechaDesde.Value.ToString("dd/MM/yyyy")
+                    Dim fechaF As String = cbFechaHasta.Value.ToString("dd/MM/yyyy")
+                    objrep.SetParameterValue("FechaDesde", fechaI)
+                    objrep.SetParameterValue("FechaHasta", fechaF)
+                    objrep.SetParameterValue("Usuario", L_Usuario)
+                    MReportViewer.ReportSource = objrep
+                    MReportViewer.Show()
+                    MReportViewer.BringToFront()
+                Else
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
                 ToastNotification.Show(Me, "No Existen Datos Para Mostrar. con Los Filtros Seleccionados".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
             End If
         Else
             Dim _dt As New DataTable
             GenerarData(_dt)
+
             If (IsNothing(_dt) Or _dt.Rows.Count = 0) Then
 
                 Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
@@ -188,7 +213,24 @@ Public Class Reporte_VentasVsCostos
                 Return
 
             End If
+            If (chkTodosClientes.Checked = False And IdCliente > 0) Then
+                Dim dtc As DataTable = _dt.Copy
+                dtc.Rows.Clear()
 
+                For i As Integer = 0 To _dt.Rows.Count - 1 Step 1
+
+                    If (IdCliente = _dt.Rows(i).Item("ClienteId")) Then
+                        dtc.ImportRow(_dt.Rows(i))
+                    End If
+
+                Next
+                _dt = dtc
+
+            Else
+                If (chkTodosClientes.Checked = False) Then
+                    Return
+                End If
+            End If
 
             If (_dt.Rows.Count > 0) Then
 
@@ -209,6 +251,98 @@ Public Class Reporte_VentasVsCostos
         End If
 
 
+
+    End Sub
+
+    Private Sub chkTodosClientes_CheckedChanged(sender As Object, e As EventArgs) Handles chkTodosClientes.CheckedChanged
+        If (chkTodosClientes.Checked = True) Then
+            tbCliente.Enabled = False
+            btnCliente.Visible = False
+            tbCliente.BackColor = Color.DarkGray
+        Else
+            tbCliente.Enabled = True
+            btnCliente.Visible = True
+            tbCliente.BackColor = Color.White
+            tbCliente.Focus()
+        End If
+    End Sub
+
+    Private Sub tbCliente_KeyDown(sender As Object, e As KeyEventArgs) Handles tbCliente.KeyDown
+        If e.KeyData = Keys.Control + Keys.Enter Then
+
+            Dim dt As DataTable
+
+
+            dt = ListarCliente()
+            'a.Id ,a.NombreCliente  as NombreProveedor ,a.DireccionCliente  ,a.Telefono
+
+            Dim listEstCeldas As New List(Of Celda)
+            listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
+            listEstCeldas.Add(New Celda("NombreCliente", True, "NOMBRE", 350))
+            listEstCeldas.Add(New Celda("DireccionCliente", True, "DIRECCION", 180))
+            listEstCeldas.Add(New Celda("Telefono", True, "Telefono".ToUpper, 200))
+
+
+            Dim ef = New Efecto
+            ef.tipo = 7
+            ef.dt = dt
+            ef.SeleclCol = 0
+            ef.listEstCeldasNew = listEstCeldas
+            ef.alto = 80
+            ef.ancho = 800
+            ef.Context = "Seleccione Cliente".ToUpper
+            ef.ShowDialog()
+            Dim bandera As Boolean = False
+            bandera = ef.band
+            If (bandera = True) Then
+                Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+                IdCliente = Row.Cells("ID").Value
+                tbCliente.Text = Row.Cells("NombreProveedor").Value.ToString
+                cbFechaDesde.Focus()
+
+
+
+            End If
+
+        End If
+    End Sub
+
+    Private Sub btnCliente_Click(sender As Object, e As EventArgs) Handles btnCliente.Click
+        Dim dt As DataTable
+
+
+        dt = ListarCliente()
+        'a.Id ,a.NombreCliente  as NombreProveedor ,a.DireccionCliente  ,a.Telefono
+
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
+        listEstCeldas.Add(New Celda("NombreCliente", True, "NOMBRE", 350))
+        listEstCeldas.Add(New Celda("DireccionCliente", True, "DIRECCION", 180))
+        listEstCeldas.Add(New Celda("Telefono", True, "Telefono".ToUpper, 200))
+
+
+        Dim ef = New Efecto
+        ef.tipo = 7
+        ef.dt = dt
+        ef.SeleclCol = 0
+        ef.listEstCeldasNew = listEstCeldas
+        ef.alto = 80
+        ef.ancho = 800
+        ef.Context = "Seleccione Cliente".ToUpper
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+            IdCliente = Row.Cells("ID").Value
+            tbCliente.Text = Row.Cells("NombreProveedor").Value.ToString
+            cbFechaDesde.Focus()
+
+
+
+        End If
 
     End Sub
 End Class
