@@ -10,6 +10,7 @@ Public Class Rep_Gastos
     Dim Lote As Boolean = False
     Dim Dt1Kardex As DataTable
     Dim Dt2KardexTotal As DataTable
+    Dim IdPersonal As Integer = 0
     Public Sub _prIniciarTodo()
         cbFechaDesde.Value = Now.Date
         cbFechaHasta.Value = Now.Date
@@ -21,7 +22,8 @@ Public Class Rep_Gastos
 
         P_Global._prCargarComboGenerico(cbGastos, dt, "cnnum", "Codigo", "cndesc1", "Concepto Gasto")
         cbGastos.Value = -1
-
+        IdPersonal = 0
+        chkTodos.Checked = True
     End Sub
 
 
@@ -37,16 +39,40 @@ Public Class Rep_Gastos
 
         If (cbGastos.Value = -1) Then
 
-            dt = dtDatos
+            If (chkTodos.Checked = True) Then
+                dt = dtDatos
+            Else
+                dt = dtDatos.Copy
+                dt.Rows.Clear()
+
+                For i As Integer = 0 To dtDatos.Rows.Count - 1 Step 1
+
+                    If (IdPersonal = dtDatos.Rows(i).Item("PersonalId")) Then
+                        dt.ImportRow(dtDatos.Rows(i))
+                    End If
+
+                Next
+
+
+            End If
+
 
         Else
             dt = dtDatos.Copy
             dt.Rows.Clear()
             For i As Integer = 0 To dtDatos.Rows.Count - 1 Step 1
 
-                If (dtDatos.Rows(i).Item("TipoGastoId") = cbGastos.Value) Then
-                    dt.ImportRow(dtDatos.Rows(i))
+                If (chkTodos.Checked = True) Then
+                    If (dtDatos.Rows(i).Item("TipoGastoId") = cbGastos.Value) Then
+                        dt.ImportRow(dtDatos.Rows(i))
+                    End If
+
+                Else
+                    If (dtDatos.Rows(i).Item("TipoGastoId") = cbGastos.Value And IdPersonal = dtDatos.Rows(i).Item("PersonalId")) Then
+                        dt.ImportRow(dtDatos.Rows(i))
+                    End If
                 End If
+
 
 
             Next
@@ -64,6 +90,12 @@ Public Class Rep_Gastos
             cbGastos.Focus()
             Return
 
+        End If
+
+        If (chkTodos.Checked = False And IdPersonal <= 0) Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Debe Seleccionar un Personal".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            tbVendedor.Focus()
         End If
 
         Dim _dt As New DataTable
@@ -86,5 +118,54 @@ Public Class Rep_Gastos
             ToastNotification.Show(Me, "No Existen Datos Para Mostrar. con Los Filtros Seleccionados".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
         End If
 
+    End Sub
+
+    Private Sub tbVendedor_TextChanged(sender As Object, e As EventArgs) Handles tbVendedor.TextChanged
+
+    End Sub
+
+    Private Sub chkTodos_CheckedChanged(sender As Object, e As EventArgs) Handles chkTodos.CheckedChanged
+        If (chkTodos.Checked = True) Then
+            tbVendedor.Enabled = False
+            btnVendedor.Visible = False
+            tbVendedor.BackColor = Color.DarkGray
+        Else
+            tbVendedor.Enabled = True
+            btnVendedor.Visible = True
+            tbVendedor.BackColor = Color.White
+            tbVendedor.Focus()
+        End If
+    End Sub
+
+    Private Sub btnVendedor_Click(sender As Object, e As EventArgs) Handles btnVendedor.Click
+        Dim dt As DataTable
+
+        dt = ListarPersonal()
+        'a.Id ,a.NombreProveedor ,a.Direccion ,a.Telefono01
+
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
+        listEstCeldas.Add(New Celda("Nombre", True, "NOMBRE", 350))
+        listEstCeldas.Add(New Celda("Direccion", True, "DIRECCION", 180))
+        listEstCeldas.Add(New Celda("Telefono01", True, "Telefono".ToUpper, 200))
+        Dim ef = New Efecto
+        ef.tipo = 6
+        ef.dt = dt
+        ef.SeleclCol = 2
+        ef.listEstCeldasNew = listEstCeldas
+        ef.alto = 50
+        ef.ancho = 350
+        ef.Context = "Seleccione Chofer"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+            IdPersonal = Row.Cells("Id").Value
+            tbVendedor.Text = Row.Cells("Nombre").Value
+            cbFechaDesde.Focus()
+
+        End If
     End Sub
 End Class
