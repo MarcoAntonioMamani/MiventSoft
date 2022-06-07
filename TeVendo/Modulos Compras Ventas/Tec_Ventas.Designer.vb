@@ -166,6 +166,8 @@ Partial Class Tec_Ventas
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.tbNotaVenta = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX27 = New DevComponents.DotNetBar.LabelX()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -255,7 +257,7 @@ Partial Class Tec_Ventas
         Me.TabControlPrincipal.ReorderTabsEnabled = True
         Me.TabControlPrincipal.SelectedTabFont = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.SelectedTabIndex = 1
-        Me.TabControlPrincipal.Size = New System.Drawing.Size(1371, 625)
+        Me.TabControlPrincipal.Size = New System.Drawing.Size(1371, 673)
         Me.TabControlPrincipal.TabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Bottom
         Me.TabControlPrincipal.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.TabIndex = 3
@@ -272,7 +274,7 @@ Partial Class Tec_Ventas
         Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
-        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1371, 596)
+        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1371, 644)
         Me.SuperTabControlPanel1.TabIndex = 1
         Me.SuperTabControlPanel1.TabItem = Me.SuperTabItem1
         '
@@ -284,7 +286,7 @@ Partial Class Tec_Ventas
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1371, 596)
+        Me.Panel1.Size = New System.Drawing.Size(1371, 644)
         Me.Panel1.TabIndex = 0
         '
         'PanelSuperior
@@ -295,7 +297,7 @@ Partial Class Tec_Ventas
         Me.PanelSuperior.Location = New System.Drawing.Point(0, 0)
         Me.PanelSuperior.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PanelSuperior.Name = "PanelSuperior"
-        Me.PanelSuperior.Size = New System.Drawing.Size(1371, 546)
+        Me.PanelSuperior.Size = New System.Drawing.Size(1371, 594)
         Me.PanelSuperior.TabIndex = 1
         '
         'PanelLEft
@@ -305,7 +307,7 @@ Partial Class Tec_Ventas
         Me.PanelLEft.Location = New System.Drawing.Point(0, 316)
         Me.PanelLEft.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PanelLEft.Name = "PanelLEft"
-        Me.PanelLEft.Size = New System.Drawing.Size(1371, 230)
+        Me.PanelLEft.Size = New System.Drawing.Size(1371, 278)
         Me.PanelLEft.TabIndex = 0
         '
         'Panel8
@@ -318,7 +320,7 @@ Partial Class Tec_Ventas
         Me.Panel8.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Panel8.Size = New System.Drawing.Size(1371, 230)
+        Me.Panel8.Size = New System.Drawing.Size(1371, 278)
         Me.Panel8.TabIndex = 1
         '
         'Panel9
@@ -329,7 +331,7 @@ Partial Class Tec_Ventas
         Me.Panel9.Location = New System.Drawing.Point(3, 2)
         Me.Panel9.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(1365, 226)
+        Me.Panel9.Size = New System.Drawing.Size(1365, 274)
         Me.Panel9.TabIndex = 2
         '
         'SuperTabControl1
@@ -357,7 +359,7 @@ Partial Class Tec_Ventas
         Me.SuperTabControl1.ReorderTabsEnabled = True
         Me.SuperTabControl1.SelectedTabFont = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControl1.SelectedTabIndex = 0
-        Me.SuperTabControl1.Size = New System.Drawing.Size(1365, 226)
+        Me.SuperTabControl1.Size = New System.Drawing.Size(1365, 274)
         Me.SuperTabControl1.TabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Right
         Me.SuperTabControl1.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControl1.TabIndex = 218
@@ -370,13 +372,15 @@ Partial Class Tec_Ventas
         Me.SuperTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel3.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
-        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(1186, 226)
+        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(1186, 274)
         Me.SuperTabControlPanel3.TabIndex = 1
         Me.SuperTabControlPanel3.TabItem = Me.SuperTabItem3
         '
         'Panel3
         '
         Me.Panel3.AutoScroll = True
+        Me.Panel3.Controls.Add(Me.tbNotaVenta)
+        Me.Panel3.Controls.Add(Me.LabelX27)
         Me.Panel3.Controls.Add(Me.lbPrecios)
         Me.Panel3.Controls.Add(Me.cbPrecios)
         Me.Panel3.Controls.Add(Me.LabelX25)
@@ -405,7 +409,7 @@ Partial Class Tec_Ventas
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(1186, 226)
+        Me.Panel3.Size = New System.Drawing.Size(1186, 274)
         Me.Panel3.TabIndex = 49
         '
         'lbPrecios
@@ -1967,7 +1971,7 @@ Partial Class Tec_Ventas
         Me.PanelButton.Controls.Add(Me.PanelToolBar1)
         Me.PanelButton.Controls.Add(Me.PanelNavegacion)
         Me.PanelButton.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PanelButton.Location = New System.Drawing.Point(0, 546)
+        Me.PanelButton.Location = New System.Drawing.Point(0, 594)
         Me.PanelButton.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PanelButton.Name = "PanelButton"
         Me.PanelButton.Size = New System.Drawing.Size(1371, 50)
@@ -2656,11 +2660,45 @@ Partial Class Tec_Ventas
         '
         Me.MEP.ContainerControl = Me
         '
+        'tbNotaVenta
+        '
+        '
+        '
+        '
+        Me.tbNotaVenta.Border.Class = "TextBoxBorder"
+        Me.tbNotaVenta.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbNotaVenta.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbNotaVenta.Location = New System.Drawing.Point(17, 187)
+        Me.tbNotaVenta.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbNotaVenta.Name = "tbNotaVenta"
+        Me.tbNotaVenta.PreventEnterBeep = True
+        Me.tbNotaVenta.Size = New System.Drawing.Size(180, 26)
+        Me.tbNotaVenta.TabIndex = 382
+        Me.tbNotaVenta.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'LabelX27
+        '
+        Me.LabelX27.AutoSize = True
+        Me.LabelX27.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX27.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX27.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX27.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX27.Location = New System.Drawing.Point(16, 162)
+        Me.LabelX27.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX27.Name = "LabelX27"
+        Me.LabelX27.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX27.Size = New System.Drawing.Size(104, 21)
+        Me.LabelX27.TabIndex = 383
+        Me.LabelX27.Text = "Nro Nota Venta:"
+        '
         'Tec_Ventas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1371, 625)
+        Me.ClientSize = New System.Drawing.Size(1371, 673)
         Me.Controls.Add(Me.TabControlPrincipal)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2878,4 +2916,6 @@ Partial Class Tec_Ventas
     Friend WithEvents cbPrecios As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents LabelX26 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbSubTotal As DevComponents.Editors.DoubleInput
+    Friend WithEvents tbNotaVenta As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents LabelX27 As DevComponents.DotNetBar.LabelX
 End Class

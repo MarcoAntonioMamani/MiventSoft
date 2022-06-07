@@ -627,6 +627,13 @@ Public Class Tec_Ventas
             Return False
 
         End If
+
+        If (tbNotaVenta.Text.Trim.Length > 0) Then
+            ToastNotification.Show(Me, "Ingresa Nro nota Venta".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            tbNotaVenta.Focus()
+            Return False
+
+        End If
         If (IdCliente <= 0) Then
             ToastNotification.Show(Me, "Seleccione Cliente".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
             tbCliente.Focus()
@@ -1219,6 +1226,7 @@ salirIf:
         lbPrecios.Visible = True
         cbPrecios.Visible = True
 
+        tbNotaVenta.ReadOnly = False
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -1245,6 +1253,9 @@ salirIf:
         swFacturado.IsReadOnly = True
 
         lbPrecios.Visible = False
+
+
+        tbNotaVenta.ReadOnly = True
         cbPrecios.Visible = False
     End Sub
 
@@ -1254,6 +1265,8 @@ salirIf:
         tbGlosa.Text = ""
         tbCliente.Text = ""
         tbVendedor.Text = ""
+        tbNotaVenta.Clear()
+
         IdVendedor = 0
         IdCliente = 0
         tbFechaTransaccion.Value = Now.Date
@@ -1330,7 +1343,7 @@ salirIf:
 
                     res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                    IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0))
+                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbNotaVenta.Text)
 
                     If res Then
 
@@ -1352,7 +1365,7 @@ salirIf:
 
                 res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0))
+                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbNotaVenta.Text)
 
                 If res Then
 
@@ -1400,7 +1413,7 @@ salirIf:
 
                     Res = VentaModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                    IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0))
+                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbNotaVenta.Text)
 
                     If Res Then
 
@@ -1422,7 +1435,7 @@ salirIf:
 
                 Res = VentaModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0))
+                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbNotaVenta.Text)
 
                 If Res Then
 
@@ -1542,6 +1555,18 @@ salirIf:
             MEP.SetError(tbFechaTransaccion, "")
         End If
 
+        If (tbNotaVenta.Text.Trim.Length <= 0) Then
+            tbNotaVenta.BackColor = Color.Red
+            MEP.SetError(tbNotaVenta, "Ingrese nro Nota Venta Valida")
+            Mensaje = Mensaje + Chr(13) + Chr(10) + " Nro Nota Venta"
+            _ok = False
+        Else
+            tbNotaVenta.BackColor = Color.White
+            MEP.SetError(tbNotaVenta, "")
+        End If
+
+
+
         MHighlighterFocus.UpdateHighlights()
 
         If (grDetalle.RowCount <= 0) Then
@@ -1626,6 +1651,7 @@ salirIf:
 
         Dim listEstCeldas As New List(Of Celda)
         listEstCeldas.Add(New Celda("Id", True, "ID", 40))
+        listEstCeldas.Add(New Celda("IdSincronizacion", True, "NroNotaVenta", 50))
         listEstCeldas.Add(New Celda("SucursalId", False))
         listEstCeldas.Add(New Celda("FechaVenta", True, "Fecha Venta", 100))
         listEstCeldas.Add(New Celda("PersonalId", False, "Estado", 150))
@@ -1640,7 +1666,7 @@ salirIf:
         listEstCeldas.Add(New Celda("Estado", False))
         listEstCeldas.Add(New Celda("Facturado", False))
 
-        listEstCeldas.Add(New Celda("Glosa", True, " Glosa", 200))
+        listEstCeldas.Add(New Celda("Glosa", False, " Glosa", 200))
         listEstCeldas.Add(New Celda("NombreAlmacen", True, " Sucursal", 120))
         listEstCeldas.Add(New Celda("TotalVenta", True, "Total Venta", 120, "0.00"))
         listEstCeldas.Add(New Celda("Descuento", False))
@@ -1672,6 +1698,7 @@ salirIf:
             tbVendedor.Text = .GetValue("Personal").ToString
             swTipoVenta.Value = .GetValue("TipoVenta")
             IdCliente = .GetValue("ClienteId")
+            tbNotaVenta.Text = .GetValue("IdSincronizacion")
             swFacturado.Value = .GetValue("Facturado")
             tbFechaVencimientoCredito.Value = .GetValue("FechaVencimientoCredito")
             tbCliente.Text = .GetValue("NombreCliente").ToString

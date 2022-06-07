@@ -1626,7 +1626,7 @@ Public Class AccesoLogica
                                            FechaTransacccion As String, PersonalId As Integer, ClienteId As Integer, TipoVenta As Integer,
        FechaVencCredito As String, Moneda As Integer, estado As Integer, glosa As String,
                                            TotalCompra As Double, _dtDetalle As DataTable,
-                                           Descuento As Double, dtPago As DataTable, Facturado As Integer) As Boolean
+                                           Descuento As Double, dtPago As DataTable, Facturado As Integer, IdSincronizacion As String) As Boolean
         Dim _resultado As Boolean
 
         '    @Id ,@SucursalId ,@FechaVenta ,@PersonalId ,@TipoVenta ,
@@ -1655,6 +1655,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@VentaPagos", "", dtPago))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@Facturado", Facturado))
+        _listParam.Add(New Datos.DParametro("@NroNotaVenta", IdSincronizacion))
 
         _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
 
@@ -1673,7 +1674,7 @@ Public Class AccesoLogica
                                            FechaTransacccion As String, PersonalId As Integer, ClienteId As Integer, TipoVenta As Integer,
        FechaVencCredito As String, Moneda As Integer, estado As Integer, glosa As String,
                                            TotalCompra As Double, _dtDetalle As DataTable,
-                                           Descuento As Double, dtPago As DataTable, Facturado As Integer) As Boolean
+                                           Descuento As Double, dtPago As DataTable, Facturado As Integer, IdSincronizacion As String) As Boolean
         Dim _resultado As Boolean
 
         '    @Id ,@SucursalId ,@FechaVenta ,@PersonalId ,@TipoVenta ,
@@ -1701,6 +1702,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@VentaDetalleType", "", _dtDetalle))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@VentaPagos", "", dtPago))
+        _listParam.Add(New Datos.DParametro("@NroNotaVenta", IdSincronizacion))
         _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
 
         If _Tabla.Rows.Count > 0 Then
