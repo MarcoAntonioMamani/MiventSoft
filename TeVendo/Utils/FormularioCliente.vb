@@ -151,6 +151,7 @@ Public Class FormularioCliente
             cbPrecios.SelectedIndex = 0
         End If
         _PMCargarBuscador()
+        P_Global._prCargarComboGenerico(cbSucursal, L_fnGeneralSucursales(), "aanumi", "Codigo", "aabdes", "Sucursal")
         tbNombre.Focus()
 
 
@@ -221,7 +222,7 @@ Public Class FormularioCliente
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
         If (_PMOValidarCampos()) Then
-            Dim dt As DataTable = InsertarClienteFormularioExterno("", tbNombreCliente.Text, cbTipoDocumento.Value, tbNroDocumento.Text, tbNombreCliente.Text, tbNroDocumento.Text, cbPrecios.Value, tbTelefono.Text)
+            Dim dt As DataTable = InsertarClienteFormularioExterno("", tbNombreCliente.Text, cbTipoDocumento.Value, tbNroDocumento.Text, tbNombreCliente.Text, tbNroDocumento.Text, cbPrecios.Value, tbTelefono.Text, cbSucursal.Value)
             NuevoCliente = True
             IdCliente = dt.Rows(0).Item("Id")
             NombreCliente = dt.Rows(0).Item("NombreCliente")
@@ -244,19 +245,31 @@ Public Class FormularioCliente
     End Sub
 
     Private Sub grJBuscador_Click(sender As Object, e As EventArgs) Handles grJBuscador.Click
-        If (grJBuscador.RowCount >= 1 And grJBuscador.Row >= 0) Then
-            If (grJBuscador.CurrentColumn.Index = grJBuscador.RootTable.Columns("Seleccionar").Index) Then
+
+        Try
+
+            If (grJBuscador.RowCount >= 1 And grJBuscador.Row >= 0 And Not IsNothing(grJBuscador.CurrentColumn)) Then
+                If (grJBuscador.CurrentColumn.Index = grJBuscador.RootTable.Columns("Seleccionar").Index) Then
 
 
-                filaSelect = grJBuscador.GetRow()
-                seleccionado = True
-                Me.Close()
+                    filaSelect = grJBuscador.GetRow()
+                    seleccionado = True
+                    Me.Close()
+                End If
+
             End If
+        Catch ex As Exception
 
-        End If
+        End Try
+
+
     End Sub
 
     Private Sub btnSi_Paint(sender As Object, e As PaintEventArgs) Handles btnSi.Paint
+
+    End Sub
+
+    Private Sub LabelX13_Click(sender As Object, e As EventArgs) Handles LabelX13.Click
 
     End Sub
 End Class

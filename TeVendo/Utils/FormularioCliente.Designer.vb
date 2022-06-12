@@ -23,8 +23,9 @@ Partial Class FormularioCliente
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim cbPrecios_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormularioCliente))
         Dim cbTipoDocumento_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim cbSucursal_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormularioCliente))
         Me.PanelPrincipal = New System.Windows.Forms.Panel()
         Me.PanelBuscador = New System.Windows.Forms.Panel()
         Me.Panel17 = New System.Windows.Forms.Panel()
@@ -56,6 +57,8 @@ Partial Class FormularioCliente
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.cbSucursal = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.LabelX13 = New DevComponents.DotNetBar.LabelX()
         Me.PanelPrincipal.SuspendLayout()
         Me.PanelBuscador.SuspendLayout()
         Me.Panel17.SuspendLayout()
@@ -71,6 +74,7 @@ Partial Class FormularioCliente
         Me.PanelCabezeraTitulo.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PanelPrincipal
@@ -288,6 +292,8 @@ Partial Class FormularioCliente
         'PanelCrear
         '
         Me.PanelCrear.BackColor = System.Drawing.Color.White
+        Me.PanelCrear.Controls.Add(Me.cbSucursal)
+        Me.PanelCrear.Controls.Add(Me.LabelX13)
         Me.PanelCrear.Controls.Add(Me.btnSi)
         Me.PanelCrear.Controls.Add(Me.tbNombreCliente)
         Me.PanelCrear.Controls.Add(Me.LabelX11)
@@ -343,7 +349,7 @@ Partial Class FormularioCliente
         Me.tbNombreCliente.Border.Class = "TextBoxBorder"
         Me.tbNombreCliente.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbNombreCliente.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbNombreCliente.Location = New System.Drawing.Point(175, 76)
+        Me.tbNombreCliente.Location = New System.Drawing.Point(175, 59)
         Me.tbNombreCliente.Margin = New System.Windows.Forms.Padding(4)
         Me.tbNombreCliente.Name = "tbNombreCliente"
         Me.tbNombreCliente.PreventEnterBeep = True
@@ -360,7 +366,7 @@ Partial Class FormularioCliente
         Me.LabelX11.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX11.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX11.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX11.Location = New System.Drawing.Point(22, 185)
+        Me.LabelX11.Location = New System.Drawing.Point(22, 168)
         Me.LabelX11.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX11.Name = "LabelX11"
         Me.LabelX11.SingleLineColor = System.Drawing.SystemColors.Control
@@ -376,7 +382,7 @@ Partial Class FormularioCliente
         Me.tbNroDocumento.Border.Class = "TextBoxBorder"
         Me.tbNroDocumento.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbNroDocumento.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbNroDocumento.Location = New System.Drawing.Point(174, 181)
+        Me.tbNroDocumento.Location = New System.Drawing.Point(174, 164)
         Me.tbNroDocumento.Margin = New System.Windows.Forms.Padding(4)
         Me.tbNroDocumento.Name = "tbNroDocumento"
         Me.tbNroDocumento.PreventEnterBeep = True
@@ -394,7 +400,7 @@ Partial Class FormularioCliente
         Me.LabelX10.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX10.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX10.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX10.Location = New System.Drawing.Point(22, 118)
+        Me.LabelX10.Location = New System.Drawing.Point(22, 101)
         Me.LabelX10.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX10.Name = "LabelX10"
         Me.LabelX10.SingleLineColor = System.Drawing.SystemColors.Control
@@ -410,7 +416,7 @@ Partial Class FormularioCliente
         Me.tbTelefono.Border.Class = "TextBoxBorder"
         Me.tbTelefono.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbTelefono.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbTelefono.Location = New System.Drawing.Point(174, 113)
+        Me.tbTelefono.Location = New System.Drawing.Point(174, 96)
         Me.tbTelefono.Margin = New System.Windows.Forms.Padding(4)
         Me.tbTelefono.Name = "tbTelefono"
         Me.tbTelefono.PreventEnterBeep = True
@@ -423,7 +429,7 @@ Partial Class FormularioCliente
         cbPrecios_DesignTimeLayout.LayoutString = resources.GetString("cbPrecios_DesignTimeLayout.LayoutString")
         Me.cbPrecios.DesignTimeLayout = cbPrecios_DesignTimeLayout
         Me.cbPrecios.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbPrecios.Location = New System.Drawing.Point(174, 213)
+        Me.cbPrecios.Location = New System.Drawing.Point(174, 196)
         Me.cbPrecios.Margin = New System.Windows.Forms.Padding(4)
         Me.cbPrecios.Name = "cbPrecios"
         Me.cbPrecios.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
@@ -444,7 +450,7 @@ Partial Class FormularioCliente
         Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX5.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX5.Location = New System.Drawing.Point(22, 221)
+        Me.LabelX5.Location = New System.Drawing.Point(22, 204)
         Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX5.Name = "LabelX5"
         Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
@@ -457,7 +463,7 @@ Partial Class FormularioCliente
         cbTipoDocumento_DesignTimeLayout.LayoutString = resources.GetString("cbTipoDocumento_DesignTimeLayout.LayoutString")
         Me.cbTipoDocumento.DesignTimeLayout = cbTipoDocumento_DesignTimeLayout
         Me.cbTipoDocumento.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbTipoDocumento.Location = New System.Drawing.Point(174, 146)
+        Me.cbTipoDocumento.Location = New System.Drawing.Point(174, 129)
         Me.cbTipoDocumento.Margin = New System.Windows.Forms.Padding(4)
         Me.cbTipoDocumento.Name = "cbTipoDocumento"
         Me.cbTipoDocumento.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
@@ -478,7 +484,7 @@ Partial Class FormularioCliente
         Me.LabelX7.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX7.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX7.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX7.Location = New System.Drawing.Point(22, 154)
+        Me.LabelX7.Location = New System.Drawing.Point(22, 137)
         Me.LabelX7.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX7.Name = "LabelX7"
         Me.LabelX7.SingleLineColor = System.Drawing.SystemColors.Control
@@ -496,7 +502,7 @@ Partial Class FormularioCliente
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX1.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX1.Location = New System.Drawing.Point(22, 81)
+        Me.LabelX1.Location = New System.Drawing.Point(22, 64)
         Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
@@ -563,6 +569,49 @@ Partial Class FormularioCliente
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
         '
+        'cbSucursal
+        '
+        Me.cbSucursal.BackColor = System.Drawing.Color.Azure
+        Me.cbSucursal.ColorScheme = ""
+        Me.cbSucursal.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.cbSucursal.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
+        Me.cbSucursal.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        cbSucursal_DesignTimeLayout.LayoutString = resources.GetString("cbSucursal_DesignTimeLayout.LayoutString")
+        Me.cbSucursal.DesignTimeLayout = cbSucursal_DesignTimeLayout
+        Me.cbSucursal.FlatBorderColor = System.Drawing.Color.Black
+        Me.cbSucursal.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbSucursal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbSucursal.HideSelection = False
+        Me.cbSucursal.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cbSucursal.Location = New System.Drawing.Point(169, 234)
+        Me.cbSucursal.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbSucursal.Name = "cbSucursal"
+        Me.cbSucursal.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbSucursal.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
+        Me.cbSucursal.SelectedIndex = -1
+        Me.cbSucursal.SelectedItem = Nothing
+        Me.cbSucursal.Size = New System.Drawing.Size(307, 26)
+        Me.cbSucursal.TabIndex = 225
+        Me.cbSucursal.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'LabelX13
+        '
+        Me.LabelX13.AutoSize = True
+        Me.LabelX13.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX13.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX13.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX13.ForeColor = System.Drawing.Color.Black
+        Me.LabelX13.Location = New System.Drawing.Point(22, 234)
+        Me.LabelX13.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX13.Name = "LabelX13"
+        Me.LabelX13.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX13.Size = New System.Drawing.Size(66, 23)
+        Me.LabelX13.TabIndex = 226
+        Me.LabelX13.Text = "Sucursal:"
+        '
         'FormularioCliente
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -590,6 +639,7 @@ Partial Class FormularioCliente
         Me.PanelCabezeraTitulo.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -625,4 +675,6 @@ Partial Class FormularioCliente
     Friend WithEvents btnSi As Panel
     Protected WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
     Friend WithEvents btnSalir As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents cbSucursal As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents LabelX13 As DevComponents.DotNetBar.LabelX
 End Class

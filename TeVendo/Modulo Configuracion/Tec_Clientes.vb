@@ -276,6 +276,7 @@ Public Class Tec_Clientes
         P_Global._prCargarComboGenerico(cbTipoDocumento, L_prLibreriaDetalleGeneral(8), "cnnum", "Codigo", "cndesc1", "TipoDocumento")
         P_Global._prCargarComboGenerico(cbPrecios, L_prListaCategoriasPrecios(), "Id", "Codigo", "Descripcion", "CategoriaPrecio")
         P_Global._prCargarComboGenerico(cbZona, L_prListarZonas(), "Id", "Codigo", "NombreZona", "Zonas")
+        P_Global._prCargarComboGenerico(cbSucursal, L_fnGeneralSucursales(), "aanumi", "Codigo", "aabdes", "Sucursal")
         If (Mapa = 1) Then
             PanelRight.Visible = True
 
@@ -401,6 +402,8 @@ Public Class Tec_Clientes
         cbZona.ReadOnly = False
         cbPrecios.ReadOnly = False
         btnTipoDocumento.Visible = True
+
+        cbSucursal.ReadOnly = False
         tbNombreCliente.Focus()
     End Sub
 
@@ -419,6 +422,7 @@ Public Class Tec_Clientes
         cbPrecios.ReadOnly = True
         tbRazonSocial.ReadOnly = True
         tbnit.ReadOnly = True
+        cbSucursal.ReadOnly = True
         swEstado.IsReadOnly = True
     End Sub
 
@@ -436,6 +440,7 @@ Public Class Tec_Clientes
         seleccionarPrimerItemCombo(cbTipoDocumento)
         seleccionarPrimerItemCombo(cbZona)
         seleccionarPrimerItemCombo(cbPrecios)
+        seleccionarPrimerItemCombo(cbSucursal)
         _latitud = 0
         _longitud = 0
 
@@ -471,7 +476,7 @@ Public Class Tec_Clientes
         Try
             res = InsertarCliente(tbCodigo.Text, cbZona.Value, cbPrecios.Value, tbCodigoExterno.Text, tbNombreCliente.Text,
                                   tbDireccionCliente.Text, tbTelefono.Text, cbTipoDocumento.Value, tbNroDocumento.Text,
-                                  tbRazonSocial.Text, tbnit.Text, IIf(swEstado.Value = True, 1, 0), Now.Date.ToString("yyyy/MM/dd"), _latitud, _longitud)
+                                  tbRazonSocial.Text, tbnit.Text, IIf(swEstado.Value = True, 1, 0), Now.Date.ToString("yyyy/MM/dd"), _latitud, _longitud, cbSucursal.Value)
 
             If res Then
 
@@ -497,7 +502,7 @@ Public Class Tec_Clientes
         Try
             Res = ModificarCliente(tbCodigo.Text, cbZona.Value, cbPrecios.Value, tbCodigoExterno.Text, tbNombreCliente.Text,
                                   tbDireccionCliente.Text, tbTelefono.Text, cbTipoDocumento.Value, tbNroDocumento.Text,
-                                  tbRazonSocial.Text, tbnit.Text, IIf(swEstado.Value = True, 1, 0), Now.Date.ToString("yyyy/MM/dd"), _latitud, _longitud)
+                                  tbRazonSocial.Text, tbnit.Text, IIf(swEstado.Value = True, 1, 0), Now.Date.ToString("yyyy/MM/dd"), _latitud, _longitud, cbSucursal.Value)
 
             If Res Then
 
@@ -608,7 +613,8 @@ Public Class Tec_Clientes
         listEstCeldas.Add(New Celda("Longitud", False))
         listEstCeldas.Add(New Celda("PrecioCategoriaId", False))
         listEstCeldas.Add(New Celda("ZonaId", False))
-
+        listEstCeldas.Add(New Celda("SucursalId", False))
+        listEstCeldas.Add(New Celda("Sucursal", True, "Sucursal", 90))
 
         Return listEstCeldas
     End Function
@@ -638,6 +644,7 @@ Public Class Tec_Clientes
             swEstado.Value = .GetValue("estado")
             _latitud = .GetValue("Latitud")
             _longitud = .GetValue("Longitud")
+            cbSucursal.Value = .GetValue("SucursalId")
         End With
         TablaImagenes = L_prCargarImagenesRecepcion(tbCodigo.Text)
         LblPaginacion.Text = Str(_MPos + 1) + "/" + JGrM_Buscador.RowCount.ToString

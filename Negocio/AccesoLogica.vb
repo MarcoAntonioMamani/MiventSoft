@@ -1010,7 +1010,7 @@ Public Class AccesoLogica
     Public Shared Function InsertarCliente(_Id As String, IdZona As Integer, IdPrecio As Integer, CodigoExterno As String, NombreCliente As String,
                                            Direccion As String, Telefono As String, TipoDocumento As Integer, NroDocumento As String,
                                            RazonSocial As String, nit As String, estado As Integer, FechaIngreso As String, Latitud As Double,
-                                           Longitud As Double) As Boolean
+                                           Longitud As Double, SucursalId As Integer) As Boolean
         Dim _Tabla As DataTable
         Dim _resultado As Boolean
         Dim _listParam As New List(Of Datos.DParametro)
@@ -1034,6 +1034,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@FechaIngreso", FechaIngreso))
         _listParam.Add(New Datos.DParametro("@Latitud", Latitud))
         _listParam.Add(New Datos.DParametro("@Longitud", Longitud))
+        _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
         _Tabla = D_ProcedimientoConParam("MAM_Clientes", _listParam)
 
 
@@ -1048,7 +1049,7 @@ Public Class AccesoLogica
     End Function
 
     Public Shared Function InsertarClienteFormularioExterno(_Id As String, NombreCliente As String, TipoDocumento As Integer, NroDocumento As String,
-                                           RazonSocial As String, nit As String, CategoriaPrecioId As Integer, telefono As String) As DataTable
+                                           RazonSocial As String, nit As String, CategoriaPrecioId As Integer, telefono As String, SucursalId As Integer) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 8))
@@ -1060,6 +1061,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@NroDocumento", NroDocumento))
         _listParam.Add(New Datos.DParametro("@RazonSocial", RazonSocial))
         _listParam.Add(New Datos.DParametro("@PrecioCategoriaId", CategoriaPrecioId))
+        _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
         _listParam.Add(New Datos.DParametro("@nit", nit))
         _Tabla = D_ProcedimientoConParam("MAM_Clientes", _listParam)
         Return _Tabla
@@ -1092,7 +1094,7 @@ Public Class AccesoLogica
     Public Shared Function ModificarCliente(_Id As String, IdZona As Integer, IdPrecio As Integer, CodigoExterno As String, NombreCliente As String,
                                            Direccion As String, Telefono As String, TipoDocumento As Integer, NroDocumento As String,
                                            RazonSocial As String, nit As String, estado As Integer, FechaIngreso As String, Latitud As Double,
-                                           Longitud As Double) As Boolean
+                                           Longitud As Double, SucursalId As Integer) As Boolean
         Dim _Tabla As DataTable
         Dim _resultado As Boolean
         Dim _listParam As New List(Of Datos.DParametro)
@@ -1116,6 +1118,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@FechaIngreso", FechaIngreso))
         _listParam.Add(New Datos.DParametro("@Latitud", Latitud))
         _listParam.Add(New Datos.DParametro("@Longitud", Longitud))
+        _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
         _Tabla = D_ProcedimientoConParam("MAM_Clientes", _listParam)
 
 
@@ -1894,11 +1897,12 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
-    Public Shared Function ListarCliente() As DataTable
+    Public Shared Function ListarCliente(SucursalId As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 10))
+        _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
         _Tabla = D_ProcedimientoConParam("MAM_Clientes", _listParam)
 
         Return _Tabla

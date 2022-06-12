@@ -1789,7 +1789,7 @@ salirIf:
 
             Dim dt As DataTable
 
-            dt = ListarCliente()
+            dt = ListarCliente(cbSucursal.Value)
             'a.Id ,a.NombreCliente  as NombreProveedor ,a.DireccionCliente  ,a.Telefono
 
             Dim listEstCeldas As New List(Of Celda)
@@ -1797,7 +1797,7 @@ salirIf:
             listEstCeldas.Add(New Celda("NombreCliente", True, "NOMBRE", 350))
             listEstCeldas.Add(New Celda("DireccionCliente", True, "DIRECCION", 180))
             listEstCeldas.Add(New Celda("Telefono", True, "Telefono".ToUpper, 200))
-
+            listEstCeldas.Add(New Celda("NombreAlmacen", True, "Sucursal".ToUpper, 200))
 
             Dim ef = New Efecto
             ef.tipo = 7
@@ -1840,7 +1840,7 @@ salirIf:
         Dim dt As DataTable
 
 
-        dt = ListarCliente()
+        dt = ListarCliente(cbSucursal.Value)
         'a.Id ,a.NombreCliente  as NombreProveedor ,a.DireccionCliente  ,a.Telefono
 
         Dim listEstCeldas As New List(Of Celda)
@@ -1848,7 +1848,7 @@ salirIf:
         listEstCeldas.Add(New Celda("NombreCliente", True, "NOMBRE", 350))
         listEstCeldas.Add(New Celda("DireccionCliente", True, "DIRECCION", 180))
         listEstCeldas.Add(New Celda("Telefono", True, "Telefono".ToUpper, 200))
-
+        listEstCeldas.Add(New Celda("NombreAlmacen", True, "Sucursal".ToUpper, 200))
 
         Dim ef = New Efecto
         ef.tipo = 7

@@ -1982,15 +1982,15 @@ salirIf:
 
             Dim dt As DataTable
 
-            dt = ListarCliente()
+            dt = ListarCliente(cbSucursal.Value)
             'a.Id ,a.NombreCliente  as NombreProveedor ,a.DireccionCliente  ,a.Telefono
 
             Dim listEstCeldas As New List(Of Celda)
             listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
             listEstCeldas.Add(New Celda("NombreCliente", True, "NOMBRE", 350))
-            listEstCeldas.Add(New Celda("DireccionCliente", True, "DIRECCION", 180))
-            listEstCeldas.Add(New Celda("Telefono", True, "Telefono".ToUpper, 200))
-
+            listEstCeldas.Add(New Celda("DireccionCliente", True, "DIRECCION", 100))
+            listEstCeldas.Add(New Celda("Telefono", True, "Telefono".ToUpper, 90))
+            listEstCeldas.Add(New Celda("NombreAlmacen", True, "Sucursal".ToUpper, 150))
 
             Dim ef = New Efecto
             ef.tipo = 7
@@ -2033,16 +2033,15 @@ salirIf:
         Dim dt As DataTable
 
 
-        dt = ListarCliente()
+        dt = ListarCliente(cbSucursal.Value)
         'a.Id ,a.NombreCliente  as NombreProveedor ,a.DireccionCliente  ,a.Telefono
 
         Dim listEstCeldas As New List(Of Celda)
         listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
         listEstCeldas.Add(New Celda("NombreCliente", True, "NOMBRE", 350))
-        listEstCeldas.Add(New Celda("DireccionCliente", True, "DIRECCION", 180))
-        listEstCeldas.Add(New Celda("Telefono", True, "Telefono".ToUpper, 200))
-
-
+        listEstCeldas.Add(New Celda("DireccionCliente", True, "DIRECCION", 100))
+        listEstCeldas.Add(New Celda("Telefono", True, "Telefono".ToUpper, 90))
+        listEstCeldas.Add(New Celda("NombreAlmacen", True, "Sucursal".ToUpper, 150))
         Dim ef = New Efecto
         ef.tipo = 7
         ef.dt = dt
