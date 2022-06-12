@@ -25,7 +25,8 @@ Public Class Tec_Ventas
     Dim Lote As Boolean = False
     Dim IdVendedor As Integer = 0
     Dim IdCliente As Integer = 0
-    Dim VentaDirecta As Integer
+    Dim VentaDirecta As Integer = 0
+    Dim VentaDirectaSinConciliacion As Integer = 0
 
 #End Region
 
@@ -241,7 +242,8 @@ Public Class Tec_Ventas
 #Region "METODOS PRIVADOS"
 
     Private Sub _prIniciarTodo()
-
+        btnVentaSinConciliacion.Visible = False
+        PanelSinConciliacion.Visible = False
         LeerConfiguracion()
 
         'L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
@@ -258,6 +260,18 @@ Public Class Tec_Ventas
         cbFiltroEstado.Value = 5
 
 
+        Dim dtusuario As DataTable
+
+        dtusuario = L_prUsuarioGeneral()
+
+        For i As Integer = 0 To dtusuario.Rows.Count - 1 Step 1
+
+            If (dtusuario.Rows(i).Item("Id") = gi_userNumi And dtusuario.Rows(i).Item("pedido") = 1) Then
+                btnVentaSinConciliacion.Visible = True
+                PanelSinConciliacion.Visible = True
+
+            End If
+        Next
 
 
 
@@ -1147,7 +1161,7 @@ salirIf:
         Dim res As Boolean
         Dim Id As String = "0"
         Try
-            If (VentaDirecta = 1) Then '' Validar si tiene conciliacion Abierta
+            If (VentaDirecta = 1 And VentaDirectaSinConciliacion = 0) Then '' Validar si tiene conciliacion Abierta
                 Dim dt As DataTable = L_prVerificarConcicliacionAbierta(IdVendedor)
 
                 If (dt.Rows(0).Item(0) = 0) Then '' Aqui pregunto si es que no tiene conciliacion termino el proceso
@@ -1158,7 +1172,7 @@ salirIf:
 
 
             res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
-                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"), 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, cbEstadoPedido.Value, cbFechaEntregado.Value.ToString("yyyy/MM/dd"), VentaDirecta)
+                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"), 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, cbEstadoPedido.Value, cbFechaEntregado.Value.ToString("yyyy/MM/dd"), IIf(VentaDirectaSinConciliacion = 1, 0, VentaDirecta), VentaDirectaSinConciliacion)
 
             If res Then
 
@@ -1184,7 +1198,7 @@ salirIf:
         Try
             Res = VentaModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                 IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, cbEstadoPedido.Value, cbFechaEntregado.Value.ToString("yyyy/MM/dd"), VentaDirecta)
+                                1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, cbEstadoPedido.Value, cbFechaEntregado.Value.ToString("yyyy/MM/dd"), IIf(VentaDirectaSinConciliacion = 1, 0, VentaDirecta), VentaDirectaSinConciliacion)
             If Res Then
                 ReporteVenta(tbCodigo.Text)
                 ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
@@ -1374,6 +1388,7 @@ salirIf:
         listEstCeldas.Add(New Celda("EstadoPedido", False))
         listEstCeldas.Add(New Celda("NombreEstado", True, "Estado Pedido", 70))
         listEstCeldas.Add(New Celda("VentaDirecta", False))
+        listEstCeldas.Add(New Celda("VentaDirectaSinConciliacion", False))
         listEstCeldas.Add(New Celda("FechaEntrega", False))
         listEstCeldas.Add(New Celda("NombrePersonal", False))
         Return listEstCeldas
@@ -1383,7 +1398,7 @@ salirIf:
 
         'a.Id , a.SucursalId, a.FechaVenta, a.PersonalId, p.NombrePersonal As Personal,
         'a.TipoVenta, IIf(a.TipoVenta = 1,'Contado','Credito')as TVenta,a.FechaVencimientoCredito ,
-        'a.ClienteId, c.NombreCliente, a.MonedaVenta, a.Estado, a.Glosa, a.Descuento, a.TotalVenta 
+        'a.ClienteId, c.NombreCliente, a.MonedaVenta, a.Estado, a.Glosa, a.Descuento, a.TotalVenta ,VentaDirectaSinConciliacion
 
         If (selected = False) Then
             FilaSeleccionada = True
@@ -1398,6 +1413,7 @@ salirIf:
             IdVendedor = .GetValue("PersonalId")
             tbVendedor.Text = .GetValue("Personal").ToString
             swTipoVenta.Value = .GetValue("TipoVenta")
+            VentaDirectaSinConciliacion = .GetValue("VentaDirectaSinConciliacion")
             IdCliente = .GetValue("ClienteId")
             tbFechaVencimientoCredito.Value = .GetValue("FechaVencimientoCredito")
             tbCliente.Text = .GetValue("NombreCliente").ToString
@@ -1884,7 +1900,7 @@ salirIf:
 
     Private Sub btnSeleccionarProducto_Click(sender As Object, e As EventArgs) Handles btnSeleccionarProducto.Click
 
-        If (VentaDirecta = 1) Then
+        If (VentaDirecta = 1 And VentaDirectaSinConciliacion = 0) Then
             Dim dt As DataTable = L_prVerificarConcicliacionAbierta(IdVendedor)
 
             If (dt.Rows(0).Item(0) = 0) Then '' Aqui pregunto si es que no tiene conciliacion termino el proceso
@@ -1892,7 +1908,10 @@ salirIf:
                 Return
             End If
         End If
-
+        Dim VentaDirectaVariable As Integer = 0
+        If (VentaDirectaSinConciliacion <> 1) Then
+            VentaDirectaVariable = VentaDirecta
+        End If
 
         Dim ef = New Efecto
         ef.tipo = 16
@@ -1901,7 +1920,7 @@ salirIf:
         ef.SucursalId = cbSucursal.Value
         ef.Lotebool = Lote
         ef.IdCliente = IdCliente
-        ef.VentaDirecta = VentaDirecta
+        ef.VentaDirecta = VentaDirectaVariable
         ef.DistribuidorId = IdVendedor
         ef.ShowDialog()
         grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
@@ -1914,7 +1933,7 @@ salirIf:
 
     Private Sub ButtonX3_Click(sender As Object, e As EventArgs) Handles ButtonX3.Click
         VentaDirecta = 1
-
+        VentaDirectaSinConciliacion = 0
 
 
         TabControlPrincipal.SelectedTabIndex = 0
@@ -1944,6 +1963,15 @@ salirIf:
 
 
 
+    End Sub
+
+    Private Sub btnVentaSinConciliacion_Click(sender As Object, e As EventArgs) Handles btnVentaSinConciliacion.Click
+        VentaDirecta = 1
+        VentaDirectaSinConciliacion = 1
+
+
+        TabControlPrincipal.SelectedTabIndex = 0
+        btnNuevo.PerformClick()
     End Sub
 #End Region
 End Class

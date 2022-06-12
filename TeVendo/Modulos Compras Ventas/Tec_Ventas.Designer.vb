@@ -124,6 +124,8 @@ Partial Class Tec_Ventas
         Me.SuperTabItem1 = New DevComponents.DotNetBar.SuperTabItem()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.PanelSinConciliacion = New System.Windows.Forms.Panel()
+        Me.btnVentaSinConciliacion = New DevComponents.DotNetBar.ButtonX()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel2.SuspendLayout()
@@ -169,6 +171,7 @@ Partial Class Tec_Ventas
         Me.PanelToolBar1.SuspendLayout()
         Me.PanelNavegacion.SuspendLayout()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PanelSinConciliacion.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControlPrincipal
@@ -196,7 +199,7 @@ Partial Class Tec_Ventas
         Me.TabControlPrincipal.ReorderTabsEnabled = True
         Me.TabControlPrincipal.SelectedTabFont = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.SelectedTabIndex = 1
-        Me.TabControlPrincipal.Size = New System.Drawing.Size(1371, 577)
+        Me.TabControlPrincipal.Size = New System.Drawing.Size(1371, 589)
         Me.TabControlPrincipal.TabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Bottom
         Me.TabControlPrincipal.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.TabIndex = 3
@@ -212,7 +215,7 @@ Partial Class Tec_Ventas
         Me.SuperTabControlPanel2.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.SuperTabControlPanel2.Name = "SuperTabControlPanel2"
-        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1371, 548)
+        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1371, 560)
         Me.SuperTabControlPanel2.TabIndex = 2
         Me.SuperTabControlPanel2.TabItem = Me.SuperTabItem2
         '
@@ -226,7 +229,7 @@ Partial Class Tec_Ventas
         Me.Panel17.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel17.Name = "Panel17"
         Me.Panel17.Padding = New System.Windows.Forms.Padding(5)
-        Me.Panel17.Size = New System.Drawing.Size(1371, 548)
+        Me.Panel17.Size = New System.Drawing.Size(1371, 560)
         Me.Panel17.TabIndex = 4
         '
         'JGrM_Buscador
@@ -273,7 +276,7 @@ Partial Class Tec_Ventas
         Me.JGrM_Buscador.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.JGrM_Buscador.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.JGrM_Buscador.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.JGrM_Buscador.Size = New System.Drawing.Size(1361, 438)
+        Me.JGrM_Buscador.Size = New System.Drawing.Size(1361, 450)
         Me.JGrM_Buscador.TabIndex = 2
         Me.JGrM_Buscador.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.JGrM_Buscador.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -444,6 +447,7 @@ Partial Class Tec_Ventas
         '
         'Panel20
         '
+        Me.Panel20.Controls.Add(Me.PanelSinConciliacion)
         Me.Panel20.Controls.Add(Me.LabelX13)
         Me.Panel20.Controls.Add(Me.cbFiltroEstado)
         Me.Panel20.Dock = System.Windows.Forms.DockStyle.Fill
@@ -576,7 +580,7 @@ Partial Class Tec_Ventas
         Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
-        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1371, 548)
+        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1371, 560)
         Me.SuperTabControlPanel1.TabIndex = 1
         Me.SuperTabControlPanel1.TabItem = Me.SuperTabItem1
         '
@@ -588,7 +592,7 @@ Partial Class Tec_Ventas
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1371, 548)
+        Me.Panel1.Size = New System.Drawing.Size(1371, 560)
         Me.Panel1.TabIndex = 0
         '
         'PanelSuperior
@@ -599,7 +603,7 @@ Partial Class Tec_Ventas
         Me.PanelSuperior.Location = New System.Drawing.Point(0, 0)
         Me.PanelSuperior.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PanelSuperior.Name = "PanelSuperior"
-        Me.PanelSuperior.Size = New System.Drawing.Size(1371, 498)
+        Me.PanelSuperior.Size = New System.Drawing.Size(1371, 510)
         Me.PanelSuperior.TabIndex = 1
         '
         'PanelRight
@@ -609,7 +613,7 @@ Partial Class Tec_Ventas
         Me.PanelRight.Location = New System.Drawing.Point(0, 203)
         Me.PanelRight.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PanelRight.Name = "PanelRight"
-        Me.PanelRight.Size = New System.Drawing.Size(1371, 295)
+        Me.PanelRight.Size = New System.Drawing.Size(1371, 307)
         Me.PanelRight.TabIndex = 1
         '
         'Panel2
@@ -622,7 +626,7 @@ Partial Class Tec_Ventas
         Me.Panel2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Panel2.Size = New System.Drawing.Size(1371, 295)
+        Me.Panel2.Size = New System.Drawing.Size(1371, 307)
         Me.Panel2.TabIndex = 1
         '
         'PanelImagenes
@@ -633,7 +637,7 @@ Partial Class Tec_Ventas
         Me.PanelImagenes.Location = New System.Drawing.Point(3, 29)
         Me.PanelImagenes.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PanelImagenes.Name = "PanelImagenes"
-        Me.PanelImagenes.Size = New System.Drawing.Size(1365, 264)
+        Me.PanelImagenes.Size = New System.Drawing.Size(1365, 276)
         Me.PanelImagenes.TabIndex = 2
         '
         'PanelVerImagen
@@ -645,7 +649,7 @@ Partial Class Tec_Ventas
         Me.PanelVerImagen.Location = New System.Drawing.Point(0, 0)
         Me.PanelVerImagen.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelVerImagen.Name = "PanelVerImagen"
-        Me.PanelVerImagen.Size = New System.Drawing.Size(1365, 264)
+        Me.PanelVerImagen.Size = New System.Drawing.Size(1365, 276)
         Me.PanelVerImagen.TabIndex = 2
         '
         'grDetalle
@@ -689,7 +693,7 @@ Partial Class Tec_Ventas
         Me.grDetalle.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.grDetalle.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grDetalle.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grDetalle.Size = New System.Drawing.Size(1156, 264)
+        Me.grDetalle.Size = New System.Drawing.Size(1156, 276)
         Me.grDetalle.TabIndex = 0
         Me.grDetalle.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grDetalle.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -708,7 +712,7 @@ Partial Class Tec_Ventas
         Me.PanelTotal.Location = New System.Drawing.Point(1156, 0)
         Me.PanelTotal.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelTotal.Name = "PanelTotal"
-        Me.PanelTotal.Size = New System.Drawing.Size(209, 264)
+        Me.PanelTotal.Size = New System.Drawing.Size(209, 276)
         Me.PanelTotal.TabIndex = 4
         '
         'Panel13
@@ -725,7 +729,7 @@ Partial Class Tec_Ventas
         Me.Panel13.Location = New System.Drawing.Point(0, 0)
         Me.Panel13.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(209, 264)
+        Me.Panel13.Size = New System.Drawing.Size(209, 276)
         Me.Panel13.TabIndex = 39
         '
         'LabelX10
@@ -1576,7 +1580,7 @@ Partial Class Tec_Ventas
         Me.PanelButton.Controls.Add(Me.PanelToolBar1)
         Me.PanelButton.Controls.Add(Me.PanelNavegacion)
         Me.PanelButton.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PanelButton.Location = New System.Drawing.Point(0, 498)
+        Me.PanelButton.Location = New System.Drawing.Point(0, 510)
         Me.PanelButton.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PanelButton.Name = "PanelButton"
         Me.PanelButton.Size = New System.Drawing.Size(1371, 50)
@@ -1806,11 +1810,44 @@ Partial Class Tec_Ventas
         '
         Me.MEP.ContainerControl = Me
         '
+        'PanelSinConciliacion
+        '
+        Me.PanelSinConciliacion.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(179, Byte), Integer), CType(CType(148, Byte), Integer))
+        Me.PanelSinConciliacion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.PanelSinConciliacion.Controls.Add(Me.btnVentaSinConciliacion)
+        Me.PanelSinConciliacion.Dock = System.Windows.Forms.DockStyle.Right
+        Me.PanelSinConciliacion.Location = New System.Drawing.Point(423, 0)
+        Me.PanelSinConciliacion.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.PanelSinConciliacion.Name = "PanelSinConciliacion"
+        Me.PanelSinConciliacion.Size = New System.Drawing.Size(382, 43)
+        Me.PanelSinConciliacion.TabIndex = 224
+        '
+        'btnVentaSinConciliacion
+        '
+        Me.btnVentaSinConciliacion.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnVentaSinConciliacion.BackColor = System.Drawing.Color.Transparent
+        Me.btnVentaSinConciliacion.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.btnVentaSinConciliacion.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnVentaSinConciliacion.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnVentaSinConciliacion.Image = Global.TeVendo.My.Resources.Resources.iconadd
+        Me.btnVentaSinConciliacion.ImageFixedSize = New System.Drawing.Size(5, 5)
+        Me.btnVentaSinConciliacion.Location = New System.Drawing.Point(0, 0)
+        Me.btnVentaSinConciliacion.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnVentaSinConciliacion.Name = "btnVentaSinConciliacion"
+        Me.btnVentaSinConciliacion.Size = New System.Drawing.Size(380, 41)
+        Me.btnVentaSinConciliacion.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnVentaSinConciliacion.Symbol = "58695"
+        Me.btnVentaSinConciliacion.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Material
+        Me.btnVentaSinConciliacion.SymbolSize = 15.0!
+        Me.btnVentaSinConciliacion.TabIndex = 7
+        Me.btnVentaSinConciliacion.Text = "Venta Directa Sin Conciliacion"
+        Me.btnVentaSinConciliacion.TextColor = System.Drawing.Color.White
+        '
         'Tec_Ventas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1371, 577)
+        Me.ClientSize = New System.Drawing.Size(1371, 589)
         Me.Controls.Add(Me.TabControlPrincipal)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1864,6 +1901,7 @@ Partial Class Tec_Ventas
         Me.PanelToolBar1.ResumeLayout(False)
         Me.PanelNavegacion.ResumeLayout(False)
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PanelSinConciliacion.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -1965,4 +2003,6 @@ Partial Class Tec_Ventas
     Friend WithEvents Panel20 As Panel
     Friend WithEvents cbFiltroEstado As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents LabelX13 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents PanelSinConciliacion As Panel
+    Protected WithEvents btnVentaSinConciliacion As DevComponents.DotNetBar.ButtonX
 End Class

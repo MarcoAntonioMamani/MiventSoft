@@ -1677,7 +1677,7 @@ Public Class AccesoLogica
                                            FechaTransacccion As String, PersonalId As Integer, ClienteId As Integer, TipoVenta As Integer,
        FechaVencCredito As String, estado As Integer, glosa As String,
                                            TotalCompra As Double, _dtDetalle As DataTable,
-                                           Descuento As Double, EstadoPedido As Integer, FechaEntregar As String, VentaDirecta As Integer) As Boolean
+                                           Descuento As Double, EstadoPedido As Integer, FechaEntregar As String, VentaDirecta As Integer, VentaDirectaSinConciliacion As Integer) As Boolean
         Dim _resultado As Boolean
 
         '    @Id ,@SucursalId ,@FechaVenta ,@PersonalId ,@TipoVenta ,
@@ -1707,7 +1707,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@EstadoPedido", EstadoPedido))
         _listParam.Add(New Datos.DParametro("@FechaEntregar", FechaEntregar))
         _listParam.Add(New Datos.DParametro("@Ventadirecta", VentaDirecta))
-
+        _listParam.Add(New Datos.DParametro("@VentaDirectaSinConciliacion", VentaDirectaSinConciliacion))
         _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
 
         If _Tabla.Rows.Count > 0 Then
@@ -1725,7 +1725,7 @@ Public Class AccesoLogica
                                            FechaTransacccion As String, PersonalId As Integer, ClienteId As Integer, TipoVenta As Integer,
        FechaVencCredito As String, Moneda As Integer, estado As Integer, glosa As String,
                                            TotalCompra As Double, _dtDetalle As DataTable,
-                                           Descuento As Double, EstadoPedido As Integer, FechaEntregar As String, VentaDirecta As Integer) As Boolean
+                                           Descuento As Double, EstadoPedido As Integer, FechaEntregar As String, VentaDirecta As Integer, VentaDirectaSinConciliacion As Integer) As Boolean
         Dim _resultado As Boolean
 
         '    @Id ,@SucursalId ,@FechaVenta ,@PersonalId ,@TipoVenta ,
@@ -1743,7 +1743,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@TipoVenta", TipoVenta))
         _listParam.Add(New Datos.DParametro("@FechaVencimientoCredito", FechaVencCredito))
         _listParam.Add(New Datos.DParametro("@ClienteId", ClienteId))
-
+        _listParam.Add(New Datos.DParametro("@VentaDirectaSinConciliacion", VentaDirectaSinConciliacion))
 
         _listParam.Add(New Datos.DParametro("@MonedaVenta", Moneda))
         _listParam.Add(New Datos.DParametro("@Estado", estado))
