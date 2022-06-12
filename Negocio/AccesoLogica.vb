@@ -2941,7 +2941,7 @@ Public Class AccesoLogica
 
     Public Shared Function L_prUsuarioModificar(_numi As String, _RolId As Integer, _NombreUsuario As String,
                                                 _Contrasena As String, _estado As Integer,
- _sucursalId As Integer, _IdEmpresa As Integer, IdPersonal As Integer) As Boolean
+ _sucursalId As Integer, _IdEmpresa As Integer, IdPersonal As Integer, VentaDirecta As Integer) As Boolean
         Dim _resultado As Boolean
 
         'INSERT INTO Usuarios  VALUES(@RolId ,@NombreUsuario ,@Contrasena ,@Estado 
@@ -2960,7 +2960,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@IdEmpresa", _IdEmpresa))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@IdPersonal", IdPersonal))
-
+        _listParam.Add(New Datos.DParametro("@PedidoSinConciliacion", VentaDirecta))
         _Tabla = D_ProcedimientoConParam("MAM_Usuarios", _listParam)
 
         If _Tabla.Rows.Count > 0 Then
@@ -2975,7 +2975,7 @@ Public Class AccesoLogica
 
     Public Shared Function L_prUsuarioInsertar(ByRef _numi As String, _RolId As Integer, _NombreUsuario As String,
                                                 _Contrasena As String, _estado As Integer,
- _sucursalId As Integer, _IdEmpresa As Integer, IdPersonal As Integer) As Boolean
+ _sucursalId As Integer, _IdEmpresa As Integer, IdPersonal As Integer, VentaDirecta As Integer) As Boolean
         Dim _resultado As Boolean
 
         'INSERT INTO Usuarios  VALUES(@RolId ,@NombreUsuario ,@Contrasena ,@Estado 
@@ -2993,6 +2993,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@SucursalId", _sucursalId))
         _listParam.Add(New Datos.DParametro("@IdEmpresa", _IdEmpresa))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@PedidoSinConciliacion", VentaDirecta))
         _listParam.Add(New Datos.DParametro("@IdPersonal", IdPersonal))
 
         _Tabla = D_ProcedimientoConParam("MAM_Usuarios", _listParam)

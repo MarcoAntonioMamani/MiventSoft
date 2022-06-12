@@ -246,6 +246,7 @@ Public Class Tec_Users
 
             .SetHighlightOnFocus(btnGrabar, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(btnSalir, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(swVentasDirectas, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
 
         End With
     End Sub
@@ -319,6 +320,8 @@ Public Class Tec_Users
         cbRol.ReadOnly = False
         swEstado.IsReadOnly = False
         btnVendedor.Visible = True
+
+        swVentasDirectas.IsReadOnly = False
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -329,7 +332,7 @@ Public Class Tec_Users
         cbRol.ReadOnly = True
         swEstado.IsReadOnly = True
         tbVendedor.ReadOnly = True
-
+        swVentasDirectas.IsReadOnly = True
         btnVendedor.Visible = False
     End Sub
 
@@ -338,6 +341,7 @@ Public Class Tec_Users
         tbNombreUsuario.Text = ""
         tbContrasena.Text = ""
         swEstado.Value = True
+        swVentasDirectas.Value = False
         tbVendedor.Clear()
         If (ObtenerLongitudCombo(cbRol) > 0) Then
             cbRol.SelectedIndex = 0
@@ -365,7 +369,7 @@ Public Class Tec_Users
     Public Function _PMOGrabarRegistro() As Boolean
 
         Dim res As Boolean = L_prUsuarioInsertar(tbCodigo.Text, cbRol.Value, tbNombreUsuario.Text,
-                                                  tbContrasena.Text, IIf(swEstado.Value = True, 1, 0), 1, cbEmpresa.Value, IdPersonal)
+                                                  tbContrasena.Text, IIf(swEstado.Value = True, 1, 0), 1, cbEmpresa.Value, IdPersonal, IIf(swEstado.Value = True, 1, 0))
         If res Then
             ToastNotification.Show(Me, "Codigo de Usuario ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
         End If
@@ -376,7 +380,7 @@ Public Class Tec_Users
     Public Function _PMOModificarRegistro() As Boolean
 
         Dim res As Boolean = L_prUsuarioModificar(tbCodigo.Text, cbRol.Value, tbNombreUsuario.Text,
-                                                  tbContrasena.Text, IIf(swEstado.Value = True, 1, 0), 1, cbEmpresa.Value, IdPersonal)
+                                                  tbContrasena.Text, IIf(swEstado.Value = True, 1, 0), 1, cbEmpresa.Value, IdPersonal, IIf(swEstado.Value = True, 1, 0))
         If res Then
 
             ToastNotification.Show(Me, "Codigo de Usuario ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
@@ -504,6 +508,7 @@ Public Class Tec_Users
         listEstCeldas.Add(New Celda("IdEmpresa", False))
         listEstCeldas.Add(New Celda("Empresa", True, "Empresa", 80))
         listEstCeldas.Add(New Celda("IdPersonal", False))
+        listEstCeldas.Add(New Celda("pedido", False))
         listEstCeldas.Add(New Celda("Personal", True, "Personal", 120))
         Return listEstCeldas
     End Function
@@ -526,6 +531,7 @@ Public Class Tec_Users
             cbRol.Value = .GetValue("RolId")
             cbEmpresa.Value = .GetValue("IdEmpresa")
             IdPersonal = .GetValue("IdPersonal")
+            swVentasDirectas.Value = .GetValue("pedido")
             tbVendedor.Text = .GetValue("Personal").ToString
         End With
 

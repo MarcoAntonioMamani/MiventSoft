@@ -70,6 +70,8 @@ Partial Class Tec_Users
         Me.btnPrimero = New DevComponents.DotNetBar.ButtonX()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.swVentasDirectas = New DevComponents.DotNetBar.Controls.SwitchButton()
+        Me.LabelX8 = New DevComponents.DotNetBar.LabelX()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelLEft.SuspendLayout()
@@ -241,6 +243,8 @@ Partial Class Tec_Users
         '
         'PanelCampos
         '
+        Me.PanelCampos.Controls.Add(Me.swVentasDirectas)
+        Me.PanelCampos.Controls.Add(Me.LabelX8)
         Me.PanelCampos.Controls.Add(Me.cbRol)
         Me.PanelCampos.Controls.Add(Me.cbEmpresa)
         Me.PanelCampos.Controls.Add(Me.btnVendedor)
@@ -403,7 +407,7 @@ Partial Class Tec_Users
         '
         Me.swEstado.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.swEstado.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.swEstado.Location = New System.Drawing.Point(29, 310)
+        Me.swEstado.Location = New System.Drawing.Point(29, 379)
         Me.swEstado.Margin = New System.Windows.Forms.Padding(4)
         Me.swEstado.Name = "swEstado"
         Me.swEstado.OffBackColor = System.Drawing.Color.Red
@@ -429,7 +433,7 @@ Partial Class Tec_Users
         Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX4.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX4.Location = New System.Drawing.Point(29, 279)
+        Me.LabelX4.Location = New System.Drawing.Point(29, 348)
         Me.LabelX4.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX4.Name = "LabelX4"
         Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
@@ -806,6 +810,47 @@ Partial Class Tec_Users
         '
         Me.MEP.ContainerControl = Me
         '
+        'swVentasDirectas
+        '
+        '
+        '
+        '
+        Me.swVentasDirectas.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.swVentasDirectas.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.swVentasDirectas.Location = New System.Drawing.Point(29, 313)
+        Me.swVentasDirectas.Margin = New System.Windows.Forms.Padding(4)
+        Me.swVentasDirectas.Name = "swVentasDirectas"
+        Me.swVentasDirectas.OffBackColor = System.Drawing.Color.Red
+        Me.swVentasDirectas.OffText = "NO"
+        Me.swVentasDirectas.OffTextColor = System.Drawing.Color.White
+        Me.swVentasDirectas.OnBackColor = System.Drawing.Color.MediumTurquoise
+        Me.swVentasDirectas.OnText = "SI"
+        Me.swVentasDirectas.OnTextColor = System.Drawing.Color.White
+        Me.swVentasDirectas.Size = New System.Drawing.Size(219, 27)
+        Me.swVentasDirectas.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.swVentasDirectas.TabIndex = 214
+        Me.swVentasDirectas.ValueFalse = "0"
+        Me.swVentasDirectas.ValueObject = "0"
+        Me.swVentasDirectas.ValueTrue = "1"
+        '
+        'LabelX8
+        '
+        Me.LabelX8.AutoSize = True
+        Me.LabelX8.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX8.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX8.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX8.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX8.Location = New System.Drawing.Point(29, 282)
+        Me.LabelX8.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX8.Name = "LabelX8"
+        Me.LabelX8.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX8.Size = New System.Drawing.Size(314, 23)
+        Me.LabelX8.TabIndex = 215
+        Me.LabelX8.Text = "Puede Hacer Venta Directa Sin Conciliacion?"
+        '
         'Tec_Users
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -882,4 +927,6 @@ Partial Class Tec_Users
     Friend WithEvents tbVendedor As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents cbRol As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents cbEmpresa As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents swVentasDirectas As DevComponents.DotNetBar.Controls.SwitchButton
+    Friend WithEvents LabelX8 As DevComponents.DotNetBar.LabelX
 End Class
