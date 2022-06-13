@@ -330,7 +330,11 @@ Public Class Tec_Ventas
             .Visible = False
 
         End With
+        With grDetalle.RootTable.Columns("Conversion")
+            .Width = 100
+            .Visible = False
 
+        End With
 
         With grDetalle.RootTable.Columns("ProductoId")
             .Width = 30
@@ -353,10 +357,17 @@ Public Class Tec_Ventas
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
             .Visible = True
-            .FormatString = "0.00"
-            .Caption = "Cantidad".ToUpper
+            .FormatString = "0.000"
+            .Caption = "Cant.Caja".ToUpper
         End With
-
+        With grDetalle.RootTable.Columns("CantidadUnitaria")
+            .Width = 50
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Cant.Uni".ToUpper
+        End With
 
         With grDetalle.RootTable.Columns("Precio")
             .Width = 50
@@ -669,7 +680,7 @@ Public Class Tec_Ventas
             '1 As estado, cast('' as image ) as img
             ', 0 as stock
             'Habilitar solo las columnas de Precio, %, Monto y Observación
-            If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index Or
+            If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index Or e.Column.Index = grDetalle.RootTable.Columns("CantidadUnitaria").Index Or
                 e.Column.Index = grDetalle.RootTable.Columns("ProcentajeDescuento").Index Or
                  e.Column.Index = grDetalle.RootTable.Columns("MontoDescuento").Index) Then
                 e.Cancel = False
@@ -748,6 +759,17 @@ salirIf:
         Dim lin As Integer = grDetalle.GetValue("Id")
         Dim pos As Integer = -1
         _fnObtenerFilaDetalle(pos, lin)
+        If (e.Column.Index = grDetalle.RootTable.Columns("CantidadUnitaria").Index) Then
+            If (Not IsNumeric(grDetalle.GetValue("CantidadUnitaria")) Or grDetalle.GetValue("Cantidad").ToString = String.Empty) Then
+                grDetalle.SetValue("Cantidad", 1)
+
+            Else
+                grDetalle.SetValue("Cantidad", grDetalle.GetValue("CantidadUnitaria") / grDetalle.GetValue("Conversion"))
+            End If
+
+
+        End If
+
         If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
             If (Not IsNumeric(grDetalle.GetValue("Cantidad")) Or grDetalle.GetValue("Cantidad").ToString = String.Empty) Then
 
@@ -755,12 +777,14 @@ salirIf:
                 '  grDetalle.CurrentRow.Cells.Item("cant").Value = 1
 
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadUnitaria") = 1 * CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = 0
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = 0
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio")
                 Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
 
                 grDetalle.SetValue("Cantidad", 1)
+                'grDetalle.SetValue("CantidadUnitaria", 1 * grDetalle.GetValue("Conversion"))
                 grDetalle.SetValue("ProcentajeDescuento", 0)
                 grDetalle.SetValue("MontoDescuento", 0)
                 grDetalle.SetValue("SubTotal", grDetalle.GetValue("Precio"))
@@ -776,6 +800,11 @@ salirIf:
                 If (grDetalle.GetValue("Cantidad") > 0) Then
 
                     If (grDetalle.GetValue("Cantidad") <= grDetalle.GetValue("Stock")) Then
+
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadUnitaria") = grDetalle.GetValue("Cantidad") * grDetalle.GetValue("Conversion")
+
+                        grDetalle.SetValue("CantidadUnitaria", grDetalle.GetValue("Cantidad") * grDetalle.GetValue("Conversion"))
+
                         Dim porcdesc As Double = grDetalle.GetValue("ProcentajeDescuento")
                         Dim montodesc As Double = ((grDetalle.GetValue("Precio") * grDetalle.GetValue("Cantidad")) * (porcdesc / 100))
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = montodesc
@@ -790,6 +819,7 @@ salirIf:
                     Else
                         ToastNotification.Show(Me, "La Cantidad = " + Str(grDetalle.GetValue("Cantidad")) + " es mayor al Stock del Producto = " + Str(grDetalle.GetValue("Stock")), img, 6000, eToastGlowColor.Red, eToastPosition.TopCenter)
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadUnitaria") = 1 * CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion")
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = 0
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = 0
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio")
@@ -813,6 +843,7 @@ salirIf:
                 Else
 
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadUnitaria") = 1 * CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion")
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = 0
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = 0
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio")

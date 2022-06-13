@@ -63,6 +63,8 @@ Public Class Efecto
     Public CategoriaPrecioSelected As Integer = 0
     Public TableCategoria As DataTable
 
+    Public Conversion As Integer = 0
+
     Private Sub Efecto_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.WindowState = FormWindowState.Maximized
 
@@ -111,7 +113,8 @@ Public Class Efecto
 
             Case 21
                 _prMostrarFormCrearTipoMovimiento()
-
+            Case 22
+                _prMostrarFormularioCantidadVentasCaja()
         End Select
     End Sub
     Public Sub _prLogin()
@@ -399,6 +402,25 @@ Public Class Efecto
         frmAyuda = New FormularioCantidadProductos
         frmAyuda.NombreProducto = NombreProducto
         frmAyuda.CantidadTotal = StockActual
+        frmAyuda.TipoMovimiento = TipoMovimiento
+        frmAyuda.ShowDialog()
+        If frmAyuda.respuesta = True Then
+
+            CantidadTransaccion = frmAyuda.CantidadVenta
+            band = True
+            Me.Close()
+        Else
+            band = False
+            Me.Close()
+        End If
+    End Sub
+
+    Sub _prMostrarFormularioCantidadVentasCaja()
+        Dim frmAyuda As frm_CantidadCajas
+        frmAyuda = New frm_CantidadCajas
+        frmAyuda.NombreProducto = NombreProducto
+        frmAyuda.CantidadTotal = StockActual
+        frmAyuda.Conversion = Conversion
         frmAyuda.TipoMovimiento = TipoMovimiento
         frmAyuda.ShowDialog()
         If frmAyuda.respuesta = True Then

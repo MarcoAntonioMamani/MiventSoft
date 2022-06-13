@@ -104,7 +104,7 @@ Partial Class FormularioCantidadProductos
         'PictureBox1
         '
         Me.PictureBox1.Image = Global.TeVendo.My.Resources.Resources.compra
-        Me.PictureBox1.Location = New System.Drawing.Point(227, 33)
+        Me.PictureBox1.Location = New System.Drawing.Point(257, 34)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(80, 76)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
