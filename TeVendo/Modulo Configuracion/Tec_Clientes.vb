@@ -4,7 +4,6 @@ Imports Janus.Windows.GridEX
 Imports System.IO
 Imports DevComponents.DotNetBar.SuperGrid
 Imports DevComponents.DotNetBar.Controls
-
 Imports GMap.NET.MapProviders
 Imports GMap.NET
 Imports GMap.NET.WindowsForms.Markers
@@ -902,4 +901,8 @@ Public Class Tec_Clientes
 
 
 #End Region
+
+    Private Sub Tec_Precios_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+        Me.Dispose()
+    End Sub
 End Class

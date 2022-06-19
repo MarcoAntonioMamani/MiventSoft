@@ -1257,4 +1257,18 @@ Public Class Tec_Principal
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub
+
+    Private Sub superTabControl3_TabItemClose(sender As Object, e As SuperTabStripTabItemCloseEventArgs) Handles superTabControl3.TabItemClose
+
+        'Dim tabitem As SuperTabItem
+        'For Each tabitem In superTabControl3.Tabs
+        '    If tabitem.Name = e.Tab.Tag Then
+        '        superTabControl3.SelectedTab = tabitem
+        '        Exit For
+        '    End If
+        'Next
+        'Dim frm As Form = Me.superTabControl3.SelectedPanel.Controls.Find(e.Tab.Tag, False)(0)
+        'frm.Close()
+
+    End Sub
 End Class

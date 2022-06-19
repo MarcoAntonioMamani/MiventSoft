@@ -645,6 +645,12 @@ Public Class Tec_Precios
         PanelCategoria.Visible = True
         GPanelAddCategoria.Visible = True
     End Sub
+
+    Private Sub Tec_Precios_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+        Me.Dispose()
+
+
+    End Sub
 #End Region
 
 
