@@ -85,8 +85,9 @@ Public Class frm_CantidadCajas
                     tbCantidad.Focus()
                 Else
                     If (CantidadActual > 0) Then
-
-                        CantidadVenta = CantidadActual
+                        Dim CantidadActual02 As Double = Double.Parse(tbCantidadUnitaria.Text)
+                        Dim CantidadConversionCaja As Double = CantidadActual02 / Conversion
+                        CantidadVenta = CantidadConversionCaja
                         respuesta = True
                         Me.Close()
                     Else
@@ -164,6 +165,10 @@ Public Class frm_CantidadCajas
             tbCantidadUnitaria.Text = 0
             BanderaCantidadUnitaria = False
         End If
+    End Sub
+
+    Private Sub btnSi_Paint(sender As Object, e As PaintEventArgs) Handles btnSi.Paint
+
     End Sub
 #End Region
 End Class

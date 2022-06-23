@@ -357,7 +357,7 @@ Public Class Tec_Ventas
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
             .Visible = True
-            .FormatString = "0.000"
+            .FormatString = "0.00000"
             .Caption = "Cant.Caja".ToUpper
         End With
         With grDetalle.RootTable.Columns("CantidadUnitaria")
@@ -365,7 +365,7 @@ Public Class Tec_Ventas
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
             .Visible = True
-            .FormatString = "0.00"
+            .FormatString = "0.00000"
             .Caption = "Cant.Uni".ToUpper
         End With
 
