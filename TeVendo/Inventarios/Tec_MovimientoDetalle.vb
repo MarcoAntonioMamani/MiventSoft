@@ -62,6 +62,10 @@ Public Class Tec_MovimientoDetalle
             .Visible = False
 
         End With
+        With grDetalle.RootTable.Columns("conversion")
+            .Width = 100
+            .FormatString = "0.00"
+        End With
         With grDetalle.RootTable.Columns("ProductoId")
             .Width = 50
             .Visible = True
@@ -91,7 +95,16 @@ Public Class Tec_MovimientoDetalle
             .FormatString = "0.00"
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
-            .Caption = "Cantidad".ToUpper
+            .Caption = "Cant. Unitaria".ToUpper
+        End With
+        With grDetalle.RootTable.Columns("CantidadCajas")
+            .Width = 90
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
+            .Caption = "Cant. Cajas".ToUpper
         End With
 
         With grDetalle.RootTable.Columns("estado")
@@ -212,12 +225,12 @@ Public Class Tec_MovimientoDetalle
 
     Public Sub _prAplicarCondiccionJanusSinLote()
         Dim fc As GridEXFormatCondition
-        fc = New GridEXFormatCondition(grProducto.RootTable.Columns("stock"), ConditionOperator.LessThanOrEqualTo, 0)
+        fc = New GridEXFormatCondition(grProducto.RootTable.Columns("stockUnidad"), ConditionOperator.LessThanOrEqualTo, 0)
         'fc.FormatStyle.FontBold = TriState.True
         fc.FormatStyle.ForeColor = Color.Red    'Color.Tan
         grProducto.RootTable.FormatConditions.Add(fc)
         Dim fr As GridEXFormatCondition
-        fr = New GridEXFormatCondition(grProducto.RootTable.Columns("stock"), ConditionOperator.Equal, -9999)
+        fr = New GridEXFormatCondition(grProducto.RootTable.Columns("stockUnidad"), ConditionOperator.Equal, -9999)
         fr.FormatStyle.ForeColor = Color.Black
         grProducto.RootTable.FormatConditions.Add(fr)
     End Sub
@@ -455,7 +468,7 @@ Public Class Tec_MovimientoDetalle
                     End If
                 End If
             Next
-            dt.Rows(i).Item("stock") = dt.Rows(i).Item("stock") - sum
+            dt.Rows(i).Item("stockUnidad") = dt.Rows(i).Item("stockUnidad") - sum
         Next
 
     End Sub
@@ -477,7 +490,7 @@ Public Class Tec_MovimientoDetalle
         grProducto.RetrieveStructure()
         grProducto.AlternatingColors = True
         With grProducto.RootTable.Columns("Id")
-            .Width = 100
+            .Width = 50
             .Caption = "Id"
             .Visible = True
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
@@ -485,10 +498,15 @@ Public Class Tec_MovimientoDetalle
 
         End With
         With grProducto.RootTable.Columns("CodigoExterno")
-            .Width = 100
             .Caption = "CODIGOP"
             .Visible = False
 
+        End With
+        With grProducto.RootTable.Columns("Conversion")
+            .Visible = True
+            .Caption = "Conversion"
+            .FormatString = "0.00"
+            .Width = 80
         End With
 
         With grProducto.RootTable.Columns("estado")
@@ -498,7 +516,7 @@ Public Class Tec_MovimientoDetalle
         End With
         With grProducto.RootTable.Columns("NombreProducto")
             .Width = 350
-            .Caption = "PRODUCTOS"
+            .Caption = "Productos"
             .Visible = True
             .MaxLines = 2
             .WordWrap = True
@@ -507,7 +525,7 @@ Public Class Tec_MovimientoDetalle
         End With
         With grProducto.RootTable.Columns("NombreCategoria")
             .Width = 150
-            .Caption = "CATEGORIA"
+            .Caption = "Categoria"
             .Visible = True
             .MaxLines = 2
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
@@ -518,7 +536,7 @@ Public Class Tec_MovimientoDetalle
         With grProducto.RootTable.Columns("DescripcionProducto")
             .Width = 250
             .Visible = True
-            .Caption = "DESCRIPCION"
+            .Caption = "Descripción"
             .MaxLines = 2
 
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
@@ -527,11 +545,19 @@ Public Class Tec_MovimientoDetalle
         End With
 
 
-        With grProducto.RootTable.Columns("stock")
+        With grProducto.RootTable.Columns("stockUnidad")
             .Width = 150
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "STOCK"
+            .Caption = "Stock Unidad"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
+        End With
+        With grProducto.RootTable.Columns("stockCaja")
+            .Width = 150
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Stock Caja"
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
         End With
@@ -566,7 +592,7 @@ Public Class Tec_MovimientoDetalle
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, 0, "20200101", CDate("2020/01/01"), Bin.GetBuffer, 0, 0)
+        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, 0, 0, "20200101", CDate("2020/01/01"), Bin.GetBuffer, 0, 0, 0)
     End Sub
     Public Function _fnExisteProducto(idprod As Integer) As Boolean
         For i As Integer = 0 To CType(grDetalle.DataSource, DataTable).Rows.Count - 1 Step 1
@@ -599,14 +625,14 @@ Public Class Tec_MovimientoDetalle
             If ((pos >= 0)) Then
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = grProducto.GetValue("Id")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = grProducto.GetValue("NombreProducto")
-                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("stock")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("stockUnidad")
 
 
                 If (TipoMovimientoId = 3) Then  '' Es salida
-                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stockFinal") = grProducto.GetValue("stock") - cantidad
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stockFinal") = grProducto.GetValue("stockUnidad") - cantidad
 
                 Else
-                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stockFinal") = grProducto.GetValue("stock") + cantidad
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stockFinal") = grProducto.GetValue("stockUnidad") + cantidad
 
                 End If
 
@@ -614,14 +640,15 @@ Public Class Tec_MovimientoDetalle
 
 
 
-
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("conversion") = grProducto.GetValue("conversion")
 
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadCajas") = cantidad / grProducto.GetValue("conversion")
 
-                    ''    _DesHabilitarProductos()
+                ''    _DesHabilitarProductos()
 
 
-                    CambiarEstado(grProducto.GetValue("Id"), 0)
+                CambiarEstado(grProducto.GetValue("Id"), 0)
                     'grproducto.RemoveFilters()
                     tbProducto.Clear()
                     tbProducto.Focus()
@@ -671,7 +698,8 @@ Public Class Tec_MovimientoDetalle
                     End If
                 End If
             Next
-            dt.Rows(i).Item("stock") = dt.Rows(i).Item("stock") - sum
+            dt.Rows(i).Item("stockUnidad") = dt.Rows(i).Item("stockUnidad") - sum
+            dt.Rows(i).Item("stockCaja") = (dt.Rows(i).Item("stockUnidad") - sum) / dt.Rows(i).Item("conversion")
         Next
 
     End Sub
@@ -711,10 +739,10 @@ Public Class Tec_MovimientoDetalle
             .TextAlignment = TextAlignment.Center
         End With
 
-        With grProducto.RootTable.Columns("stock")
+        With grProducto.RootTable.Columns("stockUnidad")
             .Width = 150
             .Visible = True
-            .Caption = "Stock"
+            .Caption = "stock Unitario"
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
@@ -739,7 +767,7 @@ Public Class Tec_MovimientoDetalle
 
     Public Sub _prAplicarCondiccionJanusLote()
         Dim fc As GridEXFormatCondition
-        fc = New GridEXFormatCondition(grProducto.RootTable.Columns("stock"), ConditionOperator.Equal, 0)
+        fc = New GridEXFormatCondition(grProducto.RootTable.Columns("stockUnidad"), ConditionOperator.Equal, 0)
         fc.FormatStyle.BackColor = Color.Gold
         fc.FormatStyle.FontBold = TriState.True
         fc.FormatStyle.ForeColor = Color.White
@@ -807,7 +835,8 @@ Public Class Tec_MovimientoDetalle
 
                     ef.tipo = 5
                     ef.NombreProducto = grProducto.GetValue("NombreProducto")
-                    ef.StockActual = grProducto.GetValue("stock")
+                    ef.StockActual = grProducto.GetValue("stockUnidad")
+                    ef.Conversion = grProducto.GetValue("Conversion")
                     ef.TipoMovimiento = TipoMovimientoId
                     ef.ShowDialog()
                     Dim bandera As Boolean = False
@@ -829,7 +858,9 @@ Public Class Tec_MovimientoDetalle
 
                 ef.tipo = 5
                 ef.NombreProducto = grProducto.GetValue("NombreProducto")
-                ef.StockActual = grProducto.GetValue("stock")
+                ef.StockActual = grProducto.GetValue("stockUnidad")
+
+                ef.Conversion = grProducto.GetValue("Conversion")
                 ef.TipoMovimiento = TipoMovimientoId
                 ef.ShowDialog()
                 Dim bandera As Boolean = False
@@ -853,7 +884,8 @@ Public Class Tec_MovimientoDetalle
 
                 ef.tipo = 5
                 ef.NombreProducto = grProducto.GetValue("NombreProducto")
-                ef.StockActual = grProducto.GetValue("stock")
+                ef.StockActual = grProducto.GetValue("stockUnidad")
+                ef.Conversion = grProducto.GetValue("Conversion")
                 ef.TipoMovimiento = TipoMovimientoId
                 ef.ShowDialog()
                 Dim bandera As Boolean = False
@@ -872,8 +904,8 @@ Public Class Tec_MovimientoDetalle
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = FilaSelectLote.Item("Id")
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = FilaSelectLote.Item("NombreProducto")
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = CantidadVenta
-
-
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadCajas") = CantidadVenta / FilaSelectLote.Item("conversion")
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("conversion") = FilaSelectLote.Item("conversion")
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("stock")
 
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Lote") = grProducto.GetValue("Lote")
@@ -929,7 +961,7 @@ Public Class Tec_MovimientoDetalle
     End Function
 
     Private Sub grDetalle_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grDetalle.EditingCell
-        If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
+        If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index Or e.Column.Index = grDetalle.RootTable.Columns("CantidadCajas").Index) Then
             e.Cancel = False
         Else
             If ((e.Column.Index = grDetalle.RootTable.Columns("Lote").Index Or
@@ -954,6 +986,32 @@ Public Class Tec_MovimientoDetalle
 
     End Sub
     Private Sub grDetalle_CellValueChanged(sender As Object, e As ColumnActionEventArgs) Handles grDetalle.CellValueChanged
+
+
+
+        If (e.Column.Index = grDetalle.RootTable.Columns("CantidadCajas").Index) Then
+            Dim lin As Integer = grDetalle.GetValue("Id")
+            Dim pos As Integer = -1
+            _fnObtenerFilaDetalle(pos, lin)
+            If (Not IsNumeric(grDetalle.GetValue("CantidadCajas")) Or grDetalle.GetValue("CantidadCajas").ToString = String.Empty) Then
+                grDetalle.SetValue("CantidadCajas", 0)
+
+            Else
+                grDetalle.SetValue("Cantidad", grDetalle.GetValue("CantidadCajas") * grDetalle.GetValue("Conversion"))
+
+            End If
+            If (TipoMovimientoId = 3) Then  '' Es salida
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stockFinal") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") - grDetalle.GetValue("Cantidad")
+
+            Else
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stockFinal") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") + grDetalle.GetValue("Cantidad")
+
+            End If
+
+        End If
+
+
+
         If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
             If (Not IsNumeric(grDetalle.GetValue("Cantidad")) Or grDetalle.GetValue("Cantidad").ToString = String.Empty) Then
 
@@ -963,6 +1021,7 @@ Public Class Tec_MovimientoDetalle
                 Dim pos As Integer = -1
                 _fnObtenerFilaDetalle(pos, lin)
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadCajas") = 1 / CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion")
 
                 Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
 
@@ -973,14 +1032,17 @@ Public Class Tec_MovimientoDetalle
             Else
 
                 Dim lin As Integer = grDetalle.GetValue("Id")
-                    Dim pos As Integer = -1
-                    _fnObtenerFilaDetalle(pos, lin)
-                    Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+                Dim pos As Integer = -1
+                _fnObtenerFilaDetalle(pos, lin)
+                Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
 
                 If (estado = 1) Then
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
                 End If
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadCajas") = grDetalle.GetValue("Cantidad") / CType(grDetalle.DataSource, DataTable).Rows(pos).Item("conversion")
 
+
+                grDetalle.SetValue("CantidadCajas", (grDetalle.GetValue("Cantidad") / CType(grDetalle.DataSource, DataTable).Rows(pos).Item("conversion")))
                 If (TipoMovimientoId = 3) Then  '' Es salida
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stockFinal") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") - grDetalle.GetValue("Cantidad")
 
@@ -1018,9 +1080,13 @@ Public Class Tec_MovimientoDetalle
                         Dim pos As Integer = -1
                         _fnObtenerFilaDetalle(pos, lin)
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = stock
-                        grDetalle.SetValue("Cantidad", stock)
-                        Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-                        ToastNotification.Show(Me, "La cantidad que se quiere sacar es mayor a la que existe en el stock solo puede Sacar : ".ToUpper + Str(stock).Trim,
+                    grDetalle.SetValue("Cantidad", stock)
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadCajas") = stock / grDetalle.GetValue("conversion")
+                    grDetalle.SetValue("CantidadCajas", stock / grDetalle.GetValue("conversion"))
+
+
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    ToastNotification.Show(Me, "La cantidad que se quiere sacar es mayor a la que existe en el stock solo puede Sacar : ".ToUpper + Str(stock).Trim,
                           img,
                           5000,
                           eToastGlowColor.Blue,

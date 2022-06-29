@@ -201,9 +201,9 @@ Partial Class Tec_Movimientos
         '
         Me.PanelRight.Controls.Add(Me.Panel2)
         Me.PanelRight.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelRight.Location = New System.Drawing.Point(555, 0)
+        Me.PanelRight.Location = New System.Drawing.Point(416, 0)
         Me.PanelRight.Name = "PanelRight"
-        Me.PanelRight.Size = New System.Drawing.Size(710, 691)
+        Me.PanelRight.Size = New System.Drawing.Size(849, 691)
         Me.PanelRight.TabIndex = 1
         '
         'Panel2
@@ -215,7 +215,7 @@ Partial Class Tec_Movimientos
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel2.Size = New System.Drawing.Size(710, 691)
+        Me.Panel2.Size = New System.Drawing.Size(849, 691)
         Me.Panel2.TabIndex = 1
         '
         'PanelImagenes
@@ -225,7 +225,7 @@ Partial Class Tec_Movimientos
         Me.PanelImagenes.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelImagenes.Location = New System.Drawing.Point(3, 30)
         Me.PanelImagenes.Name = "PanelImagenes"
-        Me.PanelImagenes.Size = New System.Drawing.Size(704, 658)
+        Me.PanelImagenes.Size = New System.Drawing.Size(843, 658)
         Me.PanelImagenes.TabIndex = 2
         '
         'PanelVerImagen
@@ -236,7 +236,7 @@ Partial Class Tec_Movimientos
         Me.PanelVerImagen.Location = New System.Drawing.Point(0, 0)
         Me.PanelVerImagen.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelVerImagen.Name = "PanelVerImagen"
-        Me.PanelVerImagen.Size = New System.Drawing.Size(704, 658)
+        Me.PanelVerImagen.Size = New System.Drawing.Size(843, 658)
         Me.PanelVerImagen.TabIndex = 2
         '
         'grDetalle
@@ -281,7 +281,7 @@ Partial Class Tec_Movimientos
         Me.grDetalle.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.grDetalle.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grDetalle.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grDetalle.Size = New System.Drawing.Size(704, 658)
+        Me.grDetalle.Size = New System.Drawing.Size(843, 658)
         Me.grDetalle.TabIndex = 3
         Me.grDetalle.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grDetalle.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -299,7 +299,7 @@ Partial Class Tec_Movimientos
         Me.Panel5.Location = New System.Drawing.Point(3, 3)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel5.Size = New System.Drawing.Size(704, 27)
+        Me.Panel5.Size = New System.Drawing.Size(843, 27)
         Me.Panel5.TabIndex = 1
         '
         'Panel6
@@ -311,7 +311,7 @@ Partial Class Tec_Movimientos
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel6.Location = New System.Drawing.Point(1, 1)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(702, 25)
+        Me.Panel6.Size = New System.Drawing.Size(841, 25)
         Me.Panel6.TabIndex = 0
         '
         'lbprivilegio
@@ -352,7 +352,7 @@ Partial Class Tec_Movimientos
         'Panel13
         '
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Panel13.Location = New System.Drawing.Point(545, 0)
+        Me.Panel13.Location = New System.Drawing.Point(406, 0)
         Me.Panel13.Name = "Panel13"
         Me.Panel13.Size = New System.Drawing.Size(10, 691)
         Me.Panel13.TabIndex = 3
@@ -363,7 +363,7 @@ Partial Class Tec_Movimientos
         Me.PanelLEft.Dock = System.Windows.Forms.DockStyle.Left
         Me.PanelLEft.Location = New System.Drawing.Point(0, 0)
         Me.PanelLEft.Name = "PanelLEft"
-        Me.PanelLEft.Size = New System.Drawing.Size(545, 691)
+        Me.PanelLEft.Size = New System.Drawing.Size(406, 691)
         Me.PanelLEft.TabIndex = 0
         '
         'Panel8
@@ -375,7 +375,7 @@ Partial Class Tec_Movimientos
         Me.Panel8.Location = New System.Drawing.Point(0, 0)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel8.Size = New System.Drawing.Size(545, 691)
+        Me.Panel8.Size = New System.Drawing.Size(406, 691)
         Me.Panel8.TabIndex = 1
         '
         'Panel9
@@ -385,11 +385,12 @@ Partial Class Tec_Movimientos
         Me.Panel9.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel9.Location = New System.Drawing.Point(3, 30)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(539, 658)
+        Me.Panel9.Size = New System.Drawing.Size(400, 658)
         Me.Panel9.TabIndex = 2
         '
         'Panel3
         '
+        Me.Panel3.AutoScroll = True
         Me.Panel3.Controls.Add(Me.btnSeleccionarProducto)
         Me.Panel3.Controls.Add(Me.tbFechaTransaccion)
         Me.Panel3.Controls.Add(Me.cbDepositos)
@@ -404,7 +405,7 @@ Partial Class Tec_Movimientos
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(539, 658)
+        Me.Panel3.Size = New System.Drawing.Size(400, 658)
         Me.Panel3.TabIndex = 49
         '
         'btnSeleccionarProducto
@@ -414,7 +415,7 @@ Partial Class Tec_Movimientos
         Me.btnSeleccionarProducto.Font = New System.Drawing.Font("Calibri", 10.8!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSeleccionarProducto.Image = Global.TeVendo.My.Resources.Resources.search
         Me.btnSeleccionarProducto.ImageFixedSize = New System.Drawing.Size(28, 28)
-        Me.btnSeleccionarProducto.Location = New System.Drawing.Point(45, 327)
+        Me.btnSeleccionarProducto.Location = New System.Drawing.Point(45, 390)
         Me.btnSeleccionarProducto.Margin = New System.Windows.Forms.Padding(4)
         Me.btnSeleccionarProducto.Name = "btnSeleccionarProducto"
         Me.btnSeleccionarProducto.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
@@ -450,7 +451,7 @@ Partial Class Tec_Movimientos
         Me.tbFechaTransaccion.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
         Me.tbFechaTransaccion.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
         Me.tbFechaTransaccion.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbFechaTransaccion.Location = New System.Drawing.Point(44, 268)
+        Me.tbFechaTransaccion.Location = New System.Drawing.Point(44, 343)
         Me.tbFechaTransaccion.Name = "tbFechaTransaccion"
         Me.tbFechaTransaccion.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
         Me.tbFechaTransaccion.Office2007CustomColor = System.Drawing.Color.Turquoise
@@ -477,7 +478,7 @@ Partial Class Tec_Movimientos
         Me.cbDepositos.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
         Me.cbDepositos.HideSelection = False
         Me.cbDepositos.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.cbDepositos.Location = New System.Drawing.Point(278, 202)
+        Me.cbDepositos.Location = New System.Drawing.Point(44, 276)
         Me.cbDepositos.Margin = New System.Windows.Forms.Padding(4)
         Me.cbDepositos.Name = "cbDepositos"
         Me.cbDepositos.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
@@ -539,7 +540,7 @@ Partial Class Tec_Movimientos
         Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX3.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX3.Location = New System.Drawing.Point(45, 238)
+        Me.LabelX3.Location = New System.Drawing.Point(45, 313)
         Me.LabelX3.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX3.Name = "LabelX3"
         Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
@@ -594,7 +595,7 @@ Partial Class Tec_Movimientos
         Me.tbDescripcion.Multiline = True
         Me.tbDescripcion.Name = "tbDescripcion"
         Me.tbDescripcion.PreventEnterBeep = True
-        Me.tbDescripcion.Size = New System.Drawing.Size(270, 71)
+        Me.tbDescripcion.Size = New System.Drawing.Size(329, 71)
         Me.tbDescripcion.TabIndex = 0
         '
         'LabelX1
@@ -607,7 +608,7 @@ Partial Class Tec_Movimientos
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX1.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX1.Location = New System.Drawing.Point(278, 171)
+        Me.LabelX1.Location = New System.Drawing.Point(44, 245)
         Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
@@ -641,7 +642,7 @@ Partial Class Tec_Movimientos
         Me.Panel10.Location = New System.Drawing.Point(3, 3)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel10.Size = New System.Drawing.Size(539, 27)
+        Me.Panel10.Size = New System.Drawing.Size(400, 27)
         Me.Panel10.TabIndex = 1
         '
         'Panel11
@@ -653,7 +654,7 @@ Partial Class Tec_Movimientos
         Me.Panel11.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel11.Location = New System.Drawing.Point(1, 1)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(537, 25)
+        Me.Panel11.Size = New System.Drawing.Size(398, 25)
         Me.Panel11.TabIndex = 0
         '
         'Label3

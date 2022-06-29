@@ -403,6 +403,7 @@ Public Class Efecto
         frmAyuda.NombreProducto = NombreProducto
         frmAyuda.CantidadTotal = StockActual
         frmAyuda.TipoMovimiento = TipoMovimiento
+        frmAyuda.Conversion = Conversion
         frmAyuda.ShowDialog()
         If frmAyuda.respuesta = True Then
 
