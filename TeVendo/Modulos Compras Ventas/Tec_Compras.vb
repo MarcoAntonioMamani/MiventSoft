@@ -324,7 +324,7 @@ Public Class Tec_Compras
             .TextAlignment = TextAlignment.Center
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "P.Venta".ToUpper
+            .Caption = "P.Venta"
         End With
 
         With grDetalle.RootTable.Columns("PrecioCosto")
@@ -333,7 +333,7 @@ Public Class Tec_Compras
             .TextAlignment = TextAlignment.Center
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "P.Costo".ToUpper
+            .Caption = "P.Costo"
         End With
 
 
@@ -343,7 +343,7 @@ Public Class Tec_Compras
             .TextAlignment = TextAlignment.Center
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "SubTotal".ToUpper
+            .Caption = "SubTotal"
         End With
 
         With grDetalle.RootTable.Columns("CompraId")
@@ -370,14 +370,34 @@ Public Class Tec_Compras
         End With
 
 
+
         With grDetalle.RootTable.Columns("Cantidad")
             .Width = 90
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "Cantidad".ToUpper
+            .Caption = "Cant. Unitario"
         End With
+
+        With grDetalle.RootTable.Columns("CantidadCajas")
+            .Width = 90
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Cant. Cajas"
+        End With
+
+        With grDetalle.RootTable.Columns("Conversion")
+            .Width = 60
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Conversion"
+        End With
+
 
         With grDetalle.RootTable.Columns("estado")
             .Width = 50
@@ -388,7 +408,7 @@ Public Class Tec_Compras
         If (tbGlosa.ReadOnly = False) Then
             With grDetalle.RootTable.Columns("img")
                 .Width = 80
-                .Caption = "Eliminar".ToUpper
+                .Caption = "Eliminar"
                 .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
                 .TextAlignment = TextAlignment.Center
                 .Visible = True
@@ -399,7 +419,7 @@ Public Class Tec_Compras
         Else
             With grDetalle.RootTable.Columns("img")
                 .Width = 80
-                .Caption = "Eliminar".ToUpper
+                .Caption = "Eliminar"
                 .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
                 .TextAlignment = TextAlignment.Center
                 .Visible = False
@@ -613,7 +633,7 @@ Public Class Tec_Compras
             'Habilitar solo las columnas de Precio, %, Monto y Observación
             If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index Or
                 e.Column.Index = grDetalle.RootTable.Columns("PrecioCosto").Index Or
-                 e.Column.Index = grDetalle.RootTable.Columns("PrecioVenta").Index) Then
+                 e.Column.Index = grDetalle.RootTable.Columns("PrecioVenta").Index Or e.Column.Index = grDetalle.RootTable.Columns("CantidadCajas").Index) Then
                 e.Cancel = False
             Else
                 If ((e.Column.Index = grDetalle.RootTable.Columns("Lote").Index Or
@@ -687,6 +707,27 @@ salirIf:
         Dim lin As Integer = grDetalle.GetValue("Id")
         Dim pos As Integer = -1
         _fnObtenerFilaDetalle(pos, lin)
+        Dim rowIndex As Integer = grDetalle.Row
+        If (e.Column.Index = grDetalle.RootTable.Columns("CantidadCajas").Index) Then
+
+            If (Not IsNumeric(grDetalle.GetValue("CantidadCajas")) Or grDetalle.GetValue("CantidadCajas").ToString = String.Empty) Then
+                grDetalle.SetValue("CantidadCajas", 0)
+                grDetalle.SetValue("Cantidad", 0)
+                P_PonerTotal(rowIndex)
+            Else
+                grDetalle.SetValue("Cantidad", grDetalle.GetValue("CantidadCajas") * grDetalle.GetValue("Conversion"))
+
+                P_PonerTotal(rowIndex)
+
+
+            End If
+
+
+        End If
+
+
+
+
         If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
             If (Not IsNumeric(grDetalle.GetValue("Cantidad")) Or grDetalle.GetValue("Cantidad").ToString = String.Empty) Then
 
@@ -694,6 +735,9 @@ salirIf:
                 '  grDetalle.CurrentRow.Cells.Item("cant").Value = 1
 
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadCajas") = 1 / CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion")
+
 
                 Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
 
@@ -705,13 +749,17 @@ salirIf:
                 If (grDetalle.GetValue("Cantidad") > 0) Then
 
                     Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
-                    Dim rowIndex As Integer = grDetalle.Row
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadCajas") = grDetalle.GetValue("Cantidad") / CType(grDetalle.DataSource, DataTable).Rows(pos).Item("conversion")
+
+
+                    grDetalle.SetValue("CantidadCajas", (grDetalle.GetValue("Cantidad") / CType(grDetalle.DataSource, DataTable).Rows(pos).Item("conversion")))
                     P_PonerTotal(rowIndex)
                     If (estado = 1) Then
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
                     End If
 
                 Else
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadCajas") = 1 / CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion")
 
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
                     Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
@@ -726,18 +774,18 @@ salirIf:
         ''''Costo
         If (e.Column.Index = grDetalle.RootTable.Columns("PrecioCosto").Index) Then
             If (Not IsNumeric(grDetalle.GetValue("PrecioCosto")) Or grDetalle.GetValue("PrecioCosto").ToString = String.Empty) Then
-                Dim cantidad As Double = grDetalle.GetValue("Cantidad")
+                Dim cantidad As Double = grDetalle.GetValue("CantidadCajas")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCosto") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("costo")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("TotalCompra") = cantidad * CType(grDetalle.DataSource, DataTable).Rows(pos).Item("costo")
 
 
             Else
                 If (grDetalle.GetValue("PrecioCosto") > 0) Then
-                    Dim rowIndex As Integer = grDetalle.Row
+
                     P_PonerTotal(rowIndex)
                 Else
 
-                    Dim cantidad As Double = grDetalle.GetValue("Cantidad")
+                    Dim cantidad As Double = grDetalle.GetValue("CantidadCajas")
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCosto") = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCosto")
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("TotalCompra") = cantidad * CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCosto")
                 End If
@@ -761,7 +809,7 @@ salirIf:
             Dim lin As Integer = grDetalle.GetValue("Id")
             Dim pos As Integer = -1
             _fnObtenerFilaDetalle(pos, lin)
-            Dim cant As Double = grDetalle.GetValue("Cantidad")
+            Dim cant As Double = grDetalle.GetValue("CantidadCajas")
             Dim uni As Double = grDetalle.GetValue("PrecioCosto")
             If (pos >= 0) Then
                 Dim TotalUnitario As Double = cant * uni
