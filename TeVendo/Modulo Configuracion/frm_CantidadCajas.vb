@@ -26,7 +26,7 @@ Public Class frm_CantidadCajas
     End Sub
     Private Sub Formulario_Eliminar_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         txtProducto.Text = NombreProducto
-        txtStock.Text = "Cantidad Cajas Disponible = " + Str(CantidadTotal) + "   Conversion = " + Str(Conversion)
+        txtStock.Text = "Cantidad Unitaria= " + Str(CantidadTotal) + "Cantidad Caja= " + Str(Format(CantidadTotal / Conversion, "0.00")) & vbNewLine & "Conversion = " + Str(Conversion)
         tbCantidad.Value = 0
         tbCantidadUnitaria.Value = 0
         _habilitarFocus()
@@ -76,13 +76,13 @@ Public Class frm_CantidadCajas
                 respuesta = True
                 Me.Close()
             Else
-                If (CantidadActual > CantidadTotal) Then
+                If (CantidadActualUnitaria > CantidadTotal) Then
 
-                    tbCantidad.Value = 0
-                    tbCantidad.Text = Str(CantidadTotal).Trim
+                    tbCantidadUnitaria.Value = 0
+                    tbCantidadUnitaria.Text = Str(CantidadTotal).Trim
                     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
                     ToastNotification.Show(Me, "La cantidad es Superior Al Stock Disponible = " + Str(CantidadTotal), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                    tbCantidad.Focus()
+                    tbCantidadUnitaria.Focus()
                 Else
                     If (CantidadActual > 0) Then
                         Dim CantidadActual02 As Double = Double.Parse(tbCantidadUnitaria.Text)
@@ -169,6 +169,12 @@ Public Class frm_CantidadCajas
 
     Private Sub btnSi_Paint(sender As Object, e As PaintEventArgs) Handles btnSi.Paint
 
+    End Sub
+
+    Private Sub tbCantidad_KeyDown_1(sender As Object, e As KeyEventArgs) Handles tbCantidad.KeyDown, tbCantidadUnitaria.KeyDown
+        If (e.KeyData = Keys.Enter) Then
+            ValidarStock()
+        End If
     End Sub
 #End Region
 End Class

@@ -46,9 +46,9 @@ Partial Class frm_CantidadCajas
         '
         Me.txtStock.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtStock.ForeColor = System.Drawing.Color.DarkCyan
-        Me.txtStock.Location = New System.Drawing.Point(182, 201)
+        Me.txtStock.Location = New System.Drawing.Point(122, 179)
         Me.txtStock.Name = "txtStock"
-        Me.txtStock.Size = New System.Drawing.Size(447, 24)
+        Me.txtStock.Size = New System.Drawing.Size(615, 46)
         Me.txtStock.TabIndex = 17
         Me.txtStock.Text = "Cantidad Caja Disponible = 10"
         Me.txtStock.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -98,7 +98,7 @@ Partial Class frm_CantidadCajas
         'PictureBox1
         '
         Me.PictureBox1.Image = Global.TeVendo.My.Resources.Resources.compra
-        Me.PictureBox1.Location = New System.Drawing.Point(373, 31)
+        Me.PictureBox1.Location = New System.Drawing.Point(381, 20)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(80, 76)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -109,7 +109,7 @@ Partial Class frm_CantidadCajas
         '
         Me.txtProducto.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtProducto.ForeColor = System.Drawing.Color.FromArgb(CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer))
-        Me.txtProducto.Location = New System.Drawing.Point(81, 177)
+        Me.txtProducto.Location = New System.Drawing.Point(87, 155)
         Me.txtProducto.Name = "txtProducto"
         Me.txtProducto.Size = New System.Drawing.Size(689, 24)
         Me.txtProducto.TabIndex = 15
@@ -121,7 +121,7 @@ Partial Class frm_CantidadCajas
         Me.txtTitulo.AutoSize = True
         Me.txtTitulo.Font = New System.Drawing.Font("Calibri", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTitulo.ForeColor = System.Drawing.Color.FromArgb(CType(CType(89, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(89, Byte), Integer))
-        Me.txtTitulo.Location = New System.Drawing.Point(177, 128)
+        Me.txtTitulo.Location = New System.Drawing.Point(183, 106)
         Me.txtTitulo.Name = "txtTitulo"
         Me.txtTitulo.Size = New System.Drawing.Size(462, 49)
         Me.txtTitulo.TabIndex = 14
