@@ -208,12 +208,29 @@ Public Class Tec_AdministrarCuentasPorCobrar
     Private Sub _prCargarCreditosPagados()
         Dim dt As New DataTable
         dt = L_prListarCreditosPagadosCliente()
+
+        If gi_userRol <> 1 Then
+            Dim dt2 As DataTable = dt.Copy
+            dt2.Rows.Clear()
+            For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+                If (dt.Rows(i).Item("PersonalId") = Global_IdPersonal) Then
+                    dt2.ImportRow(dt.Rows(i))
+                End If
+            Next
+            dt = dt2
+        End If
+
+
+
         dtPagados = dt.Copy
         grCreditoPagados.DataSource = dt
         grCreditoPagados.RetrieveStructure()
         grCreditoPagados.AlternatingColors = True
         'Credito Compra	NombreProveedor	Monto	Pagado		FechaVencimientoCredito	FechaUltimaPago
-
+        With grCreditoPagados.RootTable.Columns("PersonalId")
+            .Visible = False
+        End With
         With grCreditoPagados.RootTable.Columns("FechaUltimaPago")
             .Width = 110
             .Caption = "Ultimo Pago"
@@ -291,6 +308,22 @@ Public Class Tec_AdministrarCuentasPorCobrar
     Private Sub _prCargarPagosPendientes()
         Dim dt As New DataTable
         dt = L_prListarPagosPendientesClientes()
+
+
+
+        If gi_userRol <> 1 Then
+            Dim dt2 As DataTable = dt.Copy
+            dt2.Rows.Clear()
+            For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+                If (dt.Rows(i).Item("PersonalId") = Global_IdPersonal) Then
+                    dt2.ImportRow(dt.Rows(i))
+                End If
+            Next
+            dt = dt2
+        End If
+
+
         dtPendiente = dt.Copy
         gr_CreditoPendientes.DataSource = dt
         gr_CreditoPendientes.RetrieveStructure()
@@ -325,6 +358,9 @@ Public Class Tec_AdministrarCuentasPorCobrar
             .Width = 150
             .Caption = "Cliente"
             .Visible = True
+        End With
+        With gr_CreditoPendientes.RootTable.Columns("PersonalId")
+            .Visible = False
         End With
         With gr_CreditoPendientes.RootTable.Columns("Monto")
             .Width = 90
@@ -575,6 +611,22 @@ Public Class Tec_AdministrarCuentasPorCobrar
 
         dt = L_prListarPagosPendientesFiltrosClientes()
 
+
+        If gi_userRol <> 1 Then
+            Dim dt2 As DataTable = dt.Copy
+            dt2.Rows.Clear()
+            For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+                If (dt.Rows(i).Item("PersonalId") = Global_IdPersonal) Then
+                    dt2.ImportRow(dt.Rows(i))
+                End If
+            Next
+            dt = dt2
+        End If
+
+
+
+
         'Credito Compra	Nombre	Monto	abonado	Restante	FechaVencimientoCredito	DiasMora
 
         Dim listEstCeldas As New List(Of Celda)
@@ -587,6 +639,7 @@ Public Class Tec_AdministrarCuentasPorCobrar
         listEstCeldas.Add(New Celda("Restante", True, "Restante", 90, "0.00"))
         listEstCeldas.Add(New Celda("FechaVencimientoCredito", True, "Venc.Credito".ToUpper, 100, "dd/MM/yyyy"))
         listEstCeldas.Add(New Celda("DiasMora", True, "Mora".ToUpper, 70, "0"))
+        listEstCeldas.Add(New Celda("PersonalId", False, "Credito", 50))
         Dim ef = New Efecto
         ef.tipo = 6
         ef.dt = dt
@@ -809,7 +862,17 @@ Public Class Tec_AdministrarCuentasPorCobrar
         Dim dt As DataTable
 
         dt = L_prListarPagosTodosCuentasPorCobrar()
+        If gi_userRol <> 1 Then
+            Dim dt2 As DataTable = dt.Copy
+            dt2.Rows.Clear()
+            For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
+                If (dt.Rows(i).Item("PersonalId") = Global_IdPersonal) Then
+                    dt2.ImportRow(dt.Rows(i))
+                End If
+            Next
+            dt = dt2
+        End If
         'Credito Compra	Nombre	Monto	abonado	Restante	FechaVencimientoCredito	DiasMora
 
         Dim listEstCeldas As New List(Of Celda)
@@ -822,6 +885,7 @@ Public Class Tec_AdministrarCuentasPorCobrar
         listEstCeldas.Add(New Celda("Restante", True, "Restante", 90, "0.00"))
         listEstCeldas.Add(New Celda("FechaVencimientoCredito", True, "Venc.Credito".ToUpper, 100, "dd/MM/yyyy"))
         listEstCeldas.Add(New Celda("DiasMora", True, "Mora".ToUpper, 70, "0"))
+        listEstCeldas.Add(New Celda("PersonalId", False, "Credito", 50))
         Dim ef = New Efecto
         ef.tipo = 6
         ef.dt = dt
