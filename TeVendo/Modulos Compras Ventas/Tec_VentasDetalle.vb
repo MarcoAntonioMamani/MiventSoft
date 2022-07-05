@@ -261,7 +261,7 @@ Public Class Tec_VentasDetalle
         End With
         With grDetalle.RootTable.Columns("TipoNombre")
             .Width = 60
-            .Visible = True
+            .Visible = False
             .Caption = "Tipo"
         End With
         With grDetalle.RootTable.Columns("KitId")
@@ -271,7 +271,7 @@ Public Class Tec_VentasDetalle
         End With
         With grDetalle.RootTable.Columns("KitNombre")
             .Width = 100
-            .Visible = True
+            .Visible = False
             .Caption = "Kit"
             .WordWrap = True
             .MaxLines = 3
@@ -287,12 +287,14 @@ Public Class Tec_VentasDetalle
             .Width = 150
             .Caption = "Producto"
             .Visible = True
+            .WordWrap = True
+            .MaxLines = 3
         End With
 
         With grDetalle.RootTable.Columns("CantidadKit")
             .Width = 40
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "CantidadKit"
         End With
@@ -1309,12 +1311,14 @@ salirIf:
                     grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
                 Else ''Kits
 
-                    Dim KitId As Integer = grDetalle.GetValue("KitId")
+                    Dim KitId As Integer = grDetalle.GetValue("ProductoId")
+                    Dim Lote As String = grDetalle.GetValue("Lote")
+                    Dim FechaVencimiento As String = grDetalle.GetValue("FechaVencimiento")
                     Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
 
                     For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
-                        If (dt.Rows(i).Item("KitId") = KitId) Then
+                        If (dt.Rows(i).Item("ProductoId") = KitId And dt.Rows(i).Item("Lote") = Lote And dt.Rows(i).Item("FechaVencimiento") = FechaVencimiento) Then
                             If (estado = 0) Then
                                 CType(grDetalle.DataSource, DataTable).Rows(i).Item("estado") = -2
 

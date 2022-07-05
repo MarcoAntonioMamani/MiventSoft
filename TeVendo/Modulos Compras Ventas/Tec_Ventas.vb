@@ -335,7 +335,7 @@ Public Class Tec_Ventas
         End With
         With grDetalle.RootTable.Columns("TipoNombre")
             .Width = 40
-            .Visible = True
+            .Visible = False
             .Caption = "Tipo"
         End With
         With grDetalle.RootTable.Columns("KitId")
@@ -345,7 +345,7 @@ Public Class Tec_Ventas
         End With
         With grDetalle.RootTable.Columns("KitNombre")
             .Width = 80
-            .Visible = True
+            .Visible = False
             .Caption = "Kit"
             .WordWrap = True
             .MaxLines = 2
@@ -373,7 +373,7 @@ Public Class Tec_Ventas
         With grDetalle.RootTable.Columns("CantidadKit")
             .Width = 40
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "CantidadKit"
         End With
@@ -585,12 +585,14 @@ Public Class Tec_Ventas
                     grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
                 Else ''Kits
 
-                    Dim KitId As Integer = grDetalle.GetValue("KitId")
+                    Dim KitId As Integer = grDetalle.GetValue("ProductoId")
+                    Dim Lote As String = grDetalle.GetValue("Lote")
+                    Dim FechaVencimiento As String = grDetalle.GetValue("FechaVencimiento")
                     Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
 
                     For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
-                        If (dt.Rows(i).Item("KitId") = KitId) Then
+                        If (dt.Rows(i).Item("ProductoId") = KitId And dt.Rows(i).Item("Lote") = Lote And dt.Rows(i).Item("FechaVencimiento") = FechaVencimiento) Then
                             If (estado = 0) Then
                                 CType(grDetalle.DataSource, DataTable).Rows(i).Item("estado") = -2
 
@@ -1608,31 +1610,7 @@ salirIf:
             Return _ok
         End If
 
-        Dim dt As DataTable = L_prListarGeneral("MAM_CierreCajero")
 
-        Dim fila As DataRow() = dt.Select("SucursalId=" + Str(cbSucursal.Value) + " and EstadoCaja=1 and PersonalId=" + Str(Global_IdPersonal).Trim)
-        If (Not IsDBNull(fila)) Then
-            If (fila.Count <= 0) Then
-
-                ToastNotification.Show(Me, "No Es Posible Hacer EL Movimiento Por que no Existe Caja Chica con Estado Abierto Para Esta Fecha =" + tbFechaTransaccion.Value.ToString("dd/MM/yyy"), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                tbFechaTransaccion.Focus()
-                _ok = False
-                Return _ok
-            Else
-                Dim bandera As Boolean = False
-                For Each item As Object In fila
-                    If (item("Fecha") = tbFechaTransaccion.Value) Then
-                        bandera = True
-                    End If
-                Next
-                If (bandera = False) Then
-                    ToastNotification.Show(Me, "No Es Posible Hacer EL Movimiento Por que no Existe Caja Chica con Estado Abierto Para Esta Fecha =" + tbFechaTransaccion.Value.ToString("dd/MM/yyy"), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                    tbFechaTransaccion.Focus()
-                    _ok = False
-                    Return _ok
-                End If
-            End If
-        End If
 
         Return _ok
     End Function
@@ -1841,26 +1819,8 @@ salirIf:
     End Sub
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
-        Dim dtCierre As DataTable = L_prListarGeneral("MAM_CierreCajero")
-        Dim fila As DataRow()
-        If (Global_Sucursal > 0) Then
-
-            fila = dtCierre.Select("SucursalId=" + Str(Global_Sucursal) + " and EstadoCaja=1")
-        Else
-            fila = dtCierre.Select("EstadoCaja=1")
-        End If
-
-        If (Not IsDBNull(fila)) Then
-            If (fila.Count <= 0) Then
-
-                ToastNotification.Show(Me, "No Es Posible Hacer La Venta Por que no Existe Caja Chica con Estado Abierta", img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                Return
-            Else
-                TabControlPrincipal.SelectedTabIndex = 0
-                btnNuevo.PerformClick()
-            End If
-
-        End If
+        TabControlPrincipal.SelectedTabIndex = 0
+        btnNuevo.PerformClick()
 
     End Sub
 
