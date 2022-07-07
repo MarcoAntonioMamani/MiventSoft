@@ -1481,18 +1481,15 @@ Public Class Tec_Productos
 
                 Dim im As New Bitmap(RutaGlobal + "\Imagenes\Imagenes Empresa" + Name)
 
-                Bin = New MemoryStream
-                Dim img As New Bitmap(im, 300, 220)
-                img.Save(Bin, Imaging.ImageFormat.Png)
-                dt.Rows(0).Item("imgEmpresa") = Bin.GetBuffer
-                dt.Rows(dt.Rows.Count - 1).Item("imgEmpresa") = Bin.GetBuffer
+                Dim binEmpresa As MemoryStream
+                binEmpresa = New MemoryStream
+                Dim img As New Bitmap(im)
+                img.Save(binEmpresa, Imaging.ImageFormat.Png)
 
-                Bin.Dispose()
-                Bin.Close()
-                img.Dispose()
 
                 For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
+                    dt.Rows(i).Item("imgEmpresa") = binEmpresa.GetBuffer
 
 
                     If (tipo = 1) Then  '' Reporte con Imagenes
@@ -1526,7 +1523,9 @@ Public Class Tec_Productos
 
 
                 Next
-
+                binEmpresa.Dispose()
+                binEmpresa.Close()
+                img.Dispose()
 
 
 
