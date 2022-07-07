@@ -1429,6 +1429,10 @@ Public Class Tec_Productos
     End Function
 
     Public Sub GenerarReporte(tipo As Integer, PrecioVenta As Integer, CategoriaPrecio As Integer, Sucursal As Integer, dtCategorias As DataTable)
+        Dim ancho As Integer = 200
+        Dim alto As Integer = 150
+
+        Dim Bin As New MemoryStream
         Dim dt As DataTable
         Dim titulo As String
         If (PrecioVenta = 1) Then
@@ -1474,37 +1478,59 @@ Public Class Tec_Productos
             Dim RutaGlobal As String = gs_CarpetaRaiz
             Dim Name As String = dtImage.Rows(0).Item(0)
             If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Empresa" + Name)) Then
-                Dim im As New Bitmap(New Bitmap(RutaGlobal + "\Imagenes\Imagenes Empresa" + Name))
-                Dim Bin As New MemoryStream
-                Dim img As New Bitmap(im)
+
+                Dim im As New Bitmap(RutaGlobal + "\Imagenes\Imagenes Empresa" + Name)
+
+                Bin = New MemoryStream
+                Dim img As New Bitmap(im, 300, 220)
                 img.Save(Bin, Imaging.ImageFormat.Png)
+                dt.Rows(0).Item("imgEmpresa") = Bin.GetBuffer
+                dt.Rows(dt.Rows.Count - 1).Item("imgEmpresa") = Bin.GetBuffer
+
                 Bin.Dispose()
+                Bin.Close()
+                img.Dispose()
+
                 For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
 
-                    dt.Rows(i).Item("imgEmpresa") = Bin.GetBuffer
+
                     If (tipo = 1) Then  '' Reporte con Imagenes
                         Dim Rutaimagen As String = dt.Rows(i).Item("Rutaimg")
                         If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Productos\ProductosTodos" + Rutaimagen)) Then
                             Dim bm As Bitmap = New Bitmap(RutaGlobal + "\Imagenes\Imagenes Productos\ProductosTodos" + Rutaimagen)
-                            Dim Bin02 As New MemoryStream
-                            Dim img02 As New Bitmap(bm)
-                            img02.Save(Bin02, Imaging.ImageFormat.Png)
-                            Bin02.Dispose()
-                            dt.Rows(i).Item("img") = Bin02.GetBuffer
+                            Bin = New MemoryStream
+                            Dim img02 As New Bitmap(bm, ancho, alto)
+                            img02.Save(Bin, Imaging.ImageFormat.Png)
+                            dt.Rows(i).Item("img") = Bin.GetBuffer
+                            Bin.Dispose()
+                            Bin.Close()
+
+                            img02.Dispose()
+
+
 
                         Else
-                            Dim bm As Bitmap = New Bitmap(My.Resources.noimage)
-                            Dim Bin02 As New MemoryStream
+                            Dim bm As Bitmap = New Bitmap(My.Resources.noimage, ancho, alto)
+                            Bin = New MemoryStream
                             Dim img02 As New Bitmap(bm)
-                            img02.Save(Bin02, Imaging.ImageFormat.Png)
-                            Bin02.Dispose()
-                            dt.Rows(i).Item("img") = Bin02.GetBuffer
+                            img02.Save(Bin, Imaging.ImageFormat.Png)
+
+                            dt.Rows(i).Item("img") = Bin.GetBuffer
+                            Bin.Dispose()
+                            Bin.Close()
+
+                            img02.Dispose()
                         End If
                     End If
 
 
                 Next
+
+
+
+
+
             Else
                 If (tipo = 1) Then
                     For i As Integer = 0 To dt.Rows.Count - 1 Step 1
@@ -1513,20 +1539,29 @@ Public Class Tec_Productos
 
                         Dim Rutaimagen As String = dt.Rows(i).Item("Rutaimg")
                         If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Productos\ProductosTodos" + Rutaimagen)) Then
-                            Dim bm As Bitmap = New Bitmap(RutaGlobal + "\Imagenes\Imagenes Productos\ProductosTodos" + Rutaimagen)
-                            Dim Bin02 As New MemoryStream
+                            Dim bm As Bitmap = New Bitmap(RutaGlobal + "\Imagenes\Imagenes Productos\ProductosTodos" + Rutaimagen, ancho, alto)
+                            Bin = New MemoryStream
                             Dim img02 As New Bitmap(bm)
-                            img02.Save(Bin02, Imaging.ImageFormat.Png)
-                            Bin02.Dispose()
-                            dt.Rows(i).Item("img") = Bin02.GetBuffer
+                            img02.Save(Bin, Imaging.ImageFormat.Png)
 
+
+                            dt.Rows(i).Item("img") = Bin.GetBuffer
+                            Bin.Dispose()
+                            Bin.Close()
+
+                            img02.Dispose()
                         Else
-                            Dim bm As Bitmap = New Bitmap(My.Resources.noimage)
-                            Dim Bin02 As New MemoryStream
+                            Dim bm As Bitmap = New Bitmap(My.Resources.noimage, ancho, alto)
+                            Bin = New MemoryStream
                             Dim img02 As New Bitmap(bm)
-                            img02.Save(Bin02, Imaging.ImageFormat.Png)
-                            Bin02.Dispose()
-                            dt.Rows(i).Item("img") = Bin02.GetBuffer
+                            img02.Save(Bin, Imaging.ImageFormat.Png)
+
+
+                            dt.Rows(i).Item("img") = Bin.GetBuffer
+                            Bin.Dispose()
+                            Bin.Close()
+
+                            img02.Dispose()
                         End If
 
                     Next

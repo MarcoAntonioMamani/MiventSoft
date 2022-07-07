@@ -1087,7 +1087,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\Reporte_ProductoImagenes.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Reporte_ProductoImagenes.vb</LastGenOutput>
+      <LastGenOutput>Reporte_ProductoImagenes1.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\Reporte_ProductosMasVendidos.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
