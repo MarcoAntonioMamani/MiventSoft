@@ -50,7 +50,7 @@ Partial Class Tec_Login
         Me.Panel3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Panel3.Size = New System.Drawing.Size(937, 385)
+        Me.Panel3.Size = New System.Drawing.Size(1015, 385)
         Me.Panel3.TabIndex = 33
         '
         'Panel1
@@ -69,7 +69,7 @@ Partial Class Tec_Login
         Me.Panel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Padding = New System.Windows.Forms.Padding(20)
-        Me.Panel1.Size = New System.Drawing.Size(931, 381)
+        Me.Panel1.Size = New System.Drawing.Size(1009, 381)
         Me.Panel1.TabIndex = 0
         '
         'tbpassword
@@ -83,7 +83,7 @@ Partial Class Tec_Login
         Me.tbpassword.Border.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
         Me.tbpassword.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tbpassword.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbpassword.Location = New System.Drawing.Point(457, 192)
+        Me.tbpassword.Location = New System.Drawing.Point(457, 197)
         Me.tbpassword.Margin = New System.Windows.Forms.Padding(4)
         Me.tbpassword.Name = "tbpassword"
         Me.tbpassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
@@ -163,7 +163,7 @@ Partial Class Tec_Login
         Me.tbUsuario.Border.CornerTypeBottomLeft = DevComponents.DotNetBar.eCornerType.Rounded
         Me.tbUsuario.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tbUsuario.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbUsuario.Location = New System.Drawing.Point(457, 130)
+        Me.tbUsuario.Location = New System.Drawing.Point(457, 135)
         Me.tbUsuario.Margin = New System.Windows.Forms.Padding(4)
         Me.tbUsuario.Name = "tbUsuario"
         Me.tbUsuario.PreventEnterBeep = True
@@ -210,7 +210,7 @@ Partial Class Tec_Login
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(937, 385)
+        Me.ClientSize = New System.Drawing.Size(1015, 385)
         Me.Controls.Add(Me.Panel3)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
