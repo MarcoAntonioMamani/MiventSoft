@@ -1540,13 +1540,18 @@ Public Class Tec_Productos
             Dim RutaGlobal As String = gs_CarpetaRaiz
             Dim Name As String = dtImage.Rows(0).Item(0)
             If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Empresa" + Name)) Then
-                Dim im As New Bitmap(New Bitmap(RutaGlobal + "\Imagenes\Imagenes Empresa" + Name))
-                Dim Bin As New MemoryStream
+
+                Dim im As New Bitmap(RutaGlobal + "\Imagenes\Imagenes Empresa" + Name)
+
+                Dim binEmpresa As MemoryStream
+                binEmpresa = New MemoryStream
                 Dim img As New Bitmap(im)
-                img.Save(Bin, Imaging.ImageFormat.Png)
-                Bin.Dispose()
+                img.Save(binEmpresa, Imaging.ImageFormat.Png)
+
+
                 For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
+                    dt.Rows(i).Item("imgEmpresa") = binEmpresa.GetBuffer
 
                     dt.Rows(i).Item("imgEmpresa") = Bin.GetBuffer
                     If (tipo = 1) Then  '' Reporte con Imagenes
@@ -1571,6 +1576,11 @@ Public Class Tec_Productos
 
 
                 Next
+
+
+
+
+
             Else
                 If (tipo = 1) Then
                     For i As Integer = 0 To dt.Rows.Count - 1 Step 1
