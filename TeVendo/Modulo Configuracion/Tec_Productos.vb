@@ -1553,7 +1553,6 @@ Public Class Tec_Productos
 
                     dt.Rows(i).Item("imgEmpresa") = binEmpresa.GetBuffer
 
-                    dt.Rows(i).Item("imgEmpresa") = Bin.GetBuffer
                     If (tipo = 1) Then  '' Reporte con Imagenes
                         Dim Rutaimagen As String = dt.Rows(i).Item("Rutaimg")
                         If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Productos\ProductosTodos" + Rutaimagen)) Then
