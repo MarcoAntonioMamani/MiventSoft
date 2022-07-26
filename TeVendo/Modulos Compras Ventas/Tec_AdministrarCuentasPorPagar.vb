@@ -615,9 +615,9 @@ Public Class Tec_AdministrarCuentasPorPagar
 
         Dim listEstCeldas As New List(Of Celda)
         listEstCeldas.Add(New Celda("Id", False, "Credito", 50))
-        listEstCeldas.Add(New Celda("Credito", True, "Credito", 90))
-        listEstCeldas.Add(New Celda("Compra", True, "Compra", 90))
-        listEstCeldas.Add(New Celda("Nombre", True, "Proveedor", 350))
+        listEstCeldas.Add(New Celda("Credito", True, "Credito", 150))
+        listEstCeldas.Add(New Celda("Compra", True, "Compra", 150))
+        listEstCeldas.Add(New Celda("Nombre", True, "Proveedor", 220))
         listEstCeldas.Add(New Celda("Monto", True, "Monto", 90, "0.00"))
         listEstCeldas.Add(New Celda("abonado", True, "Abonado", 90, "0.00"))
         listEstCeldas.Add(New Celda("Restante", True, "Restante", 90, "0.00"))
