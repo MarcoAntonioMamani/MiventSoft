@@ -2115,7 +2115,10 @@ salirIf:
             Dim _Meses() As String = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"}
             _FechaAct = fechaven
             _Fecha = Split(_FechaAct, "-")
-            _FechaPar = "Tarija, " + _Fecha(0).Trim + " De " + _Meses(_Fecha(1) - 1).Trim + " Del " + _Fecha(2).Trim
+            Dim dia As String
+            dia = WeekdayName(Weekday(dt.Rows(0).Item("FechaVenta")) - 1)
+
+            _FechaPar = dia(0).ToString.ToUpper + dia.Substring(1, dia.Length - 1).ToLower + ", " + _Fecha(0).Trim + " De " + _Meses(_Fecha(1) - 1).Trim + " Del " + _Fecha(2).Trim
 
             If Not IsNothing(P_Global.Visualizador) Then
                 P_Global.Visualizador.Close()
