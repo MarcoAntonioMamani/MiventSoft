@@ -2116,7 +2116,14 @@ salirIf:
             _FechaAct = fechaven
             _Fecha = Split(_FechaAct, "-")
             Dim dia As String
-            dia = WeekdayName(Weekday(dt.Rows(0).Item("FechaVenta")) - 1)
+            Dim NumeroWeekDay As Integer = Weekday(dt.Rows(0).Item("FechaVenta"))
+            If ((NumeroWeekDay - 1) = 0) Then
+                dia = WeekdayName(7)
+
+            Else
+                dia = WeekdayName(NumeroWeekDay - 1)
+            End If
+
 
             _FechaPar = dia(0).ToString.ToUpper + dia.Substring(1, dia.Length - 1).ToLower + ", " + _Fecha(0).Trim + " De " + _Meses(_Fecha(1) - 1).Trim + " Del " + _Fecha(2).Trim
 
@@ -2157,9 +2164,51 @@ salirIf:
 
                 objrep.SetParameterValue("Monto", li)
                 objrep.SetParameterValue("Fecha", _FechaPar)
-                objrep.SetParameterValue("Total", Str(total))
-                objrep.SetParameterValue("TipoReporte", "NOTA DE VENTA")
-                P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+            objrep.SetParameterValue("Total", Str(total + dt.Rows(0).Item("DescuentoVenta")))
+
+
+
+            Dim diaFechaCredito As String = dt.Rows(0).Item("FechaVencimientoCredito")
+            If (diaFechaCredito.Trim = "") Then
+                objrep.SetParameterValue("VencimientoCredito", "")
+
+            Else
+
+                NumeroWeekDay = Weekday(dt.Rows(0).Item("FechaVencimientoCredito")) - 1
+                If ((NumeroWeekDay - 1) = 0) Then
+                    diaFechaCredito = WeekdayName(7)
+
+                Else
+                    diaFechaCredito = WeekdayName(Weekday(dt.Rows(0).Item("FechaVencimientoCredito")) - 1)
+                End If
+
+
+
+
+
+
+
+                Dim ff As String = dt.Rows(0).Item("FechaVencimientoCredito")
+                _Fecha = Split(ff, "-")
+
+
+                _FechaPar = diaFechaCredito(0).ToString.ToUpper + diaFechaCredito.Substring(1, dia.Length - 1).ToLower + ", " + _Fecha(0).Trim + " De " + _Meses(_Fecha(1) - 1).Trim + " Del " + _Fecha(2).Trim
+
+
+                objrep.SetParameterValue("VencimientoCredito", _FechaPar)
+            End If
+
+
+
+            Dim MontoDescuento As Double = dt.Rows(0).Item("DescuentoVenta")
+
+            Dim Porcentaje As Integer = (MontoDescuento * 100) / (total + MontoDescuento)
+
+            objrep.SetParameterValue("TitleDescuento", "Descuento " + Str(Porcentaje) + "%")
+            objrep.SetParameterValue("TipoReporte", "NOTA DE VENTA")
+
+            ''VencimientoCredito
+            P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
                 P_Global.Visualizador.CrGeneral.Zoom(130)
                 P_Global.Visualizador.Show() 'Comentar
             'Else
