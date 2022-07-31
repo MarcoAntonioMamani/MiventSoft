@@ -299,32 +299,55 @@ Public Class Tec_AdministrarCuentasPorCobrar
 
 
         With gr_CreditoPendientes.RootTable.Columns("FechaVencimientoCredito")
-            .Width = 110
+            .Width = 80
             .Caption = "Venc. Credito"
             .Visible = True
+            .WordWrap = True
+            .MaxLines = 2
         End With
         With gr_CreditoPendientes.RootTable.Columns("DiasMora")
-            .Width = 90
+            .Width = 70
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0"
-            .Caption = "Mora"
+            .Caption = "Mora (Dias)"
+            .WordWrap = True
+            .MaxLines = 2
         End With
         With gr_CreditoPendientes.RootTable.Columns("Credito")
-            .Width = 110
+            .Width = 90
             .Visible = True
             .Caption = "Credito"
         End With
 
         With gr_CreditoPendientes.RootTable.Columns("venta")
-            .Width = 110
+            .Width = 90
             .Caption = "Venta"
             .Visible = True
         End With
         With gr_CreditoPendientes.RootTable.Columns("Nombrecliente")
-            .Width = 150
+            .Width = 100
             .Caption = "Cliente"
             .Visible = True
+            .WordWrap = True
+            .MaxLines = 2
+
+        End With
+        With gr_CreditoPendientes.RootTable.Columns("NombrePersonal")
+            .Width = 100
+            .Caption = "Vendedor"
+            .Visible = True
+            .WordWrap = True
+            .MaxLines = 2
+
+        End With
+        With gr_CreditoPendientes.RootTable.Columns("NombreZona")
+            .Width = 90
+            .Caption = "Zona"
+            .Visible = True
+            .WordWrap = True
+            .MaxLines = 2
+
         End With
         With gr_CreditoPendientes.RootTable.Columns("Monto")
             .Width = 90
@@ -332,24 +355,30 @@ Public Class Tec_AdministrarCuentasPorCobrar
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Monto"
+            .WordWrap = True
+            .MaxLines = 2
         End With
 
 
         With gr_CreditoPendientes.RootTable.Columns("abonado")
-            .Width = 90
+            .Width = 70
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .Caption = "Abonado"
             .FormatString = "0.00"
+            .WordWrap = True
+            .MaxLines = 2
         End With
 
         With gr_CreditoPendientes.RootTable.Columns("Restante")
-            .Width = 90
+            .Width = 70
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .Caption = "Restante"
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
+            .WordWrap = True
+            .MaxLines = 2
         End With
 
 
@@ -394,7 +423,7 @@ Public Class Tec_AdministrarCuentasPorCobrar
 
         For Each _fil As GridEXRow In gr_CreditoPendientes.GetRows
 
-            dtPendiente.Rows.Add(_fil.Cells("Credito").Value, _fil.Cells("venta").Value, _fil.Cells("Nombrecliente").Value, _fil.Cells("Monto").Value, _fil.Cells("abonado").Value, _fil.Cells("Restante").Value, _fil.Cells("FechaVencimientoCredito").Value, _fil.Cells("DiasMora").Value)
+            dtPendiente.Rows.Add(_fil.Cells("Credito").Value, _fil.Cells("venta").Value, _fil.Cells("NombrePersonal").Value, _fil.Cells("NombreZona").Value, _fil.Cells("Nombrecliente").Value, _fil.Cells("Monto").Value, _fil.Cells("abonado").Value, _fil.Cells("Restante").Value, _fil.Cells("FechaVencimientoCredito").Value, _fil.Cells("DiasMora").Value)
 
         Next
         If Not IsNothing(P_Global.Visualizador) Then
