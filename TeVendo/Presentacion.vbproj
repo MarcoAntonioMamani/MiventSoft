@@ -1141,7 +1141,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\R_ReporteSaldoFamilia.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>R_ReporteSaldoFamilia.vb</LastGenOutput>
+      <LastGenOutput>R_ReporteSaldoFamilia1.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\R_SaldosValorados.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

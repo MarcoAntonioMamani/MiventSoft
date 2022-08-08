@@ -126,26 +126,30 @@ Public Class Tec_AdministrarCuentasPorPagar
             .Visible = False
         End With
         With grPagosTodos.RootTable.Columns("FechaPago")
-            .Width = 80
+            .Width = 60
             .Caption = "Fecha De Pago"
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
             .FormatString = "dd/MM/yyyy"
             .Visible = True
+            .MaxLines = 3
+            .WordWrap = True
         End With
 
 
         With grPagosTodos.RootTable.Columns("Monto")
-            .Width = 70
+            .Width = 60
             .Visible = True
             .Caption = "Monto Pagado"
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
             .FormatString = "0.00"
+            .MaxLines = 3
+            .WordWrap = True
             .AggregateFunction = AggregateFunction.Sum
         End With
         With grPagosTodos.RootTable.Columns("img")
-            .Width = 70
+            .Width = 40
             .Caption = "Eliminar"
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
@@ -154,22 +158,28 @@ Public Class Tec_AdministrarCuentasPorPagar
 
 
         With grPagosTodos.RootTable.Columns("Glosa")
-            .Width = 120
+            .Width = 250
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
             .Caption = "Glosa"
+            .MaxLines = 3
+            .WordWrap = True
             .Visible = True
         End With
 
         With grPagosTodos.RootTable.Columns("NroComprobante")
-            .Width = 70
+            .Width = 60
             .Caption = "Comprobante"
+            .MaxLines = 3
+            .WordWrap = True
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
         With grPagosTodos.RootTable.Columns("NombrePersonal")
-            .Width = 150
+            .Width = 120
+            .MaxLines = 3
+            .WordWrap = True
             .Caption = "Personal"
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
