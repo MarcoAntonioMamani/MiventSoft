@@ -493,6 +493,12 @@
     <Compile Include="Modulos Compras Ventas\Frm_Proveedor.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modulos Compras Ventas\Rep_VentasPorProductos.Designer.vb">
+      <DependentUpon>Rep_VentasPorProductos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos Compras Ventas\Rep_VentasPorProductos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Modulos Compras Ventas\Tec_AdministrarCuentasPorCobrar.Designer.vb">
       <DependentUpon>Tec_AdministrarCuentasPorCobrar.vb</DependentUpon>
     </Compile>
@@ -726,6 +732,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reporte_VentaEstadoCuentas.rpt</DependentUpon>
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReporteSmartApps\Reporte_VentaPorProductos.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reporte_VentaPorProductos.rpt</DependentUpon>
     </Compile>
     <Compile Include="ReporteSmartApps\Reporte_VentasRealizadas.vb">
       <AutoGen>True</AutoGen>
@@ -981,6 +992,9 @@
     <EmbeddedResource Include="Modulos Compras Ventas\Frm_Proveedor.resx">
       <DependentUpon>Frm_Proveedor.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Modulos Compras Ventas\Rep_VentasPorProductos.resx">
+      <DependentUpon>Rep_VentasPorProductos.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Modulos Compras Ventas\Tec_AdministrarCuentasPorCobrar.resx">
       <DependentUpon>Tec_AdministrarCuentasPorCobrar.vb</DependentUpon>
     </EmbeddedResource>
@@ -1126,6 +1140,10 @@
     <EmbeddedResource Include="ReporteSmartApps\Reporte_VentaEstadoCuentas.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Reporte_VentaEstadoCuentas.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\Reporte_VentaPorProductos.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reporte_VentaPorProductos.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\Reporte_VentasRealizadas.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

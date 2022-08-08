@@ -423,7 +423,7 @@ Public Class Tec_KardexProductos
             'a.Id ,a.NombreProveedor ,a.Direccion ,a.Telefono01
 
             Dim listEstCeldas As New List(Of Celda)
-        listEstCeldas.Add(New Celda("Id,", True, "ID", 50))
+        listEstCeldas.Add(New Celda("Id", True, "ID", 50))
         listEstCeldas.Add(New Celda("CodigoExterno,", False))
         listEstCeldas.Add(New Celda("Nombre", True, "Producto", 350))
         listEstCeldas.Add(New Celda("DescripcionProducto", False, "Descripcion", 180))
