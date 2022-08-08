@@ -2192,7 +2192,7 @@ salirIf:
                 _Fecha = Split(ff, "-")
 
 
-                _FechaPar = diaFechaCredito(0).ToString.ToUpper + diaFechaCredito.Substring(1, dia.Length - 1).ToLower + ", " + _Fecha(0).Trim + " De " + _Meses(_Fecha(1) - 1).Trim + " Del " + _Fecha(2).Trim
+                _FechaPar = diaFechaCredito(0).ToString.ToUpper + diaFechaCredito.Substring(1, diaFechaCredito.Length - 1).ToLower + ", " + _Fecha(0).Trim + " De " + _Meses(_Fecha(1) - 1).Trim + " Del " + _Fecha(2).Trim
 
 
                 objrep.SetParameterValue("VencimientoCredito", _FechaPar)

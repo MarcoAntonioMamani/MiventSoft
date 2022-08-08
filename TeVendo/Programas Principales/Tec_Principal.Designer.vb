@@ -22,8 +22,8 @@ Partial Class Tec_Principal
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim SuperTabColorTable1 As DevComponents.DotNetBar.Rendering.SuperTabColorTable = New DevComponents.DotNetBar.Rendering.SuperTabColorTable()
-        Dim SuperTabLinearGradientColorTable1 As DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable = New DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable()
+        Dim SuperTabColorTable2 As DevComponents.DotNetBar.Rendering.SuperTabColorTable = New DevComponents.DotNetBar.Rendering.SuperTabColorTable()
+        Dim SuperTabLinearGradientColorTable2 As DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable = New DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tec_Principal))
         Me.SuperTabControlMenu = New DevComponents.DotNetBar.SuperTabControl()
         Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
@@ -187,9 +187,9 @@ Partial Class Tec_Principal
         Me.SuperTabControlMenu.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControlMenu.TabIndex = 0
         Me.SuperTabControlMenu.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.tab_configuraciones, Me.tab_compraventa, Me.tab_ingresoproducto, Me.tab_mapa, Me.tab_almacenes, Me.tabCompras, Me.tabPagosSalarios, Me.tab_distribucion, Me.tab_ventana, Me.tab_InvProductos})
-        SuperTabLinearGradientColorTable1.Colors = New System.Drawing.Color() {System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))}
-        SuperTabColorTable1.Background = SuperTabLinearGradientColorTable1
-        Me.SuperTabControlMenu.TabStripColor = SuperTabColorTable1
+        SuperTabLinearGradientColorTable2.Colors = New System.Drawing.Color() {System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))}
+        SuperTabColorTable2.Background = SuperTabLinearGradientColorTable2
+        Me.SuperTabControlMenu.TabStripColor = SuperTabColorTable2
         Me.SuperTabControlMenu.TabStyle = DevComponents.DotNetBar.eSuperTabStyle.Office2010BackstageBlue
         Me.SuperTabControlMenu.Text = "SuperTabControl1"
         '
@@ -2107,7 +2107,7 @@ Partial Class Tec_Principal
         Me.ButtonX1.Symbol = ""
         Me.ButtonX1.TabIndex = 19
         Me.ButtonX1.Tag = ""
-        Me.ButtonX1.Text = "Version 2.0.1"
+        Me.ButtonX1.Text = "Version 2.0.2"
         Me.ButtonX1.TextColor = System.Drawing.Color.White
         Me.ButtonX1.UseMnemonic = False
         '
@@ -2266,7 +2266,7 @@ Partial Class Tec_Principal
         Me.Controls.Add(Me.PanelPrincipal)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Name = "Tec_Principal"
-        Me.Text = "DISFACORT"
+        Me.Text = "DISFACOR"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuperTabControlMenu.ResumeLayout(False)
