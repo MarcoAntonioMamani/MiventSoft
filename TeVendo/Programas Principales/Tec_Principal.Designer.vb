@@ -161,12 +161,12 @@ Partial Class Tec_Principal
         Me.SuperTabControlMenu.ControlBox.MenuBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControlMenu.ControlBox.MenuBox, Me.SuperTabControlMenu.ControlBox.CloseBox})
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel6)
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel10)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel8)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel9)
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel6)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel1)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel2)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel7)
@@ -1255,9 +1255,9 @@ Partial Class Tec_Principal
         '
         Me.SuperTabControlPanel6.Controls.Add(Me.Panel_ingresos)
         Me.SuperTabControlPanel6.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel6.Location = New System.Drawing.Point(213, 0)
+        Me.SuperTabControlPanel6.Location = New System.Drawing.Point(220, 0)
         Me.SuperTabControlPanel6.Name = "SuperTabControlPanel6"
-        Me.SuperTabControlPanel6.Size = New System.Drawing.Size(1245, 690)
+        Me.SuperTabControlPanel6.Size = New System.Drawing.Size(1238, 693)
         Me.SuperTabControlPanel6.TabIndex = 6
         Me.SuperTabControlPanel6.TabItem = Me.tab_ingresoproducto
         '
@@ -1282,7 +1282,7 @@ Partial Class Tec_Principal
         Me.Panel_ingresos.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel_ingresos.MultiLine = True
         Me.Panel_ingresos.Name = "Panel_ingresos"
-        Me.Panel_ingresos.Size = New System.Drawing.Size(1245, 690)
+        Me.Panel_ingresos.Size = New System.Drawing.Size(1238, 693)
         Me.Panel_ingresos.TabIndex = 6
         Me.Panel_ingresos.Text = "mtp2Logistica"
         '
