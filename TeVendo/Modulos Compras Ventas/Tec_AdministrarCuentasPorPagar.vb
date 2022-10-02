@@ -333,14 +333,14 @@ Public Class Tec_AdministrarCuentasPorPagar
 
 
         With gr_CreditoPendientes.RootTable.Columns("FechaVencimientoCredito")
-            .Width = 110
+            .Width = 90
             .Caption = "Venc. Credito"
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
         With gr_CreditoPendientes.RootTable.Columns("DiasMora")
-            .Width = 90
+            .Width = 60
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
             .Visible = True
@@ -348,7 +348,7 @@ Public Class Tec_AdministrarCuentasPorPagar
             .Caption = "Mora"
         End With
         With gr_CreditoPendientes.RootTable.Columns("Credito")
-            .Width = 110
+            .Width = 130
             .Visible = True
             .Caption = "Credito"
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
@@ -356,21 +356,21 @@ Public Class Tec_AdministrarCuentasPorPagar
         End With
 
         With gr_CreditoPendientes.RootTable.Columns("Compra")
-            .Width = 110
+            .Width = 130
             .Caption = "Compra"
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
             .Visible = True
         End With
         With gr_CreditoPendientes.RootTable.Columns("NombreProveedor")
-            .Width = 150
+            .Width = 180
             .Caption = "Proveedor"
             .Visible = True
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
         End With
         With gr_CreditoPendientes.RootTable.Columns("Monto")
-            .Width = 90
+            .Width = 70
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
             .Visible = True
@@ -380,7 +380,7 @@ Public Class Tec_AdministrarCuentasPorPagar
 
 
         With gr_CreditoPendientes.RootTable.Columns("abonado")
-            .Width = 90
+            .Width = 70
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
             .Visible = True
@@ -389,7 +389,7 @@ Public Class Tec_AdministrarCuentasPorPagar
         End With
 
         With gr_CreditoPendientes.RootTable.Columns("Restante")
-            .Width = 90
+            .Width = 70
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
             .Visible = True
@@ -624,15 +624,15 @@ Public Class Tec_AdministrarCuentasPorPagar
         'Credito Compra	Nombre	Monto	abonado	Restante	FechaVencimientoCredito	DiasMora
 
         Dim listEstCeldas As New List(Of Celda)
-        listEstCeldas.Add(New Celda("Id", False, "Credito", 50))
-        listEstCeldas.Add(New Celda("Credito", True, "Credito", 150))
-        listEstCeldas.Add(New Celda("Compra", True, "Compra", 150))
+        listEstCeldas.Add(New Celda("Id", False, "Credito", 70))
+        listEstCeldas.Add(New Celda("Credito", True, "Credito", 170))
+        listEstCeldas.Add(New Celda("Compra", True, "Compra", 170))
         listEstCeldas.Add(New Celda("Nombre", True, "Proveedor", 220))
-        listEstCeldas.Add(New Celda("Monto", True, "Monto", 90, "0.00"))
-        listEstCeldas.Add(New Celda("abonado", True, "Abonado", 90, "0.00"))
-        listEstCeldas.Add(New Celda("Restante", True, "Restante", 90, "0.00"))
-        listEstCeldas.Add(New Celda("FechaVencimientoCredito", True, "Venc.Credito".ToUpper, 100, "dd/MM/yyyy"))
-        listEstCeldas.Add(New Celda("DiasMora", True, "Mora".ToUpper, 70, "0"))
+        listEstCeldas.Add(New Celda("Monto", True, "Monto", 80, "0.00"))
+        listEstCeldas.Add(New Celda("abonado", True, "Abonado", 80, "0.00"))
+        listEstCeldas.Add(New Celda("Restante", True, "Restante", 80, "0.00"))
+        listEstCeldas.Add(New Celda("FechaVencimientoCredito", True, "Venc.Credito", 100, "dd/MM/yyyy"))
+        listEstCeldas.Add(New Celda("DiasMora", False, "Mora".ToUpper, 70, "0"))
         Dim ef = New Efecto
         ef.tipo = 6
         ef.dt = dt
