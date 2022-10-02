@@ -1018,8 +1018,24 @@ Public Class Tec_CierreCajaCajero
     End Function
 
     Public Function _PMOGetTablaBuscador() As DataTable
-
         Dim dtBuscador As DataTable = L_prListarGeneral("MAM_CierreCajero")
+        If gi_userRol <> 1 Then
+
+            Dim dt As DataTable = dtBuscador.Copy
+            dt.Rows.Clear()
+
+            For i As Integer = 0 To dtBuscador.Rows.Count - 1 Step 1
+
+                If (dtBuscador.Rows(i).Item("PersonalId") = Global_IdPersonal) Then
+                    dt.ImportRow(dtBuscador.Rows(i))
+                End If
+            Next
+
+            dtBuscador = dt
+
+
+        End If
+
         Return dtBuscador
     End Function
 

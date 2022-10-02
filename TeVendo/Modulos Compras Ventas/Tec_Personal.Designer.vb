@@ -82,6 +82,8 @@ Partial Class Tec_Personal
         Me.Highlighter2 = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.Highlighter1 = New DevComponents.DotNetBar.Validator.Highlighter()
+        Me.tbPorcentajeComision = New DevComponents.Editors.DoubleInput()
+        Me.LabelX14 = New DevComponents.DotNetBar.LabelX()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelLEft.SuspendLayout()
@@ -102,6 +104,7 @@ Partial Class Tec_Personal
         Me.PanelToolBar1.SuspendLayout()
         Me.PanelNavegacion.SuspendLayout()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbPorcentajeComision, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
@@ -291,6 +294,8 @@ Partial Class Tec_Personal
         '
         'PanelCampos
         '
+        Me.PanelCampos.Controls.Add(Me.tbPorcentajeComision)
+        Me.PanelCampos.Controls.Add(Me.LabelX14)
         Me.PanelCampos.Controls.Add(Me.tbFechaNacimiento)
         Me.PanelCampos.Controls.Add(Me.LabelX9)
         Me.PanelCampos.Controls.Add(Me.cbTipoDocumento)
@@ -401,7 +406,7 @@ Partial Class Tec_Personal
         cbTipoPersonal_DesignTimeLayout.LayoutString = resources.GetString("cbTipoPersonal_DesignTimeLayout.LayoutString")
         Me.cbTipoPersonal.DesignTimeLayout = cbTipoPersonal_DesignTimeLayout
         Me.cbTipoPersonal.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbTipoPersonal.Location = New System.Drawing.Point(277, 415)
+        Me.cbTipoPersonal.Location = New System.Drawing.Point(277, 541)
         Me.cbTipoPersonal.Margin = New System.Windows.Forms.Padding(4)
         Me.cbTipoPersonal.Name = "cbTipoPersonal"
         Me.cbTipoPersonal.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
@@ -423,7 +428,7 @@ Partial Class Tec_Personal
         Me.LabelX8.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX8.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX8.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX8.Location = New System.Drawing.Point(277, 394)
+        Me.LabelX8.Location = New System.Drawing.Point(277, 520)
         Me.LabelX8.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX8.Name = "LabelX8"
         Me.LabelX8.SingleLineColor = System.Drawing.SystemColors.Control
@@ -437,7 +442,7 @@ Partial Class Tec_Personal
         cbEmpresa_DesignTimeLayout.LayoutString = resources.GetString("cbEmpresa_DesignTimeLayout.LayoutString")
         Me.cbEmpresa.DesignTimeLayout = cbEmpresa_DesignTimeLayout
         Me.cbEmpresa.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbEmpresa.Location = New System.Drawing.Point(20, 415)
+        Me.cbEmpresa.Location = New System.Drawing.Point(20, 541)
         Me.cbEmpresa.Margin = New System.Windows.Forms.Padding(4)
         Me.cbEmpresa.Name = "cbEmpresa"
         Me.cbEmpresa.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
@@ -459,7 +464,7 @@ Partial Class Tec_Personal
         Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX5.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX5.Location = New System.Drawing.Point(20, 391)
+        Me.LabelX5.Location = New System.Drawing.Point(20, 517)
         Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX5.Name = "LabelX5"
         Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
@@ -993,6 +998,43 @@ Partial Class Tec_Personal
         '
         Me.Highlighter1.CustomHighlightColors = New System.Drawing.Color() {System.Drawing.Color.DodgerBlue}
         '
+        'tbPorcentajeComision
+        '
+        '
+        '
+        '
+        Me.tbPorcentajeComision.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbPorcentajeComision.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbPorcentajeComision.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.tbPorcentajeComision.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbPorcentajeComision.Increment = 1.0R
+        Me.tbPorcentajeComision.Location = New System.Drawing.Point(20, 432)
+        Me.tbPorcentajeComision.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbPorcentajeComision.MinValue = 0R
+        Me.tbPorcentajeComision.Name = "tbPorcentajeComision"
+        Me.tbPorcentajeComision.Size = New System.Drawing.Size(220, 24)
+        Me.tbPorcentajeComision.TabIndex = 230
+        Me.tbPorcentajeComision.WatermarkAlignment = DevComponents.Editors.eTextAlignment.Right
+        '
+        'LabelX14
+        '
+        Me.LabelX14.AutoSize = True
+        Me.LabelX14.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX14.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX14.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX14.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX14.Location = New System.Drawing.Point(17, 403)
+        Me.LabelX14.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX14.Name = "LabelX14"
+        Me.LabelX14.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX14.Size = New System.Drawing.Size(70, 23)
+        Me.LabelX14.TabIndex = 231
+        Me.LabelX14.Text = "Cantidad:"
+        Me.LabelX14.TextAlignment = System.Drawing.StringAlignment.Far
+        '
         'Tec_Personal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -1023,6 +1065,7 @@ Partial Class Tec_Personal
         Me.PanelToolBar1.ResumeLayout(False)
         Me.PanelNavegacion.ResumeLayout(False)
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbPorcentajeComision, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1082,4 +1125,6 @@ Partial Class Tec_Personal
     Friend WithEvents tbFechaNacimiento As Janus.Windows.CalendarCombo.CalendarCombo
     Friend WithEvents Highlighter1 As DevComponents.DotNetBar.Validator.Highlighter
     Public WithEvents Highlighter2 As DevComponents.DotNetBar.Validator.Highlighter
+    Friend WithEvents tbPorcentajeComision As DevComponents.Editors.DoubleInput
+    Friend WithEvents LabelX14 As DevComponents.DotNetBar.LabelX
 End Class

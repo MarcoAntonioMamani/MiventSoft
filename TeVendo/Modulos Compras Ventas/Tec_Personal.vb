@@ -337,7 +337,7 @@ Public Class Tec_Personal
 
         swEstado.IsReadOnly = False
         btnTipoDocumento.Visible = True
-
+        tbPorcentajeComision.IsInputReadOnly = False
 
     End Sub
 
@@ -351,7 +351,7 @@ Public Class Tec_Personal
         tbFechaNacimiento.ReadOnly = True
         tbNroDocumento.ReadOnly = True
         cbTipoDocumento.ReadOnly = True
-
+        tbPorcentajeComision.IsInputReadOnly = True
         swEstado.IsReadOnly = True
         btnTipoDocumento.Visible = False
     End Sub
@@ -365,7 +365,7 @@ Public Class Tec_Personal
         tbDireccion.Text = ""
         tbTelefono01.Text = ""
         tbFechaNacimiento.Value = Now.Date
-
+        tbPorcentajeComision.Value = 0
 
         swEstado.Value = True
         seleccionarPrimerItemCombo(cbTipoDocumento)
@@ -388,7 +388,7 @@ Public Class Tec_Personal
         cbTipoDocumento.BackColor = Color.White
         cbTipoPersonal.BackColor = Color.White
         cbEmpresa.BackColor = Color.White
-
+        tbPorcentajeComision .BackColor =Color.White 
     End Sub
 
     Public Function _PMOGrabarRegistro() As Boolean
@@ -399,7 +399,7 @@ Public Class Tec_Personal
         Dim res As Boolean
         Try
             res = InsertarPersonal(tbCodigo.Text, tbNombreProveedor.Text, tbDireccion.Text, tbTelefono01.Text,
-                                   cbTipoDocumento.Value, tbNroDocumento.Text, cbTipoPersonal.Value, IIf(swEstado.Value = True, 1, 0), cbEmpresa.Value, tbFechaNacimiento.Value.ToString("yyyy/MM/dd"))
+                                   cbTipoDocumento.Value, tbNroDocumento.Text, cbTipoPersonal.Value, IIf(swEstado.Value = True, 1, 0), cbEmpresa.Value, tbFechaNacimiento.Value.ToString("yyyy/MM/dd"), tbPorcentajeComision.Value)
 
             If res Then
 
@@ -423,7 +423,7 @@ Public Class Tec_Personal
         Dim Res As Boolean
         Try
             Res = ModificarPersonal(tbCodigo.Text, tbNombreProveedor.Text, tbDireccion.Text, tbTelefono01.Text,
-                                   cbTipoDocumento.Value, tbNroDocumento.Text, cbTipoPersonal.Value, IIf(swEstado.Value = True, 1, 0), cbEmpresa.Value, tbFechaNacimiento.Value.ToString("yyyy/MM/dd"))
+                                   cbTipoDocumento.Value, tbNroDocumento.Text, cbTipoPersonal.Value, IIf(swEstado.Value = True, 1, 0), cbEmpresa.Value, tbFechaNacimiento.Value.ToString("yyyy/MM/dd"), tbPorcentajeComision.Value)
             If Res Then
 
                 ToastNotification.Show(Me, "Codigo de Personal ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
@@ -500,6 +500,16 @@ Public Class Tec_Personal
             cbEmpresa.BackColor = Color.White
             MEP.SetError(cbEmpresa, "")
         End If
+
+        If (tbPorcentajeComision.Text = String.Empty) Then
+            tbPorcentajeComision.BackColor = Color.Red
+            MEP.SetError(tbPorcentajeComision, "Ingrese un Porcentaje de comisión Valida")
+            Mensaje = Mensaje + Chr(13) + Chr(10) + " PorcentajeComisión"
+            _ok = False
+        Else
+            tbPorcentajeComision.BackColor = Color.White
+            MEP.SetError(tbPorcentajeComision, "")
+        End If
         'If (cbTipoPersonal.SelectedIndex < 0) Then
         '    cbTipoPersonal.BackColor = Color.Red
         '    MEP.SetError(cbTipoPersonal, "Seleccione un Tipo Personal")
@@ -529,6 +539,11 @@ Public Class Tec_Personal
         If (cbEmpresa.SelectedIndex < 0) Then
             ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
             cbEmpresa.Focus()
+            Return _ok
+        End If
+        If (tbPorcentajeComision.Text = String.Empty) Then
+            ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            tbPorcentajeComision.Focus()
             Return _ok
         End If
         'If (cbTipoPersonal.SelectedIndex < 0) Then
@@ -565,6 +580,7 @@ Public Class Tec_Personal
         listEstCeldas.Add(New Celda("EmpresaId", False))
         listEstCeldas.Add(New Celda("NroDocumento", True, "Nro Documento", 90))
         listEstCeldas.Add(New Celda("Estado", False))
+        listEstCeldas.Add(New Celda("PorcentajeComision", False))
         listEstCeldas.Add(New Celda("img", True, "Estado", 90))
         listEstCeldas.Add(New Celda("Tipo", True, "Cargo", 90))
         listEstCeldas.Add(New Celda("FechaNacimiento", True, "F.Nacimiento", 90))
@@ -588,6 +604,7 @@ Public Class Tec_Personal
             tbDireccion.Text = .GetValue("Direccion").ToString
             cbTipoDocumento.Value = .GetValue("TipoDocumento")
 
+            tbPorcentajeComision.Value = .GetValue("PorcentajeComision")
             tbNroDocumento.Text = .GetValue("NroDocumento")
             tbTelefono01.Text = .GetValue("Telefono01").ToString
             swEstado.Value = .GetValue("Estado")

@@ -248,7 +248,9 @@ Public Class Tec_Ventas
         P_Global._prCargarComboGenerico(cbPrecios, L_prListaCategoriasPrecios(), "Id", "Codigo", "Descripcion", "CategoriaPrecio")
         _PMIniciarTodo()
         _prAsignarPermisos()
-
+        If gi_userRol <> 1 Then
+            btnVendedor.Visible = False
+        End If
 
 
 
@@ -1199,9 +1201,11 @@ salirIf:
             tbMdesc.IsInputReadOnly = True
             tbPdesc.IsInputReadOnly = True
         End If
+        If gi_userRol = 1 Then
+            btnVendedor.Visible = True
+        End If
 
 
-        btnVendedor.Visible = True
         btnCliente.Visible = True
         BtnImprimir.Visible = False
         tab_Cobro.Visible = False
@@ -1579,8 +1583,29 @@ salirIf:
     End Function
 
     Public Function _PMOGetTablaBuscador() As DataTable
+        Dim dtBuscador As DataTable
 
-        Dim dtBuscador As DataTable = L_prListarVentasGeneralFiltroFecha("MAM_Ventas", tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"), Global_Sucursal)
+        If gi_userRol = 1 Then
+            dtBuscador = L_prListarVentasGeneralFiltroFecha("MAM_Ventas", tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"), Global_Sucursal)
+
+        Else
+            dtBuscador = L_prListarVentasGeneralFiltroFecha("MAM_Ventas", tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"), Global_Sucursal)
+
+            Dim dt = dtBuscador.Copy
+
+            dt.Rows.Clear()
+
+            For i As Integer = 0 To dtBuscador.Rows.Count - 1 Step 1
+
+                If (dtBuscador.Rows(i).Item("PersonalId") = Global_IdPersonal) Then
+                    dt.ImportRow(dtBuscador.Rows(i))
+                End If
+            Next
+
+            dtBuscador = dt
+
+        End If
+
         Return dtBuscador
     End Function
 
