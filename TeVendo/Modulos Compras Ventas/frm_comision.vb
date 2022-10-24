@@ -140,6 +140,9 @@ Public Class frm_comision
             .Caption = "Comisión Bs"
             .MaxLines = 2
             .WordWrap = True
+            .CellStyle.BackColor = Color.SpringGreen
+            .CellStyle.FontBold = TriState.True
+            .TextAlignment = TextAlignment.Far
         End With
         With grProducto
             .DefaultFilterRowComparison = FilterConditionOperator.Contains

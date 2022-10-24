@@ -1257,4 +1257,15 @@ Public Class Tec_Principal
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub
+
+    Private Sub ItemContainer2_Click(sender As Object, e As EventArgs) Handles ItemContainer2.Click
+
+    End Sub
+
+    Private Sub btVentReporteComision_Click(sender As Object, e As EventArgs) Handles btVentReporteComision.Click
+        Dim frm As frm_comision
+        frm = New frm_comision
+        frm.Show()
+
+    End Sub
 End Class

@@ -481,6 +481,12 @@
     <Compile Include="ModuloFacturas\Tec_Dosificacion.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modulos Compras Ventas\frm_comision.Designer.vb">
+      <DependentUpon>frm_comision.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos Compras Ventas\frm_comision.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Modulos Compras Ventas\Frm_Proveedor.Designer.vb">
       <DependentUpon>Frm_Proveedor.vb</DependentUpon>
     </Compile>
@@ -965,6 +971,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ModuloFacturas\Tec_Dosificacion.resx">
       <DependentUpon>Tec_Dosificacion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulos Compras Ventas\frm_comision.resx">
+      <DependentUpon>frm_comision.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modulos Compras Ventas\Frm_Proveedor.resx">
       <DependentUpon>Frm_Proveedor.vb</DependentUpon>
