@@ -1780,6 +1780,16 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+
+    Public Shared Function ListarPersonalCombo() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 12))
+        _Tabla = D_ProcedimientoConParam("MAM_Clientes", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function ReporteVentasAtendidasTodos(FechaI As String, FechaF As String) As DataTable
         Dim _Tabla As DataTable
 
@@ -2159,6 +2169,21 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@CategoriaPrecio", CategoriaPrecio))
         _Tabla = D_ProcedimientoConParam("MAM_Movimientos", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prListarVentasComision(PersonalId As Integer, FechaI As String, FechaF As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 13))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@IdPersonal", PersonalId))
+        _listParam.Add(New Datos.DParametro("@FechaI", FechaI))
+        _listParam.Add(New Datos.DParametro("@Fechaf", FechaF))
+        _Tabla = D_ProcedimientoConParam("MAM_ReporteVentas", _listParam)
 
         Return _Tabla
     End Function
