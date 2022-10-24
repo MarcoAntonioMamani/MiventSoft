@@ -40,6 +40,8 @@ Partial Class Tec_Personal
         Me.EditarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EliminarToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.PanelCampos = New System.Windows.Forms.Panel()
+        Me.tbPorcentajeComision = New DevComponents.Editors.DoubleInput()
+        Me.LabelX14 = New DevComponents.DotNetBar.LabelX()
         Me.tbFechaNacimiento = New Janus.Windows.CalendarCombo.CalendarCombo()
         Me.LabelX9 = New DevComponents.DotNetBar.LabelX()
         Me.cbTipoDocumento = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
@@ -82,8 +84,6 @@ Partial Class Tec_Personal
         Me.Highlighter2 = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.Highlighter1 = New DevComponents.DotNetBar.Validator.Highlighter()
-        Me.tbPorcentajeComision = New DevComponents.Editors.DoubleInput()
-        Me.LabelX14 = New DevComponents.DotNetBar.LabelX()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelLEft.SuspendLayout()
@@ -94,6 +94,7 @@ Partial Class Tec_Personal
         CType(Me.JGrM_Buscador, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MeuOpciones.SuspendLayout()
         Me.PanelCampos.SuspendLayout()
+        CType(Me.tbPorcentajeComision, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbTipoDocumento, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbTipoPersonal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbEmpresa, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -104,7 +105,6 @@ Partial Class Tec_Personal
         Me.PanelToolBar1.SuspendLayout()
         Me.PanelNavegacion.SuspendLayout()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.tbPorcentajeComision, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
@@ -322,6 +322,43 @@ Partial Class Tec_Personal
         Me.PanelCampos.Name = "PanelCampos"
         Me.PanelCampos.Size = New System.Drawing.Size(517, 623)
         Me.PanelCampos.TabIndex = 0
+        '
+        'tbPorcentajeComision
+        '
+        '
+        '
+        '
+        Me.tbPorcentajeComision.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbPorcentajeComision.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbPorcentajeComision.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.tbPorcentajeComision.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbPorcentajeComision.Increment = 1.0R
+        Me.tbPorcentajeComision.Location = New System.Drawing.Point(20, 432)
+        Me.tbPorcentajeComision.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbPorcentajeComision.MinValue = 0R
+        Me.tbPorcentajeComision.Name = "tbPorcentajeComision"
+        Me.tbPorcentajeComision.Size = New System.Drawing.Size(220, 24)
+        Me.tbPorcentajeComision.TabIndex = 230
+        Me.tbPorcentajeComision.WatermarkAlignment = DevComponents.Editors.eTextAlignment.Right
+        '
+        'LabelX14
+        '
+        Me.LabelX14.AutoSize = True
+        Me.LabelX14.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX14.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX14.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX14.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX14.Location = New System.Drawing.Point(17, 403)
+        Me.LabelX14.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX14.Name = "LabelX14"
+        Me.LabelX14.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX14.Size = New System.Drawing.Size(173, 23)
+        Me.LabelX14.TabIndex = 231
+        Me.LabelX14.Text = "Porcentaje Comisión % :"
+        Me.LabelX14.TextAlignment = System.Drawing.StringAlignment.Far
         '
         'tbFechaNacimiento
         '
@@ -998,43 +1035,6 @@ Partial Class Tec_Personal
         '
         Me.Highlighter1.CustomHighlightColors = New System.Drawing.Color() {System.Drawing.Color.DodgerBlue}
         '
-        'tbPorcentajeComision
-        '
-        '
-        '
-        '
-        Me.tbPorcentajeComision.BackgroundStyle.Class = "DateTimeInputBackground"
-        Me.tbPorcentajeComision.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbPorcentajeComision.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
-        Me.tbPorcentajeComision.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbPorcentajeComision.Increment = 1.0R
-        Me.tbPorcentajeComision.Location = New System.Drawing.Point(20, 432)
-        Me.tbPorcentajeComision.Margin = New System.Windows.Forms.Padding(4)
-        Me.tbPorcentajeComision.MinValue = 0R
-        Me.tbPorcentajeComision.Name = "tbPorcentajeComision"
-        Me.tbPorcentajeComision.Size = New System.Drawing.Size(220, 24)
-        Me.tbPorcentajeComision.TabIndex = 230
-        Me.tbPorcentajeComision.WatermarkAlignment = DevComponents.Editors.eTextAlignment.Right
-        '
-        'LabelX14
-        '
-        Me.LabelX14.AutoSize = True
-        Me.LabelX14.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX14.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX14.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX14.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX14.Location = New System.Drawing.Point(17, 403)
-        Me.LabelX14.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX14.Name = "LabelX14"
-        Me.LabelX14.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX14.Size = New System.Drawing.Size(70, 23)
-        Me.LabelX14.TabIndex = 231
-        Me.LabelX14.Text = "Cantidad:"
-        Me.LabelX14.TextAlignment = System.Drawing.StringAlignment.Far
-        '
         'Tec_Personal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -1055,6 +1055,7 @@ Partial Class Tec_Personal
         Me.MeuOpciones.ResumeLayout(False)
         Me.PanelCampos.ResumeLayout(False)
         Me.PanelCampos.PerformLayout()
+        CType(Me.tbPorcentajeComision, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbTipoDocumento, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbTipoPersonal, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbEmpresa, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1065,7 +1066,6 @@ Partial Class Tec_Personal
         Me.PanelToolBar1.ResumeLayout(False)
         Me.PanelNavegacion.ResumeLayout(False)
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.tbPorcentajeComision, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

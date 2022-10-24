@@ -25,6 +25,8 @@ Public Class Tec_Ventas
     Dim Lote As Boolean = False
     Dim IdVendedor As Integer = 0
     Dim IdCliente As Integer = 0
+    Dim PorcentajeComision As Double = 0
+
 
 #End Region
 
@@ -1253,6 +1255,8 @@ salirIf:
         tbFechaTransaccion.Value = Now.Date
         tbFechaVencimientoCredito.Value = Now.Date
         swTipoVenta.Value = True
+        PorcentajeComision = 0
+
 
 
         IdCliente = 0
@@ -1324,7 +1328,7 @@ salirIf:
 
                     res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                    IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0))
+                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), PorcentajeComision)
 
                     If res Then
 
@@ -1346,7 +1350,7 @@ salirIf:
 
                 res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0))
+                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), PorcentajeComision)
 
                 If res Then
 
@@ -1394,7 +1398,7 @@ salirIf:
 
                     Res = VentaModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                    IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0))
+                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), PorcentajeComision)
 
                     If Res Then
 
@@ -1416,7 +1420,7 @@ salirIf:
 
                 Res = VentaModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0))
+                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), PorcentajeComision)
 
                 If Res Then
 
@@ -1658,6 +1662,7 @@ salirIf:
         With JGrM_Buscador
             tbCodigo.Text = .GetValue("Id").ToString
             cbSucursal.Value = .GetValue("SucursalId")
+            PorcentajeComision = .GetValue("PorcentajeComision")
             tbFechaTransaccion.Value = .GetValue("FechaVenta")
             IdVendedor = .GetValue("PersonalId")
             tbVendedor.Text = .GetValue("Personal").ToString
@@ -1708,8 +1713,9 @@ salirIf:
                 Dim dt As DataTable = ListarPersonalById(Global_IdPersonal)
                 If (dt.Rows.Count > 0) Then
                     IdVendedor = Global_IdPersonal
-                    tbVendedor.Text = dt.Rows(0).Item("Nombre")
-                    tbCliente.Focus()
+            tbVendedor.Text = dt.Rows(0).Item("Nombre")
+            PorcentajeComision = dt.Rows(0).Item("PorcentajeComision")
+            tbCliente.Focus()
 
                 Else
                     tbVendedor.Focus()
@@ -1878,13 +1884,14 @@ salirIf:
             Dim dt As DataTable
 
             dt = ListarPersonal()
-            'a.Id ,a.NombreProveedor ,a.Direccion ,a.Telefono01
+            'a.Id ,a.NombreProveedor ,a.Direccion ,a.Telefono01,PorcentajeComision
 
             Dim listEstCeldas As New List(Of Celda)
-            listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
+            listEstCeldas.Add(New Celda("Id", False, "ID", 0))
             listEstCeldas.Add(New Celda("Nombre", True, "NOMBRE", 350))
             listEstCeldas.Add(New Celda("Direccion", True, "DIRECCION", 180))
             listEstCeldas.Add(New Celda("Telefono01", True, "Telefono".ToUpper, 200))
+            listEstCeldas.Add(New Celda("PorcentajeComision", False, "ID", 0))
             Dim ef = New Efecto
             ef.tipo = 6
             ef.dt = dt
@@ -1901,6 +1908,7 @@ salirIf:
 
                 IdVendedor = Row.Cells("Id").Value
                 tbVendedor.Text = Row.Cells("Nombre").Value
+                PorcentajeComision = Row.Cells("PorcentajeComision").Value
                 tbCliente.Focus()
 
             End If
