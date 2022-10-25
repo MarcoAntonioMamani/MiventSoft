@@ -184,10 +184,14 @@ Public Class frm_comision
 
             P_Global.Visualizador = New Visualizador
 
-            Dim objrep As New Reporte_StockGeneral
-
+            Dim objrep As New ReporteComision
+            Dim fechaI As String = cbFechaDesde.Value.ToString("dd/MM/yyyy")
+            Dim fechaF As String = cbFechaHasta.Value.ToString("dd/MM/yyyy")
             objrep.SetDataSource(_dt)
             objrep.SetParameterValue("Usuario", L_Usuario)
+            objrep.SetParameterValue("FechaDesde", fechaI)
+            objrep.SetParameterValue("FechaHasta", fechaF)
+            objrep.SetParameterValue("Vendedor", cbPersonal.Text)
             P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
             P_Global.Visualizador.CrGeneral.Zoom(90)
             P_Global.Visualizador.Show() 'Comentar
