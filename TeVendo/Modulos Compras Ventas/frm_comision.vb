@@ -60,7 +60,7 @@ Public Class frm_comision
         End With
 
         With grProducto.RootTable.Columns("NombreAlmacen")
-            .Width = 60
+            .Width = 100
             .Caption = "Sucursal"
             .Visible = True
             .MaxLines = 3
@@ -73,7 +73,7 @@ Public Class frm_comision
         End With
 
         With grProducto.RootTable.Columns("NombrePersonal")
-            .Width = 100
+            .Width = 150
             .Caption = "PERSONAL"
             .Visible = True
             .MaxLines = 2
@@ -87,7 +87,7 @@ Public Class frm_comision
         ' Documento	FechaVenta	TotalVenta	Img	PorcentajeComision	comision
 
         With grProducto.RootTable.Columns("NombreCliente")
-            .Width = 100
+            .Width = 150
             .Caption = "CLIENTE"
             .Visible = True
             .MaxLines = 2
@@ -113,12 +113,14 @@ Public Class frm_comision
 
 
         With grProducto.RootTable.Columns("TotalVenta")
-            .Width = 150
+            .Width = 100
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Total"
             .MaxLines = 2
             .WordWrap = True
+
+            .AggregateFunction = AggregateFunction.Sum
         End With
         With grProducto.RootTable.Columns("Img")
             .Width = 100
@@ -126,7 +128,7 @@ Public Class frm_comision
         End With
 
         With grProducto.RootTable.Columns("PorcentajeComision")
-            .Width = 110
+            .Width = 90
             .Visible = True
             .FormatString = "0.00"
             .Caption = "% Comisión"
@@ -134,7 +136,7 @@ Public Class frm_comision
             .WordWrap = True
         End With
         With grProducto.RootTable.Columns("comision")
-            .Width = 150
+            .Width = 100
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Comisión Bs"
@@ -143,12 +145,19 @@ Public Class frm_comision
             .CellStyle.BackColor = Color.SpringGreen
             .CellStyle.FontBold = TriState.True
             .TextAlignment = TextAlignment.Far
+
+            .AggregateFunction = AggregateFunction.Sum
         End With
         With grProducto
             .DefaultFilterRowComparison = FilterConditionOperator.Contains
             .FilterMode = FilterMode.Automatic
             .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
             .GroupByBoxVisible = False
+            .TotalRow = InheritableBoolean.True
+            .TotalRowFormatStyle.BackColor = Color.Gold
+            .TotalRowFormatStyle.ForeColor = Color.Black
+            .TotalRowFormatStyle.FontBold = TriState.True
+            .TotalRowPosition = TotalRowPosition.BottomFixed
             'diseño de la grilla
             .VisualStyle = VisualStyle.Office2007
         End With
