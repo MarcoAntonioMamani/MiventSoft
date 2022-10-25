@@ -830,6 +830,26 @@ Public Class AccesoLogica
         Return _resultado
     End Function
 
+    Public Shared Function InsertarComision(personalId As String, dt As DataTable) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '    @Id ,@NombrePersonal ,@DireccionPersonal ,@Telefono01 
+        ',@TipoDocumento ,@NroDocumento ,@TipoPersonal ,@estado,@EmpresaId  ,@newFecha ,@newHora ,@usuario
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@Id", personalId))
+        _listParam.Add(New Datos.DParametro("@Comision", "", dt))
+        _Tabla = D_ProcedimientoConParam("MAM_Personal", _listParam)
+        If _Tabla.Rows.Count > 0 Then
+            personalId = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
 
     Public Shared Function ModificarPersonal(_Id As String, NombrePersonal As String, Direccion As String,
                            Telefono01 As String, TipoDocumento As Integer,

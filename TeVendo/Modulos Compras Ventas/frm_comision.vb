@@ -155,6 +155,7 @@ Public Class frm_comision
 
     End Sub
 
+
     Private Sub btnConfirmarSalir_Click(sender As Object, e As EventArgs) Handles btnCargarDatos.Click
         _prCargarComision()
 

@@ -60,7 +60,6 @@ Partial Class frm_PorcentajeComision
         '
         'grAlmacenes
         '
-        Me.grAlmacenes.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
         Me.grAlmacenes.AlternatingColors = True
         Me.grAlmacenes.BackColor = System.Drawing.Color.White
         Me.grAlmacenes.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
@@ -72,7 +71,7 @@ Partial Class frm_PorcentajeComision
         Me.grAlmacenes.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
         Me.grAlmacenes.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
         Me.grAlmacenes.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
-        Me.grAlmacenes.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grAlmacenes.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grAlmacenes.GridLines = Janus.Windows.GridEX.GridLines.None
         Me.grAlmacenes.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
         Me.grAlmacenes.HeaderFormatStyle.Alpha = 0
@@ -81,16 +80,16 @@ Partial Class frm_PorcentajeComision
         Me.grAlmacenes.HeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
         Me.grAlmacenes.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
         Me.grAlmacenes.HeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
-        Me.grAlmacenes.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grAlmacenes.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grAlmacenes.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
         Me.grAlmacenes.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
-        Me.grAlmacenes.Location = New System.Drawing.Point(0, 145)
+        Me.grAlmacenes.Location = New System.Drawing.Point(0, 176)
         Me.grAlmacenes.Margin = New System.Windows.Forms.Padding(4)
         Me.grAlmacenes.Name = "grAlmacenes"
         Me.grAlmacenes.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.grAlmacenes.Office2007CustomColor = System.Drawing.Color.DodgerBlue
         Me.grAlmacenes.RecordNavigator = True
-        Me.grAlmacenes.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grAlmacenes.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grAlmacenes.RowHeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
         Me.grAlmacenes.RowHeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.Transparent
         Me.grAlmacenes.RowHeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
@@ -100,9 +99,9 @@ Partial Class frm_PorcentajeComision
         Me.grAlmacenes.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
         Me.grAlmacenes.SelectedFormatStyle.BackColor = System.Drawing.Color.Gold
         Me.grAlmacenes.SelectedFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
-        Me.grAlmacenes.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grAlmacenes.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grAlmacenes.SelectedFormatStyle.ForeColor = System.Drawing.Color.Black
-        Me.grAlmacenes.Size = New System.Drawing.Size(1090, 305)
+        Me.grAlmacenes.Size = New System.Drawing.Size(1090, 274)
         Me.grAlmacenes.TabIndex = 4
         Me.grAlmacenes.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grAlmacenes.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -122,21 +121,21 @@ Partial Class frm_PorcentajeComision
         Me.Panel5.Location = New System.Drawing.Point(0, 36)
         Me.Panel5.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(1090, 109)
+        Me.Panel5.Size = New System.Drawing.Size(1090, 140)
         Me.Panel5.TabIndex = 3
         '
         'btnConfirmarSalir
         '
         Me.btnConfirmarSalir.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnConfirmarSalir.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.btnConfirmarSalir.Font = New System.Drawing.Font("Calibri", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnConfirmarSalir.ColorTable = DevComponents.DotNetBar.eButtonColor.BlueOrb
+        Me.btnConfirmarSalir.Font = New System.Drawing.Font("Calibri", 12.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnConfirmarSalir.Image = Global.TeVendo.My.Resources.Resources.search
-        Me.btnConfirmarSalir.ImageFixedSize = New System.Drawing.Size(24, 24)
-        Me.btnConfirmarSalir.Location = New System.Drawing.Point(801, 16)
+        Me.btnConfirmarSalir.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.btnConfirmarSalir.Location = New System.Drawing.Point(799, 26)
         Me.btnConfirmarSalir.Margin = New System.Windows.Forms.Padding(4)
         Me.btnConfirmarSalir.Name = "btnConfirmarSalir"
         Me.btnConfirmarSalir.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
-        Me.btnConfirmarSalir.Size = New System.Drawing.Size(166, 53)
+        Me.btnConfirmarSalir.Size = New System.Drawing.Size(209, 53)
         Me.btnConfirmarSalir.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnConfirmarSalir.Symbol = "57408"
         Me.btnConfirmarSalir.SymbolColor = System.Drawing.Color.MediumTurquoise
@@ -155,18 +154,18 @@ Partial Class frm_PorcentajeComision
         cbPersonal_DesignTimeLayout.LayoutString = resources.GetString("cbPersonal_DesignTimeLayout.LayoutString")
         Me.cbPersonal.DesignTimeLayout = cbPersonal_DesignTimeLayout
         Me.cbPersonal.FlatBorderColor = System.Drawing.Color.Black
-        Me.cbPersonal.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbPersonal.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbPersonal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
         Me.cbPersonal.HideSelection = False
         Me.cbPersonal.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.cbPersonal.Location = New System.Drawing.Point(124, 30)
+        Me.cbPersonal.Location = New System.Drawing.Point(120, 41)
         Me.cbPersonal.Margin = New System.Windows.Forms.Padding(4)
         Me.cbPersonal.Name = "cbPersonal"
         Me.cbPersonal.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.cbPersonal.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
         Me.cbPersonal.SelectedIndex = -1
         Me.cbPersonal.SelectedItem = Nothing
-        Me.cbPersonal.Size = New System.Drawing.Size(551, 28)
+        Me.cbPersonal.Size = New System.Drawing.Size(605, 32)
         Me.cbPersonal.TabIndex = 378
         Me.cbPersonal.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -177,9 +176,9 @@ Partial Class frm_PorcentajeComision
         '
         '
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX1.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX1.Font = New System.Drawing.Font("Georgia", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX1.Location = New System.Drawing.Point(14, 30)
+        Me.LabelX1.Location = New System.Drawing.Point(10, 41)
         Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
@@ -221,9 +220,9 @@ Partial Class frm_PorcentajeComision
         Me.Label3.Location = New System.Drawing.Point(60, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
-        Me.Label3.Size = New System.Drawing.Size(253, 34)
+        Me.Label3.Size = New System.Drawing.Size(454, 34)
         Me.Label3.TabIndex = 2
-        Me.Label3.Text = "INVENTARIO PRODUCTOS"
+        Me.Label3.Text = "CONFIGURACION COMISION"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Panel12
@@ -258,13 +257,13 @@ Partial Class frm_PorcentajeComision
         '
         '
         Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX2.Font = New System.Drawing.Font("Georgia", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX2.Font = New System.Drawing.Font("Georgia", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX2.ForeColor = System.Drawing.Color.Black
-        Me.LabelX2.Location = New System.Drawing.Point(13, 75)
+        Me.LabelX2.Location = New System.Drawing.Point(14, 98)
         Me.LabelX2.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX2.Name = "LabelX2"
         Me.LabelX2.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX2.Size = New System.Drawing.Size(735, 17)
+        Me.LabelX2.Size = New System.Drawing.Size(961, 22)
         Me.LabelX2.TabIndex = 380
         Me.LabelX2.Text = "Nota: no se olvide hacer click en el boton Guardar para que sus modificaciones se" &
     "an registrados en el servidor"
@@ -277,6 +276,7 @@ Partial Class frm_PorcentajeComision
         Me.Controls.Add(Me.Paneltop)
         Me.Name = "frm_PorcentajeComision"
         Me.Text = "Configuracion Porcentaje Comision"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.Paneltop.ResumeLayout(False)
         CType(Me.grAlmacenes, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel5.ResumeLayout(False)

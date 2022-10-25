@@ -283,6 +283,12 @@
     <Compile Include="Inventarios\FormularioStock.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Inventarios\frm_PorcentajeComision.Designer.vb">
+      <DependentUpon>frm_PorcentajeComision.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Inventarios\frm_PorcentajeComision.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Inventarios\F_MonitoreoProductos.Designer.vb">
       <DependentUpon>F_MonitoreoProductos.vb</DependentUpon>
     </Compile>
@@ -878,6 +884,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\FormularioStock.resx">
       <DependentUpon>FormularioStock.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventarios\frm_PorcentajeComision.resx">
+      <DependentUpon>frm_PorcentajeComision.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\F_MonitoreoProductos.resx">
       <DependentUpon>F_MonitoreoProductos.vb</DependentUpon>

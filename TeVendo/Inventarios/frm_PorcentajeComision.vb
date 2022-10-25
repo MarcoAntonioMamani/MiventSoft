@@ -91,7 +91,7 @@ Public Class frm_PorcentajeComision
     End Sub
     Private Sub grdetalle_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grAlmacenes.EditingCell
 
-        If (grAlmacenes.GetValue("PorcentajeComision") = 2) Then
+        If (e.Column.Index = grAlmacenes.RootTable.Columns("PorcentajeComision").Index) Then
             e.Cancel = False
             Return
 
@@ -101,5 +101,18 @@ Public Class frm_PorcentajeComision
 
     Private Sub cbPersonal_ValueChanged(sender As Object, e As EventArgs) Handles cbPersonal.ValueChanged
         _prCargarComision()
+    End Sub
+
+    Private Sub btnConfirmarSalir_Click(sender As Object, e As EventArgs) Handles btnConfirmarSalir.Click
+        Dim bandera As Boolean = InsertarComision(cbPersonal.Value, CType(grAlmacenes.DataSource, DataTable))
+        If (bandera = True) Then
+
+
+            ToastNotification.Show(Me, "Los Cambios fueron registrados correctamente", My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+
+        Else
+            ToastNotification.Show(Me, "No se Puede registrar los cambios", img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+
+        End If
     End Sub
 End Class

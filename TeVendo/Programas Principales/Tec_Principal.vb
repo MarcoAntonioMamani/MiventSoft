@@ -1268,4 +1268,11 @@ Public Class Tec_Principal
         frm.Show()
 
     End Sub
+
+    Private Sub btnConfComision_Click(sender As Object, e As EventArgs) Handles btnConfComision.Click
+        Dim frmComision As frm_PorcentajeComision
+        frmComision = New frm_PorcentajeComision
+        frmComision.Show()
+
+    End Sub
 End Class
