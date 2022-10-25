@@ -79,6 +79,7 @@ Partial Class Tec_Precios
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.Highlighter1 = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.ErrorProvider1 = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.btnProductosSinStock = New DevComponents.DotNetBar.ButtonX()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -658,6 +659,7 @@ Partial Class Tec_Precios
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.Panel15, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.btnProductosSinStock, 2, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(4)
@@ -890,6 +892,25 @@ Partial Class Tec_Precios
         '
         Me.ErrorProvider1.ContainerControl = Me
         '
+        'btnProductosSinStock
+        '
+        Me.btnProductosSinStock.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnProductosSinStock.BackColor = System.Drawing.Color.Honeydew
+        Me.btnProductosSinStock.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.btnProductosSinStock.DisabledImagesGrayScale = False
+        Me.btnProductosSinStock.Dock = System.Windows.Forms.DockStyle.Left
+        Me.btnProductosSinStock.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnProductosSinStock.Image = Global.TeVendo.My.Resources.Resources.sheets
+        Me.btnProductosSinStock.ImageFixedSize = New System.Drawing.Size(25, 25)
+        Me.btnProductosSinStock.Location = New System.Drawing.Point(842, 4)
+        Me.btnProductosSinStock.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnProductosSinStock.Name = "btnProductosSinStock"
+        Me.btnProductosSinStock.Size = New System.Drawing.Size(241, 55)
+        Me.btnProductosSinStock.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnProductosSinStock.TabIndex = 377
+        Me.btnProductosSinStock.Text = "Exportar Excel"
+        Me.btnProductosSinStock.TextColor = System.Drawing.Color.Black
+        '
         'Tec_Precios
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -994,4 +1015,5 @@ Partial Class Tec_Precios
     Friend WithEvents grprecio As Janus.Windows.GridEX.GridEX
     Friend WithEvents grcategoria As Janus.Windows.GridEX.GridEX
     Protected WithEvents btnCategoria As DevComponents.DotNetBar.ButtonX
+    Protected WithEvents btnProductosSinStock As DevComponents.DotNetBar.ButtonX
 End Class
