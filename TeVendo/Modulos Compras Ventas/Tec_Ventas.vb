@@ -1644,6 +1644,7 @@ salirIf:
         listEstCeldas.Add(New Celda("TarjetaBancaria", False))
         listEstCeldas.Add(New Celda("TransferenciaBancaria", False))
         listEstCeldas.Add(New Celda("TipoCambio", False))
+        listEstCeldas.Add(New Celda("PorcentajeComision", False))
         Return listEstCeldas
     End Function
 
