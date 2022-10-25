@@ -114,7 +114,7 @@ Partial Class Tec_Personal
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1212, 716)
+        Me.Panel1.Size = New System.Drawing.Size(1212, 732)
         Me.Panel1.TabIndex = 5
         '
         'PanelSuperior
@@ -123,7 +123,7 @@ Partial Class Tec_Personal
         Me.PanelSuperior.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelSuperior.Location = New System.Drawing.Point(0, 0)
         Me.PanelSuperior.Name = "PanelSuperior"
-        Me.PanelSuperior.Size = New System.Drawing.Size(1212, 656)
+        Me.PanelSuperior.Size = New System.Drawing.Size(1212, 672)
         Me.PanelSuperior.TabIndex = 1
         '
         'PanelLEft
@@ -132,7 +132,7 @@ Partial Class Tec_Personal
         Me.PanelLEft.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelLEft.Location = New System.Drawing.Point(0, 0)
         Me.PanelLEft.Name = "PanelLEft"
-        Me.PanelLEft.Size = New System.Drawing.Size(1212, 656)
+        Me.PanelLEft.Size = New System.Drawing.Size(1212, 672)
         Me.PanelLEft.TabIndex = 0
         '
         'Panel8
@@ -144,7 +144,7 @@ Partial Class Tec_Personal
         Me.Panel8.Location = New System.Drawing.Point(0, 0)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel8.Size = New System.Drawing.Size(1212, 656)
+        Me.Panel8.Size = New System.Drawing.Size(1212, 672)
         Me.Panel8.TabIndex = 1
         '
         'PanelDatos
@@ -155,7 +155,7 @@ Partial Class Tec_Personal
         Me.PanelDatos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelDatos.Location = New System.Drawing.Point(3, 30)
         Me.PanelDatos.Name = "PanelDatos"
-        Me.PanelDatos.Size = New System.Drawing.Size(1206, 623)
+        Me.PanelDatos.Size = New System.Drawing.Size(1206, 639)
         Me.PanelDatos.TabIndex = 2
         '
         'GroupPanel4
@@ -169,7 +169,7 @@ Partial Class Tec_Personal
         Me.GroupPanel4.Location = New System.Drawing.Point(517, 0)
         Me.GroupPanel4.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupPanel4.Name = "GroupPanel4"
-        Me.GroupPanel4.Size = New System.Drawing.Size(689, 623)
+        Me.GroupPanel4.Size = New System.Drawing.Size(689, 639)
         '
         '
         '
@@ -210,7 +210,7 @@ Partial Class Tec_Personal
         Me.Panel5.Location = New System.Drawing.Point(0, 0)
         Me.Panel5.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(683, 596)
+        Me.Panel5.Size = New System.Drawing.Size(683, 612)
         Me.Panel5.TabIndex = 0
         '
         'JGrM_Buscador
@@ -248,7 +248,7 @@ Partial Class Tec_Personal
         Me.JGrM_Buscador.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.JGrM_Buscador.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
         Me.JGrM_Buscador.SelectedInactiveFormatStyle.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.JGrM_Buscador.Size = New System.Drawing.Size(683, 596)
+        Me.JGrM_Buscador.Size = New System.Drawing.Size(683, 612)
         Me.JGrM_Buscador.TabIndex = 20
         Me.JGrM_Buscador.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
         Me.JGrM_Buscador.TableSpacing = 9
@@ -320,7 +320,7 @@ Partial Class Tec_Personal
         Me.PanelCampos.Dock = System.Windows.Forms.DockStyle.Left
         Me.PanelCampos.Location = New System.Drawing.Point(0, 0)
         Me.PanelCampos.Name = "PanelCampos"
-        Me.PanelCampos.Size = New System.Drawing.Size(517, 623)
+        Me.PanelCampos.Size = New System.Drawing.Size(517, 639)
         Me.PanelCampos.TabIndex = 0
         '
         'tbPorcentajeComision
@@ -339,6 +339,7 @@ Partial Class Tec_Personal
         Me.tbPorcentajeComision.Name = "tbPorcentajeComision"
         Me.tbPorcentajeComision.Size = New System.Drawing.Size(220, 24)
         Me.tbPorcentajeComision.TabIndex = 230
+        Me.tbPorcentajeComision.Visible = False
         Me.tbPorcentajeComision.WatermarkAlignment = DevComponents.Editors.eTextAlignment.Right
         '
         'LabelX14
@@ -359,6 +360,7 @@ Partial Class Tec_Personal
         Me.LabelX14.TabIndex = 231
         Me.LabelX14.Text = "Porcentaje Comisión % :"
         Me.LabelX14.TextAlignment = System.Drawing.StringAlignment.Far
+        Me.LabelX14.Visible = False
         '
         'tbFechaNacimiento
         '
@@ -824,7 +826,7 @@ Partial Class Tec_Personal
         Me.PanelButton.Controls.Add(Me.PanelToolBar1)
         Me.PanelButton.Controls.Add(Me.PanelNavegacion)
         Me.PanelButton.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PanelButton.Location = New System.Drawing.Point(0, 656)
+        Me.PanelButton.Location = New System.Drawing.Point(0, 672)
         Me.PanelButton.Name = "PanelButton"
         Me.PanelButton.Size = New System.Drawing.Size(1212, 60)
         Me.PanelButton.TabIndex = 15
@@ -1039,7 +1041,7 @@ Partial Class Tec_Personal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1212, 716)
+        Me.ClientSize = New System.Drawing.Size(1212, 732)
         Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Tec_Personal"
