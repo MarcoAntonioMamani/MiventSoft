@@ -161,11 +161,11 @@ Partial Class Tec_Principal
         Me.SuperTabControlMenu.ControlBox.MenuBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControlMenu.ControlBox.MenuBox, Me.SuperTabControlMenu.ControlBox.CloseBox})
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel10)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel8)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel9)
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel6)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel1)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel2)
@@ -179,7 +179,7 @@ Partial Class Tec_Principal
         Me.SuperTabControlMenu.ReorderTabsEnabled = True
         Me.SuperTabControlMenu.SelectedTabFont = New System.Drawing.Font("Calibri", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControlMenu.SelectedTabIndex = 1
-        Me.SuperTabControlMenu.Size = New System.Drawing.Size(1458, 693)
+        Me.SuperTabControlMenu.Size = New System.Drawing.Size(1004, 693)
         Me.SuperTabControlMenu.TabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Left
         Me.SuperTabControlMenu.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControlMenu.TabIndex = 0
@@ -820,9 +820,9 @@ Partial Class Tec_Principal
         '
         Me.SuperTabControlPanel5.Controls.Add(Me.Panel_Ventas)
         Me.SuperTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel5.Location = New System.Drawing.Point(213, 0)
+        Me.SuperTabControlPanel5.Location = New System.Drawing.Point(220, 0)
         Me.SuperTabControlPanel5.Name = "SuperTabControlPanel5"
-        Me.SuperTabControlPanel5.Size = New System.Drawing.Size(1245, 693)
+        Me.SuperTabControlPanel5.Size = New System.Drawing.Size(784, 693)
         Me.SuperTabControlPanel5.TabIndex = 5
         Me.SuperTabControlPanel5.TabItem = Me.tab_compraventa
         '
@@ -842,12 +842,11 @@ Partial Class Tec_Principal
         Me.Panel_Ventas.DragDropSupport = True
         Me.Panel_Ventas.Items.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.ItemContainer2, Me.ItemContainer8})
         Me.Panel_Ventas.ItemSpacing = 10
-        Me.Panel_Ventas.LayoutOrientation = DevComponents.DotNetBar.eOrientation.Vertical
         Me.Panel_Ventas.Location = New System.Drawing.Point(0, 0)
         Me.Panel_Ventas.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel_Ventas.MultiLine = True
         Me.Panel_Ventas.Name = "Panel_Ventas"
-        Me.Panel_Ventas.Size = New System.Drawing.Size(1245, 693)
+        Me.Panel_Ventas.Size = New System.Drawing.Size(784, 693)
         Me.Panel_Ventas.TabIndex = 4
         Me.Panel_Ventas.Text = "mtp2Logistica"
         '
@@ -2020,7 +2019,7 @@ Partial Class Tec_Principal
         Me.PanelPrincipal.Location = New System.Drawing.Point(0, 0)
         Me.PanelPrincipal.Name = "PanelPrincipal"
         Me.PanelPrincipal.Padding = New System.Windows.Forms.Padding(10)
-        Me.PanelPrincipal.Size = New System.Drawing.Size(1478, 753)
+        Me.PanelPrincipal.Size = New System.Drawing.Size(1024, 753)
         Me.PanelPrincipal.TabIndex = 1
         '
         'PanelContentSuperior
@@ -2037,7 +2036,7 @@ Partial Class Tec_Principal
         Me.PanelContentSuperior.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelContentSuperior.Location = New System.Drawing.Point(10, 10)
         Me.PanelContentSuperior.Name = "PanelContentSuperior"
-        Me.PanelContentSuperior.Size = New System.Drawing.Size(1458, 40)
+        Me.PanelContentSuperior.Size = New System.Drawing.Size(1004, 40)
         Me.PanelContentSuperior.TabIndex = 1
         '
         'btnSucursal
@@ -2050,7 +2049,7 @@ Partial Class Tec_Principal
         Me.btnSucursal.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSucursal.Image = CType(resources.GetObject("btnSucursal.Image"), System.Drawing.Image)
         Me.btnSucursal.ImageFixedSize = New System.Drawing.Size(25, 25)
-        Me.btnSucursal.Location = New System.Drawing.Point(612, 0)
+        Me.btnSucursal.Location = New System.Drawing.Point(158, 0)
         Me.btnSucursal.Margin = New System.Windows.Forms.Padding(4)
         Me.btnSucursal.Name = "btnSucursal"
         Me.btnSucursal.Size = New System.Drawing.Size(132, 40)
@@ -2072,7 +2071,7 @@ Partial Class Tec_Principal
         Me.btnTipoCambio.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnTipoCambio.Image = CType(resources.GetObject("btnTipoCambio.Image"), System.Drawing.Image)
         Me.btnTipoCambio.ImageFixedSize = New System.Drawing.Size(25, 25)
-        Me.btnTipoCambio.Location = New System.Drawing.Point(744, 0)
+        Me.btnTipoCambio.Location = New System.Drawing.Point(290, 0)
         Me.btnTipoCambio.Margin = New System.Windows.Forms.Padding(4)
         Me.btnTipoCambio.Name = "btnTipoCambio"
         Me.btnTipoCambio.Size = New System.Drawing.Size(197, 43)
@@ -2095,7 +2094,7 @@ Partial Class Tec_Principal
         Me.btnUser.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnUser.Image = CType(resources.GetObject("btnUser.Image"), System.Drawing.Image)
         Me.btnUser.ImageFixedSize = New System.Drawing.Size(25, 25)
-        Me.btnUser.Location = New System.Drawing.Point(941, 0)
+        Me.btnUser.Location = New System.Drawing.Point(487, 0)
         Me.btnUser.Margin = New System.Windows.Forms.Padding(4)
         Me.btnUser.Name = "btnUser"
         Me.btnUser.Size = New System.Drawing.Size(128, 40)
@@ -2119,7 +2118,7 @@ Partial Class Tec_Principal
         Me.btnFecha.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnFecha.Image = CType(resources.GetObject("btnFecha.Image"), System.Drawing.Image)
         Me.btnFecha.ImageFixedSize = New System.Drawing.Size(25, 25)
-        Me.btnFecha.Location = New System.Drawing.Point(1069, 0)
+        Me.btnFecha.Location = New System.Drawing.Point(615, 0)
         Me.btnFecha.Margin = New System.Windows.Forms.Padding(4)
         Me.btnFecha.Name = "btnFecha"
         Me.btnFecha.Size = New System.Drawing.Size(148, 40)
@@ -2137,7 +2136,7 @@ Partial Class Tec_Principal
         Me.btnSalir.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSalir.Image = CType(resources.GetObject("btnSalir.Image"), System.Drawing.Image)
         Me.btnSalir.ImageFixedSize = New System.Drawing.Size(25, 25)
-        Me.btnSalir.Location = New System.Drawing.Point(1217, 0)
+        Me.btnSalir.Location = New System.Drawing.Point(763, 0)
         Me.btnSalir.Margin = New System.Windows.Forms.Padding(4)
         Me.btnSalir.Name = "btnSalir"
         Me.btnSalir.Size = New System.Drawing.Size(98, 43)
@@ -2155,7 +2154,7 @@ Partial Class Tec_Principal
         Me.btnCerrarSesion.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnCerrarSesion.Image = Global.TeVendo.My.Resources.Resources.atras1
         Me.btnCerrarSesion.ImageFixedSize = New System.Drawing.Size(25, 25)
-        Me.btnCerrarSesion.Location = New System.Drawing.Point(1315, 0)
+        Me.btnCerrarSesion.Location = New System.Drawing.Point(861, 0)
         Me.btnCerrarSesion.Margin = New System.Windows.Forms.Padding(4)
         Me.btnCerrarSesion.Name = "btnCerrarSesion"
         Me.btnCerrarSesion.Size = New System.Drawing.Size(143, 43)
@@ -2191,7 +2190,7 @@ Partial Class Tec_Principal
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.AutoSize = True
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(1478, 753)
+        Me.ClientSize = New System.Drawing.Size(1024, 753)
         Me.Controls.Add(Me.PanelPrincipal)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Name = "Tec_Principal"

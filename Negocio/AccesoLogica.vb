@@ -3487,7 +3487,6 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@tipo", 2))
         _listParam.Add(New Datos.DParametro("@Id", _numi))
         _listParam.Add(New Datos.DParametro("@Fecha", Fecha))
-
         _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
         _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
         _listParam.Add(New Datos.DParametro("@MontoInicial", MontoInicial))
@@ -3497,12 +3496,12 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@TotalCobranzas", TotalCobranzas))
         _listParam.Add(New Datos.DParametro("@TotalIngresos", TotalIngresos))
         _listParam.Add(New Datos.DParametro("@TotalEgreso", TotalEgresos))
-        _listParam.Add(New Datos.DParametro("@TotalCaja", TotalCaja))
+        _listParam.Add(New Datos.DParametro("@TotalCaja", Math.Round(TotalCaja, 2)))
         _listParam.Add(New Datos.DParametro("@TotalEfectivo", TotalEfectivo))
         _listParam.Add(New Datos.DParametro("@Totaltransferencia", TotalTransferencia))
         _listParam.Add(New Datos.DParametro("@TotalTarjeta", TotalTarjeta))
         _listParam.Add(New Datos.DParametro("@TotalEfectivoRecibido", TotalEfectivoRecibido))
-        _listParam.Add(New Datos.DParametro("@Diferencia", Diferencia))
+        _listParam.Add(New Datos.DParametro("@Diferencia", Math.Round(Diferencia, 2)))
         _listParam.Add(New Datos.DParametro("@Observacion", Observacion))
 
         _listParam.Add(New Datos.DParametro("@CorteBilletes", "", dtCortes))
