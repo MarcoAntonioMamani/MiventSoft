@@ -625,13 +625,13 @@ Public Class Tec_AdministrarCuentasPorPagar
 
         Dim listEstCeldas As New List(Of Celda)
         listEstCeldas.Add(New Celda("Id", False, "Credito", 70))
-        listEstCeldas.Add(New Celda("Credito", True, "Credito", 170))
-        listEstCeldas.Add(New Celda("Compra", True, "Compra", 170))
-        listEstCeldas.Add(New Celda("Nombre", True, "Proveedor", 220))
+        listEstCeldas.Add(New Celda("Credito", True, "Credito", 200))
+        listEstCeldas.Add(New Celda("Compra", True, "Compra", 200))
+        listEstCeldas.Add(New Celda("Nombre", True, "Proveedor", 180))
         listEstCeldas.Add(New Celda("Monto", True, "Monto", 80, "0.00"))
         listEstCeldas.Add(New Celda("abonado", True, "Abonado", 80, "0.00"))
         listEstCeldas.Add(New Celda("Restante", True, "Restante", 80, "0.00"))
-        listEstCeldas.Add(New Celda("FechaVencimientoCredito", True, "Venc.Credito", 100, "dd/MM/yyyy"))
+        listEstCeldas.Add(New Celda("FechaVencimientoCredito", True, "Venc.Credito", 90, "dd/MM/yyyy"))
         listEstCeldas.Add(New Celda("DiasMora", False, "Mora".ToUpper, 70, "0"))
         Dim ef = New Efecto
         ef.tipo = 6
@@ -834,13 +834,13 @@ Public Class Tec_AdministrarCuentasPorPagar
 
         Dim listEstCeldas As New List(Of Celda)
         listEstCeldas.Add(New Celda("Id", False, "Credito", 50))
-        listEstCeldas.Add(New Celda("Credito", True, "Credito", 90))
-        listEstCeldas.Add(New Celda("Compra", True, "Compra", 90))
-        listEstCeldas.Add(New Celda("Nombre", True, "Proveedor", 350))
+        listEstCeldas.Add(New Celda("Credito", True, "Credito", 180))
+        listEstCeldas.Add(New Celda("Compra", True, "Compra", 180))
+        listEstCeldas.Add(New Celda("Nombre", True, "Proveedor", 180))
         listEstCeldas.Add(New Celda("Monto", True, "Monto", 90, "0.00"))
         listEstCeldas.Add(New Celda("abonado", True, "Abonado", 90, "0.00"))
         listEstCeldas.Add(New Celda("Restante", True, "Restante", 90, "0.00"))
-        listEstCeldas.Add(New Celda("FechaVencimientoCredito", True, "Venc.Credito".ToUpper, 100, "dd/MM/yyyy"))
+        listEstCeldas.Add(New Celda("FechaVencimientoCredito", True, "Venc.Credito".ToUpper, 80, "dd/MM/yyyy"))
         listEstCeldas.Add(New Celda("DiasMora", True, "Mora".ToUpper, 70, "0"))
         Dim ef = New Efecto
         ef.tipo = 6
