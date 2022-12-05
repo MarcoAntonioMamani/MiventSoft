@@ -254,7 +254,7 @@ Public Class Tec_VentasDetalle
         End With
         With grDetalle.RootTable.Columns("TipoNombre")
             .Width = 60
-            .Visible = True
+            .Visible = False
             .Caption = "Tipo"
         End With
         With grDetalle.RootTable.Columns("KitId")
@@ -264,7 +264,7 @@ Public Class Tec_VentasDetalle
         End With
         With grDetalle.RootTable.Columns("KitNombre")
             .Width = 100
-            .Visible = True
+            .Visible = False
             .Caption = "Kit"
             .WordWrap = True
             .MaxLines = 3
@@ -272,34 +272,37 @@ Public Class Tec_VentasDetalle
 
         With grDetalle.RootTable.Columns("ProductoId")
             .Width = 30
-            .Visible = True
+            .Visible = False
             .Caption = "Cod Producto"
         End With
 
         With grDetalle.RootTable.Columns("Producto")
-            .Width = 150
+            .Width = 200
             .Caption = "Producto"
             .Visible = True
+            .WordWrap = True
+            .MaxLines = 3
+
         End With
 
         With grDetalle.RootTable.Columns("CantidadKit")
             .Width = 40
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "CantidadKit"
         End With
         With grDetalle.RootTable.Columns("Cantidad")
-            .Width = 50
+            .Width = 60
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "Cantidad".ToUpper
+            .Caption = "Cantidad"
         End With
 
 
         With grDetalle.RootTable.Columns("Precio")
-            .Width = 50
+            .Width = 60
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .Caption = "Precio"
@@ -323,7 +326,7 @@ Public Class Tec_VentasDetalle
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0"
-            .Caption = "%.Descuento".ToUpper
+            .Caption = "%.Descuento"
         End With
 
         With grDetalle.RootTable.Columns("MontoDescuento")
@@ -331,14 +334,14 @@ Public Class Tec_VentasDetalle
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "M.Descuento".ToUpper
+            .Caption = "M.Descuento"
         End With
 
 
         With grDetalle.RootTable.Columns("Total")
             .Width = 60
             .Visible = True
-            .Caption = "Total".ToUpper
+            .Caption = "Total"
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum

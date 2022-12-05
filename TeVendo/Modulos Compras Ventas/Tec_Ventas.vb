@@ -232,7 +232,6 @@ Public Class Tec_Ventas
             '_modulo.Select()
             '_tab.Close()
             TabControlPrincipal.SelectedTabIndex = 1
-            'Me.Close()
 
         End If
     End Sub

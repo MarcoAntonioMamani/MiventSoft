@@ -99,27 +99,27 @@ Partial Class Tec_VentasDetalle
         Me.grProducto.HeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
         Me.grProducto.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
         Me.grProducto.HeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
-        Me.grProducto.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grProducto.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grProducto.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
         Me.grProducto.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
-        Me.grProducto.Location = New System.Drawing.Point(0, 143)
+        Me.grProducto.Location = New System.Drawing.Point(0, 148)
         Me.grProducto.Margin = New System.Windows.Forms.Padding(4)
         Me.grProducto.Name = "grProducto"
         Me.grProducto.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.grProducto.Office2007CustomColor = System.Drawing.Color.DodgerBlue
         Me.grProducto.RecordNavigator = True
-        Me.grProducto.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grProducto.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grProducto.RowHeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
         Me.grProducto.RowHeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.Transparent
         Me.grProducto.RowHeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
         Me.grProducto.RowHeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
         Me.grProducto.RowHeaderFormatStyle.BackgroundImageDrawMode = Janus.Windows.GridEX.BackgroundImageDrawMode.Center
-        Me.grProducto.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grProducto.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grProducto.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
         Me.grProducto.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
-        Me.grProducto.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grProducto.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grProducto.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grProducto.Size = New System.Drawing.Size(1095, 440)
+        Me.grProducto.Size = New System.Drawing.Size(1095, 435)
         Me.grProducto.TabIndex = 4
         Me.grProducto.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grProducto.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -141,7 +141,7 @@ Partial Class Tec_VentasDetalle
         Me.Panel5.Location = New System.Drawing.Point(0, 36)
         Me.Panel5.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(1095, 107)
+        Me.Panel5.Size = New System.Drawing.Size(1095, 112)
         Me.Panel5.TabIndex = 3
         '
         'cbPrecios
@@ -154,18 +154,18 @@ Partial Class Tec_VentasDetalle
         cbPrecios_DesignTimeLayout.LayoutString = resources.GetString("cbPrecios_DesignTimeLayout.LayoutString")
         Me.cbPrecios.DesignTimeLayout = cbPrecios_DesignTimeLayout
         Me.cbPrecios.FlatBorderColor = System.Drawing.Color.Black
-        Me.cbPrecios.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbPrecios.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbPrecios.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
         Me.cbPrecios.HideSelection = False
         Me.cbPrecios.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.cbPrecios.Location = New System.Drawing.Point(299, 53)
+        Me.cbPrecios.Location = New System.Drawing.Point(299, 56)
         Me.cbPrecios.Margin = New System.Windows.Forms.Padding(4)
         Me.cbPrecios.Name = "cbPrecios"
         Me.cbPrecios.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.cbPrecios.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
         Me.cbPrecios.SelectedIndex = -1
         Me.cbPrecios.SelectedItem = Nothing
-        Me.cbPrecios.Size = New System.Drawing.Size(332, 28)
+        Me.cbPrecios.Size = New System.Drawing.Size(332, 32)
         Me.cbPrecios.TabIndex = 378
         Me.cbPrecios.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -176,15 +176,15 @@ Partial Class Tec_VentasDetalle
         '
         '
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX1.Font = New System.Drawing.Font("Georgia", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX1.Font = New System.Drawing.Font("Georgia", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX1.Location = New System.Drawing.Point(4, 53)
+        Me.LabelX1.Location = New System.Drawing.Point(26, 53)
         Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX1.Size = New System.Drawing.Size(287, 28)
+        Me.LabelX1.Size = New System.Drawing.Size(231, 50)
         Me.LabelX1.TabIndex = 377
-        Me.LabelX1.Text = "Seleccione Categoria Precio a Vender:"
+        Me.LabelX1.Text = "Seleccione Categoria" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Precio a Vender:"
         '
         'btnProductos
         '
@@ -193,7 +193,7 @@ Partial Class Tec_VentasDetalle
         Me.btnProductos.Font = New System.Drawing.Font("Calibri", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnProductos.Image = Global.TeVendo.My.Resources.Resources.search
         Me.btnProductos.ImageFixedSize = New System.Drawing.Size(24, 24)
-        Me.btnProductos.Location = New System.Drawing.Point(883, 7)
+        Me.btnProductos.Location = New System.Drawing.Point(892, 18)
         Me.btnProductos.Margin = New System.Windows.Forms.Padding(4)
         Me.btnProductos.Name = "btnProductos"
         Me.btnProductos.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
@@ -211,10 +211,10 @@ Partial Class Tec_VentasDetalle
         '
         Me.btnConfirmarSalir.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnConfirmarSalir.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.btnConfirmarSalir.Font = New System.Drawing.Font("Calibri", 9.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnConfirmarSalir.Font = New System.Drawing.Font("Calibri", 12.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnConfirmarSalir.Image = Global.TeVendo.My.Resources.Resources.search
         Me.btnConfirmarSalir.ImageFixedSize = New System.Drawing.Size(22, 22)
-        Me.btnConfirmarSalir.Location = New System.Drawing.Point(639, 7)
+        Me.btnConfirmarSalir.Location = New System.Drawing.Point(656, 18)
         Me.btnConfirmarSalir.Margin = New System.Windows.Forms.Padding(4)
         Me.btnConfirmarSalir.Name = "btnConfirmarSalir"
         Me.btnConfirmarSalir.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
@@ -234,13 +234,13 @@ Partial Class Tec_VentasDetalle
         '
         '
         Me.LabelX9.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX9.Font = New System.Drawing.Font("Georgia", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX9.Font = New System.Drawing.Font("Georgia", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX9.Location = New System.Drawing.Point(84, 17)
+        Me.LabelX9.Location = New System.Drawing.Point(26, 17)
         Me.LabelX9.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX9.Name = "LabelX9"
         Me.LabelX9.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX9.Size = New System.Drawing.Size(151, 28)
+        Me.LabelX9.Size = New System.Drawing.Size(209, 28)
         Me.LabelX9.TabIndex = 374
         Me.LabelX9.Text = "Buscar Producto:"
         '
@@ -252,13 +252,13 @@ Partial Class Tec_VentasDetalle
         '
         Me.tbProducto.Border.Class = "TextBoxBorder"
         Me.tbProducto.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbProducto.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbProducto.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbProducto.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tbProducto.Location = New System.Drawing.Point(299, 18)
         Me.tbProducto.Margin = New System.Windows.Forms.Padding(4)
         Me.tbProducto.Name = "tbProducto"
         Me.tbProducto.PreventEnterBeep = True
-        Me.tbProducto.Size = New System.Drawing.Size(332, 24)
+        Me.tbProducto.Size = New System.Drawing.Size(332, 30)
         Me.tbProducto.TabIndex = 1
         '
         'Panel10
@@ -357,7 +357,7 @@ Partial Class Tec_VentasDetalle
         Me.grDetalle.HeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
         Me.grDetalle.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
         Me.grDetalle.HeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
-        Me.grDetalle.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grDetalle.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grDetalle.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
         Me.grDetalle.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
         Me.grDetalle.Location = New System.Drawing.Point(0, 36)
@@ -366,16 +366,16 @@ Partial Class Tec_VentasDetalle
         Me.grDetalle.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.grDetalle.Office2007CustomColor = System.Drawing.Color.DodgerBlue
         Me.grDetalle.RecordNavigator = True
-        Me.grDetalle.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grDetalle.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grDetalle.RowHeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
         Me.grDetalle.RowHeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.Transparent
         Me.grDetalle.RowHeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
         Me.grDetalle.RowHeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
         Me.grDetalle.RowHeaderFormatStyle.BackgroundImageDrawMode = Janus.Windows.GridEX.BackgroundImageDrawMode.Center
-        Me.grDetalle.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grDetalle.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grDetalle.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
         Me.grDetalle.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
-        Me.grDetalle.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grDetalle.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grDetalle.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
         Me.grDetalle.Size = New System.Drawing.Size(1095, 169)
         Me.grDetalle.TabIndex = 5
