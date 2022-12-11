@@ -135,7 +135,7 @@
     </Reference>
     <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="Gma.QrCodeNet.Encoding">
-      <HintPath>..\..\..\..\DINASES\Google Drive\Librerias\QrCode\Gma.QrCodeNet.Encoding.dll</HintPath>
+      <HintPath>..\..\..\MinventSoft-Accesorios\MiventSoft\TeVendo\bin\Debug\Gma.QrCodeNet.Encoding.dll</HintPath>
     </Reference>
     <Reference Include="GMap.NET.Core">
       <HintPath>..\..\..\..\DINASES\Google Drive\Librerias\GMap\GMap.NET.Core.dll</HintPath>
