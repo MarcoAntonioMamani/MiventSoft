@@ -208,6 +208,7 @@ Partial Class Form_Cuentas
         Me.JGrM_Buscador.BackColor = System.Drawing.Color.White
         Me.JGrM_Buscador.BorderStyle = Janus.Windows.GridEX.BorderStyle.Raised
         Me.JGrM_Buscador.ColumnAutoResize = True
+        Me.JGrM_Buscador.ContextMenuStrip = Me.MeuOpciones
         Me.JGrM_Buscador.Dock = System.Windows.Forms.DockStyle.Fill
         Me.JGrM_Buscador.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
         Me.JGrM_Buscador.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -359,11 +360,11 @@ Partial Class Form_Cuentas
         Me.swMoneda.Location = New System.Drawing.Point(203, 217)
         Me.swMoneda.Margin = New System.Windows.Forms.Padding(4)
         Me.swMoneda.Name = "swMoneda"
-        Me.swMoneda.OffBackColor = System.Drawing.Color.ForestGreen
-        Me.swMoneda.OffText = "Bs"
+        Me.swMoneda.OffBackColor = System.Drawing.Color.OliveDrab
+        Me.swMoneda.OffText = "$us"
         Me.swMoneda.OffTextColor = System.Drawing.Color.White
-        Me.swMoneda.OnBackColor = System.Drawing.Color.MediumTurquoise
-        Me.swMoneda.OnText = "$us"
+        Me.swMoneda.OnBackColor = System.Drawing.Color.Lime
+        Me.swMoneda.OnText = "Bs"
         Me.swMoneda.OnTextColor = System.Drawing.Color.White
         Me.swMoneda.Size = New System.Drawing.Size(133, 27)
         Me.swMoneda.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled

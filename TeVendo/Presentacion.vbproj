@@ -385,6 +385,12 @@
     <Compile Include="Modulo Configuracion\Formulario_Reportevb.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modulo Configuracion\Form_Cuentas.Designer.vb">
+      <DependentUpon>Form_Cuentas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo Configuracion\Form_Cuentas.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Modulo Configuracion\TecCategorias.Designer.vb">
       <DependentUpon>TecCategorias.vb</DependentUpon>
     </Compile>
@@ -947,6 +953,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo Configuracion\Formulario_Reportevb.resx">
       <DependentUpon>Formulario_Reportevb.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo Configuracion\Form_Cuentas.resx">
+      <DependentUpon>Form_Cuentas.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo Configuracion\TecCategorias.resx">
       <DependentUpon>TecCategorias.vb</DependentUpon>

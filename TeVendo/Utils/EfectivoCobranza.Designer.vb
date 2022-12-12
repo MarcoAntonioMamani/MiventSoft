@@ -22,6 +22,8 @@ Partial Class EfectivoCobranza
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim cbCuentaTransferencia_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(EfectivoCobranza))
         Me.Panel14 = New System.Windows.Forms.Panel()
         Me.Panel15 = New System.Windows.Forms.Panel()
         Me.lbTitulo = New System.Windows.Forms.Label()
@@ -38,6 +40,8 @@ Partial Class EfectivoCobranza
         Me.tbTotalPagado = New DevComponents.Editors.DoubleInput()
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.lblCuentaTransferencia = New DevComponents.DotNetBar.LabelX()
+        Me.cbCuentaTransferencia = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.chkMontoBs = New DevComponents.DotNetBar.Controls.CheckBoxX()
         Me.lbDolar = New DevComponents.DotNetBar.LabelX()
         Me.chkTransferencia = New DevComponents.DotNetBar.Controls.CheckBoxX()
@@ -61,6 +65,7 @@ Partial Class EfectivoCobranza
         CType(Me.tbCambio, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbTotalPagado, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox3.SuspendLayout()
+        CType(Me.cbCuentaTransferencia, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbTransferencia, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbTarjeta, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbMontoBs, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -77,7 +82,7 @@ Partial Class EfectivoCobranza
         Me.Panel14.Location = New System.Drawing.Point(0, 0)
         Me.Panel14.Name = "Panel14"
         Me.Panel14.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel14.Size = New System.Drawing.Size(1002, 36)
+        Me.Panel14.Size = New System.Drawing.Size(1058, 36)
         Me.Panel14.TabIndex = 6
         '
         'Panel15
@@ -89,7 +94,7 @@ Partial Class EfectivoCobranza
         Me.Panel15.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel15.Location = New System.Drawing.Point(1, 1)
         Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(1000, 34)
+        Me.Panel15.Size = New System.Drawing.Size(1056, 34)
         Me.Panel15.TabIndex = 4
         '
         'lbTitulo
@@ -101,7 +106,7 @@ Partial Class EfectivoCobranza
         Me.lbTitulo.Location = New System.Drawing.Point(59, 0)
         Me.lbTitulo.Name = "lbTitulo"
         Me.lbTitulo.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
-        Me.lbTitulo.Size = New System.Drawing.Size(941, 34)
+        Me.lbTitulo.Size = New System.Drawing.Size(997, 34)
         Me.lbTitulo.TabIndex = 10
         Me.lbTitulo.Text = "Registrar Monto A Pagar"
         Me.lbTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -135,7 +140,7 @@ Partial Class EfectivoCobranza
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 36)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1002, 317)
+        Me.Panel1.Size = New System.Drawing.Size(1058, 338)
         Me.Panel1.TabIndex = 7
         '
         'Panel2
@@ -144,7 +149,7 @@ Partial Class EfectivoCobranza
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(0, 80)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1002, 237)
+        Me.Panel2.Size = New System.Drawing.Size(1058, 258)
         Me.Panel2.TabIndex = 1
         '
         'Panel20
@@ -154,7 +159,7 @@ Partial Class EfectivoCobranza
         Me.Panel20.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel20.Location = New System.Drawing.Point(0, 0)
         Me.Panel20.Name = "Panel20"
-        Me.Panel20.Size = New System.Drawing.Size(1002, 237)
+        Me.Panel20.Size = New System.Drawing.Size(1058, 258)
         Me.Panel20.TabIndex = 2
         '
         'GroupBox1
@@ -169,11 +174,11 @@ Partial Class EfectivoCobranza
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox1.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox1.ForeColor = System.Drawing.Color.Cornsilk
-        Me.GroupBox1.Location = New System.Drawing.Point(528, 0)
+        Me.GroupBox1.Location = New System.Drawing.Point(609, 0)
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox1.Size = New System.Drawing.Size(474, 237)
+        Me.GroupBox1.Size = New System.Drawing.Size(449, 258)
         Me.GroupBox1.TabIndex = 5
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Efectivo Pagado / Cambio:"
@@ -297,6 +302,8 @@ Partial Class EfectivoCobranza
         'GroupBox3
         '
         Me.GroupBox3.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.GroupBox3.Controls.Add(Me.lblCuentaTransferencia)
+        Me.GroupBox3.Controls.Add(Me.cbCuentaTransferencia)
         Me.GroupBox3.Controls.Add(Me.chkMontoBs)
         Me.GroupBox3.Controls.Add(Me.lbDolar)
         Me.GroupBox3.Controls.Add(Me.chkTransferencia)
@@ -313,10 +320,52 @@ Partial Class EfectivoCobranza
         Me.GroupBox3.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox3.Size = New System.Drawing.Size(528, 237)
+        Me.GroupBox3.Size = New System.Drawing.Size(609, 258)
         Me.GroupBox3.TabIndex = 1
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Efectivo Recibido:"
+        '
+        'lblCuentaTransferencia
+        '
+        Me.lblCuentaTransferencia.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.lblCuentaTransferencia.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.lblCuentaTransferencia.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCuentaTransferencia.ForeColor = System.Drawing.Color.White
+        Me.lblCuentaTransferencia.Location = New System.Drawing.Point(226, 167)
+        Me.lblCuentaTransferencia.Margin = New System.Windows.Forms.Padding(4)
+        Me.lblCuentaTransferencia.Name = "lblCuentaTransferencia"
+        Me.lblCuentaTransferencia.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.lblCuentaTransferencia.Size = New System.Drawing.Size(180, 22)
+        Me.lblCuentaTransferencia.TabIndex = 78
+        Me.lblCuentaTransferencia.Text = "Seleccione Cuenta"
+        '
+        'cbCuentaTransferencia
+        '
+        Me.cbCuentaTransferencia.BackColor = System.Drawing.Color.Azure
+        Me.cbCuentaTransferencia.ColorScheme = ""
+        Me.cbCuentaTransferencia.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.cbCuentaTransferencia.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
+        Me.cbCuentaTransferencia.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        cbCuentaTransferencia_DesignTimeLayout.LayoutString = resources.GetString("cbCuentaTransferencia_DesignTimeLayout.LayoutString")
+        Me.cbCuentaTransferencia.DesignTimeLayout = cbCuentaTransferencia_DesignTimeLayout
+        Me.cbCuentaTransferencia.FlatBorderColor = System.Drawing.Color.Black
+        Me.cbCuentaTransferencia.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbCuentaTransferencia.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbCuentaTransferencia.HideSelection = False
+        Me.cbCuentaTransferencia.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cbCuentaTransferencia.Location = New System.Drawing.Point(226, 194)
+        Me.cbCuentaTransferencia.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbCuentaTransferencia.Name = "cbCuentaTransferencia"
+        Me.cbCuentaTransferencia.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbCuentaTransferencia.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
+        Me.cbCuentaTransferencia.SelectedIndex = -1
+        Me.cbCuentaTransferencia.SelectedItem = Nothing
+        Me.cbCuentaTransferencia.Size = New System.Drawing.Size(370, 29)
+        Me.cbCuentaTransferencia.TabIndex = 77
+        Me.cbCuentaTransferencia.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'chkMontoBs
         '
@@ -349,7 +398,7 @@ Partial Class EfectivoCobranza
         Me.lbDolar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.lbDolar.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbDolar.ForeColor = System.Drawing.Color.White
-        Me.lbDolar.Location = New System.Drawing.Point(410, 67)
+        Me.lbDolar.Location = New System.Drawing.Point(426, 67)
         Me.lbDolar.Margin = New System.Windows.Forms.Padding(4)
         Me.lbDolar.Name = "lbDolar"
         Me.lbDolar.SingleLineColor = System.Drawing.SystemColors.Control
@@ -370,7 +419,7 @@ Partial Class EfectivoCobranza
         Me.chkTransferencia.BackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.DashDot
         Me.chkTransferencia.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.chkTransferencia.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkTransferencia.Location = New System.Drawing.Point(209, 102)
+        Me.chkTransferencia.Location = New System.Drawing.Point(9, 166)
         Me.chkTransferencia.Name = "chkTransferencia"
         Me.chkTransferencia.Size = New System.Drawing.Size(188, 23)
         Me.chkTransferencia.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
@@ -410,7 +459,7 @@ Partial Class EfectivoCobranza
         Me.tbTransferencia.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbTransferencia.ForeColor = System.Drawing.Color.Black
         Me.tbTransferencia.Increment = 1.0R
-        Me.tbTransferencia.Location = New System.Drawing.Point(209, 132)
+        Me.tbTransferencia.Location = New System.Drawing.Point(9, 196)
         Me.tbTransferencia.Margin = New System.Windows.Forms.Padding(4)
         Me.tbTransferencia.MinValue = 0R
         Me.tbTransferencia.Name = "tbTransferencia"
@@ -467,7 +516,7 @@ Partial Class EfectivoCobranza
         Me.tbMontoDolar.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbMontoDolar.ForeColor = System.Drawing.Color.Black
         Me.tbMontoDolar.Increment = 1.0R
-        Me.tbMontoDolar.Location = New System.Drawing.Point(209, 67)
+        Me.tbMontoDolar.Location = New System.Drawing.Point(225, 67)
         Me.tbMontoDolar.Margin = New System.Windows.Forms.Padding(4)
         Me.tbMontoDolar.MinValue = 0R
         Me.tbMontoDolar.Name = "tbMontoDolar"
@@ -484,7 +533,7 @@ Partial Class EfectivoCobranza
         Me.LabelX13.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX13.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX13.ForeColor = System.Drawing.Color.White
-        Me.LabelX13.Location = New System.Drawing.Point(209, 37)
+        Me.LabelX13.Location = New System.Drawing.Point(225, 37)
         Me.LabelX13.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX13.Name = "LabelX13"
         Me.LabelX13.SingleLineColor = System.Drawing.SystemColors.Control
@@ -504,7 +553,7 @@ Partial Class EfectivoCobranza
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox2.Size = New System.Drawing.Size(1002, 80)
+        Me.GroupBox2.Size = New System.Drawing.Size(1058, 80)
         Me.GroupBox2.TabIndex = 50
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Total Venta A Pagar:"
@@ -560,7 +609,7 @@ Partial Class EfectivoCobranza
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(1002, 353)
+        Me.ClientSize = New System.Drawing.Size(1058, 374)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Panel14)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
@@ -578,6 +627,7 @@ Partial Class EfectivoCobranza
         CType(Me.tbTotalPagado, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
+        CType(Me.cbCuentaTransferencia, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbTransferencia, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbTarjeta, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbMontoBs, System.ComponentModel.ISupportInitialize).EndInit()
@@ -617,4 +667,6 @@ Partial Class EfectivoCobranza
     Friend WithEvents tbTotalVenta As DevComponents.Editors.DoubleInput
     Friend WithEvents lbDolar As DevComponents.DotNetBar.LabelX
     Friend WithEvents chkMontoBs As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents lblCuentaTransferencia As DevComponents.DotNetBar.LabelX
+    Friend WithEvents cbCuentaTransferencia As Janus.Windows.GridEX.EditControls.MultiColumnCombo
 End Class

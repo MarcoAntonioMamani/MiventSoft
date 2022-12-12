@@ -49,6 +49,8 @@ Public Class Efecto
     Public MontoTarjeta As Double = 0
     Public MontoTransferencia As Double = 0
     Public TotalVenta As Double = 0
+    Public CuentaTransferenciaId As Integer = 0
+    Public CuentaTarjetaId As Integer = 0
 
     Public TipoPrograma As Integer = 1
     Public Id As Integer = 0
@@ -176,6 +178,8 @@ Public Class Efecto
             MontoDolares = frmAyuda.MontoDolares
             MontoTarjeta = frmAyuda.MontoTarjeta
             MontoTransferencia = frmAyuda.MontoTransferencia
+            CuentaTransferenciaId = frmAyuda.CuentaTransferenciaId
+            CuentaTarjetaId = frmAyuda.CuentaTransferenciaId
 
             band = True
             Me.Close()

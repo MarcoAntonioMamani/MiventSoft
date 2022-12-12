@@ -289,7 +289,7 @@ Public Class Form_Cuentas
         tbNroCuenta.ReadOnly = False
         cbBanco.ReadOnly = False
         swMoneda.IsReadOnly = False
-        cbTipoCuenta.Visible = True
+        cbTipoCuenta.ReadOnly = False
 
     End Sub
 
@@ -298,7 +298,7 @@ Public Class Form_Cuentas
         tbNroCuenta.ReadOnly = True
         cbBanco.ReadOnly = True
         swMoneda.IsReadOnly = True
-        cbTipoCuenta.Visible = False
+        cbTipoCuenta.ReadOnly = True
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -309,7 +309,7 @@ Public Class Form_Cuentas
         seleccionarPrimero(cbTipoCuenta)
     End Sub
     Public Sub seleccionarPrimero(combo As EditControls.MultiColumnCombo)
-        If (Not IsNothing(cbBanco.DataSource)) Then
+        If (Not IsNothing(combo.DataSource)) Then
             If (CType(combo.DataSource, DataTable).Rows.Count > 0) Then
                 combo.SelectedIndex = 0
             End If

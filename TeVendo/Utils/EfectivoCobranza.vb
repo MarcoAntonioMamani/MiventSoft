@@ -9,6 +9,7 @@ Public Class EfectivoCobranza
     Public TotalVenta As Double = 0
     Public Bandera As Boolean = False
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+    Public CuentaTransferenciaId As Integer = 0
 
     Private Sub EfectivoCobranza_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         tbMontoBs.Value = MontoBs
@@ -16,13 +17,21 @@ Public Class EfectivoCobranza
         tbTarjeta.Value = MontoTarjeta
         tbTransferencia.Value = MontoTransferencia
         tbTotalVenta.Value = TotalVenta
+        P_Global._prCargarComboGenerico(cbCuentaTransferencia, L_prCuentasCombo(), "id", "Codigo", "cuenta", "Cuenta Bancaria")
 
         Calculartotal()
         _habilitarFocus()
         tbMontoBs.Focus()
+        seleccionarPrimero(cbCuentaTransferencia)
 
 
-
+    End Sub
+    Public Sub seleccionarPrimero(combo As EditControls.MultiColumnCombo)
+        If (Not IsNothing(combo.DataSource)) Then
+            If (CType(combo.DataSource, DataTable).Rows.Count > 0) Then
+                combo.SelectedIndex = 0
+            End If
+        End If
     End Sub
     Public Sub _habilitarFocus()
         With Highlighter2
@@ -95,6 +104,13 @@ Public Class EfectivoCobranza
         'Catch ex As Exception
         '    chkTarjeta.CheckValue = False
         'End Try
+        If (tbTarjeta.Value > 0) Then
+            lblCuentaTransferencia.Visible = True
+            cbCuentaTransferencia.Visible = True
+        Else
+            lblCuentaTransferencia.Visible = False
+            cbCuentaTransferencia.Visible = False
+        End If
         Calculartotal()
 
     End Sub
@@ -110,6 +126,14 @@ Public Class EfectivoCobranza
         'Catch ex As Exception
         '    chkTransferencia.CheckValue = False
         'End Try
+
+        If (tbTransferencia.Value > 0) Then
+            lblCuentaTransferencia.Visible = True
+            cbCuentaTransferencia.Visible = True
+        Else
+            lblCuentaTransferencia.Visible = False
+            cbCuentaTransferencia.Visible = False
+        End If
         Calculartotal()
     End Sub
 
@@ -143,6 +167,7 @@ Public Class EfectivoCobranza
             MontoDolares = tbMontoDolar.Value
             MontoTarjeta = tbTarjeta.Value
             MontoTransferencia = tbTransferencia.Value
+            CuentaTransferenciaId = cbCuentaTransferencia.Value
             Bandera = True
             Me.Close()
 

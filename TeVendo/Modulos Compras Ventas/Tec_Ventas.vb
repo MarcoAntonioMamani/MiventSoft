@@ -1322,7 +1322,7 @@ salirIf:
 
                     Dim dt As DataTable = ListaVentasDetallePago(-1)
                     'a.Id , a.VentaId, a.MontoBs, a.MontoDolares, a.TarjetaBancaria, a.TransferenciaBancaria, a.TipoCambio, 1 as estado
-                    dt.Rows.Add(0, 0, ef.MontoBs, ef.MontoDolares, ef.MontoTarjeta, ef.MontoTransferencia, Global_TipoCambio, 0)
+                    dt.Rows.Add(0, 0, ef.MontoBs, ef.MontoDolares, ef.MontoTarjeta, ef.MontoTransferencia, Global_TipoCambio, IIf(ef.MontoTransferencia > 0, ef.CuentaTransferenciaId, 0), IIf(ef.MontoTarjeta > 0, ef.CuentaTarjetaId, 0), 0)
 
 
                     res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
@@ -1392,8 +1392,7 @@ salirIf:
 
                     Dim dt As DataTable = ListaVentasDetallePago(-1)
                     'a.Id , a.VentaId, a.MontoBs, a.MontoDolares, a.TarjetaBancaria, a.TransferenciaBancaria, a.TipoCambio, 1 as estado
-                    dt.Rows.Add(0, 0, ef.MontoBs, ef.MontoDolares, ef.MontoTarjeta, ef.MontoTransferencia, Global_TipoCambio, 0)
-
+                    dt.Rows.Add(0, 0, ef.MontoBs, ef.MontoDolares, ef.MontoTarjeta, ef.MontoTransferencia, Global_TipoCambio, IIf(ef.MontoTransferencia > 0, ef.CuentaTransferenciaId, 0), IIf(ef.MontoTarjeta > 0, ef.CuentaTarjetaId, 0), 0)
 
                     Res = VentaModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                    IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
