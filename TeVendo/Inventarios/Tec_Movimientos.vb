@@ -734,6 +734,7 @@ Public Class Tec_Movimientos
 
         btnSeleccionarProducto.Visible = True
         cbDepositos.ReadOnly = False
+        cbDepositoDestino.ReadOnly = False
         cbTipoMovimiento.ReadOnly = False
         tbDescripcion.ReadOnly = False
         tbFechaTransaccion.ReadOnly = False
@@ -745,7 +746,7 @@ Public Class Tec_Movimientos
         tbCodigo.ReadOnly = True
         btnSeleccionarProducto.Visible = False
 
-
+        cbDepositoDestino.ReadOnly = True
         cbDepositos.ReadOnly = True
         cbTipoMovimiento.ReadOnly = True
         tbDescripcion.ReadOnly = True

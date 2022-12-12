@@ -2502,6 +2502,30 @@ Public Class AccesoLogica
 
         Return _resultado
     End Function
+
+    Public Shared Function L_prCuentasBorrar(_numi As String, ByRef _mensaje As String) As Boolean
+
+        Dim _resultado As Boolean
+
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", -1))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Cuentas", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _resultado = True
+            'L_prTipoCambioGrabarHistorial(_numi, _fecha, _dolar, _ufv, "TIPO DE CAMBIO", 3)
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
     Public Shared Function L_prCategoriaInsertar(ByRef _numi As String, _NombreCategoria As String,
         _Descripcion As String, _estado As Integer, _Imagen As String, _VisibleApp As Integer,
                                                  _Empresa As Integer) As Boolean
@@ -2525,6 +2549,68 @@ Public Class AccesoLogica
 
 
         _Tabla = D_ProcedimientoConParam("MAM_Categorias", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _numi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function L_prCuentasInsertar(ByRef _numi As String, bancoId As Integer,
+                                               NroCuenta As String, TipoCuenta As Integer, Moneda As Integer) As Boolean
+        Dim _resultado As Boolean
+
+        '     INSERT INTO Categorias  VALUES(@Id,@NombreCategoria ,@DescripcionCategoria ,@Estado ,
+        '@Imagen ,@VisibleApp ,@newFecha,@newHora,@usuario )
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@BancoId", bancoId))
+        _listParam.Add(New Datos.DParametro("@NroCuenta", NroCuenta))
+        _listParam.Add(New Datos.DParametro("@TipoCuenta", TipoCuenta))
+        _listParam.Add(New Datos.DParametro("@Moneda", Moneda))
+
+
+        _Tabla = D_ProcedimientoConParam("MAM_Cuentas", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _numi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function L_prCuentasModificar(ByRef _numi As String, bancoId As Integer,
+                                               NroCuenta As String, TipoCuenta As Integer, Moneda As Integer) As Boolean
+        Dim _resultado As Boolean
+
+        '     INSERT INTO Categorias  VALUES(@Id,@NombreCategoria ,@DescripcionCategoria ,@Estado ,
+        '@Imagen ,@VisibleApp ,@newFecha,@newHora,@usuario )
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@BancoId", bancoId))
+        _listParam.Add(New Datos.DParametro("@NroCuenta", NroCuenta))
+        _listParam.Add(New Datos.DParametro("@TipoCuenta", TipoCuenta))
+        _listParam.Add(New Datos.DParametro("@Moneda", Moneda))
+
+
+        _Tabla = D_ProcedimientoConParam("MAM_Cuentas", _listParam)
 
         If _Tabla.Rows.Count > 0 Then
             _numi = _Tabla.Rows(0).Item(0)
