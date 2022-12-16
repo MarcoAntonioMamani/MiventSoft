@@ -33,6 +33,7 @@ Partial Class Tec_CierreCajaCajero
         Me.VerToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.EditarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EliminarToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ImprimirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
@@ -135,7 +136,6 @@ Partial Class Tec_CierreCajaCajero
         Me.SuperTabItem1 = New DevComponents.DotNetBar.SuperTabItem()
         Me.Highlighter2 = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.ImprimirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel2.SuspendLayout()
@@ -210,8 +210,8 @@ Partial Class Tec_CierreCajaCajero
         Me.TabControlPrincipal.ControlBox.MenuBox.Name = ""
         Me.TabControlPrincipal.ControlBox.Name = ""
         Me.TabControlPrincipal.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.TabControlPrincipal.ControlBox.MenuBox, Me.TabControlPrincipal.ControlBox.CloseBox})
-        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel2)
         Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel1)
+        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel2)
         Me.TabControlPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControlPrincipal.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.Location = New System.Drawing.Point(0, 0)
@@ -219,7 +219,7 @@ Partial Class Tec_CierreCajaCajero
         Me.TabControlPrincipal.ReorderTabsEnabled = True
         Me.TabControlPrincipal.SelectedTabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.SelectedTabIndex = 1
-        Me.TabControlPrincipal.Size = New System.Drawing.Size(1402, 676)
+        Me.TabControlPrincipal.Size = New System.Drawing.Size(1402, 690)
         Me.TabControlPrincipal.TabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Bottom
         Me.TabControlPrincipal.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.TabIndex = 5
@@ -309,7 +309,7 @@ Partial Class Tec_CierreCajaCajero
         Me.MeuOpciones.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.MeuOpciones.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VerToolStripMenuItem1, Me.EditarToolStripMenuItem, Me.EliminarToolStripMenuItem1, Me.ImprimirToolStripMenuItem})
         Me.MeuOpciones.Name = "MeuOpciones"
-        Me.MeuOpciones.Size = New System.Drawing.Size(215, 168)
+        Me.MeuOpciones.Size = New System.Drawing.Size(152, 140)
         Me.MeuOpciones.Text = "Opciones"
         '
         'VerToolStripMenuItem1
@@ -318,7 +318,7 @@ Partial Class Tec_CierreCajaCajero
         Me.VerToolStripMenuItem1.Image = Global.TeVendo.My.Resources.Resources.verRegistros2
         Me.VerToolStripMenuItem1.Name = "VerToolStripMenuItem1"
         Me.VerToolStripMenuItem1.Padding = New System.Windows.Forms.Padding(5)
-        Me.VerToolStripMenuItem1.Size = New System.Drawing.Size(155, 36)
+        Me.VerToolStripMenuItem1.Size = New System.Drawing.Size(161, 36)
         Me.VerToolStripMenuItem1.Text = "Ver"
         '
         'EditarToolStripMenuItem
@@ -327,7 +327,7 @@ Partial Class Tec_CierreCajaCajero
         Me.EditarToolStripMenuItem.Image = Global.TeVendo.My.Resources.Resources.edit
         Me.EditarToolStripMenuItem.Name = "EditarToolStripMenuItem"
         Me.EditarToolStripMenuItem.Padding = New System.Windows.Forms.Padding(5)
-        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(155, 36)
+        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(161, 36)
         Me.EditarToolStripMenuItem.Text = "Editar"
         '
         'EliminarToolStripMenuItem1
@@ -336,8 +336,16 @@ Partial Class Tec_CierreCajaCajero
         Me.EliminarToolStripMenuItem1.Image = Global.TeVendo.My.Resources.Resources.trash2
         Me.EliminarToolStripMenuItem1.Name = "EliminarToolStripMenuItem1"
         Me.EliminarToolStripMenuItem1.Padding = New System.Windows.Forms.Padding(5)
-        Me.EliminarToolStripMenuItem1.Size = New System.Drawing.Size(155, 36)
+        Me.EliminarToolStripMenuItem1.Size = New System.Drawing.Size(161, 36)
         Me.EliminarToolStripMenuItem1.Text = "Eliminar"
+        '
+        'ImprimirToolStripMenuItem
+        '
+        Me.ImprimirToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ImprimirToolStripMenuItem.Image = Global.TeVendo.My.Resources.Resources.printee
+        Me.ImprimirToolStripMenuItem.Name = "ImprimirToolStripMenuItem"
+        Me.ImprimirToolStripMenuItem.Size = New System.Drawing.Size(151, 28)
+        Me.ImprimirToolStripMenuItem.Text = "Imprimir"
         '
         'Panel4
         '
@@ -490,7 +498,7 @@ Partial Class Tec_CierreCajaCajero
         Me.SuperTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
-        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1402, 645)
+        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1402, 659)
         Me.SuperTabControlPanel1.TabIndex = 1
         Me.SuperTabControlPanel1.TabItem = Me.SuperTabItem1
         '
@@ -501,7 +509,7 @@ Partial Class Tec_CierreCajaCajero
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1402, 645)
+        Me.Panel1.Size = New System.Drawing.Size(1402, 659)
         Me.Panel1.TabIndex = 0
         '
         'PanelSuperior
@@ -512,7 +520,7 @@ Partial Class Tec_CierreCajaCajero
         Me.PanelSuperior.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelSuperior.Location = New System.Drawing.Point(0, 0)
         Me.PanelSuperior.Name = "PanelSuperior"
-        Me.PanelSuperior.Size = New System.Drawing.Size(1402, 608)
+        Me.PanelSuperior.Size = New System.Drawing.Size(1402, 622)
         Me.PanelSuperior.TabIndex = 1
         '
         'PanelRight
@@ -521,7 +529,7 @@ Partial Class Tec_CierreCajaCajero
         Me.PanelRight.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelRight.Location = New System.Drawing.Point(643, 0)
         Me.PanelRight.Name = "PanelRight"
-        Me.PanelRight.Size = New System.Drawing.Size(759, 608)
+        Me.PanelRight.Size = New System.Drawing.Size(759, 622)
         Me.PanelRight.TabIndex = 5
         '
         'Panel2
@@ -533,7 +541,7 @@ Partial Class Tec_CierreCajaCajero
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel2.Size = New System.Drawing.Size(759, 608)
+        Me.Panel2.Size = New System.Drawing.Size(759, 622)
         Me.Panel2.TabIndex = 1
         '
         'PanelImagenes
@@ -543,7 +551,7 @@ Partial Class Tec_CierreCajaCajero
         Me.PanelImagenes.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelImagenes.Location = New System.Drawing.Point(3, 30)
         Me.PanelImagenes.Name = "PanelImagenes"
-        Me.PanelImagenes.Size = New System.Drawing.Size(753, 575)
+        Me.PanelImagenes.Size = New System.Drawing.Size(753, 589)
         Me.PanelImagenes.TabIndex = 2
         '
         'PanelVerImagen
@@ -555,7 +563,7 @@ Partial Class Tec_CierreCajaCajero
         Me.PanelVerImagen.Location = New System.Drawing.Point(0, 0)
         Me.PanelVerImagen.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelVerImagen.Name = "PanelVerImagen"
-        Me.PanelVerImagen.Size = New System.Drawing.Size(753, 575)
+        Me.PanelVerImagen.Size = New System.Drawing.Size(753, 589)
         Me.PanelVerImagen.TabIndex = 2
         '
         'SuperTabControl1
@@ -583,7 +591,7 @@ Partial Class Tec_CierreCajaCajero
         Me.SuperTabControl1.ReorderTabsEnabled = True
         Me.SuperTabControl1.SelectedTabFont = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold)
         Me.SuperTabControl1.SelectedTabIndex = 0
-        Me.SuperTabControl1.Size = New System.Drawing.Size(753, 304)
+        Me.SuperTabControl1.Size = New System.Drawing.Size(753, 318)
         Me.SuperTabControl1.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControl1.TabIndex = 4
         Me.SuperTabControl1.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabItem3, Me.SuperTabItem4, Me.SuperTabItem5})
@@ -596,7 +604,7 @@ Partial Class Tec_CierreCajaCajero
         Me.SuperTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel3.Location = New System.Drawing.Point(0, 52)
         Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
-        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(753, 252)
+        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(753, 266)
         Me.SuperTabControlPanel3.TabIndex = 1
         Me.SuperTabControlPanel3.TabItem = Me.SuperTabItem3
         '
@@ -642,7 +650,7 @@ Partial Class Tec_CierreCajaCajero
         Me.grVentas.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.grVentas.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grVentas.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grVentas.Size = New System.Drawing.Size(753, 252)
+        Me.grVentas.Size = New System.Drawing.Size(753, 266)
         Me.grVentas.TabIndex = 3
         Me.grVentas.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grVentas.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -833,7 +841,7 @@ Partial Class Tec_CierreCajaCajero
         Me.panelProducto.Controls.Add(Me.LabelX6)
         Me.panelProducto.Controls.Add(Me.LabelX4)
         Me.panelProducto.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.panelProducto.Location = New System.Drawing.Point(0, 304)
+        Me.panelProducto.Location = New System.Drawing.Point(0, 318)
         Me.panelProducto.Name = "panelProducto"
         Me.panelProducto.Size = New System.Drawing.Size(753, 271)
         Me.panelProducto.TabIndex = 0
@@ -1294,7 +1302,7 @@ Partial Class Tec_CierreCajaCajero
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel13.Location = New System.Drawing.Point(633, 0)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(10, 608)
+        Me.Panel13.Size = New System.Drawing.Size(10, 622)
         Me.Panel13.TabIndex = 4
         '
         'PanelLEft
@@ -1303,7 +1311,7 @@ Partial Class Tec_CierreCajaCajero
         Me.PanelLEft.Dock = System.Windows.Forms.DockStyle.Left
         Me.PanelLEft.Location = New System.Drawing.Point(0, 0)
         Me.PanelLEft.Name = "PanelLEft"
-        Me.PanelLEft.Size = New System.Drawing.Size(633, 608)
+        Me.PanelLEft.Size = New System.Drawing.Size(633, 622)
         Me.PanelLEft.TabIndex = 0
         '
         'Panel8
@@ -1316,7 +1324,7 @@ Partial Class Tec_CierreCajaCajero
         Me.Panel8.Location = New System.Drawing.Point(0, 0)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel8.Size = New System.Drawing.Size(633, 608)
+        Me.Panel8.Size = New System.Drawing.Size(633, 622)
         Me.Panel8.TabIndex = 1
         '
         'GroupPanel1
@@ -1329,7 +1337,7 @@ Partial Class Tec_CierreCajaCajero
         Me.GroupPanel1.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupPanel1.Location = New System.Drawing.Point(3, 242)
         Me.GroupPanel1.Name = "GroupPanel1"
-        Me.GroupPanel1.Size = New System.Drawing.Size(627, 363)
+        Me.GroupPanel1.Size = New System.Drawing.Size(627, 377)
         '
         '
         '
@@ -1402,7 +1410,7 @@ Partial Class Tec_CierreCajaCajero
         Me.grEfectivo.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.grEfectivo.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grEfectivo.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grEfectivo.Size = New System.Drawing.Size(621, 333)
+        Me.grEfectivo.Size = New System.Drawing.Size(621, 347)
         Me.grEfectivo.TabIndex = 4
         Me.grEfectivo.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grEfectivo.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -1836,7 +1844,7 @@ Partial Class Tec_CierreCajaCajero
         Me.PanelButton.Controls.Add(Me.PanelToolBar1)
         Me.PanelButton.Controls.Add(Me.PanelNavegacion)
         Me.PanelButton.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PanelButton.Location = New System.Drawing.Point(0, 608)
+        Me.PanelButton.Location = New System.Drawing.Point(0, 622)
         Me.PanelButton.Name = "PanelButton"
         Me.PanelButton.Size = New System.Drawing.Size(1402, 37)
         Me.PanelButton.TabIndex = 10
@@ -2071,19 +2079,11 @@ Partial Class Tec_CierreCajaCajero
         '
         Me.MEP.ContainerControl = Me
         '
-        'ImprimirToolStripMenuItem
-        '
-        Me.ImprimirToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ImprimirToolStripMenuItem.Image = Global.TeVendo.My.Resources.Resources.printee
-        Me.ImprimirToolStripMenuItem.Name = "ImprimirToolStripMenuItem"
-        Me.ImprimirToolStripMenuItem.Size = New System.Drawing.Size(214, 28)
-        Me.ImprimirToolStripMenuItem.Text = "Imprimir"
-        '
         'Tec_CierreCajaCajero
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1402, 676)
+        Me.ClientSize = New System.Drawing.Size(1402, 690)
         Me.Controls.Add(Me.TabControlPrincipal)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Tec_CierreCajaCajero"
