@@ -135,6 +135,9 @@ Partial Class Tec_CierreCajaCajero
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.Highlighter2 = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.SuperTabItem6 = New DevComponents.DotNetBar.SuperTabItem()
+        Me.SuperTabControlPanel6 = New DevComponents.DotNetBar.SuperTabControlPanel()
+        Me.grCuentas = New Janus.Windows.GridEX.GridEX()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -192,6 +195,8 @@ Partial Class Tec_CierreCajaCajero
         Me.Panel15.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SuperTabControlPanel6.SuspendLayout()
+        CType(Me.grCuentas, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TabControlPrincipal
@@ -317,8 +322,9 @@ Partial Class Tec_CierreCajaCajero
         Me.SuperTabControl1.ControlBox.MenuBox.Name = ""
         Me.SuperTabControl1.ControlBox.Name = ""
         Me.SuperTabControl1.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControl1.ControlBox.MenuBox, Me.SuperTabControl1.ControlBox.CloseBox})
-        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel3)
+        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel6)
         Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel5)
+        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel4)
         Me.SuperTabControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControl1.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -330,7 +336,7 @@ Partial Class Tec_CierreCajaCajero
         Me.SuperTabControl1.Size = New System.Drawing.Size(753, 279)
         Me.SuperTabControl1.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControl1.TabIndex = 4
-        Me.SuperTabControl1.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabItem3, Me.SuperTabItem4, Me.SuperTabItem5})
+        Me.SuperTabControl1.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabItem3, Me.SuperTabItem4, Me.SuperTabItem5, Me.SuperTabItem6})
         Me.SuperTabControl1.TabStyle = DevComponents.DotNetBar.eSuperTabStyle.Office2010BackstageBlue
         Me.SuperTabControl1.Text = "SuperTabControl1"
         '
@@ -2070,6 +2076,78 @@ Partial Class Tec_CierreCajaCajero
         '
         Me.MEP.ContainerControl = Me
         '
+        'SuperTabItem6
+        '
+        Me.SuperTabItem6.AttachedControl = Me.SuperTabControlPanel6
+        Me.SuperTabItem6.GlobalItem = False
+        Me.SuperTabItem6.Name = "SuperTabItem6"
+        Me.SuperTabItem6.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Teal
+        Me.SuperTabItem6.Symbol = "58686"
+        Me.SuperTabItem6.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Material
+        Me.SuperTabItem6.Text = "Detalle De" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Cuentas"
+        '
+        'SuperTabControlPanel6
+        '
+        Me.SuperTabControlPanel6.Controls.Add(Me.grCuentas)
+        Me.SuperTabControlPanel6.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SuperTabControlPanel6.Location = New System.Drawing.Point(0, 52)
+        Me.SuperTabControlPanel6.Name = "SuperTabControlPanel6"
+        Me.SuperTabControlPanel6.Size = New System.Drawing.Size(753, 227)
+        Me.SuperTabControlPanel6.TabIndex = 0
+        Me.SuperTabControlPanel6.TabItem = Me.SuperTabItem6
+        '
+        'grCuentas
+        '
+        Me.grCuentas.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
+        Me.grCuentas.AlternatingColors = True
+        Me.grCuentas.BackColor = System.Drawing.Color.White
+        Me.grCuentas.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
+        Me.grCuentas.ColumnAutoResize = True
+        Me.grCuentas.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grCuentas.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None
+        Me.grCuentas.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
+        Me.grCuentas.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grCuentas.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grCuentas.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grCuentas.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grCuentas.GridLines = Janus.Windows.GridEX.GridLines.None
+        Me.grCuentas.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
+        Me.grCuentas.HeaderFormatStyle.Alpha = 0
+        Me.grCuentas.HeaderFormatStyle.Appearance = Janus.Windows.GridEX.Appearance.Flat
+        Me.grCuentas.HeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
+        Me.grCuentas.HeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
+        Me.grCuentas.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
+        Me.grCuentas.HeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
+        Me.grCuentas.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grCuentas.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
+        Me.grCuentas.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
+        Me.grCuentas.Location = New System.Drawing.Point(0, 0)
+        Me.grCuentas.Margin = New System.Windows.Forms.Padding(4)
+        Me.grCuentas.Name = "grCuentas"
+        Me.grCuentas.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.grCuentas.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.grCuentas.RecordNavigator = True
+        Me.grCuentas.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grCuentas.RowHeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
+        Me.grCuentas.RowHeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.Transparent
+        Me.grCuentas.RowHeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
+        Me.grCuentas.RowHeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
+        Me.grCuentas.RowHeaderFormatStyle.BackgroundImageDrawMode = Janus.Windows.GridEX.BackgroundImageDrawMode.Center
+        Me.grCuentas.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grCuentas.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.grCuentas.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
+        Me.grCuentas.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grCuentas.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
+        Me.grCuentas.Size = New System.Drawing.Size(753, 227)
+        Me.grCuentas.TabIndex = 6
+        Me.grCuentas.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
+        Me.grCuentas.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grCuentas.TableSpacing = 9
+        Me.grCuentas.TreeLineColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.grCuentas.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.grCuentas.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.grCuentas.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.VS2005
+        '
         'Tec_CierreCajaCajero
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -2138,6 +2216,8 @@ Partial Class Tec_CierreCajaCajero
         Me.Panel15.ResumeLayout(False)
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SuperTabControlPanel6.ResumeLayout(False)
+        CType(Me.grCuentas, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2252,4 +2332,7 @@ Partial Class Tec_CierreCajaCajero
     Friend WithEvents btnCargarDatos As DevComponents.DotNetBar.ButtonX
     Friend WithEvents tbTipoCambio As DevComponents.Editors.DoubleInput
     Friend WithEvents LabelX20 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents SuperTabControlPanel6 As DevComponents.DotNetBar.SuperTabControlPanel
+    Friend WithEvents grCuentas As Janus.Windows.GridEX.GridEX
+    Friend WithEvents SuperTabItem6 As DevComponents.DotNetBar.SuperTabItem
 End Class

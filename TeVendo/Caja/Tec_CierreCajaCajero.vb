@@ -542,6 +542,82 @@ Public Class Tec_CierreCajaCajero
 
     End Sub
 
+    Private Sub _prCargarCuentas()
+        Dim dt As New DataTable
+
+
+        dt = L_prListarCuentasVentas(PersonalId, tbFechaCierre.Value.ToString("yyyy/MM/dd"), cbSucursal.Value)
+
+
+
+        grCuentas.DataSource = dt
+        grCuentas.RetrieveStructure()
+        grCuentas.AlternatingColors = True
+        'id	Fecha	Descripcion	Monto	IngresoEgreso	Movimiento	CajatipoMovimientoId	NombreTipoMovimiento	PersonalId	NombrePersonal
+        With grCuentas.RootTable.Columns("id")
+            .Width = 110
+            .Visible = True
+        End With
+
+        With grCuentas.RootTable.Columns("Cuenta")
+            .Width = 200
+            .Caption = "Cuenta"
+            .Visible = True
+            .MaxLines = 2
+            .WordWrap = True
+        End With
+
+
+
+
+        With grCuentas.RootTable.Columns("cobroTarjeta")
+            .Width = 90
+            .Caption = "Tarjeta"
+            .Visible = True
+            .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+        With grCuentas.RootTable.Columns("cobroTransferencia")
+            .Width = 90
+            .Caption = "Transferencia"
+            .Visible = True
+            .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+        With grCuentas.RootTable.Columns("total")
+            .Width = 90
+            .Caption = "Total"
+            .Visible = True
+            .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+
+
+        With grCuentas
+            .GroupByBoxVisible = False
+            'diseño de la grilla
+            .VisualStyle = VisualStyle.Office2007
+            .BoundMode = Janus.Data.BoundMode.Bound
+            .RowHeaders = InheritableBoolean.True
+            .CellToolTipText = "Conceptos"
+            .DefaultFilterRowComparison = FilterConditionOperator.Contains
+            .FilterMode = FilterMode.Automatic
+            .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
+            .GroupByBoxVisible = False
+            .TotalRow = InheritableBoolean.True
+            .TotalRowFormatStyle.BackColor = Color.Gold
+            .TotalRowFormatStyle.ForeColor = Color.Black
+            .TotalRowFormatStyle.FontBold = TriState.True
+            .TotalRowFormatStyle.FontSize = 11
+            .TotalRowPosition = TotalRowPosition.BottomFixed
+
+        End With
+
+    End Sub
+
+
+
+
     Private Sub _prCargarDetalleVentas(id As Integer)
         Dim dt As New DataTable
 
@@ -1111,6 +1187,7 @@ Public Class Tec_CierreCajaCajero
             _prCargarDetalleCobranza(.GetValue("Id"))
             _prCargarDetalleIngresoEgresos(.GetValue("Id"))
             _prCargarDetalleEfectivoCortes(.GetValue("Id"))
+            _prCargarCuentas()
         End With
 
         LblPaginacion.Text = Str(_MPos + 1) + "/" + JGrM_Buscador.RowCount.ToString
@@ -1289,6 +1366,7 @@ Public Class Tec_CierreCajaCajero
         _prCargarDetalleIngresoEgresos(0)
         Calculartotales()
         _prCargarDetalleEfectivoCortes(-1)
+        _prCargarCuentas()
         'a.Id, a.CierreCajeroId, a.CorteBs, a.CantidadBs, a.SubTotalBs, a.CorteDolares, a.CantidadDolares, a.SubtotalDolares
         CType(grEfectivo.DataSource, DataTable).Rows.Add(1, 0, 200, 0, 0, 100, 0, 0)
         CType(grEfectivo.DataSource, DataTable).Rows.Add(2, 0, 100, 0, 0, 50, 0, 0)
