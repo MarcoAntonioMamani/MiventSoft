@@ -53,6 +53,7 @@ Public Class Rep_VentasRealizadas
             listEstCeldas.Add(New Celda("Nombre", True, "NOMBRE", 350))
             listEstCeldas.Add(New Celda("Direccion", True, "DIRECCION", 180))
             listEstCeldas.Add(New Celda("Telefono01", True, "Telefono".ToUpper, 200))
+            listEstCeldas.Add(New Celda("PorcentajeComision,", False, "PorcentajeComision", 50))
             Dim ef = New Efecto
             ef.tipo = 6
             ef.dt = dt
@@ -87,6 +88,7 @@ Public Class Rep_VentasRealizadas
         listEstCeldas.Add(New Celda("Nombre", True, "NOMBRE", 350))
         listEstCeldas.Add(New Celda("Direccion", True, "DIRECCION", 180))
         listEstCeldas.Add(New Celda("Telefono01", True, "Telefono".ToUpper, 200))
+        listEstCeldas.Add(New Celda("PorcentajeComision,", False, "PorcentajeComision", 50))
         Dim ef = New Efecto
         ef.tipo = 6
         ef.dt = dt
