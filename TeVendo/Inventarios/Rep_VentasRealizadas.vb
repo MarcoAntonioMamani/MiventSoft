@@ -10,6 +10,9 @@ Public Class Rep_VentasRealizadas
     Dim IdPersonal As Integer = 0
 
     Public Sub _prIniciarTodo()
+        Dim dt As DataTable = L_fnGeneralSucursales()
+        dt.Rows.Add(-1, "Todos")
+        P_Global._prCargarComboGenerico(cbSucursal, dt, "aanumi", "Codigo", "aabdes", "Sucursal")
         cbFechaDesde.Value = Now.Date
         cbFechaHasta.Value = Now.Date
         chkTodos.CheckValue = True
