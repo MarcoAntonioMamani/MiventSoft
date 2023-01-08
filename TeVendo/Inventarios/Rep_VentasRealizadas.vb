@@ -22,6 +22,13 @@ Public Class Rep_VentasRealizadas
         MReportViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
 
 
+        If (Global_Sucursal = -1) Then
+            cbSucursal.ReadOnly = False
+        Else
+            cbSucursal.Value = Global_Sucursal
+            cbSucursal.ReadOnly = True
+        End If
+
     End Sub
 
     Private Sub Rep_VentasRealizadas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -128,6 +135,20 @@ Public Class Rep_VentasRealizadas
                 ToastNotification.Show(Me, "Seleccione un Personal Por Favor".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
             End If
         End If
+        If (cbSucursal.Value <> -1) Then
+            Dim dt2 As DataTable = dt.Copy
+            dt2.Rows.Clear()
+            For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+                If (cbSucursal.Value = dt.Rows(i).Item("AlmacenId")) Then
+                    dt2.ImportRow(dt.Rows(i))
+                End If
+
+            Next
+            dt = dt2
+        End If
+
+
         InsertarLogo(dt)
     End Sub
 

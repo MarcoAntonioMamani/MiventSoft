@@ -591,7 +591,6 @@ Public Class Tec_VentasDetalle
             .Width = 150
             .Caption = "Lote"
             .Visible = True
-
         End With
         With grProducto.RootTable.Columns("FechaVencimiento")
             .Width = 160
