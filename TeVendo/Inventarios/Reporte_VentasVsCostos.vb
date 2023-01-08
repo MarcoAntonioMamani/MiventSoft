@@ -9,6 +9,9 @@ Public Class Reporte_VentasVsCostos
     Dim IdPersonal As Integer = 0
 
     Public Sub _prIniciarTodo()
+        Dim dt As DataTable = L_fnGeneralSucursales()
+        dt.Rows.Add(-1, "Todos")
+        P_Global._prCargarComboGenerico(cbSucursal, dt, "aanumi", "Codigo", "aabdes", "Sucursal")
         cbFechaDesde.Value = Now.Date
         cbFechaHasta.Value = Now.Date
         chkTodos.CheckValue = True
@@ -17,6 +20,12 @@ Public Class Reporte_VentasVsCostos
         Me.Text = "REPORTE DE UTILIDADES VENTAS"
         MReportViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
 
+        If (Global_Sucursal = -1) Then
+            cbSucursal.ReadOnly = False
+        Else
+            cbSucursal.Value = Global_Sucursal
+            cbSucursal.ReadOnly = True
+        End If
 
     End Sub
 
@@ -125,6 +134,19 @@ Public Class Reporte_VentasVsCostos
                 Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
                 ToastNotification.Show(Me, "Seleccione un Personal Por Favor".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
             End If
+        End If
+
+        If (cbSucursal.Value <> -1) Then
+            Dim dt2 As DataTable = dt.Copy
+            dt2.Rows.Clear()
+            For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+                If (cbSucursal.Value = dt.Rows(i).Item("AlmacenId")) Then
+                    dt2.ImportRow(dt.Rows(i))
+                End If
+
+            Next
+            dt = dt2
         End If
         InsertarLogo(dt)
     End Sub

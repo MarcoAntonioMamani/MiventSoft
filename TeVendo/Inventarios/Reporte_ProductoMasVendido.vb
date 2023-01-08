@@ -8,6 +8,9 @@ Public Class Reporte_ProductoMasVendido
     Dim IdPersonal As Integer = 0
 
     Public Sub _prIniciarTodo()
+        Dim dt As DataTable = L_fnGeneralSucursales()
+        dt.Rows.Add(-1, "Todos")
+        P_Global._prCargarComboGenerico(cbSucursal, dt, "aanumi", "Codigo", "aabdes", "Sucursal")
         cbFechaDesde.Value = Now.Date
         cbFechaHasta.Value = Now.Date
         tbCantidad.Value = 10
@@ -16,6 +19,12 @@ Public Class Reporte_ProductoMasVendido
         MReportViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
 
 
+        If (Global_Sucursal = -1) Then
+            cbSucursal.ReadOnly = False
+        Else
+            cbSucursal.Value = Global_Sucursal
+            cbSucursal.ReadOnly = True
+        End If
     End Sub
 
     Public Sub GenerarData(ByRef dt As DataTable)
@@ -23,6 +32,19 @@ Public Class Reporte_ProductoMasVendido
 
         dt = ReporteVentasProductosMasVendido(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"))
 
+
+        If (cbSucursal.Value <> -1) Then
+            Dim dt2 As DataTable = dt.Copy
+            dt2.Rows.Clear()
+            For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+                If (cbSucursal.Value = dt.Rows(i).Item("SucursalId")) Then
+                    dt2.ImportRow(dt.Rows(i))
+                End If
+
+            Next
+            dt = dt2
+        End If
         InsertarLogo(dt)
     End Sub
 

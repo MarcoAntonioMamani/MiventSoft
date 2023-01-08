@@ -38,6 +38,8 @@ Partial Class Rep_VentasRealizadas
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.PanelButton = New System.Windows.Forms.Panel()
         Me.PanelNavegacion = New System.Windows.Forms.Panel()
+        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
+        Me.cbSucursal = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.chkTodos = New DevComponents.DotNetBar.Controls.CheckBoxX()
         Me.btnVendedor = New DevComponents.DotNetBar.ButtonX()
         Me.tbVendedor = New DevComponents.DotNetBar.Controls.TextBoxX()
@@ -50,8 +52,6 @@ Partial Class Rep_VentasRealizadas
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.PanelToolBar1 = New System.Windows.Forms.Panel()
         Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
-        Me.cbSucursal = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
-        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelLEft.SuspendLayout()
@@ -63,8 +63,8 @@ Partial Class Rep_VentasRealizadas
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelButton.SuspendLayout()
         Me.PanelNavegacion.SuspendLayout()
-        Me.PanelToolBar1.SuspendLayout()
         CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PanelToolBar1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
@@ -74,7 +74,7 @@ Partial Class Rep_VentasRealizadas
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1043, 524)
+        Me.Panel1.Size = New System.Drawing.Size(1280, 524)
         Me.Panel1.TabIndex = 6
         '
         'PanelSuperior
@@ -83,7 +83,7 @@ Partial Class Rep_VentasRealizadas
         Me.PanelSuperior.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelSuperior.Location = New System.Drawing.Point(0, 0)
         Me.PanelSuperior.Name = "PanelSuperior"
-        Me.PanelSuperior.Size = New System.Drawing.Size(1043, 406)
+        Me.PanelSuperior.Size = New System.Drawing.Size(1280, 431)
         Me.PanelSuperior.TabIndex = 1
         '
         'PanelLEft
@@ -92,7 +92,7 @@ Partial Class Rep_VentasRealizadas
         Me.PanelLEft.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelLEft.Location = New System.Drawing.Point(0, 0)
         Me.PanelLEft.Name = "PanelLEft"
-        Me.PanelLEft.Size = New System.Drawing.Size(1043, 406)
+        Me.PanelLEft.Size = New System.Drawing.Size(1280, 431)
         Me.PanelLEft.TabIndex = 0
         '
         'Panel8
@@ -104,7 +104,7 @@ Partial Class Rep_VentasRealizadas
         Me.Panel8.Location = New System.Drawing.Point(0, 0)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel8.Size = New System.Drawing.Size(1043, 406)
+        Me.Panel8.Size = New System.Drawing.Size(1280, 431)
         Me.Panel8.TabIndex = 1
         '
         'PanelDatos
@@ -114,7 +114,7 @@ Partial Class Rep_VentasRealizadas
         Me.PanelDatos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelDatos.Location = New System.Drawing.Point(3, 30)
         Me.PanelDatos.Name = "PanelDatos"
-        Me.PanelDatos.Size = New System.Drawing.Size(1037, 373)
+        Me.PanelDatos.Size = New System.Drawing.Size(1274, 398)
         Me.PanelDatos.TabIndex = 2
         '
         'PanelPrincipal
@@ -125,7 +125,7 @@ Partial Class Rep_VentasRealizadas
         Me.PanelPrincipal.Location = New System.Drawing.Point(0, 0)
         Me.PanelPrincipal.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelPrincipal.Name = "PanelPrincipal"
-        Me.PanelPrincipal.Size = New System.Drawing.Size(1037, 373)
+        Me.PanelPrincipal.Size = New System.Drawing.Size(1274, 398)
         Me.PanelPrincipal.TabIndex = 2
         '
         'MReportViewer
@@ -138,7 +138,7 @@ Partial Class Rep_VentasRealizadas
         Me.MReportViewer.Location = New System.Drawing.Point(0, 0)
         Me.MReportViewer.Margin = New System.Windows.Forms.Padding(4)
         Me.MReportViewer.Name = "MReportViewer"
-        Me.MReportViewer.Size = New System.Drawing.Size(1037, 373)
+        Me.MReportViewer.Size = New System.Drawing.Size(1274, 398)
         Me.MReportViewer.TabIndex = 20
         Me.MReportViewer.ToolPanelWidth = 267
         '
@@ -150,7 +150,7 @@ Partial Class Rep_VentasRealizadas
         Me.Panel10.Location = New System.Drawing.Point(3, 3)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel10.Size = New System.Drawing.Size(1037, 27)
+        Me.Panel10.Size = New System.Drawing.Size(1274, 27)
         Me.Panel10.TabIndex = 1
         '
         'Panel11
@@ -162,7 +162,7 @@ Partial Class Rep_VentasRealizadas
         Me.Panel11.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel11.Location = New System.Drawing.Point(1, 1)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(1035, 25)
+        Me.Panel11.Size = New System.Drawing.Size(1272, 25)
         Me.Panel11.TabIndex = 0
         '
         'Label3
@@ -208,9 +208,9 @@ Partial Class Rep_VentasRealizadas
         Me.PanelButton.Controls.Add(Me.PanelNavegacion)
         Me.PanelButton.Controls.Add(Me.PanelToolBar1)
         Me.PanelButton.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PanelButton.Location = New System.Drawing.Point(0, 406)
+        Me.PanelButton.Location = New System.Drawing.Point(0, 431)
         Me.PanelButton.Name = "PanelButton"
-        Me.PanelButton.Size = New System.Drawing.Size(1043, 118)
+        Me.PanelButton.Size = New System.Drawing.Size(1280, 93)
         Me.PanelButton.TabIndex = 3
         '
         'PanelNavegacion
@@ -231,8 +231,51 @@ Partial Class Rep_VentasRealizadas
         Me.PanelNavegacion.Location = New System.Drawing.Point(0, 0)
         Me.PanelNavegacion.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelNavegacion.Name = "PanelNavegacion"
-        Me.PanelNavegacion.Size = New System.Drawing.Size(898, 118)
+        Me.PanelNavegacion.Size = New System.Drawing.Size(1135, 93)
         Me.PanelNavegacion.TabIndex = 21
+        '
+        'LabelX5
+        '
+        Me.LabelX5.AutoSize = True
+        Me.LabelX5.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX5.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX5.ForeColor = System.Drawing.Color.White
+        Me.LabelX5.Location = New System.Drawing.Point(62, 47)
+        Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX5.Name = "LabelX5"
+        Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX5.Size = New System.Drawing.Size(59, 21)
+        Me.LabelX5.TabIndex = 214
+        Me.LabelX5.Text = "Sucursal:"
+        '
+        'cbSucursal
+        '
+        Me.cbSucursal.BackColor = System.Drawing.Color.Azure
+        Me.cbSucursal.ColorScheme = ""
+        Me.cbSucursal.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.cbSucursal.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
+        Me.cbSucursal.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        cbSucursal_DesignTimeLayout.LayoutString = resources.GetString("cbSucursal_DesignTimeLayout.LayoutString")
+        Me.cbSucursal.DesignTimeLayout = cbSucursal_DesignTimeLayout
+        Me.cbSucursal.FlatBorderColor = System.Drawing.Color.Black
+        Me.cbSucursal.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbSucursal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbSucursal.HideSelection = False
+        Me.cbSucursal.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cbSucursal.Location = New System.Drawing.Point(129, 42)
+        Me.cbSucursal.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbSucursal.Name = "cbSucursal"
+        Me.cbSucursal.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbSucursal.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
+        Me.cbSucursal.SelectedIndex = -1
+        Me.cbSucursal.SelectedItem = Nothing
+        Me.cbSucursal.Size = New System.Drawing.Size(277, 32)
+        Me.cbSucursal.TabIndex = 213
+        Me.cbSucursal.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'chkTodos
         '
@@ -289,7 +332,7 @@ Partial Class Rep_VentasRealizadas
         Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX3.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX3.ForeColor = System.Drawing.Color.White
-        Me.LabelX3.Location = New System.Drawing.Point(40, 78)
+        Me.LabelX3.Location = New System.Drawing.Point(757, 10)
         Me.LabelX3.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX3.Name = "LabelX3"
         Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
@@ -304,7 +347,7 @@ Partial Class Rep_VentasRealizadas
         '
         Me.swTipoReporte.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.swTipoReporte.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.swTipoReporte.Location = New System.Drawing.Point(130, 78)
+        Me.swTipoReporte.Location = New System.Drawing.Point(847, 10)
         Me.swTipoReporte.Margin = New System.Windows.Forms.Padding(4)
         Me.swTipoReporte.Name = "swTipoReporte"
         Me.swTipoReporte.OffBackColor = System.Drawing.Color.LawnGreen
@@ -341,7 +384,7 @@ Partial Class Rep_VentasRealizadas
         Me.cbFechaHasta.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
         Me.cbFechaHasta.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
         Me.cbFechaHasta.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbFechaHasta.Location = New System.Drawing.Point(572, 39)
+        Me.cbFechaHasta.Location = New System.Drawing.Point(540, 39)
         Me.cbFechaHasta.Name = "cbFechaHasta"
         Me.cbFechaHasta.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
         Me.cbFechaHasta.Office2007CustomColor = System.Drawing.Color.Turquoise
@@ -364,7 +407,7 @@ Partial Class Rep_VentasRealizadas
         Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX4.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX4.ForeColor = System.Drawing.Color.White
-        Me.LabelX4.Location = New System.Drawing.Point(523, 39)
+        Me.LabelX4.Location = New System.Drawing.Point(491, 39)
         Me.LabelX4.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX4.Name = "LabelX4"
         Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
@@ -395,7 +438,7 @@ Partial Class Rep_VentasRealizadas
         Me.cbFechaDesde.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
         Me.cbFechaDesde.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
         Me.cbFechaDesde.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbFechaDesde.Location = New System.Drawing.Point(572, 10)
+        Me.cbFechaDesde.Location = New System.Drawing.Point(540, 10)
         Me.cbFechaDesde.Name = "cbFechaDesde"
         Me.cbFechaDesde.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
         Me.cbFechaDesde.Office2007CustomColor = System.Drawing.Color.Turquoise
@@ -418,7 +461,7 @@ Partial Class Rep_VentasRealizadas
         Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX2.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX2.ForeColor = System.Drawing.Color.White
-        Me.LabelX2.Location = New System.Drawing.Point(520, 10)
+        Me.LabelX2.Location = New System.Drawing.Point(488, 10)
         Me.LabelX2.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX2.Name = "LabelX2"
         Me.LabelX2.SingleLineColor = System.Drawing.SystemColors.Control
@@ -451,10 +494,10 @@ Partial Class Rep_VentasRealizadas
         Me.PanelToolBar1.Controls.Add(Me.ButtonX1)
         Me.PanelToolBar1.Dock = System.Windows.Forms.DockStyle.Right
         Me.PanelToolBar1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.PanelToolBar1.Location = New System.Drawing.Point(898, 0)
+        Me.PanelToolBar1.Location = New System.Drawing.Point(1135, 0)
         Me.PanelToolBar1.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelToolBar1.Name = "PanelToolBar1"
-        Me.PanelToolBar1.Size = New System.Drawing.Size(145, 118)
+        Me.PanelToolBar1.Size = New System.Drawing.Size(145, 93)
         Me.PanelToolBar1.TabIndex = 7
         '
         'ButtonX1
@@ -470,60 +513,17 @@ Partial Class Rep_VentasRealizadas
         Me.ButtonX1.Location = New System.Drawing.Point(0, 0)
         Me.ButtonX1.Margin = New System.Windows.Forms.Padding(4)
         Me.ButtonX1.Name = "ButtonX1"
-        Me.ButtonX1.Size = New System.Drawing.Size(145, 118)
+        Me.ButtonX1.Size = New System.Drawing.Size(145, 93)
         Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.ButtonX1.TabIndex = 1
         Me.ButtonX1.Text = "Generar"
         Me.ButtonX1.TextColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
         '
-        'cbSucursal
-        '
-        Me.cbSucursal.BackColor = System.Drawing.Color.Azure
-        Me.cbSucursal.ColorScheme = ""
-        Me.cbSucursal.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
-        Me.cbSucursal.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
-        Me.cbSucursal.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
-        cbSucursal_DesignTimeLayout.LayoutString = resources.GetString("cbSucursal_DesignTimeLayout.LayoutString")
-        Me.cbSucursal.DesignTimeLayout = cbSucursal_DesignTimeLayout
-        Me.cbSucursal.FlatBorderColor = System.Drawing.Color.Black
-        Me.cbSucursal.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbSucursal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.cbSucursal.HideSelection = False
-        Me.cbSucursal.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.cbSucursal.Location = New System.Drawing.Point(129, 42)
-        Me.cbSucursal.Margin = New System.Windows.Forms.Padding(4)
-        Me.cbSucursal.Name = "cbSucursal"
-        Me.cbSucursal.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.cbSucursal.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
-        Me.cbSucursal.SelectedIndex = -1
-        Me.cbSucursal.SelectedItem = Nothing
-        Me.cbSucursal.Size = New System.Drawing.Size(277, 32)
-        Me.cbSucursal.TabIndex = 213
-        Me.cbSucursal.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        '
-        'LabelX5
-        '
-        Me.LabelX5.AutoSize = True
-        Me.LabelX5.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX5.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX5.ForeColor = System.Drawing.Color.White
-        Me.LabelX5.Location = New System.Drawing.Point(62, 47)
-        Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX5.Name = "LabelX5"
-        Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX5.Size = New System.Drawing.Size(59, 21)
-        Me.LabelX5.TabIndex = 214
-        Me.LabelX5.Text = "Sucursal:"
-        '
         'Rep_VentasRealizadas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1043, 524)
+        Me.ClientSize = New System.Drawing.Size(1280, 524)
         Me.Controls.Add(Me.Panel1)
         Me.Name = "Rep_VentasRealizadas"
         Me.Text = "Rep_VentasRealizadas"
@@ -540,8 +540,8 @@ Partial Class Rep_VentasRealizadas
         Me.PanelButton.PerformLayout()
         Me.PanelNavegacion.ResumeLayout(False)
         Me.PanelNavegacion.PerformLayout()
-        Me.PanelToolBar1.ResumeLayout(False)
         CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PanelToolBar1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
