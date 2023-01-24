@@ -250,7 +250,9 @@ Public Class Tec_Ventas
         _PMIniciarTodo()
         _prAsignarPermisos()
         If gi_userRol <> 1 Then
-            btnVendedor.Visible = False
+            If (Global_PuedeSeleccionarVendedor = 0) Then
+                btnVendedor.Visible = False
+            End If
         End If
 
 
@@ -1205,7 +1207,11 @@ salirIf:
         If gi_userRol = 1 Then
             btnVendedor.Visible = True
         End If
-
+        If gi_userRol <> 1 Then
+            If (Global_PuedeSeleccionarVendedor = 1) Then
+                btnVendedor.Visible = True
+            End If
+        End If
 
         btnCliente.Visible = True
         BtnImprimir.Visible = False

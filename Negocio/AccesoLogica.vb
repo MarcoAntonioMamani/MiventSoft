@@ -85,7 +85,7 @@ Public Class AccesoLogica
 
     Public Shared Function L_Validar_Usuario(_Nom As String, _Pass As String) As DataTable
         Dim _Tabla As DataTable
-        _Tabla = D_Datos_Tabla("Id,RolId,SucursalId,IdPersonal,isnull((select top 1 Monto from TipoCambio as t order by id desc),0) as Monto,isnull(ModificarPrecioVenta,0) as ModificarPrecioVenta, isnull(AplicarDescuentoVenta,0)as AplicarDescuentoVenta,isnull((select al.Nombrealmacen from Almacenes  as al where al.id=SucursalId ),'Todos') as NombreSucursal", "Usuarios", "NombreUsuario = '" + _Nom + "' AND Contrasena = '" + _Pass + "'")
+        _Tabla = D_Datos_Tabla("Id,RolId,SucursalId,IdPersonal,isnull((select top 1 Monto from TipoCambio as t order by id desc),0) as Monto,isnull(ModificarPrecioVenta,0) as ModificarPrecioVenta, isnull(AplicarDescuentoVenta,0)as AplicarDescuentoVenta,isnull((select al.Nombrealmacen from Almacenes  as al where al.id=SucursalId ),'Todos') as NombreSucursal,isnull(PuedeSeleccionarVendedor,0) as PuedeSeleccionarVendedor", "Usuarios", "NombreUsuario = '" + _Nom + "' AND Contrasena = '" + _Pass + "'")
         Return _Tabla
     End Function
 
@@ -2835,7 +2835,8 @@ Public Class AccesoLogica
 
     Public Shared Function L_prUsuarioModificar(_numi As String, _RolId As Integer, _NombreUsuario As String,
                                                 _Contrasena As String, _estado As Integer,
- _sucursalId As Integer, _IdEmpresa As Integer, IdPersonal As Integer, _ModificarPrecio As Integer, _ModificarDescuento As Integer) As Boolean
+ _sucursalId As Integer, _IdEmpresa As Integer, IdPersonal As Integer, _ModificarPrecio As Integer,
+                                                _ModificarDescuento As Integer, PuedeSeleccionarVendedor As Integer) As Boolean
         Dim _resultado As Boolean
 
         'INSERT INTO Usuarios  VALUES(@RolId ,@NombreUsuario ,@Contrasena ,@Estado 
@@ -2856,6 +2857,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@IdPersonal", IdPersonal))
         _listParam.Add(New Datos.DParametro("@ModificarPrecio", _ModificarPrecio))
         _listParam.Add(New Datos.DParametro("@ModificarDescuento", _ModificarDescuento))
+        _listParam.Add(New Datos.DParametro("@PuedeSeleccionarVendedor", PuedeSeleccionarVendedor))
         _Tabla = D_ProcedimientoConParam("MAM_Usuarios", _listParam)
 
         If _Tabla.Rows.Count > 0 Then
@@ -2870,7 +2872,7 @@ Public Class AccesoLogica
 
     Public Shared Function L_prUsuarioInsertar(ByRef _numi As String, _RolId As Integer, _NombreUsuario As String,
                                                 _Contrasena As String, _estado As Integer,
- _sucursalId As Integer, _IdEmpresa As Integer, IdPersonal As Integer, _ModificarPrecio As Integer, _ModificarDescuento As Integer) As Boolean
+ _sucursalId As Integer, _IdEmpresa As Integer, IdPersonal As Integer, _ModificarPrecio As Integer, _ModificarDescuento As Integer, PuedeSeleccionarVendedor As Integer) As Boolean
         Dim _resultado As Boolean
 
         'INSERT INTO Usuarios  VALUES(@RolId ,@NombreUsuario ,@Contrasena ,@Estado 
@@ -2891,6 +2893,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@IdPersonal", IdPersonal))
         _listParam.Add(New Datos.DParametro("@ModificarPrecio", _ModificarPrecio))
         _listParam.Add(New Datos.DParametro("@ModificarDescuento", _ModificarDescuento))
+        _listParam.Add(New Datos.DParametro("@PuedeSeleccionarVendedor", PuedeSeleccionarVendedor))
 
         _Tabla = D_ProcedimientoConParam("MAM_Usuarios", _listParam)
 
