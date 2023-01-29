@@ -61,6 +61,7 @@ Partial Class VenderDirecto
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.tbDescripcion = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.tbProducto = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.btnConfirmarSalir = New DevComponents.DotNetBar.ButtonX()
         Me.CmDetalle.SuspendLayout()
         Me.PanelDatos.SuspendLayout()
         CType(Me.grdetalle, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -506,6 +507,7 @@ Partial Class VenderDirecto
         'Panel3
         '
         Me.Panel3.BackColor = System.Drawing.Color.White
+        Me.Panel3.Controls.Add(Me.btnConfirmarSalir)
         Me.Panel3.Controls.Add(Me.txtNumi)
         Me.Panel3.Controls.Add(Me.tbPrecio)
         Me.Panel3.Controls.Add(Me.Panel4)
@@ -557,7 +559,7 @@ Partial Class VenderDirecto
         Me.tbPrecio.ForeColor = System.Drawing.Color.Black
         Me.tbPrecio.Increment = 1.0R
         Me.tbPrecio.IsInputReadOnly = True
-        Me.tbPrecio.Location = New System.Drawing.Point(172, 89)
+        Me.tbPrecio.Location = New System.Drawing.Point(207, 89)
         Me.tbPrecio.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.tbPrecio.Name = "tbPrecio"
         Me.tbPrecio.Size = New System.Drawing.Size(255, 60)
@@ -614,6 +616,26 @@ Partial Class VenderDirecto
         Me.tbProducto.Name = "tbProducto"
         Me.tbProducto.Size = New System.Drawing.Size(316, 58)
         Me.tbProducto.TabIndex = 3
+        '
+        'btnConfirmarSalir
+        '
+        Me.btnConfirmarSalir.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnConfirmarSalir.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnConfirmarSalir.Font = New System.Drawing.Font("Calibri", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnConfirmarSalir.Image = Global.TeVendo.My.Resources.Resources.search
+        Me.btnConfirmarSalir.ImageFixedSize = New System.Drawing.Size(24, 24)
+        Me.btnConfirmarSalir.Location = New System.Drawing.Point(18, 89)
+        Me.btnConfirmarSalir.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnConfirmarSalir.Name = "btnConfirmarSalir"
+        Me.btnConfirmarSalir.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
+        Me.btnConfirmarSalir.Size = New System.Drawing.Size(166, 53)
+        Me.btnConfirmarSalir.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnConfirmarSalir.Symbol = "57408"
+        Me.btnConfirmarSalir.SymbolColor = System.Drawing.Color.MediumTurquoise
+        Me.btnConfirmarSalir.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Material
+        Me.btnConfirmarSalir.SymbolSize = 20.0!
+        Me.btnConfirmarSalir.TabIndex = 7
+        Me.btnConfirmarSalir.Text = "Actualizar Stock"
         '
         'VenderDirecto
         '
@@ -689,4 +711,5 @@ Partial Class VenderDirecto
     Friend WithEvents Panel4 As Panel
     Friend WithEvents tbDescripcion As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents tbProducto As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents btnConfirmarSalir As DevComponents.DotNetBar.ButtonX
 End Class

@@ -1915,4 +1915,8 @@ Public Class VenderDirecto
         _prEliminarFila()
 
     End Sub
+
+    Private Sub btnConfirmarSalir_Click(sender As Object, e As EventArgs) Handles btnConfirmarSalir.Click
+        _prCargarProductos()
+    End Sub
 End Class

@@ -327,7 +327,20 @@ Public Class Tec_Movimientos
             .FormatString = "0.00"
             .Caption = "Cantidad".ToUpper
         End With
-
+        With grDetalle.RootTable.Columns("precio")
+            .Width = 80
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "precio".ToUpper
+        End With
+        With grDetalle.RootTable.Columns("Total")
+            .Width = 80
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Total"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
         With grDetalle.RootTable.Columns("estado")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -382,6 +395,12 @@ Public Class Tec_Movimientos
             .VisualStyle = VisualStyle.Office2007
             .BoundMode = Janus.Data.BoundMode.Bound
             .RowHeaders = InheritableBoolean.True
+            .TotalRow = InheritableBoolean.True
+            .TotalRowFormatStyle.BackColor = Color.Gold
+            .TotalRowFormatStyle.ForeColor = Color.Black
+            .TotalRowFormatStyle.FontBold = TriState.True
+            .TotalRowFormatStyle.FontSize = 11
+            .TotalRowPosition = TotalRowPosition.BottomFixed
         End With
         CargarIconEstado()
     End Sub
@@ -627,7 +646,8 @@ Public Class Tec_Movimientos
                 If (estado = 1) Then
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
                 End If
-
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("total") = grDetalle.GetValue("precio")
+                grDetalle.SetValue("total", grDetalle.GetValue("precio"))
             Else
                 If (grDetalle.GetValue("Cantidad") > 0) Then
                     Dim lin As Integer = grDetalle.GetValue("Id")
@@ -638,7 +658,8 @@ Public Class Tec_Movimientos
                     If (estado = 1) Then
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
                     End If
-
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("total") = grDetalle.GetValue("Cantidad") * grDetalle.GetValue("precio")
+                    grDetalle.SetValue("total", grDetalle.GetValue("Cantidad") * grDetalle.GetValue("precio"))
                 Else
                     Dim lin As Integer = grDetalle.GetValue("Id")
                     Dim pos As Integer = -1
@@ -649,7 +670,8 @@ Public Class Tec_Movimientos
                     If (estado = 1) Then
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
                     End If
-
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("total") = grDetalle.GetValue("precio")
+                    grDetalle.SetValue("total", grDetalle.GetValue("precio"))
                 End If
             End If
         End If

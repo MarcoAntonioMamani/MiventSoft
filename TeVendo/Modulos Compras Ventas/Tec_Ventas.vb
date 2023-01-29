@@ -1219,6 +1219,7 @@ salirIf:
         lbPrecios.Visible = True
         cbPrecios.Visible = True
 
+        lbHora.Visible = False
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -1246,6 +1247,7 @@ salirIf:
 
         lbPrecios.Visible = False
         cbPrecios.Visible = False
+        lbHora.Visible = True
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -1259,6 +1261,7 @@ salirIf:
         tbFechaTransaccion.Value = Now.Date
         tbFechaVencimientoCredito.Value = Now.Date
         swTipoVenta.Value = True
+        lbHora.Text = ""
 
 
         IdCliente = 0
@@ -1649,6 +1652,7 @@ salirIf:
         listEstCeldas.Add(New Celda("TarjetaBancaria", False))
         listEstCeldas.Add(New Celda("TransferenciaBancaria", False))
         listEstCeldas.Add(New Celda("TipoCambio", False))
+        listEstCeldas.Add(New Celda("HoraRegistro", True, " Hora", 60))
         Return listEstCeldas
     End Function
 
@@ -1683,6 +1687,7 @@ salirIf:
             tbMontoDolar.Value = .GetValue("MontoDolares")
             tbTarjeta.Value = .GetValue("TarjetaBancaria")
             tbTransferencia.Value = .GetValue("TransferenciaBancaria")
+            lbHora.Text = "Hora: " + .GetValue("HoraRegistro")
             TipoCambio = .GetValue("TipoCambio")
             tbTotalPagado.Value = tbMontoBs.Value + (tbMontoDolar.Value * TipoCambio) + tbTransferencia.Value + tbTarjeta.Value
             lbTipoCambio.Text = "Tipo Cambio = " + Str(TipoCambio)

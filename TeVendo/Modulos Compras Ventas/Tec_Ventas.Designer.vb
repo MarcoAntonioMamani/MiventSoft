@@ -166,6 +166,7 @@ Partial Class Tec_Ventas
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.lbHora = New DevComponents.DotNetBar.LabelX()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -377,6 +378,7 @@ Partial Class Tec_Ventas
         'Panel3
         '
         Me.Panel3.AutoScroll = True
+        Me.Panel3.Controls.Add(Me.lbHora)
         Me.Panel3.Controls.Add(Me.lbPrecios)
         Me.Panel3.Controls.Add(Me.cbPrecios)
         Me.Panel3.Controls.Add(Me.LabelX25)
@@ -2656,6 +2658,24 @@ Partial Class Tec_Ventas
         '
         Me.MEP.ContainerControl = Me
         '
+        'lbHora
+        '
+        Me.lbHora.AutoSize = True
+        Me.lbHora.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.lbHora.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.lbHora.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbHora.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.lbHora.Location = New System.Drawing.Point(20, 172)
+        Me.lbHora.Margin = New System.Windows.Forms.Padding(4)
+        Me.lbHora.Name = "lbHora"
+        Me.lbHora.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.lbHora.Size = New System.Drawing.Size(69, 21)
+        Me.lbHora.TabIndex = 382
+        Me.lbHora.Text = "Facturado:"
+        '
         'Tec_Ventas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -2878,4 +2898,5 @@ Partial Class Tec_Ventas
     Friend WithEvents cbPrecios As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents LabelX26 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbSubTotal As DevComponents.Editors.DoubleInput
+    Friend WithEvents lbHora As DevComponents.DotNetBar.LabelX
 End Class
