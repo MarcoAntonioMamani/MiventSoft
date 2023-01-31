@@ -726,8 +726,8 @@ Public Class Tec_VentasDetalle
 
                     CambiarEstado(grProducto.GetValue("Id"), 0)
                     'grproducto.RemoveFilters()
-                    tbProducto.Clear()
-                    tbProducto.Focus()
+                    'tbProducto.Clear()
+                    'tbProducto.Focus()
                 End If
 
             Else ''Inserto Kits
@@ -765,8 +765,8 @@ Public Class Tec_VentasDetalle
                 Next
                 'CambiarEstado(grProducto.GetValue("Id"), 0)
                 'grproducto.RemoveFilters()
-                tbProducto.Clear()
-                tbProducto.Focus()
+                'tbProducto.Clear()
+                'tbProducto.Focus()
 
             End If
 
