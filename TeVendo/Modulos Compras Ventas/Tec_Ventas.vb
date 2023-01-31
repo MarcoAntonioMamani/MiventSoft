@@ -1796,13 +1796,13 @@ salirIf:
     End Sub
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
-        Dim dtCierre As DataTable = L_prListarGeneral("MAM_CierreCajero")
+        Dim dtCierre As DataTable = L_prListarVentaCierresCajaPendientes(tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"))
         Dim fila As DataRow()
         If (Global_Sucursal > 0) Then
 
-            fila = dtCierre.Select("SucursalId=" + Str(Global_Sucursal) + " and EstadoCaja=1")
+            fila = dtCierre.Select("SucursalId=" + Str(Global_Sucursal) + " and EstadoCaja=1 and PersonalId=" + Str(Global_IdPersonal))
         Else
-            fila = dtCierre.Select("EstadoCaja=1")
+            fila = dtCierre.Select("EstadoCaja=1 and PersonalId=" + Str(Global_IdPersonal))
         End If
 
         If (Not IsDBNull(fila)) Then

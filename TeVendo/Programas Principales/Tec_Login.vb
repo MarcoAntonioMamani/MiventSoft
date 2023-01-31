@@ -105,6 +105,8 @@ Public Class Tec_Login
             gi_userNumi = dtUsuario.Rows(0).Item("Id")
             gi_userRol = dtUsuario.Rows(0).Item("RolId")
             gi_userSuc = dtUsuario.Rows(0).Item("SucursalId")
+            Global_IdPersonal = dtUsuario.Rows(0).Item("idPersonal")
+
             Global_Sucursal = dtUsuario.Rows(0).Item("SucursalId")
             Global_ModificarPrecio = dtUsuario.Rows(0).Item("ModificarPrecioVenta")
             Global_ModificarDescuento = dtUsuario.Rows(0).Item("AplicarDescuentoVenta")

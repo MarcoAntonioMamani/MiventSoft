@@ -3339,6 +3339,19 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+    Public Shared Function L_prListarVentaCierresCajaPendientes(FechaDesde As String, FechaHasta As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 12))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@FechaDesde", FechaDesde))
+        _listParam.Add(New Datos.DParametro("@FechaHasta", FechaHasta))
+        _Tabla = D_ProcedimientoConParam("MAM_CierreCajero", _listParam)
+
+        Return _Tabla
+    End Function
 
     Public Shared Function L_prListarVentaCierresCajaPendiente(PersonalId As Integer, SucursalId As Integer, Fecha As String) As DataTable
         Dim _Tabla As DataTable
