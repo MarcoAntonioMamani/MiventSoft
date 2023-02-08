@@ -2,7 +2,7 @@
 Imports System.IO
 Public Class FPruebaImportacion
     Private Sub FPruebaImportacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        L_prAbrirConexion("DESKTOP-T84OJOU", "sa", "123", "MinventSoftSoniazel")
+        L_prAbrirConexion("DESKTOP-T84OJOU", "sa", "123", "MinventSoftKailiIndustrial")
     End Sub
 
     Public Shared Function ExcelToDatatable(ByVal _xlPath As String, ByVal _namePage As String) As System.Data.DataTable
@@ -82,40 +82,41 @@ Public Class FPruebaImportacion
             '_AttributoId As Integer, _FamiliaId As Integer, _UnidadVentaId As Integer, _UnidadMaximaId As Integer,
             '_conversion As Double, _dtImagenes As DataTable, PrecioCosto As Double
 
-            Dim dtBarras As DataTable = ListProductoCodigoBarra(-1)
-            Dim code As String = dt.Rows(i).Item("codigo")
-            If (Not String.IsNullOrEmpty(code)) Then
-                Dim vector As String() = dt.Rows(i).Item("codigo").ToString.Trim.Split("_")
-                For j As Integer = 0 To vector.Length - 1 Step 1
-                    dtBarras.Rows.Add(0, 0, vector(j), 0)
-                Next
-            End If
+            'Dim dtBarras As DataTable = ListProductoCodigoBarra(-1)
+            'Dim code As String = dt.Rows(i).Item("codigo")
+            'If (Not String.IsNullOrEmpty(code)) Then
+            '    Dim vector As String() = dt.Rows(i).Item("codigo").ToString.Trim.Split("_")
+            '    For j As Integer = 0 To vector.Length - 1 Step 1
+            '        dtBarras.Rows.Add(0, 0, vector(j), 0)
+            '    Next
+            'End If
 
-            Res = L_prProductoInsertarKailin(id, "0", "", dt.Rows(i).Item("producto"), dt.Rows(i).Item("Producto"),
-                                             dt.Rows(i).Item("venta"), 1, 1, 1, 1, 10, 13, 17, 20, 22, 1, TablaImagenes, dt.Rows(i).Item("compra"), dtBarras)
+            Res = L_prProductoInsertarKailin(id, dt.Rows(i).Item("codigo"), "", dt.Rows(i).Item("producto"), dt.Rows(i).Item("Producto"),
+                                             1, 1, 1, 1, 1, 10, 13, 17, 20, 22, 1, TablaImagenes, dt.Rows(i).Item("compra"), dt.Rows(i).Item("FACTURA"), dt.Rows(i).Item("PRECIO"))
 
+            dt.Rows(i).Item("IdSistema") = id
         Next
 
 
-        '''''''' Tienda   '''''''''''''''
-        'Dim dtdetalle As DataTable = L_prListarDetalleMovimiento(-1)
-        ''a.id , a.MovimientoId, a.ProductoId, b.NombreProducto  As Producto, a.Cantidad,
-        ''    a.Lote, a.FechaVencimiento, CAST('' as image ) as img, 1 as estado 
-        'For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+        ''''''' Tienda   '''''''''''''''
+        Dim dtdetalle As DataTable = L_prListarDetalleMovimiento(-1)
+        'a.id , a.MovimientoId, a.ProductoId, b.NombreProducto  As Producto, a.Cantidad,
+        '    a.Lote, a.FechaVencimiento, CAST('' as image ) as img, 1 as estado 
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
-        '    If (dt.Rows(i).Item("stock") > 0) Then
+            If (dt.Rows(i).Item("Inventario") > 0) Then
 
-        '        _prAddDetalleVenta(dtdetalle)
+                _prAddDetalleVenta(dtdetalle)
 
-        '        dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("ProductoId") = dt.Rows(i).Item("IdSistema")
-        '        dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("Cantidad") = dt.Rows(i).Item("stock")
-        '    End If
+                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("ProductoId") = dt.Rows(i).Item("IdSistema")
+                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("Cantidad") = dt.Rows(i).Item("Inventario")
+            End If
 
 
-        'Next
+        Next
 
-        'L_prMovimientoInsertar("", 4, 1, "Inventario Inicial Migrado",
-        '                                 1, Now.Date.ToString("yyyy/MM/dd"), dtdetalle, 1, 0)
+        L_prMovimientoInsertar("", 4, 1, "Inventario Inicial Migrado",
+                                         1, Now.Date.ToString("yyyy/MM/dd"), dtdetalle, 1, 0)
 
 
 
