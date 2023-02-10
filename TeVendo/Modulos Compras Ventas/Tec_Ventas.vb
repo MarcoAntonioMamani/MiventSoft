@@ -1596,7 +1596,30 @@ salirIf:
 
     Public Function _PMOGetTablaBuscador() As DataTable
 
-        Dim dtBuscador As DataTable = L_prListarVentasGeneralFiltroFecha("MAM_Ventas", tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"), Global_Sucursal)
+        Dim dtBuscador As DataTable
+
+        If gi_userRol = 1 Then
+            dtBuscador = L_prListarVentasGeneralFiltroFecha("MAM_Ventas", tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"), Global_Sucursal)
+
+        Else
+            dtBuscador = L_prListarVentasGeneralFiltroFecha("MAM_Ventas", tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"), Global_Sucursal)
+
+            Dim dt = dtBuscador.Copy
+
+            dt.Rows.Clear()
+
+            For i As Integer = 0 To dtBuscador.Rows.Count - 1 Step 1
+
+                If (dtBuscador.Rows(i).Item("PersonalId") = Global_IdPersonal) Then
+                    dt.ImportRow(dtBuscador.Rows(i))
+                End If
+            Next
+
+            dtBuscador = dt
+
+        End If
+
+
         Return dtBuscador
     End Function
 
