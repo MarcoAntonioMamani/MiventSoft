@@ -94,29 +94,29 @@ Public Class FPruebaImportacion
             Res = L_prProductoInsertarKailin(id, dt.Rows(i).Item("codigo"), "", dt.Rows(i).Item("producto"), dt.Rows(i).Item("Producto"),
                                              1, 1, 1, 1, 1, 10, 13, 17, 20, 22, 1, TablaImagenes, dt.Rows(i).Item("compra"), dt.Rows(i).Item("FACTURA"), dt.Rows(i).Item("PRECIO"))
 
-            dt.Rows(i).Item("IdSistema") = id
+            'dt.Rows(i).Item("IdSistema") = id
         Next
 
 
-        ''''''' Tienda   '''''''''''''''
-        Dim dtdetalle As DataTable = L_prListarDetalleMovimiento(-1)
-        'a.id , a.MovimientoId, a.ProductoId, b.NombreProducto  As Producto, a.Cantidad,
-        '    a.Lote, a.FechaVencimiento, CAST('' as image ) as img, 1 as estado 
-        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+        '''''''' Tienda   '''''''''''''''
+        'Dim dtdetalle As DataTable = L_prListarDetalleMovimiento(-1)
+        ''a.id , a.MovimientoId, a.ProductoId, b.NombreProducto  As Producto, a.Cantidad,
+        ''    a.Lote, a.FechaVencimiento, CAST('' as image ) as img, 1 as estado 
+        'For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
-            If (dt.Rows(i).Item("Inventario") > 0) Then
+        '    If (dt.Rows(i).Item("Inventario") > 0) Then
 
-                _prAddDetalleVenta(dtdetalle)
+        '        _prAddDetalleVenta(dtdetalle)
 
-                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("ProductoId") = dt.Rows(i).Item("IdSistema")
-                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("Cantidad") = dt.Rows(i).Item("Inventario")
-            End If
+        '        dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("ProductoId") = dt.Rows(i).Item("IdSistema")
+        '        dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("Cantidad") = dt.Rows(i).Item("Inventario")
+        '    End If
 
 
-        Next
+        'Next
 
-        L_prMovimientoInsertar("", 4, 1, "Inventario Inicial Migrado",
-                                         1, Now.Date.ToString("yyyy/MM/dd"), dtdetalle, 1, 0)
+        'L_prMovimientoInsertar("", 4, 1, "Inventario Inicial Migrado",
+        '                                 1, Now.Date.ToString("yyyy/MM/dd"), dtdetalle, 1, 0)
 
 
 
