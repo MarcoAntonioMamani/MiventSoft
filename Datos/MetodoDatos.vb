@@ -40,9 +40,18 @@ Public Class MetodoDatos
             _adaptador.SelectCommand = Comando
             Dim read As SqlClient.SqlDataReader = Comando.ExecuteReader
 
+
+            'While read.Read()
+            '    Dim i As Integer = 0
+            '    'Tu manejo de los datos
+            'End While
+
+
             _tabla.Load(read, LoadOption.OverwriteChanges)
 
-            '' _adaptador.Fill(_tabla)
+            Comando.CommandText = "DBCC DROPCLEANBUFFERS
+DBCC FREEPROCCACHE"
+
             _adaptador.Dispose()
         Catch ex As Exception
             MsgBox(ex.Message)
