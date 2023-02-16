@@ -1659,11 +1659,11 @@ salirIf:
         listEstCeldas.Add(New Celda("NombreAlmacen", True, " Sucursal", 120))
         listEstCeldas.Add(New Celda("TotalVenta", True, "Total Venta", 120, "0.00"))
         listEstCeldas.Add(New Celda("Descuento", False))
-        listEstCeldas.Add(New Celda("MontoBs", False))
-        listEstCeldas.Add(New Celda("MontoDolares", False))
-        listEstCeldas.Add(New Celda("TarjetaBancaria", False))
-        listEstCeldas.Add(New Celda("TransferenciaBancaria", False))
-        listEstCeldas.Add(New Celda("TipoCambio", False))
+        'listEstCeldas.Add(New Celda("MontoBs", False))
+        'listEstCeldas.Add(New Celda("MontoDolares", False))
+        'listEstCeldas.Add(New Celda("TarjetaBancaria", False))
+        'listEstCeldas.Add(New Celda("TransferenciaBancaria", False))
+        'listEstCeldas.Add(New Celda("TipoCambio", False))
         listEstCeldas.Add(New Celda("HoraRegistro", True, " Hora", 60))
         Return listEstCeldas
     End Function
@@ -1695,14 +1695,14 @@ salirIf:
             tbGlosa.Text = .GetValue("Glosa").ToString
             tbMdesc.Value = .GetValue("descuento")
 
-            tbMontoBs.Value = .GetValue("MontoBs")
-            tbMontoDolar.Value = .GetValue("MontoDolares")
-            tbTarjeta.Value = .GetValue("TarjetaBancaria")
-            tbTransferencia.Value = .GetValue("TransferenciaBancaria")
+            'tbMontoBs.Value = .GetValue("MontoBs")
+            'tbMontoDolar.Value = .GetValue("MontoDolares")
+            'tbTarjeta.Value = .GetValue("TarjetaBancaria")
+            'tbTransferencia.Value = .GetValue("TransferenciaBancaria")
             lbHora.Text = "Hora: " + .GetValue("HoraRegistro")
-            TipoCambio = .GetValue("TipoCambio")
-            tbTotalPagado.Value = tbMontoBs.Value + (tbMontoDolar.Value * TipoCambio) + tbTransferencia.Value + tbTarjeta.Value
-            lbTipoCambio.Text = "Tipo Cambio = " + Str(TipoCambio)
+            'TipoCambio = .GetValue("TipoCambio")
+            'tbTotalPagado.Value = tbMontoBs.Value + (tbMontoDolar.Value * TipoCambio) + tbTransferencia.Value + tbTarjeta.Value
+            ''lbTipoCambio.Text = "Tipo Cambio = " + Str(TipoCambio)
 
         End With
 

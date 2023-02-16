@@ -2277,13 +2277,11 @@ Public Class AccesoLogica
 		select a.Id ,a.SucursalId ,a.FechaVenta ,a.PersonalId,p.NombrePersonal as Personal,
 		a.TipoVenta,IIF(a.TipoVenta =1,'Contado','Credito')as TVenta,a.FechaVencimientoCredito ,
 		a.ClienteId ,c.NombreCliente ,a.MonedaVenta ,a.Estado ,a.Glosa ,a.Descuento ,a.TotalVenta,
-		isnull(pago.MontoBs,0) as MontoBs ,isnull(pago.MontoDolares,0)as MontoDolares ,isnull(pago.TarjetaBancaria,0)as TarjetaBancaria
-		 ,isnull(pago.TransferenciaBancaria,0)as TransferenciaBancaria,isnull(pago.TipoCambio,0) as TipoCambio,al.NombreAlmacen,a.Facturado,
+		al.NombreAlmacen,a.Facturado,
 		 a.HoraRegistro 
 		from Ventas as a 
 		inner join Personal as p on p.Id =a.PersonalId 
 		inner join Clientes as c on c.Id =a.ClienteId 
-		left join VentasMonedaCobrada as pago on pago.VentaId =a.Id 
 		inner join Almacenes as al on al.id =a.SucursalId 
 		where a.Estado =1 and a.FechaVenta >='" + Desde + "' and a.FechaVenta <='" + Hasta + "' and a.SucursalId =" + Str(SucursalId) + " 
 		) as venta
@@ -2295,13 +2293,11 @@ Public Class AccesoLogica
 		select a.Id ,a.SucursalId ,a.FechaVenta ,a.PersonalId,p.NombrePersonal as Personal,
 		a.TipoVenta,IIF(a.TipoVenta =1,'Contado','Credito')as TVenta,a.FechaVencimientoCredito ,
 		a.ClienteId ,c.NombreCliente ,a.MonedaVenta ,a.Estado ,a.Glosa ,a.Descuento ,a.TotalVenta,
-		isnull(pago.MontoBs,0) as MontoBs ,isnull(pago.MontoDolares,0)as MontoDolares ,isnull(pago.TarjetaBancaria,0)as TarjetaBancaria
-		 ,isnull(pago.TransferenciaBancaria,0)as TransferenciaBancaria,isnull(pago.TipoCambio,0) as TipoCambio,al.NombreAlmacen,a.Facturado,
+		al.NombreAlmacen,a.Facturado,
 		 a.HoraRegistro 
 		from Ventas as a 
 		inner join Personal as p on p.Id =a.PersonalId 
 		inner join Clientes as c on c.Id =a.ClienteId 
-		left join VentasMonedaCobrada as pago on pago.VentaId =a.Id 
 		inner join Almacenes as al on al.id =a.SucursalId 
 		where a.Estado =1 and a.FechaVenta >='" + Desde + "' and a.FechaVenta <='" + Hasta + "') as venta
 		left join CierreCajeroReferenciasModulos as cierre on  cierre.Modulo =1 and cierre.ModuloId =venta.Id"
