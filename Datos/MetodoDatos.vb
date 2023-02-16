@@ -41,12 +41,6 @@ Public Class MetodoDatos
             Dim read As SqlClient.SqlDataReader = Comando.ExecuteReader
 
 
-            'While read.Read()
-            '    Dim i As Integer = 0
-            '    'Tu manejo de los datos
-            'End While
-
-
             _tabla.Load(read, LoadOption.OverwriteChanges)
 
             Comando.CommandText = "DBCC DROPCLEANBUFFERS
@@ -92,8 +86,11 @@ DBCC FREEPROCCACHE"
             'Comando.CommandText = "SET ARITHABORT ON"
             _adaptador.SelectCommand = Comando
             'Comando.CommandType = CommandType.StoredProcedure
+            'Dim read As SqlClient.SqlDataReader = Comando.ExecuteReader
+            '_tabla.Load(read, LoadOption.OverwriteChanges)
 
             _adaptador.Fill(_tabla)
+            _adaptador.Dispose()
         Catch ex As Exception
             MsgBox(ex.Message)
             'Finally
