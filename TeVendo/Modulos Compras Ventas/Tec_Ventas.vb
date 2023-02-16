@@ -1617,8 +1617,20 @@ salirIf:
 
     Public Function _PMOGetTablaBuscador() As DataTable
 
-        Dim dtBuscador As DataTable = L_prListarVentasGeneralFiltroFecha("MAM_Ventas", tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"), Global_Sucursal)
-        Return dtBuscador
+        Dim Query As String
+
+        ''  Dim dtBuscador As DataTable = L_prListarVentasGeneralFiltroFecha("MAM_Ventas", tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"), Global_Sucursal)
+
+        Dim dtBuscador As DataTable = EjecutarQuery(tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"), Global_Sucursal)
+
+
+
+
+        Dim dataView As New DataView(dtBuscador)
+        dataView.Sort = " Id DESC"
+        Dim dataTable As DataTable = dataView.ToTable()
+
+        Return dataTable
     End Function
 
     Public Function _PMOGetListEstructuraBuscador() As List(Of Celda)

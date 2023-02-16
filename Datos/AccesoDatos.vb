@@ -16,6 +16,13 @@ Public Class AccesoDatos
         Return MetodoDatos.EjecutarComandoSelect(_comando)
     End Function
 
+    Public Shared Function D_Select_Query(_Query As String) As DataTable
+        'Dim _comando As OleDbCommand = MetodoDatos.CrearComando()
+        _comando.CommandText = _Query
+        Return MetodoDatos.EjecutarComandoSelect(_comando)
+
+    End Function
+
     Public Shared Function D_Maximo(_Tabla As String, _Campo As String, _Where As String) As DataTable
         'Dim _comando As OleDbCommand = MetodoDatos.CrearComando()
         _comando.CommandText = "SELECT MAX(" + _Campo + ") FROM " + _Tabla + " WHERE " + _Where
@@ -57,12 +64,7 @@ Public Class AccesoDatos
 
     End Function
 
-    Public Shared Function D_Procedimiento(_Nombre As String) As DataTable
-        _comando.CommandText = _Nombre
-        _comando.CommandType = CommandType.StoredProcedure
-        _comando.ExecuteNonQuery()
-        Return MetodoDatos.EjecutarProcedimiento(_comando)
-    End Function
+
 
     Public Shared Function D_ProcedimientoConParam(_Nombre As String, _listaParam As List(Of DParametro)) As DataTable
         _comandoProcedimiento.Parameters.Clear()
