@@ -26,36 +26,36 @@ Partial Class Tec_VentasDetalle
         Me.Paneltop = New System.Windows.Forms.Panel()
         Me.grProducto = New Janus.Windows.GridEX.GridEX()
         Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.btnProductos = New DevComponents.DotNetBar.ButtonX()
-        Me.btnConfirmarSalir = New DevComponents.DotNetBar.ButtonX()
         Me.LabelX9 = New DevComponents.DotNetBar.LabelX()
         Me.tbProducto = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.Panel10 = New System.Windows.Forms.Panel()
         Me.Panel11 = New System.Windows.Forms.Panel()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel12 = New System.Windows.Forms.Panel()
-        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.grDetalle = New Janus.Windows.GridEX.GridEX()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.btnProductos = New DevComponents.DotNetBar.ButtonX()
+        Me.btnConfirmarSalir = New DevComponents.DotNetBar.ButtonX()
+        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.Paneltop.SuspendLayout()
         CType(Me.grProducto, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
         Me.Panel10.SuspendLayout()
         Me.Panel11.SuspendLayout()
-        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
         CType(Me.grDetalle, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel3.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Paneltop
@@ -98,7 +98,7 @@ Partial Class Tec_VentasDetalle
         Me.grProducto.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
         Me.grProducto.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
         Me.grProducto.Location = New System.Drawing.Point(0, 104)
-        Me.grProducto.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grProducto.Margin = New System.Windows.Forms.Padding(4)
         Me.grProducto.Name = "grProducto"
         Me.grProducto.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.grProducto.Office2007CustomColor = System.Drawing.Color.DodgerBlue
@@ -137,47 +137,6 @@ Partial Class Tec_VentasDetalle
         Me.Panel5.Size = New System.Drawing.Size(1095, 68)
         Me.Panel5.TabIndex = 3
         '
-        'btnProductos
-        '
-        Me.btnProductos.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnProductos.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.btnProductos.Font = New System.Drawing.Font("Calibri", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnProductos.Image = Global.TeVendo.My.Resources.Resources.search
-        Me.btnProductos.ImageFixedSize = New System.Drawing.Size(24, 24)
-        Me.btnProductos.Location = New System.Drawing.Point(883, 7)
-        Me.btnProductos.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.btnProductos.Name = "btnProductos"
-        Me.btnProductos.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
-        Me.btnProductos.Size = New System.Drawing.Size(199, 53)
-        Me.btnProductos.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnProductos.Symbol = "57410"
-        Me.btnProductos.SymbolColor = System.Drawing.Color.DarkOrange
-        Me.btnProductos.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Material
-        Me.btnProductos.SymbolSize = 30.0!
-        Me.btnProductos.TabIndex = 376
-        Me.btnProductos.Text = "Volver a Productos"
-        Me.btnProductos.Visible = False
-        '
-        'btnConfirmarSalir
-        '
-        Me.btnConfirmarSalir.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnConfirmarSalir.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.btnConfirmarSalir.Font = New System.Drawing.Font("Calibri", 9.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnConfirmarSalir.Image = Global.TeVendo.My.Resources.Resources.search
-        Me.btnConfirmarSalir.ImageFixedSize = New System.Drawing.Size(22, 22)
-        Me.btnConfirmarSalir.Location = New System.Drawing.Point(605, 7)
-        Me.btnConfirmarSalir.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.btnConfirmarSalir.Name = "btnConfirmarSalir"
-        Me.btnConfirmarSalir.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
-        Me.btnConfirmarSalir.Size = New System.Drawing.Size(253, 53)
-        Me.btnConfirmarSalir.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnConfirmarSalir.Symbol = "57695"
-        Me.btnConfirmarSalir.SymbolColor = System.Drawing.Color.MediumTurquoise
-        Me.btnConfirmarSalir.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Material
-        Me.btnConfirmarSalir.SymbolSize = 30.0!
-        Me.btnConfirmarSalir.TabIndex = 3
-        Me.btnConfirmarSalir.Text = "Confirmar / Salir"
-        '
         'LabelX9
         '
         Me.LabelX9.BackColor = System.Drawing.Color.Transparent
@@ -188,7 +147,7 @@ Partial Class Tec_VentasDetalle
         Me.LabelX9.Font = New System.Drawing.Font("Georgia", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
         Me.LabelX9.Location = New System.Drawing.Point(84, 17)
-        Me.LabelX9.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.LabelX9.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX9.Name = "LabelX9"
         Me.LabelX9.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX9.Size = New System.Drawing.Size(151, 28)
@@ -206,7 +165,7 @@ Partial Class Tec_VentasDetalle
         Me.tbProducto.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbProducto.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tbProducto.Location = New System.Drawing.Point(251, 18)
-        Me.tbProducto.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tbProducto.Margin = New System.Windows.Forms.Padding(4)
         Me.tbProducto.Name = "tbProducto"
         Me.tbProducto.PreventEnterBeep = True
         Me.tbProducto.Size = New System.Drawing.Size(332, 24)
@@ -261,20 +220,6 @@ Partial Class Tec_VentasDetalle
         Me.Panel12.Size = New System.Drawing.Size(1, 34)
         Me.Panel12.TabIndex = 1
         '
-        'PictureBox3
-        '
-        Me.PictureBox3.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.PictureBox3.Dock = System.Windows.Forms.DockStyle.Left
-        Me.PictureBox3.Image = Global.TeVendo.My.Resources.Resources.tec_triangulo_blanco
-        Me.PictureBox3.Location = New System.Drawing.Point(0, 0)
-        Me.PictureBox3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.PictureBox3.Name = "PictureBox3"
-        Me.PictureBox3.Padding = New System.Windows.Forms.Padding(15, 5, 15, 5)
-        Me.PictureBox3.Size = New System.Drawing.Size(59, 34)
-        Me.PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox3.TabIndex = 0
-        Me.PictureBox3.TabStop = False
-        '
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.Color.White
@@ -312,7 +257,7 @@ Partial Class Tec_VentasDetalle
         Me.grDetalle.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
         Me.grDetalle.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
         Me.grDetalle.Location = New System.Drawing.Point(0, 36)
-        Me.grDetalle.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grDetalle.Margin = New System.Windows.Forms.Padding(4)
         Me.grDetalle.Name = "grDetalle"
         Me.grDetalle.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.grDetalle.Office2007CustomColor = System.Drawing.Color.DodgerBlue
@@ -374,7 +319,7 @@ Partial Class Tec_VentasDetalle
         Me.Label1.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
         Me.Label1.Size = New System.Drawing.Size(253, 34)
         Me.Label1.TabIndex = 2
-        Me.Label1.Text = "Datos Del Movimiento"
+        Me.Label1.Text = "Datos De la Venta"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Panel4
@@ -386,6 +331,14 @@ Partial Class Tec_VentasDetalle
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(1, 34)
         Me.Panel4.TabIndex = 1
+        '
+        'MHighlighterFocus
+        '
+        Me.MHighlighterFocus.FocusHighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Orange
+        '
+        'MEP
+        '
+        Me.MEP.ContainerControl = Me
         '
         'PictureBox1
         '
@@ -401,13 +354,60 @@ Partial Class Tec_VentasDetalle
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
         '
-        'MHighlighterFocus
+        'btnProductos
         '
-        Me.MHighlighterFocus.FocusHighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Orange
+        Me.btnProductos.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnProductos.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnProductos.Font = New System.Drawing.Font("Calibri", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnProductos.Image = Global.TeVendo.My.Resources.Resources.search
+        Me.btnProductos.ImageFixedSize = New System.Drawing.Size(24, 24)
+        Me.btnProductos.Location = New System.Drawing.Point(883, 7)
+        Me.btnProductos.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnProductos.Name = "btnProductos"
+        Me.btnProductos.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
+        Me.btnProductos.Size = New System.Drawing.Size(199, 53)
+        Me.btnProductos.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnProductos.Symbol = "57410"
+        Me.btnProductos.SymbolColor = System.Drawing.Color.DarkOrange
+        Me.btnProductos.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Material
+        Me.btnProductos.SymbolSize = 30.0!
+        Me.btnProductos.TabIndex = 376
+        Me.btnProductos.Text = "Volver a Productos"
+        Me.btnProductos.Visible = False
         '
-        'MEP
+        'btnConfirmarSalir
         '
-        Me.MEP.ContainerControl = Me
+        Me.btnConfirmarSalir.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnConfirmarSalir.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnConfirmarSalir.Font = New System.Drawing.Font("Calibri", 9.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnConfirmarSalir.Image = Global.TeVendo.My.Resources.Resources.search
+        Me.btnConfirmarSalir.ImageFixedSize = New System.Drawing.Size(22, 22)
+        Me.btnConfirmarSalir.Location = New System.Drawing.Point(605, 7)
+        Me.btnConfirmarSalir.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnConfirmarSalir.Name = "btnConfirmarSalir"
+        Me.btnConfirmarSalir.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
+        Me.btnConfirmarSalir.Size = New System.Drawing.Size(253, 53)
+        Me.btnConfirmarSalir.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnConfirmarSalir.Symbol = "57695"
+        Me.btnConfirmarSalir.SymbolColor = System.Drawing.Color.MediumTurquoise
+        Me.btnConfirmarSalir.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Material
+        Me.btnConfirmarSalir.SymbolSize = 30.0!
+        Me.btnConfirmarSalir.TabIndex = 3
+        Me.btnConfirmarSalir.Text = "Confirmar / Salir"
+        '
+        'PictureBox3
+        '
+        Me.PictureBox3.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.PictureBox3.Dock = System.Windows.Forms.DockStyle.Left
+        Me.PictureBox3.Image = Global.TeVendo.My.Resources.Resources.tec_triangulo_blanco
+        Me.PictureBox3.Location = New System.Drawing.Point(0, 0)
+        Me.PictureBox3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.PictureBox3.Name = "PictureBox3"
+        Me.PictureBox3.Padding = New System.Windows.Forms.Padding(15, 5, 15, 5)
+        Me.PictureBox3.Size = New System.Drawing.Size(59, 34)
+        Me.PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox3.TabIndex = 0
+        Me.PictureBox3.TabStop = False
         '
         'Tec_VentasDetalle
         '
@@ -427,13 +427,13 @@ Partial Class Tec_VentasDetalle
         Me.Panel5.ResumeLayout(False)
         Me.Panel10.ResumeLayout(False)
         Me.Panel11.ResumeLayout(False)
-        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel2.ResumeLayout(False)
         CType(Me.grDetalle, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel3.ResumeLayout(False)
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

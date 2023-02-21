@@ -968,5 +968,19 @@ Public Class Tec_AdministrarCuentasPorCobrar
         P_Global.Visualizador.CrGeneral.Zoom(110)
         P_Global.Visualizador.Show() 'Comentar
     End Sub
+
+    Private Sub gr_CreditoPendientes_DoubleClick(sender As Object, e As EventArgs) Handles gr_CreditoPendientes.DoubleClick
+        If (gr_CreditoPendientes.Row >= 0) Then
+
+            Dim ventasId As Integer = Integer.Parse(gr_CreditoPendientes.GetValue("venta").ToString.Replace("venta000", ""))
+            Dim dt As New DataTable
+            dt = ListaVentasDetalles(ventasId)
+            Dim frm As frm_VerProductosVendidos
+            frm = New frm_VerProductosVendidos(dt)
+            frm.Show()
+
+
+        End If
+    End Sub
 #End Region
 End Class

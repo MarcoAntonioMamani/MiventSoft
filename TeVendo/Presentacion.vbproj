@@ -487,6 +487,12 @@
     <Compile Include="Modulos Compras Ventas\Frm_Proveedor.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modulos Compras Ventas\frm_VerProductosVendidos.Designer.vb">
+      <DependentUpon>frm_VerProductosVendidos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos Compras Ventas\frm_VerProductosVendidos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Modulos Compras Ventas\Tec_AdministrarCuentasPorCobrar.Designer.vb">
       <DependentUpon>Tec_AdministrarCuentasPorCobrar.vb</DependentUpon>
     </Compile>
@@ -968,6 +974,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modulos Compras Ventas\Frm_Proveedor.resx">
       <DependentUpon>Frm_Proveedor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulos Compras Ventas\frm_VerProductosVendidos.resx">
+      <DependentUpon>frm_VerProductosVendidos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modulos Compras Ventas\Tec_AdministrarCuentasPorCobrar.resx">
       <DependentUpon>Tec_AdministrarCuentasPorCobrar.vb</DependentUpon>
