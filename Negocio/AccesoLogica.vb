@@ -2993,7 +2993,8 @@ Public Class AccesoLogica
 
 
     Public Shared Function L_prGrabarPagosCreditoVentas(ByRef TransaccionVentaId As String,
-        CreditoVentaId As Integer, FechaPAgo As String, PersonalId As Integer, Glosa As String, NroComprobante As String, Pago As Double) As Boolean
+        CreditoVentaId As Integer, FechaPAgo As String, PersonalId As Integer, Glosa As String,
+        NroComprobante As String, Pago As Double, Efectivo As Integer) As Boolean
         Dim _Tabla As DataTable
         Dim _resultado As Boolean
         Dim _listParam As New List(Of Datos.DParametro)
@@ -3006,6 +3007,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@NroRecibo", NroComprobante))
         _listParam.Add(New Datos.DParametro("@Monto", Pago))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@Efectivo", Efectivo))
         _Tabla = D_ProcedimientoConParam("MAM_CreditosVentas", _listParam)
 
         If _Tabla.Rows.Count > 0 Then

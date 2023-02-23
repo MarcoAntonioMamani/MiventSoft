@@ -724,7 +724,7 @@ Public Class Tec_AdministrarCuentasPorCobrar
         tbNroComprobante.Clear()
         tbSaldo.Value = tbSaldo.Value - tbMontoAPagar.Value
         tbMontoAPagar.Value = 0
-
+        swTipoPago.Value = True
     End Sub
 
     Private Sub ButtonX4_Click(sender As Object, e As EventArgs) Handles ButtonX4.Click
@@ -759,7 +759,7 @@ Public Class Tec_AdministrarCuentasPorCobrar
 
             Dim id As String = ""
             Try
-                If (L_prGrabarPagosCreditoVentas(id, IdCredito, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), IdPersonal, tbGlosa.Text, tbNroComprobante.Text, tbMontoAPagar.Value)) Then
+                If (L_prGrabarPagosCreditoVentas(id, IdCredito, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), IdPersonal, tbGlosa.Text, tbNroComprobante.Text, tbMontoAPagar.Value, IIf(swTipoPago.Value = True, 1, 0))) Then
 
                     Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
                     ToastNotification.Show(Me, "El Pago Ha sido Registrado con Exito", img, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)

@@ -84,6 +84,7 @@ Partial Class Tec_AdministrarCuentasPorCobrar
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.swTipoPago = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.Panel1.SuspendLayout()
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlMenu.SuspendLayout()
@@ -124,7 +125,7 @@ Partial Class Tec_AdministrarCuentasPorCobrar
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(957, 493)
+        Me.Panel1.Size = New System.Drawing.Size(957, 588)
         Me.Panel1.TabIndex = 1
         '
         'SuperTabControlMenu
@@ -143,9 +144,9 @@ Partial Class Tec_AdministrarCuentasPorCobrar
         Me.SuperTabControlMenu.ControlBox.MenuBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControlMenu.ControlBox.MenuBox, Me.SuperTabControlMenu.ControlBox.CloseBox})
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel6)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel6)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel1)
         Me.SuperTabControlMenu.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlMenu.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -155,7 +156,7 @@ Partial Class Tec_AdministrarCuentasPorCobrar
         Me.SuperTabControlMenu.ReorderTabsEnabled = True
         Me.SuperTabControlMenu.SelectedTabFont = New System.Drawing.Font("Calibri", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControlMenu.SelectedTabIndex = 0
-        Me.SuperTabControlMenu.Size = New System.Drawing.Size(957, 452)
+        Me.SuperTabControlMenu.Size = New System.Drawing.Size(957, 547)
         Me.SuperTabControlMenu.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControlMenu.TabIndex = 0
         Me.SuperTabControlMenu.TabLayoutType = DevComponents.DotNetBar.eSuperTabLayoutType.MultiLineFit
@@ -404,7 +405,7 @@ Partial Class Tec_AdministrarCuentasPorCobrar
         Me.SuperTabControlPanel6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel6.Location = New System.Drawing.Point(0, 58)
         Me.SuperTabControlPanel6.Name = "SuperTabControlPanel6"
-        Me.SuperTabControlPanel6.Size = New System.Drawing.Size(957, 394)
+        Me.SuperTabControlPanel6.Size = New System.Drawing.Size(957, 489)
         Me.SuperTabControlPanel6.TabIndex = 6
         Me.SuperTabControlPanel6.TabItem = Me.tab03
         '
@@ -416,7 +417,7 @@ Partial Class Tec_AdministrarCuentasPorCobrar
         Me.PanelDatos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelDatos.Location = New System.Drawing.Point(0, 0)
         Me.PanelDatos.Name = "PanelDatos"
-        Me.PanelDatos.Size = New System.Drawing.Size(957, 394)
+        Me.PanelDatos.Size = New System.Drawing.Size(957, 489)
         Me.PanelDatos.TabIndex = 3
         '
         'GroupPanel4
@@ -430,7 +431,7 @@ Partial Class Tec_AdministrarCuentasPorCobrar
         Me.GroupPanel4.Location = New System.Drawing.Point(517, 0)
         Me.GroupPanel4.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupPanel4.Name = "GroupPanel4"
-        Me.GroupPanel4.Size = New System.Drawing.Size(440, 394)
+        Me.GroupPanel4.Size = New System.Drawing.Size(440, 489)
         '
         '
         '
@@ -471,7 +472,7 @@ Partial Class Tec_AdministrarCuentasPorCobrar
         Me.Panel7.Location = New System.Drawing.Point(0, 0)
         Me.Panel7.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(434, 367)
+        Me.Panel7.Size = New System.Drawing.Size(434, 462)
         Me.Panel7.TabIndex = 0
         '
         'grPagos
@@ -508,7 +509,7 @@ Partial Class Tec_AdministrarCuentasPorCobrar
         Me.grPagos.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grPagos.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
         Me.grPagos.SelectedInactiveFormatStyle.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.grPagos.Size = New System.Drawing.Size(434, 367)
+        Me.grPagos.Size = New System.Drawing.Size(434, 462)
         Me.grPagos.TabIndex = 3
         Me.grPagos.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
         Me.grPagos.TableSpacing = 9
@@ -520,6 +521,7 @@ Partial Class Tec_AdministrarCuentasPorCobrar
         'PanelCampos
         '
         Me.PanelCampos.AutoScroll = True
+        Me.PanelCampos.Controls.Add(Me.swTipoPago)
         Me.PanelCampos.Controls.Add(Me.ButtonX4)
         Me.PanelCampos.Controls.Add(Me.ButtonX3)
         Me.PanelCampos.Controls.Add(Me.btnProveedor)
@@ -542,7 +544,7 @@ Partial Class Tec_AdministrarCuentasPorCobrar
         Me.PanelCampos.Dock = System.Windows.Forms.DockStyle.Left
         Me.PanelCampos.Location = New System.Drawing.Point(0, 0)
         Me.PanelCampos.Name = "PanelCampos"
-        Me.PanelCampos.Size = New System.Drawing.Size(517, 394)
+        Me.PanelCampos.Size = New System.Drawing.Size(517, 489)
         Me.PanelCampos.TabIndex = 0
         '
         'ButtonX4
@@ -554,7 +556,7 @@ Partial Class Tec_AdministrarCuentasPorCobrar
         Me.ButtonX4.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonX4.Image = Global.TeVendo.My.Resources.Resources.caja
         Me.ButtonX4.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.ButtonX4.Location = New System.Drawing.Point(205, 363)
+        Me.ButtonX4.Location = New System.Drawing.Point(205, 409)
         Me.ButtonX4.Margin = New System.Windows.Forms.Padding(4)
         Me.ButtonX4.Name = "ButtonX4"
         Me.ButtonX4.Size = New System.Drawing.Size(178, 44)
@@ -1264,11 +1266,31 @@ Partial Class Tec_AdministrarCuentasPorCobrar
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
         '
+        'swTipoPago
+        '
+        '
+        '
+        '
+        Me.swTipoPago.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.swTipoPago.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.swTipoPago.Location = New System.Drawing.Point(205, 363)
+        Me.swTipoPago.Margin = New System.Windows.Forms.Padding(4)
+        Me.swTipoPago.Name = "swTipoPago"
+        Me.swTipoPago.OffBackColor = System.Drawing.Color.LawnGreen
+        Me.swTipoPago.OffText = "Transferencia"
+        Me.swTipoPago.OnBackColor = System.Drawing.Color.Gold
+        Me.swTipoPago.OnText = "Efectivo"
+        Me.swTipoPago.Size = New System.Drawing.Size(180, 27)
+        Me.swTipoPago.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.swTipoPago.TabIndex = 235
+        Me.swTipoPago.Value = True
+        Me.swTipoPago.ValueObject = "Y"
+        '
         'Tec_AdministrarCuentasPorCobrar
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(957, 493)
+        Me.ClientSize = New System.Drawing.Size(957, 588)
         Me.Controls.Add(Me.Panel1)
         Me.Name = "Tec_AdministrarCuentasPorCobrar"
         Me.Text = "Tec_AdministrarCuentasPorCobrar"
@@ -1369,4 +1391,5 @@ Partial Class Tec_AdministrarCuentasPorCobrar
     Friend WithEvents Label1 As Label
     Friend WithEvents Panel3 As Panel
     Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents swTipoPago As DevComponents.DotNetBar.Controls.SwitchButton
 End Class
