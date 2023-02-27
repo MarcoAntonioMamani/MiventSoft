@@ -1614,12 +1614,13 @@ Public Class AccesoLogica
                                            FechaTransacccion As String, PersonalId As Integer, ClienteId As Integer, TipoVenta As Integer,
        FechaVencCredito As String, Moneda As Integer, estado As Integer, glosa As String,
                                            TotalCompra As Double, _dtDetalle As DataTable,
-                                           Descuento As Double, dtPago As DataTable, Facturado As Integer) As Boolean
+                                           Descuento As Double,
+                                         dtPago As DataTable, Facturado As Integer, PendienteEntrega As Integer) As Boolean
         Dim _resultado As Boolean
 
         '    @Id ,@SucursalId ,@FechaVenta ,@PersonalId ,@TipoVenta ,
         '@FechaVencimientoCredito ,@ClienteId ,@MonedaVenta ,@Estado ,@Glosa ,
-        '@Descuento ,@TotalVenta 
+        '@Descuento ,@TotalVenta ,@PendienteEntrega
 
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
@@ -1643,7 +1644,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@VentaPagos", "", dtPago))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@Facturado", Facturado))
-
+        _listParam.Add(New Datos.DParametro("@PendienteEntrega", PendienteEntrega))
         _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
 
         If _Tabla.Rows.Count > 0 Then
@@ -1973,6 +1974,16 @@ Public Class AccesoLogica
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 10))
         _Tabla = D_ProcedimientoConParam("MAM_Clientes", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function ListarVentasPendientesEntregas() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 6))
+        _Tabla = D_ProcedimientoConParam("MAM_Entregas", _listParam)
 
         Return _Tabla
     End Function

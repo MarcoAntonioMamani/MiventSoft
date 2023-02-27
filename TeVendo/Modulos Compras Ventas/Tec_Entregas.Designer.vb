@@ -36,7 +36,7 @@ Partial Class Tec_Entregas
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.tbFechaTransaccion = New Janus.Windows.CalendarCombo.CalendarCombo()
         Me.btnSeleccionarProducto = New DevComponents.DotNetBar.ButtonX()
-        Me.btnCliente = New DevComponents.DotNetBar.ButtonX()
+        Me.btnVenta = New DevComponents.DotNetBar.ButtonX()
         Me.LabelX11 = New DevComponents.DotNetBar.LabelX()
         Me.tbVenta = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.btnVendedor = New DevComponents.DotNetBar.ButtonX()
@@ -340,7 +340,7 @@ Partial Class Tec_Entregas
         Me.Panel3.AutoScroll = True
         Me.Panel3.Controls.Add(Me.tbFechaTransaccion)
         Me.Panel3.Controls.Add(Me.btnSeleccionarProducto)
-        Me.Panel3.Controls.Add(Me.btnCliente)
+        Me.Panel3.Controls.Add(Me.btnVenta)
         Me.Panel3.Controls.Add(Me.LabelX11)
         Me.Panel3.Controls.Add(Me.tbVenta)
         Me.Panel3.Controls.Add(Me.btnVendedor)
@@ -414,19 +414,19 @@ Partial Class Tec_Entregas
         Me.btnSeleccionarProducto.TabIndex = 214
         Me.btnSeleccionarProducto.Text = "Agregar Productos"
         '
-        'btnCliente
+        'btnVenta
         '
-        Me.btnCliente.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnCliente.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.btnCliente.Image = Global.TeVendo.My.Resources.Resources.search
-        Me.btnCliente.ImageFixedSize = New System.Drawing.Size(20, 20)
-        Me.btnCliente.Location = New System.Drawing.Point(301, 128)
-        Me.btnCliente.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnCliente.Name = "btnCliente"
-        Me.btnCliente.Size = New System.Drawing.Size(35, 28)
-        Me.btnCliente.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnCliente.TabIndex = 213
-        Me.btnCliente.Visible = False
+        Me.btnVenta.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnVenta.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnVenta.Image = Global.TeVendo.My.Resources.Resources.search
+        Me.btnVenta.ImageFixedSize = New System.Drawing.Size(20, 20)
+        Me.btnVenta.Location = New System.Drawing.Point(301, 128)
+        Me.btnVenta.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnVenta.Name = "btnVenta"
+        Me.btnVenta.Size = New System.Drawing.Size(35, 28)
+        Me.btnVenta.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnVenta.TabIndex = 213
+        Me.btnVenta.Visible = False
         '
         'LabelX11
         '
@@ -442,9 +442,9 @@ Partial Class Tec_Entregas
         Me.LabelX11.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX11.Name = "LabelX11"
         Me.LabelX11.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX11.Size = New System.Drawing.Size(44, 21)
+        Me.LabelX11.Size = New System.Drawing.Size(162, 21)
         Me.LabelX11.TabIndex = 212
-        Me.LabelX11.Text = "Venta:"
+        Me.LabelX11.Text = "Venta Pendiente Entrega:"
         '
         'tbVenta
         '
@@ -2113,7 +2113,7 @@ Partial Class Tec_Entregas
     Friend WithEvents Panel3 As Panel
     Friend WithEvents tbFechaTransaccion As Janus.Windows.CalendarCombo.CalendarCombo
     Friend WithEvents btnSeleccionarProducto As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents btnCliente As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents btnVenta As DevComponents.DotNetBar.ButtonX
     Friend WithEvents LabelX11 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbVenta As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents btnVendedor As DevComponents.DotNetBar.ButtonX

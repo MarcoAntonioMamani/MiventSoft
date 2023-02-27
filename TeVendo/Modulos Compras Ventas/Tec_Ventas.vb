@@ -1204,6 +1204,11 @@ salirIf:
         BtnImprimir.Visible = False
         tab_Cobro.Visible = False
 
+        If (_MModificar = True) Then
+            swEntrega.IsReadOnly = True
+        Else
+            swEntrega.IsReadOnly = False
+        End If
 
 
     End Sub
@@ -1214,7 +1219,7 @@ salirIf:
         tbVendedor.ReadOnly = True
         tbCliente.ReadOnly = True
         tbGlosa.ReadOnly = True
-
+        swEntrega.IsReadOnly = True
         cbSucursal.ReadOnly = True
         swTipoVenta.IsReadOnly = True
         tbFechaVencimientoCredito.ReadOnly = True
@@ -1312,7 +1317,7 @@ salirIf:
 
                     res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                    IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0))
+                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), IIf(swEntrega.Value = True, 1, 0))
 
                     If res Then
 
@@ -1334,7 +1339,7 @@ salirIf:
 
                 res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0))
+                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), IIf(swEntrega.Value = True, 1, 0))
 
                 If res Then
 
@@ -1654,6 +1659,7 @@ salirIf:
         listEstCeldas.Add(New Celda("TarjetaBancaria", False))
         listEstCeldas.Add(New Celda("TransferenciaBancaria", False))
         listEstCeldas.Add(New Celda("TipoCambio", False))
+        listEstCeldas.Add(New Celda("PendienteEntrega", False))
         Return listEstCeldas
     End Function
 
@@ -1680,7 +1686,7 @@ salirIf:
             swFacturado.Value = .GetValue("Facturado")
             tbFechaVencimientoCredito.Value = .GetValue("FechaVencimientoCredito")
             tbCliente.Text = .GetValue("NombreCliente").ToString
-
+            swEntrega.Value = .GetValue("PendienteEntrega")
             tbGlosa.Text = .GetValue("Glosa").ToString
             tbMdesc.Value = .GetValue("descuento")
 
@@ -1736,9 +1742,8 @@ salirIf:
 
                         IdCliente = fila01(0).Item("Id")
                         tbCliente.Text = fila01(0).Item("NombreCliente").ToString
-                        btnSeleccionarProducto.Focus()
-
-                    End If
+                btnSeleccionarProducto.Focus()
+            End If
                 End If
 
 

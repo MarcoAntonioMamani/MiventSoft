@@ -22,7 +22,7 @@ Public Class Tec_Entregas
     Dim Lote As Boolean = False
     Dim IdVendedor As Integer = 0
     Dim IdCliente As Integer = 0
-
+    Dim VentaId As Integer = 0
 #End Region
 
 #Region "Metodos Overrides"
@@ -711,7 +711,7 @@ salirIf:
 
 
         btnVendedor.Visible = False
-        btnCliente.Visible = True
+        btnVenta.Visible = True
         BtnImprimir.Visible = False
         tab_Cobro.Visible = False
 
@@ -730,7 +730,7 @@ salirIf:
 
         grDetalle.RootTable.Columns("img").Visible = False
         btnVendedor.Visible = False
-        btnCliente.Visible = False
+        btnVenta.Visible = False
         BtnImprimir.Visible = True
 
         tab_Cobro.Visible = True
@@ -747,7 +747,7 @@ salirIf:
         IdCliente = 0
         tbFechaTransaccion.Value = Now.Date
 
-
+        VentaId = 0
 
         IdCliente = 0
 
@@ -1032,7 +1032,7 @@ salirIf:
             tbFechaTransaccion.Value = .GetValue("Fecha")
             IdVendedor = .GetValue("PersonalId")
             tbPersonal.Text = .GetValue("NombrePersonal").ToString
-
+            VentaId = .GetValue("VentaId")
 
             tbVenta.Text = .GetValue("Venta").ToString
 
@@ -1319,7 +1319,7 @@ salirIf:
 
     End Sub
 
-    Private Sub btnCliente_Click(sender As Object, e As EventArgs) Handles btnCliente.Click
+    Private Sub btnCliente_Click(sender As Object, e As EventArgs) Handles btnVenta.Click
         If (Not _fnAccesible()) Then
             Return
         End If
@@ -1328,32 +1328,32 @@ salirIf:
         Dim dt As DataTable
 
 
-        dt = ListarCliente()
-        'a.Id ,a.NombreCliente  as NombreProveedor ,a.DireccionCliente  ,a.Telefono
+        dt = ListarVentasPendientesEntregas()
+        ' a.Id,a.FechaVenta,cl.NombreCliente,a.TotalVenta
 
         Dim listEstCeldas As New List(Of Celda)
-        listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
-        listEstCeldas.Add(New Celda("NombreCliente", True, "NOMBRE", 350))
-        listEstCeldas.Add(New Celda("DireccionCliente", True, "DIRECCION", 180))
-        listEstCeldas.Add(New Celda("Telefono", True, "Telefono".ToUpper, 200))
+        listEstCeldas.Add(New Celda("Id", False, "ID", 50))
+        listEstCeldas.Add(New Celda("FechaVenta", True, "FechaVenta", 90, "dd/MM/yyyy"))
+        listEstCeldas.Add(New Celda("NombreCliente", True, "Cliente", 350))
+        listEstCeldas.Add(New Celda("TotalVenta", True, "Total Venta", 150, "00.00"))
 
 
         Dim ef = New Efecto
-        ef.tipo = 7
+        ef.tipo = 6
         ef.dt = dt
         ef.SeleclCol = 0
         ef.listEstCeldasNew = listEstCeldas
         ef.alto = 80
         ef.ancho = 800
-        ef.Context = "Seleccione Cliente".ToUpper
+        ef.Context = "Seleccione Venta Pendiente de Entrega".ToUpper
         ef.ShowDialog()
         Dim bandera As Boolean = False
         bandera = ef.band
         If (bandera = True) Then
             Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
 
-            IdCliente = Row.Cells("ID").Value
-            tbVenta.Text = Row.Cells("NombreProveedor").Value.ToString
+            VentaId = Row.Cells("Id").Value
+            tbVenta.Text = "Venta= " + Str(Row.Cells("Id").Value) + " Cliente= " + Row.Cells("NombreCliente").Value.ToString
 
             btnSeleccionarProducto.Focus()
         Else
@@ -1572,14 +1572,22 @@ salirIf:
     End Sub
 
     Private Sub btnSeleccionarProducto_Click(sender As Object, e As EventArgs) Handles btnSeleccionarProducto.Click
-        Dim ef = New Efecto
-        ef.tipo = 16
-        ef.dtDetalle = CType(grDetalle.DataSource, DataTable)
 
-        ef.TipoPrograma = 1
-        ef.IdCliente = IdCliente
-        ef.ShowDialog()
-        grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
+        If (VentaId > 0) Then
+            Dim ef = New Efecto
+            ef.tipo = 16
+            ef.dtDetalle = CType(grDetalle.DataSource, DataTable)
+
+            ef.TipoPrograma = 1
+            ef.IdCliente = IdCliente
+            ef.ShowDialog()
+            grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
+
+        Else
+            ToastNotification.Show(Me, "Debe Seleccionar la Venta para realizar las entregas", img, 5000, eToastGlowColor.Red, eToastPosition.BottomRight)
+            tbVenta.Focus()
+
+        End If
 
     End Sub
 
