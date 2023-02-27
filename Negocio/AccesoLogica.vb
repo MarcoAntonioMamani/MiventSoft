@@ -1325,6 +1325,19 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
+    Public Shared Function ListaEntregaDetalles(EntregaId As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@id", EntregaId))
+        _Tabla = D_ProcedimientoConParam("MAM_Entregas", _listParam)
+
+        Return _Tabla
+    End Function
+
     Public Shared Function ListPreciosDetalles(ProductoId As String) As DataTable
         Dim _Tabla As DataTable
 
@@ -1632,6 +1645,66 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@Facturado", Facturado))
 
         _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _numi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function EntregaInsertar(ByRef _numi As String, personalId As Integer, Fecha As String,
+                                         Observacion As String, _dtDetalle As DataTable) As Boolean
+        Dim _resultado As Boolean
+
+        '@Id,@VentaId,@PersonalId,@Fecha,@Observacion,@Usuario,@newFecha,@newHora
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@PersonalId", personalId))
+        _listParam.Add(New Datos.DParametro("@Fecha", Fecha))
+        _listParam.Add(New Datos.DParametro("@Observacion", Observacion))
+        _listParam.Add(New Datos.DParametro("@EntregaProductos", "", _dtDetalle))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Entregas", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _numi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function EntregaModificar(ByRef _numi As String, personalId As Integer, Fecha As String,
+                                         Observacion As String, _dtDetalle As DataTable) As Boolean
+        Dim _resultado As Boolean
+
+        '@Id,@VentaId,@PersonalId,@Fecha,@Observacion,@Usuario,@newFecha,@newHora
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", _numi))
+        _listParam.Add(New Datos.DParametro("@PersonalId", personalId))
+        _listParam.Add(New Datos.DParametro("@Fecha", Fecha))
+        _listParam.Add(New Datos.DParametro("@Observacion", Observacion))
+        _listParam.Add(New Datos.DParametro("@EntregaProductos", "", _dtDetalle))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Entregas", _listParam)
 
         If _Tabla.Rows.Count > 0 Then
             _numi = _Tabla.Rows(0).Item(0)
@@ -2264,6 +2337,21 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@Desde", Desde))
         _listParam.Add(New Datos.DParametro("@Hasta", Hasta))
         _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
+        _Tabla = D_ProcedimientoConParam(NameSp, _listParam)
+
+        Return _Tabla
+    End Function
+
+
+    Public Shared Function L_prListarEntregasGeneralFiltroFecha(NameSp As String, Desde As String, Hasta As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@Desde", Desde))
+        _listParam.Add(New Datos.DParametro("@Hasta", Hasta))
         _Tabla = D_ProcedimientoConParam(NameSp, _listParam)
 
         Return _Tabla
