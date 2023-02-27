@@ -1508,6 +1508,31 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+
+    Public Shared Function L_prListarProductosVentasEntregas(ventaId As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@VentaId", ventaId))
+        _Tabla = D_ProcedimientoConParam("MAM_Entregas", _listParam)
+
+        Return _Tabla
+    End Function
+    Public Shared Function L_prListarProductosEntregas(ventaId As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 7))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@VentaId", ventaId))
+        _Tabla = D_ProcedimientoConParam("MAM_Entregas", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function InsertarTipoCambio(ByRef _numi As String, TipoCambio As Double) As Boolean
         Dim _resultado As Boolean
 
@@ -1659,7 +1684,7 @@ Public Class AccesoLogica
     End Function
 
     Public Shared Function EntregaInsertar(ByRef _numi As String, personalId As Integer, Fecha As String,
-                                         Observacion As String, _dtDetalle As DataTable) As Boolean
+                                         Observacion As String, _dtDetalle As DataTable, VentaId As Integer) As Boolean
         Dim _resultado As Boolean
 
         '@Id,@VentaId,@PersonalId,@Fecha,@Observacion,@Usuario,@newFecha,@newHora
@@ -1674,6 +1699,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@Observacion", Observacion))
         _listParam.Add(New Datos.DParametro("@EntregaProductos", "", _dtDetalle))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@VentaId", VentaId))
 
         _Tabla = D_ProcedimientoConParam("MAM_Entregas", _listParam)
 
@@ -1689,7 +1715,7 @@ Public Class AccesoLogica
     End Function
 
     Public Shared Function EntregaModificar(ByRef _numi As String, personalId As Integer, Fecha As String,
-                                         Observacion As String, _dtDetalle As DataTable) As Boolean
+                                         Observacion As String, _dtDetalle As DataTable, VentaId As Integer) As Boolean
         Dim _resultado As Boolean
 
         '@Id,@VentaId,@PersonalId,@Fecha,@Observacion,@Usuario,@newFecha,@newHora
@@ -1697,14 +1723,14 @@ Public Class AccesoLogica
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
 
-        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
         _listParam.Add(New Datos.DParametro("@Id", _numi))
         _listParam.Add(New Datos.DParametro("@PersonalId", personalId))
         _listParam.Add(New Datos.DParametro("@Fecha", Fecha))
         _listParam.Add(New Datos.DParametro("@Observacion", Observacion))
         _listParam.Add(New Datos.DParametro("@EntregaProductos", "", _dtDetalle))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
-
+        _listParam.Add(New Datos.DParametro("@VentaId", VentaId))
         _Tabla = D_ProcedimientoConParam("MAM_Entregas", _listParam)
 
         If _Tabla.Rows.Count > 0 Then

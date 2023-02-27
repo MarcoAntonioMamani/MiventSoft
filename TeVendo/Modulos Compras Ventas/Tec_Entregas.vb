@@ -22,7 +22,7 @@ Public Class Tec_Entregas
     Dim Lote As Boolean = False
     Dim IdVendedor As Integer = 0
     Dim IdCliente As Integer = 0
-    Dim VentaId As Integer = 0
+    Dim VentaId As Integer
 #End Region
 
 #Region "Metodos Overrides"
@@ -272,10 +272,30 @@ Public Class Tec_Entregas
 
     End Sub
 
+    Public Sub reArmarStock(ByRef dt As DataTable)
+        'a.Id, a.EntregaId, a.ProductoId, p.NombreProducto As Producto, a.Cantidad, CAST('' as image)as img,
+        '    1 As estado, 0 as Stock
+
+        Dim inventario As DataTable = dt.Copy
+        inventario.Rows.Clear()
+        Dim dtProducto As DataTable = L_prListarProductosEntregas(VentaId)
+        Dim dtVentas = ListaVentasDetalles(VentaId)
+
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            inventario.ImportRow(dt.Rows(i))
+            Dim codigoProducto As Integer = inventario.Rows(i).Item("ProductoId")
+            Dim stock As Double = If(IsDBNull(dtProducto.Compute("SUM(Stock)", "ProductoId=" + Str(codigoProducto))), 0, dtProducto.Compute("SUM(Stock)", "ProductoId=" + Str(codigoProducto)))
+            Dim StockVenta As Double = If(IsDBNull(dtVentas.Compute("SUM(Cantidad)", "ProductoId=" + Str(codigoProducto))), 0, dtVentas.Compute("SUM(Cantidad)", "ProductoId=" + Str(codigoProducto)))
+            inventario.Rows(i).Item("stock") = (StockVenta - stock) + dt.Rows(i).Item("Cantidad")
+        Next
+        dt = inventario.Copy
+    End Sub
 
     Private Sub _prCargarDetalleEntrega(_numi As String)
         Dim dt As New DataTable
         dt = ListaEntregaDetalles(_numi)
+
+        reArmarStock(dt)
         grDetalle.DataSource = dt
         grDetalle.RetrieveStructure()
         grDetalle.AlternatingColors = True
@@ -788,7 +808,7 @@ salirIf:
         Dim Id As String = "0"
         Try
             res = EntregaInsertar(Id, IdVendedor, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
-                               tbGlosa.Text, CType(grDetalle.DataSource, DataTable))
+                               tbGlosa.Text, CType(grDetalle.DataSource, DataTable), VentaId)
 
             If res Then
 
@@ -819,7 +839,7 @@ salirIf:
         Try
 
             Res = EntregaModificar(tbCodigo.Text, IdVendedor, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
-                               tbGlosa.Text, CType(grDetalle.DataSource, DataTable))
+                               tbGlosa.Text, CType(grDetalle.DataSource, DataTable), VentaId)
 
             If Res Then
 
@@ -911,15 +931,7 @@ salirIf:
             tbPersonal.BackColor = Color.White
             MEP.SetError(tbPersonal, "")
         End If
-        If (IdCliente <= 0) Then
-            tbVenta.BackColor = Color.Red
-            MEP.SetError(tbVenta, "Seleccione un Cliente")
-            Mensaje = Mensaje + Chr(13) + Chr(10) + " Cliente"
-            _ok = False
-        Else
-            tbVenta.BackColor = Color.White
-            MEP.SetError(tbVenta, "")
-        End If
+
 
         If (tbFechaTransaccion.Text.Length <= 0) Then
             tbFechaTransaccion.BackColor = Color.Red
@@ -962,11 +974,7 @@ salirIf:
             tbPersonal.Focus()
             Return _ok
         End If
-        If (IdCliente <= 0) Then
-            ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-            tbVenta.Focus()
-            Return _ok
-        End If
+
 
 
         Return _ok
@@ -1542,10 +1550,6 @@ salirIf:
 
     Private Sub EditarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditarToolStripMenuItem.Click
 
-        If (JGrM_Buscador.GetValue("CierreModulo") > 0) Then
-            ToastNotification.Show(Me, "No Es Posible Modificar La Venta Ya que Pertenece A un cierre De Caja Cerrado # " + Str(JGrM_Buscador.GetValue("CierreModulo")), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-            Return
-        End If
 
         If (JGrM_Buscador.Row >= 0) Then
             TabControlPrincipal.SelectedTabIndex = 0
@@ -1575,11 +1579,11 @@ salirIf:
 
         If (VentaId > 0) Then
             Dim ef = New Efecto
-            ef.tipo = 16
+            ef.tipo = 24
             ef.dtDetalle = CType(grDetalle.DataSource, DataTable)
 
             ef.TipoPrograma = 1
-            ef.IdCliente = IdCliente
+            ef.VentaId = VentaId
             ef.ShowDialog()
             grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
 

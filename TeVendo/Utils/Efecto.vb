@@ -38,7 +38,7 @@ Public Class Efecto
     Public TipoMovimientoId As Integer
     Public DepositoId As Integer
     Public SucursalId As Integer
-
+    Public VentaId As Integer
 
     Public CategoriaId As Integer
     Public ProveedorId As Integer
@@ -109,6 +109,8 @@ Public Class Efecto
                 MostrarFormularioAyudaProductos()
             Case 23
                 MostrarFormularioAyudaCatalogo()
+            Case 24
+                _prMostrarAyudaProductosEntregas()
         End Select
     End Sub
 
@@ -311,6 +313,19 @@ Public Class Efecto
         frmAyuda.SucursalId = SucursalId
         frmAyuda.Lote = Lotebool
         frmAyuda.IdCliente = IdCliente
+        frmAyuda.TipoProgramas = TipoPrograma
+        frmAyuda.ShowDialog()
+        Me.Close()
+
+
+    End Sub
+
+    Sub _prMostrarAyudaProductosEntregas()
+
+        Dim frmAyuda As EntregasDetalles
+        frmAyuda = New EntregasDetalles(dtDetalle)
+
+        frmAyuda.VentaId = VentaId
         frmAyuda.TipoProgramas = TipoPrograma
         frmAyuda.ShowDialog()
         Me.Close()
