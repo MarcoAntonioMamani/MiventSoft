@@ -726,40 +726,65 @@ Public Class Tec_AdministrarCuentasPorCobrar
         tbMontoAPagar.Value = 0
         swTipoPago.Value = True
     End Sub
+    Private Sub P_GenerarReporte(numi As String)
 
+        Try
+            Dim dt As DataTable = L_prReportePagoCreditos(numi)
+
+
+
+            If Not IsNothing(P_Global.Visualizador) Then
+                P_Global.Visualizador.Close()
+            End If
+
+
+            P_Global.Visualizador = New Visualizador
+
+            Dim objrep As New Rep_PagosCreditos
+
+            objrep.SetDataSource(dt)
+
+            P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+            P_Global.Visualizador.CrGeneral.Zoom(130)
+            P_Global.Visualizador.Show()
+
+        Catch ex As Exception
+            ToastNotification.Show(Me, "Error al Generar el Reporte " + ex.Message, img, 16000, eToastGlowColor.Red, eToastPosition.TopCenter)
+        End Try
+
+
+    End Sub
+
+    Public Sub ReportePagos(Id As String)
+        Dim ef = New Efecto
+
+
+        ef.tipo = 8
+        ef.titulo = "Comprobante de Pago"
+        ef.descripcion = "¿Desea Generar el Reporte de Pago # " + Id + " ?"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            P_GenerarReporte(Id)
+
+
+        End If
+
+    End Sub
     Private Sub ButtonX4_Click(sender As Object, e As EventArgs) Handles ButtonX4.Click
 
         If (ValidarCamposaGrabar()) Then
 
 
-            'Dim dt As DataTable = L_prListarGeneral("MAM_CierreCajero")
 
-            'Dim fila As DataRow() = dt.Select("EstadoCaja=1")
-            'If (Not IsDBNull(fila)) Then
-            '    If (fila.Count <= 0) Then
-
-            '        ToastNotification.Show(Me, "No Es Posible Hacer EL Cobro Por que no Existe Caja Chica con Estado Abierto Para Esta Fecha =" + tbFechaTransaccion.Value.ToString("dd/MM/yyy"), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-            '        tbFechaTransaccion.Focus()
-            '        Return
-            '    Else
-            '        Dim bandera As Boolean = False
-            '        For Each item As Object In fila
-            '            If (item("Fecha") = tbFechaTransaccion.Value) Then
-            '                bandera = True
-            '            End If
-            '        Next
-            '        If (bandera = False) Then
-            '            ToastNotification.Show(Me, "No Es Posible Hacer EL Cobro Por que no Existe Caja Chica con Estado Abierto Para Esta Fecha =" + tbFechaTransaccion.Value.ToString("dd/MM/yyy"), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-            '            tbFechaTransaccion.Focus()
-
-            '            Return
-            '        End If
-            '    End If
-            'End If
 
             Dim id As String = ""
             Try
                 If (L_prGrabarPagosCreditoVentas(id, IdCredito, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), IdPersonal, tbGlosa.Text, tbNroComprobante.Text, tbMontoAPagar.Value, IIf(swTipoPago.Value = True, 1, 0))) Then
+
+                    ReportePagos(id)
+
 
                     Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
                     ToastNotification.Show(Me, "El Pago Ha sido Registrado con Exito", img, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
@@ -892,19 +917,21 @@ Public Class Tec_AdministrarCuentasPorCobrar
     Private Sub grPagosTodos_Click(sender As Object, e As EventArgs) Handles grPagosTodos.Click
         If (grPagosTodos.RowCount >= 1) Then
 
-
-
-
-            If (grPagosTodos.CurrentColumn.Index = grPagosTodos.RootTable.Columns("img").Index) Then
-
-                If (grPagosTodos.GetValue("CierreModulo") > 0) Then
-                    ToastNotification.Show(Me, "No Es Posible Eliminar El Cobro por Que ya Pertenece a un Cierre De Caja # " + Str(grPagosTodos.GetValue("CierreModulo")), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Try
+                If (IsNothing(grPagosTodos.CurrentColumn)) Then
                     Return
+
                 End If
+                If (grPagosTodos.CurrentColumn.Index = grPagosTodos.RootTable.Columns("img").Index) Then
+
+                    If (grPagosTodos.GetValue("CierreModulo") > 0) Then
+                        ToastNotification.Show(Me, "No Es Posible Eliminar El Cobro por Que ya Pertenece a un Cierre De Caja # " + Str(grPagosTodos.GetValue("CierreModulo")), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                        Return
+                    End If
 
 
 
-                Dim ef = New Efecto
+                    Dim ef = New Efecto
 
 
                     ef.tipo = 3
@@ -935,7 +962,13 @@ Public Class Tec_AdministrarCuentasPorCobrar
 
                     End If
                 End If
-            End If
+
+            Catch ex As Exception
+
+            End Try
+
+
+        End If
     End Sub
 
     Private Sub tab_configuraciones_Click(sender As Object, e As EventArgs) Handles tabCreditoPendiente.Click
@@ -982,5 +1015,19 @@ Public Class Tec_AdministrarCuentasPorCobrar
 
         End If
     End Sub
+
+    Private Sub VerToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles VerToolStripMenuItem1.Click
+        If (grPagos.Row >= 0) Then
+            P_GenerarReporte(grPagos.GetValue("id"))
+
+        End If
+    End Sub
+
+    Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
+        If (grPagosTodos.Row >= 0) Then
+            P_GenerarReporte(grPagosTodos.GetValue("id"))
+        End If
+    End Sub
+
 #End Region
 End Class

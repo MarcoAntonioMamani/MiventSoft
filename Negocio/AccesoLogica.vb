@@ -3149,7 +3149,7 @@ Public Class AccesoLogica
 
         If _Tabla.Rows.Count > 0 Then
             _resultado = True
-
+            TransaccionVentaId = _Tabla.Rows(0).Item(0)
         Else
             _resultado = False
         End If
@@ -3203,6 +3203,19 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@tipo", 3))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _Tabla = D_ProcedimientoConParam("MAM_CreditosCompras", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prReportePagoCreditos(CreditoVentaId As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 9))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@CreditoVentaId", CreditoVentaId))
+        _Tabla = D_ProcedimientoConParam("MAM_CreditosVentas", _listParam)
 
         Return _Tabla
     End Function
