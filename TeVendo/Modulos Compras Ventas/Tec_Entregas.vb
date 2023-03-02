@@ -291,6 +291,8 @@ Public Class Tec_Entregas
         dt = inventario.Copy
     End Sub
 
+
+
     Private Sub _prCargarDetalleEntrega(_numi As String)
         Dim dt As New DataTable
         dt = ListaEntregaDetalles(_numi)
@@ -528,6 +530,7 @@ Public Class Tec_Entregas
 
 
             End If
+            e.Cancel = True
         Catch ex As Exception
 
         End Try
@@ -800,6 +803,25 @@ salirIf:
 
     End Sub
 
+    Public Function ExistePendientes() As Boolean
+        'a.Id, a.EntregaId, a.ProductoId, p.NombreProducto As Producto, a.Cantidad, CAST('' as image)as img,
+        '    1 As estado, 0 as Stock
+
+        Dim dtProducto As DataTable = L_prListarProductosEntregas(VentaId)  '' Productos Entregados
+        Dim dtVentas = ListaVentasDetalles(VentaId)  ''' Listado de productos vendidos
+
+        For i As Integer = 0 To dtVentas.Rows.Count - 1 Step 1
+
+            Dim codigoProducto As Integer = dtVentas.Rows(i).Item("ProductoId")
+            Dim stock As Double = If(IsDBNull(dtProducto.Compute("SUM(Stock)", "ProductoId=" + Str(codigoProducto))), 0, dtProducto.Compute("SUM(Stock)", "ProductoId=" + Str(codigoProducto)))
+            Dim StockVenta As Double = dtVentas.Rows(i).Item("Cantidad")
+            If (stock < StockVenta) Then
+                Return True
+            End If
+        Next
+        Return False
+    End Function
+
     Public Function _PMOGrabarRegistro() As Boolean
         'ByRef _numi As String, personalId As Integer, Fecha As String,
         '                                 Observacion As String, _dtDetalle As DataTable
@@ -811,7 +833,11 @@ salirIf:
                                tbGlosa.Text, CType(grDetalle.DataSource, DataTable), VentaId)
 
             If res Then
-
+                If (ExistePendientes() = False) Then
+                    ActualizarAEntregado(VentaId)
+                Else
+                    ActualizarAPendienteEntrega(VentaId)
+                End If
                 ReporteVenta(Id)
                 ToastNotification.Show(Me, "Codigo de Entrega ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                 FilaSelectLote = Nothing
@@ -842,6 +868,11 @@ salirIf:
                                tbGlosa.Text, CType(grDetalle.DataSource, DataTable), VentaId)
 
             If Res Then
+                If (ExistePendientes() = False) Then
+                    ActualizarAEntregado(VentaId)
+                Else
+                    ActualizarAPendienteEntrega(VentaId)
+                End If
 
                 ReporteVenta(tbCodigo.Text)
                 ToastNotification.Show(Me, "Codigo de Entrega ".ToUpper + tbCodigo.Text + " Modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
@@ -901,7 +932,11 @@ salirIf:
             Try
                 res = L_prBorrarRegistro(tbCodigo.Text, mensajeError, "MAM_Entregas")
                 If res Then
-
+                    If (ExistePendientes() = False) Then
+                        ActualizarAEntregado(VentaId)
+                    Else
+                        ActualizarAPendienteEntrega(VentaId)
+                    End If
                     ToastNotification.Show(Me, "Codigo de Entrega ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                     _PMFiltrar()
                 Else
@@ -1176,6 +1211,8 @@ salirIf:
             Else
                 TabControlPrincipal.SelectedTabIndex = 0
                 btnNuevo.PerformClick()
+                btnVenta.PerformClick()
+
             End If
 
         End If
@@ -1364,12 +1401,15 @@ salirIf:
             tbVenta.Text = "Venta= " + Str(Row.Cells("Id").Value) + " Cliente= " + Row.Cells("NombreCliente").Value.ToString
 
             btnSeleccionarProducto.Focus()
+            btnSeleccionarProducto.PerformClick()
         Else
             If (ef.NewCliente) Then
                 IdCliente = ef.IdCliente
                 tbVenta.Text = ef.NombreCliente
 
                 btnSeleccionarProducto.Focus()
+                btnSeleccionarProducto.PerformClick()
+
             End If
         End If
 
