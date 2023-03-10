@@ -1068,4 +1068,13 @@ Public Class Tec_MovimientoDetalle
         FilaSelectLote = Nothing
         _HabilitarProductos()
     End Sub
+
+    Private Sub grDetalle_KeyDown(sender As Object, e As KeyEventArgs) Handles grDetalle.KeyDown
+        If (e.KeyData = Keys.Escape And grDetalle.Row >= 0) Then
+
+            _prEliminarFila()
+
+
+        End If
+    End Sub
 End Class

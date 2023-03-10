@@ -1204,6 +1204,20 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
+    Public Shared Function ListarMovimiento(desde As String, hasta As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@FechaI", desde))
+        _listParam.Add(New Datos.DParametro("@FechaF", hasta))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_Movimientos", _listParam)
+
+        Return _Tabla
+    End Function
+
     Public Shared Function ReporteSaldosUnAlmacenTodosCantidad(depositoId As Integer) As DataTable
         Dim _Tabla As DataTable
 
@@ -2272,7 +2286,7 @@ Public Class AccesoLogica
 
         If (SucursalId >= 0) Then
 
-            Query = "select venta.*,cierre.Id as CierreModulo
+            Query = "select venta.*,isnull(cierre.Id,0) as CierreModulo
 		from (
 		select a.Id ,a.SucursalId ,a.FechaVenta ,a.PersonalId,p.NombrePersonal as Personal,
 		a.TipoVenta,IIF(a.TipoVenta =1,'Contado','Credito')as TVenta,a.FechaVencimientoCredito ,
@@ -2288,7 +2302,7 @@ Public Class AccesoLogica
 		left join CierreCajeroReferenciasModulos as cierre on  cierre.Modulo =1 and cierre.ModuloId =venta.Id"
 
         Else
-            Query = "select venta.*,cierre.Id as CierreModulo
+            Query = "select venta.*,isnull(cierre.Id,0) as CierreModulo
 		from (
 		select a.Id ,a.SucursalId ,a.FechaVenta ,a.PersonalId,p.NombrePersonal as Personal,
 		a.TipoVenta,IIF(a.TipoVenta =1,'Contado','Credito')as TVenta,a.FechaVencimientoCredito ,
