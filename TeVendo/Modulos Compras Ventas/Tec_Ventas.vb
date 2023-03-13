@@ -1619,9 +1619,9 @@ salirIf:
 
         Dim Query As String
 
-        ''  Dim dtBuscador As DataTable = L_prListarVentasGeneralFiltroFecha("MAM_Ventas", tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"), Global_Sucursal)
+        Dim dtBuscador As DataTable = L_prListarVentasGeneralFiltroFecha("MAM_Ventas", tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"), Global_Sucursal)
 
-        Dim dtBuscador As DataTable = EjecutarQuery(tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"), Global_Sucursal)
+        '' Dim dtBuscador As DataTable = EjecutarQuery(tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"), Global_Sucursal)
 
 
 
@@ -1659,11 +1659,11 @@ salirIf:
         listEstCeldas.Add(New Celda("NombreAlmacen", True, " Sucursal", 120))
         listEstCeldas.Add(New Celda("TotalVenta", True, "Total Venta", 120, "0.00"))
         listEstCeldas.Add(New Celda("Descuento", False))
-        'listEstCeldas.Add(New Celda("MontoBs", False))
-        'listEstCeldas.Add(New Celda("MontoDolares", False))
-        'listEstCeldas.Add(New Celda("TarjetaBancaria", False))
-        'listEstCeldas.Add(New Celda("TransferenciaBancaria", False))
-        'listEstCeldas.Add(New Celda("TipoCambio", False))
+        listEstCeldas.Add(New Celda("MontoBs", False))
+        listEstCeldas.Add(New Celda("MontoDolares", False))
+        listEstCeldas.Add(New Celda("TarjetaBancaria", False))
+        listEstCeldas.Add(New Celda("TransferenciaBancaria", False))
+        listEstCeldas.Add(New Celda("TipoCambio", False))
         listEstCeldas.Add(New Celda("HoraRegistro", True, " Hora", 60))
         Return listEstCeldas
     End Function
