@@ -2,7 +2,7 @@
 Imports System.IO
 Public Class FPruebaImportacion
     Private Sub FPruebaImportacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        L_prAbrirConexion("DESKTOP-T84OJOU", "sa", "123", "MinventSoftKailiIndustrial")
+        L_prAbrirConexion("DESKTOP-T84OJOU", "sa", "123", "MinventSoftCaleb")
     End Sub
 
     Public Shared Function ExcelToDatatable(ByVal _xlPath As String, ByVal _namePage As String) As System.Data.DataTable
@@ -91,8 +91,8 @@ Public Class FPruebaImportacion
             '    Next
             'End If
 
-            Res = L_prProductoInsertarKailin(id, dt.Rows(i).Item("codigo"), "", dt.Rows(i).Item("producto"), dt.Rows(i).Item("Producto"),
-                                             1, 1, 1, 1, 1, 10, 13, 17, 20, 22, 1, TablaImagenes, dt.Rows(i).Item("compra"), dt.Rows(i).Item("FACTURA"), dt.Rows(i).Item("PRECIO"))
+            Res = L_prProductoInsertarKailin(id, dt.Rows(i).Item("codigo"), "", dt.Rows(i).Item("producto"), dt.Rows(i).Item("producto"),
+                                             1, 1, 1, 1, 1, dt.Rows(i).Item("idMarca"), 13, 17, 20, 22, 1, TablaImagenes, dt.Rows(i).Item("costo"), 0, 0)
 
             'dt.Rows(i).Item("IdSistema") = id
         Next

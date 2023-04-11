@@ -2325,8 +2325,8 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@TCL0064", "", _dtImagenes))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@Compra", PrecioCosto))
-        _listParam.Add(New Datos.DParametro("@Facturado", PrecioFacturado))
-        _listParam.Add(New Datos.DParametro("@Mayorista", PrecioMayorista))
+        '_listParam.Add(New Datos.DParametro("@Facturado", PrecioFacturado))
+        '_listParam.Add(New Datos.DParametro("@Mayorista", PrecioMayorista))
         _Tabla = D_ProcedimientoConParam("MAM_Productos", _listParam)
 
         If _Tabla.Rows.Count > 0 Then
