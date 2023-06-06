@@ -266,21 +266,21 @@ Public Class AccesoLogica
         Dim _resultado As Boolean
 
         Dim _Tabla As DataTable
-            Dim _listParam As New List(Of Datos.DParametro)
+        Dim _listParam As New List(Of Datos.DParametro)
 
-            _listParam.Add(New Datos.DParametro("@tipo", -1))
-            _listParam.Add(New Datos.DParametro("@Id", numi))
-            _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@tipo", -1))
+        _listParam.Add(New Datos.DParametro("@Id", numi))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
-            _Tabla = D_ProcedimientoConParam("sp_Mam_Precios", _listParam)
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Precios", _listParam)
 
-            If _Tabla.Rows.Count > 0 Then
-                _resultado = True
-            Else
-                _resultado = False
-            End If
+        If _Tabla.Rows.Count > 0 Then
+            _resultado = True
+        Else
+            _resultado = False
+        End If
 
-            Return _resultado
+        Return _resultado
     End Function
 #End Region
 
@@ -1301,21 +1301,21 @@ Public Class AccesoLogica
     Public Shared Function EliminarZona(numi As String, ByRef mensaje As String) As Boolean
         Dim _resultado As Boolean
         Dim _Tabla As DataTable
-            Dim _listParam As New List(Of Datos.DParametro)
+        Dim _listParam As New List(Of Datos.DParametro)
 
-            _listParam.Add(New Datos.DParametro("@tipo", -1))
+        _listParam.Add(New Datos.DParametro("@tipo", -1))
         _listParam.Add(New Datos.DParametro("@Id", numi))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("sp_Mam_Zonas", _listParam)
 
         If _Tabla.Rows.Count > 0 Then
-                _resultado = True
-            Else
-                _resultado = False
-            End If
+            _resultado = True
+        Else
+            _resultado = False
+        End If
 
-            Return _resultado
+        Return _resultado
     End Function
     Public Shared Function ActualizarZona(_Id As String,
         _Nombre As String, _Descripcion As String, _zacolor As String, point As DataTable) As Boolean
@@ -3220,20 +3220,20 @@ Public Class AccesoLogica
 
         Dim _listParam As New List(Of Datos.DParametro)
 
-            _listParam.Add(New Datos.DParametro("@tipo", -1))
+        _listParam.Add(New Datos.DParametro("@tipo", -1))
         _listParam.Add(New Datos.DParametro("@Id", _numi))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("MAM_Roles", _listParam)
 
         If _Tabla.Rows.Count > 0 Then
-                _resultado = True
-                'L_prTipoCambioGrabarHistorial(_numi, _fecha, _dolar, _ufv, "TIPO DE CAMBIO", 3)
-            Else
-                _resultado = False
-            End If
+            _resultado = True
+            'L_prTipoCambioGrabarHistorial(_numi, _fecha, _dolar, _ufv, "TIPO DE CAMBIO", 3)
+        Else
+            _resultado = False
+        End If
 
-            Return _resultado
+        Return _resultado
     End Function
 
 
