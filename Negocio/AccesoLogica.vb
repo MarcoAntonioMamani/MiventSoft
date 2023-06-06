@@ -960,7 +960,7 @@ Public Class AccesoLogica
     Public Shared Function InsertarCliente(_Id As String, IdZona As Integer, IdPrecio As Integer, CodigoExterno As String, NombreCliente As String,
                                            Direccion As String, Telefono As String, TipoDocumento As Integer, NroDocumento As String,
                                            RazonSocial As String, nit As String, estado As Integer, FechaIngreso As String, Latitud As Double,
-                                           Longitud As Double) As Boolean
+                                           Longitud As Double, TipoNegocio As Integer, Referencia As String) As Boolean
         Dim _Tabla As DataTable
         Dim _resultado As Boolean
         Dim _listParam As New List(Of Datos.DParametro)
@@ -984,6 +984,8 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@FechaIngreso", FechaIngreso))
         _listParam.Add(New Datos.DParametro("@Latitud", Latitud))
         _listParam.Add(New Datos.DParametro("@Longitud", Longitud))
+        _listParam.Add(New Datos.DParametro("@TipoNegocio", TipoNegocio))
+        _listParam.Add(New Datos.DParametro("@Referencia", Referencia))
         _Tabla = D_ProcedimientoConParam("MAM_Clientes", _listParam)
 
 

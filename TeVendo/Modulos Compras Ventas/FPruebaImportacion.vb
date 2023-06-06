@@ -40,8 +40,8 @@ Public Class FPruebaImportacion
     End Function
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        importarExcel()
-
+        'importarExcel()
+        importarExcelClientes()
         'importarExcelClientes()
     End Sub
     Sub importarExcel()
@@ -187,10 +187,16 @@ Public Class FPruebaImportacion
         For i As Integer = 0 To dt.Rows.Count - 1 Step 1
             '' StockMinimo=Precio Precio compra   conversion =precio venta 
             Dim id As String = ""
+            '_Id As String, IdZona As Integer, IdPrecio As Integer, CodigoExterno As String, NombreCliente As String,
+            '                               Direccion As String, Telefono As String, TipoDocumento As Integer,
+            '                     NroDocumento As String,
+            '                               RazonSocial As String, nit As String, estado As Integer,
+            'FechaIngreso As String, Latitud As Double, Longitud As Double, TipoNegocio As Integer, Referencia As String
 
-
-            Res = InsertarCliente(id, 1, 1, dt.Rows(i).Item("codigo"), dt.Rows(i).Item("nombre"), dt.Rows(i).Item("direccion"), "", 1, "",
-                                  dt.Rows(i).Item("razonSocial"), dt.Rows(i).Item("nit"), 1, Now.Date.ToString("yyyy/MM/dd"), 0, 0)
+            Res = InsertarCliente(id, dt.Rows(i).Item("ZonaId"), dt.Rows(i).Item("PrecioId"), "",
+                                  dt.Rows(i).Item("nombrecompleto"), dt.Rows(i).Item("Direccion"), dt.Rows(i).Item("Celular"), 1, dt.Rows(i).Item("CI"),
+                                  dt.Rows(i).Item("nombrecompleto"), dt.Rows(i).Item("Nit"), 1, Now.Date.ToString("yyyy/MM/dd"), dt.Rows(i).Item("Latitud"), dt.Rows(i).Item("Longitud"),
+dt.Rows(i).Item("idtipoNegocio"), dt.Rows(i).Item("Referencia"))
 
             'dt.Rows(i).Item("IdSistema") = id
         Next
