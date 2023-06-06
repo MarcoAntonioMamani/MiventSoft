@@ -273,6 +273,7 @@ Public Class Tec_Clientes
 
         Me.Text = "Gestion De Clientes"
         P_Global._prCargarComboGenerico(cbTipoDocumento, L_prLibreriaDetalleGeneral(8), "cnnum", "Codigo", "cndesc1", "TipoDocumento")
+        P_Global._prCargarComboGenerico(cbTipoNegocio, L_prLibreriaDetalleGeneral(15), "cnnum", "Codigo", "cndesc1", "TipoNegocio")
         P_Global._prCargarComboGenerico(cbPrecios, L_prListaCategoriasPrecios(), "Id", "Codigo", "Descripcion", "CategoriaPrecio")
         P_Global._prCargarComboGenerico(cbZona, L_prListarZonas(), "Id", "Codigo", "NombreZona", "Zonas")
         If (Mapa = 1) Then
@@ -401,6 +402,9 @@ Public Class Tec_Clientes
         cbPrecios.ReadOnly = False
         btnTipoDocumento.Visible = True
         tbNombreCliente.Focus()
+        cbTipoNegocio.ReadOnly = False
+        tbReferencia.ReadOnly = False
+        btnTipoNegocio.Visible = True
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -419,6 +423,11 @@ Public Class Tec_Clientes
         tbRazonSocial.ReadOnly = True
         tbnit.ReadOnly = True
         swEstado.IsReadOnly = True
+
+
+        cbTipoNegocio.ReadOnly = True
+        tbReferencia.ReadOnly = True
+        btnTipoNegocio.Visible = False
     End Sub
 
     Public Sub _PMOLimpiar()
@@ -470,7 +479,7 @@ Public Class Tec_Clientes
         Try
             res = InsertarCliente(tbCodigo.Text, cbZona.Value, cbPrecios.Value, tbCodigoExterno.Text, tbNombreCliente.Text,
                                   tbDireccionCliente.Text, tbTelefono.Text, cbTipoDocumento.Value, tbNroDocumento.Text,
-                                  tbRazonSocial.Text, tbnit.Text, IIf(swEstado.Value = True, 1, 0), Now.Date.ToString("yyyy/MM/dd"), _latitud, _longitud)
+                                  tbRazonSocial.Text, tbnit.Text, IIf(swEstado.Value = True, 1, 0), Now.Date.ToString("yyyy/MM/dd"), _latitud, _longitud, tbReferencia.Text, cbTipoNegocio.Value)
 
             If res Then
 
@@ -496,7 +505,7 @@ Public Class Tec_Clientes
         Try
             Res = ModificarCliente(tbCodigo.Text, cbZona.Value, cbPrecios.Value, tbCodigoExterno.Text, tbNombreCliente.Text,
                                   tbDireccionCliente.Text, tbTelefono.Text, cbTipoDocumento.Value, tbNroDocumento.Text,
-                                  tbRazonSocial.Text, tbnit.Text, IIf(swEstado.Value = True, 1, 0), Now.Date.ToString("yyyy/MM/dd"), _latitud, _longitud)
+                                  tbRazonSocial.Text, tbnit.Text, IIf(swEstado.Value = True, 1, 0), Now.Date.ToString("yyyy/MM/dd"), _latitud, _longitud, tbReferencia.Text, cbTipoNegocio.Value)
 
             If Res Then
 
@@ -608,7 +617,8 @@ Public Class Tec_Clientes
         listEstCeldas.Add(New Celda("PrecioCategoriaId", False))
         listEstCeldas.Add(New Celda("ZonaId", False))
 
-
+        listEstCeldas.Add(New Celda("TipoNegocio", False))
+        listEstCeldas.Add(New Celda("Referencia", False))
         Return listEstCeldas
     End Function
 
@@ -636,6 +646,8 @@ Public Class Tec_Clientes
             swEstado.Value = .GetValue("estado")
             _latitud = .GetValue("Latitud")
             _longitud = .GetValue("Longitud")
+            tbReferencia.Text = .GetValue("Referencia").ToString
+            cbTipoNegocio.Value = .GetValue("TipoNegocio")
         End With
         TablaImagenes = L_prCargarImagenesRecepcion(tbCodigo.Text)
         LblPaginacion.Text = Str(_MPos + 1) + "/" + JGrM_Buscador.RowCount.ToString
@@ -851,6 +863,22 @@ Public Class Tec_Clientes
         _TabControl.SelectedTab = _modulo
         _tab.Close()
         Me.Close()
+    End Sub
+
+    Private Sub ButtonX5_Click(sender As Object, e As EventArgs) Handles btnTipoNegocio.Click
+        Dim numi As String = ""
+        Dim ef = New Efecto
+        ef.tipo = 10
+        ef.ModuloLibreria = 15
+        ef.titulo = "Crear Nuevo Tipo De Negocio"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            P_Global._prCargarComboGenerico(cbTipoNegocio, L_prLibreriaDetalleGeneral(15), "cnnum", "Codigo", "cndesc1", "TipoNegocio")
+            cbTipoDocumento.SelectedIndex = CType(cbTipoDocumento.DataSource, DataTable).Rows.Count - 1
+            cbTipoDocumento.Focus()
+        End If
     End Sub
 
 
