@@ -578,6 +578,7 @@ Public Class Tec_Productos
         cbProveedor.ReadOnly = False
         cbMarca.ReadOnly = False
         cbAtributo.ReadOnly = False
+        tbCodigoSap.ReadOnly = False
         cbFamilia.ReadOnly = False
         cbUniVenta.ReadOnly = False
         cbUnidMaxima.ReadOnly = False
@@ -605,6 +606,7 @@ Public Class Tec_Productos
         cbEmpresa.ReadOnly = True
         cbCategoria.ReadOnly = True
         cbProveedor.ReadOnly = True
+        tbCodigoSap.ReadOnly = True
         cbMarca.ReadOnly = True
         cbAtributo.ReadOnly = True
         cbFamilia.ReadOnly = True
@@ -628,6 +630,7 @@ Public Class Tec_Productos
         tbNombreProducto.Text = ""
         tbDescripcion.Text = ""
         tbCodigoExterno.Text = ""
+        tbCodigoSap.Text = ""
         tbStockMinimo.Value = 0
         tbConversion.Value = 0
         swEstado.Value = True
@@ -679,7 +682,7 @@ Public Class Tec_Productos
         ''_conversion As Double
         Dim res As Boolean
         Try
-            res = L_prProductoInsertar(tbCodigo.Text, tbCodigoExterno.Text, "", tbNombreProducto.Text,
+            res = L_prProductoInsertar(tbCodigo.Text, tbCodigoExterno.Text, tbCodigoSap.Text, tbNombreProducto.Text,
                                                  tbDescripcion.Text, tbStockMinimo.Value, IIf(swEstado.Value = True, 1, 0),
                                                  cbCategoria.Value, cbEmpresa.Value, cbProveedor.Value, cbMarca.Value,
                                                  cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes)
@@ -707,7 +710,7 @@ Public Class Tec_Productos
     Public Function _PMOModificarRegistro() As Boolean
         Dim Res As Boolean
         Try
-            Res = L_prProductoModificar(tbCodigo.Text, tbCodigoExterno.Text, "", tbNombreProducto.Text,
+            Res = L_prProductoModificar(tbCodigo.Text, tbCodigoExterno.Text, tbCodigoSap.Text, tbNombreProducto.Text,
                                                 tbDescripcion.Text, tbStockMinimo.Value, IIf(swEstado.Value = True, 1, 0),
                                                 cbCategoria.Value, cbEmpresa.Value, cbProveedor.Value, cbMarca.Value,
                                                 cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes)
@@ -830,8 +833,8 @@ Public Class Tec_Productos
         End If
         If (cbMarca.SelectedIndex < 0) Then
             cbMarca.BackColor = Color.Red
-            MEP.SetError(cbMarca, "Seleccione una Marca")
-            Mensaje = Mensaje + Chr(13) + Chr(10) + " Marca"
+            MEP.SetError(cbMarca, "Seleccione una SubCategoria")
+            Mensaje = Mensaje + Chr(13) + Chr(10) + " SubCategoria"
             _ok = False
         Else
             cbMarca.BackColor = Color.White
@@ -971,6 +974,7 @@ Public Class Tec_Productos
             cbUniVenta.Value = .GetValue("UnidadVentaId")
             cbUnidMaxima.Value = .GetValue("UnidadMaximaId")
             tbConversion.Value = .GetValue("Conversion")
+            tbCodigoSap.Text = .GetValue("CodigoBarras").ToString
         End With
         TablaImagenes = L_prCargarImagenesRecepcion(tbCodigo.Text)
         _prCargarImagen()
