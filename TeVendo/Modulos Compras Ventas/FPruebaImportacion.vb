@@ -2,7 +2,7 @@
 Imports System.IO
 Public Class FPruebaImportacion
     Private Sub FPruebaImportacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        L_prAbrirConexion("DESKTOP-T84OJOU", "sa", "123", "MinventSoftCaleb")
+        L_prAbrirConexion("DESKTOP-T84OJOU", "sa", "123", "DistribucionDistralKCP")
     End Sub
 
     Public Shared Function ExcelToDatatable(ByVal _xlPath As String, ByVal _namePage As String) As System.Data.DataTable
@@ -90,9 +90,19 @@ Public Class FPruebaImportacion
             '        dtBarras.Rows.Add(0, 0, vector(j), 0)
             '    Next
             'End If
+            '-------------------------------------------------------------------------------
+            '    ByRef _numi As String, _CodigoExterno As String,
+            '                                        _CodigoBarra As String, _NombreProducto As String,
+            '_Descripcion As String,-- _stockMinimo As Decimal, _estado As Integer,-- _CategoriaId As Integer,
+            '_EmpresaId As Integer, --_ProveedorId As Integer, --_MarcaId As Integer,
+            '_AttributoId As Integer, _FamiliaId As Integer, _UnidadVentaId As Integer, _UnidadMaximaId As Integer,
+            '_conversion As Double, _dtImagenes As DataTable, PrecioCosto As Double, venta As Double, institucional As Double
 
-            Res = L_prProductoInsertarKailin(id, dt.Rows(i).Item("codigo"), "", dt.Rows(i).Item("producto"), dt.Rows(i).Item("producto"),
-                                             1, 1, 1, 1, 1, dt.Rows(i).Item("idMarca"), 13, 17, 20, 22, 1, TablaImagenes, dt.Rows(i).Item("costo"), 0, 0)
+            Res = L_prProductoInsertarDistralKCP(id, dt.Rows(i).Item("CodigoInterno"), dt.Rows(i).Item("CodigoSap"),
+                                                 dt.Rows(i).Item("descripcion"), dt.Rows(i).Item("descripcion25"),
+                                             3, 1, dt.Rows(i).Item("categoriaId"), 1, dt.Rows(i).Item("ProveedorId"),
+                                             dt.Rows(i).Item("SubCategoriaId"), 13, 17, 20, 22, dt.Rows(i).Item("conversion"),
+                                             TablaImagenes, dt.Rows(i).Item("CostoPaquete"), dt.Rows(i).Item("PaqueteVenta"), dt.Rows(i).Item("PaqueteInstitucional"))
 
             'dt.Rows(i).Item("IdSistema") = id
         Next
