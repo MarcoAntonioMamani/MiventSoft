@@ -295,7 +295,9 @@ Public Class Tec_Principal
             superTabControl3.CloseTab(superTabControl3.Tabs(0))
         Next
 
+        FSearchProductos.Close()
         Me.Close()
+
     End Sub
     Private Sub Tec_Principal_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         Dim n As Integer = superTabControl3.Tabs.Count
