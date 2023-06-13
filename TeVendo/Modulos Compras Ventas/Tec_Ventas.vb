@@ -1646,6 +1646,8 @@ salirIf:
 
         listEstCeldas.Add(New Celda("Glosa", False, " Glosa", 200))
         listEstCeldas.Add(New Celda("NombreAlmacen", True, " Sucursal", 120))
+        listEstCeldas.Add(New Celda("UsuarioRegistro", True, " Usuario", 120))
+
         listEstCeldas.Add(New Celda("TotalVenta", True, "Total Venta", 120, "0.00"))
         listEstCeldas.Add(New Celda("Descuento", False))
         listEstCeldas.Add(New Celda("MontoBs", False))
