@@ -112,17 +112,17 @@ Public Class Tec_VentasDetalle
         End With
         With grProducto.RootTable.Columns("NombreCategoria")
             .Width = 120
-            .Visible = True
+            .Visible = False
             .MaxLines = 2
             .WordWrap = True
             .Caption = "CATEGORIA"
         End With
-        With grProducto.RootTable.Columns("industria")
+        With grProducto.RootTable.Columns("Marca")
             .Width = 120
             .Visible = True
             .MaxLines = 2
             .WordWrap = False
-            .Caption = "Industria"
+            .Caption = "Marca"
         End With
 
         With grProducto.RootTable.Columns("PrecioCosto")
@@ -1164,7 +1164,7 @@ salirIf:
                 Dim nombre As String = dt.Rows(i).Item("Id").ToString.ToUpper +
                     " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
                     " " + dt.Rows(i).Item("NombreCategoria").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("industria").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("Marca").ToString.ToUpper +
                     " " + dt.Rows(i).Item("CodigoExterno").ToString.ToUpper
                 Select Case cant
                     Case 1

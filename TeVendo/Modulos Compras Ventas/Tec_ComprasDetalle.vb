@@ -77,10 +77,10 @@ Public Class Tec_ComprasDetalle
             .Visible = True
             .Caption = "CATEGORIA"
         End With
-        With grProducto.RootTable.Columns("industria")
+        With grProducto.RootTable.Columns("Marca")
             .Width = 200
-            .Visible = False
-            .Caption = "Industria"
+            .Visible = True
+            .Caption = "Marca"
         End With
         With grProducto.RootTable.Columns("PrecioCosto")
             .Width = 150
@@ -711,7 +711,7 @@ salirIf:
                     " " + dt.Rows(i).Item("CodigoExterno").ToString.ToUpper +
                     " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
                     " " + dt.Rows(i).Item("NombreCategoria").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("industria").ToString.ToUpper
+                    " " + dt.Rows(i).Item("Marca").ToString.ToUpper
                 Select Case cant
                     Case 1
 

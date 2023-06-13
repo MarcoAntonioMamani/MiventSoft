@@ -75,7 +75,7 @@ Public Class FormularioStock
             'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock 
             For i As Integer = 0 To dt.Rows.Count - 1 Step 1
                 Dim nombre As String = dt.Rows(i).Item("CodigoExterno").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("industria").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("Marca").ToString.ToUpper +
                     " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
                     " " + dt.Rows(i).Item("Categoria").ToString.ToUpper +
                     " " + dt.Rows(i).Item("unidad").ToString.ToUpper
@@ -243,14 +243,14 @@ Public Class FormularioStock
         With grProducto.RootTable.Columns("Categoria")
             .Width = 150
             .Caption = "CATEGORIA"
-            .Visible = True
+            .Visible = False
             .MaxLines = 2
             .WordWrap = True
         End With
-        With grProducto.RootTable.Columns("industria")
+        With grProducto.RootTable.Columns("Marca")
             .Width = 150
-            .Caption = "Industria"
-            .Visible = False
+            .Caption = "Marca"
+            .Visible = True
             .MaxLines = 2
             .WordWrap = True
         End With

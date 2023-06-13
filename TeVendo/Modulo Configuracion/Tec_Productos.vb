@@ -1082,9 +1082,10 @@ Public Class Tec_Productos
         listEstCeldas.Add(New Celda("estado", False, "Estado", 70))
         listEstCeldas.Add(New Celda("imgEstado", True, "Estado", 150))
         listEstCeldas.Add(New Celda("CategoriaId", False))
-        listEstCeldas.Add(New Celda("NombreCategoria", True, "Categoria", 80))
+        listEstCeldas.Add(New Celda("NombreCategoria", False, "Categoria", 80))
+        listEstCeldas.Add(New Celda("Marca", True, "Marca", 90))
         listEstCeldas.Add(New Celda("EmpresaId", False))
-        listEstCeldas.Add(New Celda("Empresa", True, "Empresa", 80))
+        listEstCeldas.Add(New Celda("Empresa", False, "Empresa", 80))
 
         listEstCeldas.Add(New Celda("ProveedorId", False))
         listEstCeldas.Add(New Celda("MarcaId", False))
