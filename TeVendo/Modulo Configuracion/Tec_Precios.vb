@@ -125,8 +125,8 @@ Public Class Tec_Precios
                 .MaxLines = 3
                 .Visible = True
             End With
-            With grprecio.RootTable.Columns("NombreCategoria")
-                .Caption = "Categoria"
+            With grprecio.RootTable.Columns("Marca")
+                .Caption = "Marca"
                 .Width = 100
                 .WordWrap = True
                 .MaxLines = 3
