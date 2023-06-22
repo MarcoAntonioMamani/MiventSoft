@@ -137,7 +137,7 @@ Public Class Tec_Precios
                 .Width = 100
                 .WordWrap = True
                 .MaxLines = 3
-                .Visible = True
+                .Visible = False
             End With
             'Habilitar Filtradores
             With grprecio
@@ -594,7 +594,7 @@ Public Class Tec_Precios
         If (_fnAccesible() And IsNothing(grprecio.DataSource) = False) Then
             'Deshabilitar la columna de Productos y solo habilitar la de los precios
             If (e.Column.Index = grprecio.RootTable.Columns("yfcdprod1").Index Or
-                e.Column.Index = grprecio.RootTable.Columns("NombreCategoria").Index Or
+                e.Column.Index = grprecio.RootTable.Columns("Marca").Index Or
                 e.Column.Index = grprecio.RootTable.Columns("proveedor").Index Or
                 e.Column.Index = grprecio.RootTable.Columns("yfcprod").Index Or
                 e.Column.Index = grprecio.RootTable.Columns("yfnumi").Index) Then 'Or e.Column.Index = grprecio.RootTable.Columns("73").Index
