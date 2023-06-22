@@ -154,6 +154,8 @@ Public Class Tec_Precios
                 .VisualStyle = VisualStyle.Office2007
                 .SelectionMode = SelectionMode.SingleSelection
                 .AlternatingColors = True
+
+
             End With
         End If
     End Sub
@@ -485,6 +487,18 @@ Public Class Tec_Precios
             MEP.SetError(tb, "")
         End If
     End Sub
+
+    Public Sub _fnObtenerFilaProducto(ByRef pos As Integer, numi As Integer)
+        For i As Integer = 0 To CType(grprecio.DataSource, DataTable).Rows.Count - 1 Step 1
+            Dim _numi As Integer = CType(grprecio.DataSource, DataTable).Rows(i).Item("yfnumi")
+            If (_numi = numi) Then
+                pos = i
+                Return
+            End If
+        Next
+
+    End Sub
+
     Private Sub grprecio_CellEdited(sender As Object, e As ColumnActionEventArgs)
         If (_fnAccesible()) Then
             'Habilitar solo las columnas de Precio, %, Monto y Observación
@@ -624,6 +638,17 @@ Public Class Tec_Precios
                 If (estado = 1 Or estado = 2) Then
                     precio.Rows(pos).Item("estado") = 2
                     precio.Rows(pos).Item("yhprecio") = grprecio.GetValue(e.Column.Index)
+                    grprecio.SetValue(e.Column.Index, grprecio.GetValue(e.Column.Index))
+
+                    Dim posicionTable As Integer = -1
+                    _fnObtenerFilaProducto(posicionTable, grprecio.GetValue("yfnumi"))
+                    If (posicionTable <> -1) Then
+                        Dim dt = CType(grprecio.DataSource, DataTable)
+                        Dim nameProducto As String = dt.Rows(posicionTable).Item("yfcdprod1")
+                        CType(grprecio.DataSource, DataTable).Rows(posicionTable).Item(e.Column.Index) = grprecio.GetValue(e.Column.Index)
+                    End If
+
+
                 Else
                     If (estado = 0 Or estado = 3) Then
                         If (IsNumeric(grprecio.GetValue(e.Column.Index))) Then
