@@ -368,8 +368,10 @@ Public Class Tec_Conciliacion
             If (dtSalProducto.Count >= 1) Then
 
                 For Each dr As DataRow In dtSalProducto
+                    If (Not IsDBNull(dr.Item("Cantidad"))) Then
+                        totalProductoSalida += dr.Item("Cantidad")
+                    End If
 
-                    totalProductoSalida += dr.Item("Cantidad")
 
                 Next
             End If
