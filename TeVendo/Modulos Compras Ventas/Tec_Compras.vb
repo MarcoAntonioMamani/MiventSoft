@@ -1431,6 +1431,7 @@ salirIf:
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
         TabControlPrincipal.SelectedTabIndex = 0
         btnNuevo.PerformClick()
+        btnSeleccionarProducto.PerformClick()
 
     End Sub
 
