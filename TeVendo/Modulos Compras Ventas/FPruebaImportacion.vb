@@ -2,7 +2,7 @@
 Imports System.IO
 Public Class FPruebaImportacion
     Private Sub FPruebaImportacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        L_prAbrirConexion("DESKTOP-T84OJOU", "sa", "123", "DistribucionDistralKCP")
+        L_prAbrirConexion("DESKTOP-T84OJOU", "sa", "123", "MinventSoftFarmaTodo")
     End Sub
 
     Public Shared Function ExcelToDatatable(ByVal _xlPath As String, ByVal _namePage As String) As System.Data.DataTable
@@ -40,8 +40,8 @@ Public Class FPruebaImportacion
     End Function
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        'importarExcel()
-        importarExcelClientes()
+        importarExcel()
+        ''importarExcelClientes()
         'importarExcelClientes()
     End Sub
     Sub importarExcel()
@@ -98,11 +98,10 @@ Public Class FPruebaImportacion
             '_AttributoId As Integer, _FamiliaId As Integer, _UnidadVentaId As Integer, _UnidadMaximaId As Integer,
             '_conversion As Double, _dtImagenes As DataTable, PrecioCosto As Double, venta As Double, institucional As Double
 
-            Res = L_prProductoInsertarDistralKCP(id, dt.Rows(i).Item("CodigoInterno"), dt.Rows(i).Item("CodigoSap"),
-                                                 dt.Rows(i).Item("descripcion"), dt.Rows(i).Item("descripcion25"),
-                                             3, 1, dt.Rows(i).Item("categoriaId"), 1, dt.Rows(i).Item("ProveedorId"),
-                                             dt.Rows(i).Item("SubCategoriaId"), 13, 17, 20, 22, dt.Rows(i).Item("conversion"),
-                                             TablaImagenes, dt.Rows(i).Item("CostoPaquete"), dt.Rows(i).Item("PaqueteVenta"), dt.Rows(i).Item("PaqueteInstitucional"))
+            Res = L_prProductoInsertarDistralKCP(id, "", "",
+                                                 dt.Rows(i).Item("nombre"), dt.Rows(i).Item("nombre"),
+                                             3, 1, 1, 1, 1, 1, 13, 17, 20, 22, 1,
+                                             TablaImagenes, 0, dt.Rows(i).Item("precio"))
 
             'dt.Rows(i).Item("IdSistema") = id
         Next
