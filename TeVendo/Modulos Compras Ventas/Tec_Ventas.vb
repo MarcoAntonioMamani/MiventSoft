@@ -2161,11 +2161,11 @@ salirIf:
             'If (bandera = True) Then
             Dim objrep As New Recibo
 
-                objrep.SetDataSource(dt)
+            objrep.SetDataSource(dt)
 
 
-                objrep.SetParameterValue("Monto", li)
-                objrep.SetParameterValue("Fecha", _FechaPar)
+            objrep.SetParameterValue("Monto", li)
+            objrep.SetParameterValue("Fecha", _FechaPar)
             objrep.SetParameterValue("Total", Str(total + dt.Rows(0).Item("DescuentoVenta")))
 
 
@@ -2211,8 +2211,8 @@ salirIf:
 
             ''VencimientoCredito
             P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
-                P_Global.Visualizador.CrGeneral.Zoom(130)
-                P_Global.Visualizador.Show() 'Comentar
+            P_Global.Visualizador.CrGeneral.Zoom(130)
+            P_Global.Visualizador.Show() 'Comentar
             'Else
 
             '    Dim objrep As New Recibo07_1000
