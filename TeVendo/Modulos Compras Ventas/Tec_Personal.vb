@@ -736,5 +736,8 @@ Public Class Tec_Personal
 
 
 #End Region
+    Private Sub Efecto_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+        Me.Dispose()
 
+    End Sub
 End Class

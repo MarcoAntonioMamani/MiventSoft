@@ -2351,6 +2351,7 @@ salirIf:
         ef.IdCliente = IdCliente
         ef.CategoriaPrecioSelected = cbPrecios.Value
         ef.ShowDialog()
+        ef.Dispose()
         grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
         _prCalcularPrecioTotal()
         cbPrecios.Value = ef.CategoriaPrecioSelected

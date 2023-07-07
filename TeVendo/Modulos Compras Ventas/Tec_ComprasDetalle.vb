@@ -1132,4 +1132,8 @@ salirIf:
     Private Sub btnConfirmarSalir_Click(sender As Object, e As EventArgs) Handles btnConfirmarSalir.Click
         Me.Close()
     End Sub
+    Private Sub Efecto_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+        Me.Dispose()
+
+    End Sub
 End Class

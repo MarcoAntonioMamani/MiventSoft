@@ -32,6 +32,11 @@ Public Class VenderDirecto
     Dim Lote As Boolean = False
 
     Dim dtCodigoBarras As DataTable
+
+    Private Sub Efecto_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+        Me.Dispose()
+
+    End Sub
     Private Sub _IniciarTodo()
         Me.WindowState = FormWindowState.Maximized
         LeerConfiguracion()
