@@ -1276,6 +1276,7 @@ salirIf:
 
 
         End If
+        ef.Dispose()
 
     End Sub
 
@@ -1309,6 +1310,7 @@ salirIf:
             End Try
 
         End If
+        ef.Dispose()
 
 
     End Sub
@@ -1635,6 +1637,7 @@ salirIf:
                     tbCliente.Focus()
 
                 End If
+                ef.Dispose()
 
             End If
 
@@ -1653,7 +1656,7 @@ salirIf:
             'a.Id ,a.NombreProveedor ,a.Direccion ,a.Telefono01
 
             Dim listEstCeldas As New List(Of Celda)
-            listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
+            listEstCeldas.Add(New Celda("Id", False, "ID", 50))
             listEstCeldas.Add(New Celda("Nombre", True, "NOMBRE", 350))
             listEstCeldas.Add(New Celda("Direccion", True, "DIRECCION", 180))
             listEstCeldas.Add(New Celda("Telefono01", True, "Telefono".ToUpper, 200))
@@ -1676,6 +1679,7 @@ salirIf:
                 tbCliente.Focus()
 
             End If
+            ef.Dispose()
 
         End If
 
@@ -1787,6 +1791,7 @@ salirIf:
                     tbGlosa.Focus()
                 End If
             End If
+            ef.Dispose()
 
 
         End If
@@ -1838,6 +1843,7 @@ salirIf:
                 btnSeleccionarProducto.Focus()
             End If
         End If
+        ef.Dispose()
 
     End Sub
     Private Sub P_GenerarReporte(numi As String)
@@ -1966,8 +1972,13 @@ salirIf:
         ef.VentaDirecta = VentaDirectaVariable
         ef.DistribuidorId = IdVendedor
         ef.ShowDialog()
+        ef.Dispose()
+
         grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
         _prCalcularPrecioTotal()
+
+        GC.Collect()
+        GC.WaitForPendingFinalizers()
     End Sub
 
     Private Sub LabelX8_Click(sender As Object, e As EventArgs) Handles LabelX8.Click
@@ -2017,4 +2028,10 @@ salirIf:
         btnNuevo.PerformClick()
     End Sub
 #End Region
+
+
+    Private Sub Efecto_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+        Me.Dispose()
+
+    End Sub
 End Class

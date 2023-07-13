@@ -518,6 +518,7 @@ Public Class Tec_Despachos
 
 
         End If
+        ef.Dispose()
 
     End Sub
     Public Function _PMOGrabarRegistro() As Boolean
@@ -602,6 +603,7 @@ Public Class Tec_Despachos
             End Try
 
         End If
+        ef.Dispose()
 
 
     End Sub
@@ -848,6 +850,8 @@ Public Class Tec_Despachos
             tbDetalle.Focus()
 
         End If
+        ef.Dispose()
+
     End Sub
 
     Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles ButtonX2.Click
@@ -876,6 +880,8 @@ Public Class Tec_Despachos
         ef.dtDetalle = CType(grDetalle.DataSource, DataTable)
 
         ef.ShowDialog()
+        ef.Dispose()
+
     End Sub
 
 

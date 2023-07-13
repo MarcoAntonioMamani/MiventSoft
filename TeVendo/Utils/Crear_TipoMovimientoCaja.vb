@@ -57,4 +57,5 @@ Public Class Crear_TipoMovimientoCaja
         Bandera = False
         Me.Close()
     End Sub
+
 End Class

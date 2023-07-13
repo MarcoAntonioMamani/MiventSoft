@@ -497,6 +497,7 @@ Public Class Tec_DespachoDetalle
 
 
             End If
+            ef.Dispose()
 
         Else
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)

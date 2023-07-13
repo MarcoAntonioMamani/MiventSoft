@@ -736,6 +736,8 @@ Public Class Tec_VentasDetalle
                     InsertarProductosSinLote(ef.CantidadTransaccion)
 
                 End If
+                ef.Dispose()
+
             End If
 
 
@@ -789,6 +791,8 @@ Public Class Tec_VentasDetalle
                     tbProducto.Focus()
                     _prCargarProductos()
                 End If
+                ef.Dispose()
+
 
             Else
 
@@ -1418,5 +1422,10 @@ salirIf:
 
     Private Sub cbPrecios_ValueChanged(sender As Object, e As EventArgs) Handles cbPrecios.ValueChanged
         _prCargarProductos()
+    End Sub
+
+    Private Sub Efecto_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+        Me.Dispose()
+
     End Sub
 End Class

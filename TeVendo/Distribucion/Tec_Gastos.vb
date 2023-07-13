@@ -43,6 +43,8 @@ Public Class Tec_Gastos
             cbConcepto.SelectedIndex = CType(cbConcepto.DataSource, DataTable).Rows.Count - 1
             cbConcepto.Focus()
         End If
+        ef.Dispose()
+
     End Sub
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click

@@ -56,4 +56,5 @@ Public Class CrearCategoria
         Bandera = False
         Me.Close()
     End Sub
+
 End Class

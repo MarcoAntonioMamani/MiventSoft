@@ -618,6 +618,8 @@ Public Class Tec_Principal
         Dim blah As New Bitmap(btVentVenta.Image, 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
+
+
     End Sub
 
     Private Sub btInvKardex_Click(sender As Object, e As EventArgs) Handles btInvKardex.Click
@@ -1202,5 +1204,13 @@ Public Class Tec_Principal
         Dim blah As New Bitmap(btnComprasPorProducto.Image, 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
+    End Sub
+
+    Private Sub superTabControl3_TabItemClose(sender As Object, e As SuperTabStripTabItemCloseEventArgs) Handles superTabControl3.TabItemClose
+        e.Tab.Dispose()
+        GC.Collect()
+        GC.WaitForPendingFinalizers()
+
+
     End Sub
 End Class
