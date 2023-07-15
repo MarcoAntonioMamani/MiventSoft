@@ -25,7 +25,6 @@ Public Class Tec_VentasDetalle
         P_Global._prCargarComboGenerico(cbPrecios, L_prListaCategoriasPrecios(), "Id", "Codigo", "Descripcion", "CategoriaPrecio")
         CargarProductosVentas()
 
-        _prCargarProductos()
 
         _habilitarFocus()
         ActualizarProductos()
@@ -475,7 +474,6 @@ Public Class Tec_VentasDetalle
     End Sub
     Private Sub _HabilitarProductos()
 
-        _prCargarProductos()
         tbProducto.Focus()
     End Sub
 
