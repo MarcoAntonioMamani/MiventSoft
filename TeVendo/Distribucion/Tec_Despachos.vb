@@ -291,6 +291,10 @@ Public Class Tec_Despachos
 
         _habilitarFocus()
 
+        cbFechaDesde.Value = Now.Date
+        cbFechaHasta.Value = Now.Date
+
+
     End Sub
     Private Sub _prCargarTablaDetalle(id As String)
         Dim dt As New DataTable
@@ -650,7 +654,7 @@ Public Class Tec_Despachos
 
     Public Function _PMOGetTablaBuscador() As DataTable
 
-        Dim dtBuscador As DataTable = L_prListarGeneral("MAM_DespachoProductos")
+        Dim dtBuscador As DataTable = L_prListarGeneralFechas("MAM_DespachoProductos", cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"))
         Return dtBuscador
     End Function
 
@@ -1115,5 +1119,10 @@ Public Class Tec_Despachos
         If (tbDetalle.ReadOnly = True) Then
             ImprimirNotaSalida(tbCodigo.Text)
         End If
+    End Sub
+
+    Private Sub btnConfirmarSalir_Click(sender As Object, e As EventArgs) Handles btnConfirmarSalir.Click
+        _PMCargarBuscador()
+
     End Sub
 End Class

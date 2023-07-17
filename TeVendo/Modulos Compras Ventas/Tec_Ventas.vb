@@ -273,6 +273,8 @@ Public Class Tec_Ventas
             End If
         Next
 
+        cbFechaDesde.Value = Now.Date
+        cbFechaHasta.Value = Now.Date
 
 
 
@@ -1295,22 +1297,28 @@ salirIf:
         If (bandera = True) Then
             Dim mensajeError As String = ""
             Dim res As Boolean
+            If (JGrM_Buscador.GetValue("EstadoConciliacion") = 0) Then
+                ToastNotification.Show(Me, "Esta Venta no puede ser Eliminada por que pertenece a una conciliacion cerrada = " + Str(JGrM_Buscador.GetValue("conciliacionID")), img, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                ef.Dispose()
+                Return
+
+            End If
             Try
-                res = L_prBorrarRegistro(tbCodigo.Text, mensajeError, "MAM_Ventas")
-                If res Then
+                    res = L_prBorrarRegistro(tbCodigo.Text, mensajeError, "MAM_Ventas")
+                    If res Then
 
-                    ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
-                    _PMFiltrar()
-                Else
-                    ToastNotification.Show(Me, mensajeError, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                        ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                        _PMFiltrar()
+                    Else
+                    ToastNotification.Show(Me, mensajeError, img, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
                 End If
-            Catch ex As Exception
-                ToastNotification.Show(Me, "Error al eliminar la Venta".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                Catch ex As Exception
+                    ToastNotification.Show(Me, "Error al eliminar la Venta".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
-            End Try
+                End Try
 
-        End If
-        ef.Dispose()
+            End If
+            ef.Dispose()
 
 
     End Sub
@@ -1402,7 +1410,7 @@ salirIf:
 
     Public Function _PMOGetTablaBuscador() As DataTable
 
-        Dim dtBuscador As DataTable = L_prListarGeneral("MAM_Ventas")
+        Dim dtBuscador As DataTable = L_prListarGeneralFechas("MAM_Ventas", cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"))
         Return dtBuscador
     End Function
 
@@ -1427,7 +1435,7 @@ salirIf:
         listEstCeldas.Add(New Celda("MonedaVenta", False))
         listEstCeldas.Add(New Celda("Estado", False))
 
-        listEstCeldas.Add(New Celda("Glosa", True, " Glosa", 250))
+        listEstCeldas.Add(New Celda("Glosa", False, " Glosa", 250))
         listEstCeldas.Add(New Celda("TotalVenta", True, "Total Venta", 150, "0.00"))
         listEstCeldas.Add(New Celda("Descuento", False))
         listEstCeldas.Add(New Celda("EstadoPedido", False))
@@ -1436,6 +1444,8 @@ salirIf:
         listEstCeldas.Add(New Celda("VentaDirectaSinConciliacion", False))
         listEstCeldas.Add(New Celda("FechaEntrega", False))
         listEstCeldas.Add(New Celda("NombrePersonal", False))
+        listEstCeldas.Add(New Celda("EstadoConciliacion", False))
+        listEstCeldas.Add(New Celda("conciliacionId", True, "Nro Conciliacion", 60))
         Return listEstCeldas
     End Function
 
@@ -1929,6 +1939,13 @@ salirIf:
 
     Private Sub EditarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditarToolStripMenuItem.Click
         If (JGrM_Buscador.Row >= 0) Then
+            If (JGrM_Buscador.GetValue("EstadoConciliacion") = 0) Then
+                ToastNotification.Show(Me, "Esta Venta no puede ser Modificada por que pertenece a una conciliacion cerrada = " + Str(JGrM_Buscador.GetValue("conciliacionID")), img, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
+
+                Return
+
+            End If
+
             TabControlPrincipal.SelectedTabIndex = 0
             btnModificar.PerformClick()
 
@@ -2032,6 +2049,15 @@ salirIf:
 
     Private Sub Efecto_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         Me.Dispose()
+
+    End Sub
+
+    Private Sub LabelX14_Click(sender As Object, e As EventArgs) Handles LabelX14.Click
+
+    End Sub
+
+    Private Sub btnConfirmarSalir_Click(sender As Object, e As EventArgs) Handles btnConfirmarSalir.Click
+        _PMCargarBuscador()
 
     End Sub
 End Class
