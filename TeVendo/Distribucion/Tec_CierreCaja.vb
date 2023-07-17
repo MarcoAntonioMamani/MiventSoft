@@ -261,6 +261,8 @@ Public Class Tec_CierreCaja
 
 
         _habilitarFocus()
+        cbFechaDesde.Value = Now.Date
+        cbFechaHasta.Value = Now.Date
 
     End Sub
     Private Sub _prCargarTablaGastos(id As String)
@@ -943,7 +945,7 @@ Public Class Tec_CierreCaja
 
     Public Function _PMOGetTablaBuscador() As DataTable
 
-        Dim dtBuscador As DataTable = L_prListarGeneral("MAM_CierreCaja")
+        Dim dtBuscador As DataTable = L_prListarGeneralFechas("MAM_CierreCaja", cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"))
         Return dtBuscador
     End Function
 
@@ -1342,5 +1344,9 @@ Public Class Tec_CierreCaja
         If (JGrM_Buscador.Row >= 0) Then
             ImprimirNotaSalida(tbCodigo.Text)
         End If
+    End Sub
+
+    Private Sub btnConfirmarSalir_Click(sender As Object, e As EventArgs) Handles btnConfirmarSalir.Click
+        _PMCargarBuscador()
     End Sub
 End Class

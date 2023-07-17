@@ -89,6 +89,12 @@ Partial Class Tec_Conciliacion
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.btnConfirmarSalir = New DevComponents.DotNetBar.ButtonX()
+        Me.cbFechaHasta = New Janus.Windows.CalendarCombo.CalendarCombo()
+        Me.LabelX14 = New DevComponents.DotNetBar.LabelX()
+        Me.cbFechaDesde = New Janus.Windows.CalendarCombo.CalendarCombo()
+        Me.LabelX15 = New DevComponents.DotNetBar.LabelX()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -121,6 +127,7 @@ Partial Class Tec_Conciliacion
         Me.Panel15.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel3.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControlPrincipal
@@ -138,8 +145,8 @@ Partial Class Tec_Conciliacion
         Me.TabControlPrincipal.ControlBox.MenuBox.Name = ""
         Me.TabControlPrincipal.ControlBox.Name = ""
         Me.TabControlPrincipal.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.TabControlPrincipal.ControlBox.MenuBox, Me.TabControlPrincipal.ControlBox.CloseBox})
-        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel1)
         Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel2)
+        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel1)
         Me.TabControlPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControlPrincipal.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.Location = New System.Drawing.Point(0, 0)
@@ -147,7 +154,7 @@ Partial Class Tec_Conciliacion
         Me.TabControlPrincipal.ReorderTabsEnabled = True
         Me.TabControlPrincipal.SelectedTabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.SelectedTabIndex = 1
-        Me.TabControlPrincipal.Size = New System.Drawing.Size(1069, 527)
+        Me.TabControlPrincipal.Size = New System.Drawing.Size(1069, 562)
         Me.TabControlPrincipal.TabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Bottom
         Me.TabControlPrincipal.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.TabIndex = 4
@@ -163,7 +170,7 @@ Partial Class Tec_Conciliacion
         Me.SuperTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
-        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1069, 496)
+        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1069, 531)
         Me.SuperTabControlPanel1.TabIndex = 1
         Me.SuperTabControlPanel1.TabItem = Me.SuperTabItem1
         '
@@ -174,7 +181,7 @@ Partial Class Tec_Conciliacion
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1069, 496)
+        Me.Panel1.Size = New System.Drawing.Size(1069, 531)
         Me.Panel1.TabIndex = 0
         '
         'PanelSuperior
@@ -185,7 +192,7 @@ Partial Class Tec_Conciliacion
         Me.PanelSuperior.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelSuperior.Location = New System.Drawing.Point(0, 0)
         Me.PanelSuperior.Name = "PanelSuperior"
-        Me.PanelSuperior.Size = New System.Drawing.Size(1069, 436)
+        Me.PanelSuperior.Size = New System.Drawing.Size(1069, 471)
         Me.PanelSuperior.TabIndex = 1
         '
         'PanelRight
@@ -194,7 +201,7 @@ Partial Class Tec_Conciliacion
         Me.PanelRight.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelRight.Location = New System.Drawing.Point(354, 0)
         Me.PanelRight.Name = "PanelRight"
-        Me.PanelRight.Size = New System.Drawing.Size(715, 436)
+        Me.PanelRight.Size = New System.Drawing.Size(715, 471)
         Me.PanelRight.TabIndex = 5
         '
         'Panel2
@@ -206,7 +213,7 @@ Partial Class Tec_Conciliacion
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel2.Size = New System.Drawing.Size(715, 436)
+        Me.Panel2.Size = New System.Drawing.Size(715, 471)
         Me.Panel2.TabIndex = 1
         '
         'PanelImagenes
@@ -216,7 +223,7 @@ Partial Class Tec_Conciliacion
         Me.PanelImagenes.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelImagenes.Location = New System.Drawing.Point(3, 30)
         Me.PanelImagenes.Name = "PanelImagenes"
-        Me.PanelImagenes.Size = New System.Drawing.Size(709, 403)
+        Me.PanelImagenes.Size = New System.Drawing.Size(709, 438)
         Me.PanelImagenes.TabIndex = 2
         '
         'PanelVerImagen
@@ -227,7 +234,7 @@ Partial Class Tec_Conciliacion
         Me.PanelVerImagen.Location = New System.Drawing.Point(0, 0)
         Me.PanelVerImagen.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelVerImagen.Name = "PanelVerImagen"
-        Me.PanelVerImagen.Size = New System.Drawing.Size(709, 403)
+        Me.PanelVerImagen.Size = New System.Drawing.Size(709, 438)
         Me.PanelVerImagen.TabIndex = 2
         '
         'grDetalle
@@ -271,7 +278,7 @@ Partial Class Tec_Conciliacion
         Me.grDetalle.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.grDetalle.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grDetalle.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grDetalle.Size = New System.Drawing.Size(709, 403)
+        Me.grDetalle.Size = New System.Drawing.Size(709, 438)
         Me.grDetalle.TabIndex = 3
         Me.grDetalle.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grDetalle.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -344,7 +351,7 @@ Partial Class Tec_Conciliacion
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel13.Location = New System.Drawing.Point(344, 0)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(10, 436)
+        Me.Panel13.Size = New System.Drawing.Size(10, 471)
         Me.Panel13.TabIndex = 4
         '
         'PanelLEft
@@ -353,7 +360,7 @@ Partial Class Tec_Conciliacion
         Me.PanelLEft.Dock = System.Windows.Forms.DockStyle.Left
         Me.PanelLEft.Location = New System.Drawing.Point(0, 0)
         Me.PanelLEft.Name = "PanelLEft"
-        Me.PanelLEft.Size = New System.Drawing.Size(344, 436)
+        Me.PanelLEft.Size = New System.Drawing.Size(344, 471)
         Me.PanelLEft.TabIndex = 0
         '
         'Panel8
@@ -365,7 +372,7 @@ Partial Class Tec_Conciliacion
         Me.Panel8.Location = New System.Drawing.Point(0, 0)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel8.Size = New System.Drawing.Size(344, 436)
+        Me.Panel8.Size = New System.Drawing.Size(344, 471)
         Me.Panel8.TabIndex = 1
         '
         'Panel9
@@ -384,7 +391,7 @@ Partial Class Tec_Conciliacion
         Me.Panel9.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel9.Location = New System.Drawing.Point(3, 30)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(338, 403)
+        Me.Panel9.Size = New System.Drawing.Size(338, 438)
         Me.Panel9.TabIndex = 2
         '
         'LabelX4
@@ -645,7 +652,7 @@ Partial Class Tec_Conciliacion
         Me.PanelButton.Controls.Add(Me.PanelToolBar1)
         Me.PanelButton.Controls.Add(Me.PanelNavegacion)
         Me.PanelButton.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PanelButton.Location = New System.Drawing.Point(0, 436)
+        Me.PanelButton.Location = New System.Drawing.Point(0, 471)
         Me.PanelButton.Name = "PanelButton"
         Me.PanelButton.Size = New System.Drawing.Size(1069, 60)
         Me.PanelButton.TabIndex = 10
@@ -877,7 +884,7 @@ Partial Class Tec_Conciliacion
         Me.SuperTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel2.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel2.Name = "SuperTabControlPanel2"
-        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1069, 496)
+        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1069, 531)
         Me.SuperTabControlPanel2.TabIndex = 2
         Me.SuperTabControlPanel2.TabItem = Me.SuperTabItem2
         '
@@ -890,7 +897,7 @@ Partial Class Tec_Conciliacion
         Me.Panel17.Location = New System.Drawing.Point(0, 0)
         Me.Panel17.Name = "Panel17"
         Me.Panel17.Padding = New System.Windows.Forms.Padding(5)
-        Me.Panel17.Size = New System.Drawing.Size(1069, 496)
+        Me.Panel17.Size = New System.Drawing.Size(1069, 531)
         Me.Panel17.TabIndex = 4
         '
         'JGrM_Buscador
@@ -937,7 +944,7 @@ Partial Class Tec_Conciliacion
         Me.JGrM_Buscador.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.JGrM_Buscador.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.JGrM_Buscador.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.JGrM_Buscador.Size = New System.Drawing.Size(1059, 386)
+        Me.JGrM_Buscador.Size = New System.Drawing.Size(1059, 421)
         Me.JGrM_Buscador.TabIndex = 2
         Me.JGrM_Buscador.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.JGrM_Buscador.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -952,7 +959,7 @@ Partial Class Tec_Conciliacion
         Me.MeuOpciones.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.MeuOpciones.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VerToolStripMenuItem1, Me.EditarToolStripMenuItem, Me.ReporteToolStripMenuItem})
         Me.MeuOpciones.Name = "MeuOpciones"
-        Me.MeuOpciones.Size = New System.Drawing.Size(215, 132)
+        Me.MeuOpciones.Size = New System.Drawing.Size(145, 104)
         Me.MeuOpciones.Text = "Opciones"
         '
         'VerToolStripMenuItem1
@@ -961,7 +968,7 @@ Partial Class Tec_Conciliacion
         Me.VerToolStripMenuItem1.Image = Global.TeVendo.My.Resources.Resources.verRegistros2
         Me.VerToolStripMenuItem1.Name = "VerToolStripMenuItem1"
         Me.VerToolStripMenuItem1.Padding = New System.Windows.Forms.Padding(5)
-        Me.VerToolStripMenuItem1.Size = New System.Drawing.Size(224, 36)
+        Me.VerToolStripMenuItem1.Size = New System.Drawing.Size(154, 36)
         Me.VerToolStripMenuItem1.Text = "Ver"
         '
         'EditarToolStripMenuItem
@@ -970,7 +977,7 @@ Partial Class Tec_Conciliacion
         Me.EditarToolStripMenuItem.Image = Global.TeVendo.My.Resources.Resources.edit
         Me.EditarToolStripMenuItem.Name = "EditarToolStripMenuItem"
         Me.EditarToolStripMenuItem.Padding = New System.Windows.Forms.Padding(5)
-        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(224, 36)
+        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(154, 36)
         Me.EditarToolStripMenuItem.Text = "Editar"
         '
         'ReporteToolStripMenuItem
@@ -978,7 +985,7 @@ Partial Class Tec_Conciliacion
         Me.ReporteToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ReporteToolStripMenuItem.Image = Global.TeVendo.My.Resources.Resources.printerplanilla
         Me.ReporteToolStripMenuItem.Name = "ReporteToolStripMenuItem"
-        Me.ReporteToolStripMenuItem.Size = New System.Drawing.Size(214, 28)
+        Me.ReporteToolStripMenuItem.Size = New System.Drawing.Size(144, 28)
         Me.ReporteToolStripMenuItem.Text = "Reporte"
         '
         'Panel4
@@ -998,6 +1005,7 @@ Partial Class Tec_Conciliacion
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.ButtonX2, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.Panel3, 0, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
@@ -1103,11 +1111,153 @@ Partial Class Tec_Conciliacion
         '
         Me.MEP.ContainerControl = Me
         '
+        'Panel3
+        '
+        Me.Panel3.BackColor = System.Drawing.Color.Transparent
+        Me.Panel3.Controls.Add(Me.btnConfirmarSalir)
+        Me.Panel3.Controls.Add(Me.cbFechaHasta)
+        Me.Panel3.Controls.Add(Me.LabelX14)
+        Me.Panel3.Controls.Add(Me.cbFechaDesde)
+        Me.Panel3.Controls.Add(Me.LabelX15)
+        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Right
+        Me.Panel3.Location = New System.Drawing.Point(355, 13)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(532, 43)
+        Me.Panel3.TabIndex = 63
+        '
+        'btnConfirmarSalir
+        '
+        Me.btnConfirmarSalir.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnConfirmarSalir.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground
+        Me.btnConfirmarSalir.Font = New System.Drawing.Font("Calibri", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnConfirmarSalir.Image = Global.TeVendo.My.Resources.Resources.search
+        Me.btnConfirmarSalir.ImageFixedSize = New System.Drawing.Size(24, 24)
+        Me.btnConfirmarSalir.Location = New System.Drawing.Point(391, 10)
+        Me.btnConfirmarSalir.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnConfirmarSalir.Name = "btnConfirmarSalir"
+        Me.btnConfirmarSalir.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
+        Me.btnConfirmarSalir.Size = New System.Drawing.Size(126, 26)
+        Me.btnConfirmarSalir.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2013
+        Me.btnConfirmarSalir.Symbol = "57408"
+        Me.btnConfirmarSalir.SymbolColor = System.Drawing.Color.DarkGreen
+        Me.btnConfirmarSalir.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Material
+        Me.btnConfirmarSalir.SymbolSize = 10.0!
+        Me.btnConfirmarSalir.TabIndex = 238
+        Me.btnConfirmarSalir.Text = "Actualizar"
+        '
+        'cbFechaHasta
+        '
+        Me.cbFechaHasta.BackColor = System.Drawing.Color.White
+        Me.cbFechaHasta.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.Flat
+        '
+        '
+        '
+        Me.cbFechaHasta.DropDownCalendar.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.None
+        Me.cbFechaHasta.DropDownCalendar.DayOfWeekAbbreviation = Janus.Windows.CalendarCombo.DayOfWeekAbbreviation.UseAbbreviatedName
+        Me.cbFechaHasta.DropDownCalendar.DaysFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.cbFechaHasta.DropDownCalendar.DaysFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.cbFechaHasta.DropDownCalendar.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbFechaHasta.DropDownCalendar.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.cbFechaHasta.DropDownCalendar.HeaderAppearance = Janus.Windows.CalendarCombo.ButtonAppearance.PopUp
+        Me.cbFechaHasta.DropDownCalendar.HeaderFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.cbFechaHasta.DropDownCalendar.HeaderFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.cbFechaHasta.DropDownCalendar.Name = ""
+        Me.cbFechaHasta.DropDownCalendar.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.cbFechaHasta.DropDownCalendar.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.cbFechaHasta.DropDownCalendar.TodayRectColor = System.Drawing.Color.DarkCyan
+        Me.cbFechaHasta.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.cbFechaHasta.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
+        Me.cbFechaHasta.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbFechaHasta.Location = New System.Drawing.Point(247, 10)
+        Me.cbFechaHasta.Name = "cbFechaHasta"
+        Me.cbFechaHasta.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.cbFechaHasta.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.cbFechaHasta.SecondIncrement = 10
+        Me.cbFechaHasta.Size = New System.Drawing.Size(132, 26)
+        Me.cbFechaHasta.TabIndex = 237
+        Me.cbFechaHasta.TodayButtonText = "Hoy"
+        Me.cbFechaHasta.UseCompatibleTextRendering = False
+        Me.cbFechaHasta.Value = New Date(2020, 6, 21, 0, 0, 0, 0)
+        Me.cbFechaHasta.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.cbFechaHasta.YearIncrement = 10
+        '
+        'LabelX14
+        '
+        Me.LabelX14.AutoSize = True
+        Me.LabelX14.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX14.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX14.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX14.ForeColor = System.Drawing.Color.Black
+        Me.LabelX14.Location = New System.Drawing.Point(198, 10)
+        Me.LabelX14.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX14.Name = "LabelX14"
+        Me.LabelX14.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX14.Size = New System.Drawing.Size(42, 21)
+        Me.LabelX14.TabIndex = 236
+        Me.LabelX14.Text = "Hasta:"
+        '
+        'cbFechaDesde
+        '
+        Me.cbFechaDesde.BackColor = System.Drawing.Color.White
+        Me.cbFechaDesde.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.Flat
+        '
+        '
+        '
+        Me.cbFechaDesde.DropDownCalendar.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.None
+        Me.cbFechaDesde.DropDownCalendar.DayOfWeekAbbreviation = Janus.Windows.CalendarCombo.DayOfWeekAbbreviation.UseAbbreviatedName
+        Me.cbFechaDesde.DropDownCalendar.DaysFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.cbFechaDesde.DropDownCalendar.DaysFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.cbFechaDesde.DropDownCalendar.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbFechaDesde.DropDownCalendar.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.cbFechaDesde.DropDownCalendar.HeaderAppearance = Janus.Windows.CalendarCombo.ButtonAppearance.PopUp
+        Me.cbFechaDesde.DropDownCalendar.HeaderFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.cbFechaDesde.DropDownCalendar.HeaderFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.cbFechaDesde.DropDownCalendar.Name = ""
+        Me.cbFechaDesde.DropDownCalendar.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.cbFechaDesde.DropDownCalendar.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.cbFechaDesde.DropDownCalendar.TodayRectColor = System.Drawing.Color.DarkCyan
+        Me.cbFechaDesde.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.cbFechaDesde.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
+        Me.cbFechaDesde.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbFechaDesde.Location = New System.Drawing.Point(65, 10)
+        Me.cbFechaDesde.Name = "cbFechaDesde"
+        Me.cbFechaDesde.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.cbFechaDesde.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.cbFechaDesde.SecondIncrement = 10
+        Me.cbFechaDesde.Size = New System.Drawing.Size(128, 26)
+        Me.cbFechaDesde.TabIndex = 235
+        Me.cbFechaDesde.TodayButtonText = "Hoy"
+        Me.cbFechaDesde.UseCompatibleTextRendering = False
+        Me.cbFechaDesde.Value = New Date(2020, 6, 21, 0, 0, 0, 0)
+        Me.cbFechaDesde.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.cbFechaDesde.YearIncrement = 10
+        '
+        'LabelX15
+        '
+        Me.LabelX15.AutoSize = True
+        Me.LabelX15.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX15.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX15.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX15.ForeColor = System.Drawing.Color.Black
+        Me.LabelX15.Location = New System.Drawing.Point(13, 10)
+        Me.LabelX15.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX15.Name = "LabelX15"
+        Me.LabelX15.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX15.Size = New System.Drawing.Size(45, 21)
+        Me.LabelX15.TabIndex = 234
+        Me.LabelX15.Text = "Desde:"
+        '
         'Tec_Conciliacion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1069, 527)
+        Me.ClientSize = New System.Drawing.Size(1069, 562)
         Me.Controls.Add(Me.TabControlPrincipal)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Tec_Conciliacion"
@@ -1145,6 +1295,8 @@ Partial Class Tec_Conciliacion
         Me.Panel15.ResumeLayout(False)
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel3.ResumeLayout(False)
+        Me.Panel3.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1215,4 +1367,10 @@ Partial Class Tec_Conciliacion
     Friend WithEvents ReporteToolStripMenuItem As ToolStripMenuItem
     Protected WithEvents MHighlighterFocus As DevComponents.DotNetBar.Validator.Highlighter
     Protected WithEvents MEP As ErrorProvider
+    Friend WithEvents Panel3 As Panel
+    Friend WithEvents btnConfirmarSalir As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents cbFechaHasta As Janus.Windows.CalendarCombo.CalendarCombo
+    Friend WithEvents LabelX14 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents cbFechaDesde As Janus.Windows.CalendarCombo.CalendarCombo
+    Friend WithEvents LabelX15 As DevComponents.DotNetBar.LabelX
 End Class

@@ -1123,6 +1123,5 @@ Public Class Tec_Despachos
 
     Private Sub btnConfirmarSalir_Click(sender As Object, e As EventArgs) Handles btnConfirmarSalir.Click
         _PMCargarBuscador()
-
     End Sub
 End Class

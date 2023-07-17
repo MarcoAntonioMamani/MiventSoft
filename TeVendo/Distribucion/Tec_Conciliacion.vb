@@ -293,6 +293,10 @@ Public Class Tec_Conciliacion
 
         _habilitarFocus()
 
+        cbFechaDesde.Value = Now.Date
+        cbFechaHasta.Value = Now.Date
+
+
     End Sub
 
 
@@ -739,7 +743,7 @@ Public Class Tec_Conciliacion
 
     Public Function _PMOGetTablaBuscador() As DataTable
 
-        Dim dtBuscador As DataTable = L_prListarGeneral("MAM_Conciliacion")
+        Dim dtBuscador As DataTable = L_prListarGeneralFechas("MAM_Conciliacion", cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"))
         Return dtBuscador
     End Function
 
@@ -1070,6 +1074,10 @@ Public Class Tec_Conciliacion
             GenerarReporte(tbCodigo.Text)
         End If
 
+    End Sub
+
+    Private Sub btnConfirmarSalir_Click(sender As Object, e As EventArgs) Handles btnConfirmarSalir.Click
+        _PMCargarBuscador()
     End Sub
 
 
