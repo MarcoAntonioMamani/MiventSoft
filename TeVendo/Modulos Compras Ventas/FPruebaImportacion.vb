@@ -2,7 +2,7 @@
 Imports System.IO
 Public Class FPruebaImportacion
     Private Sub FPruebaImportacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        L_prAbrirConexion("DESKTOP-T84OJOU", "sa", "123", "MinventSoftFarmaTodo")
+        L_prAbrirConexion("DESKTOP-T84OJOU", "sa", "123", "MinventSoftSausagro")
     End Sub
 
     Public Shared Function ExcelToDatatable(ByVal _xlPath As String, ByVal _namePage As String) As System.Data.DataTable
@@ -76,32 +76,18 @@ Public Class FPruebaImportacion
         For i As Integer = 0 To dt.Rows.Count - 1 Step 1
             '' StockMinimo=Precio Precio compra   conversion =precio venta 
             Dim id As String = ""
-            '    ByRef _numi As String, _CodigoExterno As String,
+            '  ByRef _numi As String, _CodigoExterno As String,
             '                                        _CodigoBarra As String, _NombreProducto As String,
-            '_Descripcion As String, _stockMinimo As Decimal, _estado As Integer, _CategoriaId As Integer, _EmpresaId As Integer, _ProveedorId As Integer, _MarcaId As Integer,
+            '_Descripcion As String, _stockMinimo As Decimal, _estado As Integer, _CategoriaId As Integer,
+            '_EmpresaId As Integer, _ProveedorId As Integer, _MarcaId As Integer,
             '_AttributoId As Integer, _FamiliaId As Integer, _UnidadVentaId As Integer, _UnidadMaximaId As Integer,
-            '_conversion As Double, _dtImagenes As DataTable, PrecioCosto As Double
-
-            'Dim dtBarras As DataTable = ListProductoCodigoBarra(-1)
-            'Dim code As String = dt.Rows(i).Item("codigo")
-            'If (Not String.IsNullOrEmpty(code)) Then
-            '    Dim vector As String() = dt.Rows(i).Item("codigo").ToString.Trim.Split("_")
-            '    For j As Integer = 0 To vector.Length - 1 Step 1
-            '        dtBarras.Rows.Add(0, 0, vector(j), 0)
-            '    Next
-            'End If
-            '-------------------------------------------------------------------------------
-            '    ByRef _numi As String, _CodigoExterno As String,
-            '                                        _CodigoBarra As String, _NombreProducto As String,
-            '_Descripcion As String,-- _stockMinimo As Decimal, _estado As Integer,-- _CategoriaId As Integer,
-            '_EmpresaId As Integer, --_ProveedorId As Integer, --_MarcaId As Integer,
-            '_AttributoId As Integer, _FamiliaId As Integer, _UnidadVentaId As Integer, _UnidadMaximaId As Integer,
-            '_conversion As Double, _dtImagenes As DataTable, PrecioCosto As Double, venta As Double, institucional As Double
-
+            '_conversion As Double, _dtImagenes As DataTable
             Res = L_prProductoInsertarDistralKCP(id, "", "",
-                                                 dt.Rows(i).Item("nombre"), dt.Rows(i).Item("nombre"),
-                                             3, 1, 1, 1, 1, 1, 13, 17, 20, 22, 1,
-                                             TablaImagenes, 0, dt.Rows(i).Item("precio"))
+                                        dt.Rows(i).Item("nombre"), dt.Rows(i).Item("nombre"),
+                                        3, 1, dt.Rows(i).Item("CategoriaId"),
+                                        1, 1, dt.Rows(i).Item("ComercialId"), dt.Rows(i).Item("PresentacionId"),
+                                        dt.Rows(i).Item("FormulacionID"), 20, 22, 1,
+                                             TablaImagenes)
 
             'dt.Rows(i).Item("IdSistema") = id
         Next
