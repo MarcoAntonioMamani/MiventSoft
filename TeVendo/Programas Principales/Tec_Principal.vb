@@ -1288,4 +1288,11 @@ Public Class Tec_Principal
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub
+    Private Sub superTabControl3_TabItemClose(sender As Object, e As SuperTabStripTabItemCloseEventArgs) Handles superTabControl3.TabItemClose
+        e.Tab.Dispose()
+        GC.Collect()
+        GC.WaitForPendingFinalizers()
+
+
+    End Sub
 End Class
