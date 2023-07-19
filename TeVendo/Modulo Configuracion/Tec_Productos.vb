@@ -274,9 +274,9 @@ Public Class Tec_Productos
         P_Global._prCargarComboGenerico(cbCategoria, L_prListaCategorias(), "Id", "Codigo", "NombreCategoria", "Categoria")
 
         P_Global._prCargarComboGenerico(cbProveedor, L_prListarProveedores(), "Id", "Codigo", "NombreProveedor", "Proveedor")
-        P_Global._prCargarComboGenerico(cbMarca, L_prLibreriaDetalleGeneral(3), "cnnum", "Codigo", "cndesc1", "Marca")
-        P_Global._prCargarComboGenerico(cbAtributo, L_prLibreriaDetalleGeneral(4), "cnnum", "Codigo", "cndesc1", "Industria")
-        P_Global._prCargarComboGenerico(cbFamilia, L_prLibreriaDetalleGeneral(5), "cnnum", "Codigo", "cndesc1", "Familia")
+        P_Global._prCargarComboGenerico(cbMarca, L_prLibreriaDetalleGeneral(3), "cnnum", "Codigo", "cndesc1", "Nombre Comercial")
+        P_Global._prCargarComboGenerico(cbAtributo, L_prLibreriaDetalleGeneral(4), "cnnum", "Codigo", "cndesc1", "Presentacion")
+        P_Global._prCargarComboGenerico(cbFamilia, L_prLibreriaDetalleGeneral(5), "cnnum", "Codigo", "cndesc1", "Formulacion")
 
         P_Global._prCargarComboGenerico(cbUniVenta, L_prLibreriaDetalleGeneral(6), "cnnum", "Codigo", "cndesc1", "Unidad Venta")
         P_Global._prCargarComboGenerico(cbUnidMaxima, L_prLibreriaDetalleGeneral(7), "cnnum", "Codigo", "cndesc1", "Unidad Maxima")
@@ -955,8 +955,8 @@ Public Class Tec_Productos
         End If
         If (cbMarca.SelectedIndex < 0) Then
             cbMarca.BackColor = Color.Red
-            MEP.SetError(cbMarca, "Seleccione una Marca")
-            Mensaje = Mensaje + Chr(13) + Chr(10) + " Marca"
+            MEP.SetError(cbMarca, "Seleccione una Nombre Comercial")
+            Mensaje = Mensaje + Chr(13) + Chr(10) + " Nombre Comercial"
             _ok = False
         Else
             cbMarca.BackColor = Color.White
@@ -1083,7 +1083,7 @@ Public Class Tec_Productos
         listEstCeldas.Add(New Celda("imgEstado", True, "Estado", 150))
         listEstCeldas.Add(New Celda("CategoriaId", False))
         listEstCeldas.Add(New Celda("NombreCategoria", False, "Categoria", 80))
-        listEstCeldas.Add(New Celda("Marca", True, "Marca", 90))
+        listEstCeldas.Add(New Celda("Marca", True, "Nombre Comercial", 90))
         listEstCeldas.Add(New Celda("EmpresaId", False))
         listEstCeldas.Add(New Celda("Empresa", False, "Empresa", 80))
 
