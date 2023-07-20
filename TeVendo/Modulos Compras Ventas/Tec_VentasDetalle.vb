@@ -1152,12 +1152,7 @@ salirIf:
             Dim vectoraux() As String
             vectoraux = charSequence.Split(delimitadores, StringSplitOptions.None)
 
-            'mostrar resultado
-            'For Each item As String In vectoraux
 
-
-            '    Console.WriteLine("'{0}'", item)
-            'Next
             Dim cant As Integer = vectoraux.Length
             'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock  NombreCategoria
             For i As Integer = 0 To dt.Rows.Count - 1 Step 1
