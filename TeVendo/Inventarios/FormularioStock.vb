@@ -228,7 +228,7 @@ Public Class FormularioStock
         With grProducto.RootTable.Columns("CodigoExterno")
             .Width = 100
             .Caption = "Cod. Externo"
-            .Visible = True
+            .Visible = False
 
 
         End With
@@ -256,7 +256,7 @@ Public Class FormularioStock
         End With
         With grProducto.RootTable.Columns("unidad")
             .Width = 100
-            .Caption = "Unidad Venta"
+            .Caption = "Presentacion"
             .Visible = True
             .MaxLines = 2
             .WordWrap = True
