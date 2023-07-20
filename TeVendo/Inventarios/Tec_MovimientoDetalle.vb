@@ -266,10 +266,12 @@ Public Class Tec_MovimientoDetalle
             Dim cant As Integer = vectoraux.Length
             'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock 
             For i As Integer = 0 To dt.Rows.Count - 1 Step 1
-                Dim nombre As String = dt.Rows(i).Item("CodigoExterno").ToString.ToUpper +
+                Dim nombre As String = dt.Rows(i).Item("formulacion").ToString.ToUpper +
                     " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper +
                     " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("Marca").ToString.ToUpper
+                    " " + dt.Rows(i).Item("Marca").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("NombreCategoria").ToString.ToUpper
+
                 Select Case cant
                     Case 1
 
@@ -484,7 +486,7 @@ Public Class Tec_MovimientoDetalle
         With grProducto.RootTable.Columns("CodigoExterno")
             .Width = 100
             .Caption = "Cod Externo"
-            .Visible = True
+            .Visible = False
 
         End With
 
@@ -503,14 +505,14 @@ Public Class Tec_MovimientoDetalle
         With grProducto.RootTable.Columns("NombreCategoria")
             .Width = 150
             .Caption = "CATEGORIA"
-            .Visible = False
+            .Visible = True
             .MaxLines = 2
             .WordWrap = True
         End With
 
         With grProducto.RootTable.Columns("Marca")
             .Width = 150
-            .Caption = "Marca"
+            .Caption = "Nombre Comercial"
             .Visible = True
             .MaxLines = 2
             .WordWrap = True

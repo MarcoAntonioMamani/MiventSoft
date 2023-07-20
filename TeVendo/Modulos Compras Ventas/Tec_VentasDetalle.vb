@@ -79,7 +79,7 @@ Public Class Tec_VentasDetalle
         With grProducto.RootTable.Columns("CodigoExterno")
             .Width = 100
             .Caption = "Cod Externo"
-            .Visible = True
+            .Visible = False
 
         End With
 
@@ -105,14 +105,14 @@ Public Class Tec_VentasDetalle
         End With
         With grProducto.RootTable.Columns("NombreTipo")
             .Width = 90
-            .Visible = True
+            .Visible = False
             .MaxLines = 2
             .WordWrap = True
             .Caption = "Tipo"
         End With
         With grProducto.RootTable.Columns("NombreCategoria")
             .Width = 120
-            .Visible = False
+            .Visible = True
             .MaxLines = 2
             .WordWrap = True
             .Caption = "CATEGORIA"
@@ -122,7 +122,7 @@ Public Class Tec_VentasDetalle
             .Visible = True
             .MaxLines = 2
             .WordWrap = False
-            .Caption = "Marca"
+            .Caption = "Nombre Comercial"
         End With
 
         With grProducto.RootTable.Columns("PrecioCosto")
@@ -1161,7 +1161,7 @@ salirIf:
             Dim cant As Integer = vectoraux.Length
             'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock  NombreCategoria
             For i As Integer = 0 To dt.Rows.Count - 1 Step 1
-                Dim nombre As String = dt.Rows(i).Item("Id").ToString.ToUpper +
+                Dim nombre As String = dt.Rows(i).Item("formulacion").ToString.ToUpper +
                     " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
                     " " + dt.Rows(i).Item("NombreCategoria").ToString.ToUpper +
                     " " + dt.Rows(i).Item("Marca").ToString.ToUpper +

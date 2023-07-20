@@ -49,7 +49,7 @@ Public Class Tec_ComprasDetalle
         With grProducto.RootTable.Columns("CodigoExterno")
             .Width = 100
             .Caption = "Cod Externo"
-            .Visible = True
+            .Visible = False
 
         End With
 
@@ -80,7 +80,7 @@ Public Class Tec_ComprasDetalle
         With grProducto.RootTable.Columns("Marca")
             .Width = 200
             .Visible = True
-            .Caption = "Marca"
+            .Caption = "Nombre Comercial"
         End With
         With grProducto.RootTable.Columns("PrecioCosto")
             .Width = 150
@@ -708,7 +708,7 @@ salirIf:
             'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock  NombreCategoria
             For i As Integer = 0 To dt.Rows.Count - 1 Step 1
                 Dim nombre As String = dt.Rows(i).Item("Id").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("CodigoExterno").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("formulacion").ToString.ToUpper +
                     " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
                     " " + dt.Rows(i).Item("NombreCategoria").ToString.ToUpper +
                     " " + dt.Rows(i).Item("Marca").ToString.ToUpper
