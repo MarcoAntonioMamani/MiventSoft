@@ -82,8 +82,12 @@ Public Class FPruebaImportacion
             '_EmpresaId As Integer, _ProveedorId As Integer, _MarcaId As Integer,
             '_AttributoId As Integer, _FamiliaId As Integer, _UnidadVentaId As Integer, _UnidadMaximaId As Integer,
             '_conversion As Double, _dtImagenes As DataTable
+
+            Dim nombre As String
+
+            nombre = dt.Rows(i).Item("nombre") + " " + dt.Rows(i).Item("presentacion")
             Res = L_prProductoInsertarDistralKCP(id, "", "",
-                                        dt.Rows(i).Item("nombre"), dt.Rows(i).Item("nombre"),
+                                        nombre, nombre,
                                         3, 1, dt.Rows(i).Item("CategoriaId"),
                                         1, 1, dt.Rows(i).Item("ComercialId"), dt.Rows(i).Item("PresentacionId"),
                                         dt.Rows(i).Item("FormulacionID"), 20, 22, 1,
