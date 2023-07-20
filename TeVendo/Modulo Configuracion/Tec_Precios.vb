@@ -111,12 +111,12 @@ Public Class Tec_Precios
                 .Width = 70
                 .WordWrap = True
                 .MaxLines = 3
-                .Visible = True
+                .Visible = False
             End With
             With grprecio.RootTable.Columns("yfnumi")
                 .Caption = "Cod.Sistema"
                 .Width = 70
-                .Visible = True
+                .Visible = False
             End With
             With grprecio.RootTable.Columns("yfcdprod1")
                 .Caption = "Producto"
@@ -125,8 +125,22 @@ Public Class Tec_Precios
                 .MaxLines = 3
                 .Visible = True
             End With
+            With grprecio.RootTable.Columns("presentacion")
+                .Caption = "presentacion"
+                .Width = 70
+                .WordWrap = True
+                .MaxLines = 3
+                .Visible = True
+            End With
+            With grprecio.RootTable.Columns("formulacion")
+                .Caption = "formulacion"
+                .Width = 70
+                .WordWrap = True
+                .MaxLines = 3
+                .Visible = True
+            End With
             With grprecio.RootTable.Columns("Marca")
-                .Caption = "Marca"
+                .Caption = "Nombre Comercial"
                 .Width = 100
                 .WordWrap = True
                 .MaxLines = 3
