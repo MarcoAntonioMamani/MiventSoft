@@ -1277,7 +1277,15 @@ salirIf:
                 Return False
             End If
         End If
+        If (tbTipoCambio.Value <= 0) Then
 
+
+            ToastNotification.Show(Me, "Ingrese un tipo de Cambio Valido".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            tbTipoCambio.Focus()
+
+            Return False
+
+            End If
         If (cbSucursal.SelectedIndex < 0) Then
             ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
             cbSucursal.Focus()
