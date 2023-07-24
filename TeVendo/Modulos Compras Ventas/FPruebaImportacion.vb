@@ -2,7 +2,7 @@
 Imports System.IO
 Public Class FPruebaImportacion
     Private Sub FPruebaImportacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        L_prAbrirConexion("DESKTOP-T84OJOU", "sa", "123", "MinventSoftSausagro")
+        L_prAbrirConexion("DESKTOP-T84OJOU", "sa", "123", "MinventSoftRepuestoJhon")
     End Sub
 
     Public Shared Function ExcelToDatatable(ByVal _xlPath As String, ByVal _namePage As String) As System.Data.DataTable
@@ -83,9 +83,54 @@ Public Class FPruebaImportacion
             '_AttributoId As Integer, _FamiliaId As Integer, _UnidadVentaId As Integer, _UnidadMaximaId As Integer,
             '_conversion As Double, _dtImagenes As DataTable
 
-            Dim nombre As String
+            Dim Marca As String = dt.Rows(i).Item("Marca")
+            Dim idMarca As Integer = 0
+            Existe(L_prLibreriaDetalleGeneral(3), "cnnum", Marca, idMarca)
+            If (idMarca = -1) Then
+                Dim idNewMarca As String = ""
+                L_prClasificadorGrabar(idNewMarca, 3, Marca)
+                idMarca = Integer.Parse(idNewMarca)
+            End If
+            '''''''''''''''''''''''''''''''''''''''''''''''''''''
+            Dim SubGrupo As String = dt.Rows(i).Item("SUBGRUPO")
+            Dim idSubGrupo As Integer = 0
+            Existe(L_prLibreriaDetalleGeneral(4), "cnnum", SubGrupo, idSubGrupo)
+            If (idSubGrupo = -1) Then
+                Dim idNewSubGrupo As String = ""
+                L_prClasificadorGrabar(idNewSubGrupo, 3, Marca)
+                idSubGrupo = Integer.Parse(idNewSubGrupo)
+            End If
 
-            nombre = dt.Rows(i).Item("nombre") + " " + dt.Rows(i).Item("presentacion")
+            '''''''''''''''''''''''''''''''''''''''''''''''''''''
+            Dim Medida As String = dt.Rows(i).Item("MEDIDA")
+            Dim idMedida As Integer = 0
+            Existe(L_prLibreriaDetalleGeneral(5), "cnnum", Medida, idMedida)
+            If (idMedida = -1) Then
+                Dim idNewMedida As String = ""
+                L_prClasificadorGrabar(idNewMedida, 5, Medida)
+                idMedida = Integer.Parse(idNewMedida)
+            End If
+
+            '''''''''''''''''''''''''''''''''''''''''''''''''''''
+            Dim Grupo As String = dt.Rows(i).Item("GRUPO")
+            Dim idGrupo As Integer = 0
+            Existe(L_prCategoriaGeneral(), "id", Grupo, idGrupo)
+            If (idGrupo = -1) Then
+                'L_prCategoriaInsertar(id, tbdescripcion.Text, tbdescripcion.Text, 1, "", 1, 1)
+                Dim idNewGrupo As String = ""
+                L_prCategoriaInsertar(idNewGrupo, Grupo, "", 1, "", 1, 1)
+                idGrupo = Integer.Parse(idNewGrupo)
+            End If
+            '''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+            Dim detalle As String
+
+
+
+            detalle = dt.Rows(i).Item("Producto") + " " + dt.Rows(i).Item("MARCA") + " " + dt.Rows(i).Item("OE") +
+                " " + dt.Rows(i).Item("Fabrica") + " " + dt.Rows(i).Item("Grupo") + " " + dt.Rows(i).Item("SUBGRUPO") +
+                " " + dt.Rows(i).Item("MEDIDA")
+
             Res = L_prProductoInsertarDistralKCP(id, "", "",
                                         nombre, nombre,
                                         3, 1, dt.Rows(i).Item("CategoriaId"),
@@ -146,6 +191,20 @@ Public Class FPruebaImportacion
         MsgBox("Se ha cargado la importacion correctamente", MsgBoxStyle.Information, "Importado con exito")
 
     End Sub
+
+
+
+    Function Existe(dt As DataTable, column As Integer, value As String, ByRef id As Integer)
+        id = -1
+
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            If (dt.Rows(i).Item(column).ToString.ToUpper = value.ToUpper) Then
+                id = dt.Rows(i).Item("id")
+                Return True
+            End If
+        Next
+        Return False
+    End Function
 
     Sub importarExcelClientes()
         Dim myFileDialog As New OpenFileDialog()
