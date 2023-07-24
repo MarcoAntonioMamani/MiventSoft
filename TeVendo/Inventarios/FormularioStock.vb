@@ -77,8 +77,8 @@ Public Class FormularioStock
                 Dim nombre As String = dt.Rows(i).Item("CodigoExterno").ToString.ToUpper +
                     " " + dt.Rows(i).Item("Marca").ToString.ToUpper +
                     " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("Categoria").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("unidad").ToString.ToUpper
+                    " " + dt.Rows(i).Item("codigobarras").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper
                 Select Case cant
                     Case 1
 
@@ -227,23 +227,29 @@ Public Class FormularioStock
 
         With grProducto.RootTable.Columns("CodigoExterno")
             .Width = 100
-            .Caption = "Cod. Externo"
+            .Caption = "OE"
             .Visible = True
-
-
+            .MaxLines = 2
+            .WordWrap = True
         End With
-
+        With grProducto.RootTable.Columns("codigoBarras")
+            .Width = 100
+            .Caption = "FABRICAS"
+            .Visible = True
+            .MaxLines = 2
+            .WordWrap = True
+        End With
         With grProducto.RootTable.Columns("NombreProducto")
-            .Width = 300
+            .Width = 350
             .Caption = "PRODUCTOS"
-            .Visible = False
+            .Visible = True
             .MaxLines = 2
             .WordWrap = True
         End With
         With grProducto.RootTable.Columns("Categoria")
             .Width = 150
-            .Caption = "CATEGORIA"
-            .Visible = False
+            .Caption = "Grupo"
+            .Visible = True
             .MaxLines = 2
             .WordWrap = True
         End With
@@ -254,9 +260,16 @@ Public Class FormularioStock
             .MaxLines = 2
             .WordWrap = True
         End With
-        With grProducto.RootTable.Columns("unidad")
-            .Width = 100
-            .Caption = "Unidad Venta"
+        With grProducto.RootTable.Columns("subGrupo")
+            .Width = 150
+            .Caption = "SubGrupo"
+            .Visible = True
+            .MaxLines = 2
+            .WordWrap = True
+        End With
+        With grProducto.RootTable.Columns("medida")
+            .Width = 150
+            .Caption = "Medida"
             .Visible = True
             .MaxLines = 2
             .WordWrap = True
@@ -264,7 +277,7 @@ Public Class FormularioStock
         ''NombreCategoria
         With grProducto.RootTable.Columns("DescripcionProducto")
             .Width = 300
-            .Visible = True
+            .Visible = False
             .Caption = "DESCRIPCION"
             .MaxLines = 2
             .WordWrap = True
