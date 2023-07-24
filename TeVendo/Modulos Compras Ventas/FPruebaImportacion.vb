@@ -85,9 +85,9 @@ Public Class FPruebaImportacion
 
             Dim nombre As String
 
-            nombre = dt.Rows(i).Item("nombre") + " " + dt.Rows(i).Item("presentacion")
+            nombre = dt.Rows(i).Item("NOMBRECOMERCIAL")
             Res = L_prProductoInsertarDistralKCP(id, "", "",
-                                        nombre, nombre,
+                                        nombre, dt.Rows(i).Item("nombre") + " " + dt.Rows(i).Item("presentacion"),
                                         3, 1, dt.Rows(i).Item("CategoriaId"),
                                         1, 1, dt.Rows(i).Item("ComercialId"), dt.Rows(i).Item("PresentacionId"),
                                         dt.Rows(i).Item("FormulacionID"), 20, 22, 1,
