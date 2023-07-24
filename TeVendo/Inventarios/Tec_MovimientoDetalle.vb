@@ -862,7 +862,7 @@ Public Class Tec_MovimientoDetalle
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = FilaSelectLote.Item("Id")
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = FilaSelectLote.Item("NombreProducto")
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = CantidadVenta
-                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("descripcion") = FilaSelectLote.Item("DescripcionProductos")
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("descripcion") = FilaSelectLote.Item("DescripcionProducto")
 
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("stock")
 
