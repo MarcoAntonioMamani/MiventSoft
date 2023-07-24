@@ -358,7 +358,18 @@ Public Class Tec_Compras
             .Width = 150
             .Caption = "Producto"
             .Visible = True
+            .WordWrap = True
+            .MaxLines = 3
         End With
+        With grDetalle.RootTable.Columns("DescripcionProducto")
+            .Width = 150
+            .Caption = "Descripcion"
+            .Visible = True
+            .Width = 200
+            .WordWrap = True
+            .MaxLines = 3
+        End With
+
 
 
         With grDetalle.RootTable.Columns("CantidadCompra")
@@ -423,7 +434,7 @@ Public Class Tec_Compras
                 .Width = 70
                 .Caption = "Lote"
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
-                .Visible = True
+                .Visible = False
             End With
             With grDetalle.RootTable.Columns("FechaVencimiento")
                 .Width = 70
@@ -966,6 +977,7 @@ salirIf:
         Dim pordesc As Double = ((montodesc * 100) / totalCompra)
         tbPdesc.Value = pordesc
         tbTotal.Value = totalCompra - montodesc
+        tbTotalDolares.Value = (totalCompra - montodesc) / tbTipoCambio.Value
     End Sub
     Private Sub grdetalle_CellEdited(sender As Object, e As ColumnActionEventArgs) Handles grDetalle.CellEdited
         If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
@@ -1039,7 +1051,7 @@ salirIf:
         swTipoVenta.IsReadOnly = False
         tbFechaVencimientoCredito.ReadOnly = False
         tbFechaTransaccion.ReadOnly = False
-
+        tbTipoCambio.IsInputReadOnly = False
 
         tbMdesc.IsInputReadOnly = False
         tbPdesc.IsInputReadOnly = False
@@ -1057,6 +1069,8 @@ salirIf:
         tbFechaVencimientoCredito.ReadOnly = True
         tbFechaTransaccion.ReadOnly = True
         tbTotal.IsInputReadOnly = True
+        tbTotalDolares.IsInputReadOnly = True
+        tbTipoCambio.IsInputReadOnly = True
         tbMdesc.IsInputReadOnly = True
         tbPdesc.IsInputReadOnly = True
         grDetalle.RootTable.Columns("img").Visible = False
@@ -1078,6 +1092,8 @@ salirIf:
         tbMdesc.Value = 0
         tbPdesc.Value = 0
         tbTotal.Value = 0
+        tbTipoCambio.Value = 0
+        tbTotalDolares.Value = 0
         _prCargarDetalleVenta(-1)
     End Sub
     Public Sub seleccionarPrimerItemCombo(cb As EditControls.MultiColumnCombo)
@@ -1105,7 +1121,7 @@ salirIf:
         Try
             res = ComprasInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), IdProveedor,
                                   IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                  1, 1, tbGlosa.Text, tbTotal.Value, 1, CType(grDetalle.DataSource, DataTable), tbMdesc.Value)
+                                  1, 1, tbGlosa.Text, tbTotal.Value, 1, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, tbTipoCambio.Value, tbTotalDolares.Value)
 
             If res Then
 
@@ -1148,7 +1164,7 @@ salirIf:
         Try
             Res = ComprasModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), IdProveedor,
                                   IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                  1, 1, tbGlosa.Text, tbTotal.Value, 1, CType(grDetalle.DataSource, DataTable), tbMdesc.Value)
+                                  1, 1, tbGlosa.Text, tbTotal.Value, 1, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, tbTipoCambio.Value, tbTotalDolares.Value)
             If Res Then
                 ReporteCompra(tbCodigo.Text)
                 ToastNotification.Show(Me, "Codigo de Compra ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
@@ -1310,6 +1326,8 @@ salirIf:
         listEstCeldas.Add(New Celda("descuento", False, "", 70))
         listEstCeldas.Add(New Celda("EmpresaId", False, "", 150))
         listEstCeldas.Add(New Celda("transaccion", False, "", 150))
+        listEstCeldas.Add(New Celda("TipoCambio", False, "", 150))
+        listEstCeldas.Add(New Celda("TotalDolares", True, "TotalDolares", 150, "0.00"))
         Return listEstCeldas
     End Function
 
@@ -1339,6 +1357,7 @@ salirIf:
 
         _prCargarDetalleVenta(tbCodigo.Text)
         tbMdesc.Value = JGrM_Buscador.GetValue("Descuento")
+        tbTipoCambio.Value = JGrM_Buscador.GetValue("TipoCambio")
         _prCalcularPrecioTotal()
         LblPaginacion.Text = Str(_MPos + 1) + "/" + JGrM_Buscador.RowCount.ToString
 
@@ -1552,9 +1571,8 @@ salirIf:
                     Dim montodesc As Double = (grDetalle.GetTotal(grDetalle.RootTable.Columns("TotalCompra"), AggregateFunction.Sum) * (porcdesc / 100))
                     tbMdesc.Value = montodesc
                     tbTotal.Value = grDetalle.GetTotal(grDetalle.RootTable.Columns("TotalCompra"), AggregateFunction.Sum) - montodesc
+                    tbTotalDolares.Value = tbTotal.Value / tbTipoCambio.Value
                 End If
-
-
             End If
             If (tbPdesc.Text = String.Empty) Then
                 tbMdesc.Value = 0
@@ -1577,7 +1595,7 @@ salirIf:
                     Dim pordesc As Double = ((montodesc * 100) / grDetalle.GetTotal(grDetalle.RootTable.Columns("TotalCompra"), AggregateFunction.Sum))
                     tbPdesc.Value = pordesc
                     tbTotal.Value = grDetalle.GetTotal(grDetalle.RootTable.Columns("TotalCompra"), AggregateFunction.Sum) - montodesc
-
+                    tbTotalDolares.Value = tbTotal.Value = tbTipoCambio.Value
                 End If
 
             End If
@@ -1670,5 +1688,18 @@ salirIf:
     Private Sub Efecto_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         Me.Dispose()
 
+    End Sub
+
+    Private Sub DoubleInput1_ValueChanged(sender As Object, e As EventArgs) Handles tbTipoCambio.ValueChanged
+        If (tbTipoCambio.Focused) Then
+
+
+
+            If (tbTipoCambio.Text = String.Empty) Then
+                tbTotalDolares.Value = 0
+            Else
+                tbTotalDolares.Value = tbTotal.Value / tbTipoCambio.Value
+            End If
+        End If
     End Sub
 End Class

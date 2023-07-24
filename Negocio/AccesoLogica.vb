@@ -1959,7 +1959,7 @@ Public Class AccesoLogica
                                            FechaTransacccion As String, ProveedorId As Integer, TipoVenta As Integer,
        FechaVencCredito As String, Moneda As Integer, estado As Integer, glosa As String,
                                            TotalCompra As Double, EmpresaId As Integer, _dtDetalle As DataTable,
-                                           Descuento As Double) As Boolean
+                                           Descuento As Double, TipoCambio As Double, TotalDolares As Double) As Boolean
         Dim _resultado As Boolean
 
         '     @Id ,@AlmacenId,@FechaTransaccion ,@Proveedor  ,@TipoVenta,
@@ -1984,7 +1984,8 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@Descuento", Descuento))
         _listParam.Add(New Datos.DParametro("@detalle", "", _dtDetalle))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
-
+        _listParam.Add(New Datos.DParametro("@TipoCambio", TipoCambio))
+        _listParam.Add(New Datos.DParametro("@TotalDolares", TotalDolares))
         _Tabla = D_ProcedimientoConParam("MAM_Compras", _listParam)
 
         If _Tabla.Rows.Count > 0 Then
@@ -2003,7 +2004,7 @@ Public Class AccesoLogica
                                            FechaTransacccion As String, ProveedorId As Integer, TipoVenta As Integer,
        FechaVencCredito As String, Moneda As Integer, estado As Integer, glosa As String,
                                            TotalCompra As Double, EmpresaId As Integer, _dtDetalle As DataTable,
-                                            Descuento As Double) As Boolean
+                                            Descuento As Double, TipoCambio As Double, TotalDolares As Double) As Boolean
         Dim _resultado As Boolean
 
         '     @Id ,@AlmacenId,@FechaTransaccion ,@Proveedor  ,@TipoVenta,
@@ -2025,7 +2026,8 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@Glosa", glosa))
         _listParam.Add(New Datos.DParametro("@TotalCompra", TotalCompra))
         _listParam.Add(New Datos.DParametro("@EmpresaId", EmpresaId))
-
+        _listParam.Add(New Datos.DParametro("@TipoCambio", TipoCambio))
+        _listParam.Add(New Datos.DParametro("@TotalDolares", TotalDolares))
         _listParam.Add(New Datos.DParametro("@detalle", "", _dtDetalle))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 

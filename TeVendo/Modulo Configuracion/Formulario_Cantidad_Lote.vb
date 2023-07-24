@@ -26,7 +26,7 @@ Public Class Formulario_Cantidad_Lote
         txtProducto.Text = NombreProducto
         txtStock.Text = "Cantidad Disponible = " + Str(CantidadTotal)
         tbLote.Text = "20200101"
-        cbFecha.Value = "01/01/2020"
+        cbFecha.Value = Now.Date
 
         _habilitarFocus()
     End Sub
@@ -94,7 +94,7 @@ Public Class Formulario_Cantidad_Lote
 
     Private Sub tbCantidad_KeyDown(sender As Object, e As KeyEventArgs) Handles tbCantidad.KeyDown
         If (e.KeyData = Keys.Enter) Then
-            tbLote.Focus()
+            cbFecha.Focus()
         End If
     End Sub
 
