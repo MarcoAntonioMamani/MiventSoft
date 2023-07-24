@@ -483,8 +483,17 @@ Public Class Tec_MovimientoDetalle
         End With
         With grProducto.RootTable.Columns("CodigoExterno")
             .Width = 100
-            .Caption = "Cod Externo"
+            .Caption = "OE"
             .Visible = True
+            .WordWrap = True
+            .MaxLines = 2
+        End With
+        With grProducto.RootTable.Columns("fabrica")
+            .Width = 100
+            .Caption = "Fabrica"
+            .Visible = True
+            .WordWrap = True
+            .MaxLines = 2
 
         End With
 
@@ -496,14 +505,28 @@ Public Class Tec_MovimientoDetalle
         With grProducto.RootTable.Columns("NombreProducto")
             .Width = 350
             .Caption = "PRODUCTOS"
-            .Visible = False
+            .Visible = True
             .MaxLines = 2
             .WordWrap = True
         End With
-        With grProducto.RootTable.Columns("NombreCategoria")
+        With grProducto.RootTable.Columns("Grupo")
             .Width = 150
-            .Caption = "CATEGORIA"
-            .Visible = False
+            .Caption = "Grupo"
+            .Visible = True
+            .MaxLines = 2
+            .WordWrap = True
+        End With
+        With grProducto.RootTable.Columns("SubGrupo")
+            .Width = 100
+            .Caption = "SubGrupo"
+            .Visible = True
+            .MaxLines = 2
+            .WordWrap = True
+        End With
+        With grProducto.RootTable.Columns("Medida")
+            .Width = 100
+            .Caption = "Medida"
+            .Visible = True
             .MaxLines = 2
             .WordWrap = True
         End With
@@ -516,13 +539,7 @@ Public Class Tec_MovimientoDetalle
             .WordWrap = True
         End With
         ''NombreCategoria
-        With grProducto.RootTable.Columns("DescripcionProducto")
-            .Width = 350
-            .Visible = True
-            .Caption = "DESCRIPCION"
-            .MaxLines = 2
-            .WordWrap = True
-        End With
+
 
 
         With grProducto.RootTable.Columns("stock")
