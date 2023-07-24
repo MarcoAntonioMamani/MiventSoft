@@ -89,7 +89,7 @@ Public Class Tec_Productos
         End With
 
 
-        CargarIconEstado()
+        'CargarIconEstado()
     End Sub
     Public Sub CargarIconEstado()
 
@@ -271,12 +271,12 @@ Public Class Tec_Productos
         'L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
         Me.Text = "Gestion De Productos"
         P_Global._prCargarComboGenerico(cbEmpresa, L_prListaEmpresasUsuarios(), "Id", "Codigo", "Nombre", "Empresa")
-        P_Global._prCargarComboGenerico(cbCategoria, L_prListaCategorias(), "Id", "Codigo", "NombreCategoria", "Categoria")
+        P_Global._prCargarComboGenerico(cbCategoria, L_prListaCategorias(), "Id", "Codigo", "NombreCategoria", "Grupo")
 
         P_Global._prCargarComboGenerico(cbProveedor, L_prListarProveedores(), "Id", "Codigo", "NombreProveedor", "Proveedor")
         P_Global._prCargarComboGenerico(cbMarca, L_prLibreriaDetalleGeneral(3), "cnnum", "Codigo", "cndesc1", "Marca")
-        P_Global._prCargarComboGenerico(cbAtributo, L_prLibreriaDetalleGeneral(4), "cnnum", "Codigo", "cndesc1", "Industria")
-        P_Global._prCargarComboGenerico(cbFamilia, L_prLibreriaDetalleGeneral(5), "cnnum", "Codigo", "cndesc1", "Familia")
+        P_Global._prCargarComboGenerico(cbAtributo, L_prLibreriaDetalleGeneral(4), "cnnum", "Codigo", "cndesc1", "SubGrupo")
+        P_Global._prCargarComboGenerico(cbFamilia, L_prLibreriaDetalleGeneral(5), "cnnum", "Codigo", "cndesc1", "Medida")
 
         P_Global._prCargarComboGenerico(cbUniVenta, L_prLibreriaDetalleGeneral(6), "cnnum", "Codigo", "cndesc1", "Unidad Venta")
         P_Global._prCargarComboGenerico(cbUnidMaxima, L_prLibreriaDetalleGeneral(7), "cnnum", "Codigo", "cndesc1", "Unidad Maxima")
@@ -295,7 +295,7 @@ Public Class Tec_Productos
             .SetHighlightOnFocus(tbCodigo, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(tbCodigoExterno, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(tbNombreProducto, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
-            .SetHighlightOnFocus(tbDescripcion, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(tbFabrica, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(cbEmpresa, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(cbCategoria, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(swEstado, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
@@ -570,7 +570,7 @@ Public Class Tec_Productos
         '@UnidadVentaId ,@UnidadMaximaId ,@Conversion ,@newFecha,@newHora,@usuario )
         tbNombreProducto.ReadOnly = False
         tbCodigoExterno.ReadOnly = False
-        tbDescripcion.ReadOnly = False
+        tbFabrica.ReadOnly = False
         tbStockMinimo.IsInputReadOnly = False
         swEstado.IsReadOnly = False
         cbEmpresa.ReadOnly = False
@@ -604,7 +604,7 @@ Public Class Tec_Productos
         tbCodigo.ReadOnly = True
         tbNombreProducto.ReadOnly = True
         tbCodigoExterno.ReadOnly = True
-        tbDescripcion.ReadOnly = True
+        tbFabrica.ReadOnly = True
         tbStockMinimo.IsInputReadOnly = True
 
 
@@ -747,7 +747,7 @@ Public Class Tec_Productos
     Public Sub _PMOLimpiar()
         tbCodigo.Text = ""
         tbNombreProducto.Text = ""
-        tbDescripcion.Text = ""
+        tbFabrica.Text = ""
         tbCodigoExterno.Text = ""
         tbCodigoBarras.Text = ""
         tbStockMinimo.Value = 0
@@ -779,7 +779,7 @@ Public Class Tec_Productos
     Public Sub _PMOLimpiarErrores()
         MEP.Clear()
         tbNombreProducto.BackColor = Color.White
-        tbDescripcion.BackColor = Color.White
+        tbFabrica.BackColor = Color.White
         tbStockMinimo.BackColor = Color.White
         tbConversion.BackColor = Color.White
         cbEmpresa.BackColor = Color.White
@@ -804,8 +804,8 @@ Public Class Tec_Productos
         ''_conversion As Double
         Dim res As Boolean
         Try
-            res = L_prProductoInsertar(tbCodigo.Text, tbCodigoExterno.Text, tbCodigoBarras.Text, tbNombreProducto.Text,
-                                                 tbDescripcion.Text, tbStockMinimo.Value, IIf(swEstado.Value = True, 1, 0),
+            res = L_prProductoInsertar(tbCodigo.Text, tbCodigoExterno.Text, tbFabrica.Text, tbNombreProducto.Text,
+                                                 "", tbStockMinimo.Value, IIf(swEstado.Value = True, 1, 0),
                                                  cbCategoria.Value, cbEmpresa.Value, cbProveedor.Value, cbMarca.Value,
                                                  cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes, CType(grPrecios.DataSource, DataTable), CType(grCodigoBarras.DataSource, DataTable))
 
@@ -832,8 +832,8 @@ Public Class Tec_Productos
     Public Function _PMOModificarRegistro() As Boolean
         Dim Res As Boolean
         Try
-            Res = L_prProductoModificar(tbCodigo.Text, tbCodigoExterno.Text, tbCodigoBarras.Text, tbNombreProducto.Text,
-                                                tbDescripcion.Text, tbStockMinimo.Value, IIf(swEstado.Value = True, 1, 0),
+            Res = L_prProductoModificar(tbCodigo.Text, tbCodigoExterno.Text, tbFabrica.Text, tbNombreProducto.Text,
+                                                "", tbStockMinimo.Value, IIf(swEstado.Value = True, 1, 0),
                                                 cbCategoria.Value, cbEmpresa.Value, cbProveedor.Value, cbMarca.Value,
                                                 cbAtributo.Value, cbFamilia.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Value, TablaImagenes, CType(grPrecios.DataSource, DataTable), CType(grCodigoBarras.DataSource, DataTable))
 
@@ -856,7 +856,7 @@ Public Class Tec_Productos
         Return Res
     End Function
     Public Function _fnActionNuevo() As Boolean
-        Return tbCodigo.Text = String.Empty And tbDescripcion.ReadOnly = False
+        Return tbCodigo.Text = String.Empty And tbFabrica.ReadOnly = False
     End Function
 
 
@@ -1073,16 +1073,17 @@ Public Class Tec_Productos
         'a.MarcaId,
         '    a.AttributoId, a.FamiliaId, a.UnidadVentaId, a.UnidadMaximaId, a.Conversion  
         Dim listEstCeldas As New List(Of Celda)
-        listEstCeldas.Add(New Celda("Id", True, "ID", 40))
-        listEstCeldas.Add(New Celda("CodigoExterno", False))
-        listEstCeldas.Add(New Celda("CodigoBarras", False))
+        listEstCeldas.Add(New Celda("Id", False, "ID", 40))
+        listEstCeldas.Add(New Celda("CodigoExterno", True, "OE", 100))
+        listEstCeldas.Add(New Celda("CodigoBarras", True, "Fabrica", 100))
         listEstCeldas.Add(New Celda("NombreProducto", True, " NombreProducto", 200))
-        listEstCeldas.Add(New Celda("DescripcionProducto", True, " Descripcion Producto", 100))
+        listEstCeldas.Add(New Celda("DescripcionProducto", False, " Descripcion Producto", 100))
+        listEstCeldas.Add(New Celda("SubGrupo", True, "SubGrupo", 100))
         listEstCeldas.Add(New Celda("StockMinimo", True, "Stock Minimo", 90, "0.00"))
-        listEstCeldas.Add(New Celda("estado", False, "Estado", 70))
-        listEstCeldas.Add(New Celda("imgEstado", True, "Estado", 150))
+        listEstCeldas.Add(New Celda("estado", True, "Estado", 70))
+        listEstCeldas.Add(New Celda("imgEstado", False, "Estado", 150))
         listEstCeldas.Add(New Celda("CategoriaId", False))
-        listEstCeldas.Add(New Celda("NombreCategoria", False, "Categoria", 80))
+        listEstCeldas.Add(New Celda("NombreCategoria", True, "Categoria", 80))
         listEstCeldas.Add(New Celda("Marca", True, "Marca", 90))
         listEstCeldas.Add(New Celda("EmpresaId", False))
         listEstCeldas.Add(New Celda("Empresa", False, "Empresa", 80))
@@ -1116,7 +1117,6 @@ Public Class Tec_Productos
             tbCodigo.Text = .GetValue("Id").ToString
             tbCodigoExterno.Text = .GetValue("CodigoExterno").ToString
             tbNombreProducto.Text = .GetValue("NombreProducto").ToString
-            tbDescripcion.Text = .GetValue("DescripcionProducto").ToString
             tbStockMinimo.Value = .GetValue("StockMinimo")
             swEstado.Value = .GetValue("estado")
             cbCategoria.Value = .GetValue("CategoriaId")
@@ -1126,7 +1126,7 @@ Public Class Tec_Productos
             cbAtributo.Value = .GetValue("AttributoId")
             cbFamilia.Value = .GetValue("FamiliaId")
             cbUniVenta.Value = .GetValue("UnidadVentaId")
-            tbCodigoBarras.Text = .GetValue("CodigoBarras")
+            tbFabrica.Text = .GetValue("CodigoBarras")
             cbUnidMaxima.Value = .GetValue("UnidadMaximaId")
             tbConversion.Value = .GetValue("Conversion")
 
@@ -1244,7 +1244,7 @@ Public Class Tec_Productos
         Dim ef = New Efecto
         ef.tipo = 10
         ef.ModuloLibreria = 4
-        ef.titulo = "Crear Nueva Industria"
+        ef.titulo = "Crear Nuevo SubGrupo"
         ef.ShowDialog()
         Dim bandera As Boolean = False
         bandera = ef.band
@@ -1262,7 +1262,7 @@ Public Class Tec_Productos
         Dim ef = New Efecto
         ef.tipo = 10
         ef.ModuloLibreria = 5
-        ef.titulo = "Crear Nueva Familia"
+        ef.titulo = "Crear Nueva Medida"
         ef.ShowDialog()
         Dim bandera As Boolean = False
         bandera = ef.band
@@ -1793,6 +1793,10 @@ Public Class Tec_Productos
         Catch ex As Exception
 
         End Try
+    End Sub
+
+    Private Sub tbDescripcion_TextChanged(sender As Object, e As EventArgs) Handles tbFabrica.TextChanged
+
     End Sub
 #End Region
 End Class

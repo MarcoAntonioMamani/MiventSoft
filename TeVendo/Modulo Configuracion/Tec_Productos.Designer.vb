@@ -40,6 +40,13 @@ Partial Class Tec_Productos
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.PanelImagenes = New System.Windows.Forms.Panel()
         Me.SuperTabControl1 = New DevComponents.DotNetBar.SuperTabControl()
+        Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
+        Me.PanelVerImagen = New System.Windows.Forms.Panel()
+        Me.btnImagen = New DevComponents.DotNetBar.ButtonX()
+        Me.btnDelete = New DevComponents.DotNetBar.ButtonX()
+        Me.pbImgProdu = New System.Windows.Forms.PictureBox()
+        Me.PanelListImagenes = New System.Windows.Forms.Panel()
+        Me.SuperTabItem3 = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel5 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.grCodigoBarras = New Janus.Windows.GridEX.GridEX()
@@ -48,13 +55,6 @@ Partial Class Tec_Productos
         Me.LabelX16 = New DevComponents.DotNetBar.LabelX()
         Me.tbCodigoBarras = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.SuperTabItem5 = New DevComponents.DotNetBar.SuperTabItem()
-        Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
-        Me.PanelVerImagen = New System.Windows.Forms.Panel()
-        Me.btnImagen = New DevComponents.DotNetBar.ButtonX()
-        Me.btnDelete = New DevComponents.DotNetBar.ButtonX()
-        Me.pbImgProdu = New System.Windows.Forms.PictureBox()
-        Me.PanelListImagenes = New System.Windows.Forms.Panel()
-        Me.SuperTabItem3 = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel4 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.grPrecios = New Janus.Windows.GridEX.GridEX()
         Me.SuperTabItem4 = New DevComponents.DotNetBar.SuperTabItem()
@@ -98,8 +98,7 @@ Partial Class Tec_Productos
         Me.LabelX6 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX7 = New DevComponents.DotNetBar.LabelX()
-        Me.tbDescripcion = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
+        Me.tbFabrica = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.tbNombreProducto = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
@@ -149,6 +148,7 @@ Partial Class Tec_Productos
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.MenuEliminar = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -159,13 +159,13 @@ Partial Class Tec_Productos
         Me.PanelImagenes.SuspendLayout()
         CType(Me.SuperTabControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControl1.SuspendLayout()
+        Me.SuperTabControlPanel3.SuspendLayout()
+        Me.PanelVerImagen.SuspendLayout()
+        CType(Me.pbImgProdu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlPanel5.SuspendLayout()
         Me.GroupPanel1.SuspendLayout()
         CType(Me.grCodigoBarras, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelCodigoBarras.SuspendLayout()
-        Me.SuperTabControlPanel3.SuspendLayout()
-        Me.PanelVerImagen.SuspendLayout()
-        CType(Me.pbImgProdu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlPanel4.SuspendLayout()
         CType(Me.grPrecios, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
@@ -340,6 +340,95 @@ Partial Class Tec_Productos
         Me.SuperTabControl1.TabStyle = DevComponents.DotNetBar.eSuperTabStyle.Office2010BackstageBlue
         Me.SuperTabControl1.Text = "SuperTabControl1"
         '
+        'SuperTabControlPanel3
+        '
+        Me.SuperTabControlPanel3.Controls.Add(Me.PanelVerImagen)
+        Me.SuperTabControlPanel3.Controls.Add(Me.PanelListImagenes)
+        Me.SuperTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SuperTabControlPanel3.Location = New System.Drawing.Point(0, 30)
+        Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
+        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(480, 414)
+        Me.SuperTabControlPanel3.TabIndex = 1
+        Me.SuperTabControlPanel3.TabItem = Me.SuperTabItem3
+        '
+        'PanelVerImagen
+        '
+        Me.PanelVerImagen.BackColor = System.Drawing.Color.Transparent
+        Me.PanelVerImagen.Controls.Add(Me.btnImagen)
+        Me.PanelVerImagen.Controls.Add(Me.btnDelete)
+        Me.PanelVerImagen.Controls.Add(Me.pbImgProdu)
+        Me.PanelVerImagen.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PanelVerImagen.Location = New System.Drawing.Point(209, 0)
+        Me.PanelVerImagen.Margin = New System.Windows.Forms.Padding(4)
+        Me.PanelVerImagen.Name = "PanelVerImagen"
+        Me.PanelVerImagen.Size = New System.Drawing.Size(271, 414)
+        Me.PanelVerImagen.TabIndex = 2
+        '
+        'btnImagen
+        '
+        Me.btnImagen.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnImagen.BackColor = System.Drawing.Color.Transparent
+        Me.btnImagen.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnImagen.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnImagen.Image = Global.TeVendo.My.Resources.Resources.addimage
+        Me.btnImagen.ImageFixedSize = New System.Drawing.Size(40, 40)
+        Me.btnImagen.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
+        Me.btnImagen.Location = New System.Drawing.Point(8, 10)
+        Me.btnImagen.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnImagen.Name = "btnImagen"
+        Me.btnImagen.Padding = New System.Windows.Forms.Padding(0, 0, 0, 25)
+        Me.btnImagen.Size = New System.Drawing.Size(88, 66)
+        Me.btnImagen.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
+        Me.btnImagen.TabIndex = 15
+        Me.btnImagen.TextColor = System.Drawing.Color.White
+        '
+        'btnDelete
+        '
+        Me.btnDelete.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnDelete.BackColor = System.Drawing.Color.Transparent
+        Me.btnDelete.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnDelete.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnDelete.Image = Global.TeVendo.My.Resources.Resources._051_prohibition
+        Me.btnDelete.ImageFixedSize = New System.Drawing.Size(40, 40)
+        Me.btnDelete.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
+        Me.btnDelete.Location = New System.Drawing.Point(8, 92)
+        Me.btnDelete.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnDelete.Name = "btnDelete"
+        Me.btnDelete.Padding = New System.Windows.Forms.Padding(0, 0, 0, 25)
+        Me.btnDelete.Size = New System.Drawing.Size(88, 66)
+        Me.btnDelete.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
+        Me.btnDelete.TabIndex = 14
+        Me.btnDelete.TextColor = System.Drawing.Color.White
+        '
+        'pbImgProdu
+        '
+        Me.pbImgProdu.BackColor = System.Drawing.Color.White
+        Me.pbImgProdu.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pbImgProdu.Location = New System.Drawing.Point(0, 0)
+        Me.pbImgProdu.Margin = New System.Windows.Forms.Padding(4)
+        Me.pbImgProdu.Name = "pbImgProdu"
+        Me.pbImgProdu.Size = New System.Drawing.Size(271, 414)
+        Me.pbImgProdu.TabIndex = 0
+        Me.pbImgProdu.TabStop = False
+        '
+        'PanelListImagenes
+        '
+        Me.PanelListImagenes.AutoScroll = True
+        Me.PanelListImagenes.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.PanelListImagenes.Dock = System.Windows.Forms.DockStyle.Left
+        Me.PanelListImagenes.Location = New System.Drawing.Point(0, 0)
+        Me.PanelListImagenes.Margin = New System.Windows.Forms.Padding(4)
+        Me.PanelListImagenes.Name = "PanelListImagenes"
+        Me.PanelListImagenes.Size = New System.Drawing.Size(209, 414)
+        Me.PanelListImagenes.TabIndex = 3
+        '
+        'SuperTabItem3
+        '
+        Me.SuperTabItem3.AttachedControl = Me.SuperTabControlPanel3
+        Me.SuperTabItem3.GlobalItem = False
+        Me.SuperTabItem3.Name = "SuperTabItem3"
+        Me.SuperTabItem3.Text = "Imagenes"
+        '
         'SuperTabControlPanel5
         '
         Me.SuperTabControlPanel5.Controls.Add(Me.GroupPanel1)
@@ -474,95 +563,6 @@ Partial Class Tec_Productos
         Me.SuperTabItem5.GlobalItem = False
         Me.SuperTabItem5.Name = "SuperTabItem5"
         Me.SuperTabItem5.Text = "Codigo Barras"
-        '
-        'SuperTabControlPanel3
-        '
-        Me.SuperTabControlPanel3.Controls.Add(Me.PanelVerImagen)
-        Me.SuperTabControlPanel3.Controls.Add(Me.PanelListImagenes)
-        Me.SuperTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel3.Location = New System.Drawing.Point(0, 30)
-        Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
-        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(480, 414)
-        Me.SuperTabControlPanel3.TabIndex = 1
-        Me.SuperTabControlPanel3.TabItem = Me.SuperTabItem3
-        '
-        'PanelVerImagen
-        '
-        Me.PanelVerImagen.BackColor = System.Drawing.Color.Transparent
-        Me.PanelVerImagen.Controls.Add(Me.btnImagen)
-        Me.PanelVerImagen.Controls.Add(Me.btnDelete)
-        Me.PanelVerImagen.Controls.Add(Me.pbImgProdu)
-        Me.PanelVerImagen.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelVerImagen.Location = New System.Drawing.Point(209, 0)
-        Me.PanelVerImagen.Margin = New System.Windows.Forms.Padding(4)
-        Me.PanelVerImagen.Name = "PanelVerImagen"
-        Me.PanelVerImagen.Size = New System.Drawing.Size(271, 414)
-        Me.PanelVerImagen.TabIndex = 2
-        '
-        'btnImagen
-        '
-        Me.btnImagen.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnImagen.BackColor = System.Drawing.Color.Transparent
-        Me.btnImagen.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.btnImagen.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnImagen.Image = Global.TeVendo.My.Resources.Resources.addimage
-        Me.btnImagen.ImageFixedSize = New System.Drawing.Size(40, 40)
-        Me.btnImagen.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnImagen.Location = New System.Drawing.Point(8, 10)
-        Me.btnImagen.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnImagen.Name = "btnImagen"
-        Me.btnImagen.Padding = New System.Windows.Forms.Padding(0, 0, 0, 25)
-        Me.btnImagen.Size = New System.Drawing.Size(88, 66)
-        Me.btnImagen.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
-        Me.btnImagen.TabIndex = 15
-        Me.btnImagen.TextColor = System.Drawing.Color.White
-        '
-        'btnDelete
-        '
-        Me.btnDelete.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnDelete.BackColor = System.Drawing.Color.Transparent
-        Me.btnDelete.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.btnDelete.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDelete.Image = Global.TeVendo.My.Resources.Resources._051_prohibition
-        Me.btnDelete.ImageFixedSize = New System.Drawing.Size(40, 40)
-        Me.btnDelete.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnDelete.Location = New System.Drawing.Point(8, 92)
-        Me.btnDelete.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Padding = New System.Windows.Forms.Padding(0, 0, 0, 25)
-        Me.btnDelete.Size = New System.Drawing.Size(88, 66)
-        Me.btnDelete.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
-        Me.btnDelete.TabIndex = 14
-        Me.btnDelete.TextColor = System.Drawing.Color.White
-        '
-        'pbImgProdu
-        '
-        Me.pbImgProdu.BackColor = System.Drawing.Color.White
-        Me.pbImgProdu.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pbImgProdu.Location = New System.Drawing.Point(0, 0)
-        Me.pbImgProdu.Margin = New System.Windows.Forms.Padding(4)
-        Me.pbImgProdu.Name = "pbImgProdu"
-        Me.pbImgProdu.Size = New System.Drawing.Size(271, 414)
-        Me.pbImgProdu.TabIndex = 0
-        Me.pbImgProdu.TabStop = False
-        '
-        'PanelListImagenes
-        '
-        Me.PanelListImagenes.AutoScroll = True
-        Me.PanelListImagenes.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.PanelListImagenes.Dock = System.Windows.Forms.DockStyle.Left
-        Me.PanelListImagenes.Location = New System.Drawing.Point(0, 0)
-        Me.PanelListImagenes.Margin = New System.Windows.Forms.Padding(4)
-        Me.PanelListImagenes.Name = "PanelListImagenes"
-        Me.PanelListImagenes.Size = New System.Drawing.Size(209, 414)
-        Me.PanelListImagenes.TabIndex = 3
-        '
-        'SuperTabItem3
-        '
-        Me.SuperTabItem3.AttachedControl = Me.SuperTabControlPanel3
-        Me.SuperTabItem3.GlobalItem = False
-        Me.SuperTabItem3.Name = "SuperTabItem3"
-        Me.SuperTabItem3.Text = "Imagenes"
         '
         'SuperTabControlPanel4
         '
@@ -711,7 +711,7 @@ Partial Class Tec_Productos
         Me.Panel9.Controls.Add(Me.LabelX6)
         Me.Panel9.Controls.Add(Me.LabelX5)
         Me.Panel9.Controls.Add(Me.LabelX7)
-        Me.Panel9.Controls.Add(Me.tbDescripcion)
+        Me.Panel9.Controls.Add(Me.tbFabrica)
         Me.Panel9.Controls.Add(Me.LabelX4)
         Me.Panel9.Controls.Add(Me.LabelX1)
         Me.Panel9.Controls.Add(Me.tbNombreProducto)
@@ -749,7 +749,7 @@ Partial Class Tec_Productos
         Me.btnAgregarCategoria.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
         Me.btnAgregarCategoria.Image = Global.TeVendo.My.Resources.Resources.add
         Me.btnAgregarCategoria.ImageFixedSize = New System.Drawing.Size(28, 28)
-        Me.btnAgregarCategoria.Location = New System.Drawing.Point(263, 223)
+        Me.btnAgregarCategoria.Location = New System.Drawing.Point(501, 226)
         Me.btnAgregarCategoria.Margin = New System.Windows.Forms.Padding(4)
         Me.btnAgregarCategoria.Name = "btnAgregarCategoria"
         Me.btnAgregarCategoria.Size = New System.Drawing.Size(35, 31)
@@ -869,14 +869,14 @@ Partial Class Tec_Productos
         Me.cbCategoria.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
         Me.cbCategoria.HideSelection = False
         Me.cbCategoria.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.cbCategoria.Location = New System.Drawing.Point(11, 228)
+        Me.cbCategoria.Location = New System.Drawing.Point(11, 231)
         Me.cbCategoria.Margin = New System.Windows.Forms.Padding(4)
         Me.cbCategoria.Name = "cbCategoria"
         Me.cbCategoria.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.cbCategoria.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
         Me.cbCategoria.SelectedIndex = -1
         Me.cbCategoria.SelectedItem = Nothing
-        Me.cbCategoria.Size = New System.Drawing.Size(251, 26)
+        Me.cbCategoria.Size = New System.Drawing.Size(482, 26)
         Me.cbCategoria.TabIndex = 6
         Me.cbCategoria.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -1163,9 +1163,9 @@ Partial Class Tec_Productos
         Me.LabelX12.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX12.Name = "LabelX12"
         Me.LabelX12.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX12.Size = New System.Drawing.Size(52, 21)
+        Me.LabelX12.Size = New System.Drawing.Size(54, 21)
         Me.LabelX12.TabIndex = 58
-        Me.LabelX12.Text = "Familia:"
+        Me.LabelX12.Text = "Medida:"
         '
         'LabelX11
         '
@@ -1181,9 +1181,9 @@ Partial Class Tec_Productos
         Me.LabelX11.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX11.Name = "LabelX11"
         Me.LabelX11.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX11.Size = New System.Drawing.Size(62, 21)
+        Me.LabelX11.Size = New System.Drawing.Size(69, 21)
         Me.LabelX11.TabIndex = 56
-        Me.LabelX11.Text = "Industria:"
+        Me.LabelX11.Text = "SubGrupo:"
         '
         'LabelX10
         '
@@ -1261,7 +1261,7 @@ Partial Class Tec_Productos
         '
         Me.swEstado.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.swEstado.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.swEstado.Location = New System.Drawing.Point(303, 230)
+        Me.swEstado.Location = New System.Drawing.Point(303, 79)
         Me.swEstado.Margin = New System.Windows.Forms.Padding(4)
         Me.swEstado.Name = "swEstado"
         Me.swEstado.OffBackColor = System.Drawing.Color.Red
@@ -1287,7 +1287,7 @@ Partial Class Tec_Productos
         Me.LabelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX6.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX6.Location = New System.Drawing.Point(303, 208)
+        Me.LabelX6.Location = New System.Drawing.Point(303, 57)
         Me.LabelX6.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX6.Name = "LabelX6"
         Me.LabelX6.SingleLineColor = System.Drawing.SystemColors.Control
@@ -1305,13 +1305,13 @@ Partial Class Tec_Productos
         Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX5.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX5.Location = New System.Drawing.Point(11, 208)
+        Me.LabelX5.Location = New System.Drawing.Point(11, 211)
         Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX5.Name = "LabelX5"
         Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX5.Size = New System.Drawing.Size(66, 21)
+        Me.LabelX5.Size = New System.Drawing.Size(46, 21)
         Me.LabelX5.TabIndex = 46
-        Me.LabelX5.Text = "Categoria:"
+        Me.LabelX5.Text = "Grupo:"
         '
         'LabelX7
         '
@@ -1332,39 +1332,21 @@ Partial Class Tec_Productos
         Me.LabelX7.Text = "Empresa:"
         Me.LabelX7.Visible = False
         '
-        'tbDescripcion
+        'tbFabrica
         '
         '
         '
         '
-        Me.tbDescripcion.Border.Class = "TextBoxBorder"
-        Me.tbDescripcion.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbDescripcion.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbDescripcion.Location = New System.Drawing.Point(11, 135)
-        Me.tbDescripcion.Margin = New System.Windows.Forms.Padding(4)
-        Me.tbDescripcion.Multiline = True
-        Me.tbDescripcion.Name = "tbDescripcion"
-        Me.tbDescripcion.PreventEnterBeep = True
-        Me.tbDescripcion.Size = New System.Drawing.Size(269, 71)
-        Me.tbDescripcion.TabIndex = 4
-        '
-        'LabelX4
-        '
-        Me.LabelX4.AutoSize = True
-        Me.LabelX4.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX4.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX4.Location = New System.Drawing.Point(11, 117)
-        Me.LabelX4.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX4.Name = "LabelX4"
-        Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX4.Size = New System.Drawing.Size(139, 21)
-        Me.LabelX4.TabIndex = 41
-        Me.LabelX4.Text = "Descripcion Producto:"
+        Me.tbFabrica.Border.Class = "TextBoxBorder"
+        Me.tbFabrica.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFabrica.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFabrica.Location = New System.Drawing.Point(9, 79)
+        Me.tbFabrica.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbFabrica.Multiline = True
+        Me.tbFabrica.Name = "tbFabrica"
+        Me.tbFabrica.PreventEnterBeep = True
+        Me.tbFabrica.Size = New System.Drawing.Size(269, 29)
+        Me.tbFabrica.TabIndex = 4
         '
         'LabelX1
         '
@@ -1376,7 +1358,7 @@ Partial Class Tec_Productos
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX1.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX1.Location = New System.Drawing.Point(11, 62)
+        Me.LabelX1.Location = New System.Drawing.Point(10, 107)
         Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
@@ -1392,11 +1374,12 @@ Partial Class Tec_Productos
         Me.tbNombreProducto.Border.Class = "TextBoxBorder"
         Me.tbNombreProducto.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbNombreProducto.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbNombreProducto.Location = New System.Drawing.Point(11, 86)
+        Me.tbNombreProducto.Location = New System.Drawing.Point(10, 131)
         Me.tbNombreProducto.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbNombreProducto.Multiline = True
         Me.tbNombreProducto.Name = "tbNombreProducto"
         Me.tbNombreProducto.PreventEnterBeep = True
-        Me.tbNombreProducto.Size = New System.Drawing.Size(627, 26)
+        Me.tbNombreProducto.Size = New System.Drawing.Size(627, 72)
         Me.tbNombreProducto.TabIndex = 3
         '
         'LabelX2
@@ -1431,9 +1414,9 @@ Partial Class Tec_Productos
         Me.LabelX3.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX3.Name = "LabelX3"
         Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX3.Size = New System.Drawing.Size(101, 21)
+        Me.LabelX3.Size = New System.Drawing.Size(24, 21)
         Me.LabelX3.TabIndex = 36
-        Me.LabelX3.Text = "Codigo Externo:"
+        Me.LabelX3.Text = "OE:"
         '
         'tbCodigo
         '
@@ -2077,6 +2060,24 @@ Partial Class Tec_Productos
         Me.ToolStripMenuItem3.Size = New System.Drawing.Size(155, 36)
         Me.ToolStripMenuItem3.Text = "Eliminar"
         '
+        'LabelX4
+        '
+        Me.LabelX4.AutoSize = True
+        Me.LabelX4.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX4.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX4.Location = New System.Drawing.Point(9, 61)
+        Me.LabelX4.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX4.Name = "LabelX4"
+        Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX4.Size = New System.Drawing.Size(52, 21)
+        Me.LabelX4.TabIndex = 41
+        Me.LabelX4.Text = "Fabrica:"
+        '
         'Tec_Productos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -2096,14 +2097,14 @@ Partial Class Tec_Productos
         Me.PanelImagenes.ResumeLayout(False)
         CType(Me.SuperTabControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuperTabControl1.ResumeLayout(False)
+        Me.SuperTabControlPanel3.ResumeLayout(False)
+        Me.PanelVerImagen.ResumeLayout(False)
+        CType(Me.pbImgProdu, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuperTabControlPanel5.ResumeLayout(False)
         Me.GroupPanel1.ResumeLayout(False)
         CType(Me.grCodigoBarras, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelCodigoBarras.ResumeLayout(False)
         Me.PanelCodigoBarras.PerformLayout()
-        Me.SuperTabControlPanel3.ResumeLayout(False)
-        Me.PanelVerImagen.ResumeLayout(False)
-        CType(Me.pbImgProdu, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuperTabControlPanel4.ResumeLayout(False)
         CType(Me.grPrecios, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel5.ResumeLayout(False)
@@ -2199,8 +2200,7 @@ Partial Class Tec_Productos
     Friend WithEvents tbCodigoExterno As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbNombreProducto As DevComponents.DotNetBar.Controls.TextBoxX
-    Friend WithEvents tbDescripcion As DevComponents.DotNetBar.Controls.TextBoxX
-    Friend WithEvents LabelX4 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbFabrica As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX7 As DevComponents.DotNetBar.LabelX
     Friend WithEvents swEstado As DevComponents.DotNetBar.Controls.SwitchButton
@@ -2266,4 +2266,5 @@ Partial Class Tec_Productos
     Protected WithEvents btnAgregarCodigoBarras As DevComponents.DotNetBar.ButtonX
     Friend WithEvents MenuEliminar As ContextMenuStrip
     Friend WithEvents ToolStripMenuItem3 As ToolStripMenuItem
+    Friend WithEvents LabelX4 As DevComponents.DotNetBar.LabelX
 End Class
