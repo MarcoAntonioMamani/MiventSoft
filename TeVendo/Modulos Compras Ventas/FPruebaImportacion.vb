@@ -76,12 +76,7 @@ Public Class FPruebaImportacion
         For i As Integer = 0 To dt.Rows.Count - 1 Step 1
             '' StockMinimo=Precio Precio compra   conversion =precio venta 
             Dim id As String = ""
-            '  ByRef _numi As String, _CodigoExterno As String,
-            '                                        _CodigoBarra As String, _NombreProducto As String,
-            '_Descripcion As String, _stockMinimo As Decimal, _estado As Integer, _CategoriaId As Integer,
-            '_EmpresaId As Integer, _ProveedorId As Integer, _MarcaId As Integer,
-            '_AttributoId As Integer, _FamiliaId As Integer, _UnidadVentaId As Integer, _UnidadMaximaId As Integer,
-            '_conversion As Double, _dtImagenes As DataTable
+
 
             Dim Marca As String = dt.Rows(i).Item("Marca")
             Dim idMarca As Integer = 0
@@ -131,6 +126,13 @@ Public Class FPruebaImportacion
                 " " + dt.Rows(i).Item("Fabrica") + " " + dt.Rows(i).Item("Grupo") + " " + dt.Rows(i).Item("SUBGRUPO") +
                 " " + dt.Rows(i).Item("MEDIDA")
 
+            '    ByRef _numi As String, _CodigoExterno As String,
+            '                                        _CodigoBarra As String, _NombreProducto As String,
+            '_Descripcion As String, _stockMinimo As Decimal, _estado As Integer, _CategoriaId As Integer, _EmpresaId As Integer, _ProveedorId As Integer, _MarcaId As Integer,
+            '_AttributoId As Integer, _FamiliaId As Integer, _UnidadVentaId As Integer, _UnidadMaximaId As Integer,
+            '_conversion As Double, _dtImagenes As DataTable, precioCosto As Decimal,
+            'PrecioLista As Decimal, precioMenor As Decimal
+
             Res = L_prProductoInsertarDistralKCP(id, "", "",
                                         nombre, nombre,
                                         3, 1, dt.Rows(i).Item("CategoriaId"),
@@ -138,7 +140,7 @@ Public Class FPruebaImportacion
                                         dt.Rows(i).Item("FormulacionID"), 20, 22, 1,
                                              TablaImagenes)
 
-            'dt.Rows(i).Item("IdSistema") = id
+            dt.Rows(i).Item("IdSistema") = id
         Next
 
 
