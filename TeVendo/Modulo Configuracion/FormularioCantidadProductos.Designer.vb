@@ -42,7 +42,7 @@ Partial Class FormularioCantidadProductos
         Me.btnNo.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.btnNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.btnNo.Controls.Add(Me.Label4)
-        Me.btnNo.Location = New System.Drawing.Point(116, 302)
+        Me.btnNo.Location = New System.Drawing.Point(160, 347)
         Me.btnNo.Name = "btnNo"
         Me.btnNo.Size = New System.Drawing.Size(156, 50)
         Me.btnNo.TabIndex = 2
@@ -63,7 +63,7 @@ Partial Class FormularioCantidadProductos
         Me.btnSi.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(179, Byte), Integer), CType(CType(148, Byte), Integer))
         Me.btnSi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.btnSi.Controls.Add(Me.Label3)
-        Me.btnSi.Location = New System.Drawing.Point(330, 302)
+        Me.btnSi.Location = New System.Drawing.Point(374, 347)
         Me.btnSi.Name = "btnSi"
         Me.btnSi.Size = New System.Drawing.Size(156, 50)
         Me.btnSi.TabIndex = 1
@@ -83,9 +83,9 @@ Partial Class FormularioCantidadProductos
         '
         Me.txtProducto.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtProducto.ForeColor = System.Drawing.Color.FromArgb(CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer))
-        Me.txtProducto.Location = New System.Drawing.Point(66, 180)
+        Me.txtProducto.Location = New System.Drawing.Point(25, 191)
         Me.txtProducto.Name = "txtProducto"
-        Me.txtProducto.Size = New System.Drawing.Size(447, 24)
+        Me.txtProducto.Size = New System.Drawing.Size(602, 46)
         Me.txtProducto.TabIndex = 6
         Me.txtProducto.Text = "Paracetamol"
         Me.txtProducto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -95,7 +95,7 @@ Partial Class FormularioCantidadProductos
         Me.txtTitulo.AutoSize = True
         Me.txtTitulo.Font = New System.Drawing.Font("Calibri", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTitulo.ForeColor = System.Drawing.Color.FromArgb(CType(CType(89, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(89, Byte), Integer))
-        Me.txtTitulo.Location = New System.Drawing.Point(61, 131)
+        Me.txtTitulo.Location = New System.Drawing.Point(110, 142)
         Me.txtTitulo.Name = "txtTitulo"
         Me.txtTitulo.Size = New System.Drawing.Size(462, 49)
         Me.txtTitulo.TabIndex = 5
@@ -104,7 +104,7 @@ Partial Class FormularioCantidadProductos
         'PictureBox1
         '
         Me.PictureBox1.Image = Global.TeVendo.My.Resources.Resources.compra
-        Me.PictureBox1.Location = New System.Drawing.Point(227, 33)
+        Me.PictureBox1.Location = New System.Drawing.Point(276, 44)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(80, 76)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -115,7 +115,7 @@ Partial Class FormularioCantidadProductos
         '
         Me.txtStock.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtStock.ForeColor = System.Drawing.Color.DarkCyan
-        Me.txtStock.Location = New System.Drawing.Point(66, 204)
+        Me.txtStock.Location = New System.Drawing.Point(115, 237)
         Me.txtStock.Name = "txtStock"
         Me.txtStock.Size = New System.Drawing.Size(447, 24)
         Me.txtStock.TabIndex = 10
@@ -137,7 +137,7 @@ Partial Class FormularioCantidadProductos
         Me.tbCantidad.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbCantidad.Font = New System.Drawing.Font("Calibri", 25.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbCantidad.ForeColor = System.Drawing.Color.Black
-        Me.tbCantidad.Location = New System.Drawing.Point(183, 232)
+        Me.tbCantidad.Location = New System.Drawing.Point(227, 277)
         Me.tbCantidad.Margin = New System.Windows.Forms.Padding(4)
         Me.tbCantidad.Name = "tbCantidad"
         Me.tbCantidad.PreventEnterBeep = True
@@ -156,7 +156,7 @@ Partial Class FormularioCantidadProductos
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(571, 401)
+        Me.ClientSize = New System.Drawing.Size(639, 478)
         Me.Controls.Add(Me.tbCantidad)
         Me.Controls.Add(Me.txtStock)
         Me.Controls.Add(Me.btnNo)

@@ -89,9 +89,9 @@ Public Class Tec_VentasDetalle
 
         End With
         With grProducto.RootTable.Columns("NombreProducto")
-            .Width = 300
+            .Width = 150
             .Caption = "PRODUCTOS"
-            .Visible = False
+            .Visible = True
             .MaxLines = 2
             .WordWrap = True
         End With
@@ -119,7 +119,7 @@ Public Class Tec_VentasDetalle
         End With
         With grProducto.RootTable.Columns("Marca")
             .Width = 120
-            .Visible = True
+            .Visible = False
             .MaxLines = 2
             .WordWrap = False
             .Caption = "Nombre Comercial"
@@ -200,7 +200,7 @@ Public Class Tec_VentasDetalle
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.rowdelete, 25, 18)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, 0, 0, 0, 0, 0, "", 0, "20200101", CDate("2020/01/01"), 0, "", 0, "", 0, 0, Bin.GetBuffer, 0)
+        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, 0, 0, 0, 0, 0, "", 0, "20200101", Now.Date, 0, "", 0, "", 0, 0, Bin.GetBuffer, 0)
     End Sub
 
     Public Function _GenerarId()
@@ -264,7 +264,7 @@ Public Class Tec_VentasDetalle
         End With
         With grDetalle.RootTable.Columns("KitNombre")
             .Width = 100
-            .Visible = True
+            .Visible = False
             .Caption = "Kit"
             .WordWrap = True
             .MaxLines = 3
@@ -285,7 +285,7 @@ Public Class Tec_VentasDetalle
         With grDetalle.RootTable.Columns("CantidadKit")
             .Width = 40
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "CantidadKit"
         End With
@@ -383,7 +383,7 @@ Public Class Tec_VentasDetalle
                 .Width = 60
                 .Caption = "lote".ToUpper
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
-                .Visible = True
+                .Visible = False
             End With
             With grDetalle.RootTable.Columns("FechaVencimiento")
                 .Width = 70
@@ -587,6 +587,12 @@ Public Class Tec_VentasDetalle
         With grProducto.RootTable.Columns("Lote")
             .Width = 150
             .Caption = "Lote"
+            .Visible = True
+
+        End With
+        With grProducto.RootTable.Columns("DescripcionProducto")
+            .Width = 150
+            .Caption = "DescripcionProducto"
             .Visible = True
 
         End With
@@ -817,7 +823,7 @@ Public Class Tec_VentasDetalle
             Else
                 Dim ef = New Efecto
                 ef.tipo = 5
-                ef.NombreProducto = grProducto.GetValue("NombreProducto")
+                ef.NombreProducto = grProducto.GetValue("NombreProducto") + " " + grProducto.GetValue("DescripcionProducto")
                 ef.StockActual = grProducto.GetValue("stock")
                 If (TipoProgramas = 1) Then
                     ef.TipoMovimiento = 3
@@ -844,7 +850,8 @@ Public Class Tec_VentasDetalle
             If (Not _fnExisteProductoConLote(numiProd, Lote, FechaVenc, 1)) Then
                 Dim ef = New Efecto
                 ef.tipo = 5
-                ef.NombreProducto = grProducto.GetValue("NombreProducto")
+                Dim dt5 As DataTable = CType(grProducto.DataSource, DataTable)
+                ef.NombreProducto = grProducto.GetValue("NombreProducto").ToString + " - " + grProducto.GetValue("DescripcionProducto").ToString
                 ef.StockActual = grProducto.GetValue("stock")
                 ef.TipoMovimiento = 3
                 ef.ShowDialog()
