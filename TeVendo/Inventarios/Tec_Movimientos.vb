@@ -314,8 +314,15 @@ Public Class Tec_Movimientos
 
 
         With grDetalle.RootTable.Columns("Producto")
-            .Width = 150
+            .Width = 100
             .Caption = "Producto"
+            .Visible = True
+        End With
+        With grDetalle.RootTable.Columns("descripcion")
+            .Width = 150
+            .Caption = "Descripcion"
+            .WordWrap = True
+            .MaxLines = 3
             .Visible = True
         End With
 
@@ -359,7 +366,7 @@ Public Class Tec_Movimientos
                 .Width = 100
                 .Caption = "lote".ToUpper
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
-                .Visible = True
+                .Visible = False
             End With
             With grDetalle.RootTable.Columns("FechaVencimiento")
                 .Width = 100
