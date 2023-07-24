@@ -108,19 +108,24 @@ Public Class Tec_Precios
             'a.yfcprod ,a.yfnumi ,a.yfcdprod1,gr3.ycdes3 as Laboratorio,gr4.ycdes3 as Presentacion 
             With grprecio.RootTable.Columns("yfcprod")
                 .Caption = "CodExterno"
-                .Width = 70
                 .WordWrap = True
                 .MaxLines = 3
                 .Visible = False
             End With
             With grprecio.RootTable.Columns("yfnumi")
                 .Caption = "Cod.Sistema"
-                .Width = 70
                 .Visible = False
             End With
             With grprecio.RootTable.Columns("yfcdprod1")
                 .Caption = "Producto"
-                .Width = 200
+                .Width = 150
+                .WordWrap = True
+                .MaxLines = 3
+                .Visible = True
+            End With
+            With grprecio.RootTable.Columns("DescripcionProducto")
+                .Caption = "Descripcion"
+                .Width = 150
                 .WordWrap = True
                 .MaxLines = 3
                 .Visible = True
@@ -141,11 +146,11 @@ Public Class Tec_Precios
             End With
             With grprecio.RootTable.Columns("Marca")
                 .Caption = "Nombre Comercial"
-                .Width = 100
                 .WordWrap = True
                 .MaxLines = 3
-                .Visible = True
+                .Visible = False
             End With
+
             With grprecio.RootTable.Columns("proveedor")
                 .Caption = "Proveedor"
                 .Width = 100
