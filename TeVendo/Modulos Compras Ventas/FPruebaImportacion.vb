@@ -59,7 +59,7 @@ Public Class FPruebaImportacion
 
 
             Try
-                dt = ExcelToDatatable(ExcelFile, "Productos")
+                dt = ExcelToDatatable(ExcelFile, "Productos03")
             Catch ex As Exception
                 MsgBox("Inserte un nombre valido de la Hoja que desea importar", MsgBoxStyle.Information, "Informacion")
             Finally
@@ -78,28 +78,28 @@ Public Class FPruebaImportacion
             Dim id As String = ""
 
 
-            Dim Marca As String = dt.Rows(i).Item("Marca")
+            Dim Marca As String = dt.Rows(i).Item("Marca").ToString.Trim
             Dim idMarca As Integer = 0
-            Existe(L_prLibreriaDetalleGeneral(3), "cnnum", Marca, idMarca)
+            Existe(L_prLibreriaDetalleGeneral(3), "cndesc1", Marca, idMarca, "cnnum")
             If (idMarca = -1) Then
                 Dim idNewMarca As String = ""
                 L_prClasificadorGrabar(idNewMarca, 3, Marca)
                 idMarca = Integer.Parse(idNewMarca)
             End If
             '''''''''''''''''''''''''''''''''''''''''''''''''''''
-            Dim SubGrupo As String = dt.Rows(i).Item("SUBGRUPO")
+            Dim SubGrupo As String = dt.Rows(i).Item("SUBGRUPO").ToString.Trim
             Dim idSubGrupo As Integer = 0
-            Existe(L_prLibreriaDetalleGeneral(4), "cnnum", SubGrupo, idSubGrupo)
+            Existe(L_prLibreriaDetalleGeneral(4), "cndesc1", SubGrupo, idSubGrupo, "cnnum")
             If (idSubGrupo = -1) Then
                 Dim idNewSubGrupo As String = ""
-                L_prClasificadorGrabar(idNewSubGrupo, 3, Marca)
+                L_prClasificadorGrabar(idNewSubGrupo, 4, SubGrupo)
                 idSubGrupo = Integer.Parse(idNewSubGrupo)
             End If
 
             '''''''''''''''''''''''''''''''''''''''''''''''''''''
-            Dim Medida As String = dt.Rows(i).Item("MEDIDA")
+            Dim Medida As String = dt.Rows(i).Item("MEDIDA").ToString.Trim
             Dim idMedida As Integer = 0
-            Existe(L_prLibreriaDetalleGeneral(5), "cnnum", Medida, idMedida)
+            Existe(L_prLibreriaDetalleGeneral(5), "cndesc1", Medida, idMedida, "cnnum")
             If (idMedida = -1) Then
                 Dim idNewMedida As String = ""
                 L_prClasificadorGrabar(idNewMedida, 5, Medida)
@@ -107,9 +107,9 @@ Public Class FPruebaImportacion
             End If
 
             '''''''''''''''''''''''''''''''''''''''''''''''''''''
-            Dim Grupo As String = dt.Rows(i).Item("GRUPO")
+            Dim Grupo As String = dt.Rows(i).Item("GRUPO").ToString.Trim
             Dim idGrupo As Integer = 0
-            Existe(L_prCategoriaGeneral(), "id", Grupo, idGrupo)
+            Existe(L_prCategoriaGeneral(), "NombreCategoria", Grupo, idGrupo, "id")
             If (idGrupo = -1) Then
                 'L_prCategoriaInsertar(id, tbdescripcion.Text, tbdescripcion.Text, 1, "", 1, 1)
                 Dim idNewGrupo As String = ""
@@ -128,64 +128,65 @@ Public Class FPruebaImportacion
 
             '    ByRef _numi As String, _CodigoExterno As String,
             '                                        _CodigoBarra As String, _NombreProducto As String,
-            '_Descripcion As String, _stockMinimo As Decimal, _estado As Integer, _CategoriaId As Integer, _EmpresaId As Integer, _ProveedorId As Integer, _MarcaId As Integer,
+            '_Descripcion As String, _stockMinimo As Decimal, _estado As Integer, _CategoriaId As Integer,
+            '_EmpresaId As Integer, _ProveedorId As Integer, _MarcaId As Integer,
             '_AttributoId As Integer, _FamiliaId As Integer, _UnidadVentaId As Integer, _UnidadMaximaId As Integer,
             '_conversion As Double, _dtImagenes As DataTable, precioCosto As Decimal,
             'PrecioLista As Decimal, precioMenor As Decimal
 
-            Res = L_prProductoInsertarDistralKCP(id, "", "",
-                                        nombre, nombre,
-                                        3, 1, dt.Rows(i).Item("CategoriaId"),
-                                        1, 1, dt.Rows(i).Item("ComercialId"), dt.Rows(i).Item("PresentacionId"),
-                                        dt.Rows(i).Item("FormulacionID"), 20, 22, 1,
-                                             TablaImagenes)
+            Res = L_prProductoInsertarDistralKCP(id, dt.Rows(i).Item("OE"), dt.Rows(i).Item("Fabrica"),
+                                        dt.Rows(i).Item("Producto"), detalle,
+                                        3, 1, idGrupo,
+                                        1, 1, idMarca, idSubGrupo, idMedida, 20, 22, 1,
+                                             TablaImagenes, dt.Rows(i).Item("Costo"),
+                                             dt.Rows(i).Item("Lista"), dt.Rows(i).Item("Menor"))
 
             dt.Rows(i).Item("IdSistema") = id
         Next
 
 
-        '''''''' Tienda   '''''''''''''''
-        'Dim dtdetalle As DataTable = L_prListarDetalleMovimiento(-1)
-        ''a.id , a.MovimientoId, a.ProductoId, b.NombreProducto  As Producto, a.Cantidad,
-        ''    a.Lote, a.FechaVencimiento, CAST('' as image ) as img, 1 as estado 
-        'For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+        ''''''' Tienda   '''''''''''''''
+        Dim dtdetalle As DataTable = L_prListarDetalleMovimiento(-1)
+        'a.id , a.MovimientoId, a.ProductoId, b.NombreProducto  As Producto, a.Cantidad,
+        '    a.Lote, a.FechaVencimiento, CAST('' as image ) as img, 1 as estado 
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
-        '    If (dt.Rows(i).Item("Inventario") > 0) Then
+            If (dt.Rows(i).Item("Radial17") > 0) Then
 
-        '        _prAddDetalleVenta(dtdetalle)
+                _prAddDetalleVenta(dtdetalle)
 
-        '        dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("ProductoId") = dt.Rows(i).Item("IdSistema")
-        '        dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("Cantidad") = dt.Rows(i).Item("Inventario")
-        '    End If
-
-
-        'Next
-
-        'L_prMovimientoInsertar("", 4, 1, "Inventario Inicial Migrado",
-        '                                 1, Now.Date.ToString("yyyy/MM/dd"), dtdetalle, 1, 0)
+                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("ProductoId") = dt.Rows(i).Item("IdSistema")
+                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("Cantidad") = dt.Rows(i).Item("Radial17")
+            End If
 
 
+        Next
+
+        L_prMovimientoInsertar("", 4, 1, "Inventario Inicial Migrado",
+                                         1, Now.Date.ToString("yyyy/MM/dd"), dtdetalle, 1, 0)
 
 
-        ''''''' Cuarto A   '''''''''''''''
-        'dtdetalle = L_prListarDetalleMovimiento(-1)
-        ''a.id , a.MovimientoId, a.ProductoId, b.NombreProducto  As Producto, a.Cantidad,
-        ''    a.Lote, a.FechaVencimiento, CAST('' as image ) as img, 1 as estado 
-        'For i As Integer = 0 To dt.Rows.Count - 1 Step 1
-
-        '    If (dt.Rows(i).Item("CUARTOA") > 0) Then
-
-        '        _prAddDetalleVenta(dtdetalle)
-
-        '        dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("ProductoId") = dt.Rows(i).Item("IdSistema")
-        '        dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("Cantidad") = dt.Rows(i).Item("CUARTOA")
-        '    End If
 
 
-        'Next
+        '''''' Cuarto A   '''''''''''''''
+        dtdetalle = L_prListarDetalleMovimiento(-1)
+        'a.id , a.MovimientoId, a.ProductoId, b.NombreProducto  As Producto, a.Cantidad,
+        '    a.Lote, a.FechaVencimiento, CAST('' as image ) as img, 1 as estado 
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
-        'L_prMovimientoInsertar("", 4, 2, "Inventario Inicial Migrado Cuarto A",
-        '                                 1, Now.Date.ToString("yyyy/MM/dd"), dtdetalle, 1, 0)
+            If (dt.Rows(i).Item("Montero") > 0) Then
+
+                _prAddDetalleVenta(dtdetalle)
+
+                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("ProductoId") = dt.Rows(i).Item("IdSistema")
+                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("Cantidad") = dt.Rows(i).Item("Montero")
+            End If
+
+
+        Next
+
+        L_prMovimientoInsertar("", 4, 2, "Inventario Inicial Migrado Cuarto A",
+                                         1, Now.Date.ToString("yyyy/MM/dd"), dtdetalle, 1, 0)
 
 
 
@@ -196,12 +197,12 @@ Public Class FPruebaImportacion
 
 
 
-    Function Existe(dt As DataTable, column As Integer, value As String, ByRef id As Integer)
+    Function Existe(dt As DataTable, column As String, value As String, ByRef id As Integer, columnId As String)
         id = -1
 
         For i As Integer = 0 To dt.Rows.Count - 1 Step 1
-            If (dt.Rows(i).Item(column).ToString.ToUpper = value.ToUpper) Then
-                id = dt.Rows(i).Item("id")
+            If (dt.Rows(i).Item(column).ToString.ToUpper.Equals(value.ToUpper)) Then
+                id = dt.Rows(i).Item(columnId)
                 Return True
             End If
         Next
@@ -254,12 +255,12 @@ dt.Rows(i).Item("idtipoNegocio"), dt.Rows(i).Item("Referencia"))
 
     End Sub
     Private Sub _prAddDetalleVenta(ByRef dtDetalle As DataTable)
-        'a.id , a.MovimientoId, a.ProductoId, b.NombreProducto  As Producto, a.Cantidad,
-        '    a.Lote, a.FechaVencimiento, CAST('' as image ) as img, 1 as estado ,Sum(stock .Cantidad )as stock
+        'id	MovimientoId	ProductoId	Producto	Cantidad	Lote	FechaVencimiento
+        '	Precio	total	img	estado	stock
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        dtDetalle.Rows.Add(_GenerarId(dtDetalle) + 1, 0, 0, "", 0, "20200101", CDate("2020/01/01"), Bin.GetBuffer, 0, 0)
+        dtDetalle.Rows.Add(_GenerarId(dtDetalle) + 1, 0, 0, "", 0, "20200101", CDate("2020/01/01"), 0, 0, Bin.GetBuffer, 0, 0)
     End Sub
     Public Function _GenerarId(dt As DataTable)
 

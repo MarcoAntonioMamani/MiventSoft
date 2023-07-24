@@ -2377,6 +2377,9 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@Conversion", _conversion))
 
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@costo", precioCosto))
+        _listParam.Add(New Datos.DParametro("@lista", PrecioLista))
+        _listParam.Add(New Datos.DParametro("@menor", precioMenor))
         '_listParam.Add(New Datos.DParametro("@Facturado", PrecioFacturado))
         '_listParam.Add(New Datos.DParametro("@Mayorista", PrecioMayorista))
         _Tabla = D_ProcedimientoConParam("MAM_Productos", _listParam)
