@@ -197,11 +197,23 @@ Public Class Tec_AdministrarCuentasPorPagar
     Private Sub _prCargarCreditosPagados()
         Dim dt As New DataTable
         dt = L_prListarCreditosPagados()
+
+        If (Global_Sucursal >= 0) Then
+
+            Dim dtFilter As DataTable = dt.Copy
+            dtFilter.DefaultView.RowFilter = "AlmacenId = " + Str(Global_Sucursal)
+            dt = dtFilter.DefaultView.ToTable()
+        End If
+
         dtPagados = dt.Copy
         grCreditoPagados.DataSource = dt
         grCreditoPagados.RetrieveStructure()
         grCreditoPagados.AlternatingColors = True
         'Credito Compra	NombreProveedor	Monto	Pagado		FechaVencimientoCredito	FechaUltimaPago
+        With grCreditoPagados.RootTable.Columns("AlmacenId")
+            .Width = 0
+            .Visible = False
+        End With
 
         With grCreditoPagados.RootTable.Columns("FechaUltimaPago")
             .Width = 110
@@ -280,12 +292,25 @@ Public Class Tec_AdministrarCuentasPorPagar
     Private Sub _prCargarPagosPendientes()
         Dim dt As New DataTable
         dt = L_prListarPagosPendientes()
+
+        If (Global_Sucursal >= 0) Then
+
+            Dim dtFilter As DataTable = dt.Copy
+            dtFilter.DefaultView.RowFilter = "AlmacenId = " + Str(Global_Sucursal)
+            dt = dtFilter.DefaultView.ToTable()
+        End If
+
+
+
         dtPendiente = dt.Copy
         gr_CreditoPendientes.DataSource = dt
         gr_CreditoPendientes.RetrieveStructure()
         gr_CreditoPendientes.AlternatingColors = True
         'Credito Compra	NombreProveedor	Monto	abonado	Restante	FechaVencimientoCredito	DiasMora
-
+        With gr_CreditoPendientes.RootTable.Columns("AlmacenID")
+            .Width = 0
+            .Visible = False
+        End With
 
         With gr_CreditoPendientes.RootTable.Columns("FechaVencimientoCredito")
             .Width = 110
@@ -564,6 +589,12 @@ Public Class Tec_AdministrarCuentasPorPagar
 
         dt = L_prListarPagosPendientesFiltros()
 
+        If (Global_Sucursal >= 0) Then
+
+            Dim dtFilter As DataTable = dt.Copy
+            dtFilter.DefaultView.RowFilter = "AlmacenId = " + Str(Global_Sucursal)
+            dt = dtFilter.DefaultView.ToTable()
+        End If
         'Credito Compra	Nombre	Monto	abonado	Restante	FechaVencimientoCredito	DiasMora
 
         Dim listEstCeldas As New List(Of Celda)
@@ -576,6 +607,7 @@ Public Class Tec_AdministrarCuentasPorPagar
         listEstCeldas.Add(New Celda("Restante", True, "Restante", 90, "0.00"))
         listEstCeldas.Add(New Celda("FechaVencimientoCredito", True, "Venc.Credito".ToUpper, 100, "dd/MM/yyyy"))
         listEstCeldas.Add(New Celda("DiasMora", True, "Mora".ToUpper, 70, "0"))
+        listEstCeldas.Add(New Celda("AlmacenID", False))
         Dim ef = New Efecto
         ef.tipo = 6
         ef.dt = dt

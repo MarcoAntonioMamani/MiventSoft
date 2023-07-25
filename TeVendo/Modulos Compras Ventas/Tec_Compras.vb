@@ -1035,7 +1035,7 @@ salirIf:
 
         tbGlosa.ReadOnly = False
 
-        cbSucursal.ReadOnly = False
+
         swTipoVenta.IsReadOnly = False
         tbFechaVencimientoCredito.ReadOnly = False
         tbFechaTransaccion.ReadOnly = False
@@ -1044,6 +1044,9 @@ salirIf:
         tbMdesc.IsInputReadOnly = False
         tbPdesc.IsInputReadOnly = False
         grDetalle.RootTable.Columns("img").Visible = True
+        If (Global_Sucursal < 0) Then
+            cbSucursal.ReadOnly = False
+        End If
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -1079,6 +1082,11 @@ salirIf:
         tbPdesc.Value = 0
         tbTotal.Value = 0
         _prCargarDetalleVenta(-1)
+
+        If (Global_Sucursal >= 0) Then
+            cbSucursal.Value = Global_Sucursal
+
+        End If
     End Sub
     Public Sub seleccionarPrimerItemCombo(cb As EditControls.MultiColumnCombo)
         If (CType(cb.DataSource, DataTable).Rows.Count > 0) Then
@@ -1285,6 +1293,14 @@ salirIf:
     Public Function _PMOGetTablaBuscador() As DataTable
 
         Dim dtBuscador As DataTable = L_prListarGeneralComprasFiltro("MAM_Compras", tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"))
+
+        If (Global_Sucursal >= 0) Then
+
+            Dim dt As DataTable = dtBuscador.Copy
+            dt.DefaultView.RowFilter = "AlmacenId = " + Str(Global_Sucursal)
+            dtBuscador = dt.DefaultView.ToTable()
+        End If
+
         Return dtBuscador
     End Function
 
@@ -1497,7 +1513,7 @@ salirIf:
             'a.Id ,a.NombreProveedor ,a.Direccion ,a.Telefono01
 
             Dim listEstCeldas As New List(Of Celda)
-            listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
+            listEstCeldas.Add(New Celda("Id", False, "ID", 50))
             listEstCeldas.Add(New Celda("Nombre", True, "NOMBRE", 350))
             listEstCeldas.Add(New Celda("Direccion", True, "DIRECCION", 180))
             listEstCeldas.Add(New Celda("Telefono01", True, "Telefono".ToUpper, 200))
@@ -1521,6 +1537,7 @@ salirIf:
 
             End If
 
+            ef.Dispose()
         End If
 
 

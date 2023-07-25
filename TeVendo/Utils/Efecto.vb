@@ -378,11 +378,9 @@ Public Class Efecto
         If frmAyuda.seleccionado = True Then
             Row = frmAyuda.filaSelect
             band = True
-            frmAyuda.Dispose()
             Me.Close()
         Else
             band = False
-            frmAyuda.Dispose()
             Me.Close()
         End If
     End Sub
@@ -403,11 +401,9 @@ Public Class Efecto
             CategoriaPrecioSelected = frmAyuda.CategoriaPrecioSelected
             TableCategoria = frmAyuda.TableCategoria
             band = True
-            frmAyuda.Dispose()
             Me.Close()
         Else
             band = False
-            frmAyuda.Dispose()
             Me.Close()
         End If
     End Sub
@@ -423,11 +419,9 @@ Public Class Efecto
         If frmAyuda.seleccionado = True Then
             Row = frmAyuda.filaSelect
             band = True
-            frmAyuda.Dispose()
             Me.Close()
         Else
             band = False
-            frmAyuda.Dispose()
             Me.Close()
         End If
     End Sub
@@ -444,14 +438,12 @@ Public Class Efecto
         If frmAyuda.seleccionado = True Then
             Row = frmAyuda.filaSelect
             band = True
-            frmAyuda.Dispose()
             Me.Close()
         Else
             NewCliente = frmAyuda.NuevoCliente
             IdCliente = frmAyuda.IdCliente
             NombreCliente = frmAyuda.NombreCliente
             band = False
-            frmAyuda.Dispose()
             Me.Close()
         End If
     End Sub
@@ -498,11 +490,9 @@ Public Class Efecto
 
             CantidadTransaccion = frmAyuda.CantidadVenta
             band = True
-            frmAyuda.Dispose()
             Me.Close()
         Else
             band = False
-            frmAyuda.Dispose()
             Me.Close()
         End If
     End Sub
@@ -518,17 +508,15 @@ Public Class Efecto
             CantidadTransaccion = frmAyuda.CantidadVenta
             FechaVencimiento = frmAyuda.Fecha
             band = True
-            frmAyuda.Dispose()
             Me.Close()
         Else
             band = False
-            frmAyuda.Dispose()
             Me.Close()
         End If
     End Sub
 
     Private Sub Efecto_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
-        Me.Dispose()
+
 
     End Sub
 End Class

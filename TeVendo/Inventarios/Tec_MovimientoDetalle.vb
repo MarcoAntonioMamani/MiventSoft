@@ -268,8 +268,11 @@ Public Class Tec_MovimientoDetalle
             For i As Integer = 0 To dt.Rows.Count - 1 Step 1
                 Dim nombre As String = dt.Rows(i).Item("CodigoExterno").ToString.ToUpper +
                     " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("Marca").ToString.ToUpper
+                    " " + dt.Rows(i).Item("fabrica").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("Marca").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("Grupo").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("SubGrupo").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("Medida").ToString.ToUpper
                 Select Case cant
                     Case 1
 
