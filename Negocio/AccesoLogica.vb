@@ -1511,9 +1511,7 @@ Public Class AccesoLogica
     End Function
     Public Shared Function ReporteCompras(CompraId As String) As DataTable
         Dim _Tabla As DataTable
-
         Dim _listParam As New List(Of Datos.DParametro)
-
         _listParam.Add(New Datos.DParametro("@tipo", 7))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@id", CompraId))
