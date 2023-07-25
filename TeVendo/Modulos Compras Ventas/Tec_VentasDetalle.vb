@@ -65,7 +65,7 @@ Public Class Tec_VentasDetalle
         With grProducto.RootTable.Columns("Id")
             .Width = 100
             .Caption = "Cod Producto"
-            .Visible = False
+            .Visible = True
 
 
         End With
@@ -89,42 +89,55 @@ Public Class Tec_VentasDetalle
 
         End With
         With grProducto.RootTable.Columns("NombreProducto")
-            .Width = 300
+            .Width = 250
             .Caption = "PRODUCTOS"
-            .Visible = False
+            .Visible = True
             .MaxLines = 2
             .WordWrap = True
         End With
 
         With grProducto.RootTable.Columns("DescripcionProducto")
             .Width = 250
-            .Visible = True
+            .Visible = False
             .MaxLines = 2
             .WordWrap = True
             .Caption = "DESCRIPCION"
         End With
         With grProducto.RootTable.Columns("NombreTipo")
             .Width = 90
-            .Visible = True
+            .Visible = False
             .MaxLines = 2
             .WordWrap = True
             .Caption = "Tipo"
         End With
         With grProducto.RootTable.Columns("NombreCategoria")
             .Width = 120
-            .Visible = False
+            .Visible = True
             .MaxLines = 2
             .WordWrap = True
-            .Caption = "CATEGORIA"
+            .Caption = "Grupo"
+        End With
+        With grProducto.RootTable.Columns("SubGrupo")
+            .Width = 120
+            .Visible = True
+            .MaxLines = 2
+            .WordWrap = True
+            .Caption = "SubGrupo"
         End With
         With grProducto.RootTable.Columns("Marca")
             .Width = 120
             .Visible = True
             .MaxLines = 2
-            .WordWrap = False
+            .WordWrap = True
             .Caption = "Marca"
         End With
-
+        With grProducto.RootTable.Columns("Fabrica")
+            .Width = 120
+            .Visible = True
+            .MaxLines = 2
+            .WordWrap = True
+            .Caption = "Fabrica"
+        End With
         With grProducto.RootTable.Columns("PrecioCosto")
             .Width = 150
             .Visible = False
@@ -200,7 +213,7 @@ Public Class Tec_VentasDetalle
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.rowdelete, 25, 18)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, 0, 0, 0, 0, 0, "", 0, "20200101", CDate("2020/01/01"), 0, "", 0, "", 0, 0, Bin.GetBuffer, 0)
+        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", "", 0, 0, 0, 0, 0, 0, "", 0, "20200101", CDate("2020/01/01"), 0, "", 0, "", 0, 0, Bin.GetBuffer, 0)
     End Sub
 
     Public Function _GenerarId()
@@ -254,7 +267,7 @@ Public Class Tec_VentasDetalle
         End With
         With grDetalle.RootTable.Columns("TipoNombre")
             .Width = 60
-            .Visible = True
+            .Visible = False
             .Caption = "Tipo"
         End With
         With grDetalle.RootTable.Columns("KitId")
@@ -264,7 +277,7 @@ Public Class Tec_VentasDetalle
         End With
         With grDetalle.RootTable.Columns("KitNombre")
             .Width = 100
-            .Visible = True
+            .Visible = False
             .Caption = "Kit"
             .WordWrap = True
             .MaxLines = 3
@@ -285,7 +298,7 @@ Public Class Tec_VentasDetalle
         With grDetalle.RootTable.Columns("CantidadKit")
             .Width = 40
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "CantidadKit"
         End With
@@ -729,7 +742,7 @@ Public Class Tec_VentasDetalle
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = grProducto.GetValue("PrecioVenta")
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = grProducto.GetValue("PrecioVenta") * cantidad
-
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("fabrica") = grProducto.GetValue("fabrica")
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = grProducto.GetValue("PrecioVenta") * cantidad
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCosto") = grProducto.GetValue("PrecioCosto")
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("Stock")
@@ -863,6 +876,7 @@ Public Class Tec_VentasDetalle
                     If ((pos >= 0)) Then
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = numiProd
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = FilaSelectLote.Item("NombreProducto")
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("fabrica") = FilaSelectLote.Item("fabrica")
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = CantidadVenta
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = FilaSelectLote.Item("PrecioVenta")
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = FilaSelectLote.Item("PrecioVenta") * CantidadVenta
@@ -873,7 +887,7 @@ Public Class Tec_VentasDetalle
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Lote") = mLote
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("FechaVencimiento") = FechaVenc
 
-                        tbProducto.Clear()
+
                         tbProducto.Focus()
 
                     End If
@@ -1162,10 +1176,12 @@ salirIf:
             'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock  NombreCategoria
             For i As Integer = 0 To dt.Rows.Count - 1 Step 1
                 Dim nombre As String = dt.Rows(i).Item("Id").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper +
                     " " + dt.Rows(i).Item("NombreCategoria").ToString.ToUpper +
                     " " + dt.Rows(i).Item("Marca").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("CodigoExterno").ToString.ToUpper
+                    " " + dt.Rows(i).Item("CodigoExterno").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("fabrica").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("subGrupo").ToString.ToUpper
                 Select Case cant
                     Case 1
 

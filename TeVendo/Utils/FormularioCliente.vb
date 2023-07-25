@@ -244,16 +244,22 @@ Public Class FormularioCliente
     End Sub
 
     Private Sub grJBuscador_Click(sender As Object, e As EventArgs) Handles grJBuscador.Click
-        If (grJBuscador.RowCount >= 1 And grJBuscador.Row >= 0) Then
-            If (grJBuscador.CurrentColumn.Index = grJBuscador.RootTable.Columns("Seleccionar").Index) Then
+
+        Try
+            If (grJBuscador.RowCount >= 1 And grJBuscador.Row >= 0) Then
+                If (grJBuscador.CurrentColumn.Index = grJBuscador.RootTable.Columns("Seleccionar").Index) Then
 
 
-                filaSelect = grJBuscador.GetRow()
-                seleccionado = True
-                Me.Close()
+                    filaSelect = grJBuscador.GetRow()
+                    seleccionado = True
+                    Me.Close()
+                End If
+
             End If
+        Catch ex As Exception
 
-        End If
+        End Try
+
     End Sub
 
     Private Sub btnSi_Paint(sender As Object, e As PaintEventArgs) Handles btnSi.Paint
