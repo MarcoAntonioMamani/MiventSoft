@@ -1272,8 +1272,10 @@ salirIf:
 
             Next
             grProducto.DataSource = dtProductoCopy.Copy
+
         Else
             grProducto.DataSource = dtProductos.Copy
+
         End If
 
 
