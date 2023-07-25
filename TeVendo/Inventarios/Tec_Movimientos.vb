@@ -757,11 +757,14 @@ Public Class Tec_Movimientos
 
 
         btnSeleccionarProducto.Visible = True
-        cbDepositos.ReadOnly = False
+
         cbTipoMovimiento.ReadOnly = False
         tbDescripcion.ReadOnly = False
         tbFechaTransaccion.ReadOnly = False
 
+        If (Global_Sucursal < 0) Then
+            cbDepositos.ReadOnly = False
+        End If
 
     End Sub
 
@@ -789,6 +792,9 @@ Public Class Tec_Movimientos
         tbDescripcion.Focus()
         _prCargarDetalleVenta(-1)
 
+        If (Global_Sucursal >= 0) Then
+            cbDepositos.Value = Global_Sucursal
+        End If
 
     End Sub
     Public Sub seleccionarPrimerItemCombo(cb As EditControls.MultiColumnCombo)
@@ -1020,6 +1026,14 @@ Public Class Tec_Movimientos
 
 
         Dim dtBuscador As DataTable = ListarMovimiento(tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"))
+
+        If (Global_Sucursal >= 0) Then
+
+            Dim dtFilter As DataTable = dtBuscador.Copy
+            dtFilter.DefaultView.RowFilter = "alm = " + Str(Global_Sucursal)
+            dtBuscador = dtFilter.DefaultView.ToTable()
+        End If
+
         Return dtBuscador
     End Function
 
