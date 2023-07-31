@@ -78,7 +78,7 @@ Public Class Tec_VentasDetalle
         End With
         With grProducto.RootTable.Columns("CodigoExterno")
             .Width = 100
-            .Caption = "Cod Externo"
+            .Caption = "OE"
             .Visible = True
 
         End With
@@ -1681,5 +1681,18 @@ salirIf:
     Private Sub Efecto_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         Me.Dispose()
 
+    End Sub
+
+    Private Sub VerToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles VerToolStripMenuItem1.Click
+        Try
+            If (grProducto.Row >= 0) Then
+
+                Dim codigoOriginal = grProducto.GetValue("CodigoExterno")
+                tbProducto.Text = codigoOriginal
+
+            End If
+        Catch ex As Exception
+
+        End Try
     End Sub
 End Class

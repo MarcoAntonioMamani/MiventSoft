@@ -404,21 +404,21 @@ Public Class Tec_Movimientos
             .TotalRowFormatStyle.FontSize = 11
             .TotalRowPosition = TotalRowPosition.BottomFixed
         End With
-        CargarIconEstado()
+        'CargarIconEstado()
     End Sub
     Public Sub CargarIconEstado()
 
-        Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
-        Dim n As Integer = dt.Rows.Count
-        For i As Integer = 0 To n - 1 Step 1
+        'Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
+        'Dim n As Integer = dt.Rows.Count
+        'For i As Integer = 0 To n - 1 Step 1
 
-            Dim Bin As New MemoryStream
-            Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
-            img.Save(Bin, Imaging.ImageFormat.Png)
-                CType(grDetalle.DataSource, DataTable).Rows(i).Item("img") = Bin.GetBuffer
+        '    Dim Bin As New MemoryStream
+        '    Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
+        '    img.Save(Bin, Imaging.ImageFormat.Png)
+        '        CType(grDetalle.DataSource, DataTable).Rows(i).Item("img") = Bin.GetBuffer
 
 
-        Next
+        'Next
 
     End Sub
     Public Sub actualizarSaldoSinLote(ByRef dt As DataTable)
@@ -1128,7 +1128,9 @@ Public Class Tec_Movimientos
 
             ToastNotification.Show(Me, "La Fecha Desde Debe Ser Menor Que la Fecha Hasta", img, 5000, eToastGlowColor.Red, eToastPosition.BottomRight)
         Else
-            _PMCargarBuscador()
+            Dim dtBuscador As DataTable = _PMOGetTablaBuscador()
+
+            JGrM_Buscador.DataSource = dtBuscador
         End If
 
 
