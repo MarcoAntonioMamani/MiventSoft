@@ -1204,6 +1204,20 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
+    Public Shared Function ListarMovimiento(desde As String, hasta As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@FechaI", desde))
+        _listParam.Add(New Datos.DParametro("@FechaF", hasta))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_Movimientos", _listParam)
+
+        Return _Tabla
+    End Function
+
     Public Shared Function ReporteSaldosUnAlmacenTodosCantidad(depositoId As Integer) As DataTable
         Dim _Tabla As DataTable
 
@@ -2265,6 +2279,53 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+
+    Public Shared Function EjecutarQuery(Desde As String, Hasta As String, SucursalId As Integer) As DataTable
+
+        Dim Query As String
+
+        If (SucursalId >= 0) Then
+
+            Query = "select venta.*,isnull(cierre.Id,0) as CierreModulo
+		from (
+		select a.Id ,a.SucursalId ,a.FechaVenta ,a.PersonalId,p.NombrePersonal as Personal,
+		a.TipoVenta,IIF(a.TipoVenta =1,'Contado','Credito')as TVenta,a.FechaVencimientoCredito ,
+		a.ClienteId ,c.NombreCliente ,a.MonedaVenta ,a.Estado ,a.Glosa ,a.Descuento ,a.TotalVenta,
+		al.NombreAlmacen,a.Facturado,
+		 a.HoraRegistro 
+		from Ventas as a 
+		inner join Personal as p on p.Id =a.PersonalId 
+		inner join Clientes as c on c.Id =a.ClienteId 
+		inner join Almacenes as al on al.id =a.SucursalId 
+		where a.Estado =1 and a.FechaVenta >='" + Desde + "' and a.FechaVenta <='" + Hasta + "' and a.SucursalId =" + Str(SucursalId) + " 
+		) as venta
+		left join CierreCajeroReferenciasModulos as cierre on  cierre.Modulo =1 and cierre.ModuloId =venta.Id"
+
+        Else
+            Query = "select venta.*,isnull(cierre.Id,0) as CierreModulo
+		from (
+		select a.Id ,a.SucursalId ,a.FechaVenta ,a.PersonalId,p.NombrePersonal as Personal,
+		a.TipoVenta,IIF(a.TipoVenta =1,'Contado','Credito')as TVenta,a.FechaVencimientoCredito ,
+		a.ClienteId ,c.NombreCliente ,a.MonedaVenta ,a.Estado ,a.Glosa ,a.Descuento ,a.TotalVenta,
+		al.NombreAlmacen,a.Facturado,
+		 a.HoraRegistro 
+		from Ventas as a 
+		inner join Personal as p on p.Id =a.PersonalId 
+		inner join Clientes as c on c.Id =a.ClienteId 
+		inner join Almacenes as al on al.id =a.SucursalId 
+		where a.Estado =1 and a.FechaVenta >='" + Desde + "' and a.FechaVenta <='" + Hasta + "') as venta
+		left join CierreCajeroReferenciasModulos as cierre on  cierre.Modulo =1 and cierre.ModuloId =venta.Id"
+
+        End If
+
+
+
+        Return D_Select_Query(Query)
+    End Function
+
+
+
+
     Public Shared Function L_prListarVentasGeneralFiltroFecha(NameSp As String, Desde As String, Hasta As String, SucursalId As Integer) As DataTable
         Dim _Tabla As DataTable
 
@@ -3172,6 +3233,20 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@tipo", 10))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _Tabla = D_ProcedimientoConParam("MAM_ReporteVentas", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prListarProductosSinVentas(FechaI As String, FechaF As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 19))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@FechaI", FechaI))
+        _listParam.Add(New Datos.DParametro("@FechaF", FechaF))
+        _Tabla = D_ProcedimientoConParam("MAM_Movimientos", _listParam)
 
         Return _Tabla
     End Function

@@ -11,7 +11,8 @@ Public Class F_MonitoreoProductos
     Dim RutaTemporal As String = "C:\Temporal"
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
     Public Sub IniciarProceso()
-
+        tbDesde.Value = Now.Date
+        tbHasta.Value = Now.Date
         _prCargarProductosSinStock()
         _prCargarProductosStockMinimo()
         _prCargarProductosVencidos()
@@ -481,6 +482,85 @@ Public Class F_MonitoreoProductos
         Return False
     End Function
 
+    Public Function P_ExportarExcelProductosSinVentas(_ruta As String, Title As String) As Boolean
+        Dim _ubicacion As String
+        'Dim _directorio As New FolderBrowserDialog
+
+        If (1 = 1) Then 'If(_directorio.ShowDialog = Windows.Forms.DialogResult.OK) Then
+            '_ubicacion = _directorio.SelectedPath
+            _ubicacion = _ruta
+            Try
+                Dim _stream As Stream
+                Dim _escritor As StreamWriter
+                Dim _fila As Integer = gr_ProductosVencidos.GetRows.Length
+                Dim _columna As Integer = gr_ProductosVencidos.RootTable.Columns.Count
+                Dim _archivo As String = _ubicacion & "\" + Title + "_" & Now.Date.Day &
+                    "." & Now.Date.Month & "." & Now.Date.Year & "_" & Now.Hour & "." & Now.Minute & "." & Now.Second & ".csv"
+                Dim _linea As String = ""
+                Dim _filadata = 0, columndata As Int32 = 0
+                File.Delete(_archivo)
+                _stream = File.OpenWrite(_archivo)
+                _escritor = New StreamWriter(_stream, System.Text.Encoding.UTF8)
+
+                For Each _col As GridEXColumn In grProductoSinVentas.RootTable.Columns
+                    If (_col.Visible) Then
+                        _linea = _linea & _col.Caption & ";"
+                    End If
+                Next
+                _linea = Mid(CStr(_linea), 1, _linea.Length - 1)
+                _escritor.WriteLine(_linea)
+                _linea = Nothing
+
+                'Pbx_Precios.Visible = True
+                'Pbx_Precios.Minimum = 1
+                'Pbx_Precios.Maximum = Dgv_Precios.RowCount
+                'Pbx_Precios.Value = 1
+
+                For Each _fil As GridEXRow In grProductoSinVentas.GetRows
+                    For Each _col As GridEXColumn In grProductoSinVentas.RootTable.Columns
+                        If (_col.Visible) Then
+                            Dim data As String = CStr(_fil.Cells(_col.Key).Value)
+                            data = data.Replace(";", ",")
+                            _linea = _linea & data & ";"
+                        End If
+                    Next
+                    _linea = Mid(CStr(_linea), 1, _linea.Length - 1)
+                    _escritor.WriteLine(_linea)
+                    _linea = Nothing
+                    'Pbx_Precios.Value += 1
+                Next
+                _escritor.Close()
+                'Pbx_Precios.Visible = False
+                Try
+                    Dim ef = New Efecto
+                    ef._archivo = _archivo
+
+                    ef.tipo = 1
+                    ef.Context = "El Archivo Ha sido Exportado en la Siguiente Ruta: " + _archivo + vbLf + "DESEA ABRIR EL ARCHIVO EXCEL?"
+                    ef.Header = "PREGUNTA"
+                    ef.ShowDialog()
+                    Dim bandera As Boolean = False
+                    bandera = ef.band
+                    If (bandera = True) Then
+                        Process.Start(_archivo)
+                    End If
+
+                    'If (MessageBox.Show("Su archivo ha sido Guardado en la ruta: " + _archivo + vbLf + "DESEA ABRIR EL ARCHIVO?", "PREGUNTA", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes) Then
+                    '    Process.Start(_archivo)
+                    'End If
+                    Return True
+                Catch ex As Exception
+                    MsgBox(ex.Message)
+                    Return False
+                End Try
+            Catch ex As Exception
+                MsgBox(ex.Message)
+                Return False
+            End Try
+        End If
+        Return False
+    End Function
+
     Private Sub btnStockMinimo_Click(sender As Object, e As EventArgs) Handles btnStockMinimo.Click
         _prCrearCarpetaReportes()
         Dim imgOk As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
@@ -501,6 +581,78 @@ Public Class F_MonitoreoProductos
         _prCrearCarpetaReportes()
         Dim imgOk As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
         If (P_ExportarExcelProductosVencidos(RutaGlobal + "\Reporte\Reporte Productos", "ProductosStockMinimo")) Then
+            ToastNotification.Show(Me, "Los Datos Fueron Exportados Correctamente..!!!",
+                                       imgOk, 2000,
+                                       eToastGlowColor.Green,
+                                       eToastPosition.BottomCenter)
+        Else
+            ToastNotification.Show(Me, "Hubo Problemas Al Exportar Los Datos..!!!",
+                                      img, 2000,
+                                       eToastGlowColor.Red,
+                                       eToastPosition.BottomLeft)
+        End If
+    End Sub
+
+    Private Sub btnSinVentas_Click(sender As Object, e As EventArgs) Handles btnSinVentas.Click
+
+        Dim dt As New DataTable
+        dt = L_prListarProductosSinVentas(tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"))
+        grProductoSinVentas.DataSource = dt
+        grProductoSinVentas.RetrieveStructure()
+        grProductoSinVentas.AlternatingColors = True
+        'Id  NombreProducto	NombreCategoria	cantidad
+
+
+        With grProductoSinVentas.RootTable.Columns("Id")
+            .Width = 90
+            .Visible = True
+            .Caption = "Id Producto"
+        End With
+
+        With grProductoSinVentas.RootTable.Columns("NombreCategoria")
+            .Width = 150
+            .Caption = "Categoria"
+            .Visible = True
+        End With
+        With grProductoSinVentas.RootTable.Columns("NombreProducto")
+            .Width = 250
+            .Caption = "Producto"
+            .Visible = True
+        End With
+        With grProductoSinVentas.RootTable.Columns("stock")
+            .Width = 110
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Cantidad Disponible"
+        End With
+
+
+
+
+
+
+
+        With grProductoSinVentas
+            .GroupByBoxVisible = False
+            'diseño de la grilla
+            .VisualStyle = VisualStyle.Office2007
+            .BoundMode = Janus.Data.BoundMode.Bound
+            .RowHeaders = InheritableBoolean.True
+
+            .DefaultFilterRowComparison = FilterConditionOperator.Contains
+            .FilterMode = FilterMode.Automatic
+            .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
+            .GroupByBoxVisible = False
+
+        End With
+
+    End Sub
+
+    Private Sub btnExportarSinVentas_Click(sender As Object, e As EventArgs) Handles btnExportarSinVentas.Click
+        _prCrearCarpetaReportes()
+        Dim imgOk As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+        If (P_ExportarExcelProductosSinVentas(RutaGlobal + "\Reporte\Reporte Productos", "ProductosSinVentas")) Then
             ToastNotification.Show(Me, "Los Datos Fueron Exportados Correctamente..!!!",
                                        imgOk, 2000,
                                        eToastGlowColor.Green,

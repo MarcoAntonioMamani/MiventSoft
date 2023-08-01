@@ -18,7 +18,7 @@ Public Class Tec_Movimientos
     Dim FilaSelectLote As DataRow = Nothing
     Dim Modificado As Boolean = False
     Dim nameImg As String = "Default.jpg"
-
+    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
 
     Dim TablaImagenes As DataTable
     Dim TablaInventario As DataTable
@@ -328,6 +328,21 @@ Public Class Tec_Movimientos
             .Caption = "Cantidad".ToUpper
         End With
 
+
+        With grDetalle.RootTable.Columns("precio")
+            .Width = 80
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "precio".ToUpper
+        End With
+        With grDetalle.RootTable.Columns("Total")
+            .Width = 80
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Total"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
         With grDetalle.RootTable.Columns("estado")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -382,6 +397,12 @@ Public Class Tec_Movimientos
             .VisualStyle = VisualStyle.Office2007
             .BoundMode = Janus.Data.BoundMode.Bound
             .RowHeaders = InheritableBoolean.True
+            .TotalRow = InheritableBoolean.True
+            .TotalRowFormatStyle.BackColor = Color.Gold
+            .TotalRowFormatStyle.ForeColor = Color.Black
+            .TotalRowFormatStyle.FontBold = TriState.True
+            .TotalRowFormatStyle.FontSize = 11
+            .TotalRowPosition = TotalRowPosition.BottomFixed
         End With
         CargarIconEstado()
     End Sub
@@ -627,7 +648,8 @@ Public Class Tec_Movimientos
                 If (estado = 1) Then
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
                 End If
-
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("total") = grDetalle.GetValue("precio")
+                grDetalle.SetValue("total", grDetalle.GetValue("precio"))
             Else
                 If (grDetalle.GetValue("Cantidad") > 0) Then
                     Dim lin As Integer = grDetalle.GetValue("Id")
@@ -638,7 +660,8 @@ Public Class Tec_Movimientos
                     If (estado = 1) Then
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
                     End If
-
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("total") = grDetalle.GetValue("Cantidad") * grDetalle.GetValue("precio")
+                    grDetalle.SetValue("total", grDetalle.GetValue("Cantidad") * grDetalle.GetValue("precio"))
                 Else
                     Dim lin As Integer = grDetalle.GetValue("Id")
                     Dim pos As Integer = -1
@@ -649,7 +672,8 @@ Public Class Tec_Movimientos
                     If (estado = 1) Then
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
                     End If
-
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("total") = grDetalle.GetValue("precio")
+                    grDetalle.SetValue("total", grDetalle.GetValue("precio"))
                 End If
             End If
         End If
@@ -994,7 +1018,8 @@ Public Class Tec_Movimientos
 
     Public Function _PMOGetTablaBuscador() As DataTable
 
-        Dim dtBuscador As DataTable = L_prListarGeneral("MAM_Movimientos")
+
+        Dim dtBuscador As DataTable = ListarMovimiento(tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"))
         Return dtBuscador
     End Function
 
@@ -1012,6 +1037,9 @@ Public Class Tec_Movimientos
         listEstCeldas.Add(New Celda("est", False, "Estado", 70))
         listEstCeldas.Add(New Celda("alm", False, "Estado", 150))
         listEstCeldas.Add(New Celda("NombreDeposito", True, "Deposito", 150))
+        listEstCeldas.Add(New Celda("TotalMovimiento", True, "Total", 100, "0.00"))
+
+
 
         Return listEstCeldas
     End Function
@@ -1080,7 +1108,20 @@ Public Class Tec_Movimientos
 
     End Sub
 
+    Private Sub btnConfirmarSalir_Click(sender As Object, e As EventArgs) Handles btnFiltrarVentas.Click
+
+        If (tbDesde.Value > tbHasta.Value) Then
+
+            ToastNotification.Show(Me, "La Fecha Desde Debe Ser Menor Que la Fecha Hasta", img, 5000, eToastGlowColor.Red, eToastPosition.BottomRight)
+        Else
+            _PMCargarBuscador()
+        End If
+
+
+    End Sub
     Private Sub Tec_Users_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        tbDesde.Value = Now.Date
+        tbHasta.Value = Now.Date
         _prIniciarTodo()
         TabControlPrincipal.SelectedTabIndex = 1
     End Sub
@@ -1175,6 +1216,7 @@ Public Class Tec_Movimientos
         ef.DepositoId = cbDepositos.Value
         ef.Lotebool = Lote
         ef.ShowDialog()
+        grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
     End Sub
 
     Private Sub P_GenerarReporte(numi As String)

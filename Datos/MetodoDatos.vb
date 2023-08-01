@@ -6,8 +6,9 @@ Public Class MetodoDatos
         Dim _cadenaConexion = Configuracion.CadenaConexion(Ip, UsuarioSql, ClaveSql, NombreBD)
         Dim _conexion As New SqlConnection() 'SqlConnection()
         _conexion.ConnectionString = _cadenaConexion
-        Dim _comando As New SqlCommand() 'SqlCommand()
+        Dim _comando As New SqlCommand("SET ARITHABORT ON") 'SqlCommand()
         _comando = _conexion.CreateCommand()
+        _comando.CommandText = "SET ARITHABORT ON"
         _comando.CommandType = CommandType.Text
         'abrir
         _comando.Connection.Open()
@@ -17,10 +18,10 @@ Public Class MetodoDatos
         Dim _cadenaConexion = Configuracion.CadenaConexion(Ip, UsuarioSql, ClaveSql, NombreBD)
         Dim _conexion As New SqlConnection() 'SqlConnection()
         _conexion.ConnectionString = _cadenaConexion
-        Dim _comando As New SqlCommand() 'SqlCommand()
+        Dim _comando As New SqlCommand("SET ARITHABORT ON") 'SqlCommand()
         _comando = _conexion.CreateCommand()
         _comando.CommandType = CommandType.StoredProcedure
-        _comando.CommandText = "SET ARITHABORT ON;"
+        _comando.CommandText = "SET ARITHABORT ON"
         'abrir
         _comando.Connection.Open()
         Return _comando
@@ -29,15 +30,29 @@ Public Class MetodoDatos
     Public Shared Function EjecutarComandoSelect(Comando As SqlCommand) As DataTable
         Dim _tabla As New DataTable()
         Try
-            'Comando.Connection.Open()
+            If (Comando.Connection.State = 0) Then
+                Comando.Connection.Open()
+            End If
+
+
+
             Dim _adaptador As New SqlDataAdapter 'SqlDataAdapter()
             _adaptador.SelectCommand = Comando
+            Dim read As SqlClient.SqlDataReader = Comando.ExecuteReader
 
-            _adaptador.Fill(_tabla)
+
+            _tabla.Load(read, LoadOption.OverwriteChanges)
+
+            Comando.CommandText = "DBCC DROPCLEANBUFFERS
+DBCC FREEPROCCACHE"
+
+            _adaptador.Dispose()
         Catch ex As Exception
             MsgBox(ex.Message)
-            'Finally
-            '    Comando.Connection.Close()
+        Finally
+
+            Comando.Dispose()
+            Comando.Connection.Close()
         End Try
         Return _tabla
     End Function
@@ -47,13 +62,16 @@ Public Class MetodoDatos
         Dim _Err As Boolean = False
 
         Try
-            'Comando.Connection.Open()
+            If (Comando.Connection.State = 0) Then
+                Comando.Connection.Open()
+            End If
             Comando.ExecuteNonQuery()
         Catch ex As Exception
             MsgBox(ex.Message)
             _Err = True
-            'Finally
-            '    Comando.Connection.Close()
+        Finally
+            Comando.Dispose()
+            Comando.Connection.Close()
         End Try
         Return _Err
     End Function
@@ -61,16 +79,27 @@ Public Class MetodoDatos
     Public Shared Function EjecutarProcedimiento(Comando As SqlCommand) As DataTable
         Dim _tabla As New DataTable()
         Try
-            'Comando.Connection.Open()
+            If (Comando.Connection.State = 0) Then
+                Comando.Connection.Open()
+            End If
             Dim _adaptador As New SqlDataAdapter 'SqlDataAdapter()
+            'Comando.CommandText = "SET ARITHABORT ON"
             _adaptador.SelectCommand = Comando
+            'Comando.CommandType = CommandType.StoredProcedure
+            'Dim read As SqlClient.SqlDataReader = Comando.ExecuteReader
+            '_tabla.Load(read, LoadOption.OverwriteChanges)
 
             _adaptador.Fill(_tabla)
+            _adaptador.Dispose()
         Catch ex As Exception
             MsgBox(ex.Message)
             'Finally
             '    Comando.Connection.Close()
+            Comando.Dispose()
+            Comando.Connection.Close()
         End Try
+        Comando.Dispose()
+        Comando.Connection.Close()
         Return _tabla
     End Function
 

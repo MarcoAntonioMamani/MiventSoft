@@ -99,6 +99,19 @@ Public Class Tec_MovimientoDetalle
             .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
             .Visible = False
         End With
+        With grDetalle.RootTable.Columns("Precio")
+            .Width = 80
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Precio"
+        End With
+        With grDetalle.RootTable.Columns("Total")
+            .Width = 80
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Total"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
         If (Lote = True) Then
             With grDetalle.RootTable.Columns("Lote")
                 .Width = 100
@@ -142,6 +155,12 @@ Public Class Tec_MovimientoDetalle
             .VisualStyle = VisualStyle.Office2007
             .BoundMode = Janus.Data.BoundMode.Bound
             .RowHeaders = InheritableBoolean.True
+            .TotalRow = InheritableBoolean.True
+            .TotalRowFormatStyle.BackColor = Color.Gold
+            .TotalRowFormatStyle.ForeColor = Color.Black
+            .TotalRowFormatStyle.FontBold = TriState.True
+            .TotalRowFormatStyle.FontSize = 11
+            .TotalRowPosition = TotalRowPosition.BottomFixed
         End With
         CargarIconEstado()
     End Sub
@@ -512,6 +531,12 @@ Public Class Tec_MovimientoDetalle
             .FormatString = "0.00"
             .Caption = "STOCK"
         End With
+        With grProducto.RootTable.Columns("Precio")
+            .Width = 80
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Precio"
+        End With
         With grProducto
             .DefaultFilterRowComparison = FilterConditionOperator.Contains
             .FilterMode = FilterMode.Automatic
@@ -543,7 +568,7 @@ Public Class Tec_MovimientoDetalle
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, "20200101", CDate("2020/01/01"), Bin.GetBuffer, 0, 0)
+        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, "20200101", CDate("2020/01/01"), 0, 0, Bin.GetBuffer, 0, 0)
     End Sub
     Public Function _fnExisteProducto(idprod As Integer) As Boolean
         For i As Integer = 0 To CType(grDetalle.DataSource, DataTable).Rows.Count - 1 Step 1
@@ -580,6 +605,8 @@ Public Class Tec_MovimientoDetalle
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("stock")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
 
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("precio") = grProducto.GetValue("precio")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("total") = grProducto.GetValue("precio") * cantidad
                 ''    _DesHabilitarProductos()
 
 
@@ -927,7 +954,8 @@ Public Class Tec_MovimientoDetalle
                 If (estado = 1) Then
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
                 End If
-
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("total") = grDetalle.GetValue("precio")
+                grDetalle.SetValue("total", grDetalle.GetValue("precio"))
             Else
                 If (grDetalle.GetValue("Cantidad") > 0) Then
                     Dim lin As Integer = grDetalle.GetValue("Id")
@@ -939,6 +967,8 @@ Public Class Tec_MovimientoDetalle
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
                     End If
 
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("total") = grDetalle.GetValue("Cantidad") * grDetalle.GetValue("precio")
+                    grDetalle.SetValue("total", grDetalle.GetValue("Cantidad") * grDetalle.GetValue("precio"))
                 Else
                     Dim lin As Integer = grDetalle.GetValue("Id")
                     Dim pos As Integer = -1
@@ -949,7 +979,8 @@ Public Class Tec_MovimientoDetalle
                     If (estado = 1) Then
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
                     End If
-
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("total") = grDetalle.GetValue("precio")
+                    grDetalle.SetValue("total", grDetalle.GetValue("precio"))
                 End If
             End If
         End If
@@ -1037,5 +1068,14 @@ Public Class Tec_MovimientoDetalle
     Private Sub btnProductos_Click(sender As Object, e As EventArgs) Handles btnProductos.Click
         FilaSelectLote = Nothing
         _HabilitarProductos()
+    End Sub
+
+    Private Sub grDetalle_KeyDown(sender As Object, e As KeyEventArgs) Handles grDetalle.KeyDown
+        If (e.KeyData = Keys.Escape And grDetalle.Row >= 0) Then
+
+            _prEliminarFila()
+
+
+        End If
     End Sub
 End Class
