@@ -320,6 +320,20 @@ Public Class Tec_Ventas
             .WordWrap = True
             .MaxLines = 3
         End With
+        With grDetalle.RootTable.Columns("marca")
+            .Width = 90
+            .Caption = "marca"
+            .Visible = True
+            .WordWrap = True
+            .MaxLines = 3
+        End With
+        With grDetalle.RootTable.Columns("fabrica")
+            .Width = 90
+            .Caption = "fabrica"
+            .Visible = True
+            .WordWrap = True
+            .MaxLines = 3
+        End With
 
         With grDetalle.RootTable.Columns("Cantidad")
             .Width = 50
