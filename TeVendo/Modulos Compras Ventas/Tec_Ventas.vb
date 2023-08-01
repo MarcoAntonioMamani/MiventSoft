@@ -1,4 +1,4 @@
-﻿Imports Negocio.AccesoLogica
+Imports Negocio.AccesoLogica
 Imports DevComponents.DotNetBar
 Imports Janus.Windows.GridEX
 Imports System.IO
@@ -1614,8 +1614,20 @@ salirIf:
 
     Public Function _PMOGetTablaBuscador() As DataTable
 
+        Dim Query As String
+
         Dim dtBuscador As DataTable = L_prListarVentasGeneralFiltroFecha("MAM_Ventas", tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"), Global_Sucursal)
-        Return dtBuscador
+
+        '' Dim dtBuscador As DataTable = EjecutarQuery(tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"), Global_Sucursal)
+
+
+
+
+        Dim dataView As New DataView(dtBuscador)
+        dataView.Sort = " Id DESC"
+        Dim dataTable As DataTable = dataView.ToTable()
+
+        Return dataTable
     End Function
 
     Public Function _PMOGetListEstructuraBuscador() As List(Of Celda)
@@ -1649,6 +1661,7 @@ salirIf:
         listEstCeldas.Add(New Celda("TarjetaBancaria", False))
         listEstCeldas.Add(New Celda("TransferenciaBancaria", False))
         listEstCeldas.Add(New Celda("TipoCambio", False))
+        listEstCeldas.Add(New Celda("HoraRegistro", True, " Hora", 60))
         Return listEstCeldas
     End Function
 
