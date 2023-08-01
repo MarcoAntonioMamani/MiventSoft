@@ -1028,33 +1028,6 @@ Public Class Tec_Productos
             tbConversion.Focus()
             Return _ok
         End If
-        If (tbCodigoExterno.Text.Trim <> String.Empty) Then
-
-            Dim dt As DataTable = ObtenerCoincidenciasCodigoExterno(tbCodigoExterno.Text.Trim)
-
-            If _MNuevo Then
-                If (dt.Rows.Count > 0) Then ''Quiere decir que ya existe un producto con ese codigo
-                    Mensaje = Mensaje + Chr(13) + Chr(10) + " Ya existe un Producto con un mismo codigo Externo= " + tbCodigoExterno.Text + " En el Producto " + Str(dt.Rows(0).Item("id")) + "  " + dt.Rows(0).Item("DescripcionProducto")
-
-                    _ok = False
-
-                    ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-                    tbCodigoExterno.Focus()
-                    Return _ok
-                End If
-
-            Else
-                If (dt.Rows.Count > 1) Then ''Quiere decir que ya existe un producto con ese codigo
-                    Mensaje = Mensaje + Chr(13) + Chr(10) + " Ya existe un Producto con un mismo codigo Externo"
-                    _ok = False
-
-                    ToastNotification.Show(Me, Mensaje, img, 8000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-                    tbCodigoExterno.Focus()
-                    Return _ok
-                End If
-            End If
-
-        End If
 
         Return _ok
     End Function
