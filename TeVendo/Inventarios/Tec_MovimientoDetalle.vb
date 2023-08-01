@@ -560,10 +560,11 @@ Public Class Tec_MovimientoDetalle
         'a.id , a.MovimientoId, a.ProductoId, b.NombreProducto  As Producto, a.Cantidad,
         '    a.Lote, a.FechaVencimiento, CAST('' as image ) as img, 1 as estado ,Sum(stock .Cantidad )as stock
         Dim pos As Integer = -1
-        If (grDetalle.Row < 0) Then
+        If (grDetalle.Row <= 0) Then
             _prAddDetalleVenta()
         End If
 
+        grDetalle.Row = grDetalle.RowCount - 1
 
 
         Dim existe As Boolean = _fnExisteProducto(grProducto.GetValue("Id"))
