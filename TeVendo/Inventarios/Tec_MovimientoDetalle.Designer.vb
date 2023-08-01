@@ -44,6 +44,8 @@ Partial Class Tec_MovimientoDetalle
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.MeuOpciones = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.VerToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Paneltop.SuspendLayout()
         CType(Me.grProducto, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
@@ -56,6 +58,7 @@ Partial Class Tec_MovimientoDetalle
         Me.Panel3.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MeuOpciones.SuspendLayout()
         Me.SuspendLayout()
         '
         'Paneltop
@@ -78,6 +81,7 @@ Partial Class Tec_MovimientoDetalle
         Me.grProducto.BackColor = System.Drawing.Color.White
         Me.grProducto.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
         Me.grProducto.ColumnAutoResize = True
+        Me.grProducto.ContextMenuStrip = Me.MeuOpciones
         Me.grProducto.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grProducto.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None
         Me.grProducto.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
@@ -98,7 +102,7 @@ Partial Class Tec_MovimientoDetalle
         Me.grProducto.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
         Me.grProducto.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
         Me.grProducto.Location = New System.Drawing.Point(0, 104)
-        Me.grProducto.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grProducto.Margin = New System.Windows.Forms.Padding(4)
         Me.grProducto.Name = "grProducto"
         Me.grProducto.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.grProducto.Office2007CustomColor = System.Drawing.Color.DodgerBlue
@@ -145,7 +149,7 @@ Partial Class Tec_MovimientoDetalle
         Me.btnProductos.Image = Global.TeVendo.My.Resources.Resources.search
         Me.btnProductos.ImageFixedSize = New System.Drawing.Size(24, 24)
         Me.btnProductos.Location = New System.Drawing.Point(896, 7)
-        Me.btnProductos.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnProductos.Margin = New System.Windows.Forms.Padding(4)
         Me.btnProductos.Name = "btnProductos"
         Me.btnProductos.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
         Me.btnProductos.Size = New System.Drawing.Size(253, 53)
@@ -166,7 +170,7 @@ Partial Class Tec_MovimientoDetalle
         Me.btnConfirmarSalir.Image = Global.TeVendo.My.Resources.Resources.search
         Me.btnConfirmarSalir.ImageFixedSize = New System.Drawing.Size(24, 24)
         Me.btnConfirmarSalir.Location = New System.Drawing.Point(605, 7)
-        Me.btnConfirmarSalir.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnConfirmarSalir.Margin = New System.Windows.Forms.Padding(4)
         Me.btnConfirmarSalir.Name = "btnConfirmarSalir"
         Me.btnConfirmarSalir.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
         Me.btnConfirmarSalir.Size = New System.Drawing.Size(253, 53)
@@ -188,7 +192,7 @@ Partial Class Tec_MovimientoDetalle
         Me.LabelX9.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
         Me.LabelX9.Location = New System.Drawing.Point(84, 17)
-        Me.LabelX9.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.LabelX9.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX9.Name = "LabelX9"
         Me.LabelX9.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX9.Size = New System.Drawing.Size(151, 28)
@@ -206,7 +210,7 @@ Partial Class Tec_MovimientoDetalle
         Me.tbProducto.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbProducto.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tbProducto.Location = New System.Drawing.Point(251, 18)
-        Me.tbProducto.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tbProducto.Margin = New System.Windows.Forms.Padding(4)
         Me.tbProducto.Name = "tbProducto"
         Me.tbProducto.PreventEnterBeep = True
         Me.tbProducto.Size = New System.Drawing.Size(332, 24)
@@ -312,7 +316,7 @@ Partial Class Tec_MovimientoDetalle
         Me.grDetalle.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
         Me.grDetalle.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
         Me.grDetalle.Location = New System.Drawing.Point(0, 36)
-        Me.grDetalle.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grDetalle.Margin = New System.Windows.Forms.Padding(4)
         Me.grDetalle.Name = "grDetalle"
         Me.grDetalle.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.grDetalle.Office2007CustomColor = System.Drawing.Color.DodgerBlue
@@ -409,6 +413,23 @@ Partial Class Tec_MovimientoDetalle
         '
         Me.MEP.ContainerControl = Me
         '
+        'MeuOpciones
+        '
+        Me.MeuOpciones.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MeuOpciones.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VerToolStripMenuItem1})
+        Me.MeuOpciones.Name = "MeuOpciones"
+        Me.MeuOpciones.Size = New System.Drawing.Size(288, 40)
+        Me.MeuOpciones.Text = "Opciones"
+        '
+        'VerToolStripMenuItem1
+        '
+        Me.VerToolStripMenuItem1.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.VerToolStripMenuItem1.Image = Global.TeVendo.My.Resources.Resources.search
+        Me.VerToolStripMenuItem1.Name = "VerToolStripMenuItem1"
+        Me.VerToolStripMenuItem1.Padding = New System.Windows.Forms.Padding(5)
+        Me.VerToolStripMenuItem1.Size = New System.Drawing.Size(297, 36)
+        Me.VerToolStripMenuItem1.Text = "Buscar Por Codigo Original"
+        '
         'Tec_MovimientoDetalle
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -433,6 +454,7 @@ Partial Class Tec_MovimientoDetalle
         Me.Panel3.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MeuOpciones.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -458,4 +480,6 @@ Partial Class Tec_MovimientoDetalle
     Protected WithEvents MHighlighterFocus As DevComponents.DotNetBar.Validator.Highlighter
     Protected WithEvents MEP As ErrorProvider
     Friend WithEvents btnProductos As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents MeuOpciones As ContextMenuStrip
+    Friend WithEvents VerToolStripMenuItem1 As ToolStripMenuItem
 End Class

@@ -1108,4 +1108,17 @@ Public Class Tec_MovimientoDetalle
 
         End If
     End Sub
+
+    Private Sub VerToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles VerToolStripMenuItem1.Click
+        Try
+            If (grProducto.Row >= 0) Then
+
+                Dim codigoOriginal = grProducto.GetValue("CodigoExterno")
+                tbProducto.Text = codigoOriginal
+
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

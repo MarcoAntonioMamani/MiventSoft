@@ -301,7 +301,13 @@ Public Class Tec_Compras
             .Visible = False
 
         End With
-
+        With grDetalle.RootTable.Columns("fabrica")
+            .Width = 90
+            .Visible = True
+            .Caption = "fabrica"
+            .WordWrap = True
+            .MaxLines = 3
+        End With
         With grDetalle.RootTable.Columns("venta")
             .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far

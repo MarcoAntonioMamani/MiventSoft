@@ -157,7 +157,7 @@ Public Class Tec_ComprasDetalle
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.rowdelete, 25, 18)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", "", 0, 0, 0, 0, 0, "20200101", CDate("01/01/2020"), 0, 0, 0, Bin.GetBuffer, 0, 0)
+        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", "", "", 0, 0, 0, 0, 0, "20200101", CDate("01/01/2020"), 0, 0, 0, Bin.GetBuffer, 0, 0)
     End Sub
 
     Public Function _GenerarId()
@@ -254,7 +254,13 @@ Public Class Tec_ComprasDetalle
             .WordWrap = True
             .MaxLines = 3
         End With
-
+        With grDetalle.RootTable.Columns("marca")
+            .Width = 100
+            .Visible = True
+            .Caption = "marca"
+            .WordWrap = True
+            .MaxLines = 3
+        End With
 
         With grDetalle.RootTable.Columns("Producto")
             .Width = 150
@@ -454,6 +460,7 @@ Public Class Tec_ComprasDetalle
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = grProducto.GetValue("Id")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = grProducto.GetValue("NombreProducto")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("fabrica") = grProducto.GetValue("fabrica")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("marca") = grProducto.GetValue("marca")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCosto") = grProducto.GetValue("PrecioCosto")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("TotalCompra") = grProducto.GetValue("PrecioCosto") * cantidad
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioVenta") = grProducto.GetValue("PrecioVenta")
