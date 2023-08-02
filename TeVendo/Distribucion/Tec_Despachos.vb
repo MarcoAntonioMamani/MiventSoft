@@ -955,7 +955,7 @@ Public Class Tec_Despachos
     Public Sub ImprimirNotaSalida(id As Integer)
         Dim dt As DataTable
         dt = GenerarDatosDespachoReporte(id)
-        Dim dtImage As DataTable = ObtenerImagenEmpresa()
+        Dim dtImage As DataTable = ObtenerImagenEmpresa(IIf(Global_Sucursal = -1, 1, Global_Sucursal))
         Dim NombreEmpresa As String = dtImage.Rows(0).Item("Nombre")
         Dim Direccion As String = dtImage.Rows(0).Item("Direccion")
         If (dtImage.Rows.Count > 0) Then

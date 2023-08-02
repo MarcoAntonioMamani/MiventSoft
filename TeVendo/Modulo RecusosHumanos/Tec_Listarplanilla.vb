@@ -299,7 +299,7 @@ Public Class Tec_Listarplanilla
     Public Sub GenerarReporteIndividual(id As Integer)
         Dim dt As DataTable = ReporteBoletaSalarioIndividual(id)
 
-        Dim dtImage As DataTable = ObtenerImagenEmpresa()
+        Dim dtImage As DataTable = ObtenerImagenEmpresa(IIf(Global_Sucursal = -1, 1, Global_Sucursal))
         Dim NombreEmpresa As String = dtImage.Rows(0).Item("Nombre")
         Dim Direccion As String = dtImage.Rows(0).Item("Direccion")
         If (dtImage.Rows.Count > 0) Then
@@ -357,7 +357,7 @@ Public Class Tec_Listarplanilla
         Else
             dt = ListarPlanillaReporte(cbMes.Value, cbAnio.Value, 0)
         End If
-        Dim dtImage As DataTable = ObtenerImagenEmpresa()
+        Dim dtImage As DataTable = ObtenerImagenEmpresa(IIf(Global_Sucursal = -1, 1, Global_Sucursal))
         Dim NombreEmpresa As String = dtImage.Rows(0).Item("Nombre")
         Dim Direccion As String = dtImage.Rows(0).Item("Direccion")
         If (dtImage.Rows.Count > 0) Then

@@ -1239,7 +1239,7 @@ Public Class Tec_Movimientos
         Dim dt As DataTable = ListarReporteMovimientoProductos(numi)
 
 
-        Dim dtImage As DataTable = ObtenerImagenEmpresa()
+        Dim dtImage As DataTable = ObtenerImagenEmpresa(IIf(Global_Sucursal = -1, 1, Global_Sucursal))
         If (dtImage.Rows.Count > 0) Then
             Dim Name As String = dtImage.Rows(0).Item(0)
             If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Empresa" + Name)) Then

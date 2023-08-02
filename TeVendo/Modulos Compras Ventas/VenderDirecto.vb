@@ -407,7 +407,7 @@ Public Class VenderDirecto
             Dim total As Decimal = dt.Compute("SUM(Total)", "")
             total = total - dt.Rows(0).Item("DescuentoVenta")
             Dim fechaven As String = dt.Rows(0).Item("FechaVenta")
-            Dim dtImage As DataTable = ObtenerImagenEmpresa()
+            Dim dtImage As DataTable = ObtenerImagenEmpresa(IIf(Global_Sucursal = -1, 1, Global_Sucursal))
             If (dtImage.Rows.Count > 0) Then
                 Dim Name As String = dtImage.Rows(0).Item(0)
                 If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Empresa" + Name)) Then

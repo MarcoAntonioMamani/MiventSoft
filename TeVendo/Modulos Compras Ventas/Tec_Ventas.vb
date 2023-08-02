@@ -1600,31 +1600,31 @@ salirIf:
             Return _ok
         End If
 
-        'Dim dt As DataTable = L_prListarGeneral("MAM_CierreCajero")
+        Dim dt As DataTable = L_prListarGeneral("MAM_CierreCajero")
 
-        'Dim fila As DataRow() = dt.Select("SucursalId=" + Str(cbSucursal.Value) + " and EstadoCaja=1 and PersonalId=" + Str(Global_IdPersonal).Trim)
-        'If (Not IsDBNull(fila)) Then
-        '    If (fila.Count <= 0) Then
+        Dim fila As DataRow() = dt.Select("SucursalId=" + Str(cbSucursal.Value) + " and EstadoCaja=1 and PersonalId=" + Str(Global_IdPersonal).Trim)
+        If (Not IsDBNull(fila)) Then
+            If (fila.Count <= 0) Then
 
-        '        ToastNotification.Show(Me, "No Es Posible Hacer EL Movimiento Por que no Existe Caja Chica con Estado Abierto Para Esta Fecha =" + tbFechaTransaccion.Value.ToString("dd/MM/yyy"), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-        '        tbFechaTransaccion.Focus()
-        '        _ok = False
-        '        Return _ok
-        '    Else
-        '        Dim bandera As Boolean = False
-        '        For Each item As Object In fila
-        '            If (item("Fecha") = tbFechaTransaccion.Value) Then
-        '                bandera = True
-        '            End If
-        '        Next
-        '        If (bandera = False) Then
-        '            ToastNotification.Show(Me, "No Es Posible Hacer EL Movimiento Por que no Existe Caja Chica con Estado Abierto Para Esta Fecha =" + tbFechaTransaccion.Value.ToString("dd/MM/yyy"), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-        '            tbFechaTransaccion.Focus()
-        '            _ok = False
-        '            Return _ok
-        '        End If
-        '    End If
-        'End If
+                ToastNotification.Show(Me, "No Es Posible Hacer EL Movimiento Por que no Existe Caja Chica con Estado Abierto Para Esta Fecha =" + tbFechaTransaccion.Value.ToString("dd/MM/yyy"), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                tbFechaTransaccion.Focus()
+                _ok = False
+                Return _ok
+            Else
+                Dim bandera As Boolean = False
+                For Each item As Object In fila
+                    If (item("Fecha") = tbFechaTransaccion.Value) Then
+                        bandera = True
+                    End If
+                Next
+                If (bandera = False) Then
+                    ToastNotification.Show(Me, "No Es Posible Hacer EL Movimiento Por que no Existe Caja Chica con Estado Abierto Para Esta Fecha =" + tbFechaTransaccion.Value.ToString("dd/MM/yyy"), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                    tbFechaTransaccion.Focus()
+                    _ok = False
+                    Return _ok
+                End If
+            End If
+        End If
 
         Return _ok
     End Function
@@ -2130,7 +2130,8 @@ salirIf:
             Dim total As Decimal = dt.Compute("SUM(Total)", "")
             total = total - dt.Rows(0).Item("DescuentoVenta")
             Dim fechaven As String = dt.Rows(0).Item("FechaVenta")
-            Dim dtImage As DataTable = ObtenerImagenEmpresa()
+
+            Dim dtImage As DataTable = ObtenerImagenEmpresa(cbSucursal.Value)
             If (dtImage.Rows.Count > 0) Then
                 Dim Name As String = dtImage.Rows(0).Item(0)
                 If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Empresa" + Name)) Then
@@ -2155,7 +2156,7 @@ salirIf:
             Dim _Meses() As String = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"}
             _FechaAct = fechaven
             _Fecha = Split(_FechaAct, "-")
-            _FechaPar = "La Paz, " + _Fecha(0).Trim + " De " + _Meses(_Fecha(1) - 1).Trim + " Del " + _Fecha(2).Trim
+            _FechaPar = "Santa Cruz, " + _Fecha(0).Trim + " De " + _Meses(_Fecha(1) - 1).Trim + " Del " + _Fecha(2).Trim
 
             If Not IsNothing(P_Global.Visualizador) Then
                 P_Global.Visualizador.Close()
@@ -2235,7 +2236,7 @@ salirIf:
         Dim total As Decimal = dt.Compute("SUM(Total)", "")
         total = total - dt.Rows(0).Item("DescuentoVenta")
         Dim fechaven As String = dt.Rows(0).Item("FechaVenta")
-        Dim dtImage As DataTable = ObtenerImagenEmpresa()
+        Dim dtImage As DataTable = ObtenerImagenEmpresa(IIf(Global_Sucursal = -1, 1, Global_Sucursal))
         If (dtImage.Rows.Count > 0) Then
             Dim Name As String = dtImage.Rows(0).Item(0)
             If (File.Exists(RutaGlobal + "\Imagenes\Imagenes Empresa" + Name)) Then

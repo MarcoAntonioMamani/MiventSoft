@@ -1670,7 +1670,6 @@ salirIf:
         Dim ef = New Efecto
         ef.tipo = 15
         ef.dtDetalle = CType(grDetalle.DataSource, DataTable)
-
         ef.SucursalId = cbSucursal.Value
         ef.Lotebool = Lote
         ef.ShowDialog()
