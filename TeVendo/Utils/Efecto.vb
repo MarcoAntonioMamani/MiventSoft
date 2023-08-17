@@ -122,11 +122,11 @@ Public Class Efecto
         If frmAyuda.Bandera = True Then
             CategoriaId = frmAyuda.IdCategoria
             band = True
-            frmAyuda.Dispose()
+
             Me.Close()
         Else
             band = False
-            frmAyuda.Dispose()
+
             Me.Close()
         End If
 
@@ -140,11 +140,9 @@ Public Class Efecto
         If frmAyuda.Bandera = True Then
             Id = frmAyuda.IdTipoMovimiento
             band = True
-            frmAyuda.Dispose()
             Me.Close()
         Else
             band = False
-            frmAyuda.Dispose()
             Me.Close()
         End If
 
@@ -158,11 +156,9 @@ Public Class Efecto
         If frmAyuda.Bandera = True Then
             ProveedorId = frmAyuda.ProveedorId
             band = True
-            frmAyuda.Dispose()
             Me.Close()
         Else
             band = False
-            frmAyuda.Dispose()
             Me.Close()
         End If
 
@@ -187,12 +183,10 @@ Public Class Efecto
             TipGrabado = frmAyuda.TipoGrabado
 
             band = True
-            frmAyuda.Dispose()
 
             Me.Close()
         Else
             band = False
-            frmAyuda.Dispose()
             Me.Close()
         End If
 
@@ -229,11 +223,9 @@ Public Class Efecto
         If frmAyuda.respuesta = True Then
 
             band = True
-            frmAyuda.Dispose()
             Me.Close()
         Else
             band = False
-            frmAyuda.Dispose()
             Me.Close()
         End If
 
@@ -249,11 +241,9 @@ Public Class Efecto
         If frmAyuda.Bandera = True Then
 
             band = True
-            frmAyuda.Dispose()
             Me.Close()
         Else
             band = False
-            frmAyuda.Dispose()
             Me.Close()
         End If
 
@@ -266,7 +256,6 @@ Public Class Efecto
         frmAyuda.title = titulo
         frmAyuda.PlanillaId = PlanillaId
         frmAyuda.ShowDialog()
-        frmAyuda.Dispose()
         Me.Close()
 
 
@@ -282,7 +271,6 @@ Public Class Efecto
         frmAyuda.dtGeneral = dtGeneral
         frmAyuda.PosicionGeneral = Fila
         frmAyuda.ShowDialog()
-        frmAyuda.Dispose()
         Me.Close()
 
 
@@ -295,7 +283,6 @@ Public Class Efecto
 
         frmAyuda.ShowDialog()
 
-        frmAyuda.Dispose()
         Me.Close()
 
 
@@ -322,7 +309,6 @@ Public Class Efecto
         frmAyuda.SucursalId = SucursalId
         frmAyuda.Lote = Lotebool
         frmAyuda.ShowDialog()
-        frmAyuda.Dispose()
 
         Me.Close()
 
@@ -341,7 +327,6 @@ Public Class Efecto
         frmAyuda.ShowDialog()
 
         CategoriaPrecioSelected = frmAyuda.CategoriaPrecio
-        frmAyuda.Dispose()
         Me.Close()
 
 
@@ -355,12 +340,10 @@ Public Class Efecto
         If frmAyuda.respuesta = True Then
 
             band = True
-            frmAyuda.Dispose()
 
             Me.Close()
         Else
             band = False
-            frmAyuda.Dispose()
 
             Me.Close()
         End If
@@ -378,11 +361,9 @@ Public Class Efecto
         If frmAyuda.seleccionado = True Then
             Row = frmAyuda.filaSelect
             band = True
-            frmAyuda.Dispose()
             Me.Close()
         Else
             band = False
-            frmAyuda.Dispose()
             Me.Close()
         End If
     End Sub
@@ -403,11 +384,9 @@ Public Class Efecto
             CategoriaPrecioSelected = frmAyuda.CategoriaPrecioSelected
             TableCategoria = frmAyuda.TableCategoria
             band = True
-            frmAyuda.Dispose()
             Me.Close()
         Else
             band = False
-            frmAyuda.Dispose()
             Me.Close()
         End If
     End Sub
@@ -423,11 +402,9 @@ Public Class Efecto
         If frmAyuda.seleccionado = True Then
             Row = frmAyuda.filaSelect
             band = True
-            frmAyuda.Dispose()
             Me.Close()
         Else
             band = False
-            frmAyuda.Dispose()
             Me.Close()
         End If
     End Sub
@@ -444,14 +421,12 @@ Public Class Efecto
         If frmAyuda.seleccionado = True Then
             Row = frmAyuda.filaSelect
             band = True
-            frmAyuda.Dispose()
             Me.Close()
         Else
             NewCliente = frmAyuda.NuevoCliente
             IdCliente = frmAyuda.IdCliente
             NombreCliente = frmAyuda.NombreCliente
             band = False
-            frmAyuda.Dispose()
             Me.Close()
         End If
     End Sub
@@ -498,11 +473,9 @@ Public Class Efecto
 
             CantidadTransaccion = frmAyuda.CantidadVenta
             band = True
-            frmAyuda.Dispose()
             Me.Close()
         Else
             band = False
-            frmAyuda.Dispose()
             Me.Close()
         End If
     End Sub
@@ -518,11 +491,9 @@ Public Class Efecto
             CantidadTransaccion = frmAyuda.CantidadVenta
             FechaVencimiento = frmAyuda.Fecha
             band = True
-            frmAyuda.Dispose()
             Me.Close()
         Else
             band = False
-            frmAyuda.Dispose()
             Me.Close()
         End If
     End Sub

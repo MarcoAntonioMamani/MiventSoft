@@ -682,7 +682,7 @@ Public Class Tec_Users
             'a.Id ,a.NombreProveedor ,a.Direccion ,a.Telefono01
 
             Dim listEstCeldas As New List(Of Celda)
-            listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
+            listEstCeldas.Add(New Celda("Id", False, "ID", 50))
             listEstCeldas.Add(New Celda("Nombre", True, "NOMBRE", 350))
             listEstCeldas.Add(New Celda("Direccion", True, "DIRECCION", 180))
             listEstCeldas.Add(New Celda("Telefono01", True, "Telefono".ToUpper, 200))
