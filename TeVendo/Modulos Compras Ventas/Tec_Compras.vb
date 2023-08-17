@@ -423,7 +423,7 @@ Public Class Tec_Compras
                 .Width = 70
                 .Caption = "Lote"
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
-                .Visible = True
+                .Visible = False
             End With
             With grDetalle.RootTable.Columns("FechaVencimiento")
                 .Width = 70

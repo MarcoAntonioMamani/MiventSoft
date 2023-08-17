@@ -82,7 +82,7 @@ Partial Class Formulario_Cantidad_Lote
         Me.btnNo.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.btnNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.btnNo.Controls.Add(Me.Label4)
-        Me.btnNo.Location = New System.Drawing.Point(130, 429)
+        Me.btnNo.Location = New System.Drawing.Point(168, 375)
         Me.btnNo.Name = "btnNo"
         Me.btnNo.Size = New System.Drawing.Size(156, 50)
         Me.btnNo.TabIndex = 13
@@ -103,7 +103,7 @@ Partial Class Formulario_Cantidad_Lote
         Me.btnSi.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(179, Byte), Integer), CType(CType(148, Byte), Integer))
         Me.btnSi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.btnSi.Controls.Add(Me.Label3)
-        Me.btnSi.Location = New System.Drawing.Point(344, 429)
+        Me.btnSi.Location = New System.Drawing.Point(382, 375)
         Me.btnSi.Name = "btnSi"
         Me.btnSi.Size = New System.Drawing.Size(156, 50)
         Me.btnSi.TabIndex = 3
@@ -167,11 +167,12 @@ Partial Class Formulario_Cantidad_Lote
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Calibri", 16.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(89, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(89, Byte), Integer))
-        Me.Label2.Location = New System.Drawing.Point(162, 297)
+        Me.Label2.Location = New System.Drawing.Point(27, 50)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(73, 35)
         Me.Label2.TabIndex = 20
         Me.Label2.Text = "Lote:"
+        Me.Label2.Visible = False
         '
         'tbLote
         '
@@ -188,20 +189,21 @@ Partial Class Formulario_Cantidad_Lote
         Me.tbLote.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbLote.Font = New System.Drawing.Font("Calibri", 16.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbLote.ForeColor = System.Drawing.Color.Black
-        Me.tbLote.Location = New System.Drawing.Point(332, 295)
+        Me.tbLote.Location = New System.Drawing.Point(107, 48)
         Me.tbLote.Margin = New System.Windows.Forms.Padding(4)
         Me.tbLote.Name = "tbLote"
         Me.tbLote.PreventEnterBeep = True
-        Me.tbLote.Size = New System.Drawing.Size(206, 40)
+        Me.tbLote.Size = New System.Drawing.Size(117, 40)
         Me.tbLote.TabIndex = 1
         Me.tbLote.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.tbLote.Visible = False
         '
         'Label5
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Calibri", 16.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(89, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(89, Byte), Integer))
-        Me.Label5.Location = New System.Drawing.Point(165, 352)
+        Me.Label5.Location = New System.Drawing.Point(165, 308)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(151, 35)
         Me.Label5.TabIndex = 21
@@ -230,7 +232,7 @@ Partial Class Formulario_Cantidad_Lote
         Me.cbFecha.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
         Me.cbFecha.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
         Me.cbFecha.Font = New System.Drawing.Font("Calibri", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbFecha.Location = New System.Drawing.Point(332, 352)
+        Me.cbFecha.Location = New System.Drawing.Point(332, 308)
         Me.cbFecha.Name = "cbFecha"
         Me.cbFecha.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
         Me.cbFecha.Office2007CustomColor = System.Drawing.Color.Turquoise
