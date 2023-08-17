@@ -117,7 +117,7 @@ Public Class Tec_MovimientoDetalle
                 .Width = 100
                 .Caption = "lote".ToUpper
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
-                .Visible = True
+                .Visible = False
             End With
             With grDetalle.RootTable.Columns("FechaVencimiento")
                 .Width = 100
@@ -266,10 +266,11 @@ Public Class Tec_MovimientoDetalle
             Dim cant As Integer = vectoraux.Length
             'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock 
             For i As Integer = 0 To dt.Rows.Count - 1 Step 1
-                Dim nombre As String = dt.Rows(i).Item("CodigoExterno").ToString.ToUpper +
+                Dim nombre As String = dt.Rows(i).Item("laboratorio").ToString.ToUpper +
                     " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper +
                     " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("Marca").ToString.ToUpper
+                    " " + dt.Rows(i).Item("Marca").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("ubicacion").ToString.ToUpper
                 Select Case cant
                     Case 1
 
@@ -496,7 +497,7 @@ Public Class Tec_MovimientoDetalle
         With grProducto.RootTable.Columns("NombreProducto")
             .Width = 350
             .Caption = "PRODUCTOS"
-            .Visible = False
+            .Visible = True
             .MaxLines = 2
             .WordWrap = True
         End With
@@ -507,10 +508,24 @@ Public Class Tec_MovimientoDetalle
             .MaxLines = 2
             .WordWrap = True
         End With
+        With grProducto.RootTable.Columns("laboratorio")
+            .Width = 100
+            .Caption = "laboratorio"
+            .Visible = True
+            .MaxLines = 2
+            .WordWrap = True
+        End With
+        With grProducto.RootTable.Columns("ubicacion")
+            .Width = 100
+            .Caption = "ubicacion"
+            .Visible = True
+            .MaxLines = 2
+            .WordWrap = True
+        End With
 
         With grProducto.RootTable.Columns("Marca")
             .Width = 150
-            .Caption = "Marca"
+            .Caption = "Principio Activo"
             .Visible = True
             .MaxLines = 2
             .WordWrap = True
@@ -568,7 +583,7 @@ Public Class Tec_MovimientoDetalle
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, "20200101", CDate("2020/01/01"), 0, 0, Bin.GetBuffer, 0, 0)
+        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", "", 0, "20200101", Now.Date, 0, 0, Bin.GetBuffer, 0, 0)
     End Sub
     Public Function _fnExisteProducto(idprod As Integer) As Boolean
         For i As Integer = 0 To CType(grDetalle.DataSource, DataTable).Rows.Count - 1 Step 1
@@ -602,6 +617,7 @@ Public Class Tec_MovimientoDetalle
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = grProducto.GetValue("Id")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = grProducto.GetValue("NombreProducto")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("stock")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("laboratorio") = grProducto.GetValue("laboratorio")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
 
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("precio") = grProducto.GetValue("precio")
@@ -859,7 +875,7 @@ Public Class Tec_MovimientoDetalle
 
 
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("stock")
-
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("laboratorio") = FilaSelectLote.Item("laboratorio")
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Lote") = grProducto.GetValue("Lote")
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("FechaVencimiento") = grProducto.GetValue("FechaVencimiento")
 

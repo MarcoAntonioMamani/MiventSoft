@@ -274,9 +274,9 @@ Public Class Tec_Productos
         P_Global._prCargarComboGenerico(cbCategoria, L_prListaCategorias(), "Id", "Codigo", "NombreCategoria", "Categoria")
 
         P_Global._prCargarComboGenerico(cbProveedor, L_prListarProveedores(), "Id", "Codigo", "NombreProveedor", "Proveedor")
-        P_Global._prCargarComboGenerico(cbMarca, L_prLibreriaDetalleGeneral(3), "cnnum", "Codigo", "cndesc1", "Marca")
-        P_Global._prCargarComboGenerico(cbAtributo, L_prLibreriaDetalleGeneral(4), "cnnum", "Codigo", "cndesc1", "Industria")
-        P_Global._prCargarComboGenerico(cbFamilia, L_prLibreriaDetalleGeneral(5), "cnnum", "Codigo", "cndesc1", "Familia")
+        P_Global._prCargarComboGenerico(cbMarca, L_prLibreriaDetalleGeneral(3), "cnnum", "Codigo", "cndesc1", "Principio Activo")
+        P_Global._prCargarComboGenerico(cbAtributo, L_prLibreriaDetalleGeneral(4), "cnnum", "Codigo", "cndesc1", "Laboratorio")
+        P_Global._prCargarComboGenerico(cbFamilia, L_prLibreriaDetalleGeneral(5), "cnnum", "Codigo", "cndesc1", "Ubicación")
 
         P_Global._prCargarComboGenerico(cbUniVenta, L_prLibreriaDetalleGeneral(6), "cnnum", "Codigo", "cndesc1", "Unidad Venta")
         P_Global._prCargarComboGenerico(cbUnidMaxima, L_prLibreriaDetalleGeneral(7), "cnnum", "Codigo", "cndesc1", "Unidad Maxima")
@@ -955,8 +955,8 @@ Public Class Tec_Productos
         End If
         If (cbMarca.SelectedIndex < 0) Then
             cbMarca.BackColor = Color.Red
-            MEP.SetError(cbMarca, "Seleccione una Marca")
-            Mensaje = Mensaje + Chr(13) + Chr(10) + " Marca"
+            MEP.SetError(cbMarca, "Seleccione una Principio Activo")
+            Mensaje = Mensaje + Chr(13) + Chr(10) + " Principio Activo"
             _ok = False
         Else
             cbMarca.BackColor = Color.White
@@ -964,8 +964,8 @@ Public Class Tec_Productos
         End If
         If (cbAtributo.SelectedIndex < 0) Then
             cbAtributo.BackColor = Color.Red
-            MEP.SetError(cbAtributo, "Seleccione un Atributo")
-            Mensaje = Mensaje + Chr(13) + Chr(10) + " Attributo"
+            MEP.SetError(cbAtributo, "Seleccione un Laboratorio")
+            Mensaje = Mensaje + Chr(13) + Chr(10) + " Laboratorio"
             _ok = False
         Else
             cbAtributo.BackColor = Color.White
@@ -973,8 +973,8 @@ Public Class Tec_Productos
         End If
         If (cbFamilia.SelectedIndex < 0) Then
             cbFamilia.BackColor = Color.Red
-            MEP.SetError(cbFamilia, "Seleccione una Familia")
-            Mensaje = Mensaje + Chr(13) + Chr(10) + " Familia"
+            MEP.SetError(cbFamilia, "Seleccione una Ubicación")
+            Mensaje = Mensaje + Chr(13) + Chr(10) + " Ubicación"
             _ok = False
         Else
             cbFamilia.BackColor = Color.White
@@ -1083,7 +1083,7 @@ Public Class Tec_Productos
         listEstCeldas.Add(New Celda("imgEstado", True, "Estado", 150))
         listEstCeldas.Add(New Celda("CategoriaId", False))
         listEstCeldas.Add(New Celda("NombreCategoria", False, "Categoria", 80))
-        listEstCeldas.Add(New Celda("Marca", True, "Marca", 90))
+        listEstCeldas.Add(New Celda("Marca", True, "Principio Activo", 90))
         listEstCeldas.Add(New Celda("EmpresaId", False))
         listEstCeldas.Add(New Celda("Empresa", False, "Empresa", 80))
 
@@ -1226,12 +1226,12 @@ Public Class Tec_Productos
         Dim ef = New Efecto
         ef.tipo = 10
         ef.ModuloLibreria = 3
-        ef.titulo = "Crear Nueva Marca"
+        ef.titulo = "Crear Nueva Principio Activo"
         ef.ShowDialog()
         Dim bandera As Boolean = False
         bandera = ef.band
         If (bandera = True) Then
-            P_Global._prCargarComboGenerico(cbMarca, L_prLibreriaDetalleGeneral(3), "cnnum", "Codigo", "cndesc1", "Marca")
+            P_Global._prCargarComboGenerico(cbMarca, L_prLibreriaDetalleGeneral(3), "cnnum", "Codigo", "cndesc1", "Principio Activo")
             cbMarca.SelectedIndex = CType(cbMarca.DataSource, DataTable).Rows.Count - 1
             cbMarca.Focus()
         End If
@@ -1244,12 +1244,12 @@ Public Class Tec_Productos
         Dim ef = New Efecto
         ef.tipo = 10
         ef.ModuloLibreria = 4
-        ef.titulo = "Crear Nueva Industria"
+        ef.titulo = "Crear Nueva Laboratorio"
         ef.ShowDialog()
         Dim bandera As Boolean = False
         bandera = ef.band
         If (bandera = True) Then
-            P_Global._prCargarComboGenerico(cbAtributo, L_prLibreriaDetalleGeneral(4), "cnnum", "Codigo", "cndesc1", "Industria")
+            P_Global._prCargarComboGenerico(cbAtributo, L_prLibreriaDetalleGeneral(4), "cnnum", "Codigo", "cndesc1", "Laboratorio")
             cbAtributo.SelectedIndex = CType(cbAtributo.DataSource, DataTable).Rows.Count - 1
             cbAtributo.Focus()
         End If
@@ -1262,12 +1262,12 @@ Public Class Tec_Productos
         Dim ef = New Efecto
         ef.tipo = 10
         ef.ModuloLibreria = 5
-        ef.titulo = "Crear Nueva Familia"
+        ef.titulo = "Crear Nueva Ubicación"
         ef.ShowDialog()
         Dim bandera As Boolean = False
         bandera = ef.band
         If (bandera = True) Then
-            P_Global._prCargarComboGenerico(cbFamilia, L_prLibreriaDetalleGeneral(5), "cnnum", "Codigo", "cndesc1", "Familia")
+            P_Global._prCargarComboGenerico(cbFamilia, L_prLibreriaDetalleGeneral(5), "cnnum", "Codigo", "cndesc1", "Ubicación")
             cbFamilia.SelectedIndex = CType(cbFamilia.DataSource, DataTable).Rows.Count - 1
             cbFamilia.Focus()
         End If
