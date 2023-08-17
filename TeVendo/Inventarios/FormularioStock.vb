@@ -74,11 +74,11 @@ Public Class FormularioStock
             Dim cant As Integer = vectoraux.Length
             'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock 
             For i As Integer = 0 To dt.Rows.Count - 1 Step 1
-                Dim nombre As String = dt.Rows(i).Item("CodigoExterno").ToString.ToUpper +
+                Dim nombre As String = dt.Rows(i).Item("laboratorio").ToString.ToUpper +
                     " " + dt.Rows(i).Item("Marca").ToString.ToUpper +
                     " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("Categoria").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("unidad").ToString.ToUpper
+                    " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("ubicacion").ToString.ToUpper
                 Select Case cant
                     Case 1
 
@@ -228,15 +228,15 @@ Public Class FormularioStock
         With grProducto.RootTable.Columns("CodigoExterno")
             .Width = 100
             .Caption = "Cod. Externo"
-            .Visible = True
+            .Visible = False
 
 
         End With
 
         With grProducto.RootTable.Columns("NombreProducto")
-            .Width = 300
+            .Width = 250
             .Caption = "PRODUCTOS"
-            .Visible = False
+            .Visible = True
             .MaxLines = 2
             .WordWrap = True
         End With
@@ -249,18 +249,12 @@ Public Class FormularioStock
         End With
         With grProducto.RootTable.Columns("Marca")
             .Width = 150
-            .Caption = "Marca"
+            .Caption = "Principio Activo"
             .Visible = True
             .MaxLines = 2
             .WordWrap = True
         End With
-        With grProducto.RootTable.Columns("unidad")
-            .Width = 100
-            .Caption = "Unidad Venta"
-            .Visible = True
-            .MaxLines = 2
-            .WordWrap = True
-        End With
+
         ''NombreCategoria
         With grProducto.RootTable.Columns("DescripcionProducto")
             .Width = 300
