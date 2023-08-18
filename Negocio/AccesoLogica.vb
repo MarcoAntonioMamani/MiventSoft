@@ -1470,6 +1470,7 @@ Public Class AccesoLogica
         _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
 
         Return _Tabla
+
     End Function
     Public Shared Function ListarReporteIngresoEgreso(Id As String) As DataTable
         Dim _Tabla As DataTable

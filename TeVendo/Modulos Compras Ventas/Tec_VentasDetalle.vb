@@ -79,7 +79,7 @@ Public Class Tec_VentasDetalle
         With grProducto.RootTable.Columns("CodigoExterno")
             .Width = 100
             .Caption = "Cod Externo"
-            .Visible = True
+            .Visible = False
 
         End With
 
@@ -89,15 +89,15 @@ Public Class Tec_VentasDetalle
 
         End With
         With grProducto.RootTable.Columns("NombreProducto")
-            .Width = 300
+            .Width = 250
             .Caption = "PRODUCTOS"
-            .Visible = False
+            .Visible = True
             .MaxLines = 2
             .WordWrap = True
         End With
 
         With grProducto.RootTable.Columns("DescripcionProducto")
-            .Width = 250
+            .Width = 150
             .Visible = True
             .MaxLines = 2
             .WordWrap = True
@@ -116,6 +116,20 @@ Public Class Tec_VentasDetalle
             .MaxLines = 2
             .WordWrap = True
             .Caption = "CATEGORIA"
+        End With
+        With grProducto.RootTable.Columns("laboratorio")
+            .Width = 120
+            .Visible = True
+            .MaxLines = 2
+            .WordWrap = True
+            .Caption = "laboratorio"
+        End With
+        With grProducto.RootTable.Columns("ubicacion")
+            .Width = 120
+            .Visible = True
+            .MaxLines = 2
+            .WordWrap = True
+            .Caption = "ubicacion"
         End With
         With grProducto.RootTable.Columns("Marca")
             .Width = 120
@@ -156,7 +170,7 @@ Public Class Tec_VentasDetalle
 
         If (TipoProgramas = 1) Then
             Dim fc As GridEXFormatCondition
-            fc = New GridEXFormatCondition(grProducto.RootTable.Columns("stock"), ConditionOperator.Equal, 0)
+            fc = New GridEXFormatCondition(grProducto.RootTable.Columns("stock"), ConditionOperator.LessThanOrEqualTo, 10)
             'fc.FormatStyle.FontBold = TriState.True
             fc.FormatStyle.ForeColor = Color.White
             fc.FormatStyle.BackColor = Color.Red
@@ -200,7 +214,7 @@ Public Class Tec_VentasDetalle
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.rowdelete, 25, 18)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, 0, 0, 0, 0, 0, "", 0, "20200101", CDate("2020/01/01"), 0, "", 0, "", 0, 0, Bin.GetBuffer, 0)
+        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", "", 0, 0, 0, 0, 0, 0, "", 0, "20200101", CDate("2020/01/01"), 0, "", 0, "", 0, 0, Bin.GetBuffer, 0)
     End Sub
 
     Public Function _GenerarId()
@@ -280,6 +294,15 @@ Public Class Tec_VentasDetalle
             .Width = 150
             .Caption = "Producto"
             .Visible = True
+            .WordWrap = True
+            .MaxLines = 3
+        End With
+        With grDetalle.RootTable.Columns("laboratorio")
+            .Width = 100
+            .Caption = "laboratorio"
+            .Visible = True
+            .WordWrap = True
+            .MaxLines = 3
         End With
 
         With grDetalle.RootTable.Columns("CantidadKit")
@@ -383,7 +406,7 @@ Public Class Tec_VentasDetalle
                 .Width = 60
                 .Caption = "lote".ToUpper
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
-                .Visible = True
+                .Visible = False
             End With
             With grDetalle.RootTable.Columns("FechaVencimiento")
                 .Width = 70
@@ -583,6 +606,11 @@ Public Class Tec_VentasDetalle
             .Visible = False
 
         End With
+        With grProducto.RootTable.Columns("MesesDiferencia")
+            .Width = 150
+            .Visible = False
+
+        End With
         'b.yfcdprod1 ,a.iclot ,a.icfven  ,a.iccven 
         With grProducto.RootTable.Columns("Lote")
             .Width = 150
@@ -633,12 +661,11 @@ Public Class Tec_VentasDetalle
             grProducto.RootTable.FormatConditions.Add(fc)
 
             Dim fc2 As GridEXFormatCondition
-            fc2 = New GridEXFormatCondition(grProducto.RootTable.Columns("FechaVencimiento"), ConditionOperator.LessThanOrEqualTo, Now.Date)
+            fc2 = New GridEXFormatCondition(grProducto.RootTable.Columns("MesesDiferencia"), ConditionOperator.LessThanOrEqualTo, 6)
             fc2.FormatStyle.BackColor = Color.Red
             fc2.FormatStyle.FontBold = TriState.True
             fc2.FormatStyle.ForeColor = Color.White
             grProducto.RootTable.FormatConditions.Add(fc2)
-
             grProducto.Select()
             grProducto.Col = 1
             grProducto.Row = grProducto.RowCount - 1
@@ -865,6 +892,7 @@ Public Class Tec_VentasDetalle
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = FilaSelectLote.Item("NombreProducto")
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = CantidadVenta
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = FilaSelectLote.Item("PrecioVenta")
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("laboratorio") = FilaSelectLote.Item("laboratorio")
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = FilaSelectLote.Item("PrecioVenta") * CantidadVenta
 
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = FilaSelectLote.Item("PrecioVenta") * CantidadVenta
@@ -1161,11 +1189,11 @@ salirIf:
             Dim cant As Integer = vectoraux.Length
             'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock  NombreCategoria
             For i As Integer = 0 To dt.Rows.Count - 1 Step 1
-                Dim nombre As String = dt.Rows(i).Item("Id").ToString.ToUpper +
+                Dim nombre As String = dt.Rows(i).Item("laboratorio").ToString.ToUpper +
                     " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("NombreCategoria").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("ubicacion").ToString.ToUpper +
                     " " + dt.Rows(i).Item("Marca").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("CodigoExterno").ToString.ToUpper
+                    " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper
                 Select Case cant
                     Case 1
 

@@ -320,7 +320,13 @@ Public Class Tec_Ventas
             .WordWrap = True
             .MaxLines = 3
         End With
-
+        With grDetalle.RootTable.Columns("laboratorio")
+            .Width = 100
+            .Caption = "laboratorio"
+            .Visible = True
+            .WordWrap = True
+            .MaxLines = 3
+        End With
         With grDetalle.RootTable.Columns("Cantidad")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
@@ -451,7 +457,7 @@ Public Class Tec_Ventas
                 .Width = 60
                 .Caption = "lote".ToUpper
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
-                .Visible = True
+                .Visible = False
             End With
             With grDetalle.RootTable.Columns("FechaVencimiento")
                 .Width = 70

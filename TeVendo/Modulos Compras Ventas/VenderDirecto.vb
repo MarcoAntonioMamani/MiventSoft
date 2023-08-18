@@ -625,13 +625,7 @@ Public Class VenderDirecto
             .WordWrap = True
             .Caption = "CATEGORIA"
         End With
-        With grProductos.RootTable.Columns("industria")
-            .Width = 120
-            .Visible = False
-            .MaxLines = 2
-            .WordWrap = False
-            .Caption = "Industria"
-        End With
+
 
         With grProductos.RootTable.Columns("PrecioCosto")
             .Width = 150
