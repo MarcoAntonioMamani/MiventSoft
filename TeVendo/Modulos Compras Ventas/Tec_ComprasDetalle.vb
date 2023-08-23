@@ -46,6 +46,9 @@ Public Class Tec_ComprasDetalle
 
 
         End With
+        With grProducto.RootTable.Columns("conversion")
+            .Visible = False
+        End With
         With grProducto.RootTable.Columns("CodigoExterno")
             .Width = 100
             .Caption = "Cod Externo"
@@ -456,6 +459,8 @@ Public Class Tec_ComprasDetalle
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCosto") = grProducto.GetValue("PrecioCosto")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("TotalCompra") = grProducto.GetValue("PrecioCosto") * cantidad
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioVenta") = grProducto.GetValue("PrecioVenta")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("conversion") = grProducto.GetValue("conversion")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("cajas") = cantidad / grProducto.GetValue("conversion")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("costo") = grProducto.GetValue("PrecioCosto")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("venta") = grProducto.GetValue("PrecioVenta")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
@@ -572,6 +577,8 @@ Public Class Tec_ComprasDetalle
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioVenta") = grProducto.GetValue("PrecioVenta")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("costo") = grProducto.GetValue("PrecioCosto")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("venta") = grProducto.GetValue("PrecioVenta")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("conversion") = grProducto.GetValue("conversion")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("cajas") = cantidad / grProducto.GetValue("conversion")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
 
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadCompra") = cantidad
