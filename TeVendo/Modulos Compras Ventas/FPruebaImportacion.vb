@@ -115,12 +115,17 @@ Public Class FPruebaImportacion
             '_AttributoId As Integer, _FamiliaId As Integer, _UnidadVentaId As Integer, _UnidadMaximaId As Integer,
             '_conversion As Double, _dtImagenes As DataTable, precioCosto As Decimal,
             'PrecioLista As Decimal, precioMenor As Decimal
+            Dim codigoExterno As String = dt.Rows(i).Item("codigo").ToString()
 
-            Res = L_prProductoInsertarDistralKCP(id, "", "",
+            If codigoExterno.Length < 4 Then
+                codigoExterno = codigoExterno.PadLeft(4, "0"c)
+            End If
+
+            Res = L_prProductoInsertarDistralKCP(id, codigoExterno, "",
                                         dt.Rows(i).Item("Producto"), dt.Rows(i).Item("Descripcion"),
                                         3, 1, 1,
                                         1, 1, idMarca, idSubGrupo, idMedida, 20, 22, 1,
-                                             TablaImagenes, 0, 0, 0)
+                                             TablaImagenes, 0, 0, dt.Rows(i).Item("PrecioVenta"))
 
             'dt.Rows(i).Item("IdSistema") = id
         Next

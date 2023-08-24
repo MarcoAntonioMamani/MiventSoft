@@ -2378,7 +2378,7 @@ Public Class AccesoLogica
 
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         '_listParam.Add(New Datos.DParametro("@Facturado", PrecioFacturado))
-        '_listParam.Add(New Datos.DParametro("@Mayorista", PrecioMayorista))
+        _listParam.Add(New Datos.DParametro("@PrecioVenta", precioMenor))
         _Tabla = D_ProcedimientoConParam("MAM_Productos", _listParam)
 
         If _Tabla.Rows.Count > 0 Then
