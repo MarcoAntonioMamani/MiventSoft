@@ -76,7 +76,18 @@ Public Class Tec_Productos
             .LineAlignment = TextAlignment.Center
 
         End With
-
+        With JGrM_Buscador.RootTable.Columns("Formulacion")
+            .LineAlignment = TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
+        End With
+        With JGrM_Buscador.RootTable.Columns("StockMinimo")
+            .LineAlignment = TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
+        End With
+        With JGrM_Buscador.RootTable.Columns("Presentacion")
+            .LineAlignment = TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
+        End With
         'Habilitar Filtradores
         With JGrM_Buscador
             .DefaultFilterRowComparison = FilterConditionOperator.Contains

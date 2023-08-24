@@ -1264,7 +1264,7 @@ salirIf:
         lbHora.Visible = False
 
 
-        tbFechaVencimientoCredito.MaxDate = DateAdd(DateInterval.Day, 30, tbFechaTransaccion.Value)
+        tbFechaVencimientoCredito.MaxDate = DateAdd(DateInterval.Month, 3, tbFechaTransaccion.Value)
 
     End Sub
 
@@ -2498,6 +2498,10 @@ salirIf:
 
         End If
 
+    End Sub
+
+    Private Sub tbFechaTransaccion_ValueChanged(sender As Object, e As EventArgs) Handles tbFechaTransaccion.ValueChanged
+        tbFechaVencimientoCredito.MaxDate = DateAdd(DateInterval.Month, 3, tbFechaTransaccion.Value)
     End Sub
 #End Region
 End Class
