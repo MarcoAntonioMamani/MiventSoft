@@ -272,7 +272,8 @@ Public Class Tec_MovimientoDetalle
                 Dim nombre As String = dt.Rows(i).Item("formulacion").ToString.ToUpper +
                     " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper +
                     " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("NombreCategoria").ToString.ToUpper
+                    " " + dt.Rows(i).Item("NombreCategoria").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("Presentacion").ToString.ToUpper
 
                 Select Case cant
                     Case 1
