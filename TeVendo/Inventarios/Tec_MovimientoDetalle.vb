@@ -270,7 +270,8 @@ Public Class Tec_MovimientoDetalle
                     " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper +
                     " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
                     " " + dt.Rows(i).Item("Marca").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("ubicacion").ToString.ToUpper
+                    " " + dt.Rows(i).Item("ubicacion").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("CodigoExterno").ToString.ToUpper
                 Select Case cant
                     Case 1
 

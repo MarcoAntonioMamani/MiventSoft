@@ -49,7 +49,7 @@ Public Class Tec_ComprasDetalle
         With grProducto.RootTable.Columns("CodigoExterno")
             .Width = 100
             .Caption = "Cod Externo"
-            .Visible = False
+            .Visible = True
 
         End With
 
@@ -728,7 +728,8 @@ salirIf:
                     " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
                     " " + dt.Rows(i).Item("ubicacion").ToString.ToUpper +
                     " " + dt.Rows(i).Item("Marca").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper
+                    " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("CodigoExterno").ToString.ToUpper
                 Select Case cant
                     Case 1
 

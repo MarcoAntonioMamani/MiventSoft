@@ -73,14 +73,11 @@ Public Class Tec_VentasDetalle
             .Width = 100
             .Caption = "Tipo"
             .Visible = False
-
-
         End With
         With grProducto.RootTable.Columns("CodigoExterno")
             .Width = 100
             .Caption = "Cod Externo"
-            .Visible = False
-
+            .Visible = True
         End With
 
         With grProducto.RootTable.Columns("estado")
@@ -135,8 +132,8 @@ Public Class Tec_VentasDetalle
             .Width = 120
             .Visible = True
             .MaxLines = 2
-            .WordWrap = False
-            .Caption = "Marca"
+            .WordWrap = True
+            .Caption = "Principio Activo"
         End With
 
         With grProducto.RootTable.Columns("PrecioCosto")
@@ -1193,7 +1190,8 @@ salirIf:
                     " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
                     " " + dt.Rows(i).Item("ubicacion").ToString.ToUpper +
                     " " + dt.Rows(i).Item("Marca").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper
+                    " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("CodigoExterno").ToString.ToUpper
                 Select Case cant
                     Case 1
 

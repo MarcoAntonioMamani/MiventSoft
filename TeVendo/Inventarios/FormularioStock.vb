@@ -78,7 +78,8 @@ Public Class FormularioStock
                     " " + dt.Rows(i).Item("Marca").ToString.ToUpper +
                     " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
                     " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("ubicacion").ToString.ToUpper
+                    " " + dt.Rows(i).Item("ubicacion").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("CodigoExterno").ToString.ToUpper
                 Select Case cant
                     Case 1
 
@@ -228,7 +229,7 @@ Public Class FormularioStock
         With grProducto.RootTable.Columns("CodigoExterno")
             .Width = 100
             .Caption = "Cod. Externo"
-            .Visible = False
+            .Visible = True
 
 
         End With
@@ -286,7 +287,7 @@ Public Class FormularioStock
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Stock"
-            .MaxLines = 2
+            .MaxLines = 3
             .WordWrap = True
         End With
         With grProducto.RootTable.Columns("stockGeneral")
