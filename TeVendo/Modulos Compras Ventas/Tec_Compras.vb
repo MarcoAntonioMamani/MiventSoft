@@ -330,6 +330,7 @@ Public Class Tec_Compras
             .Visible = True
             .FormatString = "0.00"
             .Caption = "P.Costo"
+            .CellStyle.FontBold = TriState.True
         End With
 
 
@@ -339,6 +340,7 @@ Public Class Tec_Compras
             .Visible = True
             .FormatString = "0.00"
             .Caption = "SubTotal"
+            .CellStyle.FontBold = TriState.True
         End With
 
         With grDetalle.RootTable.Columns("CompraId")
@@ -358,6 +360,7 @@ Public Class Tec_Compras
             .Width = 150
             .Caption = "Producto"
             .Visible = True
+            .CellStyle.FontBold = TriState.True
         End With
 
 
@@ -367,6 +370,7 @@ Public Class Tec_Compras
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Cantidad"
+            .CellStyle.FontBold = TriState.True
         End With
         With grDetalle.RootTable.Columns("PorcentajeIncremento")
             .Width = 90

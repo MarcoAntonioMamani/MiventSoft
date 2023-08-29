@@ -222,24 +222,21 @@ Public Class FormularioStock
             .Width = 100
             .Caption = "Id"
             .Visible = False
-
-
         End With
 
         With grProducto.RootTable.Columns("CodigoExterno")
             .Width = 100
             .Caption = "Cod. Externo"
             .Visible = True
-
-
+            .CellStyle.FontBold = TriState.True
         End With
-
         With grProducto.RootTable.Columns("NombreProducto")
             .Width = 250
             .Caption = "PRODUCTOS"
             .Visible = True
             .MaxLines = 2
             .WordWrap = True
+            .CellStyle.FontBold = TriState.True
         End With
         With grProducto.RootTable.Columns("Categoria")
             .Width = 150
@@ -263,6 +260,7 @@ Public Class FormularioStock
             .Caption = "DESCRIPCION"
             .MaxLines = 2
             .WordWrap = True
+            .CellStyle.FontBold = TriState.True
         End With
 
 
@@ -281,6 +279,7 @@ Public Class FormularioStock
             .Caption = "Precio"
             .MaxLines = 2
             .WordWrap = True
+            .CellStyle.FontBold = TriState.True
         End With
         With grProducto.RootTable.Columns("stock")
             .Width = 250

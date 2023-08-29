@@ -78,6 +78,7 @@ Public Class Tec_VentasDetalle
             .Width = 100
             .Caption = "Cod Externo"
             .Visible = True
+            .CellStyle.FontBold = TriState.True
         End With
 
         With grProducto.RootTable.Columns("estado")
@@ -91,6 +92,7 @@ Public Class Tec_VentasDetalle
             .Visible = True
             .MaxLines = 2
             .WordWrap = True
+            .CellStyle.FontBold = TriState.True
         End With
 
         With grProducto.RootTable.Columns("DescripcionProducto")
@@ -146,6 +148,7 @@ Public Class Tec_VentasDetalle
             .Visible = True
             .Caption = "Stock"
             .FormatString = "0.00"
+            .CellStyle.FontBold = TriState.True
         End With
         With grProducto.RootTable.Columns("PrecioVenta")
             .Width = 150
@@ -293,6 +296,7 @@ Public Class Tec_VentasDetalle
             .Visible = True
             .WordWrap = True
             .MaxLines = 3
+            .CellStyle.FontBold = TriState.True
         End With
         With grDetalle.RootTable.Columns("laboratorio")
             .Width = 100
@@ -324,6 +328,7 @@ Public Class Tec_VentasDetalle
             .Visible = True
             .Caption = "Precio"
             .FormatString = "0.00"
+            .CellStyle.FontBold = TriState.True
         End With
 
         With grDetalle.RootTable.Columns("SubTotal")
@@ -332,6 +337,7 @@ Public Class Tec_VentasDetalle
             .Visible = True
             .Caption = "SubTotal"
             .FormatString = "0.00"
+            .CellStyle.FontBold = TriState.True
         End With
         '     a.Id , a.VentaId, a.ProductoId, p.NombreProducto As Producto, a.Cantidad, a.Precio, a.SubTotal,
         '     a.ProcentajeDescuento, a.MontoDescuento, a.Total, a.Detalle, a.PrecioCosto, a.Lote, a.FechaVencimiento,
