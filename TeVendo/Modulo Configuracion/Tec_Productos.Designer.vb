@@ -99,6 +99,7 @@ Partial Class Tec_Productos
         Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX7 = New DevComponents.DotNetBar.LabelX()
         Me.tbFabrica = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.tbNombreProducto = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
@@ -148,7 +149,6 @@ Partial Class Tec_Productos
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.MenuEliminar = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -221,8 +221,8 @@ Partial Class Tec_Productos
         Me.TabControlPrincipal.ControlBox.MenuBox.Name = ""
         Me.TabControlPrincipal.ControlBox.Name = ""
         Me.TabControlPrincipal.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.TabControlPrincipal.ControlBox.MenuBox, Me.TabControlPrincipal.ControlBox.CloseBox})
-        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel1)
         Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel2)
+        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel1)
         Me.TabControlPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControlPrincipal.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.Location = New System.Drawing.Point(0, 0)
@@ -1348,6 +1348,24 @@ Partial Class Tec_Productos
         Me.tbFabrica.Size = New System.Drawing.Size(269, 29)
         Me.tbFabrica.TabIndex = 4
         '
+        'LabelX4
+        '
+        Me.LabelX4.AutoSize = True
+        Me.LabelX4.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX4.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX4.Location = New System.Drawing.Point(9, 61)
+        Me.LabelX4.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX4.Name = "LabelX4"
+        Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX4.Size = New System.Drawing.Size(52, 21)
+        Me.LabelX4.TabIndex = 41
+        Me.LabelX4.Text = "Fabrica:"
+        '
         'LabelX1
         '
         Me.LabelX1.AutoSize = True
@@ -1906,9 +1924,9 @@ Partial Class Tec_Productos
         Me.btnReporteConImagenes.Name = "btnReporteConImagenes"
         Me.btnReporteConImagenes.Size = New System.Drawing.Size(163, 41)
         Me.btnReporteConImagenes.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnReporteConImagenes.Symbol = ""
+        Me.btnReporteConImagenes.Symbol = ""
         Me.btnReporteConImagenes.TabIndex = 8
-        Me.btnReporteConImagenes.Text = "Reporte Precios" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Imagenes"
+        Me.btnReporteConImagenes.Text = "Actualizar"
         Me.btnReporteConImagenes.TextColor = System.Drawing.Color.White
         '
         'ButtonX2
@@ -2059,24 +2077,6 @@ Partial Class Tec_Productos
         Me.ToolStripMenuItem3.Padding = New System.Windows.Forms.Padding(5)
         Me.ToolStripMenuItem3.Size = New System.Drawing.Size(155, 36)
         Me.ToolStripMenuItem3.Text = "Eliminar"
-        '
-        'LabelX4
-        '
-        Me.LabelX4.AutoSize = True
-        Me.LabelX4.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX4.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX4.Location = New System.Drawing.Point(9, 61)
-        Me.LabelX4.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX4.Name = "LabelX4"
-        Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX4.Size = New System.Drawing.Size(52, 21)
-        Me.LabelX4.TabIndex = 41
-        Me.LabelX4.Text = "Fabrica:"
         '
         'Tec_Productos
         '

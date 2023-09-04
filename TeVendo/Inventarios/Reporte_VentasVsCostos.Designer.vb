@@ -22,6 +22,8 @@ Partial Class Reporte_VentasVsCostos
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim cbDeposito_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Reporte_VentasVsCostos))
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.PanelSuperior = New System.Windows.Forms.Panel()
         Me.PanelLEft = New System.Windows.Forms.Panel()
@@ -48,6 +50,8 @@ Partial Class Reporte_VentasVsCostos
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.PanelToolBar1 = New System.Windows.Forms.Panel()
         Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
+        Me.cbDeposito = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelLEft.SuspendLayout()
@@ -60,6 +64,7 @@ Partial Class Reporte_VentasVsCostos
         Me.PanelButton.SuspendLayout()
         Me.PanelNavegacion.SuspendLayout()
         Me.PanelToolBar1.SuspendLayout()
+        CType(Me.cbDeposito, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
@@ -69,7 +74,7 @@ Partial Class Reporte_VentasVsCostos
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(979, 647)
+        Me.Panel1.Size = New System.Drawing.Size(1303, 647)
         Me.Panel1.TabIndex = 7
         '
         'PanelSuperior
@@ -78,7 +83,7 @@ Partial Class Reporte_VentasVsCostos
         Me.PanelSuperior.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelSuperior.Location = New System.Drawing.Point(0, 0)
         Me.PanelSuperior.Name = "PanelSuperior"
-        Me.PanelSuperior.Size = New System.Drawing.Size(979, 564)
+        Me.PanelSuperior.Size = New System.Drawing.Size(1303, 564)
         Me.PanelSuperior.TabIndex = 1
         '
         'PanelLEft
@@ -87,7 +92,7 @@ Partial Class Reporte_VentasVsCostos
         Me.PanelLEft.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelLEft.Location = New System.Drawing.Point(0, 0)
         Me.PanelLEft.Name = "PanelLEft"
-        Me.PanelLEft.Size = New System.Drawing.Size(979, 564)
+        Me.PanelLEft.Size = New System.Drawing.Size(1303, 564)
         Me.PanelLEft.TabIndex = 0
         '
         'Panel8
@@ -99,7 +104,7 @@ Partial Class Reporte_VentasVsCostos
         Me.Panel8.Location = New System.Drawing.Point(0, 0)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel8.Size = New System.Drawing.Size(979, 564)
+        Me.Panel8.Size = New System.Drawing.Size(1303, 564)
         Me.Panel8.TabIndex = 1
         '
         'PanelDatos
@@ -109,7 +114,7 @@ Partial Class Reporte_VentasVsCostos
         Me.PanelDatos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelDatos.Location = New System.Drawing.Point(3, 30)
         Me.PanelDatos.Name = "PanelDatos"
-        Me.PanelDatos.Size = New System.Drawing.Size(973, 531)
+        Me.PanelDatos.Size = New System.Drawing.Size(1297, 531)
         Me.PanelDatos.TabIndex = 2
         '
         'PanelPrincipal
@@ -120,7 +125,7 @@ Partial Class Reporte_VentasVsCostos
         Me.PanelPrincipal.Location = New System.Drawing.Point(0, 0)
         Me.PanelPrincipal.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelPrincipal.Name = "PanelPrincipal"
-        Me.PanelPrincipal.Size = New System.Drawing.Size(973, 531)
+        Me.PanelPrincipal.Size = New System.Drawing.Size(1297, 531)
         Me.PanelPrincipal.TabIndex = 2
         '
         'MReportViewer
@@ -133,7 +138,7 @@ Partial Class Reporte_VentasVsCostos
         Me.MReportViewer.Location = New System.Drawing.Point(0, 0)
         Me.MReportViewer.Margin = New System.Windows.Forms.Padding(4)
         Me.MReportViewer.Name = "MReportViewer"
-        Me.MReportViewer.Size = New System.Drawing.Size(973, 531)
+        Me.MReportViewer.Size = New System.Drawing.Size(1297, 531)
         Me.MReportViewer.TabIndex = 20
         Me.MReportViewer.ToolPanelWidth = 267
         '
@@ -145,7 +150,7 @@ Partial Class Reporte_VentasVsCostos
         Me.Panel10.Location = New System.Drawing.Point(3, 3)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel10.Size = New System.Drawing.Size(973, 27)
+        Me.Panel10.Size = New System.Drawing.Size(1297, 27)
         Me.Panel10.TabIndex = 1
         '
         'Panel11
@@ -157,7 +162,7 @@ Partial Class Reporte_VentasVsCostos
         Me.Panel11.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel11.Location = New System.Drawing.Point(1, 1)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(971, 25)
+        Me.Panel11.Size = New System.Drawing.Size(1295, 25)
         Me.Panel11.TabIndex = 0
         '
         'Label3
@@ -205,11 +210,13 @@ Partial Class Reporte_VentasVsCostos
         Me.PanelButton.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.PanelButton.Location = New System.Drawing.Point(0, 564)
         Me.PanelButton.Name = "PanelButton"
-        Me.PanelButton.Size = New System.Drawing.Size(979, 83)
+        Me.PanelButton.Size = New System.Drawing.Size(1303, 83)
         Me.PanelButton.TabIndex = 3
         '
         'PanelNavegacion
         '
+        Me.PanelNavegacion.Controls.Add(Me.cbDeposito)
+        Me.PanelNavegacion.Controls.Add(Me.LabelX5)
         Me.PanelNavegacion.Controls.Add(Me.LabelX3)
         Me.PanelNavegacion.Controls.Add(Me.swTipoReporte)
         Me.PanelNavegacion.Controls.Add(Me.chkTodos)
@@ -224,7 +231,7 @@ Partial Class Reporte_VentasVsCostos
         Me.PanelNavegacion.Location = New System.Drawing.Point(0, 0)
         Me.PanelNavegacion.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelNavegacion.Name = "PanelNavegacion"
-        Me.PanelNavegacion.Size = New System.Drawing.Size(834, 83)
+        Me.PanelNavegacion.Size = New System.Drawing.Size(1158, 83)
         Me.PanelNavegacion.TabIndex = 21
         '
         'LabelX3
@@ -444,7 +451,7 @@ Partial Class Reporte_VentasVsCostos
         Me.PanelToolBar1.Controls.Add(Me.ButtonX1)
         Me.PanelToolBar1.Dock = System.Windows.Forms.DockStyle.Right
         Me.PanelToolBar1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.PanelToolBar1.Location = New System.Drawing.Point(834, 0)
+        Me.PanelToolBar1.Location = New System.Drawing.Point(1158, 0)
         Me.PanelToolBar1.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelToolBar1.Name = "PanelToolBar1"
         Me.PanelToolBar1.Size = New System.Drawing.Size(145, 83)
@@ -469,11 +476,53 @@ Partial Class Reporte_VentasVsCostos
         Me.ButtonX1.Text = "Generar"
         Me.ButtonX1.TextColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
         '
+        'cbDeposito
+        '
+        Me.cbDeposito.BackColor = System.Drawing.Color.Azure
+        Me.cbDeposito.ColorScheme = ""
+        Me.cbDeposito.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.cbDeposito.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
+        Me.cbDeposito.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        cbDeposito_DesignTimeLayout.LayoutString = resources.GetString("cbDeposito_DesignTimeLayout.LayoutString")
+        Me.cbDeposito.DesignTimeLayout = cbDeposito_DesignTimeLayout
+        Me.cbDeposito.FlatBorderColor = System.Drawing.Color.Black
+        Me.cbDeposito.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbDeposito.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbDeposito.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cbDeposito.Location = New System.Drawing.Point(863, 10)
+        Me.cbDeposito.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbDeposito.Name = "cbDeposito"
+        Me.cbDeposito.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbDeposito.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
+        Me.cbDeposito.SelectedIndex = -1
+        Me.cbDeposito.SelectedItem = Nothing
+        Me.cbDeposito.Size = New System.Drawing.Size(237, 26)
+        Me.cbDeposito.TabIndex = 216
+        Me.cbDeposito.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'LabelX5
+        '
+        Me.LabelX5.AutoSize = True
+        Me.LabelX5.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX5.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX5.ForeColor = System.Drawing.Color.White
+        Me.LabelX5.Location = New System.Drawing.Point(797, 10)
+        Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX5.Name = "LabelX5"
+        Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX5.Size = New System.Drawing.Size(61, 21)
+        Me.LabelX5.TabIndex = 215
+        Me.LabelX5.Text = "Almacen:"
+        '
         'Reporte_VentasVsCostos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(979, 647)
+        Me.ClientSize = New System.Drawing.Size(1303, 647)
         Me.Controls.Add(Me.Panel1)
         Me.Name = "Reporte_VentasVsCostos"
         Me.Text = "Reporte_VentasVsCostos"
@@ -491,6 +540,7 @@ Partial Class Reporte_VentasVsCostos
         Me.PanelNavegacion.ResumeLayout(False)
         Me.PanelNavegacion.PerformLayout()
         Me.PanelToolBar1.ResumeLayout(False)
+        CType(Me.cbDeposito, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -521,4 +571,6 @@ Partial Class Reporte_VentasVsCostos
     Protected WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
     Friend WithEvents LabelX3 As DevComponents.DotNetBar.LabelX
     Friend WithEvents swTipoReporte As DevComponents.DotNetBar.Controls.SwitchButton
+    Friend WithEvents cbDeposito As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
 End Class

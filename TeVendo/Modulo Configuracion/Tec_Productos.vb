@@ -1412,43 +1412,46 @@ Public Class Tec_Productos
     End Sub
 
     Private Sub btnReporteConImagenes_Click(sender As Object, e As EventArgs) Handles btnReporteConImagenes.Click
-        Dim dt As DataTable
+
+        _PMIniciarTodo()
+
+        'Dim dt As DataTable
 
 
-        dt = L_fnListarCategoriaProductos()
-        'a.Id ,a.NombreCliente  as NombreProveedor ,a.DireccionCliente  ,a.Telefono
+        'dt = L_fnListarCategoriaProductos()
+        ''a.Id ,a.NombreCliente  as NombreProveedor ,a.DireccionCliente  ,a.Telefono
 
-        Dim listEstCeldas As New List(Of Celda)
-        listEstCeldas.Add(New Celda("id,", False, "ID", 50))
-        listEstCeldas.Add(New Celda("Nombre", True, "CATEGORIA PRECIO", 350))
-        listEstCeldas.Add(New Celda("seleccionado", True, "SELECCIONAR", 150))
-
-
-
-        Dim ef = New Efecto
-        ef.tipo = 23
-        ef.dt = dt
-        ef.SeleclCol = 0
-        ef.listEstCeldasNew = listEstCeldas
-        ef.alto = 80
-        ef.ancho = 800
-        ef.Context = "Seleccione Categoria Precio".ToUpper
-        ef.ShowDialog()
-        Dim bandera As Boolean = False
-        bandera = ef.band
-        If (bandera = True) Then
-            'Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
-
-            Dim CategoriaPrecio As Integer = ef.CategoriaPrecioSelected
-            Dim SucursalSelected As Integer = ef.SucursalSelected
-            dt = ef.TableCategoria
+        'Dim listEstCeldas As New List(Of Celda)
+        'listEstCeldas.Add(New Celda("id,", False, "ID", 50))
+        'listEstCeldas.Add(New Celda("Nombre", True, "CATEGORIA PRECIO", 350))
+        'listEstCeldas.Add(New Celda("seleccionado", True, "SELECCIONAR", 150))
 
 
 
+        'Dim ef = New Efecto
+        'ef.tipo = 23
+        'ef.dt = dt
+        'ef.SeleclCol = 0
+        'ef.listEstCeldasNew = listEstCeldas
+        'ef.alto = 80
+        'ef.ancho = 800
+        'ef.Context = "Seleccione Categoria Precio".ToUpper
+        'ef.ShowDialog()
+        'Dim bandera As Boolean = False
+        'bandera = ef.band
+        'If (bandera = True) Then
+        '    'Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
 
-            GenerarReporte(1, 1, CategoriaPrecio, SucursalSelected, dt)
+        '    Dim CategoriaPrecio As Integer = ef.CategoriaPrecioSelected
+        '    Dim SucursalSelected As Integer = ef.SucursalSelected
+        '    dt = ef.TableCategoria
 
-        End If
+
+
+
+        '    GenerarReporte(1, 1, CategoriaPrecio, SucursalSelected, dt)
+
+        'End If
 
 
     End Sub
