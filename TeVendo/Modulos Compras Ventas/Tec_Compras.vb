@@ -354,13 +354,13 @@ Public Class Tec_Compras
             .Caption = "Cod Producto"
         End With
 
-
-
         With grDetalle.RootTable.Columns("Producto")
-            .Width = 150
+            .Width = 220
             .Caption = "Producto"
             .Visible = True
             .CellStyle.FontBold = TriState.True
+            .WordWrap = True
+            .MaxLines = 4
         End With
 
 
