@@ -8,8 +8,12 @@ Public Class FormularioCantidadProductos
     Public respuesta As Boolean = False
     Public NombreProducto As String = ""
     Public CantidadTotal As Double = 0
+    Public Conversion As Double = 0
     Public CantidadVenta As Double = 0
     Public TipoMovimiento As Integer = 0  ''4= ingreso 3 = egreso
+
+    Public BanderaCantidadCaja As Boolean = False
+    Public BanderaCantidadUnitaria As Boolean = False
 
 #Region "Button Si"
     Private Sub Panel1_MouseHover(sender As Object, e As EventArgs) Handles btnSi.MouseHover
@@ -25,7 +29,7 @@ Public Class FormularioCantidadProductos
     End Sub
     Private Sub Formulario_Eliminar_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         txtProducto.Text = NombreProducto
-        txtStock.Text = "Cantidad Disponible = " + Str(CantidadTotal)
+        txtStock.Text = "Cantidad Unitaria = " + Str(CantidadTotal) + "  Cantidad Cajas = " + Str(Format(CantidadTotal / Conversion, "0.00")) & vbNewLine & " Conversion = " + Str(Conversion)
         _habilitarFocus()
     End Sub
     Public Sub _habilitarFocus()
@@ -64,7 +68,7 @@ Public Class FormularioCantidadProductos
     Public Sub ValidarStock()
 
         If (IsNumeric(tbCantidad.Text)) Then
-            Dim CantidadActual As Double = Double.Parse(tbCantidad.Text)
+            Dim CantidadActual As Double = Double.Parse(tbCantidadUnitaria.Text)
             If (TipoMovimiento = 4) Then
 
                 CantidadVenta = CantidadActual
@@ -73,8 +77,7 @@ Public Class FormularioCantidadProductos
             Else
                 If (CantidadActual > CantidadTotal) Then
 
-                    tbCantidad.Clear()
-                    tbCantidad.Text = Str(CantidadTotal).Trim
+                    tbCantidadUnitaria.Text = Str(CantidadTotal).Trim
                     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
                     ToastNotification.Show(Me, "La cantidad es Superior Al Stock Disponible = " + Str(CantidadTotal), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
                     tbCantidad.Focus()
@@ -85,8 +88,8 @@ Public Class FormularioCantidadProductos
                         respuesta = True
                         Me.Close()
                     Else
-                        tbCantidad.Clear()
-                        tbCantidad.Text = "0".Trim
+
+                        tbCantidadUnitaria.Text = "0".Trim
                         Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
                         ToastNotification.Show(Me, "La Cantidad debe ser Mayor o igual a 1", img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
                         tbCantidad.Focus()
@@ -109,7 +112,7 @@ Public Class FormularioCantidadProductos
 
     End Sub
 
-    Private Sub tbCantidad_KeyDown(sender As Object, e As KeyEventArgs) Handles tbCantidad.KeyDown
+    Private Sub tbCantidad_KeyDown(sender As Object, e As KeyEventArgs)
         If (e.KeyData = Keys.Enter) Then
             ValidarStock()
         End If
@@ -119,6 +122,49 @@ Public Class FormularioCantidadProductos
         If (e.KeyData = Keys.Escape) Then
             respuesta = False
             Me.Close()
+
+        End If
+    End Sub
+
+    Private Sub tbCantidad_ValueChanged(sender As Object, e As EventArgs) Handles tbCantidad.ValueChanged
+        If (BanderaCantidadUnitaria = True) Then
+            Return
+
+        End If
+        BanderaCantidadCaja = True
+        If (IsNumeric(tbCantidad.Text)) Then
+            Dim CantidadActual As Double = Double.Parse(tbCantidad.Text)
+            Dim CantidadConversionUnitaria As Double = CantidadActual * Conversion
+            tbCantidadUnitaria.Text = Str(CantidadConversionUnitaria)
+            BanderaCantidadCaja = False
+
+
+        Else
+            tbCantidad.Text = 0
+            BanderaCantidadCaja = False
+        End If
+    End Sub
+
+    Private Sub tbCantidadUnitaria_ValueChanged(sender As Object, e As EventArgs) Handles tbCantidadUnitaria.ValueChanged
+        If (BanderaCantidadCaja = True) Then
+            Return
+
+        End If
+        BanderaCantidadUnitaria = True
+        If (IsNumeric(tbCantidadUnitaria.Text)) Then
+            Dim CantidadActual As Double = Double.Parse(tbCantidadUnitaria.Text)
+            Dim CantidadConversionCaja As Double = CantidadActual / Conversion
+            tbCantidad.Text = Str(CantidadConversionCaja)
+            BanderaCantidadUnitaria = False
+        Else
+            tbCantidadUnitaria.Text = 0
+            BanderaCantidadUnitaria = False
+        End If
+    End Sub
+
+    Private Sub tbCantidad_KeyDown_1(sender As Object, e As KeyEventArgs) Handles tbCantidad.KeyDown, tbCantidadUnitaria.KeyDown
+        If (e.KeyData = Keys.Enter) Then
+            ValidarStock()
 
         End If
     End Sub

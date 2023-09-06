@@ -32,7 +32,7 @@ Public Class Efecto
     Public SueldoNeto As Double = 0
     Public dtGeneral As DataTable
     Public Fila As Integer
-
+    Public Conversion As Integer = 0
 
     Public dtDetalle As DataTable
     Public TipoMovimientoId As Integer
@@ -468,6 +468,7 @@ Public Class Efecto
         frmAyuda.NombreProducto = NombreProducto
         frmAyuda.CantidadTotal = StockActual
         frmAyuda.TipoMovimiento = TipoMovimiento
+        frmAyuda.Conversion = Conversion
         frmAyuda.ShowDialog()
         If frmAyuda.respuesta = True Then
 
@@ -485,6 +486,8 @@ Public Class Efecto
         frmAyuda = New Formulario_Cantidad_Lote
         frmAyuda.NombreProducto = NombreProducto
         frmAyuda.CantidadTotal = StockActual
+        frmAyuda.Conversion = Conversion
+        frmAyuda.TipoMovimiento = TipoMovimiento
         frmAyuda.ShowDialog()
         If frmAyuda.respuesta = True Then
             Lote = frmAyuda.Lote

@@ -9,7 +9,11 @@ Public Class Formulario_Cantidad_Lote
     Public CantidadTotal As Double = 0
     Public CantidadVenta As Double = 0
     Public Lote As String = ""
+    Public Conversion As Double = 0
     Public Fecha As Date
+    Public BanderaCantidadCaja As Boolean = False
+    Public BanderaCantidadUnitaria As Boolean = False
+    Public TipoMovimiento As Integer = 0  ''4= ingreso 3 = egreso
 #Region "Button Si"
     Private Sub Panel1_MouseHover(sender As Object, e As EventArgs) Handles btnSi.MouseHover
         btnSi.BackColor = Color.FromArgb(30, 199, 165)
@@ -24,7 +28,7 @@ Public Class Formulario_Cantidad_Lote
     End Sub
     Private Sub Formulario_Eliminar_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         txtProducto.Text = NombreProducto
-        txtStock.Text = "Cantidad Disponible = " + Str(CantidadTotal)
+        txtStock.Text = "Cantidad Unitaria = " + Str(CantidadTotal) + "  Cantidad Cajas = " + Str(Format(CantidadTotal / Conversion, "0.00")) & vbNewLine & " Conversion = " + Str(Conversion)
         tbLote.Text = "20200101"
         cbFecha.Value = Now.Date
 
@@ -68,31 +72,55 @@ Public Class Formulario_Cantidad_Lote
     Public Sub ValidarStock()
 
         If (IsNumeric(tbCantidad.Text) And tbLote.Text.ToString.Length > 0) Then
-            Dim CantidadActual As Double = Double.Parse(tbCantidad.Text)
+                Dim CantidadActual As Double = Double.Parse(tbCantidadUnitaria.Text)
+                If (TipoMovimiento = 4) Then
+
+                CantidadVenta = CantidadActual
+                Lote = tbLote.Text
+                Fecha = cbFecha.Value
+                respuesta = True
+                    Me.Close()
+                Else
+                    If (CantidadActual > CantidadTotal) Then
+
+                        tbCantidadUnitaria.Text = Str(CantidadTotal).Trim
+                        Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                        ToastNotification.Show(Me, "La cantidad es Superior Al Stock Disponible = " + Str(CantidadTotal), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                        tbCantidad.Focus()
+                    Else
+                        If (CantidadActual > 0) Then
+
+                        CantidadVenta = CantidadActual
+                        respuesta = True
+                        Lote = tbLote.Text
+                        Fecha = cbFecha.Value
+                        Me.Close()
+                        Else
+
+                            tbCantidadUnitaria.Text = "0".Trim
+                            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                            ToastNotification.Show(Me, "La Cantidad debe ser Mayor o igual a 1", img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                            tbCantidad.Focus()
+                        End If
 
 
-            CantidadVenta = CantidadActual
-            respuesta = True
-            Lote = tbLote.Text
-            Fecha = cbFecha.Value
-            Me.Close()
+                    End If
+                End If
 
 
+            Else
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "Ingrese Datos Validos", img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
 
-        Else
-            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-            ToastNotification.Show(Me, "Ingrese Datos Validos", img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-
-
-        End If
+            End If
 
 
 
 
     End Sub
 
-    Private Sub tbCantidad_KeyDown(sender As Object, e As KeyEventArgs) Handles tbCantidad.KeyDown
+    Private Sub tbCantidad_KeyDown(sender As Object, e As KeyEventArgs)
         If (e.KeyData = Keys.Enter) Then
             cbFecha.Focus()
         End If
@@ -130,6 +158,48 @@ Public Class Formulario_Cantidad_Lote
     Private Sub btnNo_Paint(sender As Object, e As PaintEventArgs) Handles btnNo.Paint
         'respuesta = False
         'Me.Close()
+    End Sub
+    Private Sub tbCantidad_ValueChanged(sender As Object, e As EventArgs) Handles tbCantidad.ValueChanged
+        If (BanderaCantidadUnitaria = True) Then
+            Return
+
+        End If
+        BanderaCantidadCaja = True
+        If (IsNumeric(tbCantidad.Text)) Then
+            Dim CantidadActual As Double = Double.Parse(tbCantidad.Text)
+            Dim CantidadConversionUnitaria As Double = CantidadActual * Conversion
+            tbCantidadUnitaria.Text = Str(CantidadConversionUnitaria)
+            BanderaCantidadCaja = False
+
+
+        Else
+            tbCantidad.Text = 0
+            BanderaCantidadCaja = False
+        End If
+    End Sub
+
+    Private Sub tbCantidadUnitaria_ValueChanged(sender As Object, e As EventArgs) Handles tbCantidadUnitaria.ValueChanged
+        If (BanderaCantidadCaja = True) Then
+            Return
+
+        End If
+        BanderaCantidadUnitaria = True
+        If (IsNumeric(tbCantidadUnitaria.Text)) Then
+            Dim CantidadActual As Double = Double.Parse(tbCantidadUnitaria.Text)
+            Dim CantidadConversionCaja As Double = CantidadActual / Conversion
+            tbCantidad.Text = Str(CantidadConversionCaja)
+            BanderaCantidadUnitaria = False
+        Else
+            tbCantidadUnitaria.Text = 0
+            BanderaCantidadUnitaria = False
+        End If
+    End Sub
+
+    Private Sub tbCantidad_KeyDown_1(sender As Object, e As KeyEventArgs) Handles tbCantidad.KeyDown, tbCantidadUnitaria.KeyDown
+        If (e.KeyData = Keys.Enter) Then
+            ValidarStock()
+
+        End If
     End Sub
 #End Region
 End Class

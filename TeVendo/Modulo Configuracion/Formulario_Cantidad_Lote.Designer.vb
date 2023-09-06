@@ -22,7 +22,6 @@ Partial Class Formulario_Cantidad_Lote
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.tbCantidad = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.txtStock = New System.Windows.Forms.Label()
         Me.btnNo = New System.Windows.Forms.Panel()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -31,48 +30,29 @@ Partial Class Formulario_Cantidad_Lote
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.txtProducto = New System.Windows.Forms.Label()
         Me.txtTitulo = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.tbLote = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.cbFecha = New Janus.Windows.CalendarCombo.CalendarCombo()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
+        Me.tbCantidadUnitaria = New DevComponents.Editors.DoubleInput()
+        Me.tbCantidad = New DevComponents.Editors.DoubleInput()
+        Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
+        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
         Me.btnNo.SuspendLayout()
         Me.btnSi.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbCantidadUnitaria, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbCantidad, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'tbCantidad
-        '
-        '
-        '
-        '
-        Me.tbCantidad.Border.BackColor = System.Drawing.Color.MediumVioletRed
-        Me.tbCantidad.Border.BackColor2 = System.Drawing.Color.MediumTurquoise
-        Me.tbCantidad.Border.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Dot
-        Me.tbCantidad.Border.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Dot
-        Me.tbCantidad.Border.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Dot
-        Me.tbCantidad.Border.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Dot
-        Me.tbCantidad.Border.Class = "TextBoxBorder"
-        Me.tbCantidad.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbCantidad.Font = New System.Drawing.Font("Calibri", 16.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbCantidad.ForeColor = System.Drawing.Color.Black
-        Me.tbCantidad.Location = New System.Drawing.Point(332, 247)
-        Me.tbCantidad.Margin = New System.Windows.Forms.Padding(4)
-        Me.tbCantidad.Name = "tbCantidad"
-        Me.tbCantidad.PreventEnterBeep = True
-        Me.tbCantidad.Size = New System.Drawing.Size(206, 40)
-        Me.tbCantidad.TabIndex = 0
-        Me.tbCantidad.Text = "0"
-        Me.tbCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'txtStock
         '
         Me.txtStock.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtStock.ForeColor = System.Drawing.Color.DarkCyan
-        Me.txtStock.Location = New System.Drawing.Point(137, 202)
+        Me.txtStock.Location = New System.Drawing.Point(149, 214)
         Me.txtStock.Name = "txtStock"
-        Me.txtStock.Size = New System.Drawing.Size(447, 24)
+        Me.txtStock.Size = New System.Drawing.Size(499, 24)
         Me.txtStock.TabIndex = 17
         Me.txtStock.Text = "Cantidad Disponible = 10"
         Me.txtStock.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -82,10 +62,10 @@ Partial Class Formulario_Cantidad_Lote
         Me.btnNo.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.btnNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.btnNo.Controls.Add(Me.Label4)
-        Me.btnNo.Location = New System.Drawing.Point(168, 375)
+        Me.btnNo.Location = New System.Drawing.Point(263, 444)
         Me.btnNo.Name = "btnNo"
         Me.btnNo.Size = New System.Drawing.Size(156, 50)
-        Me.btnNo.TabIndex = 13
+        Me.btnNo.TabIndex = 4
         '
         'Label4
         '
@@ -103,10 +83,10 @@ Partial Class Formulario_Cantidad_Lote
         Me.btnSi.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(179, Byte), Integer), CType(CType(148, Byte), Integer))
         Me.btnSi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.btnSi.Controls.Add(Me.Label3)
-        Me.btnSi.Location = New System.Drawing.Point(382, 375)
+        Me.btnSi.Location = New System.Drawing.Point(477, 444)
         Me.btnSi.Name = "btnSi"
         Me.btnSi.Size = New System.Drawing.Size(156, 50)
-        Me.btnSi.TabIndex = 3
+        Me.btnSi.TabIndex = 5
         '
         'Label3
         '
@@ -122,7 +102,7 @@ Partial Class Formulario_Cantidad_Lote
         'PictureBox1
         '
         Me.PictureBox1.Image = Global.TeVendo.My.Resources.Resources.compra
-        Me.PictureBox1.Location = New System.Drawing.Point(298, 31)
+        Me.PictureBox1.Location = New System.Drawing.Point(362, 43)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(80, 76)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -133,9 +113,9 @@ Partial Class Formulario_Cantidad_Lote
         '
         Me.txtProducto.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtProducto.ForeColor = System.Drawing.Color.FromArgb(CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer))
-        Me.txtProducto.Location = New System.Drawing.Point(137, 178)
+        Me.txtProducto.Location = New System.Drawing.Point(79, 190)
         Me.txtProducto.Name = "txtProducto"
-        Me.txtProducto.Size = New System.Drawing.Size(447, 24)
+        Me.txtProducto.Size = New System.Drawing.Size(663, 24)
         Me.txtProducto.TabIndex = 15
         Me.txtProducto.Text = "Paracetamol"
         Me.txtProducto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -145,22 +125,11 @@ Partial Class Formulario_Cantidad_Lote
         Me.txtTitulo.AutoSize = True
         Me.txtTitulo.Font = New System.Drawing.Font("Calibri", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTitulo.ForeColor = System.Drawing.Color.FromArgb(CType(CType(89, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(89, Byte), Integer))
-        Me.txtTitulo.Location = New System.Drawing.Point(132, 129)
+        Me.txtTitulo.Location = New System.Drawing.Point(196, 141)
         Me.txtTitulo.Name = "txtTitulo"
         Me.txtTitulo.Size = New System.Drawing.Size(462, 49)
         Me.txtTitulo.TabIndex = 14
         Me.txtTitulo.Text = "Ingrese Cantidad al Carrito"
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Calibri", 16.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(89, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(89, Byte), Integer))
-        Me.Label1.Location = New System.Drawing.Point(162, 249)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(125, 35)
-        Me.Label1.TabIndex = 18
-        Me.Label1.Text = "Cantidad:"
         '
         'Label2
         '
@@ -203,7 +172,7 @@ Partial Class Formulario_Cantidad_Lote
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Calibri", 16.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(89, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(89, Byte), Integer))
-        Me.Label5.Location = New System.Drawing.Point(165, 308)
+        Me.Label5.Location = New System.Drawing.Point(227, 371)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(151, 35)
         Me.Label5.TabIndex = 21
@@ -232,13 +201,13 @@ Partial Class Formulario_Cantidad_Lote
         Me.cbFecha.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
         Me.cbFecha.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
         Me.cbFecha.Font = New System.Drawing.Font("Calibri", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbFecha.Location = New System.Drawing.Point(332, 308)
+        Me.cbFecha.Location = New System.Drawing.Point(394, 371)
         Me.cbFecha.Name = "cbFecha"
         Me.cbFecha.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
         Me.cbFecha.Office2007CustomColor = System.Drawing.Color.Turquoise
         Me.cbFecha.SecondIncrement = 10
         Me.cbFecha.Size = New System.Drawing.Size(206, 36)
-        Me.cbFecha.TabIndex = 2
+        Me.cbFecha.TabIndex = 3
         Me.cbFecha.TodayButtonText = "Hoy"
         Me.cbFecha.UseCompatibleTextRendering = False
         Me.cbFecha.Value = New Date(2020, 6, 21, 0, 0, 0, 0)
@@ -250,18 +219,86 @@ Partial Class Formulario_Cantidad_Lote
         Me.MHighlighterFocus.ContainerControl = Me
         Me.MHighlighterFocus.FocusHighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Orange
         '
+        'tbCantidadUnitaria
+        '
+        '
+        '
+        '
+        Me.tbCantidadUnitaria.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbCantidadUnitaria.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCantidadUnitaria.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.tbCantidadUnitaria.Font = New System.Drawing.Font("Calibri", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbCantidadUnitaria.Increment = 1.0R
+        Me.tbCantidadUnitaria.Location = New System.Drawing.Point(427, 291)
+        Me.tbCantidadUnitaria.Name = "tbCantidadUnitaria"
+        Me.tbCantidadUnitaria.Size = New System.Drawing.Size(182, 56)
+        Me.tbCantidadUnitaria.TabIndex = 2
+        '
+        'tbCantidad
+        '
+        '
+        '
+        '
+        Me.tbCantidad.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbCantidad.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCantidad.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.tbCantidad.Font = New System.Drawing.Font("Calibri", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbCantidad.Increment = 1.0R
+        Me.tbCantidad.Location = New System.Drawing.Point(230, 291)
+        Me.tbCantidad.Name = "tbCantidad"
+        Me.tbCantidad.Size = New System.Drawing.Size(173, 56)
+        Me.tbCantidad.TabIndex = 1
+        '
+        'LabelX1
+        '
+        Me.LabelX1.AutoSize = True
+        Me.LabelX1.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX1.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX1.Location = New System.Drawing.Point(427, 261)
+        Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX1.Name = "LabelX1"
+        Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX1.Size = New System.Drawing.Size(127, 23)
+        Me.LabelX1.TabIndex = 49
+        Me.LabelX1.Text = "Cantidad Unitaria"
+        '
+        'LabelX5
+        '
+        Me.LabelX5.AutoSize = True
+        Me.LabelX5.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX5.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX5.Location = New System.Drawing.Point(230, 258)
+        Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX5.Name = "LabelX5"
+        Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX5.Size = New System.Drawing.Size(106, 23)
+        Me.LabelX5.TabIndex = 48
+        Me.LabelX5.Text = "Cantidad Cajas"
+        '
         'Formulario_Cantidad_Lote
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(671, 556)
+        Me.ClientSize = New System.Drawing.Size(794, 572)
+        Me.Controls.Add(Me.tbCantidadUnitaria)
+        Me.Controls.Add(Me.tbCantidad)
+        Me.Controls.Add(Me.LabelX1)
+        Me.Controls.Add(Me.LabelX5)
         Me.Controls.Add(Me.cbFecha)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.tbLote)
-        Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.tbCantidad)
         Me.Controls.Add(Me.txtStock)
         Me.Controls.Add(Me.btnNo)
         Me.Controls.Add(Me.btnSi)
@@ -277,12 +314,12 @@ Partial Class Formulario_Cantidad_Lote
         Me.btnSi.ResumeLayout(False)
         Me.btnSi.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbCantidadUnitaria, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbCantidad, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents tbCantidad As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents txtStock As Label
     Friend WithEvents btnNo As Panel
     Friend WithEvents Label4 As Label
@@ -291,10 +328,13 @@ Partial Class Formulario_Cantidad_Lote
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents txtProducto As Label
     Friend WithEvents txtTitulo As Label
-    Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents tbLote As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents Label5 As Label
     Friend WithEvents cbFecha As Janus.Windows.CalendarCombo.CalendarCombo
     Protected WithEvents MHighlighterFocus As DevComponents.DotNetBar.Validator.Highlighter
+    Friend WithEvents tbCantidadUnitaria As DevComponents.Editors.DoubleInput
+    Friend WithEvents tbCantidad As DevComponents.Editors.DoubleInput
+    Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
 End Class
