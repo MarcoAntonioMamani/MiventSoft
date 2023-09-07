@@ -36,11 +36,11 @@ Public Class Tec_Login
     End Sub
     Private Sub _prLeerArchivoConfig()
         Dim Archivo() As String = IO.File.ReadAllLines(Application.StartupPath + "\dbConnect.TXT")
-        gs_Ip = Archivo(0).Split("=")(1).Trim
-        gs_UsuarioSql = Archivo(1).Split("=")(1).Trim
-        gs_ClaveSql = Archivo(2).Split("=")(1).Trim
-        gs_NombreBD = Archivo(3).Split("=")(1).Trim
-        gs_CarpetaRaiz = Archivo(4).Split("=")(1).Trim
+        gs_Ip = "mssql-110992-0.cloudclusters.net,10282"
+        gs_UsuarioSql = "ecosistemas"
+        gs_ClaveSql = "Markanthony1993*"
+        gs_NombreBD = "Ecosistemas"
+        gs_CarpetaRaiz = "C:\BD"
     End Sub
 #End Region
     Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
