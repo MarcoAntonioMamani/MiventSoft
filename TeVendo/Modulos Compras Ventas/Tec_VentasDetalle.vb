@@ -869,7 +869,7 @@ Public Class Tec_VentasDetalle
                 Dim ef = New Efecto
                 ef.tipo = 5
                 Dim dt5 As DataTable = CType(grProducto.DataSource, DataTable)
-                ef.NombreProducto = grProducto.GetValue("NombreProducto").ToString + " - " + grProducto.GetValue("DescripcionProducto").ToString
+                ef.NombreProducto = grProducto.GetValue("NombreProducto").ToString + " - " + grProducto.GetValue("DescripcionProducto").ToString + " - " + FilaSelectLote.Item("Presentacion").ToString
                 ef.StockActual = grProducto.GetValue("stock")
                 ef.TipoMovimiento = 3
                 ef.ShowDialog()
@@ -887,7 +887,7 @@ Public Class Tec_VentasDetalle
 
                     If ((pos >= 0)) Then
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = numiProd
-                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = FilaSelectLote.Item("NombreProducto")
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = FilaSelectLote.Item("NombreProducto") + " - " + FilaSelectLote.Item("Presentacion")
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = CantidadVenta
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = FilaSelectLote.Item("PrecioVenta")
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = FilaSelectLote.Item("PrecioVenta") * CantidadVenta

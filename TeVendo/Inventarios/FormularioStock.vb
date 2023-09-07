@@ -326,7 +326,7 @@ Public Class FormularioStock
 
     Private Sub btnProductos_Click(sender As Object, e As EventArgs) Handles btnProductos.Click
         Dim _dt As New DataTable
-        _dt = L_prListarProductosTodosInventario(cbPrecio.Value)
+        _dt = L_prListarProductosTodosInventarioReporte(cbPrecio.Value)
         If (IsNothing(_dt) Or _dt.Rows.Count = 0) Then
 
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)

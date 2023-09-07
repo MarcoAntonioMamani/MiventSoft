@@ -519,7 +519,7 @@ Public Class Tec_ComprasDetalle
 
 
                 ef.tipo = 9
-                ef.NombreProducto = grProducto.GetValue("NombreProducto") + " - " + grProducto.GetValue("DescripcionProducto")
+                ef.NombreProducto = grProducto.GetValue("NombreProducto") + " - " + grProducto.GetValue("DescripcionProducto") + " - " + grProducto.GetValue("Presentacion")
                 ef.StockActual = grProducto.GetValue("stock")
                 ef.ShowDialog()
                 Dim bandera As Boolean = False
@@ -570,7 +570,7 @@ Public Class Tec_ComprasDetalle
             _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"))
             If ((pos >= 0)) Then
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = grProducto.GetValue("Id")
-                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = grProducto.GetValue("NombreProducto")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = grProducto.GetValue("NombreProducto") + " - " + grProducto.GetValue("Presentacion")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("DescripcionProducto") = grProducto.GetValue("DescripcionProducto")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCosto") = grProducto.GetValue("PrecioCosto")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("TotalCompra") = grProducto.GetValue("PrecioCosto") * cantidad
