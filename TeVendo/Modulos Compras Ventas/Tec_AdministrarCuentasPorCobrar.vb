@@ -711,30 +711,30 @@ Public Class Tec_AdministrarCuentasPorCobrar
         If (ValidarCamposaGrabar()) Then
 
 
-            Dim dt As DataTable = L_prListarGeneral("MAM_CierreCajero")
+            'Dim dt As DataTable = L_prListarGeneral("MAM_CierreCajero")
 
-            Dim fila As DataRow() = dt.Select("EstadoCaja=1")
-            If (Not IsDBNull(fila)) Then
-                If (fila.Count <= 0) Then
+            'Dim fila As DataRow() = dt.Select("EstadoCaja=1")
+            'If (Not IsDBNull(fila)) Then
+            '    If (fila.Count <= 0) Then
 
-                    ToastNotification.Show(Me, "No Es Posible Hacer EL Cobro Por que no Existe Caja Chica con Estado Abierto Para Esta Fecha =" + tbFechaTransaccion.Value.ToString("dd/MM/yyy"), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                    tbFechaTransaccion.Focus()
-                    Return
-                Else
-                    Dim bandera As Boolean = False
-                    For Each item As Object In fila
-                        If (item("Fecha") = tbFechaTransaccion.Value) Then
-                            bandera = True
-                        End If
-                    Next
-                    If (bandera = False) Then
-                        ToastNotification.Show(Me, "No Es Posible Hacer EL Cobro Por que no Existe Caja Chica con Estado Abierto Para Esta Fecha =" + tbFechaTransaccion.Value.ToString("dd/MM/yyy"), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                        tbFechaTransaccion.Focus()
+            '        ToastNotification.Show(Me, "No Es Posible Hacer EL Cobro Por que no Existe Caja Chica con Estado Abierto Para Esta Fecha =" + tbFechaTransaccion.Value.ToString("dd/MM/yyy"), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            '        tbFechaTransaccion.Focus()
+            '        Return
+            '    Else
+            '        Dim bandera As Boolean = False
+            '        For Each item As Object In fila
+            '            If (item("Fecha") = tbFechaTransaccion.Value) Then
+            '                bandera = True
+            '            End If
+            '        Next
+            '        If (bandera = False) Then
+            '            ToastNotification.Show(Me, "No Es Posible Hacer EL Cobro Por que no Existe Caja Chica con Estado Abierto Para Esta Fecha =" + tbFechaTransaccion.Value.ToString("dd/MM/yyy"), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            '            tbFechaTransaccion.Focus()
 
-                        Return
-                    End If
-                End If
-            End If
+            '            Return
+            '        End If
+            '    End If
+            'End If
 
             Dim id As String = ""
             Try
