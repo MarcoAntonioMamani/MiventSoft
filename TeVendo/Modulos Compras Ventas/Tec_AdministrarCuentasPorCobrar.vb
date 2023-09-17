@@ -947,5 +947,48 @@ Public Class Tec_AdministrarCuentasPorCobrar
         P_Global.Visualizador.CrGeneral.Zoom(110)
         P_Global.Visualizador.Show() 'Comentar
     End Sub
+
+    Private Sub gr_CreditoPendientes_GroupsChanging(sender As Object, e As GroupsChangingEventArgs) Handles gr_CreditoPendientes.GroupsChanging
+
+    End Sub
+
+    Private Sub gr_CreditoPendientes_DoubleClick(sender As Object, e As EventArgs) Handles gr_CreditoPendientes.DoubleClick
+        Try
+            If (gr_CreditoPendientes.Row >= 0) Then
+
+                Dim ventasId As Integer = Integer.Parse(gr_CreditoPendientes.GetValue("venta").ToString.Replace("venta000", ""))
+                Dim dt As New DataTable
+                dt = ListaVentasDetalles(ventasId)
+                Dim dtVenta = ListaVentasDescuento(ventasId)
+                Dim frm As frm_VerProductosVendidos
+                frm = New frm_VerProductosVendidos(dt, dtVenta)
+                frm.Show()
+
+            End If
+        Catch ex As Exception
+
+        End Try
+
+
+    End Sub
+
+    Private Sub grCreditoPagados_DoubleClick(sender As Object, e As EventArgs) Handles grCreditoPagados.DoubleClick
+        Try
+            If (grCreditoPagados.Row >= 0) Then
+                Dim dttt As DataTable = CType(grCreditoPagados.DataSource, DataTable)
+                Dim ventasId As Integer = Integer.Parse(grCreditoPagados.GetValue("venta").ToString.Replace("Venta000", ""))
+                Dim dt As New DataTable
+                dt = ListaVentasDetalles(ventasId)
+                Dim dtVenta = ListaVentasDescuento(ventasId)
+                Dim frm As frm_VerProductosVendidos
+                frm = New frm_VerProductosVendidos(dt, dtVenta)
+                frm.Show()
+            End If
+        Catch ex As Exception
+
+        End Try
+
+
+    End Sub
 #End Region
 End Class
