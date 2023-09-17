@@ -131,7 +131,7 @@ Public Class Tec_Clientes
         PanelNavegacion.Enabled = True
         JGrM_Buscador.Enabled = True
         btnTipoDocumento.Visible = False
-
+        btnCiudad.Visible = False
         _PMOLimpiarErrores()
 
         _PMOInhabilitar()
@@ -281,7 +281,8 @@ Public Class Tec_Clientes
         Me.Text = "Gestion De Clientes"
         P_Global._prCargarComboGenerico(cbTipoDocumento, L_prLibreriaDetalleGeneral(8), "cnnum", "Codigo", "cndesc1", "TipoDocumento")
         P_Global._prCargarComboGenerico(cbPrecios, L_prListaCategoriasPrecios(), "Id", "Codigo", "Descripcion", "CategoriaPrecio")
-        P_Global._prCargarComboGenerico(cbZona, L_prListarZonas(), "Id", "Codigo", "NombreZona", "Zonas")
+        P_Global._prCargarComboGenerico(cbZona, L_prLibreriaDetalleGeneral(14), "cnnum", "Codigo", "cndesc1", "Ciudad")
+
         If (Mapa = 1) Then
             PanelRight.Visible = True
 
@@ -407,6 +408,7 @@ Public Class Tec_Clientes
         cbZona.ReadOnly = False
         cbPrecios.ReadOnly = False
         btnTipoDocumento.Visible = True
+        btnCiudad.Visible = True
         tbNombreCliente.Focus()
     End Sub
 
@@ -414,6 +416,7 @@ Public Class Tec_Clientes
         tbCodigo.ReadOnly = True
         tbCodigoExterno.ReadOnly = True
         btnTipoDocumento.Visible = False
+        btnCiudad.Visible = False
         swEstado.IsReadOnly = True
         tbCodigoExterno.ReadOnly = True
         tbNombreCliente.ReadOnly = True
@@ -779,11 +782,7 @@ Public Class Tec_Clientes
 
     Private Sub cbTipoDocumento_ValueChanged(sender As Object, e As EventArgs)
 
-        If cbTipoDocumento.SelectedIndex < 0 And cbTipoDocumento.Text <> String.Empty Then
-            btnTipoDocumento.Visible = True
-        Else
-            btnTipoDocumento.Visible = False
-        End If
+
 
     End Sub
 
@@ -897,6 +896,30 @@ Public Class Tec_Clientes
 
         Else
             ToastNotification.Show(Me, "Numero Telefono Invalido".ToUpper, img, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
+        End If
+    End Sub
+
+    Private Sub ButtonX5_Click(sender As Object, e As EventArgs) Handles btnCiudad.Click
+        Dim numi As String = ""
+        Dim ef = New Efecto
+        ef.tipo = 10
+        ef.ModuloLibreria = 14
+        ef.titulo = "Crear Nueva Ciudad"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            P_Global._prCargarComboGenerico(cbZona, L_prLibreriaDetalleGeneral(14), "cnnum", "Codigo", "cndesc1", "Ciudad")
+            cbZona.SelectedIndex = CType(cbZona.DataSource, DataTable).Rows.Count - 1
+            cbZona.Focus()
+        End If
+    End Sub
+
+    Private Sub cbTipoDocumento_ValueChanged_1(sender As Object, e As EventArgs) Handles cbTipoDocumento.ValueChanged
+        If cbTipoDocumento.SelectedIndex < 0 And cbTipoDocumento.Text <> String.Empty Then
+            btnTipoDocumento.Visible = True
+        Else
+            btnTipoDocumento.Visible = False
         End If
     End Sub
 
