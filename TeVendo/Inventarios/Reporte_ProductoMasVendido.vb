@@ -14,6 +14,10 @@ Public Class Reporte_ProductoMasVendido
         swTipoReporte.Value = True
         Me.Text = "REPORTE DE PRODUCTOS MAS VENDIDOS"
         MReportViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
+        Dim dt As DataTable = L_prListarDepositos()
+        dt.Rows.Add(-1, "TODOS")
+
+        P_Global._prCargarComboGenerico(cbDeposito, dt, "Id", "Codigo", "NombreDeposito", "NombreDeposito")
 
 
     End Sub
@@ -66,6 +70,22 @@ Public Class Reporte_ProductoMasVendido
         If (swTipoReporte.Value = True) Then ''' Generar Reporte de Datos
             Dim _dt As New DataTable
             GenerarData(_dt)
+
+            If (cbDeposito.Value <> -1) Then
+                Dim sucursalId As Integer = cbDeposito.Value
+                Dim dt2 As DataTable = _dt.Copy
+                dt2.Rows.Clear()
+
+                For i As Integer = 0 To _dt.Rows.Count - 1 Step 1
+                    If (_dt.Rows(i).Item("SucursalId") = sucursalId) Then
+                        dt2.ImportRow(_dt.Rows(i))
+                    End If
+                Next
+                _dt = dt2
+            End If
+
+
+
             If (IsNothing(_dt) Or _dt.Rows.Count = 0) Then
 
                 Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)

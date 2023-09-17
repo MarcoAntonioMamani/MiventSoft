@@ -23,6 +23,8 @@ Partial Class Reporte_ProductoMasVendido
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim cbDeposito_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Reporte_ProductoMasVendido))
         Me.VisualStyleManager1 = New Janus.Windows.Common.VisualStyleManager(Me.components)
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.PanelSuperior = New System.Windows.Forms.Panel()
@@ -48,6 +50,8 @@ Partial Class Reporte_ProductoMasVendido
         Me.lbCantidad = New DevComponents.DotNetBar.LabelX()
         Me.PanelToolBar1 = New System.Windows.Forms.Panel()
         Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
+        Me.cbDeposito = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelLEft.SuspendLayout()
@@ -61,6 +65,7 @@ Partial Class Reporte_ProductoMasVendido
         Me.PanelNavegacion.SuspendLayout()
         CType(Me.tbCantidad, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelToolBar1.SuspendLayout()
+        CType(Me.cbDeposito, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
@@ -211,6 +216,8 @@ Partial Class Reporte_ProductoMasVendido
         '
         'PanelNavegacion
         '
+        Me.PanelNavegacion.Controls.Add(Me.cbDeposito)
+        Me.PanelNavegacion.Controls.Add(Me.LabelX5)
         Me.PanelNavegacion.Controls.Add(Me.tbCantidad)
         Me.PanelNavegacion.Controls.Add(Me.LabelX3)
         Me.PanelNavegacion.Controls.Add(Me.swTipoReporte)
@@ -303,7 +310,7 @@ Partial Class Reporte_ProductoMasVendido
         Me.cbFechaHasta.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
         Me.cbFechaHasta.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
         Me.cbFechaHasta.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbFechaHasta.Location = New System.Drawing.Point(572, 39)
+        Me.cbFechaHasta.Location = New System.Drawing.Point(413, 35)
         Me.cbFechaHasta.Name = "cbFechaHasta"
         Me.cbFechaHasta.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
         Me.cbFechaHasta.Office2007CustomColor = System.Drawing.Color.Turquoise
@@ -326,7 +333,7 @@ Partial Class Reporte_ProductoMasVendido
         Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX4.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX4.ForeColor = System.Drawing.Color.White
-        Me.LabelX4.Location = New System.Drawing.Point(523, 39)
+        Me.LabelX4.Location = New System.Drawing.Point(364, 35)
         Me.LabelX4.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX4.Name = "LabelX4"
         Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
@@ -357,7 +364,7 @@ Partial Class Reporte_ProductoMasVendido
         Me.cbFechaDesde.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
         Me.cbFechaDesde.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
         Me.cbFechaDesde.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbFechaDesde.Location = New System.Drawing.Point(572, 10)
+        Me.cbFechaDesde.Location = New System.Drawing.Point(413, 6)
         Me.cbFechaDesde.Name = "cbFechaDesde"
         Me.cbFechaDesde.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
         Me.cbFechaDesde.Office2007CustomColor = System.Drawing.Color.Turquoise
@@ -380,7 +387,7 @@ Partial Class Reporte_ProductoMasVendido
         Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX2.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX2.ForeColor = System.Drawing.Color.White
-        Me.LabelX2.Location = New System.Drawing.Point(520, 10)
+        Me.LabelX2.Location = New System.Drawing.Point(361, 6)
         Me.LabelX2.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX2.Name = "LabelX2"
         Me.LabelX2.SingleLineColor = System.Drawing.SystemColors.Control
@@ -438,6 +445,48 @@ Partial Class Reporte_ProductoMasVendido
         Me.ButtonX1.Text = "Generar"
         Me.ButtonX1.TextColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
         '
+        'cbDeposito
+        '
+        Me.cbDeposito.BackColor = System.Drawing.Color.Azure
+        Me.cbDeposito.ColorScheme = ""
+        Me.cbDeposito.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.cbDeposito.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
+        Me.cbDeposito.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        cbDeposito_DesignTimeLayout.LayoutString = resources.GetString("cbDeposito_DesignTimeLayout.LayoutString")
+        Me.cbDeposito.DesignTimeLayout = cbDeposito_DesignTimeLayout
+        Me.cbDeposito.FlatBorderColor = System.Drawing.Color.Black
+        Me.cbDeposito.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbDeposito.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbDeposito.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cbDeposito.Location = New System.Drawing.Point(691, 9)
+        Me.cbDeposito.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbDeposito.Name = "cbDeposito"
+        Me.cbDeposito.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbDeposito.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
+        Me.cbDeposito.SelectedIndex = -1
+        Me.cbDeposito.SelectedItem = Nothing
+        Me.cbDeposito.Size = New System.Drawing.Size(237, 26)
+        Me.cbDeposito.TabIndex = 218
+        Me.cbDeposito.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'LabelX5
+        '
+        Me.LabelX5.AutoSize = True
+        Me.LabelX5.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX5.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX5.ForeColor = System.Drawing.Color.White
+        Me.LabelX5.Location = New System.Drawing.Point(625, 9)
+        Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX5.Name = "LabelX5"
+        Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX5.Size = New System.Drawing.Size(61, 21)
+        Me.LabelX5.TabIndex = 217
+        Me.LabelX5.Text = "Almacen:"
+        '
         'Reporte_ProductoMasVendido
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -461,6 +510,7 @@ Partial Class Reporte_ProductoMasVendido
         Me.PanelNavegacion.PerformLayout()
         CType(Me.tbCantidad, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelToolBar1.ResumeLayout(False)
+        CType(Me.cbDeposito, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -490,4 +540,6 @@ Partial Class Reporte_ProductoMasVendido
     Friend WithEvents lbCantidad As DevComponents.DotNetBar.LabelX
     Protected WithEvents PanelToolBar1 As Panel
     Protected WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents cbDeposito As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
 End Class

@@ -692,6 +692,13 @@ Public Class Tec_ProgramaIngresoEgresoCaja
     Public Function _PMOGetTablaBuscador() As DataTable
 
         Dim dtBuscador As DataTable = L_prListarGeneral("MAM_CajaIngresoEgreso")
+
+        If (Global_Sucursal >= 0) Then
+
+            Dim dt As DataTable = dtBuscador.Copy
+            dt.DefaultView.RowFilter = "SucursalId = " + Str(Global_Sucursal)
+            dtBuscador = dt.DefaultView.ToTable()
+        End If
         Return dtBuscador
     End Function
 
