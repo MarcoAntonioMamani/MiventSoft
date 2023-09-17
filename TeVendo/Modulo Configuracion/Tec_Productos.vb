@@ -14,6 +14,7 @@ Public Class Tec_Productos
     Public _TabControl As SuperTabControl
     Public FilaSeleccionada As Boolean = False
 
+    Public Duplicar As Boolean = False
 
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
     Public _MListEstBuscador As List(Of Celda)
@@ -745,29 +746,36 @@ Public Class Tec_Productos
 
     End Sub
     Public Sub _PMOLimpiar()
-        tbCodigo.Text = ""
-        tbNombreProducto.Text = ""
-        tbFabrica.Text = ""
-        tbCodigoExterno.Text = ""
-        tbCodigoBarras.Text = ""
-        tbStockMinimo.Value = 0
-        tbConversion.Value = 0
-        swEstado.Value = True
-        seleccionarPrimerItemCombo(cbEmpresa)
-        seleccionarPrimerItemCombo(cbCategoria)
-        seleccionarPrimerItemCombo(cbProveedor)
-        seleccionarPrimerItemCombo(cbMarca)
-        seleccionarPrimerItemCombo(cbAtributo)
-        seleccionarPrimerItemCombo(cbFamilia)
-        seleccionarPrimerItemCombo(cbUniVenta)
-        seleccionarPrimerItemCombo(cbUnidMaxima)
-        tbNombreProducto.Focus()
-        TablaImagenes = L_prCargarImagenesRecepcion(-1)
 
-        _prCargarDetallePrecios(-1)
-        _prCargarCodigoBarras(-1)
-        _prCargarImagen()
-        _prEliminarContenidoImage()
+        If (Duplicar = False) Then
+            tbCodigo.Text = ""
+            tbNombreProducto.Text = ""
+            tbFabrica.Text = ""
+            tbCodigoExterno.Text = ""
+            tbCodigoBarras.Text = ""
+            tbStockMinimo.Value = 0
+            tbConversion.Value = 0
+            swEstado.Value = True
+            seleccionarPrimerItemCombo(cbEmpresa)
+            seleccionarPrimerItemCombo(cbCategoria)
+            seleccionarPrimerItemCombo(cbProveedor)
+            seleccionarPrimerItemCombo(cbMarca)
+            seleccionarPrimerItemCombo(cbAtributo)
+            seleccionarPrimerItemCombo(cbFamilia)
+            seleccionarPrimerItemCombo(cbUniVenta)
+            seleccionarPrimerItemCombo(cbUnidMaxima)
+            tbNombreProducto.Focus()
+            TablaImagenes = L_prCargarImagenesRecepcion(-1)
+
+            _prCargarDetallePrecios(-1)
+            _prCargarCodigoBarras(-1)
+            _prCargarImagen()
+            _prEliminarContenidoImage()
+
+        Else
+            tbCodigo.Text = ""
+        End If
+
     End Sub
     Public Sub seleccionarPrimerItemCombo(cb As EditControls.MultiColumnCombo)
         If (CType(cb.DataSource, DataTable).Rows.Count > 0) Then
@@ -1327,6 +1335,8 @@ Public Class Tec_Productos
     End Sub
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
+
+        Duplicar = False
         TabControlPrincipal.SelectedTabIndex = 0
         btnNuevo.PerformClick()
 
@@ -1773,6 +1783,13 @@ Public Class Tec_Productos
 
     Private Sub tbDescripcion_TextChanged(sender As Object, e As EventArgs) Handles tbFabrica.TextChanged
 
+    End Sub
+
+    Private Sub DuplicarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DuplicarToolStripMenuItem.Click
+
+        Duplicar = True
+        TabControlPrincipal.SelectedTabIndex = 0
+        btnNuevo.PerformClick()
     End Sub
 #End Region
 End Class
