@@ -1115,6 +1115,8 @@ salirIf:
         tbSubTotal.Value = total
         tbTotal.Value = total - montodesc
 
+        tbDolar.Value = (total - montodesc) / Global_TipoCambio
+
     End Sub
     Private Sub grdetalle_CellEdited(sender As Object, e As ColumnActionEventArgs) Handles grDetalle.CellEdited
         If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
@@ -1380,7 +1382,7 @@ salirIf:
 
                     res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                    IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbRecibo.Text)
+                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbRecibo.Text, Global_TipoCambio)
 
                     If res Then
 
@@ -1402,7 +1404,7 @@ salirIf:
 
                 res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbRecibo.Text)
+                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbRecibo.Text, Global_TipoCambio)
 
                 If res Then
 
@@ -1450,7 +1452,7 @@ salirIf:
 
                     Res = VentaModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                    IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbRecibo.Text)
+                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbRecibo.Text, Global_TipoCambio)
 
                     If Res Then
 
@@ -1472,7 +1474,7 @@ salirIf:
 
                 Res = VentaModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbRecibo.Text)
+                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbRecibo.Text, Global_TipoCambio)
 
                 If Res Then
 
@@ -1707,6 +1709,7 @@ salirIf:
         listEstCeldas.Add(New Celda("TotalVenta", True, "Total Venta", 120, "0.00"))
         listEstCeldas.Add(New Celda("Descuento", False))
         listEstCeldas.Add(New Celda("MontoBs", False))
+        listEstCeldas.Add(New Celda("TCambio", False))
         listEstCeldas.Add(New Celda("MontoDolares", False))
         listEstCeldas.Add(New Celda("TarjetaBancaria", False))
         listEstCeldas.Add(New Celda("TransferenciaBancaria", False))
@@ -1750,13 +1753,14 @@ salirIf:
             'TipoCambio = .GetValue("TipoCambio")
             'tbTotalPagado.Value = tbMontoBs.Value + (tbMontoDolar.Value * TipoCambio) + tbTransferencia.Value + tbTarjeta.Value
             ''lbTipoCambio.Text = "Tipo Cambio = " + Str(TipoCambio)
-
+            TipoCambio = .GetValue("TCambio")
         End With
 
         _prCargarDetalleVenta(tbCodigo.Text)
         tbMdesc.Value = JGrM_Buscador.GetValue("Descuento")
         _prCalcularPrecioTotal()
         tbCambio.Value = tbTotalPagado.Value - tbTotal.Value
+        tbDolar.Value = tbTotal.Value / TipoCambio
         LblPaginacion.Text = Str(_MPos + 1) + "/" + JGrM_Buscador.RowCount.ToString
 
     End Sub

@@ -36,6 +36,8 @@ Partial Class Tec_Ventas
         Me.SuperTabControl1 = New DevComponents.DotNetBar.SuperTabControl()
         Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.LabelX27 = New DevComponents.DotNetBar.LabelX()
+        Me.tbRecibo = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.lbHora = New DevComponents.DotNetBar.LabelX()
         Me.lbPrecios = New DevComponents.DotNetBar.LabelX()
         Me.cbPrecios = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
@@ -167,8 +169,8 @@ Partial Class Tec_Ventas
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.tbRecibo = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.LabelX27 = New DevComponents.DotNetBar.LabelX()
+        Me.LabelX28 = New DevComponents.DotNetBar.LabelX()
+        Me.tbDolar = New DevComponents.Editors.DoubleInput()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -231,6 +233,7 @@ Partial Class Tec_Ventas
         Me.Panel15.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbDolar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TabControlPrincipal
@@ -305,10 +308,10 @@ Partial Class Tec_Ventas
         '
         Me.PanelLEft.Controls.Add(Me.Panel8)
         Me.PanelLEft.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelLEft.Location = New System.Drawing.Point(0, 316)
+        Me.PanelLEft.Location = New System.Drawing.Point(0, 365)
         Me.PanelLEft.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PanelLEft.Name = "PanelLEft"
-        Me.PanelLEft.Size = New System.Drawing.Size(1371, 277)
+        Me.PanelLEft.Size = New System.Drawing.Size(1371, 228)
         Me.PanelLEft.TabIndex = 0
         '
         'Panel8
@@ -321,7 +324,7 @@ Partial Class Tec_Ventas
         Me.Panel8.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Panel8.Size = New System.Drawing.Size(1371, 277)
+        Me.Panel8.Size = New System.Drawing.Size(1371, 228)
         Me.Panel8.TabIndex = 1
         '
         'Panel9
@@ -332,7 +335,7 @@ Partial Class Tec_Ventas
         Me.Panel9.Location = New System.Drawing.Point(3, 2)
         Me.Panel9.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(1365, 273)
+        Me.Panel9.Size = New System.Drawing.Size(1365, 224)
         Me.Panel9.TabIndex = 2
         '
         'SuperTabControl1
@@ -350,8 +353,8 @@ Partial Class Tec_Ventas
         Me.SuperTabControl1.ControlBox.MenuBox.Name = ""
         Me.SuperTabControl1.ControlBox.Name = ""
         Me.SuperTabControl1.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControl1.ControlBox.MenuBox, Me.SuperTabControl1.ControlBox.CloseBox})
-        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel4)
+        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel5)
         Me.SuperTabControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControl1.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -360,7 +363,7 @@ Partial Class Tec_Ventas
         Me.SuperTabControl1.ReorderTabsEnabled = True
         Me.SuperTabControl1.SelectedTabFont = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControl1.SelectedTabIndex = 0
-        Me.SuperTabControl1.Size = New System.Drawing.Size(1365, 273)
+        Me.SuperTabControl1.Size = New System.Drawing.Size(1365, 224)
         Me.SuperTabControl1.TabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Right
         Me.SuperTabControl1.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControl1.TabIndex = 218
@@ -373,7 +376,7 @@ Partial Class Tec_Ventas
         Me.SuperTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel3.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
-        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(1186, 273)
+        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(1186, 224)
         Me.SuperTabControlPanel3.TabIndex = 1
         Me.SuperTabControlPanel3.TabItem = Me.SuperTabItem3
         '
@@ -411,8 +414,42 @@ Partial Class Tec_Ventas
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(1186, 273)
+        Me.Panel3.Size = New System.Drawing.Size(1186, 224)
         Me.Panel3.TabIndex = 49
+        '
+        'LabelX27
+        '
+        Me.LabelX27.AutoSize = True
+        Me.LabelX27.BackColor = System.Drawing.Color.LightCoral
+        '
+        '
+        '
+        Me.LabelX27.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX27.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX27.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX27.Location = New System.Drawing.Point(320, 164)
+        Me.LabelX27.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX27.Name = "LabelX27"
+        Me.LabelX27.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX27.Size = New System.Drawing.Size(100, 21)
+        Me.LabelX27.TabIndex = 384
+        Me.LabelX27.Text = "Recibo Manual:"
+        '
+        'tbRecibo
+        '
+        '
+        '
+        '
+        Me.tbRecibo.Border.Class = "TextBoxBorder"
+        Me.tbRecibo.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbRecibo.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbRecibo.Location = New System.Drawing.Point(428, 159)
+        Me.tbRecibo.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbRecibo.Name = "tbRecibo"
+        Me.tbRecibo.PreventEnterBeep = True
+        Me.tbRecibo.Size = New System.Drawing.Size(211, 26)
+        Me.tbRecibo.TabIndex = 383
+        Me.tbRecibo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'lbHora
         '
@@ -1021,7 +1058,7 @@ Partial Class Tec_Ventas
         Me.SuperTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel4.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel4.Name = "SuperTabControlPanel4"
-        Me.SuperTabControlPanel4.Size = New System.Drawing.Size(1186, 246)
+        Me.SuperTabControlPanel4.Size = New System.Drawing.Size(1186, 224)
         Me.SuperTabControlPanel4.TabIndex = 0
         Me.SuperTabControlPanel4.TabItem = Me.tab_Cobro
         '
@@ -1032,7 +1069,7 @@ Partial Class Tec_Ventas
         Me.Panel20.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel20.Location = New System.Drawing.Point(0, 0)
         Me.Panel20.Name = "Panel20"
-        Me.Panel20.Size = New System.Drawing.Size(1186, 246)
+        Me.Panel20.Size = New System.Drawing.Size(1186, 224)
         Me.Panel20.TabIndex = 1
         '
         'GroupBox2
@@ -1049,7 +1086,7 @@ Partial Class Tec_Ventas
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox2.Size = New System.Drawing.Size(530, 246)
+        Me.GroupBox2.Size = New System.Drawing.Size(530, 224)
         Me.GroupBox2.TabIndex = 363
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Efectivo Pagado / Cambio:"
@@ -1145,7 +1182,7 @@ Partial Class Tec_Ventas
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox1.Size = New System.Drawing.Size(656, 246)
+        Me.GroupBox1.Size = New System.Drawing.Size(656, 224)
         Me.GroupBox1.TabIndex = 362
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Efectivo Recibido:"
@@ -1613,7 +1650,7 @@ Partial Class Tec_Ventas
         Me.PanelRight.Location = New System.Drawing.Point(0, 0)
         Me.PanelRight.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PanelRight.Name = "PanelRight"
-        Me.PanelRight.Size = New System.Drawing.Size(1371, 316)
+        Me.PanelRight.Size = New System.Drawing.Size(1371, 365)
         Me.PanelRight.TabIndex = 1
         '
         'Panel2
@@ -1626,7 +1663,7 @@ Partial Class Tec_Ventas
         Me.Panel2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Panel2.Size = New System.Drawing.Size(1371, 316)
+        Me.Panel2.Size = New System.Drawing.Size(1371, 365)
         Me.Panel2.TabIndex = 1
         '
         'PanelImagenes
@@ -1637,7 +1674,7 @@ Partial Class Tec_Ventas
         Me.PanelImagenes.Location = New System.Drawing.Point(3, 29)
         Me.PanelImagenes.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PanelImagenes.Name = "PanelImagenes"
-        Me.PanelImagenes.Size = New System.Drawing.Size(1365, 285)
+        Me.PanelImagenes.Size = New System.Drawing.Size(1365, 334)
         Me.PanelImagenes.TabIndex = 2
         '
         'PanelVerImagen
@@ -1649,7 +1686,7 @@ Partial Class Tec_Ventas
         Me.PanelVerImagen.Location = New System.Drawing.Point(0, 0)
         Me.PanelVerImagen.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelVerImagen.Name = "PanelVerImagen"
-        Me.PanelVerImagen.Size = New System.Drawing.Size(1365, 285)
+        Me.PanelVerImagen.Size = New System.Drawing.Size(1365, 334)
         Me.PanelVerImagen.TabIndex = 2
         '
         'grDetalle
@@ -1693,7 +1730,7 @@ Partial Class Tec_Ventas
         Me.grDetalle.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.grDetalle.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grDetalle.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grDetalle.Size = New System.Drawing.Size(1156, 285)
+        Me.grDetalle.Size = New System.Drawing.Size(1156, 334)
         Me.grDetalle.TabIndex = 0
         Me.grDetalle.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grDetalle.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -1712,13 +1749,15 @@ Partial Class Tec_Ventas
         Me.PanelTotal.Location = New System.Drawing.Point(1156, 0)
         Me.PanelTotal.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelTotal.Name = "PanelTotal"
-        Me.PanelTotal.Size = New System.Drawing.Size(209, 285)
+        Me.PanelTotal.Size = New System.Drawing.Size(209, 334)
         Me.PanelTotal.TabIndex = 4
         '
         'Panel13
         '
         Me.Panel13.AutoScroll = True
         Me.Panel13.BackColor = System.Drawing.Color.Transparent
+        Me.Panel13.Controls.Add(Me.LabelX28)
+        Me.Panel13.Controls.Add(Me.tbDolar)
         Me.Panel13.Controls.Add(Me.LabelX26)
         Me.Panel13.Controls.Add(Me.tbSubTotal)
         Me.Panel13.Controls.Add(Me.LabelX10)
@@ -1731,7 +1770,7 @@ Partial Class Tec_Ventas
         Me.Panel13.Location = New System.Drawing.Point(0, 0)
         Me.Panel13.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(209, 285)
+        Me.Panel13.Size = New System.Drawing.Size(209, 334)
         Me.Panel13.TabIndex = 39
         '
         'LabelX26
@@ -2683,39 +2722,53 @@ Partial Class Tec_Ventas
         '
         Me.MEP.ContainerControl = Me
         '
-        'tbRecibo
+        'LabelX28
+        '
+        Me.LabelX28.AutoSize = True
+        Me.LabelX28.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX28.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX28.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX28.ForeColor = System.Drawing.Color.White
+        Me.LabelX28.Location = New System.Drawing.Point(10, 229)
+        Me.LabelX28.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX28.Name = "LabelX28"
+        Me.LabelX28.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX28.Size = New System.Drawing.Size(63, 21)
+        Me.LabelX28.TabIndex = 57
+        Me.LabelX28.Text = "Total $us:"
+        '
+        'tbDolar
         '
         '
         '
         '
-        Me.tbRecibo.Border.Class = "TextBoxBorder"
-        Me.tbRecibo.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbRecibo.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbRecibo.Location = New System.Drawing.Point(428, 159)
-        Me.tbRecibo.Margin = New System.Windows.Forms.Padding(4)
-        Me.tbRecibo.Name = "tbRecibo"
-        Me.tbRecibo.PreventEnterBeep = True
-        Me.tbRecibo.Size = New System.Drawing.Size(211, 26)
-        Me.tbRecibo.TabIndex = 383
-        Me.tbRecibo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'LabelX27
-        '
-        Me.LabelX27.AutoSize = True
-        Me.LabelX27.BackColor = System.Drawing.Color.LightCoral
-        '
-        '
-        '
-        Me.LabelX27.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX27.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX27.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX27.Location = New System.Drawing.Point(320, 164)
-        Me.LabelX27.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX27.Name = "LabelX27"
-        Me.LabelX27.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX27.Size = New System.Drawing.Size(100, 21)
-        Me.LabelX27.TabIndex = 384
-        Me.LabelX27.Text = "Recibo Manual:"
+        Me.tbDolar.BackgroundStyle.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.[Double]
+        Me.tbDolar.BackgroundStyle.BorderBottomColor = System.Drawing.Color.Red
+        Me.tbDolar.BackgroundStyle.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.[Double]
+        Me.tbDolar.BackgroundStyle.BorderRight = DevComponents.DotNetBar.eStyleBorderType.[Double]
+        Me.tbDolar.BackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.[Double]
+        Me.tbDolar.BackgroundStyle.BorderTopColor = System.Drawing.Color.Gold
+        Me.tbDolar.BackgroundStyle.BorderTopWidth = 1
+        Me.tbDolar.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbDolar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.tbDolar.BackgroundStyle.CornerTypeBottomLeft = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.tbDolar.BackgroundStyle.CornerTypeBottomRight = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.tbDolar.BackgroundStyle.CornerTypeTopLeft = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.tbDolar.BackgroundStyle.CornerTypeTopRight = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.tbDolar.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.tbDolar.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbDolar.Increment = 1.0R
+        Me.tbDolar.Location = New System.Drawing.Point(11, 254)
+        Me.tbDolar.LockUpdateChecked = False
+        Me.tbDolar.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbDolar.MinValue = 0R
+        Me.tbDolar.Name = "tbDolar"
+        Me.tbDolar.Size = New System.Drawing.Size(173, 29)
+        Me.tbDolar.TabIndex = 56
+        Me.tbDolar.WatermarkAlignment = DevComponents.Editors.eTextAlignment.Right
         '
         'Tec_Ventas
         '
@@ -2795,6 +2848,7 @@ Partial Class Tec_Ventas
         Me.Panel15.ResumeLayout(False)
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbDolar, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2942,4 +2996,6 @@ Partial Class Tec_Ventas
     Friend WithEvents lbHora As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX27 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbRecibo As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents LabelX28 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbDolar As DevComponents.Editors.DoubleInput
 End Class
