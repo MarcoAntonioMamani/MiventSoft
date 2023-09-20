@@ -167,6 +167,8 @@ Partial Class Tec_Ventas
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.tbRecibo = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX27 = New DevComponents.DotNetBar.LabelX()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -378,6 +380,8 @@ Partial Class Tec_Ventas
         'Panel3
         '
         Me.Panel3.AutoScroll = True
+        Me.Panel3.Controls.Add(Me.LabelX27)
+        Me.Panel3.Controls.Add(Me.tbRecibo)
         Me.Panel3.Controls.Add(Me.lbHora)
         Me.Panel3.Controls.Add(Me.lbPrecios)
         Me.Panel3.Controls.Add(Me.cbPrecios)
@@ -481,13 +485,14 @@ Partial Class Tec_Ventas
         Me.LabelX25.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX25.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX25.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX25.Location = New System.Drawing.Point(345, 143)
+        Me.LabelX25.Location = New System.Drawing.Point(345, 206)
         Me.LabelX25.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX25.Name = "LabelX25"
         Me.LabelX25.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX25.Size = New System.Drawing.Size(69, 21)
         Me.LabelX25.TabIndex = 220
         Me.LabelX25.Text = "Facturado:"
+        Me.LabelX25.Visible = False
         '
         'swFacturado
         '
@@ -496,7 +501,7 @@ Partial Class Tec_Ventas
         '
         Me.swFacturado.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.swFacturado.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.swFacturado.Location = New System.Drawing.Point(427, 143)
+        Me.swFacturado.Location = New System.Drawing.Point(427, 206)
         Me.swFacturado.Margin = New System.Windows.Forms.Padding(4)
         Me.swFacturado.Name = "swFacturado"
         Me.swFacturado.OffBackColor = System.Drawing.Color.Orange
@@ -506,6 +511,7 @@ Partial Class Tec_Ventas
         Me.swFacturado.Size = New System.Drawing.Size(227, 22)
         Me.swFacturado.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.swFacturado.TabIndex = 219
+        Me.swFacturado.Visible = False
         '
         'GpanelFacturado
         '
@@ -2677,6 +2683,40 @@ Partial Class Tec_Ventas
         '
         Me.MEP.ContainerControl = Me
         '
+        'tbRecibo
+        '
+        '
+        '
+        '
+        Me.tbRecibo.Border.Class = "TextBoxBorder"
+        Me.tbRecibo.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbRecibo.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbRecibo.Location = New System.Drawing.Point(428, 159)
+        Me.tbRecibo.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbRecibo.Name = "tbRecibo"
+        Me.tbRecibo.PreventEnterBeep = True
+        Me.tbRecibo.Size = New System.Drawing.Size(211, 26)
+        Me.tbRecibo.TabIndex = 383
+        Me.tbRecibo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'LabelX27
+        '
+        Me.LabelX27.AutoSize = True
+        Me.LabelX27.BackColor = System.Drawing.Color.LightCoral
+        '
+        '
+        '
+        Me.LabelX27.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX27.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX27.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX27.Location = New System.Drawing.Point(320, 164)
+        Me.LabelX27.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX27.Name = "LabelX27"
+        Me.LabelX27.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX27.Size = New System.Drawing.Size(100, 21)
+        Me.LabelX27.TabIndex = 384
+        Me.LabelX27.Text = "Recibo Manual:"
+        '
         'Tec_Ventas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -2900,4 +2940,6 @@ Partial Class Tec_Ventas
     Friend WithEvents LabelX26 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbSubTotal As DevComponents.Editors.DoubleInput
     Friend WithEvents lbHora As DevComponents.DotNetBar.LabelX
+    Friend WithEvents LabelX27 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbRecibo As DevComponents.DotNetBar.Controls.TextBoxX
 End Class

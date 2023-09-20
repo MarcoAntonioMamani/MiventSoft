@@ -367,7 +367,7 @@ Public Class VenderDirecto
 
                 res = VentaInsertar(Id, 1, Now.Date.ToString("yyyy/MM/dd"),
                                    Global_IdPersonal, IdCliente, 1, Now.Date.ToString("yyyy/MM/dd"),
-                                   1, 1, "", tbTotal.Value, CType(grdetalle.DataSource, DataTable), 0, dt, 0)
+                                   1, 1, "", tbTotal.Value, CType(grdetalle.DataSource, DataTable), 0, dt, 0, "")
 
                 If res Then
 

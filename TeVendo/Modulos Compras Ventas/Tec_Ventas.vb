@@ -1302,6 +1302,7 @@ salirIf:
         tbGlosa.Text = ""
         tbCliente.Text = ""
         tbVendedor.Text = ""
+        tbRecibo.Text = ""
         IdVendedor = 0
         IdCliente = 0
         tbFechaTransaccion.Value = Now.Date
@@ -1379,7 +1380,7 @@ salirIf:
 
                     res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                    IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0))
+                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbRecibo.Text)
 
                     If res Then
 
@@ -1401,7 +1402,7 @@ salirIf:
 
                 res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0))
+                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbRecibo.Text)
 
                 If res Then
 
@@ -1449,7 +1450,7 @@ salirIf:
 
                     Res = VentaModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                    IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0))
+                                   1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbRecibo.Text)
 
                     If Res Then
 
@@ -1471,7 +1472,7 @@ salirIf:
 
                 Res = VentaModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"),
-                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0))
+                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, dt, IIf(swFacturado.Value = True, 1, 0), tbRecibo.Text)
 
                 If Res Then
 
@@ -1740,7 +1741,7 @@ salirIf:
 
             tbGlosa.Text = .GetValue("Glosa").ToString
             tbMdesc.Value = .GetValue("descuento")
-
+            tbRecibo.Text = .GetValue("ReciboManual")
             'tbMontoBs.Value = .GetValue("MontoBs")
             'tbMontoDolar.Value = .GetValue("MontoDolares")
             'tbTarjeta.Value = .GetValue("TarjetaBancaria")
@@ -2502,6 +2503,10 @@ salirIf:
 
     Private Sub tbFechaTransaccion_ValueChanged(sender As Object, e As EventArgs) Handles tbFechaTransaccion.ValueChanged
         tbFechaVencimientoCredito.MaxDate = DateAdd(DateInterval.Month, 3, tbFechaTransaccion.Value)
+    End Sub
+
+    Private Sub LabelX27_Click(sender As Object, e As EventArgs) Handles LabelX27.Click
+
     End Sub
 #End Region
 End Class
