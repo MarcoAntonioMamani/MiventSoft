@@ -312,13 +312,17 @@ Public Class Tec_AdministrarCuentasPorCobrar
         End With
         With gr_CreditoPendientes.RootTable.Columns("Credito")
             .Width = 110
-            .Visible = True
+            .Visible = false
             .Caption = "Credito"
         End With
-
+        With gr_CreditoPendientes.RootTable.Columns("ReciboManual")
+            .Width = 110
+            .Visible = True
+            .Caption = "Recibo Manual"
+        End With
         With gr_CreditoPendientes.RootTable.Columns("venta")
             .Width = 110
-            .Caption = "Venta"
+            .Caption = "Cod. Sistema"
             .Visible = True
         End With
         With gr_CreditoPendientes.RootTable.Columns("Nombrecliente")
@@ -394,7 +398,7 @@ Public Class Tec_AdministrarCuentasPorCobrar
 
         For Each _fil As GridEXRow In gr_CreditoPendientes.GetRows
 
-            dtPendiente.Rows.Add(_fil.Cells("Credito").Value, _fil.Cells("venta").Value, _fil.Cells("Nombrecliente").Value, _fil.Cells("Monto").Value, _fil.Cells("abonado").Value, _fil.Cells("Restante").Value, _fil.Cells("FechaVencimientoCredito").Value, _fil.Cells("DiasMora").Value)
+            dtPendiente.Rows.Add(_fil.Cells("ReciboManual").Value, _fil.Cells("Credito").Value, _fil.Cells("venta").Value, _fil.Cells("Nombrecliente").Value, _fil.Cells("Ciudad").Value, _fil.Cells("Monto").Value, _fil.Cells("abonado").Value, _fil.Cells("Restante").Value, _fil.Cells("FechaVencimientoCredito").Value, _fil.Cells("DiasMora").Value)
 
         Next
         If Not IsNothing(P_Global.Visualizador) Then
