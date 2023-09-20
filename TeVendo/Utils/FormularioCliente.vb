@@ -150,9 +150,14 @@ Public Class FormularioCliente
         If (CType(cbPrecios.DataSource, DataTable).Rows.Count > 0) Then
             cbPrecios.SelectedIndex = 0
         End If
+
+        P_Global._prCargarComboGenerico(cbZona, L_prLibreriaDetalleGeneral(14), "cnnum", "Codigo", "cndesc1", "Ciudad")
+
+        If (CType(cbZona.DataSource, DataTable).Rows.Count > 0) Then
+            cbZona.SelectedIndex = 0
+        End If
         _PMCargarBuscador()
         tbNombre.Focus()
-
 
     End Sub
 
@@ -221,7 +226,8 @@ Public Class FormularioCliente
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
         If (_PMOValidarCampos()) Then
-            Dim dt As DataTable = InsertarClienteFormularioExterno("", tbNombreCliente.Text, cbTipoDocumento.Value, tbNroDocumento.Text, tbNombreCliente.Text, tbNroDocumento.Text, cbPrecios.Value, tbTelefono.Text)
+
+            Dim dt As DataTable = InsertarClienteFormularioExterno("", tbNombreCliente.Text, cbTipoDocumento.Value, tbNroDocumento.Text, tbNombreCliente.Text, tbNroDocumento.Text, cbPrecios.Value, tbTelefono.Text, cbZona.Value)
             NuevoCliente = True
             IdCliente = dt.Rows(0).Item("Id")
             NombreCliente = dt.Rows(0).Item("NombreCliente")
@@ -258,5 +264,21 @@ Public Class FormularioCliente
 
     Private Sub btnSi_Paint(sender As Object, e As PaintEventArgs) Handles btnSi.Paint
 
+    End Sub
+
+    Private Sub btnCiudad_Click(sender As Object, e As EventArgs) Handles btnCiudad.Click
+        Dim numi As String = ""
+        Dim ef = New Efecto
+        ef.tipo = 10
+        ef.ModuloLibreria = 14
+        ef.titulo = "Crear Nueva Ciudad"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            P_Global._prCargarComboGenerico(cbZona, L_prLibreriaDetalleGeneral(14), "cnnum", "Codigo", "cndesc1", "Ciudad")
+            cbZona.SelectedIndex = CType(cbZona.DataSource, DataTable).Rows.Count - 1
+            cbZona.Focus()
+        End If
     End Sub
 End Class
