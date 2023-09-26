@@ -1187,7 +1187,10 @@ salirIf:
                     " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
                     " " + dt.Rows(i).Item("NombreCategoria").ToString.ToUpper +
                     " " + dt.Rows(i).Item("Marca").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("Presentacion").ToString.ToUpper
+                    " " + dt.Rows(i).Item("Presentacion").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper
+
+
                 Select Case cant
                     Case 1
 

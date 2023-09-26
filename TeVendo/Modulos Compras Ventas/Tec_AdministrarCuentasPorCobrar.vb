@@ -399,7 +399,6 @@ Public Class Tec_AdministrarCuentasPorCobrar
         For Each _fil As GridEXRow In gr_CreditoPendientes.GetRows
 
             dtPendiente.Rows.Add(_fil.Cells("ReciboManual").Value, _fil.Cells("Credito").Value, _fil.Cells("venta").Value, _fil.Cells("Nombrecliente").Value, _fil.Cells("Ciudad").Value, _fil.Cells("Monto").Value, _fil.Cells("abonado").Value, _fil.Cells("Restante").Value, _fil.Cells("FechaVencimientoCredito").Value, _fil.Cells("DiasMora").Value)
-
         Next
         If Not IsNothing(P_Global.Visualizador) Then
             P_Global.Visualizador.Close()
@@ -583,8 +582,8 @@ Public Class Tec_AdministrarCuentasPorCobrar
 
         Dim listEstCeldas As New List(Of Celda)
         listEstCeldas.Add(New Celda("Id", False, "Credito", 50))
-        listEstCeldas.Add(New Celda("Credito", True, "Credito", 90))
-        listEstCeldas.Add(New Celda("Venta", True, "Compra", 90))
+        listEstCeldas.Add(New Celda("Credito", True, "Recibo Manual", 120))
+        listEstCeldas.Add(New Celda("Venta", True, "Cod Venta", 90))
         listEstCeldas.Add(New Celda("Nombre", True, "Proveedor", 350))
         listEstCeldas.Add(New Celda("Monto", True, "Monto", 90, "0.00"))
         listEstCeldas.Add(New Celda("abonado", True, "Abonado", 90, "0.00"))
@@ -606,7 +605,7 @@ Public Class Tec_AdministrarCuentasPorCobrar
             Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
 
             IdCredito = Row.Cells("Id").Value
-            tbDeuda.Text = Row.Cells("Venta").Value.ToString + " a Cliente : " + Row.Cells("Nombre").Value.ToString
+            tbDeuda.Text = Row.Cells("Venta").Value.ToString + " a Cliente : " + Row.Cells("Nombre").Value.ToString + " Recibo Manual: " + Row.Cells("Credito").Value.ToString
             tbGlosa.Focus()
             tbMonto.Value = Row.Cells("Monto").Value
             tbSaldo.Value = Row.Cells("Restante").Value
@@ -818,8 +817,8 @@ Public Class Tec_AdministrarCuentasPorCobrar
 
         Dim listEstCeldas As New List(Of Celda)
         listEstCeldas.Add(New Celda("Id", False, "Credito", 50))
-        listEstCeldas.Add(New Celda("Credito", True, "Credito", 90))
-        listEstCeldas.Add(New Celda("Venta", True, "Compra", 90))
+        listEstCeldas.Add(New Celda("Credito", True, "Recibo Manual", 90))
+        listEstCeldas.Add(New Celda("Venta", True, "Venta", 90))
         listEstCeldas.Add(New Celda("Nombre", True, "Proveedor", 350))
         listEstCeldas.Add(New Celda("Monto", True, "Monto", 90, "0.00"))
         listEstCeldas.Add(New Celda("abonado", True, "Abonado", 90, "0.00"))
@@ -841,7 +840,7 @@ Public Class Tec_AdministrarCuentasPorCobrar
             Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
 
             IdCreditoTodos = Row.Cells("Id").Value
-            tbDeudaTodos.Text = Row.Cells("Venta").Value.ToString + " a Cliente : " + Row.Cells("Nombre").Value.ToString
+            tbDeudaTodos.Text = Row.Cells("Venta").Value.ToString + " a Cliente : " + Row.Cells("Nombre").Value.ToString + " Recibo Manual: " + Row.Cells("Credito").Value.ToString
 
             tbtotalCompraTodos.Value = Row.Cells("Monto").Value
             tbSaldoTodos.Value = Row.Cells("Restante").Value
