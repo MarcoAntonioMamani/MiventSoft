@@ -2,7 +2,7 @@
 Imports System.IO
 Public Class FPruebaImportacion
     Private Sub FPruebaImportacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        L_prAbrirConexion("DESKTOP-T84OJOU", "sa", "123", "DistribucionDistralKCP")
+        L_prAbrirConexion("DESKTOP-T84OJOU", "marco", "123", "DistribucionDistralKCP")
     End Sub
 
     Public Shared Function ExcelToDatatable(ByVal _xlPath As String, ByVal _namePage As String) As System.Data.DataTable
@@ -98,35 +98,35 @@ Public Class FPruebaImportacion
             '_AttributoId As Integer, _FamiliaId As Integer, _UnidadVentaId As Integer, _UnidadMaximaId As Integer,
             '_conversion As Double, _dtImagenes As DataTable, PrecioCosto As Double, venta As Double, institucional As Double
 
-            Res = L_prProductoInsertarDistralKCP(id, dt.Rows(i).Item("CodigoInterno"), dt.Rows(i).Item("CodigoSap"),
-                                                 dt.Rows(i).Item("descripcion"), dt.Rows(i).Item("descripcion25"),
-                                             3, 1, dt.Rows(i).Item("categoriaId"), 1, dt.Rows(i).Item("ProveedorId"),
-                                             dt.Rows(i).Item("SubCategoriaId"), 13, 17, 20, 22, dt.Rows(i).Item("conversion"),
-                                             TablaImagenes, dt.Rows(i).Item("CostoPaquete"), dt.Rows(i).Item("PaqueteVenta"), dt.Rows(i).Item("PaqueteInstitucional"))
+            Res = L_prProductoInsertarDistralKCP(id, "", "",
+                                                 dt.Rows(i).Item("producto"), dt.Rows(i).Item("producto"),
+                                             3, 1, 1, 1, 1,
+                                             1, 13, 17, 20, 22, dt.Rows(i).Item("conversion"),
+                                             TablaImagenes, dt.Rows(i).Item("PrecioMinorista"), dt.Rows(i).Item("PrecioInstitucional"))
 
-            'dt.Rows(i).Item("IdSistema") = id
+            dt.Rows(i).Item("IdSistema") = id
         Next
 
 
         '''''''' Tienda   '''''''''''''''
-        'Dim dtdetalle As DataTable = L_prListarDetalleMovimiento(-1)
-        ''a.id , a.MovimientoId, a.ProductoId, b.NombreProducto  As Producto, a.Cantidad,
-        ''    a.Lote, a.FechaVencimiento, CAST('' as image ) as img, 1 as estado 
-        'For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+        Dim dtdetalle As DataTable = L_prListarDetalleMovimiento(-1)
+        'a.id , a.MovimientoId, a.ProductoId, b.NombreProducto  As Producto, a.Cantidad,
+        '    a.Lote, a.FechaVencimiento, CAST('' as image ) as img, 1 as estado 
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
-        '    If (dt.Rows(i).Item("Inventario") > 0) Then
+            If (dt.Rows(i).Item("inventario") > 0) Then
 
-        '        _prAddDetalleVenta(dtdetalle)
+                _prAddDetalleVenta(dtdetalle)
 
-        '        dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("ProductoId") = dt.Rows(i).Item("IdSistema")
-        '        dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("Cantidad") = dt.Rows(i).Item("Inventario")
-        '    End If
+                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("ProductoId") = dt.Rows(i).Item("IdSistema")
+                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("Cantidad") = dt.Rows(i).Item("Inventario")
+            End If
 
 
-        'Next
+        Next
 
-        'L_prMovimientoInsertar("", 4, 1, "Inventario Inicial Migrado",
-        '                                 1, Now.Date.ToString("yyyy/MM/dd"), dtdetalle, 1, 0)
+        L_prMovimientoInsertar("", 4, 1, "Inventario Inicial Migrado",
+                                         1, Now.Date.ToString("yyyy/MM/dd"), dtdetalle, 1, 0)
 
 
 
@@ -200,10 +200,14 @@ Public Class FPruebaImportacion
     Private Sub _prAddDetalleVenta(ByRef dtDetalle As DataTable)
         'a.id , a.MovimientoId, a.ProductoId, b.NombreProducto  As Producto, a.Cantidad,
         '    a.Lote, a.FechaVencimiento, CAST('' as image ) as img, 1 as estado ,Sum(stock .Cantidad )as stock
+
+        '     Select Case a.id , a.MovimientoId , a.ProductoId , b.NombreProducto  As Producto,Sum(stock .Cantidad)-(tip.Factor *a.Cantidad) As stock, a.Cantidad 
+        ', a.Cantidad/p.conversion as CantidadCajas,
+        'a.Lote , a.FechaVencimiento, CAST('' as image ) as img, 1 as estado ,Sum(stock .Cantidad) as stockFinal,p.conversion
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        dtDetalle.Rows.Add(_GenerarId(dtDetalle) + 1, 0, 0, "", 0, "20200101", CDate("2020/01/01"), Bin.GetBuffer, 0, 0)
+        dtDetalle.Rows.Add(_GenerarId(dtDetalle) + 1, 0, 0, "", 0, 0, 0, "20200101", CDate("2020/01/01"), Bin.GetBuffer, 0, 0, 0)
     End Sub
     Public Function _GenerarId(dt As DataTable)
 

@@ -1956,8 +1956,8 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@DepositoId", DepositoId))
         _listParam.Add(New Datos.DParametro("@Observacion", Observacion))
         _listParam.Add(New Datos.DParametro("@Estado", Estado))
-        _listParam.Add(New Datos.DParametro("@DepositoIdDestino", _DepositoIdDestino))
-        _listParam.Add(New Datos.DParametro("@IdMovimientoDestino", _IdMovimientoDestino))
+        '_listParam.Add(New Datos.DParametro("@DepositoIdDestino", _DepositoIdDestino))
+        '_listParam.Add(New Datos.DParametro("@IdMovimientoDestino", _IdMovimientoDestino))
         _listParam.Add(New Datos.DParametro("@FechaDocumento", FechaDocumento))
         _listParam.Add(New Datos.DParametro("@detalle", "", _dtDetalle))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
@@ -2344,7 +2344,7 @@ Public Class AccesoLogica
                                                 _CodigoBarra As String, _NombreProducto As String,
         _Descripcion As String, _stockMinimo As Decimal, _estado As Integer, _CategoriaId As Integer, _EmpresaId As Integer, _ProveedorId As Integer, _MarcaId As Integer,
         _AttributoId As Integer, _FamiliaId As Integer, _UnidadVentaId As Integer, _UnidadMaximaId As Integer,
-        _conversion As Double, _dtImagenes As DataTable, PrecioCosto As Double, venta As Double, institucional As Double) As Boolean
+        _conversion As Double, _dtImagenes As DataTable, venta As Double, institucional As Double) As Boolean
         Dim _resultado As Boolean
 
         '(@Id,@CodigoExterno ,@CodigoBarras ,@NombreProducto ,@DescripcionProducto ,
@@ -2375,9 +2375,8 @@ Public Class AccesoLogica
 
         _listParam.Add(New Datos.DParametro("@TCL0064", "", _dtImagenes))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
-        _listParam.Add(New Datos.DParametro("@Compra", PrecioCosto))
-        _listParam.Add(New Datos.DParametro("@venta", venta))
-        _listParam.Add(New Datos.DParametro("@institucional", institucional))
+        _listParam.Add(New Datos.DParametro("@Venta", venta))
+        _listParam.Add(New Datos.DParametro("@Institucional", institucional))
         '_listParam.Add(New Datos.DParametro("@Facturado", PrecioFacturado))
         '_listParam.Add(New Datos.DParametro("@Mayorista", PrecioMayorista))
         _Tabla = D_ProcedimientoConParam("MAM_Productos", _listParam)
