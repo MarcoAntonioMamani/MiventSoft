@@ -422,6 +422,62 @@ Public Class Tec_AdministrarCuentasPorCobrar
         ''P_Global.Visualizador.BringToFront() 'Comentar
     End Sub
 
+    Public Sub P_GenerarReportePagosPendientesDetallado()
+        dtPendiente.Rows.Clear()
+
+        For Each _fil As GridEXRow In gr_CreditoPendientes.GetRows
+            dtPendiente.Rows.Add(_fil.Cells("ReciboManual").Value, _fil.Cells("Credito").Value, _fil.Cells("venta").Value, _fil.Cells("Nombrecliente").Value, _fil.Cells("Ciudad").Value, _fil.Cells("Monto").Value, _fil.Cells("abonado").Value, _fil.Cells("Restante").Value, _fil.Cells("FechaVencimientoCredito").Value, _fil.Cells("DiasMora").Value, _fil.Cells("FechaVenta").Value)
+        Next
+        Dim dtReporteDetallado As DataTable = L_EstructuraDetallado()
+
+        dtReporteDetallado.Rows.Clear()
+
+        For i As Integer = 0 To dtPendiente.Rows.Count - 1 Step 1
+
+            Dim idCredito As String = dtPendiente.Rows(i).Item("Credito").ToString.Replace("Credito000", "")
+            Dim idVenta As String = dtPendiente.Rows(i).Item("venta").ToString.Replace("venta000", "")
+            Dim Fechaventa As String = dtPendiente.Rows(i).Item("FechaVenta").ToString
+            dtReporteDetallado.Rows.Add(Fechaventa,
+                                        dtPendiente.Rows(i).Item("Nombrecliente"), idVenta,
+                                        "Venta De Productos - Nota# " + dtPendiente.Rows(i).Item("ReciboManual"), dtPendiente.Rows(i).Item("Monto"), 0, dtPendiente.Rows(i).Item("Monto"))
+
+            Dim dtpagos As DataTable = L_EstadoDeCuentasPorCobrar(idCredito)
+
+            Dim saldo As Double = dtPendiente.Rows(i).Item("Monto")
+            For j As Integer = 0 To dtpagos.Rows.Count - 1 Step 1
+
+                saldo = saldo - dtpagos.Rows(j).Item("Monto")
+                dtReporteDetallado.Rows.Add(dtpagos.Rows(j).Item("FechaPago"),
+                                       dtPendiente.Rows(i).Item("Nombrecliente"), idVenta,
+                                       "Registro De Pago - Recibo# " + dtpagos.Rows(j).Item("NroRecibo"), 0, dtpagos.Rows(j).Item("Monto"), saldo)
+
+            Next
+
+        Next
+
+
+        If Not IsNothing(P_Global.Visualizador) Then
+            P_Global.Visualizador.Close()
+        End If
+        If (dtPendiente.Rows.Count <= 0) Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "No Existen Datos Para Generar el Reporte".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            Return
+
+        End If
+
+        P_Global.Visualizador = New Visualizador
+
+        Dim objrep As New ExtractoCliente
+
+        objrep.SetDataSource(dtReporteDetallado)
+        objrep.SetParameterValue("Usuario", L_Usuario)
+        P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+        P_Global.Visualizador.CrGeneral.Zoom(110)
+        P_Global.Visualizador.Show() 'Comentar
+        ''P_Global.Visualizador.BringToFront() 'Comentar
+    End Sub
+
     Public Sub P_GenerarReporteDeudasPagadas()
         dtPagados.Rows.Clear()
 
@@ -949,6 +1005,10 @@ Public Class Tec_AdministrarCuentasPorCobrar
         P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
         P_Global.Visualizador.CrGeneral.Zoom(110)
         P_Global.Visualizador.Show() 'Comentar
+    End Sub
+
+    Private Sub ButtonX5_Click(sender As Object, e As EventArgs) Handles ButtonX5.Click
+        P_GenerarReportePagosPendientesDetallado()
     End Sub
 #End Region
 End Class

@@ -84,6 +84,7 @@ Partial Class Tec_AdministrarCuentasPorCobrar
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.ButtonX5 = New DevComponents.DotNetBar.ButtonX()
         Me.Panel1.SuspendLayout()
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlMenu.SuspendLayout()
@@ -144,8 +145,8 @@ Partial Class Tec_AdministrarCuentasPorCobrar
         Me.SuperTabControlMenu.ControlBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControlMenu.ControlBox.MenuBox, Me.SuperTabControlMenu.ControlBox.CloseBox})
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel3)
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel6)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel1)
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel6)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
         Me.SuperTabControlMenu.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlMenu.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -243,6 +244,7 @@ Partial Class Tec_AdministrarCuentasPorCobrar
         'Panel4
         '
         Me.Panel4.BackColor = System.Drawing.Color.White
+        Me.Panel4.Controls.Add(Me.ButtonX5)
         Me.Panel4.Controls.Add(Me.ButtonX1)
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel4.Location = New System.Drawing.Point(5, 5)
@@ -1264,6 +1266,25 @@ Partial Class Tec_AdministrarCuentasPorCobrar
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
         '
+        'ButtonX5
+        '
+        Me.ButtonX5.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX5.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.ButtonX5.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.ButtonX5.DisabledImagesGrayScale = False
+        Me.ButtonX5.Dock = System.Windows.Forms.DockStyle.Right
+        Me.ButtonX5.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX5.Image = Global.TeVendo.My.Resources.Resources.printee
+        Me.ButtonX5.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.ButtonX5.Location = New System.Drawing.Point(493, 0)
+        Me.ButtonX5.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX5.Name = "ButtonX5"
+        Me.ButtonX5.Size = New System.Drawing.Size(227, 61)
+        Me.ButtonX5.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX5.TabIndex = 3
+        Me.ButtonX5.Text = "Extracto Cliente"
+        Me.ButtonX5.TextColor = System.Drawing.Color.White
+        '
         'Tec_AdministrarCuentasPorCobrar
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -1369,4 +1390,5 @@ Partial Class Tec_AdministrarCuentasPorCobrar
     Friend WithEvents Label1 As Label
     Friend WithEvents Panel3 As Panel
     Friend WithEvents PictureBox1 As PictureBox
+    Protected WithEvents ButtonX5 As DevComponents.DotNetBar.ButtonX
 End Class
