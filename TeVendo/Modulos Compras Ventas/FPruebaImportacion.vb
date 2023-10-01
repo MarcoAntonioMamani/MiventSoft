@@ -98,11 +98,11 @@ Public Class FPruebaImportacion
             '_AttributoId As Integer, _FamiliaId As Integer, _UnidadVentaId As Integer, _UnidadMaximaId As Integer,
             '_conversion As Double, _dtImagenes As DataTable, PrecioCosto As Double, venta As Double, institucional As Double
 
-            Res = L_prProductoInsertarDistralKCP(id, "", "",
-                                                 dt.Rows(i).Item("producto"), dt.Rows(i).Item("producto"),
-                                             3, 1, 1, 1, 1,
-                                             1, 13, 17, 20, 22, dt.Rows(i).Item("conversion"),
-                                             TablaImagenes, dt.Rows(i).Item("PrecioMinorista"), dt.Rows(i).Item("PrecioInstitucional"))
+            Res = L_prProductoInsertarDistralKCP(id, dt.Rows(i).Item("CODIGOEXTERNO"), "",
+                                                 dt.Rows(i).Item("DESCRIPCION"), dt.Rows(i).Item("DESCRIPCION"),
+                                             3, 1, dt.Rows(i).Item("CategoriaID"), 1, 1,
+                                             1, 13, 17, 20, 22, dt.Rows(i).Item("CONVERSION"),
+                                             TablaImagenes, dt.Rows(i).Item("PRECIOMINORISTA"), dt.Rows(i).Item("PRECIOINSTITUCIONAL"), dt.Rows(i).Item("PRECIOCOSTO"))
 
             dt.Rows(i).Item("IdSistema") = id
         Next
@@ -119,7 +119,7 @@ Public Class FPruebaImportacion
                 _prAddDetalleVenta(dtdetalle)
 
                 dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("ProductoId") = dt.Rows(i).Item("IdSistema")
-                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("Cantidad") = dt.Rows(i).Item("Inventario")
+                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("Cantidad") = dt.Rows(i).Item("INVENTARIO")
             End If
 
 
