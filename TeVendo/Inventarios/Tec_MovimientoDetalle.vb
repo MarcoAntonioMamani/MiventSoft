@@ -80,11 +80,13 @@ Public Class Tec_MovimientoDetalle
 
 
         With grDetalle.RootTable.Columns("Producto")
-            .Width = 150
+            .Width = 200
             .Caption = "Producto"
             .Visible = True
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
+            .WordWrap = True
+            .MaxLines = 3
         End With
 
 
@@ -492,14 +494,17 @@ Public Class Tec_MovimientoDetalle
         With grProducto.RootTable.Columns("Id")
             .Width = 50
             .Caption = "Id"
-            .Visible = True
+            .Visible = False
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
 
         End With
         With grProducto.RootTable.Columns("CodigoExterno")
             .Caption = "CODIGOP"
-            .Visible = False
+            .Visible = True
+            .Width = 50
+            .WordWrap = True
+            .MaxLines = 3
 
         End With
         With grProducto.RootTable.Columns("Conversion")

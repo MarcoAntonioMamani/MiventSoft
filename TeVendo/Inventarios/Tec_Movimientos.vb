@@ -302,7 +302,7 @@ Public Class Tec_Movimientos
 
         End With
         With grDetalle.RootTable.Columns("conversion")
-            .Width = 100
+            .Width = 60
             .FormatString = "0.00"
         End With
         With grDetalle.RootTable.Columns("ProductoId")
@@ -319,11 +319,13 @@ Public Class Tec_Movimientos
 
 
         With grDetalle.RootTable.Columns("Producto")
-            .Width = 150
+            .Width = 250
             .Caption = "Producto"
             .Visible = True
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
+            .WordWrap = True
+            .MaxLines = 3
         End With
 
 

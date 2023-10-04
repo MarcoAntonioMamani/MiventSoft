@@ -362,11 +362,13 @@ Public Class Tec_Compras
 
 
         With grDetalle.RootTable.Columns("Producto")
-            .Width = 150
+            .Width = 200
             .Caption = "Producto"
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
             .Visible = True
+            .WordWrap = True
+            .MaxLines = 3
         End With
 
 

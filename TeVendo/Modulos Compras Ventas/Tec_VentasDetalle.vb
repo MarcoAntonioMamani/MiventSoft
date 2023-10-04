@@ -66,7 +66,7 @@ Public Class Tec_VentasDetalle
         With grProducto.RootTable.Columns("Id")
             .Width = 100
             .Caption = "Id"
-            .Visible = True
+            .Visible = False
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
 
@@ -74,8 +74,9 @@ Public Class Tec_VentasDetalle
         With grProducto.RootTable.Columns("CodigoExterno")
             .Width = 100
             .Caption = "CODIGOP"
-            .Visible = False
-
+            .Visible = True
+            .WordWrap = True
+            .MaxLines = 2
         End With
         With grProducto.RootTable.Columns("Conversion")
             .Width = 100
@@ -100,7 +101,7 @@ Public Class Tec_VentasDetalle
 
         With grProducto.RootTable.Columns("DescripcionProducto")
             .Width = 250
-            .Visible = True
+            .Visible = False
             .MaxLines = 2
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
@@ -262,9 +263,11 @@ Public Class Tec_VentasDetalle
         End With
 
         With grDetalle.RootTable.Columns("Producto")
-            .Width = 150
+            .Width = 200
             .Caption = "Producto"
             .Visible = True
+            .WordWrap = True
+            .MaxLines = 3
         End With
 
         With grDetalle.RootTable.Columns("Cantidad")
@@ -1002,7 +1005,7 @@ salirIf:
             Dim cant As Integer = vectoraux.Length
             'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock  NombreCategoria
             For i As Integer = 0 To dt.Rows.Count - 1 Step 1
-                Dim nombre As String = dt.Rows(i).Item("Id").ToString.ToUpper +
+                Dim nombre As String = dt.Rows(i).Item("CodigoExterno").ToString.ToUpper +
                     " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper +
                     " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
                     " " + dt.Rows(i).Item("NombreCategoria").ToString.ToUpper
