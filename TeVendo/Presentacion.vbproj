@@ -228,6 +228,12 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="CustomersRow.vb" />
+    <Compile Include="Distribucion\F_AsignacionZona.Designer.vb">
+      <DependentUpon>F_AsignacionZona.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Distribucion\F_AsignacionZona.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Distribucion\Rep_Gastos.Designer.vb">
       <DependentUpon>Rep_Gastos.vb</DependentUpon>
     </Compile>
@@ -581,6 +587,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ReporteCompraPorProducto.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ReporteSmartApps\ReporteConciliacion03.vb">
       <AutoGen>True</AutoGen>
@@ -748,6 +755,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reporte_VentaPorProductos.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ReporteSmartApps\Reporte_VentasRealizadas.vb">
       <AutoGen>True</AutoGen>
@@ -870,6 +878,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Control\UCLavadero.resx">
       <DependentUpon>UCLavadero.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Distribucion\F_AsignacionZona.resx">
+      <DependentUpon>F_AsignacionZona.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Distribucion\Rep_Gastos.resx">
       <DependentUpon>Rep_Gastos.vb</DependentUpon>
