@@ -50,7 +50,7 @@ Partial Class F_AsignacionZona
         Me.Paneltop.Location = New System.Drawing.Point(0, 0)
         Me.Paneltop.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Paneltop.Name = "Paneltop"
-        Me.Paneltop.Size = New System.Drawing.Size(924, 558)
+        Me.Paneltop.Size = New System.Drawing.Size(905, 558)
         Me.Paneltop.TabIndex = 3
         '
         'grPersonal
@@ -116,7 +116,7 @@ Partial Class F_AsignacionZona
         Me.Panel10.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel10.Size = New System.Drawing.Size(924, 67)
+        Me.Panel10.Size = New System.Drawing.Size(905, 67)
         Me.Panel10.TabIndex = 2
         '
         'Panel11
@@ -130,7 +130,7 @@ Partial Class F_AsignacionZona
         Me.Panel11.Location = New System.Drawing.Point(1, 1)
         Me.Panel11.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(922, 65)
+        Me.Panel11.Size = New System.Drawing.Size(903, 65)
         Me.Panel11.TabIndex = 0
         '
         'Label3
@@ -178,7 +178,7 @@ Partial Class F_AsignacionZona
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 67)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(924, 491)
+        Me.Panel1.Size = New System.Drawing.Size(905, 491)
         Me.Panel1.TabIndex = 5
         '
         'grZonas
@@ -259,7 +259,7 @@ Partial Class F_AsignacionZona
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(924, 558)
+        Me.ClientSize = New System.Drawing.Size(905, 558)
         Me.Controls.Add(Me.Paneltop)
         Me.Name = "F_AsignacionZona"
         Me.Text = "ASIGNACION ZONA"
