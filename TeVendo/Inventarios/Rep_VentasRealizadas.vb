@@ -17,8 +17,6 @@ Public Class Rep_VentasRealizadas
         tbVendedor.ReadOnly = True
         Me.Text = "REPORTE DE VENTAS REALIZADAS"
         MReportViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
-
-
     End Sub
 
     Private Sub Rep_VentasRealizadas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
