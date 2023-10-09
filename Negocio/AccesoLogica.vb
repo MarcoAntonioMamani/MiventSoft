@@ -3224,6 +3224,21 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
+    Public Shared Function L_EstadoDeCuentasPorCobrarFechas(idCredito As Integer, fechaI As String, fechaF As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 11))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@CreditoVentaId", idCredito))
+        _listParam.Add(New Datos.DParametro("@FechaI", fechaI))
+        _listParam.Add(New Datos.DParametro("@FechaF", fechaF))
+        _Tabla = D_ProcedimientoConParam("MAM_CreditosVentas", _listParam)
+
+        Return _Tabla
+    End Function
+
     Public Shared Function L_EstructuraDetallado() As DataTable
         Dim _Tabla As DataTable
 
@@ -3231,6 +3246,22 @@ Public Class AccesoLogica
 
         _listParam.Add(New Datos.DParametro("@tipo", 9))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_CreditosVentas", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_EstructuraVentasContadoCredito(cliente As Integer, fechaI As String, fechaF As String, TipoVenta As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 10))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@ClienteId", cliente))
+        _listParam.Add(New Datos.DParametro("@FechaI", fechaI))
+        _listParam.Add(New Datos.DParametro("@FechaF", fechaF))
+        _listParam.Add(New Datos.DParametro("@TipoVenta", TipoVenta)) ''1=Contado  0=credito
         _Tabla = D_ProcedimientoConParam("MAM_CreditosVentas", _listParam)
 
         Return _Tabla

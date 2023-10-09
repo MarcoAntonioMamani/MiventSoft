@@ -227,13 +227,12 @@ Partial Class Rep_Historico
         Me.btnVendedor.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
         Me.btnVendedor.Image = Global.TeVendo.My.Resources.Resources.search
         Me.btnVendedor.ImageFixedSize = New System.Drawing.Size(28, 28)
-        Me.btnVendedor.Location = New System.Drawing.Point(344, 5)
+        Me.btnVendedor.Location = New System.Drawing.Point(451, 10)
         Me.btnVendedor.Margin = New System.Windows.Forms.Padding(4)
         Me.btnVendedor.Name = "btnVendedor"
         Me.btnVendedor.Size = New System.Drawing.Size(35, 31)
         Me.btnVendedor.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnVendedor.TabIndex = 211
-        Me.btnVendedor.Visible = False
         '
         'tbVendedor
         '
@@ -247,7 +246,7 @@ Partial Class Rep_Historico
         Me.tbVendedor.Margin = New System.Windows.Forms.Padding(4)
         Me.tbVendedor.Name = "tbVendedor"
         Me.tbVendedor.PreventEnterBeep = True
-        Me.tbVendedor.Size = New System.Drawing.Size(206, 29)
+        Me.tbVendedor.Size = New System.Drawing.Size(313, 29)
         Me.tbVendedor.TabIndex = 43
         '
         'cbFechaHasta
