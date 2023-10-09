@@ -30,14 +30,15 @@ Partial Class F_AsignacionZona
         Me.Panel12 = New System.Windows.Forms.Panel()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.GridEX1 = New Janus.Windows.GridEX.GridEX()
+        Me.grZonas = New Janus.Windows.GridEX.GridEX()
+        Me.btnConfirmarSalir = New DevComponents.DotNetBar.ButtonX()
         Me.Paneltop.SuspendLayout()
         CType(Me.grPersonal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel10.SuspendLayout()
         Me.Panel11.SuspendLayout()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
-        CType(Me.GridEX1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grZonas, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Paneltop
@@ -96,7 +97,7 @@ Partial Class F_AsignacionZona
         Me.grPersonal.SelectedFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
         Me.grPersonal.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grPersonal.SelectedFormatStyle.ForeColor = System.Drawing.Color.Black
-        Me.grPersonal.Size = New System.Drawing.Size(490, 522)
+        Me.grPersonal.Size = New System.Drawing.Size(490, 491)
         Me.grPersonal.TabIndex = 4
         Me.grPersonal.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grPersonal.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -115,12 +116,13 @@ Partial Class F_AsignacionZona
         Me.Panel10.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel10.Size = New System.Drawing.Size(924, 36)
+        Me.Panel10.Size = New System.Drawing.Size(924, 67)
         Me.Panel10.TabIndex = 2
         '
         'Panel11
         '
         Me.Panel11.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Panel11.Controls.Add(Me.btnConfirmarSalir)
         Me.Panel11.Controls.Add(Me.Label3)
         Me.Panel11.Controls.Add(Me.Panel12)
         Me.Panel11.Controls.Add(Me.PictureBox3)
@@ -128,7 +130,7 @@ Partial Class F_AsignacionZona
         Me.Panel11.Location = New System.Drawing.Point(1, 1)
         Me.Panel11.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(922, 34)
+        Me.Panel11.Size = New System.Drawing.Size(922, 65)
         Me.Panel11.TabIndex = 0
         '
         'Label3
@@ -140,7 +142,7 @@ Partial Class F_AsignacionZona
         Me.Label3.Location = New System.Drawing.Point(60, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
-        Me.Label3.Size = New System.Drawing.Size(253, 34)
+        Me.Label3.Size = New System.Drawing.Size(253, 65)
         Me.Label3.TabIndex = 2
         Me.Label3.Text = "ASIGNACION ZONA"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -152,7 +154,7 @@ Partial Class F_AsignacionZona
         Me.Panel12.Location = New System.Drawing.Point(59, 0)
         Me.Panel12.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel12.Name = "Panel12"
-        Me.Panel12.Size = New System.Drawing.Size(1, 34)
+        Me.Panel12.Size = New System.Drawing.Size(1, 65)
         Me.Panel12.TabIndex = 1
         '
         'PictureBox3
@@ -164,7 +166,7 @@ Partial Class F_AsignacionZona
         Me.PictureBox3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PictureBox3.Name = "PictureBox3"
         Me.PictureBox3.Padding = New System.Windows.Forms.Padding(15, 5, 15, 5)
-        Me.PictureBox3.Size = New System.Drawing.Size(59, 34)
+        Me.PictureBox3.Size = New System.Drawing.Size(59, 65)
         Me.PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox3.TabIndex = 0
         Me.PictureBox3.TabStop = False
@@ -172,66 +174,86 @@ Partial Class F_AsignacionZona
         'Panel1
         '
         Me.Panel1.Controls.Add(Me.grPersonal)
-        Me.Panel1.Controls.Add(Me.GridEX1)
+        Me.Panel1.Controls.Add(Me.grZonas)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(0, 36)
+        Me.Panel1.Location = New System.Drawing.Point(0, 67)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(924, 522)
+        Me.Panel1.Size = New System.Drawing.Size(924, 491)
         Me.Panel1.TabIndex = 5
         '
-        'GridEX1
+        'grZonas
         '
-        Me.GridEX1.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
-        Me.GridEX1.AlternatingColors = True
-        Me.GridEX1.BackColor = System.Drawing.Color.White
-        Me.GridEX1.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
-        Me.GridEX1.ColumnAutoResize = True
-        Me.GridEX1.Dock = System.Windows.Forms.DockStyle.Left
-        Me.GridEX1.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None
-        Me.GridEX1.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
-        Me.GridEX1.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GridEX1.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.GridEX1.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.GridEX1.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
-        Me.GridEX1.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GridEX1.GridLines = Janus.Windows.GridEX.GridLines.None
-        Me.GridEX1.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
-        Me.GridEX1.HeaderFormatStyle.Alpha = 0
-        Me.GridEX1.HeaderFormatStyle.Appearance = Janus.Windows.GridEX.Appearance.Flat
-        Me.GridEX1.HeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
-        Me.GridEX1.HeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
-        Me.GridEX1.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
-        Me.GridEX1.HeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
-        Me.GridEX1.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GridEX1.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
-        Me.GridEX1.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
-        Me.GridEX1.Location = New System.Drawing.Point(0, 0)
-        Me.GridEX1.Margin = New System.Windows.Forms.Padding(4)
-        Me.GridEX1.Name = "GridEX1"
-        Me.GridEX1.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.GridEX1.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.GridEX1.RecordNavigator = True
-        Me.GridEX1.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GridEX1.RowHeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
-        Me.GridEX1.RowHeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.Transparent
-        Me.GridEX1.RowHeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
-        Me.GridEX1.RowHeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
-        Me.GridEX1.RowHeaderFormatStyle.BackgroundImageDrawMode = Janus.Windows.GridEX.BackgroundImageDrawMode.Center
-        Me.GridEX1.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GridEX1.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
-        Me.GridEX1.SelectedFormatStyle.BackColor = System.Drawing.Color.Gold
-        Me.GridEX1.SelectedFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
-        Me.GridEX1.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GridEX1.SelectedFormatStyle.ForeColor = System.Drawing.Color.Black
-        Me.GridEX1.Size = New System.Drawing.Size(490, 522)
-        Me.GridEX1.TabIndex = 5
-        Me.GridEX1.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
-        Me.GridEX1.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        Me.GridEX1.TableSpacing = 9
-        Me.GridEX1.TreeLineColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.GridEX1.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        Me.GridEX1.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        Me.GridEX1.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.VS2005
+        Me.grZonas.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
+        Me.grZonas.AlternatingColors = True
+        Me.grZonas.BackColor = System.Drawing.Color.White
+        Me.grZonas.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
+        Me.grZonas.ColumnAutoResize = True
+        Me.grZonas.Dock = System.Windows.Forms.DockStyle.Left
+        Me.grZonas.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None
+        Me.grZonas.FilterRowFormatStyle.BackColor = System.Drawing.Color.White
+        Me.grZonas.FilterRowFormatStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grZonas.FilterRowFormatStyle.LineAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grZonas.FilterRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grZonas.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
+        Me.grZonas.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grZonas.GridLines = Janus.Windows.GridEX.GridLines.None
+        Me.grZonas.GridLineStyle = Janus.Windows.GridEX.GridLineStyle.Solid
+        Me.grZonas.HeaderFormatStyle.Alpha = 0
+        Me.grZonas.HeaderFormatStyle.Appearance = Janus.Windows.GridEX.Appearance.Flat
+        Me.grZonas.HeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
+        Me.grZonas.HeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
+        Me.grZonas.HeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
+        Me.grZonas.HeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
+        Me.grZonas.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grZonas.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
+        Me.grZonas.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
+        Me.grZonas.Location = New System.Drawing.Point(0, 0)
+        Me.grZonas.Margin = New System.Windows.Forms.Padding(4)
+        Me.grZonas.Name = "grZonas"
+        Me.grZonas.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.grZonas.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.grZonas.RecordNavigator = True
+        Me.grZonas.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grZonas.RowHeaderFormatStyle.BackColor = System.Drawing.Color.MidnightBlue
+        Me.grZonas.RowHeaderFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.Transparent
+        Me.grZonas.RowHeaderFormatStyle.BackColorGradient = System.Drawing.Color.MidnightBlue
+        Me.grZonas.RowHeaderFormatStyle.BackgroundGradientMode = Janus.Windows.GridEX.BackgroundGradientMode.DiagonalBackwards
+        Me.grZonas.RowHeaderFormatStyle.BackgroundImageDrawMode = Janus.Windows.GridEX.BackgroundImageDrawMode.Center
+        Me.grZonas.RowHeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grZonas.RowHeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.grZonas.SelectedFormatStyle.BackColor = System.Drawing.Color.Gold
+        Me.grZonas.SelectedFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
+        Me.grZonas.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grZonas.SelectedFormatStyle.ForeColor = System.Drawing.Color.Black
+        Me.grZonas.Size = New System.Drawing.Size(490, 491)
+        Me.grZonas.TabIndex = 5
+        Me.grZonas.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
+        Me.grZonas.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.grZonas.TableSpacing = 9
+        Me.grZonas.TreeLineColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.grZonas.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.grZonas.VisualStyleAreas.ControlBorderStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.grZonas.VisualStyleAreas.HeadersStyle = Janus.Windows.GridEX.VisualStyle.VS2005
+        '
+        'btnConfirmarSalir
+        '
+        Me.btnConfirmarSalir.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnConfirmarSalir.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnConfirmarSalir.Font = New System.Drawing.Font("Calibri", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnConfirmarSalir.Image = Global.TeVendo.My.Resources.Resources.search
+        Me.btnConfirmarSalir.ImageFixedSize = New System.Drawing.Size(24, 24)
+        Me.btnConfirmarSalir.Location = New System.Drawing.Point(744, 8)
+        Me.btnConfirmarSalir.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnConfirmarSalir.Name = "btnConfirmarSalir"
+        Me.btnConfirmarSalir.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
+        Me.btnConfirmarSalir.Size = New System.Drawing.Size(166, 53)
+        Me.btnConfirmarSalir.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnConfirmarSalir.Symbol = "57673"
+        Me.btnConfirmarSalir.SymbolColor = System.Drawing.Color.MediumTurquoise
+        Me.btnConfirmarSalir.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Material
+        Me.btnConfirmarSalir.SymbolSize = 20.0!
+        Me.btnConfirmarSalir.TabIndex = 4
+        Me.btnConfirmarSalir.Text = "GUARDAR"
         '
         'F_AsignacionZona
         '
@@ -247,7 +269,7 @@ Partial Class F_AsignacionZona
         Me.Panel11.ResumeLayout(False)
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
-        CType(Me.GridEX1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grZonas, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -260,5 +282,6 @@ Partial Class F_AsignacionZona
     Friend WithEvents Panel12 As Panel
     Friend WithEvents PictureBox3 As PictureBox
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents GridEX1 As Janus.Windows.GridEX.GridEX
+    Friend WithEvents grZonas As Janus.Windows.GridEX.GridEX
+    Friend WithEvents btnConfirmarSalir As DevComponents.DotNetBar.ButtonX
 End Class
