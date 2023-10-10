@@ -369,9 +369,19 @@ Public Class Tec_Ventas
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .Caption = "Precio"
-            .FormatString = "0.00"
+            .FormatString = "Bs0.00"
+            .WordWrap = True
+            .MaxLines = 2
         End With
-
+        With grDetalle.RootTable.Columns("PrecioDolar")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .Caption = "Precio$us"
+            .FormatString = "$0.00"
+            .WordWrap = True
+            .MaxLines = 2
+        End With
         With grDetalle.RootTable.Columns("SubTotal")
             .Width = 60
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
@@ -410,10 +420,22 @@ Public Class Tec_Ventas
         With grDetalle.RootTable.Columns("Total")
             .Width = 60
             .Visible = True
-            .Caption = "Total".ToUpper
+            .Caption = "Total"
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .FormatString = "0.00"
+            .FormatString = "Bs0.00"
             .AggregateFunction = AggregateFunction.Sum
+            .WordWrap = True
+            .MaxLines = 2
+        End With
+        With grDetalle.RootTable.Columns("TotalDolar")
+            .Width = 60
+            .Visible = True
+            .Caption = "Total$us"
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .FormatString = "$0.00"
+            .AggregateFunction = AggregateFunction.Sum
+            .WordWrap = True
+            .MaxLines = 2
         End With
 
         With grDetalle.RootTable.Columns("Detalle")
@@ -716,7 +738,7 @@ Public Class Tec_Ventas
                     Return
 
                 End If
-                If (Global_ModificarPrecio = 1 And e.Column.Index = grDetalle.RootTable.Columns("Precio").Index) Then
+                If (Global_ModificarPrecio = 1 And (e.Column.Index = grDetalle.RootTable.Columns("Precio").Index Or e.Column.Index = grDetalle.RootTable.Columns("PrecioDolar").Index)) Then
 
                     e.Cancel = False
                     Return
@@ -891,12 +913,14 @@ salirIf:
 
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = 0
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = 0
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioDolar") = 0
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = 0
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = 0
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = 0
                 Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
 
                 grDetalle.SetValue("Precio", 0)
+                ''grDetalle.SetValue("PrecioDolar", 0)
                 grDetalle.SetValue("ProcentajeDescuento", 0)
                 grDetalle.SetValue("MontoDescuento", 0)
                 grDetalle.SetValue("SubTotal", 0)
@@ -914,6 +938,51 @@ salirIf:
                 Dim montodesc As Double = ((grDetalle.GetValue("Precio") * grDetalle.GetValue("Cantidad")) * (porcdesc / 100))
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = montodesc
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = grDetalle.GetValue("Precio")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioDolar") = grDetalle.GetValue("Precio") / Global_TipoCambio
+                grDetalle.SetValue("PrecioDolar", grDetalle.GetValue("Precio") / Global_TipoCambio)
+
+                grDetalle.SetValue("MontoDescuento", montodesc)
+                Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+                Dim rowIndex01 As Integer = grDetalle.Row
+                P_PonerTotal(rowIndex01)
+                If (estado = 1) Then
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                End If
+            End If
+        End If
+        If (e.Column.Index = grDetalle.RootTable.Columns("PrecioDolar").Index) Then
+            If (Not IsNumeric(grDetalle.GetValue("PrecioDolar")) Or grDetalle.GetValue("PrecioDolar").ToString = String.Empty) Then
+
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProcentajeDescuento") = 0
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = 0
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioDolar") = 0
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = 0
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = 0
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = 0
+                Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+
+                grDetalle.SetValue("Precio", 0)
+                ''grDetalle.SetValue("PrecioDolar", 0)
+                grDetalle.SetValue("ProcentajeDescuento", 0)
+                grDetalle.SetValue("MontoDescuento", 0)
+                grDetalle.SetValue("SubTotal", 0)
+                grDetalle.SetValue("Total", 0)
+
+
+
+                If (estado = 1) Then
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                End If
+
+            Else
+                Dim PrecioBs As Double = grDetalle.GetValue("Precio") * Global_TipoCambio
+
+                Dim porcdesc As Double = grDetalle.GetValue("ProcentajeDescuento")
+                Dim montodesc As Double = ((PrecioBs * grDetalle.GetValue("Cantidad")) * (porcdesc / 100))
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = montodesc
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = PrecioBs
+                grDetalle.SetValue("Precio", grDetalle.GetValue("PrecioDolar") * Global_TipoCambio)
+
                 grDetalle.SetValue("MontoDescuento", montodesc)
                 Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
                 Dim rowIndex01 As Integer = grDetalle.Row
@@ -1055,7 +1124,7 @@ salirIf:
             Dim pos As Integer = -1
             _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
             Dim cant As Double = grDetalle.GetValue("Cantidad")
-            Dim uni As Double = grDetalle.GetValue("Precio")
+            Dim uni As Double = IIf(IsNothing(grDetalle.GetValue("Precio")), 0, grDetalle.GetValue("Precio"))
             Dim MontoDesc As Double = grDetalle.GetValue("MontoDescuento")
             If (pos >= 0) Then
                 Dim TotalUnitario As Double = cant * uni
@@ -1067,7 +1136,9 @@ salirIf:
 
 
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = TotalUnitario - MontoDesc
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("TotalDolar") = (TotalUnitario - MontoDesc) / Global_TipoCambio
                 grDetalle.SetValue("Total", TotalUnitario - MontoDesc)
+                grDetalle.SetValue("TotalDolar", (TotalUnitario - MontoDesc) / Global_TipoCambio)
                 If (estado = 1) Then
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
                 End If
@@ -2236,18 +2307,7 @@ salirIf:
                 P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
                 P_Global.Visualizador.CrGeneral.Zoom(130)
                 P_Global.Visualizador.Show() 'Comentar
-            Else
 
-                Dim objrep As New Recibo07_1000
-
-
-
-                objrep.SetDataSource(dt)
-                objrep.SetParameterValue("Literal1", li)
-
-                P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
-                P_Global.Visualizador.CrGeneral.Zoom(130)
-                P_Global.Visualizador.Show() 'Comentar
             End If
 
 
