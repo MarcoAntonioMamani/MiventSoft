@@ -100,7 +100,7 @@ Public Class FPruebaImportacion
 
             Res = L_prProductoInsertarDistralKCP(id, dt.Rows(i).Item("CODIGOEXTERNO"), "",
                                                  dt.Rows(i).Item("DESCRIPCION"), dt.Rows(i).Item("DESCRIPCION"),
-                                             3, 1, dt.Rows(i).Item("CategoriaID"), 1, 1,
+                                             3, 1, dt.Rows(i).Item("CategoriaID"), 1, dt.Rows(i).Item("ProveedorID"),
                                              1, 13, 17, 20, 22, dt.Rows(i).Item("CONVERSION"),
                                              TablaImagenes, dt.Rows(i).Item("PRECIOMINORISTA"), dt.Rows(i).Item("PRECIOINSTITUCIONAL"), dt.Rows(i).Item("PRECIOCOSTO"))
 
@@ -108,25 +108,25 @@ Public Class FPruebaImportacion
         Next
 
 
-        '''''''' Tienda   '''''''''''''''
-        Dim dtdetalle As DataTable = L_prListarDetalleMovimiento(-1)
-        'a.id , a.MovimientoId, a.ProductoId, b.NombreProducto  As Producto, a.Cantidad,
-        '    a.Lote, a.FechaVencimiento, CAST('' as image ) as img, 1 as estado 
-        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+        ''''''''' Tienda   '''''''''''''''
+        'Dim dtdetalle As DataTable = L_prListarDetalleMovimiento(-1)
+        ''a.id , a.MovimientoId, a.ProductoId, b.NombreProducto  As Producto, a.Cantidad,
+        ''    a.Lote, a.FechaVencimiento, CAST('' as image ) as img, 1 as estado 
+        'For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
-            If (dt.Rows(i).Item("inventario") > 0) Then
+        '    If (dt.Rows(i).Item("inventario") > 0) Then
 
-                _prAddDetalleVenta(dtdetalle)
+        '        _prAddDetalleVenta(dtdetalle)
 
-                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("ProductoId") = dt.Rows(i).Item("IdSistema")
-                dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("Cantidad") = dt.Rows(i).Item("INVENTARIO")
-            End If
+        '        dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("ProductoId") = dt.Rows(i).Item("IdSistema")
+        '        dtdetalle.Rows(dtdetalle.Rows.Count - 1).Item("Cantidad") = dt.Rows(i).Item("INVENTARIO")
+        '    End If
 
 
-        Next
+        'Next
 
-        L_prMovimientoInsertar("", 4, 1, "Inventario Inicial Migrado",
-                                         1, Now.Date.ToString("yyyy/MM/dd"), dtdetalle, 1, 0)
+        'L_prMovimientoInsertar("", 4, 1, "Inventario Inicial Migrado",
+        '                                 1, Now.Date.ToString("yyyy/MM/dd"), dtdetalle, 1, 0)
 
 
 
