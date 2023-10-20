@@ -2964,6 +2964,21 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+
+    Public Shared Function L_prListarHistorico(idPersonal As Integer, fechaI As String, fechaF As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 13))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@idVendedor", idPersonal))
+        _listParam.Add(New Datos.DParametro("@fechI", fechaI))
+        _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _Tabla = D_ProcedimientoConParam("MAM_Clientes", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_fnListarCategoriaProductos() As DataTable
         Dim _Tabla As DataTable
 

@@ -161,6 +161,9 @@
     <Reference Include="MaterialSkin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialSkin.Updated.0.2.2\lib\MaterialSkin.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="OnBarcode.Barcode.WinForms">
       <HintPath>C:\Users\usuario\Dropbox\Utilitarios\Aplicaciones\Qrcode_Barcode\OnBarcode.Barcode.WinForms.dll</HintPath>
     </Reference>
@@ -317,6 +320,12 @@
       <DependentUpon>Reporte_VentasVsCostos.vb</DependentUpon>
     </Compile>
     <Compile Include="Inventarios\Reporte_VentasVsCostos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inventarios\Rep_Modificaciones.Designer.vb">
+      <DependentUpon>Rep_Modificaciones.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Inventarios\Rep_Modificaciones.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Inventarios\Rep_MovimientosProductos.Designer.vb">
@@ -923,6 +932,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\Reporte_VentasVsCostos.resx">
       <DependentUpon>Reporte_VentasVsCostos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventarios\Rep_Modificaciones.resx">
+      <DependentUpon>Rep_Modificaciones.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\Rep_MovimientosProductos.resx">
       <DependentUpon>Rep_MovimientosProductos.vb</DependentUpon>

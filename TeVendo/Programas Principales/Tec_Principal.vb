@@ -1233,4 +1233,11 @@ Public Class Tec_Principal
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub
+
+    Private Sub btnhistoricoCliente_Click(sender As Object, e As EventArgs) Handles btnhistoricoCliente.Click
+
+        Dim frm As New Rep_Modificaciones
+        frm.Show()
+
+    End Sub
 End Class
