@@ -173,6 +173,10 @@ Public Class Tec_MovimientoDetalle
             .TextAlignment = TextAlignment.Center
         End With
         With grDetalle
+            .DefaultFilterRowComparison = FilterConditionOperator.Contains
+            .DynamicFiltering = True
+            .FilterMode = FilterMode.Automatic
+            .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
             .GroupByBoxVisible = False
             'diseño de la grilla
             .VisualStyle = VisualStyle.Office2007
@@ -640,10 +644,6 @@ Public Class Tec_MovimientoDetalle
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stockFinal") = grProducto.GetValue("stockUnidad") + cantidad
 
                 End If
-
-
-
-
 
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("conversion") = grProducto.GetValue("conversion")
 

@@ -328,6 +328,8 @@ Public Class Tec_Despachos
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
             .Caption = "Producto"
+            .WordWrap = True
+            .MaxLines = 3
         End With
 
         With grDetalle.RootTable.Columns("Cantidad")
