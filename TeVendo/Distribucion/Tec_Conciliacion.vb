@@ -296,7 +296,7 @@ Public Class Tec_Conciliacion
         cbFechaDesde.Value = Now.Date
         cbFechaHasta.Value = Now.Date
 
-
+        _PMCargarBuscador()
     End Sub
 
 
@@ -1078,6 +1078,10 @@ Public Class Tec_Conciliacion
 
     Private Sub btnConfirmarSalir_Click(sender As Object, e As EventArgs) Handles btnConfirmarSalir.Click
         _PMCargarBuscador()
+    End Sub
+
+    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
+        _PMOMostrarRegistro(_MPos, True)
     End Sub
 
 

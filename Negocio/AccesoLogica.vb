@@ -313,6 +313,35 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
+    Public Shared Function CargarProductosAutomatico(PersonalId As Integer, SucursalId As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 7))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
+        _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
+        _Tabla = D_ProcedimientoConParam("MAM_DespachoProductos", _listParam)
+
+        Return _Tabla
+    End Function
+
+
+
+    Public Shared Function CargarReferenciaVentas(PersonalId As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 8))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
+        _Tabla = D_ProcedimientoConParam("MAM_DespachoProductos", _listParam)
+
+        Return _Tabla
+    End Function
+
     Public Shared Function ListaDetalleGastosCierreId(CierreCajaId As String) As DataTable
         Dim _Tabla As DataTable
 
@@ -466,7 +495,11 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
-    Public Shared Function InsertarDespachoProductos(ByRef _Id As String, PersonalId As Integer, ConciliacionId As Integer, SucursalId As Integer, Fecha As String, NroNota As String, Detalle As String, TipoMovimientoID As Integer, dtdetalle As DataTable) As Boolean
+    Public Shared Function InsertarDespachoProductos(ByRef _Id As String, PersonalId As Integer, ConciliacionId As Integer,
+                                                     SucursalId As Integer, Fecha As String, NroNota As String,
+                                                     Detalle As String, TipoMovimientoID As Integer,
+                                                     dtdetalle As DataTable, dtReferencia As DataTable,
+                                                     IsDespachoAutomatico As Integer) As Boolean
         Dim _Tabla As DataTable
         Dim _resultado As Boolean
         Dim _listParam As New List(Of Datos.DParametro)
@@ -482,9 +515,9 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@TipoMovimientoID", TipoMovimientoID))
         _listParam.Add(New Datos.DParametro("@Detalle", Detalle))
         _listParam.Add(New Datos.DParametro("@Usuario", L_Usuario))
-
+        _listParam.Add(New Datos.DParametro("@DespachoAutomatico", IsDespachoAutomatico))
         _listParam.Add(New Datos.DParametro("@DetalleDespacho", "", dtdetalle))
-
+        _listParam.Add(New Datos.DParametro("@ReferenciaVenta", "", dtReferencia))
         _Tabla = D_ProcedimientoConParam("MAM_DespachoProductos", _listParam)
 
 

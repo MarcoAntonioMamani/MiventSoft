@@ -33,8 +33,7 @@ Public Class Tec_Despachos
     Dim ConciliacionID As Integer = 0
     Dim SucursalId As Integer = 1
     Dim MovimientoSalidId As Integer = 5
-
-
+    Dim dtVentasReferencia As DataTable = Nothing
 
 
 #End Region
@@ -280,6 +279,7 @@ Public Class Tec_Despachos
 
 #Region "METODOS PRIVADOS"
 
+    Dim DespachoAutomatico As Integer = 0
     Private Sub _prIniciarTodo()
         'L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
 
@@ -294,12 +294,9 @@ Public Class Tec_Despachos
         cbFechaDesde.Value = Now.Date
         cbFechaHasta.Value = Now.Date
 
-
+        _PMCargarBuscador()
     End Sub
-    Private Sub _prCargarTablaDetalle(id As String)
-        Dim dt As New DataTable
-        dt = ListaDetalleDespachoProductos(id)
-
+    Private Sub _prCargarTablaDetalle(dt As DataTable)
 
         grDetalle.DataSource = dt
         grDetalle.RetrieveStructure()
@@ -373,7 +370,7 @@ Public Class Tec_Despachos
         With grDetalle.RootTable.Columns("img")
             .Width = 120
             .Visible = False
-            .Caption ="Eliminar"
+            .Caption = "Eliminar"
             .LeftMargin = 7
             .TopMargin = 5
             .BottomMargin = 5
@@ -499,7 +496,9 @@ Public Class Tec_Despachos
         tbFechaSalida.Value = Now.Date
         PersonalId = 0
         btnSearchPersonal.Focus()
-        _prCargarTablaDetalle(-1)
+        _prCargarTablaDetalle(ListaDetalleDespachoProductos(-1))
+        DespachoAutomatico = 0
+        dtVentasReferencia = CargarReferenciaVentas(-1)
     End Sub
 
 
@@ -533,7 +532,10 @@ Public Class Tec_Despachos
         Try
             Dim Id As String = ""
             '_Id As String, PersonalId As Integer, ConciliacionId As Integer, SucursalId As Integer, Fecha As String, NroNota As String, Detalle As String, TipoMovimientoID As Integer, dtdetalle As DataTable
-            res = InsertarDespachoProductos(Id, PersonalId, ConciliacionID, SucursalId, tbFechaSalida.Value.ToString("yyyy/MM/dd"), tbCodigo.Text, tbDetalle.Text, MovimientoSalidId, CType(grDetalle.DataSource, DataTable))
+            res = InsertarDespachoProductos(Id, PersonalId, ConciliacionID, SucursalId,
+                                            tbFechaSalida.Value.ToString("yyyy/MM/dd"), tbCodigo.Text,
+                                            tbDetalle.Text, MovimientoSalidId,
+                                            CType(grDetalle.DataSource, DataTable), dtVentasReferencia, DespachoAutomatico)
 
             If res Then
                 ToastNotification.Show(Me, "Codigo de Despacho ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
@@ -701,7 +703,7 @@ Public Class Tec_Despachos
             ConciliacionID = .GetValue("ConciliacionId")
 
         End With
-        _prCargarTablaDetalle(tbCodigo.Text)
+        _prCargarTablaDetalle(ListaDetalleDespachoProductos(tbCodigo.Text))
         LblPaginacion.Text = Str(_MPos + 1) + "/" + JGrM_Buscador.RowCount.ToString
 
     End Sub
@@ -788,13 +790,17 @@ Public Class Tec_Despachos
             If (JGrM_Buscador.GetValue("EstadoConciliacion") = 0) Then '' Si La Conciliacion Esta Cerrada No Puedo Modificar Ni Eliminar
                 ToastNotification.Show(Me, "La Conciliacion Ya Esta Cerrada No Es Posible Editar Este Despacho. Primero Debe Revertir El Estado De La Conciliacion", img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
             Else
+                If (JGrM_Buscador.GetValue("DespachoAutomatico") = 1) Then
+                    ToastNotification.Show(Me, "Debe Eliminarse este despacho ya que es un Despacho Automatico", img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                    Return
+                End If
                 TabControlPrincipal.SelectedTabIndex = 0
-                btnModificar.PerformClick()
-                tbPersonal.Focus()
+                    btnModificar.PerformClick()
+                    tbPersonal.Focus()
+                End If
+
+
             End If
-
-
-        End If
     End Sub
 
     Private Sub EliminarToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles EliminarToolStripMenuItem1.Click
@@ -1125,5 +1131,24 @@ Public Class Tec_Despachos
 
     Private Sub btnConfirmarSalir_Click(sender As Object, e As EventArgs) Handles btnConfirmarSalir.Click
         _PMCargarBuscador()
+    End Sub
+
+    Private Sub btnAgregarGastos_Click(sender As Object, e As EventArgs) Handles btnAgregarGastos.Click
+        DespachoAutomatico = 1
+
+        If (PersonalId <= 0) Then
+            ToastNotification.Show(Me, "Seleccione un Personal".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Return
+
+        End If
+
+        Dim dt As DataTable = CargarProductosAutomatico(PersonalId, 1)
+
+        If (dt.Rows.Count = 0) Then
+            ToastNotification.Show(Me, "No hay Productos Para Agregar".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Return
+        End If
+        _prCargarTablaDetalle(dt)
+        dtVentasReferencia = CargarReferenciaVentas(PersonalId)
     End Sub
 End Class
