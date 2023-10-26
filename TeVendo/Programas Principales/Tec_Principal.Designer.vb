@@ -39,6 +39,7 @@ Partial Class Tec_Principal
         Me.btnCierreReporteAnual = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btnCierreReporteDetallado = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btnAsignacionZona = New DevComponents.DotNetBar.Metro.MetroTileItem()
+        Me.btnhistoricoCliente = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.tab_distribucion = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel1 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel_Mapa = New DevComponents.DotNetBar.Metro.MetroTilePanel()
@@ -124,7 +125,7 @@ Partial Class Tec_Principal
         Me.btnCerrarSesion = New DevComponents.DotNetBar.ButtonX()
         Me.PanelLine = New System.Windows.Forms.Panel()
         Me.imguser = New System.Windows.Forms.PictureBox()
-        Me.btnhistoricoCliente = New DevComponents.DotNetBar.Metro.MetroTileItem()
+        Me.btnReporteCobranza = New DevComponents.DotNetBar.Metro.MetroTileItem()
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlMenu.SuspendLayout()
         Me.SuperTabControlPanel9.SuspendLayout()
@@ -160,12 +161,12 @@ Partial Class Tec_Principal
         Me.SuperTabControlMenu.ControlBox.MenuBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControlMenu.ControlBox.MenuBox, Me.SuperTabControlMenu.ControlBox.CloseBox})
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel9)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel1)
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel8)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel7)
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel6)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel2)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel10)
@@ -474,6 +475,29 @@ Partial Class Tec_Principal
         Me.btnAsignacionZona.TitleText = "Asignacion De" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Zonas"
         Me.btnAsignacionZona.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
         Me.btnAsignacionZona.TitleTextColor = System.Drawing.Color.White
+        '
+        'btnhistoricoCliente
+        '
+        Me.btnhistoricoCliente.Image = CType(resources.GetObject("btnhistoricoCliente.Image"), System.Drawing.Image)
+        Me.btnhistoricoCliente.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnhistoricoCliente.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnhistoricoCliente.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnhistoricoCliente.Name = "btnhistoricoCliente"
+        Me.btnhistoricoCliente.SymbolColor = System.Drawing.Color.Black
+        Me.btnhistoricoCliente.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnhistoricoCliente.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btnhistoricoCliente.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnhistoricoCliente.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
+        Me.btnhistoricoCliente.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnhistoricoCliente.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnhistoricoCliente.TileStyle.PaddingRight = 20
+        Me.btnhistoricoCliente.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnhistoricoCliente.TitleText = "Historico" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Registro" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Clientes"
+        Me.btnhistoricoCliente.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnhistoricoCliente.TitleTextColor = System.Drawing.Color.White
         '
         'tab_distribucion
         '
@@ -1218,7 +1242,7 @@ Partial Class Tec_Principal
         Me.ItemContainer2.ItemSpacing = 10
         Me.ItemContainer2.MultiLine = True
         Me.ItemContainer2.Name = "ItemContainer2"
-        Me.ItemContainer2.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btVentVenta, Me.btnAsignacionPedidos, Me.btVentGrafica, Me.btVentReporteRealizada, Me.btVentReporteVentaVsCosto, Me.btInvUtilidad, Me.btVentProdMasVendidos, Me.btVentRendimiento, Me.btnCredPago, Me.btnVentaProductos})
+        Me.ItemContainer2.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btVentVenta, Me.btnAsignacionPedidos, Me.btVentGrafica, Me.btVentReporteRealizada, Me.btVentReporteVentaVsCosto, Me.btInvUtilidad, Me.btVentProdMasVendidos, Me.btVentRendimiento, Me.btnCredPago, Me.btnVentaProductos, Me.btnReporteCobranza})
         '
         '
         '
@@ -2134,28 +2158,28 @@ Partial Class Tec_Principal
         Me.imguser.TabIndex = 1
         Me.imguser.TabStop = False
         '
-        'btnhistoricoCliente
+        'btnReporteCobranza
         '
-        Me.btnhistoricoCliente.Image = CType(resources.GetObject("btnhistoricoCliente.Image"), System.Drawing.Image)
-        Me.btnhistoricoCliente.ImageIndent = New System.Drawing.Point(-50, 0)
-        Me.btnhistoricoCliente.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
-        Me.btnhistoricoCliente.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
-        Me.btnhistoricoCliente.Name = "btnhistoricoCliente"
-        Me.btnhistoricoCliente.SymbolColor = System.Drawing.Color.Black
-        Me.btnhistoricoCliente.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
-        Me.btnhistoricoCliente.TileSize = New System.Drawing.Size(250, 135)
+        Me.btnReporteCobranza.Image = CType(resources.GetObject("btnReporteCobranza.Image"), System.Drawing.Image)
+        Me.btnReporteCobranza.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnReporteCobranza.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnReporteCobranza.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnReporteCobranza.Name = "btnReporteCobranza"
+        Me.btnReporteCobranza.SymbolColor = System.Drawing.Color.Black
+        Me.btnReporteCobranza.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnReporteCobranza.TileSize = New System.Drawing.Size(250, 135)
         '
         '
         '
-        Me.btnhistoricoCliente.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.btnhistoricoCliente.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
-        Me.btnhistoricoCliente.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
-        Me.btnhistoricoCliente.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnhistoricoCliente.TileStyle.PaddingRight = 20
-        Me.btnhistoricoCliente.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
-        Me.btnhistoricoCliente.TitleText = "Historico" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Registro" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Clientes"
-        Me.btnhistoricoCliente.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
-        Me.btnhistoricoCliente.TitleTextColor = System.Drawing.Color.White
+        Me.btnReporteCobranza.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnReporteCobranza.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
+        Me.btnReporteCobranza.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnReporteCobranza.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnReporteCobranza.TileStyle.PaddingRight = 20
+        Me.btnReporteCobranza.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnReporteCobranza.TitleText = "REPORTE" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "COBRANZA"
+        Me.btnReporteCobranza.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnReporteCobranza.TitleTextColor = System.Drawing.Color.White
         '
         'Tec_Principal
         '
@@ -2290,4 +2314,5 @@ Partial Class Tec_Principal
     Friend WithEvents btnComprasPorProducto As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents btnAsignacionZona As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents btnhistoricoCliente As DevComponents.DotNetBar.Metro.MetroTileItem
+    Friend WithEvents btnReporteCobranza As DevComponents.DotNetBar.Metro.MetroTileItem
 End Class

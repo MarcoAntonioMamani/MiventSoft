@@ -10,14 +10,12 @@ Public Class Tec_AdministrarAsignacionesPedidos
 
 
     Sub Iniciartodo()
-
-
         Dim dt As DataTable = ListarSoloChoferes()
         dt = dt.DefaultView.ToTable(False, "Id", "Nombre")
         P_Global._prCargarComboGenerico(cbPersonal, dt, "id", "Id", "Nombre", "Chofer")
         P_Global._prCargarComboGenerico(cbPersonalAsignado, dt, "id", "Id", "Nombre", "Chofer")
         P_Global._prCargarComboGenerico(cbChofer, dt, "id", "Id", "Nombre", "Chofer")
-
+        P_Global._prCargarComboGenerico(cbConciliacion, ListarConciliacion(), "id", "Id", "conciliacion", "Conciliacion")
         _prCargarPedidosPendientesAsignacion()
         _prCargarPedidosAnulados()
     End Sub
@@ -216,7 +214,7 @@ Public Class Tec_AdministrarAsignacionesPedidos
             Return
 
         End If
-        dt = ListaPedidosEntregadosByChofer(ChoferId)
+        dt = ListaPedidosEntregadosByChofer(ChoferId, cbConciliacion.Value)
         grPedidosEntregados.DataSource = dt
         grPedidosEntregados.RetrieveStructure()
         grPedidosEntregados.AlternatingColors = True
@@ -253,7 +251,15 @@ Public Class Tec_AdministrarAsignacionesPedidos
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
         End With
-
+        With grPedidosEntregados.RootTable.Columns("conciliacion")
+            .Width = 200
+            .Caption = "Conciliacion"
+            .Visible = True
+            .WordWrap = True
+            .MaxLines = 3
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
+        End With
         With grPedidosEntregados.RootTable.Columns("NombreCliente")
             .Width = 250
             .Caption = "Cliente"
@@ -274,7 +280,9 @@ Public Class Tec_AdministrarAsignacionesPedidos
         With grPedidosEntregados.RootTable.Columns("EstadoConciliacion")
             .Visible = False
         End With
-
+        With grPedidosEntregados.RootTable.Columns("ConciliacionId")
+            .Visible = False
+        End With
         With grPedidosEntregados.RootTable.Columns("totalPedido")
             .Width = 70
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
@@ -1091,5 +1099,13 @@ Public Class Tec_AdministrarAsignacionesPedidos
                 ToastNotification.Show(Me, "Error no se Pudo completar el proceso", img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
             End If
         End If
+    End Sub
+
+    Private Sub cbConciliacion_ValueChanged(sender As Object, e As EventArgs) Handles cbConciliacion.ValueChanged
+        Try
+            _prCargarPedidosEntregados(cbChofer.Value)
+        Catch ex As Exception
+
+        End Try
     End Sub
 End Class
