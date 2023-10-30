@@ -337,7 +337,7 @@ Public Class Tec_VentasDetalle
         With grDetalle.RootTable.Columns("ProcentajeDescuento")
             .Width = 70
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0"
             .Caption = "%.Descuento".ToUpper
         End With
@@ -345,7 +345,7 @@ Public Class Tec_VentasDetalle
         With grDetalle.RootTable.Columns("MontoDescuento")
             .Width = 70
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "M.Descuento".ToUpper
         End With
@@ -1332,18 +1332,26 @@ salirIf:
 
 
     End Sub
+    Public Sub _fnObtenerFilaDetalle(ByRef pos As Integer, numi As Integer)
+        For i As Integer = 0 To CType(grDetalle.DataSource, DataTable).Rows.Count - 1 Step 1
+            Dim _numi As Integer = CType(grDetalle.DataSource, DataTable).Rows(i).Item("Id")
+            If (_numi = numi) Then
+                pos = i
+                Return
+            End If
+        Next
+
+    End Sub
     Public Sub _prEliminarFila()
         If (grDetalle.Row >= 0) Then
             If (grDetalle.RowCount >= 1) Then
                 Dim estado As Integer = grDetalle.GetValue("estado")
                 Dim pos As Integer = -1
                 Dim lin As Integer = grDetalle.GetValue("Id")
-                _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
-                Dim TipoKit As Integer = grDetalle.GetValue("Tipo")
+                _fnObtenerFilaDetalle(pos, lin)
 
-                If (TipoKit = 1) Then  ''Productos
 
-                    CambiarEstado(grDetalle.GetValue("ProductoId"), 1)
+                CambiarEstado(grDetalle.GetValue("ProductoId"), 1)
                     If (estado = 0) Then
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = -2
 
@@ -1353,38 +1361,10 @@ salirIf:
                     End If
 
                     grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
-                Else ''Kits
-
-                    Dim KitId As Integer = grDetalle.GetValue("KitId")
-                    Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
-
-                    For i As Integer = 0 To dt.Rows.Count - 1 Step 1
-
-                        If (dt.Rows(i).Item("KitId") = KitId) Then
-                            If (estado = 0) Then
-                                CType(grDetalle.DataSource, DataTable).Rows(i).Item("estado") = -2
-
-                            End If
-                            If (estado = 1) Then
-                                CType(grDetalle.DataSource, DataTable).Rows(i).Item("estado") = -1
-                            End If
-
-                        End If
-
-                    Next
 
 
 
-
-
-
-
-                    grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
                 End If
-
-
-
-            End If
         End If
 
 

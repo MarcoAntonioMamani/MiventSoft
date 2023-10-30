@@ -403,7 +403,7 @@ Public Class Tec_Ventas
         With grDetalle.RootTable.Columns("ProcentajeDescuento")
             .Width = 70
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0"
             .Caption = "%.Descuento".ToUpper
         End With
@@ -411,7 +411,7 @@ Public Class Tec_Ventas
         With grDetalle.RootTable.Columns("MontoDescuento")
             .Width = 70
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "M.Descuento".ToUpper
         End With
@@ -585,6 +585,17 @@ Public Class Tec_Ventas
 
     End Sub
 
+    Public Sub _fnObtenerFilaDetalle(ByRef pos As Integer, numi As Integer)
+        For i As Integer = 0 To CType(grDetalle.DataSource, DataTable).Rows.Count - 1 Step 1
+            Dim _numi As Integer = CType(grDetalle.DataSource, DataTable).Rows(i).Item("Id")
+            If (_numi = numi) Then
+                pos = i
+                Return
+            End If
+        Next
+
+    End Sub
+
     Public Function _fnExisteProducto(idprod As Integer) As Boolean
         For i As Integer = 0 To CType(grDetalle.DataSource, DataTable).Rows.Count - 1 Step 1
             Dim _idprod As Integer = CType(grDetalle.DataSource, DataTable).Rows(i).Item("ProductoId")
@@ -604,12 +615,9 @@ Public Class Tec_Ventas
                 Dim pos As Integer = -1
                 Dim lin As Integer = grDetalle.GetValue("Id")
                 _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
-                Dim TipoKit As Integer = grDetalle.GetValue("Tipo")
-
-                If (TipoKit = 1) Then  ''Productos
 
 
-                    If (estado = 0) Then
+                If (estado = 0) Then
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = -2
 
                     End If
@@ -618,38 +626,11 @@ Public Class Tec_Ventas
                     End If
 
                     grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
-                Else ''Kits
-
-                    Dim KitId As Integer = grDetalle.GetValue("KitId")
-                    Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
-
-                    For i As Integer = 0 To dt.Rows.Count - 1 Step 1
-
-                        If (dt.Rows(i).Item("KitId") = KitId) Then
-                            If (estado = 0) Then
-                                CType(grDetalle.DataSource, DataTable).Rows(i).Item("estado") = -2
-
-                            End If
-                            If (estado = 1) Then
-                                CType(grDetalle.DataSource, DataTable).Rows(i).Item("estado") = -1
-                            End If
-
-                        End If
-
-                    Next
 
 
 
 
-
-
-
-                    grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
                 End If
-
-
-
-            End If
         End If
         _prCalcularPrecioTotal()
 
@@ -819,7 +800,7 @@ salirIf:
         Dim lin As Integer = grDetalle.GetValue("Id")
         Dim pos As Integer = -1
         Dim rowIndex As Integer = grDetalle.Row
-        _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
+        _fnObtenerFilaDetalle(pos, lin)
         If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
             If (Not IsNumeric(grDetalle.GetValue("Cantidad")) Or grDetalle.GetValue("Cantidad").ToString = String.Empty) Then
 
