@@ -2298,7 +2298,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@FechaI", FechaI))
         _listParam.Add(New Datos.DParametro("@FechaF", FechaF))
         _listParam.Add(New Datos.DParametro("@IdPersonal", IdPersonal))
-        _listParam.Add(New Datos.DParametro("@IdPersonal", IdCliente))
+        _listParam.Add(New Datos.DParametro("@IdCliente", IdCliente))
         _Tabla = D_ProcedimientoConParam("MAM_ReporteVentas", _listParam)
 
         Return _Tabla
