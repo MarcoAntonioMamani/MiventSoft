@@ -2,7 +2,7 @@
 Imports System.IO
 Public Class FPruebaImportacion
     Private Sub FPruebaImportacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        L_prAbrirConexion("DESKTOP-T84OJOU", "marco", "123", "MinventOptiFarmacia")
+        L_prAbrirConexion("DESKTOP-T84OJOU", "marco", "123", "MinventSoftRoteland")
     End Sub
 
     Public Shared Function ExcelToDatatable(ByVal _xlPath As String, ByVal _namePage As String) As System.Data.DataTable
@@ -59,7 +59,7 @@ Public Class FPruebaImportacion
 
 
             Try
-                dt = ExcelToDatatable(ExcelFile, "ProductoAll")
+                dt = ExcelToDatatable(ExcelFile, "PRODUCTOS")
             Catch ex As Exception
                 MsgBox("Inserte un nombre valido de la Hoja que desea importar", MsgBoxStyle.Information, "Informacion")
             Finally
@@ -78,33 +78,33 @@ Public Class FPruebaImportacion
             Dim id As String = ""
 
 
-            Dim Marca As String = dt.Rows(i).Item("PrincipioActivo").ToString.Trim
-            Dim idMarca As Integer = 0
-            Existe(L_prLibreriaDetalleGeneral(3), "cndesc1", Marca, idMarca, "cnnum")
-            If (idMarca = -1) Then
-                Dim idNewMarca As String = ""
-                L_prClasificadorGrabar(idNewMarca, 3, Marca)
-                idMarca = Integer.Parse(idNewMarca)
-            End If
-            '''''''''''''''''''''''''''''''''''''''''''''''''''''
-            Dim SubGrupo As String = dt.Rows(i).Item("laboratorio").ToString.Trim
-            Dim idSubGrupo As Integer = 0
-            Existe(L_prLibreriaDetalleGeneral(4), "cndesc1", SubGrupo, idSubGrupo, "cnnum")
-            If (idSubGrupo = -1) Then
-                Dim idNewSubGrupo As String = ""
-                L_prClasificadorGrabar(idNewSubGrupo, 4, SubGrupo)
-                idSubGrupo = Integer.Parse(idNewSubGrupo)
-            End If
+            'Dim Marca As String = dt.Rows(i).Item("PrincipioActivo").ToString.Trim
+            'Dim idMarca As Integer = 0
+            'Existe(L_prLibreriaDetalleGeneral(3), "cndesc1", Marca, idMarca, "cnnum")
+            'If (idMarca = -1) Then
+            '    Dim idNewMarca As String = ""
+            '    L_prClasificadorGrabar(idNewMarca, 3, Marca)
+            '    idMarca = Integer.Parse(idNewMarca)
+            'End If
+            ''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            'Dim SubGrupo As String = dt.Rows(i).Item("laboratorio").ToString.Trim
+            'Dim idSubGrupo As Integer = 0
+            'Existe(L_prLibreriaDetalleGeneral(4), "cndesc1", SubGrupo, idSubGrupo, "cnnum")
+            'If (idSubGrupo = -1) Then
+            '    Dim idNewSubGrupo As String = ""
+            '    L_prClasificadorGrabar(idNewSubGrupo, 4, SubGrupo)
+            '    idSubGrupo = Integer.Parse(idNewSubGrupo)
+            'End If
 
-            '''''''''''''''''''''''''''''''''''''''''''''''''''''
-            Dim Medida As String = dt.Rows(i).Item("ubicacion").ToString.Trim
-            Dim idMedida As Integer = 0
-            Existe(L_prLibreriaDetalleGeneral(5), "cndesc1", Medida, idMedida, "cnnum")
-            If (idMedida = -1) Then
-                Dim idNewMedida As String = ""
-                L_prClasificadorGrabar(idNewMedida, 5, Medida)
-                idMedida = Integer.Parse(idNewMedida)
-            End If
+            ''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            'Dim Medida As String = dt.Rows(i).Item("ubicacion").ToString.Trim
+            'Dim idMedida As Integer = 0
+            'Existe(L_prLibreriaDetalleGeneral(5), "cndesc1", Medida, idMedida, "cnnum")
+            'If (idMedida = -1) Then
+            '    Dim idNewMedida As String = ""
+            '    L_prClasificadorGrabar(idNewMedida, 5, Medida)
+            '    idMedida = Integer.Parse(idNewMedida)
+            'End If
 
 
 
@@ -115,17 +115,17 @@ Public Class FPruebaImportacion
             '_AttributoId As Integer, _FamiliaId As Integer, _UnidadVentaId As Integer, _UnidadMaximaId As Integer,
             '_conversion As Double, _dtImagenes As DataTable, precioCosto As Decimal,
             'PrecioLista As Decimal, precioMenor As Decimal
-            Dim codigoExterno As String = dt.Rows(i).Item("codigo").ToString()
+            'Dim codigoExterno As String = dt.Rows(i).Item("codigo").ToString()
 
-            If codigoExterno.Length < 4 Then
-                codigoExterno = codigoExterno.PadLeft(4, "0"c)
-            End If
+            'If codigoExterno.Length < 4 Then
+            '    codigoExterno = codigoExterno.PadLeft(4, "0"c)
+            'End If
 
-            Res = L_prProductoInsertarDistralKCP(id, codigoExterno, "",
-                                        dt.Rows(i).Item("Producto"), dt.Rows(i).Item("Descripcion"),
+            Res = L_prProductoInsertarDistralKCP(id, 0, "",
+                                        dt.Rows(i).Item("Producto"), dt.Rows(i).Item("Producto"),
                                         3, 1, 1,
-                                        1, 1, idMarca, idSubGrupo, idMedida, 20, 22, 1,
-                                             TablaImagenes, 0, 0, dt.Rows(i).Item("PrecioVenta"))
+                                        1, 1, 0, 0, 0, 20, 22, 1,
+                                             TablaImagenes, dt.Rows(i).Item("compra"), dt.Rows(i).Item("venta"))
 
             'dt.Rows(i).Item("IdSistema") = id
         Next
