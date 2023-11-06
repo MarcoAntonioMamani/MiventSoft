@@ -231,11 +231,11 @@ Public Class Tec_CierreCajaCajero
         If btnGrabar.Visible = True Then
             _PMInhabilitar()
             _PMPrimerRegistro()
-            TabControlPrincipal.SelectedTabIndex = 1
+            tabEliminar.SelectedTabIndex = 1
         Else
             '  Public _modulo As SideNavItem
             '_modulo.Select()
-            TabControlPrincipal.SelectedTabIndex = 1
+            tabEliminar.SelectedTabIndex = 1
             '_tab.Close()
         End If
     End Sub
@@ -263,6 +263,8 @@ Public Class Tec_CierreCajaCajero
 
 
         _habilitarFocus()
+
+
 
     End Sub
 
@@ -1113,9 +1115,9 @@ Public Class Tec_CierreCajaCajero
         If btnGrabar.Enabled = True Then
             _PMInhabilitar()
             _PMPrimerRegistro()
-            TabControlPrincipal.SelectedTabIndex = 1
+            tabEliminar.SelectedTabIndex = 1
         Else
-            TabControlPrincipal.SelectedTabIndex = 1
+            tabEliminar.SelectedTabIndex = 1
             '  Public _modulo As SideNavItem
             '_TabControl.SelectedTab = _modulo
             '_tab.Close()
@@ -1175,7 +1177,7 @@ Public Class Tec_CierreCajaCajero
 
     Private Sub Tec_Users_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         _prIniciarTodo()
-        TabControlPrincipal.SelectedTabIndex = 1
+        tabEliminar.SelectedTabIndex = 1
     End Sub
 
     Private Sub btnPrimero_Click(sender As Object, e As EventArgs) Handles btnPrimero.Click
@@ -1217,7 +1219,7 @@ Public Class Tec_CierreCajaCajero
     End Sub
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
-        TabControlPrincipal.SelectedTabIndex = 0
+        tabEliminar.SelectedTabIndex = 0
         btnNuevo.PerformClick()
 
     End Sub
@@ -1225,26 +1227,26 @@ Public Class Tec_CierreCajaCajero
     Private Sub JGrM_Buscador_KeyDown(sender As Object, e As KeyEventArgs) Handles JGrM_Buscador.KeyDown
         If (e.KeyCode = Keys.Enter) Then
 
-            TabControlPrincipal.SelectedTabIndex = 0
+            tabEliminar.SelectedTabIndex = 0
 
         End If
     End Sub
     Private Sub JGrM_Buscador_DoubleClick(sender As Object, e As EventArgs) Handles JGrM_Buscador.DoubleClick
         If (JGrM_Buscador.Row >= 0) Then
-            TabControlPrincipal.SelectedTabIndex = 0
+            tabEliminar.SelectedTabIndex = 0
         End If
     End Sub
     Private Sub VerToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles VerToolStripMenuItem1.Click
         If (JGrM_Buscador.Row >= 0) Then
 
-            TabControlPrincipal.SelectedTabIndex = 0
+            tabEliminar.SelectedTabIndex = 0
         End If
     End Sub
 
     Private Sub EditarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditarToolStripMenuItem.Click
         If (JGrM_Buscador.Row >= 0) Then
 
-            TabControlPrincipal.SelectedTabIndex = 0
+            tabEliminar.SelectedTabIndex = 0
             btnModificar.PerformClick()
 
         End If
@@ -1252,8 +1254,13 @@ Public Class Tec_CierreCajaCajero
 
     Private Sub EliminarToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles EliminarToolStripMenuItem1.Click
         If (JGrM_Buscador.Row >= 0) Then
+            If (Global_PuedeEliminarCierre = 0) Then
+                ToastNotification.Show(Me, "No tienes los privilegios para eliminar un cierre".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
-            btnEliminar.PerformClick()
+            Else
+                btnEliminar.PerformClick()
+            End If
+
 
         End If
     End Sub

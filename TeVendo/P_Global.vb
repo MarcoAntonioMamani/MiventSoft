@@ -126,6 +126,7 @@ Module P_Global
     Public Global_IdPersonal As Integer = 0
     Public Global_TipoCambio As Double = 0
     Public Global_Sucursal As Integer = 0
+    Public Global_PuedeEliminarCierre As Integer = -1
     Public Global_ModificarPrecio As Integer = 0
     Public Global_ModificarDescuento As Integer = 0
     Public Global_NombreSucursal As String = ""

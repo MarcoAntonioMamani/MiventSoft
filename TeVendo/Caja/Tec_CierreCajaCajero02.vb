@@ -1256,7 +1256,12 @@ Public Class Tec_CierreCajaCajero02
     Private Sub EliminarToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles EliminarToolStripMenuItem1.Click
         If (JGrM_Buscador.Row >= 0) Then
 
-            btnEliminar.PerformClick()
+            If (Global_PuedeEliminarCierre = 0) Then
+                ToastNotification.Show(Me, "No tienes los privilegios para eliminar un cierre".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+
+            Else
+                btnEliminar.PerformClick()
+            End If
 
         End If
     End Sub
