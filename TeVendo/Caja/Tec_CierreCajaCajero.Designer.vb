@@ -25,7 +25,7 @@ Partial Class Tec_CierreCajaCajero
         Me.components = New System.ComponentModel.Container()
         Dim cbSucursal_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tec_CierreCajaCajero))
-        Me.TabControlPrincipal = New DevComponents.DotNetBar.SuperTabControl()
+        Me.tabEliminar = New DevComponents.DotNetBar.SuperTabControl()
         Me.SuperTabControlPanel2 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel17 = New System.Windows.Forms.Panel()
         Me.JGrM_Buscador = New Janus.Windows.GridEX.GridEX()
@@ -33,6 +33,7 @@ Partial Class Tec_CierreCajaCajero
         Me.VerToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.EditarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EliminarToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ImprimirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
@@ -135,9 +136,8 @@ Partial Class Tec_CierreCajaCajero
         Me.SuperTabItem1 = New DevComponents.DotNetBar.SuperTabItem()
         Me.Highlighter2 = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.ImprimirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TabControlPrincipal.SuspendLayout()
+        CType(Me.tabEliminar, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tabEliminar.SuspendLayout()
         Me.SuperTabControlPanel2.SuspendLayout()
         Me.Panel17.SuspendLayout()
         CType(Me.JGrM_Buscador, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -195,7 +195,7 @@ Partial Class Tec_CierreCajaCajero
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'TabControlPrincipal
+        'tabEliminar
         '
         '
         '
@@ -203,30 +203,30 @@ Partial Class Tec_CierreCajaCajero
         '
         '
         '
-        Me.TabControlPrincipal.ControlBox.CloseBox.Name = ""
+        Me.tabEliminar.ControlBox.CloseBox.Name = ""
         '
         '
         '
-        Me.TabControlPrincipal.ControlBox.MenuBox.Name = ""
-        Me.TabControlPrincipal.ControlBox.Name = ""
-        Me.TabControlPrincipal.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.TabControlPrincipal.ControlBox.MenuBox, Me.TabControlPrincipal.ControlBox.CloseBox})
-        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel2)
-        Me.TabControlPrincipal.Controls.Add(Me.SuperTabControlPanel1)
-        Me.TabControlPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TabControlPrincipal.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TabControlPrincipal.Location = New System.Drawing.Point(0, 0)
-        Me.TabControlPrincipal.Name = "TabControlPrincipal"
-        Me.TabControlPrincipal.ReorderTabsEnabled = True
-        Me.TabControlPrincipal.SelectedTabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TabControlPrincipal.SelectedTabIndex = 1
-        Me.TabControlPrincipal.Size = New System.Drawing.Size(1402, 676)
-        Me.TabControlPrincipal.TabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Bottom
-        Me.TabControlPrincipal.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TabControlPrincipal.TabIndex = 5
-        Me.TabControlPrincipal.TabLayoutType = DevComponents.DotNetBar.eSuperTabLayoutType.MultiLineFit
-        Me.TabControlPrincipal.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabItem1, Me.SuperTabItem2})
-        Me.TabControlPrincipal.TabStyle = DevComponents.DotNetBar.eSuperTabStyle.WinMediaPlayer12
-        Me.TabControlPrincipal.Text = "Datos"
+        Me.tabEliminar.ControlBox.MenuBox.Name = ""
+        Me.tabEliminar.ControlBox.Name = ""
+        Me.tabEliminar.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.tabEliminar.ControlBox.MenuBox, Me.tabEliminar.ControlBox.CloseBox})
+        Me.tabEliminar.Controls.Add(Me.SuperTabControlPanel1)
+        Me.tabEliminar.Controls.Add(Me.SuperTabControlPanel2)
+        Me.tabEliminar.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tabEliminar.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tabEliminar.Location = New System.Drawing.Point(0, 0)
+        Me.tabEliminar.Name = "tabEliminar"
+        Me.tabEliminar.ReorderTabsEnabled = True
+        Me.tabEliminar.SelectedTabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tabEliminar.SelectedTabIndex = 1
+        Me.tabEliminar.Size = New System.Drawing.Size(1402, 676)
+        Me.tabEliminar.TabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Bottom
+        Me.tabEliminar.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tabEliminar.TabIndex = 5
+        Me.tabEliminar.TabLayoutType = DevComponents.DotNetBar.eSuperTabLayoutType.MultiLineFit
+        Me.tabEliminar.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabItem1, Me.SuperTabItem2})
+        Me.tabEliminar.TabStyle = DevComponents.DotNetBar.eSuperTabStyle.WinMediaPlayer12
+        Me.tabEliminar.Text = "Datos"
         '
         'SuperTabControlPanel2
         '
@@ -309,7 +309,7 @@ Partial Class Tec_CierreCajaCajero
         Me.MeuOpciones.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.MeuOpciones.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VerToolStripMenuItem1, Me.EditarToolStripMenuItem, Me.EliminarToolStripMenuItem1, Me.ImprimirToolStripMenuItem})
         Me.MeuOpciones.Name = "MeuOpciones"
-        Me.MeuOpciones.Size = New System.Drawing.Size(215, 168)
+        Me.MeuOpciones.Size = New System.Drawing.Size(152, 140)
         Me.MeuOpciones.Text = "Opciones"
         '
         'VerToolStripMenuItem1
@@ -318,7 +318,7 @@ Partial Class Tec_CierreCajaCajero
         Me.VerToolStripMenuItem1.Image = Global.TeVendo.My.Resources.Resources.verRegistros2
         Me.VerToolStripMenuItem1.Name = "VerToolStripMenuItem1"
         Me.VerToolStripMenuItem1.Padding = New System.Windows.Forms.Padding(5)
-        Me.VerToolStripMenuItem1.Size = New System.Drawing.Size(155, 36)
+        Me.VerToolStripMenuItem1.Size = New System.Drawing.Size(161, 36)
         Me.VerToolStripMenuItem1.Text = "Ver"
         '
         'EditarToolStripMenuItem
@@ -327,7 +327,7 @@ Partial Class Tec_CierreCajaCajero
         Me.EditarToolStripMenuItem.Image = Global.TeVendo.My.Resources.Resources.edit
         Me.EditarToolStripMenuItem.Name = "EditarToolStripMenuItem"
         Me.EditarToolStripMenuItem.Padding = New System.Windows.Forms.Padding(5)
-        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(155, 36)
+        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(161, 36)
         Me.EditarToolStripMenuItem.Text = "Editar"
         '
         'EliminarToolStripMenuItem1
@@ -336,8 +336,16 @@ Partial Class Tec_CierreCajaCajero
         Me.EliminarToolStripMenuItem1.Image = Global.TeVendo.My.Resources.Resources.trash2
         Me.EliminarToolStripMenuItem1.Name = "EliminarToolStripMenuItem1"
         Me.EliminarToolStripMenuItem1.Padding = New System.Windows.Forms.Padding(5)
-        Me.EliminarToolStripMenuItem1.Size = New System.Drawing.Size(155, 36)
+        Me.EliminarToolStripMenuItem1.Size = New System.Drawing.Size(161, 36)
         Me.EliminarToolStripMenuItem1.Text = "Eliminar"
+        '
+        'ImprimirToolStripMenuItem
+        '
+        Me.ImprimirToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ImprimirToolStripMenuItem.Image = Global.TeVendo.My.Resources.Resources.printee
+        Me.ImprimirToolStripMenuItem.Name = "ImprimirToolStripMenuItem"
+        Me.ImprimirToolStripMenuItem.Size = New System.Drawing.Size(151, 28)
+        Me.ImprimirToolStripMenuItem.Text = "Imprimir"
         '
         'Panel4
         '
@@ -2071,25 +2079,17 @@ Partial Class Tec_CierreCajaCajero
         '
         Me.MEP.ContainerControl = Me
         '
-        'ImprimirToolStripMenuItem
-        '
-        Me.ImprimirToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ImprimirToolStripMenuItem.Image = Global.TeVendo.My.Resources.Resources.printee
-        Me.ImprimirToolStripMenuItem.Name = "ImprimirToolStripMenuItem"
-        Me.ImprimirToolStripMenuItem.Size = New System.Drawing.Size(214, 28)
-        Me.ImprimirToolStripMenuItem.Text = "Imprimir"
-        '
         'Tec_CierreCajaCajero
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1402, 676)
-        Me.Controls.Add(Me.TabControlPrincipal)
+        Me.Controls.Add(Me.tabEliminar)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Tec_CierreCajaCajero"
         Me.Text = "Cierre Caja Cajero"
-        CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TabControlPrincipal.ResumeLayout(False)
+        CType(Me.tabEliminar, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tabEliminar.ResumeLayout(False)
         Me.SuperTabControlPanel2.ResumeLayout(False)
         Me.Panel17.ResumeLayout(False)
         CType(Me.JGrM_Buscador, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2151,7 +2151,7 @@ Partial Class Tec_CierreCajaCajero
 
     End Sub
 
-    Friend WithEvents TabControlPrincipal As DevComponents.DotNetBar.SuperTabControl
+    Friend WithEvents tabEliminar As DevComponents.DotNetBar.SuperTabControl
     Friend WithEvents SuperTabControlPanel1 As DevComponents.DotNetBar.SuperTabControlPanel
     Friend WithEvents Panel1 As Panel
     Friend WithEvents PanelSuperior As Panel

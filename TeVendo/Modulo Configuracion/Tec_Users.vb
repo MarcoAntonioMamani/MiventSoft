@@ -328,6 +328,8 @@ Public Class Tec_Users
 
         cbSucursal.ReadOnly = False
         swModificarDescuento.IsReadOnly = False
+        swCierre.IsReadOnly = False
+
         swModificarPrecio.IsReadOnly = False
     End Sub
 
@@ -343,6 +345,8 @@ Public Class Tec_Users
 
         cbSucursal.ReadOnly = True
         swModificarDescuento.IsReadOnly = True
+        swCierre.IsReadOnly = True
+
         swModificarPrecio.IsReadOnly = True
         btnVendedor.Visible = False
     End Sub
@@ -357,6 +361,8 @@ Public Class Tec_Users
         cbSucursal.Value = 1
 
         swModificarDescuento.Value = False
+        swCierre.Value = False
+
         swModificarPrecio.Value = False
 
         If (ObtenerLongitudCombo(cbRol) > 0) Then
@@ -385,7 +391,7 @@ Public Class Tec_Users
     Public Function _PMOGrabarRegistro() As Boolean
 
         Dim res As Boolean = L_prUsuarioInsertar(tbCodigo.Text, cbRol.Value, tbNombreUsuario.Text,
-                                                  tbContrasena.Text, IIf(swEstado.Value = True, 1, 0), cbSucursal.Value, cbEmpresa.Value, IdPersonal, IIf(swModificarPrecio.Value = True, 1, 0), IIf(swModificarDescuento.Value = True, 1, 0))
+                                                  tbContrasena.Text, IIf(swEstado.Value = True, 1, 0), cbSucursal.Value, cbEmpresa.Value, IdPersonal, IIf(swModificarPrecio.Value = True, 1, 0), IIf(swModificarDescuento.Value = True, 1, 0), IIf(swCierre.Value = True, 1, 0))
         If res Then
             ToastNotification.Show(Me, "Codigo de Usuario ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
         End If
@@ -396,7 +402,7 @@ Public Class Tec_Users
     Public Function _PMOModificarRegistro() As Boolean
 
         Dim res As Boolean = L_prUsuarioModificar(tbCodigo.Text, cbRol.Value, tbNombreUsuario.Text,
-                                                  tbContrasena.Text, IIf(swEstado.Value = True, 1, 0), cbSucursal.Value, cbEmpresa.Value, IdPersonal, IIf(swModificarPrecio.Value = True, 1, 0), IIf(swModificarDescuento.Value = True, 1, 0))
+                                                  tbContrasena.Text, IIf(swEstado.Value = True, 1, 0), cbSucursal.Value, cbEmpresa.Value, IdPersonal, IIf(swModificarPrecio.Value = True, 1, 0), IIf(swModificarDescuento.Value = True, 1, 0), IIf(swCierre.Value = True, 1, 0))
         If res Then
 
             ToastNotification.Show(Me, "Codigo de Usuario ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
@@ -522,6 +528,7 @@ Public Class Tec_Users
         listEstCeldas.Add(New Celda("NombreRol", True, "Rol", 90))
         listEstCeldas.Add(New Celda("SucursalId", False))
         listEstCeldas.Add(New Celda("IdEmpresa", False))
+        listEstCeldas.Add(New Celda("PuedeEliminarCierre", False))
         listEstCeldas.Add(New Celda("Empresa", False, "Empresa", 80))
         listEstCeldas.Add(New Celda("IdPersonal", False))
         listEstCeldas.Add(New Celda("Personal", True, "Personal", 120))
@@ -551,7 +558,7 @@ Public Class Tec_Users
             cbEmpresa.Value = .GetValue("IdEmpresa")
             IdPersonal = .GetValue("IdPersonal")
             tbVendedor.Text = .GetValue("Personal").ToString
-
+            swCierre.Value = .GetValue("PuedeEliminarCierre")
             cbSucursal.Value = .GetValue("SucursalId")
             swModificarPrecio.Value = .GetValue("ModificarPrecioVenta")
             swModificarDescuento.Value = .GetValue("AplicarDescuentoVenta")
@@ -709,6 +716,10 @@ Public Class Tec_Users
     End Sub
 
     Private Sub JGrM_Buscador_FormattingRow(sender As Object, e As RowLoadEventArgs) Handles JGrM_Buscador.FormattingRow
+
+    End Sub
+
+    Private Sub swModificarPrecio_ValueChanged(sender As Object, e As EventArgs) Handles swModificarPrecio.ValueChanged
 
     End Sub
 
