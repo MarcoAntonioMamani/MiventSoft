@@ -1318,5 +1318,21 @@ Public Class Tec_Movimientos
 
         End If
     End Sub
+
+    Private Sub btnResetear_Click(sender As Object, e As EventArgs) Handles btnResetear.Click
+
+        Dim ef = New Efecto
+
+
+        ef.tipo = 3
+        ef.titulo = "Confirmación de Reseteo"
+        ef.descripcion = "¿Esta Seguro de Resetear El Inventario ?"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+
+        End If
+    End Sub
 #End Region
 End Class
