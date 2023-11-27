@@ -1332,6 +1332,34 @@ Public Class Tec_Movimientos
         bandera = ef.band
         If (bandera = True) Then
 
+
+
+            Dim dtPositivo As New DataTable
+            dtPositivo = L_prListarReseteoPositivo()
+            Dim dtNegativo As New DataTable
+            dtNegativo = L_prListarReseteoNegativo()
+            Dim ResPositivo As Boolean = False
+            Dim ResNegativo As Boolean = False
+            If (dtPositivo.Rows.Count > 0) Then
+
+
+                ResPositivo = L_prMovimientoInsertar(0, 3, 1, "Reseteo Inventario Cantidad Positiva",
+                                         1, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), dtPositivo, 1, 0)
+            End If
+
+            If (dtNegativo.Rows.Count > 0) Then
+
+
+                ResNegativo = L_prMovimientoInsertar(0, 4, 1, "Reseteo Inventario Cantidad Negativo",
+                                         1, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), dtNegativo, 1, 0)
+            End If
+
+            If (ResNegativo Or ResPositivo) Then
+
+                ToastNotification.Show(Me, "Reseteo Inventario Realizado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                _PMCargarBuscador()
+            End If
+
         End If
     End Sub
 #End Region

@@ -39,6 +39,7 @@ Partial Class Tec_Movimientos
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel21 = New System.Windows.Forms.Panel()
+        Me.btnResetear = New DevComponents.DotNetBar.ButtonX()
         Me.btnFiltrarVentas = New DevComponents.DotNetBar.ButtonX()
         Me.tbHasta = New Janus.Windows.CalendarCombo.CalendarCombo()
         Me.LabelX16 = New DevComponents.DotNetBar.LabelX()
@@ -104,7 +105,6 @@ Partial Class Tec_Movimientos
         Me.SuperTabItem1 = New DevComponents.DotNetBar.SuperTabItem()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.btnResetear = New DevComponents.DotNetBar.ButtonX()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel2.SuspendLayout()
@@ -169,7 +169,7 @@ Partial Class Tec_Movimientos
         Me.TabControlPrincipal.ReorderTabsEnabled = True
         Me.TabControlPrincipal.SelectedTabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.SelectedTabIndex = 1
-        Me.TabControlPrincipal.Size = New System.Drawing.Size(1265, 809)
+        Me.TabControlPrincipal.Size = New System.Drawing.Size(1265, 820)
         Me.TabControlPrincipal.TabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Bottom
         Me.TabControlPrincipal.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlPrincipal.TabIndex = 1
@@ -184,7 +184,7 @@ Partial Class Tec_Movimientos
         Me.SuperTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel2.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel2.Name = "SuperTabControlPanel2"
-        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1265, 778)
+        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1265, 789)
         Me.SuperTabControlPanel2.TabIndex = 2
         Me.SuperTabControlPanel2.TabItem = Me.SuperTabItem2
         '
@@ -197,7 +197,7 @@ Partial Class Tec_Movimientos
         Me.Panel17.Location = New System.Drawing.Point(0, 0)
         Me.Panel17.Name = "Panel17"
         Me.Panel17.Padding = New System.Windows.Forms.Padding(5)
-        Me.Panel17.Size = New System.Drawing.Size(1265, 778)
+        Me.Panel17.Size = New System.Drawing.Size(1265, 789)
         Me.Panel17.TabIndex = 4
         '
         'JGrM_Buscador
@@ -244,7 +244,7 @@ Partial Class Tec_Movimientos
         Me.JGrM_Buscador.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.JGrM_Buscador.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.JGrM_Buscador.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.JGrM_Buscador.Size = New System.Drawing.Size(1255, 668)
+        Me.JGrM_Buscador.Size = New System.Drawing.Size(1255, 679)
         Me.JGrM_Buscador.TabIndex = 2
         Me.JGrM_Buscador.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.JGrM_Buscador.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -337,6 +337,27 @@ Partial Class Tec_Movimientos
         Me.Panel21.Name = "Panel21"
         Me.Panel21.Size = New System.Drawing.Size(1018, 43)
         Me.Panel21.TabIndex = 6
+        '
+        'btnResetear
+        '
+        Me.btnResetear.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnResetear.BackColor = System.Drawing.Color.LightSeaGreen
+        Me.btnResetear.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnResetear.Font = New System.Drawing.Font("Calibri", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnResetear.Image = Global.TeVendo.My.Resources.Resources.search
+        Me.btnResetear.ImageFixedSize = New System.Drawing.Size(28, 28)
+        Me.btnResetear.Location = New System.Drawing.Point(698, 8)
+        Me.btnResetear.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnResetear.Name = "btnResetear"
+        Me.btnResetear.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
+        Me.btnResetear.Size = New System.Drawing.Size(190, 34)
+        Me.btnResetear.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnResetear.Symbol = ""
+        Me.btnResetear.SymbolColor = System.Drawing.Color.White
+        Me.btnResetear.SymbolSize = 15.0!
+        Me.btnResetear.TabIndex = 223
+        Me.btnResetear.Text = "Resetear Inventario"
+        Me.btnResetear.TextColor = System.Drawing.Color.White
         '
         'btnFiltrarVentas
         '
@@ -572,7 +593,7 @@ Partial Class Tec_Movimientos
         Me.SuperTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
-        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1265, 778)
+        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1265, 789)
         Me.SuperTabControlPanel1.TabIndex = 1
         Me.SuperTabControlPanel1.TabItem = Me.SuperTabItem1
         '
@@ -583,7 +604,7 @@ Partial Class Tec_Movimientos
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1265, 778)
+        Me.Panel1.Size = New System.Drawing.Size(1265, 789)
         Me.Panel1.TabIndex = 0
         '
         'PanelSuperior
@@ -594,7 +615,7 @@ Partial Class Tec_Movimientos
         Me.PanelSuperior.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelSuperior.Location = New System.Drawing.Point(0, 0)
         Me.PanelSuperior.Name = "PanelSuperior"
-        Me.PanelSuperior.Size = New System.Drawing.Size(1265, 718)
+        Me.PanelSuperior.Size = New System.Drawing.Size(1265, 729)
         Me.PanelSuperior.TabIndex = 1
         '
         'PanelRight
@@ -603,7 +624,7 @@ Partial Class Tec_Movimientos
         Me.PanelRight.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelRight.Location = New System.Drawing.Point(555, 0)
         Me.PanelRight.Name = "PanelRight"
-        Me.PanelRight.Size = New System.Drawing.Size(710, 718)
+        Me.PanelRight.Size = New System.Drawing.Size(710, 729)
         Me.PanelRight.TabIndex = 1
         '
         'Panel2
@@ -615,7 +636,7 @@ Partial Class Tec_Movimientos
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel2.Size = New System.Drawing.Size(710, 718)
+        Me.Panel2.Size = New System.Drawing.Size(710, 729)
         Me.Panel2.TabIndex = 1
         '
         'PanelImagenes
@@ -625,7 +646,7 @@ Partial Class Tec_Movimientos
         Me.PanelImagenes.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelImagenes.Location = New System.Drawing.Point(3, 30)
         Me.PanelImagenes.Name = "PanelImagenes"
-        Me.PanelImagenes.Size = New System.Drawing.Size(704, 685)
+        Me.PanelImagenes.Size = New System.Drawing.Size(704, 696)
         Me.PanelImagenes.TabIndex = 2
         '
         'PanelVerImagen
@@ -636,7 +657,7 @@ Partial Class Tec_Movimientos
         Me.PanelVerImagen.Location = New System.Drawing.Point(0, 0)
         Me.PanelVerImagen.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelVerImagen.Name = "PanelVerImagen"
-        Me.PanelVerImagen.Size = New System.Drawing.Size(704, 685)
+        Me.PanelVerImagen.Size = New System.Drawing.Size(704, 696)
         Me.PanelVerImagen.TabIndex = 2
         '
         'grDetalle
@@ -681,7 +702,7 @@ Partial Class Tec_Movimientos
         Me.grDetalle.SelectedFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(92, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.grDetalle.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grDetalle.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grDetalle.Size = New System.Drawing.Size(704, 685)
+        Me.grDetalle.Size = New System.Drawing.Size(704, 696)
         Me.grDetalle.TabIndex = 3
         Me.grDetalle.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grDetalle.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -754,7 +775,7 @@ Partial Class Tec_Movimientos
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel13.Location = New System.Drawing.Point(545, 0)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(10, 718)
+        Me.Panel13.Size = New System.Drawing.Size(10, 729)
         Me.Panel13.TabIndex = 3
         '
         'PanelLEft
@@ -763,7 +784,7 @@ Partial Class Tec_Movimientos
         Me.PanelLEft.Dock = System.Windows.Forms.DockStyle.Left
         Me.PanelLEft.Location = New System.Drawing.Point(0, 0)
         Me.PanelLEft.Name = "PanelLEft"
-        Me.PanelLEft.Size = New System.Drawing.Size(545, 718)
+        Me.PanelLEft.Size = New System.Drawing.Size(545, 729)
         Me.PanelLEft.TabIndex = 0
         '
         'Panel8
@@ -775,7 +796,7 @@ Partial Class Tec_Movimientos
         Me.Panel8.Location = New System.Drawing.Point(0, 0)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel8.Size = New System.Drawing.Size(545, 718)
+        Me.Panel8.Size = New System.Drawing.Size(545, 729)
         Me.Panel8.TabIndex = 1
         '
         'Panel9
@@ -785,7 +806,7 @@ Partial Class Tec_Movimientos
         Me.Panel9.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel9.Location = New System.Drawing.Point(3, 30)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(539, 685)
+        Me.Panel9.Size = New System.Drawing.Size(539, 696)
         Me.Panel9.TabIndex = 2
         '
         'Panel3
@@ -806,7 +827,7 @@ Partial Class Tec_Movimientos
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(539, 685)
+        Me.Panel3.Size = New System.Drawing.Size(539, 696)
         Me.Panel3.TabIndex = 49
         '
         'cbDepositoDestino
@@ -1143,7 +1164,7 @@ Partial Class Tec_Movimientos
         Me.PanelButton.Controls.Add(Me.PanelToolBar1)
         Me.PanelButton.Controls.Add(Me.PanelNavegacion)
         Me.PanelButton.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PanelButton.Location = New System.Drawing.Point(0, 718)
+        Me.PanelButton.Location = New System.Drawing.Point(0, 729)
         Me.PanelButton.Name = "PanelButton"
         Me.PanelButton.Size = New System.Drawing.Size(1265, 60)
         Me.PanelButton.TabIndex = 3
@@ -1354,32 +1375,11 @@ Partial Class Tec_Movimientos
         '
         Me.MEP.ContainerControl = Me
         '
-        'btnResetear
-        '
-        Me.btnResetear.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnResetear.BackColor = System.Drawing.Color.LightSeaGreen
-        Me.btnResetear.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.btnResetear.Font = New System.Drawing.Font("Calibri", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnResetear.Image = Global.TeVendo.My.Resources.Resources.search
-        Me.btnResetear.ImageFixedSize = New System.Drawing.Size(28, 28)
-        Me.btnResetear.Location = New System.Drawing.Point(698, 8)
-        Me.btnResetear.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnResetear.Name = "btnResetear"
-        Me.btnResetear.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
-        Me.btnResetear.Size = New System.Drawing.Size(190, 34)
-        Me.btnResetear.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnResetear.Symbol = ""
-        Me.btnResetear.SymbolColor = System.Drawing.Color.White
-        Me.btnResetear.SymbolSize = 15.0!
-        Me.btnResetear.TabIndex = 223
-        Me.btnResetear.Text = "Resetear Inventario"
-        Me.btnResetear.TextColor = System.Drawing.Color.White
-        '
         'Tec_Movimientos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1265, 809)
+        Me.ClientSize = New System.Drawing.Size(1265, 820)
         Me.Controls.Add(Me.TabControlPrincipal)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Tec_Movimientos"
