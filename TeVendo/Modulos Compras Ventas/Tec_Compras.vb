@@ -327,7 +327,14 @@ Public Class Tec_Compras
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "P.Venta"
+            .Caption = "P.Lista"
+        End With
+        With grDetalle.RootTable.Columns("PrecioMenor")
+            .Width = 90
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "P.Menor"
         End With
 
         With grDetalle.RootTable.Columns("PrecioCosto")

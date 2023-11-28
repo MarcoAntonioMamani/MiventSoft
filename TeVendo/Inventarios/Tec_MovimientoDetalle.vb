@@ -71,7 +71,13 @@ Public Class Tec_MovimientoDetalle
             .Width = 90
             .Visible = False
         End With
-
+        With grDetalle.RootTable.Columns("OE")
+            .Width = 80
+            .Caption = "OE"
+            .Visible = True
+            .WordWrap = True
+            .MaxLines = 3
+        End With
         With grDetalle.RootTable.Columns("fabrica")
             .Width = 80
             .Caption = "fabrica"
@@ -605,7 +611,7 @@ Public Class Tec_MovimientoDetalle
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", "", "", 0, "20200101", CDate("2020/01/01"), 0, 0, Bin.GetBuffer, 0, 0)
+        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", "", "", "", 0, "20200101", CDate("2020/01/01"), 0, 0, Bin.GetBuffer, 0, 0)
     End Sub
     Public Function _fnExisteProducto(idprod As Integer) As Boolean
         For i As Integer = 0 To CType(grDetalle.DataSource, DataTable).Rows.Count - 1 Step 1
@@ -640,6 +646,7 @@ Public Class Tec_MovimientoDetalle
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = grProducto.GetValue("NombreProducto")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("fabrica") = grProducto.GetValue("fabrica")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("marca") = grProducto.GetValue("Marca")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("OE") = grProducto.GetValue("CodigoExterno")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("stock")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
 

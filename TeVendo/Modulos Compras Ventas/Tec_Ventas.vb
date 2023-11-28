@@ -65,7 +65,14 @@ Public Class Tec_Ventas
                 End If
             End With
         Next
-
+        With JGrM_Buscador.RootTable.Columns("TotalVenta")
+            .Width = 60
+            .Visible = True
+            .Caption = "Total".ToUpper
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
 
         'Habilitar Filtradores
         With JGrM_Buscador
@@ -73,6 +80,15 @@ Public Class Tec_Ventas
             .FilterMode = FilterMode.Automatic
             .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
             .GroupByBoxVisible = False
+            .VisualStyle = VisualStyle.Office2007
+            .BoundMode = Janus.Data.BoundMode.Bound
+            .RowHeaders = InheritableBoolean.True
+            .TotalRow = InheritableBoolean.True
+            .TotalRowFormatStyle.BackColor = Color.Gold
+            .TotalRowFormatStyle.ForeColor = Color.Black
+            .TotalRowFormatStyle.FontBold = TriState.True
+            .TotalRowFormatStyle.FontSize = 11
+            .TotalRowPosition = TotalRowPosition.BottomFixed
             'diseño de la grilla
             .VisualStyle = VisualStyle.Office2007
             .Height = 200

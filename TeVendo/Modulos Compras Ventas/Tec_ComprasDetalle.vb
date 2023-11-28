@@ -115,6 +115,11 @@ Public Class Tec_ComprasDetalle
             .Visible = False
             .FormatString = "0.00"
         End With
+        With grProducto.RootTable.Columns("PrecioMenor")
+            .Width = 150
+            .Visible = False
+            .FormatString = "0.00"
+        End With
         With grProducto
             .DefaultFilterRowComparison = FilterConditionOperator.Contains
             .FilterMode = FilterMode.Automatic
@@ -157,7 +162,7 @@ Public Class Tec_ComprasDetalle
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.rowdelete, 25, 18)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", "", "", 0, 0, 0, 0, 0, "20200101", CDate("01/01/2020"), 0, 0, 0, Bin.GetBuffer, 0, 0)
+        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", "", "", 0, 0, 0, 0, 0, "20200101", CDate("01/01/2020"), 0, 0, 0, 0, 0, 0, Bin.GetBuffer)
     End Sub
 
     Public Function _GenerarId()
@@ -217,7 +222,14 @@ Public Class Tec_ComprasDetalle
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "P.Venta"
+            .Caption = "P.Lista"
+        End With
+        With grDetalle.RootTable.Columns("PrecioMenor")
+            .Width = 90
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "P.Menor"
         End With
 
         With grDetalle.RootTable.Columns("PrecioCosto")
@@ -464,6 +476,7 @@ Public Class Tec_ComprasDetalle
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCosto") = grProducto.GetValue("PrecioCosto")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("TotalCompra") = grProducto.GetValue("PrecioCosto") * cantidad
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioVenta") = grProducto.GetValue("PrecioVenta")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioMenor") = grProducto.GetValue("PrecioMenor")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("costo") = grProducto.GetValue("PrecioCosto")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("venta") = grProducto.GetValue("PrecioVenta")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
