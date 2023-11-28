@@ -79,6 +79,13 @@ Public Class Tec_MovimientoDetalle
             .WordWrap = True
             .MaxLines = 3
         End With
+        With grDetalle.RootTable.Columns("marca")
+            .Width = 80
+            .Caption = "marca"
+            .Visible = True
+            .WordWrap = True
+            .MaxLines = 3
+        End With
         With grDetalle.RootTable.Columns("Producto")
             .Width = 150
             .Caption = "Producto"
@@ -109,13 +116,13 @@ Public Class Tec_MovimientoDetalle
         End With
         With grDetalle.RootTable.Columns("Precio")
             .Width = 80
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "Precio"
         End With
         With grDetalle.RootTable.Columns("Total")
             .Width = 80
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "Total"
             .AggregateFunction = AggregateFunction.Sum
@@ -598,7 +605,7 @@ Public Class Tec_MovimientoDetalle
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", "", 0, "20200101", CDate("2020/01/01"), 0, 0, Bin.GetBuffer, 0, 0)
+        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", "", "", 0, "20200101", CDate("2020/01/01"), 0, 0, Bin.GetBuffer, 0, 0)
     End Sub
     Public Function _fnExisteProducto(idprod As Integer) As Boolean
         For i As Integer = 0 To CType(grDetalle.DataSource, DataTable).Rows.Count - 1 Step 1
@@ -632,6 +639,7 @@ Public Class Tec_MovimientoDetalle
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = grProducto.GetValue("Id")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = grProducto.GetValue("NombreProducto")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("fabrica") = grProducto.GetValue("fabrica")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("marca") = grProducto.GetValue("Marca")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("stock")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
 

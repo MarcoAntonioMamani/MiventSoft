@@ -317,6 +317,8 @@ Public Class Tec_Movimientos
             .Width = 150
             .Caption = "Producto"
             .Visible = True
+            .WordWrap = True
+            .MaxLines = 3
         End With
 
 
@@ -332,13 +334,13 @@ Public Class Tec_Movimientos
         With grDetalle.RootTable.Columns("precio")
             .Width = 80
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "precio".ToUpper
         End With
         With grDetalle.RootTable.Columns("Total")
             .Width = 80
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "Total"
             .AggregateFunction = AggregateFunction.Sum
