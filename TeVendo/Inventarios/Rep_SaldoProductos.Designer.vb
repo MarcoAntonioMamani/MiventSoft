@@ -23,6 +23,7 @@ Partial Class Rep_SaldoProductos
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim cbAlmacen_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim cbMarca_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Rep_SaldoProductos))
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.PanelSuperior = New System.Windows.Forms.Panel()
@@ -59,6 +60,11 @@ Partial Class Rep_SaldoProductos
         Me.Panel12 = New System.Windows.Forms.Panel()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.PanelButton = New System.Windows.Forms.Panel()
+        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.chkMarcaTodos = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.chkMarcaUno = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.cbMarca = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.panelReporte.SuspendLayout()
@@ -77,6 +83,8 @@ Partial Class Rep_SaldoProductos
         Me.Panel10.SuspendLayout()
         Me.Panel11.SuspendLayout()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel5.SuspendLayout()
+        CType(Me.cbMarca, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
@@ -271,6 +279,9 @@ Partial Class Rep_SaldoProductos
         'GroupBox2
         '
         Me.GroupBox2.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox2.Controls.Add(Me.Panel5)
+        Me.GroupBox2.Controls.Add(Me.cbMarca)
+        Me.GroupBox2.Controls.Add(Me.LabelX1)
         Me.GroupBox2.Controls.Add(Me.btnSi)
         Me.GroupBox2.Controls.Add(Me.Panel2)
         Me.GroupBox2.Controls.Add(Me.Panel9)
@@ -293,7 +304,7 @@ Partial Class Rep_SaldoProductos
         Me.btnSi.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(179, Byte), Integer), CType(CType(148, Byte), Integer))
         Me.btnSi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.btnSi.Controls.Add(Me.ButtonX1)
-        Me.btnSi.Location = New System.Drawing.Point(116, 228)
+        Me.btnSi.Location = New System.Drawing.Point(116, 333)
         Me.btnSi.Name = "btnSi"
         Me.btnSi.Size = New System.Drawing.Size(210, 56)
         Me.btnSi.TabIndex = 259
@@ -320,7 +331,7 @@ Partial Class Rep_SaldoProductos
         '
         Me.Panel2.Controls.Add(Me.CheckTodos)
         Me.Panel2.Controls.Add(Me.CheckMayorCero)
-        Me.Panel2.Location = New System.Drawing.Point(15, 135)
+        Me.Panel2.Location = New System.Drawing.Point(15, 240)
         Me.Panel2.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(267, 62)
@@ -420,7 +431,7 @@ Partial Class Rep_SaldoProductos
         Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX2.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX2.ForeColor = System.Drawing.Color.Black
-        Me.LabelX2.Location = New System.Drawing.Point(15, 109)
+        Me.LabelX2.Location = New System.Drawing.Point(15, 214)
         Me.LabelX2.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX2.Name = "LabelX2"
         Me.LabelX2.SingleLineColor = System.Drawing.SystemColors.Control
@@ -532,6 +543,89 @@ Partial Class Rep_SaldoProductos
         Me.PanelButton.Size = New System.Drawing.Size(1193, 10)
         Me.PanelButton.TabIndex = 3
         '
+        'Panel5
+        '
+        Me.Panel5.Controls.Add(Me.chkMarcaTodos)
+        Me.Panel5.Controls.Add(Me.chkMarcaUno)
+        Me.Panel5.Location = New System.Drawing.Point(251, 134)
+        Me.Panel5.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Size = New System.Drawing.Size(168, 43)
+        Me.Panel5.TabIndex = 262
+        '
+        'chkMarcaTodos
+        '
+        '
+        '
+        '
+        Me.chkMarcaTodos.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.chkMarcaTodos.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton
+        Me.chkMarcaTodos.Checked = True
+        Me.chkMarcaTodos.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkMarcaTodos.CheckValue = "Y"
+        Me.chkMarcaTodos.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkMarcaTodos.Location = New System.Drawing.Point(83, 9)
+        Me.chkMarcaTodos.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMarcaTodos.Name = "chkMarcaTodos"
+        Me.chkMarcaTodos.Size = New System.Drawing.Size(73, 28)
+        Me.chkMarcaTodos.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.chkMarcaTodos.TabIndex = 252
+        Me.chkMarcaTodos.Text = "Todos"
+        Me.chkMarcaTodos.TextColor = System.Drawing.Color.Black
+        '
+        'chkMarcaUno
+        '
+        '
+        '
+        '
+        Me.chkMarcaUno.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.chkMarcaUno.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton
+        Me.chkMarcaUno.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkMarcaUno.Location = New System.Drawing.Point(16, 9)
+        Me.chkMarcaUno.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMarcaUno.Name = "chkMarcaUno"
+        Me.chkMarcaUno.Size = New System.Drawing.Size(59, 28)
+        Me.chkMarcaUno.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.chkMarcaUno.TabIndex = 251
+        Me.chkMarcaUno.Text = "Una"
+        Me.chkMarcaUno.TextColor = System.Drawing.Color.Black
+        '
+        'cbMarca
+        '
+        Me.cbMarca.BackColor = System.Drawing.Color.White
+        cbMarca_DesignTimeLayout.LayoutString = resources.GetString("cbMarca_DesignTimeLayout.LayoutString")
+        Me.cbMarca.DesignTimeLayout = cbMarca_DesignTimeLayout
+        Me.cbMarca.DisabledBackColor = System.Drawing.Color.White
+        Me.cbMarca.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbMarca.Location = New System.Drawing.Point(15, 142)
+        Me.cbMarca.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbMarca.Name = "cbMarca"
+        Me.cbMarca.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbMarca.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.cbMarca.SelectedIndex = -1
+        Me.cbMarca.SelectedItem = Nothing
+        Me.cbMarca.Size = New System.Drawing.Size(219, 28)
+        Me.cbMarca.TabIndex = 261
+        Me.cbMarca.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'LabelX1
+        '
+        Me.LabelX1.AutoSize = True
+        Me.LabelX1.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX1.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX1.ForeColor = System.Drawing.Color.Black
+        Me.LabelX1.Location = New System.Drawing.Point(15, 116)
+        Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX1.Name = "LabelX1"
+        Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX1.Size = New System.Drawing.Size(52, 23)
+        Me.LabelX1.TabIndex = 260
+        Me.LabelX1.Text = "Marca:"
+        '
         'Rep_SaldoProductos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -560,6 +654,8 @@ Partial Class Rep_SaldoProductos
         Me.Panel10.ResumeLayout(False)
         Me.Panel11.ResumeLayout(False)
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel5.ResumeLayout(False)
+        CType(Me.cbMarca, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -599,4 +695,9 @@ Partial Class Rep_SaldoProductos
     Friend WithEvents LabelX3 As DevComponents.DotNetBar.LabelX
     Friend WithEvents btnSi As Panel
     Protected WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents Panel5 As Panel
+    Friend WithEvents chkMarcaTodos As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents chkMarcaUno As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents cbMarca As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
 End Class

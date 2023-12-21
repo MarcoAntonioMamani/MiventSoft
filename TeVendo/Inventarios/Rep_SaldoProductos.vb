@@ -8,6 +8,7 @@ Public Class Rep_SaldoProductos
         '_prCargarComboLibreriaSucursal(cbAlmacen)
         '_prCargarComboGrupos(cbGrupos)
         P_Global._prCargarComboGenerico(cbAlmacen, L_prListarDepositos(), "Id", "Codigo", "NombreDeposito", "NombreDeposito")
+        P_Global._prCargarComboGenerico(cbMarca, L_prLibreriaDetalleGeneral(3), "cnnum", "Codigo", "cndesc1", "Marca")
 
         Me.WindowState = FormWindowState.Maximized
 
@@ -49,24 +50,30 @@ Public Class Rep_SaldoProductos
     End Sub
 
     Public Sub _prInterpretarDatos(ByRef _dt As DataTable)
+        Dim marcaid As Integer = 0
+
+        If (Not chkMarcaTodos.Checked) Then
+            marcaid = cbMarca.Value
+        End If
+
         If (CheckTodosAlmacen.Checked And CheckMayorCero.Checked) Then
 
-            _dt = ReporteSaldosTodosAlmacenesMayorA0()
+            _dt = ReporteSaldosTodosAlmacenesMayorA0(marcaid)
 
 
         End If
         If (CheckTodosAlmacen.Checked And CheckTodos.Checked) Then
 
-            _dt = ReporteSaldosTodosAlmacenesTodos()
+            _dt = ReporteSaldosTodosAlmacenesTodos(marcaid)
 
 
         End If
         If (checkUnaAlmacen.Checked And CheckTodos.Checked) Then
-            _dt = ReporteSaldosUnAlmacenTodosCantidad(cbAlmacen.Value)
+            _dt = ReporteSaldosUnAlmacenTodosCantidad(cbAlmacen.Value, marcaid)
         End If
         'un almacen todos mayor a 0
         If (checkUnaAlmacen.Checked And CheckMayorCero.Checked) Then
-            _dt = ReporteSaldosUnAlmacenCantidadMayor0(cbAlmacen.Value)
+            _dt = ReporteSaldosUnAlmacenCantidadMayor0(cbAlmacen.Value, marcaid)
         End If
 
 
@@ -101,5 +108,17 @@ Public Class Rep_SaldoProductos
 
     End Sub
 
-
+    Private Sub chkMarcaTodos_CheckValueChanged(sender As Object, e As EventArgs) Handles chkMarcaTodos.CheckValueChanged
+        If (chkMarcaTodos.Checked) Then
+            _prInhabilitarMarca()
+        Else
+            _prhabilitarMarca()
+        End If
+    End Sub
+    Sub _prInhabilitarMarca()
+        cbMarca.Enabled = False
+    End Sub
+    Sub _prhabilitarMarca()
+        cbMarca.Enabled = True
+    End Sub
 End Class

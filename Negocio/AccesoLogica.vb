@@ -1131,13 +1131,14 @@ Public Class AccesoLogica
 #End Region
 #Region "Tec Reporte Inventario"
 
-    Public Shared Function ReporteSaldosTodosAlmacenesMayorA0() As DataTable
+    Public Shared Function ReporteSaldosTodosAlmacenesMayorA0(marca As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 9))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@MarcaId", marca))
         _Tabla = D_ProcedimientoConParam("MAM_Movimientos", _listParam)
 
         Return _Tabla
@@ -1192,13 +1193,14 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
-    Public Shared Function ReporteSaldosTodosAlmacenesTodos() As DataTable
+    Public Shared Function ReporteSaldosTodosAlmacenesTodos(marca As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 10))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@MarcaId", marca))
         _Tabla = D_ProcedimientoConParam("MAM_Movimientos", _listParam)
 
         Return _Tabla
@@ -1218,7 +1220,7 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
-    Public Shared Function ReporteSaldosUnAlmacenTodosCantidad(depositoId As Integer) As DataTable
+    Public Shared Function ReporteSaldosUnAlmacenTodosCantidad(depositoId As Integer, marca As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
@@ -1226,12 +1228,13 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@tipo", 11))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@DepositoId", depositoId))
+        _listParam.Add(New Datos.DParametro("@MarcaId", marca))
         _Tabla = D_ProcedimientoConParam("MAM_Movimientos", _listParam)
 
         Return _Tabla
     End Function
 
-    Public Shared Function ReporteSaldosUnAlmacenCantidadMayor0(depositoId As Integer) As DataTable
+    Public Shared Function ReporteSaldosUnAlmacenCantidadMayor0(depositoId As Integer, marca As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
@@ -1239,6 +1242,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@tipo", 12))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@DepositoId", depositoId))
+        _listParam.Add(New Datos.DParametro("@MarcaId", marca))
         _Tabla = D_ProcedimientoConParam("MAM_Movimientos", _listParam)
 
         Return _Tabla
