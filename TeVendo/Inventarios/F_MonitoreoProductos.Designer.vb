@@ -31,6 +31,7 @@ Partial Class F_MonitoreoProductos
         Me.Panel8 = New System.Windows.Forms.Panel()
         Me.gr_ProductosVencidos = New Janus.Windows.GridEX.GridEX()
         Me.Panel9 = New System.Windows.Forms.Panel()
+        Me.ButtonX3 = New DevComponents.DotNetBar.ButtonX()
         Me.GroupPanel4 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel7 = New System.Windows.Forms.Panel()
         Me.grPagos = New Janus.Windows.GridEX.GridEX()
@@ -39,6 +40,7 @@ Partial Class F_MonitoreoProductos
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.grProductosStockMinimo = New Janus.Windows.GridEX.GridEX()
         Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.btnStockMinimo = New DevComponents.DotNetBar.ButtonX()
         Me.tabProductosStockMinimo = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel17 = New System.Windows.Forms.Panel()
@@ -51,8 +53,6 @@ Partial Class F_MonitoreoProductos
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.btnStockMinimo = New DevComponents.DotNetBar.ButtonX()
-        Me.ButtonX3 = New DevComponents.DotNetBar.ButtonX()
         Me.Panel1.SuspendLayout()
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlMenu.SuspendLayout()
@@ -103,9 +103,9 @@ Partial Class F_MonitoreoProductos
         Me.SuperTabControlMenu.ControlBox.MenuBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControlMenu.ControlBox.MenuBox, Me.SuperTabControlMenu.ControlBox.CloseBox})
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel6)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControlMenu.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlMenu.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControlMenu.ForeColor = System.Drawing.Color.Black
@@ -219,6 +219,25 @@ Partial Class F_MonitoreoProductos
         Me.Panel9.Name = "Panel9"
         Me.Panel9.Size = New System.Drawing.Size(978, 61)
         Me.Panel9.TabIndex = 4
+        '
+        'ButtonX3
+        '
+        Me.ButtonX3.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX3.BackColor = System.Drawing.Color.Honeydew
+        Me.ButtonX3.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.ButtonX3.DisabledImagesGrayScale = False
+        Me.ButtonX3.Dock = System.Windows.Forms.DockStyle.Right
+        Me.ButtonX3.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX3.Image = Global.TeVendo.My.Resources.Resources.sheets
+        Me.ButtonX3.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.ButtonX3.Location = New System.Drawing.Point(751, 0)
+        Me.ButtonX3.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX3.Name = "ButtonX3"
+        Me.ButtonX3.Size = New System.Drawing.Size(227, 61)
+        Me.ButtonX3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX3.TabIndex = 3
+        Me.ButtonX3.Text = "Exportar Excel"
+        Me.ButtonX3.TextColor = System.Drawing.Color.Black
         '
         'GroupPanel4
         '
@@ -416,6 +435,25 @@ Partial Class F_MonitoreoProductos
         Me.Panel6.Size = New System.Drawing.Size(978, 61)
         Me.Panel6.TabIndex = 4
         '
+        'btnStockMinimo
+        '
+        Me.btnStockMinimo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnStockMinimo.BackColor = System.Drawing.Color.Honeydew
+        Me.btnStockMinimo.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
+        Me.btnStockMinimo.DisabledImagesGrayScale = False
+        Me.btnStockMinimo.Dock = System.Windows.Forms.DockStyle.Right
+        Me.btnStockMinimo.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnStockMinimo.Image = Global.TeVendo.My.Resources.Resources.sheets
+        Me.btnStockMinimo.ImageFixedSize = New System.Drawing.Size(35, 35)
+        Me.btnStockMinimo.Location = New System.Drawing.Point(751, 0)
+        Me.btnStockMinimo.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnStockMinimo.Name = "btnStockMinimo"
+        Me.btnStockMinimo.Size = New System.Drawing.Size(227, 61)
+        Me.btnStockMinimo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnStockMinimo.TabIndex = 3
+        Me.btnStockMinimo.Text = "Exportar Excel"
+        Me.btnStockMinimo.TextColor = System.Drawing.Color.Black
+        '
         'tabProductosStockMinimo
         '
         Me.tabProductosStockMinimo.AttachedControl = Me.SuperTabControlPanel5
@@ -601,44 +639,6 @@ Partial Class F_MonitoreoProductos
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
-        '
-        'btnStockMinimo
-        '
-        Me.btnStockMinimo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnStockMinimo.BackColor = System.Drawing.Color.Honeydew
-        Me.btnStockMinimo.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
-        Me.btnStockMinimo.DisabledImagesGrayScale = False
-        Me.btnStockMinimo.Dock = System.Windows.Forms.DockStyle.Right
-        Me.btnStockMinimo.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnStockMinimo.Image = Global.TeVendo.My.Resources.Resources.sheets
-        Me.btnStockMinimo.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.btnStockMinimo.Location = New System.Drawing.Point(751, 0)
-        Me.btnStockMinimo.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnStockMinimo.Name = "btnStockMinimo"
-        Me.btnStockMinimo.Size = New System.Drawing.Size(227, 61)
-        Me.btnStockMinimo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnStockMinimo.TabIndex = 3
-        Me.btnStockMinimo.Text = "Exportar Excel"
-        Me.btnStockMinimo.TextColor = System.Drawing.Color.Black
-        '
-        'ButtonX3
-        '
-        Me.ButtonX3.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX3.BackColor = System.Drawing.Color.Honeydew
-        Me.ButtonX3.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue
-        Me.ButtonX3.DisabledImagesGrayScale = False
-        Me.ButtonX3.Dock = System.Windows.Forms.DockStyle.Right
-        Me.ButtonX3.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX3.Image = Global.TeVendo.My.Resources.Resources.sheets
-        Me.ButtonX3.ImageFixedSize = New System.Drawing.Size(35, 35)
-        Me.ButtonX3.Location = New System.Drawing.Point(751, 0)
-        Me.ButtonX3.Margin = New System.Windows.Forms.Padding(4)
-        Me.ButtonX3.Name = "ButtonX3"
-        Me.ButtonX3.Size = New System.Drawing.Size(227, 61)
-        Me.ButtonX3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX3.TabIndex = 3
-        Me.ButtonX3.Text = "Exportar Excel"
-        Me.ButtonX3.TextColor = System.Drawing.Color.Black
         '
         'F_MonitoreoProductos
         '

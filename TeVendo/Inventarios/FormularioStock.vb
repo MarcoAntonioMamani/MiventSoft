@@ -17,7 +17,11 @@ Public Class FormularioStock
     Public Sub IniciarTodod()
         P_Global._prCargarComboGenerico(cbPrecio, L_fnListarCategoriaPrecio(), "ygnumi", "Codigo", "ygdesc", "Cat.Precio")
 
+        Dim dt As DataTable = ListarProveedoresCombo()
+        dt.Rows.Add(-1, "TODOS")
+        P_Global._prCargarComboGenerico(cbProveedor, dt, "Id", "Codigo", "Proveedor", "Proveedor")
 
+        cbProveedor.Value = -1
         _habilitarFocus()
 
         tbProducto.Focus()
@@ -209,7 +213,7 @@ Public Class FormularioStock
 
 
 
-        dt = L_prListarProductosTodosInventario(CategoriaPrecio)  ''1=Almacen
+        dt = L_prListarProductosTodosInventario(CategoriaPrecio, cbProveedor.Value)  ''1=Almacen
         dtProductos = dt
 
         'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock 
@@ -233,7 +237,15 @@ Public Class FormularioStock
             .TextAlignment = TextAlignment.Center
 
         End With
-
+        With grProducto.RootTable.Columns("NombreProveedor")
+            .Width = 200
+            .Caption = "Proveedor"
+            .Visible = True
+            .MaxLines = 2
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
+            .WordWrap = True
+        End With
         With grProducto.RootTable.Columns("NombreProducto")
             .Width = 300
             .Caption = "PRODUCTOS"
@@ -255,7 +267,7 @@ Public Class FormularioStock
         With grProducto.RootTable.Columns("industria")
             .Width = 150
             .Caption = "Industria"
-            .Visible = True
+            .Visible = False
             .MaxLines = 2
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
@@ -264,7 +276,7 @@ Public Class FormularioStock
         With grProducto.RootTable.Columns("unidad")
             .Width = 100
             .Caption = "Unidad Venta"
-            .Visible = True
+            .Visible = False
             .MaxLines = 2
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
@@ -304,7 +316,7 @@ Public Class FormularioStock
         End With
         With grProducto.RootTable.Columns("stock")
             .Width = 250
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
@@ -345,7 +357,7 @@ Public Class FormularioStock
 
     Private Sub btnProductos_Click(sender As Object, e As EventArgs) Handles btnProductos.Click
         Dim _dt As New DataTable
-        _dt = L_prListarProductosTodosInventario(cbPrecio.Value)
+        _dt = L_prListarProductosTodosInventario(cbPrecio.Value, cbProveedor.Value)
         If (IsNothing(_dt) Or _dt.Rows.Count = 0) Then
 
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
@@ -454,16 +466,19 @@ Public Class FormularioStock
                 For Each _fil As GridEXRow In grProducto.GetRows
                     For Each _col As GridEXColumn In grProducto.RootTable.Columns
                         If (_col.Visible) Then
-                            Dim data As String = CStr(_fil.Cells(_col.Key).Value)
-                            data = data.Replace(";", ",")
+                            ' Utiliza Convert.ToString para manejar correctamente DBNull.
+                            Dim data As String = Convert.ToString(_fil.Cells(_col.Key).Value)
+                            data = data.Replace(";", ",") ' Reemplazar punto y coma para mantener el formato CSV.
+                            data = data.Replace(vbCr, "").Replace(vbLf, "") ' Eliminar caracteres de salto de línea.
                             _linea = _linea & data & ";"
                         End If
                     Next
                     _linea = Mid(CStr(_linea), 1, _linea.Length - 1)
                     _escritor.WriteLine(_linea)
                     _linea = Nothing
-                    'Pbx_Precios.Value += 1
                 Next
+
+
                 _escritor.Close()
                 'Pbx_Precios.Visible = False
                 Try
