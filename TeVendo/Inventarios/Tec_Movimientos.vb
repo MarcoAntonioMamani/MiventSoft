@@ -1076,7 +1076,7 @@ Public Class Tec_Movimientos
             cbTipoMovimiento.Value = .GetValue("concep")
             tbDescripcion.Text = .GetValue("obs").ToString
             cbDepositos.Value = .GetValue("alm")
-
+            cbDepositoDestino.Value = .GetValue("depositoIdDestino")
 
         End With
         _prCargarDetalleVenta(tbCodigo.Text)
