@@ -2473,6 +2473,7 @@ salirIf:
 
             If (tbMdesc.Text = String.Empty) Then
                 tbMdesc.Value = 0
+                Dim il As Integer = 0
 
             End If
 
@@ -2481,4 +2482,7 @@ salirIf:
 
     End Sub
 #End Region
+
+
+    ''Comentario
 End Class
