@@ -4,7 +4,7 @@ Imports Negocio.AccesoLogica
 
 Imports DevComponents.DotNetBar
 Imports System.IO
-Public Class FormularioStock
+Public Class JhonInventarioCosto
     Public dtProductos As DataTable
     Public dtDetalle As DataTable
     Public Lote As Boolean
@@ -15,9 +15,8 @@ Public Class FormularioStock
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
 
     Public Sub IniciarTodod()
-        P_Global._prCargarComboGenerico(cbPrecio, L_fnListarCategoriaPrecio(), "ygnumi", "Codigo", "ygdesc", "Cat.Precio")
 
-
+        P_Global._prCargarComboGenerico(cbAlmacen, L_prListarDepositos(), "Id", "Codigo", "NombreDeposito", "NombreDeposito")
         _habilitarFocus()
 
         tbProducto.Focus()
@@ -76,8 +75,7 @@ Public Class FormularioStock
             For i As Integer = 0 To dt.Rows.Count - 1 Step 1
                 Dim nombre As String = dt.Rows(i).Item("CodigoExterno").ToString.ToUpper +
                     " " + dt.Rows(i).Item("Marca").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("codigobarras").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("OE").ToString.ToUpper +
                     " " + dt.Rows(i).Item("NombreProducto").ToString.ToUpper
                 Select Case cant
                     Case 1
@@ -209,7 +207,7 @@ Public Class FormularioStock
 
 
 
-        dt = L_prListarProductosTodosInventario(CategoriaPrecio)  ''1=Almacen
+        dt = L_prListarProductosTodosInventarioPrecioCompraJhon(CategoriaPrecio)  ''1=Almacen
         dtProductos = dt
 
         'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock 
@@ -232,9 +230,9 @@ Public Class FormularioStock
             .MaxLines = 2
             .WordWrap = True
         End With
-        With grProducto.RootTable.Columns("codigoBarras")
+        With grProducto.RootTable.Columns("OE")
             .Width = 100
-            .Caption = "FABRICAS"
+            .Caption = "OE"
             .Visible = True
             .MaxLines = 2
             .WordWrap = True
@@ -246,13 +244,7 @@ Public Class FormularioStock
             .MaxLines = 2
             .WordWrap = True
         End With
-        With grProducto.RootTable.Columns("Categoria")
-            .Width = 150
-            .Caption = "Grupo"
-            .Visible = True
-            .MaxLines = 2
-            .WordWrap = True
-        End With
+
         With grProducto.RootTable.Columns("Marca")
             .Width = 150
             .Caption = "Marca"
@@ -260,38 +252,8 @@ Public Class FormularioStock
             .MaxLines = 2
             .WordWrap = True
         End With
-        With grProducto.RootTable.Columns("subGrupo")
-            .Width = 150
-            .Caption = "SubGrupo"
-            .Visible = True
-            .MaxLines = 2
-            .WordWrap = True
-        End With
-        With grProducto.RootTable.Columns("medida")
-            .Width = 150
-            .Caption = "Medida"
-            .Visible = True
-            .MaxLines = 2
-            .WordWrap = True
-        End With
-        ''NombreCategoria
-        With grProducto.RootTable.Columns("DescripcionProducto")
-            .Width = 300
-            .Visible = False
-            .Caption = "DESCRIPCION"
-            .MaxLines = 2
-            .WordWrap = True
-        End With
 
 
-        With grProducto.RootTable.Columns("stockMinimo")
-            .Width = 150
-            .Visible = True
-            .FormatString = "0.00"
-            .Caption = "Stock Minimo"
-            .MaxLines = 2
-            .WordWrap = True
-        End With
         With grProducto.RootTable.Columns("precio")
             .Width = 110
             .Visible = True
@@ -308,11 +270,11 @@ Public Class FormularioStock
             .MaxLines = 2
             .WordWrap = True
         End With
-        With grProducto.RootTable.Columns("stockGeneral")
+        With grProducto.RootTable.Columns("CostoTotal")
             .Width = 150
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "Stock General"
+            .Caption = "CostoTotal"
             .MaxLines = 2
             .WordWrap = True
             .CellStyle.BackColor = Color.SpringGreen
@@ -332,14 +294,14 @@ Public Class FormularioStock
     End Sub
 
     Private Sub btnConfirmarSalir_Click(sender As Object, e As EventArgs) Handles btnConfirmarSalir.Click
-        _prCargarProductos(cbPrecio.Value)
+        _prCargarProductos(cbAlmacen.Value)
         tbProducto.Clear()
 
     End Sub
 
     Private Sub btnProductos_Click(sender As Object, e As EventArgs) Handles btnProductos.Click
         Dim _dt As New DataTable
-        _dt = L_prListarProductosTodosInventario(cbPrecio.Value)
+        _dt = L_prListarProductosTodosInventario(cbAlmacen.Value)
         If (IsNothing(_dt) Or _dt.Rows.Count = 0) Then
 
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
@@ -490,24 +452,8 @@ Public Class FormularioStock
         Return False
     End Function
 
-    Private Sub cbPrecio_ValueChanged(sender As Object, e As EventArgs) Handles cbPrecio.ValueChanged
-        _prCargarProductos(cbPrecio.Value)
-    End Sub
-
-    Private Sub VerToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles VerToolStripMenuItem1.Click
-        Try
-            If (grProducto.Row >= 0) Then
-
-                Dim codigoOriginal = grProducto.GetValue("CodigoExterno")
-                tbProducto.Text = codigoOriginal
-
-            End If
-        Catch ex As Exception
-
-        End Try
-
-
-
+    Private Sub cbPrecio_ValueChanged(sender As Object, e As EventArgs) Handles cbAlmacen.ValueChanged
+        _prCargarProductos(cbAlmacen.Value)
     End Sub
 
 

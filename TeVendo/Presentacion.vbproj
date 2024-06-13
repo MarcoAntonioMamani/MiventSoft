@@ -295,6 +295,12 @@
     <Compile Include="Inventarios\F_MonitoreoProductos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Inventarios\JhonInventarioCosto.Designer.vb">
+      <DependentUpon>JhonInventarioCosto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Inventarios\JhonInventarioCosto.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Inventarios\Reporte_ProductoMasVendido.Designer.vb">
       <DependentUpon>Reporte_ProductoMasVendido.vb</DependentUpon>
     </Compile>
@@ -902,6 +908,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\F_MonitoreoProductos.resx">
       <DependentUpon>F_MonitoreoProductos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventarios\JhonInventarioCosto.resx">
+      <DependentUpon>JhonInventarioCosto.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\Reporte_ProductoMasVendido.resx">
       <DependentUpon>Reporte_ProductoMasVendido.vb</DependentUpon>

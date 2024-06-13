@@ -129,6 +129,7 @@ Partial Class Tec_Principal
         Me.btnCerrarSesion = New DevComponents.DotNetBar.ButtonX()
         Me.PanelLine = New System.Windows.Forms.Panel()
         Me.imguser = New System.Windows.Forms.PictureBox()
+        Me.btnInvStockPrecio = New DevComponents.DotNetBar.Metro.MetroTileItem()
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlMenu.SuspendLayout()
         Me.SuperTabControlPanel3.SuspendLayout()
@@ -164,11 +165,11 @@ Partial Class Tec_Principal
         Me.SuperTabControlMenu.ControlBox.MenuBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControlMenu.ControlBox.MenuBox, Me.SuperTabControlMenu.ControlBox.CloseBox})
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel6)
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel2)
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel9)
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel2)
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel6)
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel10)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel8)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel1)
@@ -883,7 +884,7 @@ Partial Class Tec_Principal
         Me.ItemContainer3.ItemSpacing = 10
         Me.ItemContainer3.MultiLine = True
         Me.ItemContainer3.Name = "ItemContainer3"
-        Me.ItemContainer3.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btInvMovimiento, Me.btInvKardex, Me.btInvSaldo, Me.btInvSaldosValorados, Me.btInvKardexReporte, Me.btnInvMonitoreo})
+        Me.ItemContainer3.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btInvMovimiento, Me.btInvKardex, Me.btInvSaldo, Me.btInvSaldosValorados, Me.btInvKardexReporte, Me.btnInvMonitoreo, Me.btnInvStockPrecio})
         '
         '
         '
@@ -2257,6 +2258,29 @@ Partial Class Tec_Principal
         Me.imguser.TabIndex = 1
         Me.imguser.TabStop = False
         '
+        'btnInvStockPrecio
+        '
+        Me.btnInvStockPrecio.Image = CType(resources.GetObject("btnInvStockPrecio.Image"), System.Drawing.Image)
+        Me.btnInvStockPrecio.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnInvStockPrecio.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnInvStockPrecio.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnInvStockPrecio.Name = "btnInvStockPrecio"
+        Me.btnInvStockPrecio.SymbolColor = System.Drawing.Color.Black
+        Me.btnInvStockPrecio.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnInvStockPrecio.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btnInvStockPrecio.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnInvStockPrecio.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
+        Me.btnInvStockPrecio.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnInvStockPrecio.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnInvStockPrecio.TileStyle.PaddingRight = 20
+        Me.btnInvStockPrecio.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnInvStockPrecio.TitleText = "Reporte" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Inventario" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Sucursal"
+        Me.btnInvStockPrecio.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnInvStockPrecio.TitleTextColor = System.Drawing.Color.White
+        '
         'Tec_Principal
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -2394,4 +2418,5 @@ Partial Class Tec_Principal
     Friend WithEvents btVentVentaDirecto As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents btnCierreCajero02 As DevComponents.DotNetBar.Metro.MetroTileItem
     Protected WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents btnInvStockPrecio As DevComponents.DotNetBar.Metro.MetroTileItem
 End Class
