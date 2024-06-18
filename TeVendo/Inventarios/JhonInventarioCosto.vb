@@ -301,7 +301,7 @@ Public Class JhonInventarioCosto
 
     Private Sub btnProductos_Click(sender As Object, e As EventArgs) Handles btnProductos.Click
         Dim _dt As New DataTable
-        _dt = L_prListarProductosTodosInventario(cbAlmacen.Value)
+        _dt = L_prListarProductosTodosInventarioPrecioCompraJhon(cbAlmacen.Value)
         If (IsNothing(_dt) Or _dt.Rows.Count = 0) Then
 
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
@@ -322,10 +322,11 @@ Public Class JhonInventarioCosto
 
             P_Global.Visualizador = New Visualizador
 
-            Dim objrep As New Reporte_StockGeneral
+            Dim objrep As New ReporteJhonSaldo
 
             objrep.SetDataSource(_dt)
             objrep.SetParameterValue("Usuario", L_Usuario)
+            objrep.SetParameterValue("Sucursal", cbAlmacen.Text)
             P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
             P_Global.Visualizador.CrGeneral.Zoom(90)
             P_Global.Visualizador.Show() 'Comentar
@@ -385,8 +386,7 @@ Public Class JhonInventarioCosto
                 Dim _escritor As StreamWriter
                 Dim _fila As Integer = grProducto.GetRows.Length
                 Dim _columna As Integer = grProducto.RootTable.Columns.Count
-                Dim _archivo As String = _ubicacion & "\" + Title + "_" & Now.Date.Day &
-                    "." & Now.Date.Month & "." & Now.Date.Year & "_" & Now.Hour & "." & Now.Minute & "." & Now.Second & ".csv"
+                Dim _archivo As String = _ubicacion & "\" + Title + "_" & Now.Date.Day & "." & Now.Date.Month & "." & Now.Date.Year & "_" & Now.Hour & "." & Now.Minute & "." & Now.Second & ".csv"
                 Dim _linea As String = ""
                 Dim _filadata = 0, columndata As Int32 = 0
                 File.Delete(_archivo)
@@ -402,26 +402,19 @@ Public Class JhonInventarioCosto
                 _escritor.WriteLine(_linea)
                 _linea = Nothing
 
-                'Pbx_Precios.Visible = True
-                'Pbx_Precios.Minimum = 1
-                'Pbx_Precios.Maximum = Dgv_Precios.RowCount
-                'Pbx_Precios.Value = 1
-
                 For Each _fil As GridEXRow In grProducto.GetRows
                     For Each _col As GridEXColumn In grProducto.RootTable.Columns
                         If (_col.Visible) Then
                             Dim data As String = CStr(_fil.Cells(_col.Key).Value)
-                            data = data.Replace(";", ",")
+                            data = data.Replace(";", ",").Replace(vbCr, " ").Replace(vbLf, " ").Replace(vbCrLf, " ")
                             _linea = _linea & data & ";"
                         End If
                     Next
                     _linea = Mid(CStr(_linea), 1, _linea.Length - 1)
                     _escritor.WriteLine(_linea)
                     _linea = Nothing
-                    'Pbx_Precios.Value += 1
                 Next
                 _escritor.Close()
-                'Pbx_Precios.Visible = False
                 Try
                     Dim ef = New Efecto
                     ef._archivo = _archivo
@@ -436,9 +429,6 @@ Public Class JhonInventarioCosto
                         Process.Start(_archivo)
                     End If
 
-                    'If (MessageBox.Show("Su archivo ha sido Guardado en la ruta: " + _archivo + vbLf + "DESEA ABRIR EL ARCHIVO?", "PREGUNTA", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes) Then
-                    '    Process.Start(_archivo)
-                    'End If
                     Return True
                 Catch ex As Exception
                     MsgBox(ex.Message)
@@ -451,6 +441,7 @@ Public Class JhonInventarioCosto
         End If
         Return False
     End Function
+
 
     Private Sub cbPrecio_ValueChanged(sender As Object, e As EventArgs) Handles cbAlmacen.ValueChanged
         _prCargarProductos(cbAlmacen.Value)
