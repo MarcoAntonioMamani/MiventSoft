@@ -2346,8 +2346,7 @@ Public Class AccesoLogica
                                                 _CodigoBarra As String, _NombreProducto As String,
         _Descripcion As String, _stockMinimo As Decimal, _estado As Integer, _CategoriaId As Integer, _EmpresaId As Integer, _ProveedorId As Integer, _MarcaId As Integer,
         _AttributoId As Integer, _FamiliaId As Integer, _UnidadVentaId As Integer, _UnidadMaximaId As Integer,
-        _conversion As Double, _dtImagenes As DataTable, costo As Decimal,
-        venta As Decimal) As Boolean
+        _conversion As Double, _dtImagenes As DataTable) As Boolean
         Dim _resultado As Boolean
 
         '(@Id,@CodigoExterno ,@CodigoBarras ,@NombreProducto ,@DescripcionProducto ,
@@ -2371,15 +2370,10 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@MarcaId", _MarcaId))
         _listParam.Add(New Datos.DParametro("@AttributoId", _AttributoId))
         _listParam.Add(New Datos.DParametro("@FamiliaId", _FamiliaId))
-
         _listParam.Add(New Datos.DParametro("@UnidadVentaId", _UnidadVentaId))
         _listParam.Add(New Datos.DParametro("@UnidadMaximaId", _UnidadMaximaId))
         _listParam.Add(New Datos.DParametro("@Conversion", _conversion))
-
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
-        '_listParam.Add(New Datos.DParametro("@Facturado", PrecioFacturado))
-        _listParam.Add(New Datos.DParametro("@compra", costo))
-        _listParam.Add(New Datos.DParametro("@venta", venta))
         _Tabla = D_ProcedimientoConParam("MAM_Productos", _listParam)
 
         If _Tabla.Rows.Count > 0 Then

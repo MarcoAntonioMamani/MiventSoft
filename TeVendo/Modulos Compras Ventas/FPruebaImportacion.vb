@@ -2,7 +2,7 @@
 Imports System.IO
 Public Class FPruebaImportacion
     Private Sub FPruebaImportacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        L_prAbrirConexion("DESKTOP-T84OJOU", "marco", "123", "MinventSoftRoteland")
+        L_prAbrirConexion("DESKTOP-4GSLJSP", "marco", "123", "MinventSoftRepuestoChavez")
     End Sub
 
     Public Shared Function ExcelToDatatable(ByVal _xlPath As String, ByVal _namePage As String) As System.Data.DataTable
@@ -120,12 +120,16 @@ Public Class FPruebaImportacion
             'If codigoExterno.Length < 4 Then
             '    codigoExterno = codigoExterno.PadLeft(4, "0"c)
             'End If
-
-            Res = L_prProductoInsertarDistralKCP(id, 0, "",
-                                        dt.Rows(i).Item("Producto"), dt.Rows(i).Item("Producto"),
+            '    (ByRef _numi As String, _CodigoExterno As String,
+            '                                        _CodigoBarra As String, _NombreProducto As String,
+            '_Descripcion As String, _stockMinimo As Decimal, _estado As Integer, _CategoriaId As Integer, _EmpresaId As Integer, _ProveedorId As Integer, _MarcaId As Integer,
+            '_AttributoId As Integer, _FamiliaId As Integer, _UnidadVentaId As Integer, _UnidadMaximaId As Integer,
+            '_conversion As Double, _dtImagenes As DataTable)
+            Res = L_prProductoInsertarDistralKCP(dt.Rows(i).Item("ID"), dt.Rows(i).Item("OE"), dt.Rows(i).Item("CODIGOFabrica"),
+                                        dt.Rows(i).Item("DESCRIPCION"), dt.Rows(i).Item("DESCRIPCION"),
                                         3, 1, 1,
                                         1, 1, 0, 0, 0, 20, 22, 1,
-                                             TablaImagenes, dt.Rows(i).Item("compra"), dt.Rows(i).Item("venta"))
+                                             TablaImagenes)
 
             'dt.Rows(i).Item("IdSistema") = id
         Next
