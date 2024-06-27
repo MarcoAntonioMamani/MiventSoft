@@ -52,6 +52,8 @@ Public Class Tec_Movimientos
                 If _MListEstBuscador.Item(i).visible = True Then
                     .Caption = _MListEstBuscador.Item(i).titulo
                     .Width = _MListEstBuscador.Item(i).tamano
+                    .WordWrap = True
+                    .MaxLines = 4
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
 
                     Dim col As DataColumn = dtBuscador.Columns(campo)
@@ -1012,7 +1014,9 @@ Public Class Tec_Movimientos
 
         listEstCeldas.Add(New Celda("est", False, "Estado", 70))
         listEstCeldas.Add(New Celda("alm", False, "Estado", 150))
+        listEstCeldas.Add(New Celda("IdDestino", False, "Estado", 150))
         listEstCeldas.Add(New Celda("NombreDeposito", True, "Deposito", 150))
+        listEstCeldas.Add(New Celda("NombreDepositoDestino", True, "Destino", 150))
 
         Return listEstCeldas
     End Function
@@ -1033,7 +1037,7 @@ Public Class Tec_Movimientos
             cbTipoMovimiento.Value = .GetValue("concep")
             tbDescripcion.Text = .GetValue("obs").ToString
             cbDepositos.Value = .GetValue("alm")
-
+            cbDepositoDestino.Value = .GetValue("IdDestino")
 
         End With
         _prCargarDetalleVenta(tbCodigo.Text)

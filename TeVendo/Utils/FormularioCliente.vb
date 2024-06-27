@@ -164,8 +164,31 @@ Public Class FormularioCliente
 
 
         Else
+            ' Crear una lista de condiciones de filtro
+            Dim filterConditions As New List(Of Janus.Windows.GridEX.GridEXFilterCondition)()
 
-            grJBuscador.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grJBuscador.RootTable.Columns("NombreProveedor"), Janus.Windows.GridEX.ConditionOperator.Contains, tbNombre.Text))
+            ' Iterar a través de todas las columnas de la tabla raíz
+            For Each column As Janus.Windows.GridEX.GridEXColumn In grJBuscador.RootTable.Columns
+                ' Añadir una condición de filtro para cada columna
+                filterConditions.Add(New Janus.Windows.GridEX.GridEXFilterCondition(column, Janus.Windows.GridEX.ConditionOperator.Contains, tbNombre.Text))
+            Next
+
+            ' Si solo hay una condición, aplicarla directamente
+            If filterConditions.Count = 1 Then
+                grJBuscador.RootTable.ApplyFilter(filterConditions(0))
+            Else
+                ' Combinar todas las condiciones de filtro con el operador OR
+                Dim combinedCondition As Janus.Windows.GridEX.GridEXFilterCondition = filterConditions(0)
+
+                For i As Integer = 1 To filterConditions.Count - 1
+                    combinedCondition.AddCondition(LogicalOperator.Or, filterConditions(i))
+                Next
+
+                ' Aplicar el filtro combinado a la tabla raíz
+                grJBuscador.RootTable.ApplyFilter(combinedCondition)
+            End If
+
+            '' grJBuscador.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grJBuscador.RootTable.Columns("NombreProveedor"), Janus.Windows.GridEX.ConditionOperator.Contains, tbNombre.Text))
 
         End If
     End Sub

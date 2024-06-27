@@ -26,16 +26,6 @@ Partial Class Tec_Principal
         Dim SuperTabLinearGradientColorTable1 As DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable = New DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tec_Principal))
         Me.SuperTabControlMenu = New DevComponents.DotNetBar.SuperTabControl()
-        Me.SuperTabControlPanel4 = New DevComponents.DotNetBar.SuperTabControlPanel()
-        Me.Panel_Planillas = New DevComponents.DotNetBar.Metro.MetroTilePanel()
-        Me.ItemContainer1 = New DevComponents.DotNetBar.ItemContainer()
-        Me.btnPersonal = New DevComponents.DotNetBar.Metro.MetroTileItem()
-        Me.btnConceptoFijos = New DevComponents.DotNetBar.Metro.MetroTileItem()
-        Me.btnContratos = New DevComponents.DotNetBar.Metro.MetroTileItem()
-        Me.btnRegistrarPlanilla = New DevComponents.DotNetBar.Metro.MetroTileItem()
-        Me.btnPlanilla = New DevComponents.DotNetBar.Metro.MetroTileItem()
-        Me.btnConfComision = New DevComponents.DotNetBar.Metro.MetroTileItem()
-        Me.tabPagosSalarios = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel_Configuracion = New DevComponents.DotNetBar.Metro.MetroTilePanel()
         Me.ItemContainerVentTransacciones = New DevComponents.DotNetBar.ItemContainer()
@@ -51,6 +41,7 @@ Partial Class Tec_Principal
         Me.btnConfCategoria = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btConfEmpresa = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btnKits = New DevComponents.DotNetBar.Metro.MetroTileItem()
+        Me.btConfCuentas = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.tab_configuraciones = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel5 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel_Ventas = New DevComponents.DotNetBar.Metro.MetroTilePanel()
@@ -73,6 +64,16 @@ Partial Class Tec_Principal
         Me.btnIngresoEgresoDetallado = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btnReporteCajaDetallado = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.tab_compraventa = New DevComponents.DotNetBar.SuperTabItem()
+        Me.SuperTabControlPanel4 = New DevComponents.DotNetBar.SuperTabControlPanel()
+        Me.Panel_Planillas = New DevComponents.DotNetBar.Metro.MetroTilePanel()
+        Me.ItemContainer1 = New DevComponents.DotNetBar.ItemContainer()
+        Me.btnPersonal = New DevComponents.DotNetBar.Metro.MetroTileItem()
+        Me.btnConceptoFijos = New DevComponents.DotNetBar.Metro.MetroTileItem()
+        Me.btnContratos = New DevComponents.DotNetBar.Metro.MetroTileItem()
+        Me.btnRegistrarPlanilla = New DevComponents.DotNetBar.Metro.MetroTileItem()
+        Me.btnPlanilla = New DevComponents.DotNetBar.Metro.MetroTileItem()
+        Me.btnConfComision = New DevComponents.DotNetBar.Metro.MetroTileItem()
+        Me.tabPagosSalarios = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel10 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.PanelBuscador = New System.Windows.Forms.Panel()
         Me.tab_InvProductos = New DevComponents.DotNetBar.SuperTabItem()
@@ -128,12 +129,11 @@ Partial Class Tec_Principal
         Me.btnCerrarSesion = New DevComponents.DotNetBar.ButtonX()
         Me.PanelLine = New System.Windows.Forms.Panel()
         Me.imguser = New System.Windows.Forms.PictureBox()
-        Me.btConfCuentas = New DevComponents.DotNetBar.Metro.MetroTileItem()
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlMenu.SuspendLayout()
-        Me.SuperTabControlPanel4.SuspendLayout()
         Me.SuperTabControlPanel3.SuspendLayout()
         Me.SuperTabControlPanel5.SuspendLayout()
+        Me.SuperTabControlPanel4.SuspendLayout()
         Me.SuperTabControlPanel10.SuspendLayout()
         Me.SuperTabControlPanel8.SuspendLayout()
         CType(Me.superTabControl3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -192,211 +192,6 @@ Partial Class Tec_Principal
         Me.SuperTabControlMenu.TabStripColor = SuperTabColorTable1
         Me.SuperTabControlMenu.TabStyle = DevComponents.DotNetBar.eSuperTabStyle.Office2010BackstageBlue
         Me.SuperTabControlMenu.Text = "SuperTabControl1"
-        '
-        'SuperTabControlPanel4
-        '
-        Me.SuperTabControlPanel4.Controls.Add(Me.Panel_Planillas)
-        Me.SuperTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel4.Location = New System.Drawing.Point(220, 0)
-        Me.SuperTabControlPanel4.Name = "SuperTabControlPanel4"
-        Me.SuperTabControlPanel4.Size = New System.Drawing.Size(1238, 693)
-        Me.SuperTabControlPanel4.TabIndex = 0
-        Me.SuperTabControlPanel4.TabItem = Me.tabPagosSalarios
-        '
-        'Panel_Planillas
-        '
-        Me.Panel_Planillas.BackColor = System.Drawing.Color.Transparent
-        Me.Panel_Planillas.BackgroundImage = CType(resources.GetObject("Panel_Planillas.BackgroundImage"), System.Drawing.Image)
-        Me.Panel_Planillas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        '
-        '
-        '
-        Me.Panel_Planillas.BackgroundStyle.BackColor = System.Drawing.Color.Transparent
-        Me.Panel_Planillas.BackgroundStyle.Class = "MetroTilePanel"
-        Me.Panel_Planillas.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.Panel_Planillas.ContainerControlProcessDialogKey = True
-        Me.Panel_Planillas.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel_Planillas.DragDropSupport = True
-        Me.Panel_Planillas.Items.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.ItemContainer1})
-        Me.Panel_Planillas.ItemSpacing = 10
-        Me.Panel_Planillas.LayoutOrientation = DevComponents.DotNetBar.eOrientation.Vertical
-        Me.Panel_Planillas.Location = New System.Drawing.Point(0, 0)
-        Me.Panel_Planillas.Margin = New System.Windows.Forms.Padding(4)
-        Me.Panel_Planillas.MultiLine = True
-        Me.Panel_Planillas.Name = "Panel_Planillas"
-        Me.Panel_Planillas.Size = New System.Drawing.Size(1238, 693)
-        Me.Panel_Planillas.TabIndex = 6
-        Me.Panel_Planillas.Text = "mtp2Logistica"
-        '
-        'ItemContainer1
-        '
-        '
-        '
-        '
-        Me.ItemContainer1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.ItemContainer1.ItemSpacing = 10
-        Me.ItemContainer1.MultiLine = True
-        Me.ItemContainer1.Name = "ItemContainer1"
-        Me.ItemContainer1.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnPersonal, Me.btnConceptoFijos, Me.btnContratos, Me.btnRegistrarPlanilla, Me.btnPlanilla, Me.btnConfComision})
-        '
-        '
-        '
-        Me.ItemContainer1.TitleStyle.BackColor = System.Drawing.Color.DarkBlue
-        Me.ItemContainer1.TitleStyle.BackColor2 = System.Drawing.Color.Aqua
-        Me.ItemContainer1.TitleStyle.Class = "MetroTileGroupTitle"
-        Me.ItemContainer1.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
-        Me.ItemContainer1.TitleStyle.Font = New System.Drawing.Font("Calibri", 18.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ItemContainer1.TitleStyle.TextColor = System.Drawing.Color.White
-        Me.ItemContainer1.TitleText = "GESTION DE PLANILLAS SALARIOS"
-        '
-        'btnPersonal
-        '
-        Me.btnPersonal.Image = CType(resources.GetObject("btnPersonal.Image"), System.Drawing.Image)
-        Me.btnPersonal.ImageIndent = New System.Drawing.Point(-50, 0)
-        Me.btnPersonal.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
-        Me.btnPersonal.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
-        Me.btnPersonal.Name = "btnPersonal"
-        Me.btnPersonal.SymbolColor = System.Drawing.Color.Black
-        Me.btnPersonal.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
-        Me.btnPersonal.TileSize = New System.Drawing.Size(250, 135)
-        '
-        '
-        '
-        Me.btnPersonal.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.btnPersonal.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
-        Me.btnPersonal.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
-        Me.btnPersonal.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnPersonal.TileStyle.PaddingRight = 30
-        Me.btnPersonal.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
-        Me.btnPersonal.TitleText = "Gestion De" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & " Personal"
-        Me.btnPersonal.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
-        Me.btnPersonal.TitleTextColor = System.Drawing.Color.White
-        '
-        'btnConceptoFijos
-        '
-        Me.btnConceptoFijos.Image = Global.TeVendo.My.Resources.Resources._14
-        Me.btnConceptoFijos.ImageIndent = New System.Drawing.Point(-50, 0)
-        Me.btnConceptoFijos.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
-        Me.btnConceptoFijos.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
-        Me.btnConceptoFijos.Name = "btnConceptoFijos"
-        Me.btnConceptoFijos.SymbolColor = System.Drawing.Color.Black
-        Me.btnConceptoFijos.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
-        Me.btnConceptoFijos.TileSize = New System.Drawing.Size(250, 135)
-        '
-        '
-        '
-        Me.btnConceptoFijos.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(159, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.btnConceptoFijos.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.btnConceptoFijos.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
-        Me.btnConceptoFijos.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnConceptoFijos.TileStyle.PaddingRight = 30
-        Me.btnConceptoFijos.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
-        Me.btnConceptoFijos.TitleText = "Conceptos" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Fijos"
-        Me.btnConceptoFijos.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
-        Me.btnConceptoFijos.TitleTextColor = System.Drawing.Color.White
-        '
-        'btnContratos
-        '
-        Me.btnContratos.Image = Global.TeVendo.My.Resources.Resources.check_mark
-        Me.btnContratos.ImageIndent = New System.Drawing.Point(-50, 0)
-        Me.btnContratos.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
-        Me.btnContratos.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
-        Me.btnContratos.Name = "btnContratos"
-        Me.btnContratos.SymbolColor = System.Drawing.Color.Black
-        Me.btnContratos.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
-        Me.btnContratos.TileSize = New System.Drawing.Size(250, 135)
-        '
-        '
-        '
-        Me.btnContratos.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.btnContratos.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
-        Me.btnContratos.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
-        Me.btnContratos.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnContratos.TileStyle.PaddingRight = 10
-        Me.btnContratos.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
-        Me.btnContratos.TitleText = "Administrar" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Contratos"
-        Me.btnContratos.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
-        Me.btnContratos.TitleTextColor = System.Drawing.Color.White
-        '
-        'btnRegistrarPlanilla
-        '
-        Me.btnRegistrarPlanilla.Image = CType(resources.GetObject("btnRegistrarPlanilla.Image"), System.Drawing.Image)
-        Me.btnRegistrarPlanilla.ImageIndent = New System.Drawing.Point(-50, 0)
-        Me.btnRegistrarPlanilla.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
-        Me.btnRegistrarPlanilla.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
-        Me.btnRegistrarPlanilla.Name = "btnRegistrarPlanilla"
-        Me.btnRegistrarPlanilla.SymbolColor = System.Drawing.Color.Black
-        Me.btnRegistrarPlanilla.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
-        Me.btnRegistrarPlanilla.TileSize = New System.Drawing.Size(250, 135)
-        '
-        '
-        '
-        Me.btnRegistrarPlanilla.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(159, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.btnRegistrarPlanilla.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.btnRegistrarPlanilla.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
-        Me.btnRegistrarPlanilla.TileStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnRegistrarPlanilla.TileStyle.PaddingRight = 20
-        Me.btnRegistrarPlanilla.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
-        Me.btnRegistrarPlanilla.TitleText = "Asignar" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Trabajador A" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Planilla"
-        Me.btnRegistrarPlanilla.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
-        Me.btnRegistrarPlanilla.TitleTextColor = System.Drawing.Color.White
-        '
-        'btnPlanilla
-        '
-        Me.btnPlanilla.Image = Global.TeVendo.My.Resources.Resources.cobros
-        Me.btnPlanilla.ImageIndent = New System.Drawing.Point(-50, 0)
-        Me.btnPlanilla.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
-        Me.btnPlanilla.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
-        Me.btnPlanilla.Name = "btnPlanilla"
-        Me.btnPlanilla.SymbolColor = System.Drawing.Color.Black
-        Me.btnPlanilla.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
-        Me.btnPlanilla.TileSize = New System.Drawing.Size(250, 135)
-        '
-        '
-        '
-        Me.btnPlanilla.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.btnPlanilla.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
-        Me.btnPlanilla.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
-        Me.btnPlanilla.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnPlanilla.TileStyle.PaddingRight = 10
-        Me.btnPlanilla.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
-        Me.btnPlanilla.TitleText = "Administrar" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Planilla Salarios"
-        Me.btnPlanilla.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
-        Me.btnPlanilla.TitleTextColor = System.Drawing.Color.White
-        '
-        'btnConfComision
-        '
-        Me.btnConfComision.Image = Global.TeVendo.My.Resources.Resources.check_mark
-        Me.btnConfComision.ImageIndent = New System.Drawing.Point(-50, 0)
-        Me.btnConfComision.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
-        Me.btnConfComision.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
-        Me.btnConfComision.Name = "btnConfComision"
-        Me.btnConfComision.SymbolColor = System.Drawing.Color.Black
-        Me.btnConfComision.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
-        Me.btnConfComision.TileSize = New System.Drawing.Size(250, 135)
-        '
-        '
-        '
-        Me.btnConfComision.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.btnConfComision.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
-        Me.btnConfComision.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
-        Me.btnConfComision.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnConfComision.TileStyle.PaddingRight = 10
-        Me.btnConfComision.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
-        Me.btnConfComision.TitleText = "Configurar " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Comisión"
-        Me.btnConfComision.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
-        Me.btnConfComision.TitleTextColor = System.Drawing.Color.White
-        '
-        'tabPagosSalarios
-        '
-        Me.tabPagosSalarios.AttachedControl = Me.SuperTabControlPanel4
-        Me.tabPagosSalarios.GlobalItem = False
-        Me.tabPagosSalarios.Image = Global.TeVendo.My.Resources.Resources.creditopagados
-        Me.tabPagosSalarios.Name = "tabPagosSalarios"
-        Me.tabPagosSalarios.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Teal
-        Me.tabPagosSalarios.SelectedTabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tabPagosSalarios.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tabPagosSalarios.Text = "Planilla Salarios"
         '
         'SuperTabControlPanel3
         '
@@ -730,6 +525,29 @@ Partial Class Tec_Principal
         Me.btnKits.TitleText = "Gestion De" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Kits"
         Me.btnKits.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
         Me.btnKits.TitleTextColor = System.Drawing.Color.White
+        '
+        'btConfCuentas
+        '
+        Me.btConfCuentas.Image = Global.TeVendo.My.Resources.Resources.credito
+        Me.btConfCuentas.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btConfCuentas.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btConfCuentas.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btConfCuentas.Name = "btConfCuentas"
+        Me.btConfCuentas.SymbolColor = System.Drawing.Color.Black
+        Me.btConfCuentas.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btConfCuentas.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btConfCuentas.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btConfCuentas.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
+        Me.btConfCuentas.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btConfCuentas.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btConfCuentas.TileStyle.PaddingRight = 20
+        Me.btConfCuentas.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btConfCuentas.TitleText = "Crear" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Cuentas" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Bancarias"
+        Me.btConfCuentas.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btConfCuentas.TitleTextColor = System.Drawing.Color.White
         '
         'tab_configuraciones
         '
@@ -1201,6 +1019,211 @@ Partial Class Tec_Principal
         Me.tab_compraventa.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tab_compraventa.Text = "Gestion Ventas"
         Me.tab_compraventa.TextAlignment = DevComponents.DotNetBar.eItemAlignment.Near
+        '
+        'SuperTabControlPanel4
+        '
+        Me.SuperTabControlPanel4.Controls.Add(Me.Panel_Planillas)
+        Me.SuperTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SuperTabControlPanel4.Location = New System.Drawing.Point(220, 0)
+        Me.SuperTabControlPanel4.Name = "SuperTabControlPanel4"
+        Me.SuperTabControlPanel4.Size = New System.Drawing.Size(1238, 693)
+        Me.SuperTabControlPanel4.TabIndex = 0
+        Me.SuperTabControlPanel4.TabItem = Me.tabPagosSalarios
+        '
+        'Panel_Planillas
+        '
+        Me.Panel_Planillas.BackColor = System.Drawing.Color.Transparent
+        Me.Panel_Planillas.BackgroundImage = CType(resources.GetObject("Panel_Planillas.BackgroundImage"), System.Drawing.Image)
+        Me.Panel_Planillas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        '
+        '
+        '
+        Me.Panel_Planillas.BackgroundStyle.BackColor = System.Drawing.Color.Transparent
+        Me.Panel_Planillas.BackgroundStyle.Class = "MetroTilePanel"
+        Me.Panel_Planillas.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.Panel_Planillas.ContainerControlProcessDialogKey = True
+        Me.Panel_Planillas.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel_Planillas.DragDropSupport = True
+        Me.Panel_Planillas.Items.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.ItemContainer1})
+        Me.Panel_Planillas.ItemSpacing = 10
+        Me.Panel_Planillas.LayoutOrientation = DevComponents.DotNetBar.eOrientation.Vertical
+        Me.Panel_Planillas.Location = New System.Drawing.Point(0, 0)
+        Me.Panel_Planillas.Margin = New System.Windows.Forms.Padding(4)
+        Me.Panel_Planillas.MultiLine = True
+        Me.Panel_Planillas.Name = "Panel_Planillas"
+        Me.Panel_Planillas.Size = New System.Drawing.Size(1238, 693)
+        Me.Panel_Planillas.TabIndex = 6
+        Me.Panel_Planillas.Text = "mtp2Logistica"
+        '
+        'ItemContainer1
+        '
+        '
+        '
+        '
+        Me.ItemContainer1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.ItemContainer1.ItemSpacing = 10
+        Me.ItemContainer1.MultiLine = True
+        Me.ItemContainer1.Name = "ItemContainer1"
+        Me.ItemContainer1.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnPersonal, Me.btnConceptoFijos, Me.btnContratos, Me.btnRegistrarPlanilla, Me.btnPlanilla, Me.btnConfComision})
+        '
+        '
+        '
+        Me.ItemContainer1.TitleStyle.BackColor = System.Drawing.Color.DarkBlue
+        Me.ItemContainer1.TitleStyle.BackColor2 = System.Drawing.Color.Aqua
+        Me.ItemContainer1.TitleStyle.Class = "MetroTileGroupTitle"
+        Me.ItemContainer1.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.ItemContainer1.TitleStyle.Font = New System.Drawing.Font("Calibri", 18.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ItemContainer1.TitleStyle.TextColor = System.Drawing.Color.White
+        Me.ItemContainer1.TitleText = "GESTION DE PLANILLAS SALARIOS"
+        '
+        'btnPersonal
+        '
+        Me.btnPersonal.Image = CType(resources.GetObject("btnPersonal.Image"), System.Drawing.Image)
+        Me.btnPersonal.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnPersonal.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnPersonal.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnPersonal.Name = "btnPersonal"
+        Me.btnPersonal.SymbolColor = System.Drawing.Color.Black
+        Me.btnPersonal.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnPersonal.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btnPersonal.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnPersonal.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
+        Me.btnPersonal.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnPersonal.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnPersonal.TileStyle.PaddingRight = 30
+        Me.btnPersonal.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnPersonal.TitleText = "Gestion De" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & " Personal"
+        Me.btnPersonal.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnPersonal.TitleTextColor = System.Drawing.Color.White
+        '
+        'btnConceptoFijos
+        '
+        Me.btnConceptoFijos.Image = Global.TeVendo.My.Resources.Resources._14
+        Me.btnConceptoFijos.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnConceptoFijos.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnConceptoFijos.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnConceptoFijos.Name = "btnConceptoFijos"
+        Me.btnConceptoFijos.SymbolColor = System.Drawing.Color.Black
+        Me.btnConceptoFijos.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnConceptoFijos.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btnConceptoFijos.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(159, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.btnConceptoFijos.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.btnConceptoFijos.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnConceptoFijos.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnConceptoFijos.TileStyle.PaddingRight = 30
+        Me.btnConceptoFijos.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnConceptoFijos.TitleText = "Conceptos" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Fijos"
+        Me.btnConceptoFijos.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnConceptoFijos.TitleTextColor = System.Drawing.Color.White
+        '
+        'btnContratos
+        '
+        Me.btnContratos.Image = Global.TeVendo.My.Resources.Resources.check_mark
+        Me.btnContratos.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnContratos.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnContratos.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnContratos.Name = "btnContratos"
+        Me.btnContratos.SymbolColor = System.Drawing.Color.Black
+        Me.btnContratos.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnContratos.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btnContratos.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnContratos.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
+        Me.btnContratos.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnContratos.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnContratos.TileStyle.PaddingRight = 10
+        Me.btnContratos.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnContratos.TitleText = "Administrar" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Contratos"
+        Me.btnContratos.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnContratos.TitleTextColor = System.Drawing.Color.White
+        '
+        'btnRegistrarPlanilla
+        '
+        Me.btnRegistrarPlanilla.Image = CType(resources.GetObject("btnRegistrarPlanilla.Image"), System.Drawing.Image)
+        Me.btnRegistrarPlanilla.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnRegistrarPlanilla.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnRegistrarPlanilla.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnRegistrarPlanilla.Name = "btnRegistrarPlanilla"
+        Me.btnRegistrarPlanilla.SymbolColor = System.Drawing.Color.Black
+        Me.btnRegistrarPlanilla.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnRegistrarPlanilla.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btnRegistrarPlanilla.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(159, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.btnRegistrarPlanilla.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.btnRegistrarPlanilla.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnRegistrarPlanilla.TileStyle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnRegistrarPlanilla.TileStyle.PaddingRight = 20
+        Me.btnRegistrarPlanilla.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnRegistrarPlanilla.TitleText = "Asignar" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Trabajador A" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Planilla"
+        Me.btnRegistrarPlanilla.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnRegistrarPlanilla.TitleTextColor = System.Drawing.Color.White
+        '
+        'btnPlanilla
+        '
+        Me.btnPlanilla.Image = Global.TeVendo.My.Resources.Resources.cobros
+        Me.btnPlanilla.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnPlanilla.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnPlanilla.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnPlanilla.Name = "btnPlanilla"
+        Me.btnPlanilla.SymbolColor = System.Drawing.Color.Black
+        Me.btnPlanilla.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnPlanilla.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btnPlanilla.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnPlanilla.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
+        Me.btnPlanilla.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnPlanilla.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnPlanilla.TileStyle.PaddingRight = 10
+        Me.btnPlanilla.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnPlanilla.TitleText = "Administrar" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Planilla Salarios"
+        Me.btnPlanilla.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnPlanilla.TitleTextColor = System.Drawing.Color.White
+        '
+        'btnConfComision
+        '
+        Me.btnConfComision.Image = Global.TeVendo.My.Resources.Resources.check_mark
+        Me.btnConfComision.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnConfComision.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnConfComision.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnConfComision.Name = "btnConfComision"
+        Me.btnConfComision.SymbolColor = System.Drawing.Color.Black
+        Me.btnConfComision.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnConfComision.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btnConfComision.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnConfComision.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
+        Me.btnConfComision.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnConfComision.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnConfComision.TileStyle.PaddingRight = 10
+        Me.btnConfComision.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnConfComision.TitleText = "Configurar " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Comisión"
+        Me.btnConfComision.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnConfComision.TitleTextColor = System.Drawing.Color.White
+        '
+        'tabPagosSalarios
+        '
+        Me.tabPagosSalarios.AttachedControl = Me.SuperTabControlPanel4
+        Me.tabPagosSalarios.GlobalItem = False
+        Me.tabPagosSalarios.Image = Global.TeVendo.My.Resources.Resources.creditopagados
+        Me.tabPagosSalarios.Name = "tabPagosSalarios"
+        Me.tabPagosSalarios.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.OfficeMobile2014Teal
+        Me.tabPagosSalarios.SelectedTabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tabPagosSalarios.TabFont = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tabPagosSalarios.Text = "Planilla Salarios"
         '
         'SuperTabControlPanel10
         '
@@ -2235,29 +2258,6 @@ Partial Class Tec_Principal
         Me.imguser.TabIndex = 1
         Me.imguser.TabStop = False
         '
-        'btConfCuentas
-        '
-        Me.btConfCuentas.Image = Global.TeVendo.My.Resources.Resources.credito
-        Me.btConfCuentas.ImageIndent = New System.Drawing.Point(-50, 0)
-        Me.btConfCuentas.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
-        Me.btConfCuentas.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
-        Me.btConfCuentas.Name = "btConfCuentas"
-        Me.btConfCuentas.SymbolColor = System.Drawing.Color.Black
-        Me.btConfCuentas.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
-        Me.btConfCuentas.TileSize = New System.Drawing.Size(250, 135)
-        '
-        '
-        '
-        Me.btConfCuentas.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.btConfCuentas.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
-        Me.btConfCuentas.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
-        Me.btConfCuentas.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btConfCuentas.TileStyle.PaddingRight = 20
-        Me.btConfCuentas.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
-        Me.btConfCuentas.TitleText = "Crear" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Cuentas" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Bancarias"
-        Me.btConfCuentas.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
-        Me.btConfCuentas.TitleTextColor = System.Drawing.Color.White
-        '
         'Tec_Principal
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -2273,9 +2273,9 @@ Partial Class Tec_Principal
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuperTabControlMenu.ResumeLayout(False)
-        Me.SuperTabControlPanel4.ResumeLayout(False)
         Me.SuperTabControlPanel3.ResumeLayout(False)
         Me.SuperTabControlPanel5.ResumeLayout(False)
+        Me.SuperTabControlPanel4.ResumeLayout(False)
         Me.SuperTabControlPanel10.ResumeLayout(False)
         Me.SuperTabControlPanel8.ResumeLayout(False)
         CType(Me.superTabControl3, System.ComponentModel.ISupportInitialize).EndInit()

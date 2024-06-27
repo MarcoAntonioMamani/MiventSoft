@@ -2049,10 +2049,10 @@ salirIf:
         'a.Id ,a.NombreCliente  as NombreProveedor ,a.DireccionCliente  ,a.Telefono
 
         Dim listEstCeldas As New List(Of Celda)
-        listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
+        listEstCeldas.Add(New Celda("Id", True, "ID", 90))
         listEstCeldas.Add(New Celda("NombreCliente", True, "NOMBRE", 350))
-        listEstCeldas.Add(New Celda("DireccionCliente", True, "DIRECCION", 180))
-        listEstCeldas.Add(New Celda("Telefono", True, "Telefono".ToUpper, 200))
+        listEstCeldas.Add(New Celda("DireccionCliente", False, "DIRECCION", 180))
+        listEstCeldas.Add(New Celda("Telefono", True, "Telefono".ToUpper, 100))
 
 
         Dim ef = New Efecto
