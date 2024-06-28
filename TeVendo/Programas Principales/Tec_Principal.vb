@@ -1301,4 +1301,10 @@ Public Class Tec_Principal
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub
+
+    Private Sub btRendimientoCliente_Click(sender As Object, e As EventArgs) Handles btRendimientoCliente.Click
+        Dim frmComision As Reporte_RendimientoVentasCliente
+        frmComision = New Reporte_RendimientoVentasCliente
+        frmComision.Show()
+    End Sub
 End Class

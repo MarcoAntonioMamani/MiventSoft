@@ -307,6 +307,12 @@
     <Compile Include="Inventarios\Reporte_RendimientoPersonal.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Inventarios\Reporte_RendimientoVentasCliente.Designer.vb">
+      <DependentUpon>Reporte_RendimientoVentasCliente.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Inventarios\Reporte_RendimientoVentasCliente.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Inventarios\Reporte_VentasVsCostos.Designer.vb">
       <DependentUpon>Reporte_VentasVsCostos.vb</DependentUpon>
     </Compile>
@@ -709,6 +715,12 @@
       <DependentUpon>Reporte_ProductosPrecios.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ReporteSmartApps\Reporte_Rendimiento_Cliente.vb">
+      <DependentUpon>Reporte_Rendimiento_Cliente.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="ReporteSmartApps\Reporte_Rendimiento_Personal.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -914,6 +926,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\Reporte_RendimientoPersonal.resx">
       <DependentUpon>Reporte_RendimientoPersonal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventarios\Reporte_RendimientoVentasCliente.resx">
+      <DependentUpon>Reporte_RendimientoVentasCliente.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\Reporte_VentasVsCostos.resx">
       <DependentUpon>Reporte_VentasVsCostos.vb</DependentUpon>
@@ -1139,6 +1154,10 @@
     <EmbeddedResource Include="ReporteSmartApps\Reporte_ProductosPrecios.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Reporte_ProductosPrecios.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\Reporte_Rendimiento_Cliente.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reporte_Rendimiento_Cliente.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\Reporte_Rendimiento_Personal.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

@@ -129,6 +129,7 @@ Partial Class Tec_Principal
         Me.btnCerrarSesion = New DevComponents.DotNetBar.ButtonX()
         Me.PanelLine = New System.Windows.Forms.Panel()
         Me.imguser = New System.Windows.Forms.PictureBox()
+        Me.btRendimientoCliente = New DevComponents.DotNetBar.Metro.MetroTileItem()
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlMenu.SuspendLayout()
         Me.SuperTabControlPanel3.SuspendLayout()
@@ -164,8 +165,8 @@ Partial Class Tec_Principal
         Me.SuperTabControlMenu.ControlBox.MenuBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControlMenu.ControlBox.MenuBox, Me.SuperTabControlMenu.ControlBox.CloseBox})
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel4)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel10)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel8)
@@ -606,7 +607,7 @@ Partial Class Tec_Principal
         Me.ItemContainer2.ItemSpacing = 10
         Me.ItemContainer2.MultiLine = True
         Me.ItemContainer2.Name = "ItemContainer2"
-        Me.ItemContainer2.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnProforma, Me.btVentVenta, Me.btVentReporteRealizada, Me.btVentGrafica, Me.btVentReporteVentaVsCosto, Me.btInvUtilidad, Me.btVentProdMasVendidos, Me.btVentRendimiento, Me.btnCredPago, Me.btVentReporteComision})
+        Me.ItemContainer2.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnProforma, Me.btVentVenta, Me.btVentReporteRealizada, Me.btVentGrafica, Me.btVentReporteVentaVsCosto, Me.btInvUtilidad, Me.btVentProdMasVendidos, Me.btVentRendimiento, Me.btnCredPago, Me.btVentReporteComision, Me.btRendimientoCliente})
         '
         '
         '
@@ -2258,6 +2259,29 @@ Partial Class Tec_Principal
         Me.imguser.TabIndex = 1
         Me.imguser.TabStop = False
         '
+        'btRendimientoCliente
+        '
+        Me.btRendimientoCliente.Image = CType(resources.GetObject("btRendimientoCliente.Image"), System.Drawing.Image)
+        Me.btRendimientoCliente.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btRendimientoCliente.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btRendimientoCliente.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btRendimientoCliente.Name = "btRendimientoCliente"
+        Me.btRendimientoCliente.SymbolColor = System.Drawing.Color.Black
+        Me.btRendimientoCliente.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btRendimientoCliente.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btRendimientoCliente.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btRendimientoCliente.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
+        Me.btRendimientoCliente.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btRendimientoCliente.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btRendimientoCliente.TileStyle.PaddingRight = 20
+        Me.btRendimientoCliente.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btRendimientoCliente.TitleText = "Rendimiento" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Ventas" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Cliente"
+        Me.btRendimientoCliente.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btRendimientoCliente.TitleTextColor = System.Drawing.Color.White
+        '
         'Tec_Principal
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -2397,4 +2421,5 @@ Partial Class Tec_Principal
     Friend WithEvents btVentReporteComision As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents btnConfComision As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents btConfCuentas As DevComponents.DotNetBar.Metro.MetroTileItem
+    Friend WithEvents btRendimientoCliente As DevComponents.DotNetBar.Metro.MetroTileItem
 End Class
