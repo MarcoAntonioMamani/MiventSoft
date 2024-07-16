@@ -115,6 +115,8 @@ Public Class Efecto
                 _prMostrarFormCrearTipoMovimiento()
             Case 22
                 _prMostrarFormularioCantidadVentasCaja()
+            Case 23
+                _prMostrarAyudaProductosProformas()
         End Select
     End Sub
     Public Sub _prLogin()
@@ -300,6 +302,21 @@ Public Class Efecto
 
         Dim frmAyuda As Tec_VentasDetalle
         frmAyuda = New Tec_VentasDetalle(dtDetalle)
+        frmAyuda.SucursalId = SucursalId
+        frmAyuda.Lote = Lotebool
+        frmAyuda.IdCliente = IdCliente
+        frmAyuda.VentaDirecta = VentaDirecta
+        frmAyuda.DistribuidorId = DistribuidorId
+        frmAyuda.ShowDialog()
+        Me.Close()
+
+
+    End Sub
+
+    Sub _prMostrarAyudaProductosProformas()
+
+        Dim frmAyuda As ProformaDetalle
+        frmAyuda = New ProformaDetalle(dtDetalle)
         frmAyuda.SucursalId = SucursalId
         frmAyuda.Lote = Lotebool
         frmAyuda.IdCliente = IdCliente
