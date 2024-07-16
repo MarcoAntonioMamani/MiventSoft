@@ -1836,13 +1836,8 @@ salirIf:
         ParteDecimal = Math.Round(total - ParteEntera, 2)
         Dim li As String = Facturacion.ConvertirLiteral.A_fnConvertirLiteral(CDbl(ParteEntera)) + " con " +
         IIf(ParteDecimal.ToString.Equals("0"), "00", ParteDecimal.ToString) + "/100 Bolivianos"
-
-
-
         P_Global.Visualizador = New Visualizador
-
-        Dim objrep As New Recibo
-
+        Dim objrep As New ProformaReport
         objrep.SetDataSource(dt)
         objrep.SetParameterValue("Monto", li)
         objrep.SetParameterValue("Fecha", _FechaPar)
