@@ -1871,6 +1871,20 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+
+
+    Public Shared Function ReporteHistoricoProveedorTodos(FechaI As String, FechaF As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 13))
+        _listParam.Add(New Datos.DParametro("@FechaI", FechaI))
+        _listParam.Add(New Datos.DParametro("@FechaF", FechaF))
+
+        _Tabla = D_ProcedimientoConParam("MAM_ReporteVentas", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function ReporteListarPersonal() As DataTable
         Dim _Tabla As DataTable
 
@@ -1921,6 +1935,19 @@ Public Class AccesoLogica
 
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@FechaI", FechaI))
+        _listParam.Add(New Datos.DParametro("@FechaF", FechaF))
+        _listParam.Add(New Datos.DParametro("@IdPersonal", IdPersonal))
+        _Tabla = D_ProcedimientoConParam("MAM_ReporteVentas", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function ReporteHistoricoProveedorTodosUnProveedor(FechaI As String, FechaF As String, IdPersonal As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 14))
         _listParam.Add(New Datos.DParametro("@FechaI", FechaI))
         _listParam.Add(New Datos.DParametro("@FechaF", FechaF))
         _listParam.Add(New Datos.DParametro("@IdPersonal", IdPersonal))
