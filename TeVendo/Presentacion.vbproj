@@ -769,11 +769,23 @@
       <DependentUpon>R_SaldosValorados.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ReporteSmartApps\UltimosCambios\Form_ReporteHistoricoProductos.Designer.vb">
+      <DependentUpon>Form_ReporteHistoricoProductos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteSmartApps\UltimosCambios\Form_ReporteHistoricoProductos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ReporteSmartApps\UltimosCambios\ReporteHistoricoProveedor.Designer.vb">
       <DependentUpon>ReporteHistoricoProveedor.vb</DependentUpon>
     </Compile>
     <Compile Include="ReporteSmartApps\UltimosCambios\ReporteHistoricoProveedor.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteSmartApps\UltimosCambios\Reporte_HistoricoComprasProductos.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reporte_HistoricoComprasProductos.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ReporteSmartApps\UltimosCambios\Reporte_HistoricoProveedor.vb">
       <AutoGen>True</AutoGen>
@@ -1198,8 +1210,15 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_SaldosValorados.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\UltimosCambios\Form_ReporteHistoricoProductos.resx">
+      <DependentUpon>Form_ReporteHistoricoProductos.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\UltimosCambios\ReporteHistoricoProveedor.resx">
       <DependentUpon>ReporteHistoricoProveedor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\UltimosCambios\Reporte_HistoricoComprasProductos.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reporte_HistoricoComprasProductos.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\UltimosCambios\Reporte_HistoricoProveedor.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class ReporteHistoricoProveedor
+Partial Class Form_ReporteHistoricoProductos
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
@@ -67,8 +67,8 @@ Partial Class ReporteHistoricoProveedor
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1071, 623)
-        Me.Panel1.TabIndex = 8
+        Me.Panel1.Size = New System.Drawing.Size(991, 583)
+        Me.Panel1.TabIndex = 9
         '
         'PanelSuperior
         '
@@ -76,7 +76,7 @@ Partial Class ReporteHistoricoProveedor
         Me.PanelSuperior.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelSuperior.Location = New System.Drawing.Point(0, 0)
         Me.PanelSuperior.Name = "PanelSuperior"
-        Me.PanelSuperior.Size = New System.Drawing.Size(1071, 540)
+        Me.PanelSuperior.Size = New System.Drawing.Size(991, 500)
         Me.PanelSuperior.TabIndex = 1
         '
         'PanelLEft
@@ -85,7 +85,7 @@ Partial Class ReporteHistoricoProveedor
         Me.PanelLEft.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelLEft.Location = New System.Drawing.Point(0, 0)
         Me.PanelLEft.Name = "PanelLEft"
-        Me.PanelLEft.Size = New System.Drawing.Size(1071, 540)
+        Me.PanelLEft.Size = New System.Drawing.Size(991, 500)
         Me.PanelLEft.TabIndex = 0
         '
         'Panel8
@@ -97,7 +97,7 @@ Partial Class ReporteHistoricoProveedor
         Me.Panel8.Location = New System.Drawing.Point(0, 0)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Padding = New System.Windows.Forms.Padding(3)
-        Me.Panel8.Size = New System.Drawing.Size(1071, 540)
+        Me.Panel8.Size = New System.Drawing.Size(991, 500)
         Me.Panel8.TabIndex = 1
         '
         'PanelDatos
@@ -107,7 +107,7 @@ Partial Class ReporteHistoricoProveedor
         Me.PanelDatos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelDatos.Location = New System.Drawing.Point(3, 30)
         Me.PanelDatos.Name = "PanelDatos"
-        Me.PanelDatos.Size = New System.Drawing.Size(1065, 507)
+        Me.PanelDatos.Size = New System.Drawing.Size(985, 467)
         Me.PanelDatos.TabIndex = 2
         '
         'PanelPrincipal
@@ -118,7 +118,7 @@ Partial Class ReporteHistoricoProveedor
         Me.PanelPrincipal.Location = New System.Drawing.Point(0, 0)
         Me.PanelPrincipal.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelPrincipal.Name = "PanelPrincipal"
-        Me.PanelPrincipal.Size = New System.Drawing.Size(1065, 507)
+        Me.PanelPrincipal.Size = New System.Drawing.Size(985, 467)
         Me.PanelPrincipal.TabIndex = 2
         '
         'MReportViewer
@@ -131,7 +131,7 @@ Partial Class ReporteHistoricoProveedor
         Me.MReportViewer.Location = New System.Drawing.Point(0, 0)
         Me.MReportViewer.Margin = New System.Windows.Forms.Padding(4)
         Me.MReportViewer.Name = "MReportViewer"
-        Me.MReportViewer.Size = New System.Drawing.Size(1065, 507)
+        Me.MReportViewer.Size = New System.Drawing.Size(985, 467)
         Me.MReportViewer.TabIndex = 20
         Me.MReportViewer.ToolPanelWidth = 267
         '
@@ -143,7 +143,7 @@ Partial Class ReporteHistoricoProveedor
         Me.Panel10.Location = New System.Drawing.Point(3, 3)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel10.Size = New System.Drawing.Size(1065, 27)
+        Me.Panel10.Size = New System.Drawing.Size(985, 27)
         Me.Panel10.TabIndex = 1
         '
         'Panel11
@@ -155,7 +155,7 @@ Partial Class ReporteHistoricoProveedor
         Me.Panel11.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel11.Location = New System.Drawing.Point(1, 1)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(1063, 25)
+        Me.Panel11.Size = New System.Drawing.Size(983, 25)
         Me.Panel11.TabIndex = 0
         '
         'Label3
@@ -169,7 +169,7 @@ Partial Class ReporteHistoricoProveedor
         Me.Label3.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
         Me.Label3.Size = New System.Drawing.Size(321, 25)
         Me.Label3.TabIndex = 2
-        Me.Label3.Text = "Reporte Historico Proveedores"
+        Me.Label3.Text = "Reporte Historico Productos"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Panel12
@@ -201,9 +201,9 @@ Partial Class ReporteHistoricoProveedor
         Me.PanelButton.Controls.Add(Me.PanelNavegacion)
         Me.PanelButton.Controls.Add(Me.PanelToolBar1)
         Me.PanelButton.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PanelButton.Location = New System.Drawing.Point(0, 540)
+        Me.PanelButton.Location = New System.Drawing.Point(0, 500)
         Me.PanelButton.Name = "PanelButton"
-        Me.PanelButton.Size = New System.Drawing.Size(1071, 83)
+        Me.PanelButton.Size = New System.Drawing.Size(991, 83)
         Me.PanelButton.TabIndex = 3
         '
         'PanelNavegacion
@@ -220,7 +220,7 @@ Partial Class ReporteHistoricoProveedor
         Me.PanelNavegacion.Location = New System.Drawing.Point(0, 0)
         Me.PanelNavegacion.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelNavegacion.Name = "PanelNavegacion"
-        Me.PanelNavegacion.Size = New System.Drawing.Size(926, 83)
+        Me.PanelNavegacion.Size = New System.Drawing.Size(846, 83)
         Me.PanelNavegacion.TabIndex = 21
         '
         'chkTodos
@@ -401,7 +401,7 @@ Partial Class ReporteHistoricoProveedor
         Me.PanelToolBar1.Controls.Add(Me.ButtonX1)
         Me.PanelToolBar1.Dock = System.Windows.Forms.DockStyle.Right
         Me.PanelToolBar1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.PanelToolBar1.Location = New System.Drawing.Point(926, 0)
+        Me.PanelToolBar1.Location = New System.Drawing.Point(846, 0)
         Me.PanelToolBar1.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelToolBar1.Name = "PanelToolBar1"
         Me.PanelToolBar1.Size = New System.Drawing.Size(145, 83)
@@ -426,14 +426,14 @@ Partial Class ReporteHistoricoProveedor
         Me.ButtonX1.Text = "Generar"
         Me.ButtonX1.TextColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
         '
-        'ReporteHistoricoProveedor
+        'Form_ReporteHistoricoProductos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1071, 623)
+        Me.ClientSize = New System.Drawing.Size(991, 583)
         Me.Controls.Add(Me.Panel1)
-        Me.Name = "ReporteHistoricoProveedor"
-        Me.Text = "ReporteHistoricoProveedor"
+        Me.Name = "Form_ReporteHistoricoProductos"
+        Me.Text = "Form_ReporteHistoricoProductos"
         Me.Panel1.ResumeLayout(False)
         Me.PanelSuperior.ResumeLayout(False)
         Me.PanelLEft.ResumeLayout(False)
