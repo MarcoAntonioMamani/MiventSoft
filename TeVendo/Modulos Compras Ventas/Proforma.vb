@@ -1245,12 +1245,7 @@ salirIf:
         If (bandera = True) Then
             Dim mensajeError As String = ""
             Dim res As Boolean
-            If (JGrM_Buscador.GetValue("EstadoConciliacion") = 0) Then
-                ToastNotification.Show(Me, "Esta Venta no puede ser Eliminada por que pertenece a una conciliacion cerrada = " + Str(JGrM_Buscador.GetValue("conciliacionID")), img, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                ef.Dispose()
-                Return
 
-            End If
             Try
                 res = L_prBorrarRegistro(tbCodigo.Text, mensajeError, "MAM_Proforma")
                 If res Then
