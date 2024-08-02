@@ -117,30 +117,76 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="TabControlPrincipal.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="SuperTabControlPanel2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>803, 103</value>
-  </metadata>
-  <metadata name="MeuOpciones.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>304, 146</value>
-  </metadata>
-  <metadata name="ButtonX2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>703, 146</value>
-  </metadata>
-  <metadata name="ButtonX1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>199, 60</value>
-  </metadata>
-  <metadata name="SuperTabControlPanel1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>509, 60</value>
-  </metadata>
-  <metadata name="ButtonX4.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>809, 60</value>
-  </metadata>
-  <metadata name="ButtonX3.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>929, 60</value>
-  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="QrFactura.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+</value>
+  </data>
   <data name="cbTipoDocumento_DesignTimeLayout.LayoutString" xml:space="preserve">
     <value>&lt;GridEXLayoutData&gt;&lt;RootTable&gt;&lt;GroupCondition /&gt;&lt;/RootTable&gt;&lt;RowWithErrorsFormatStyle&gt;&lt;PredefinedStyle&gt;RowWithErrorsFormatStyle&lt;/PredefinedStyle&gt;&lt;/RowWithErrorsFormatStyle&gt;&lt;LinkFormatStyle&gt;&lt;PredefinedStyle&gt;LinkFormatStyle&lt;/PredefinedStyle&gt;&lt;/LinkFormatStyle&gt;&lt;CardCaptionFormatStyle&gt;&lt;PredefinedStyle&gt;CardCaptionFormatStyle&lt;/PredefinedStyle&gt;&lt;/CardCaptionFormatStyle&gt;&lt;GroupByBoxFormatStyle&gt;&lt;PredefinedStyle&gt;GroupByBoxFormatStyle&lt;/PredefinedStyle&gt;&lt;/GroupByBoxFormatStyle&gt;&lt;GroupByBoxInfoFormatStyle&gt;&lt;PredefinedStyle&gt;GroupByBoxInfoFormatStyle&lt;/PredefinedStyle&gt;&lt;/GroupByBoxInfoFormatStyle&gt;&lt;GroupRowFormatStyle&gt;&lt;BackColor&gt;White&lt;/BackColor&gt;&lt;BackColorGradient&gt;White&lt;/BackColorGradient&gt;&lt;PredefinedStyle&gt;GroupRowFormatStyle&lt;/PredefinedStyle&gt;&lt;/GroupRowFormatStyle&gt;&lt;HeaderFormatStyle&gt;&lt;ForeColor&gt;Black&lt;/ForeColor&gt;&lt;BackColorGradient&gt;White&lt;/BackColorGradient&gt;&lt;Font&gt;Calibri, 9pt, style=Bold&lt;/Font&gt;&lt;PredefinedStyle&gt;HeaderFormatStyle&lt;/PredefinedStyle&gt;&lt;/HeaderFormatStyle&gt;&lt;PreviewRowFormatStyle&gt;&lt;PredefinedStyle&gt;PreviewRowFormatStyle&lt;/PredefinedStyle&gt;&lt;/PreviewRowFormatStyle&gt;&lt;RowFormatStyle&gt;&lt;PredefinedStyle&gt;RowFormatStyle&lt;/PredefinedStyle&gt;&lt;/RowFormatStyle&gt;&lt;SelectedFormatStyle&gt;&lt;BackColor&gt;Black&lt;/BackColor&gt;&lt;ForeColor&gt;White&lt;/ForeColor&gt;&lt;Font&gt;Calibri, 10.8pt, style=Bold&lt;/Font&gt;&lt;PredefinedStyle&gt;SelectedFormatStyle&lt;/PredefinedStyle&gt;&lt;/SelectedFormatStyle&gt;&lt;SelectedInactiveFormatStyle&gt;&lt;PredefinedStyle&gt;SelectedInactiveFormatStyle&lt;/PredefinedStyle&gt;&lt;/SelectedInactiveFormatStyle&gt;&lt;FocusCellFormatStyle&gt;&lt;BackColor&gt;Lime&lt;/BackColor&gt;&lt;Font&gt;Calibri, 9pt, style=Bold&lt;/Font&gt;&lt;PredefinedStyle&gt;FocusCellFormatStyle&lt;/PredefinedStyle&gt;&lt;/FocusCellFormatStyle&gt;&lt;GroupRowVisualStyle&gt;UseRowStyle&lt;/GroupRowVisualStyle&gt;&lt;WatermarkImage /&gt;&lt;AlternatingColors&gt;True&lt;/AlternatingColors&gt;&lt;GridLineColor&gt;DarkSlateGray&lt;/GridLineColor&gt;&lt;BorderStyle&gt;Sunken&lt;/BorderStyle&gt;&lt;ThemedAreas&gt;EditControls&lt;/ThemedAreas&gt;&lt;FlatBorderColor&gt;Black&lt;/FlatBorderColor&gt;&lt;BackColor&gt;White&lt;/BackColor&gt;&lt;ControlStyle&gt;&lt;ButtonAppearance&gt;PopUp&lt;/ButtonAppearance&gt;&lt;/ControlStyle&gt;&lt;VisualStyle&gt;Office2007&lt;/VisualStyle&gt;&lt;AllowEdit&gt;False&lt;/AllowEdit&gt;&lt;ExpandableGroups&gt;False&lt;/ExpandableGroups&gt;&lt;GridLines&gt;RowOutline&lt;/GridLines&gt;&lt;GroupByBoxVisible&gt;False&lt;/GroupByBoxVisible&gt;&lt;HideSelection&gt;Highlight&lt;/HideSelection&gt;&lt;DynamicFiltering&gt;True&lt;/DynamicFiltering&gt;&lt;/GridEXLayoutData&gt;</value>
   </data>
@@ -150,98 +196,8 @@
   <data name="cbPrecios_DesignTimeLayout.LayoutString" xml:space="preserve">
     <value>&lt;GridEXLayoutData&gt;&lt;RootTable&gt;&lt;GroupCondition /&gt;&lt;/RootTable&gt;&lt;RowWithErrorsFormatStyle&gt;&lt;PredefinedStyle&gt;RowWithErrorsFormatStyle&lt;/PredefinedStyle&gt;&lt;/RowWithErrorsFormatStyle&gt;&lt;LinkFormatStyle&gt;&lt;PredefinedStyle&gt;LinkFormatStyle&lt;/PredefinedStyle&gt;&lt;/LinkFormatStyle&gt;&lt;CardCaptionFormatStyle&gt;&lt;PredefinedStyle&gt;CardCaptionFormatStyle&lt;/PredefinedStyle&gt;&lt;/CardCaptionFormatStyle&gt;&lt;GroupByBoxFormatStyle&gt;&lt;PredefinedStyle&gt;GroupByBoxFormatStyle&lt;/PredefinedStyle&gt;&lt;/GroupByBoxFormatStyle&gt;&lt;GroupByBoxInfoFormatStyle&gt;&lt;PredefinedStyle&gt;GroupByBoxInfoFormatStyle&lt;/PredefinedStyle&gt;&lt;/GroupByBoxInfoFormatStyle&gt;&lt;GroupRowFormatStyle&gt;&lt;BackColor&gt;White&lt;/BackColor&gt;&lt;BackColorGradient&gt;White&lt;/BackColorGradient&gt;&lt;PredefinedStyle&gt;GroupRowFormatStyle&lt;/PredefinedStyle&gt;&lt;/GroupRowFormatStyle&gt;&lt;HeaderFormatStyle&gt;&lt;ForeColor&gt;Black&lt;/ForeColor&gt;&lt;BackColorGradient&gt;White&lt;/BackColorGradient&gt;&lt;Font&gt;Calibri, 9pt, style=Bold&lt;/Font&gt;&lt;PredefinedStyle&gt;HeaderFormatStyle&lt;/PredefinedStyle&gt;&lt;/HeaderFormatStyle&gt;&lt;PreviewRowFormatStyle&gt;&lt;PredefinedStyle&gt;PreviewRowFormatStyle&lt;/PredefinedStyle&gt;&lt;/PreviewRowFormatStyle&gt;&lt;RowFormatStyle&gt;&lt;PredefinedStyle&gt;RowFormatStyle&lt;/PredefinedStyle&gt;&lt;/RowFormatStyle&gt;&lt;SelectedFormatStyle&gt;&lt;BackColor&gt;Black&lt;/BackColor&gt;&lt;ForeColor&gt;White&lt;/ForeColor&gt;&lt;Font&gt;Calibri, 10.8pt, style=Bold&lt;/Font&gt;&lt;PredefinedStyle&gt;SelectedFormatStyle&lt;/PredefinedStyle&gt;&lt;/SelectedFormatStyle&gt;&lt;SelectedInactiveFormatStyle&gt;&lt;PredefinedStyle&gt;SelectedInactiveFormatStyle&lt;/PredefinedStyle&gt;&lt;/SelectedInactiveFormatStyle&gt;&lt;FocusCellFormatStyle&gt;&lt;BackColor&gt;Lime&lt;/BackColor&gt;&lt;Font&gt;Calibri, 9pt, style=Bold&lt;/Font&gt;&lt;PredefinedStyle&gt;FocusCellFormatStyle&lt;/PredefinedStyle&gt;&lt;/FocusCellFormatStyle&gt;&lt;GroupRowVisualStyle&gt;UseRowStyle&lt;/GroupRowVisualStyle&gt;&lt;WatermarkImage /&gt;&lt;AlternatingColors&gt;True&lt;/AlternatingColors&gt;&lt;GridLineColor&gt;DarkSlateGray&lt;/GridLineColor&gt;&lt;BorderStyle&gt;Sunken&lt;/BorderStyle&gt;&lt;ThemedAreas&gt;EditControls&lt;/ThemedAreas&gt;&lt;FlatBorderColor&gt;Black&lt;/FlatBorderColor&gt;&lt;BackColor&gt;White&lt;/BackColor&gt;&lt;ControlStyle&gt;&lt;ButtonAppearance&gt;PopUp&lt;/ButtonAppearance&gt;&lt;/ControlStyle&gt;&lt;VisualStyle&gt;Office2007&lt;/VisualStyle&gt;&lt;AllowEdit&gt;False&lt;/AllowEdit&gt;&lt;ExpandableGroups&gt;False&lt;/ExpandableGroups&gt;&lt;GridLines&gt;RowOutline&lt;/GridLines&gt;&lt;GroupByBoxVisible&gt;False&lt;/GroupByBoxVisible&gt;&lt;HideSelection&gt;Highlight&lt;/HideSelection&gt;&lt;DynamicFiltering&gt;True&lt;/DynamicFiltering&gt;&lt;/GridEXLayoutData&gt;</value>
   </data>
-  <metadata name="LabelX12.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 103</value>
-  </metadata>
-  <metadata name="tbnit.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1049, 60</value>
-  </metadata>
-  <metadata name="LabelX8.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>245, 103</value>
-  </metadata>
-  <metadata name="tbRazonSocial.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>651, 103</value>
-  </metadata>
-  <metadata name="LabelX11.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1016, 103</value>
-  </metadata>
-  <metadata name="tbNroDocumento.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 146</value>
-  </metadata>
-  <metadata name="LabelX10.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>455, 146</value>
-  </metadata>
-  <metadata name="tbTelefono.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>573, 146</value>
-  </metadata>
-  <metadata name="LabelX9.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>823, 146</value>
-  </metadata>
-  <metadata name="swEstado.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>933, 146</value>
-  </metadata>
-  <metadata name="LabelX6.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>194, 146</value>
-  </metadata>
-  <metadata name="LabelX5.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>355, 103</value>
-  </metadata>
-  <metadata name="LabelX7.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>135, 103</value>
-  </metadata>
-  <metadata name="tbDireccionCliente.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 60</value>
-  </metadata>
-  <metadata name="LabelX4.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>207, 17</value>
-  </metadata>
-  <metadata name="LabelX1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>317, 17</value>
-  </metadata>
-  <metadata name="tbNombreCliente.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>427, 17</value>
-  </metadata>
-  <metadata name="LabelX2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>601, 17</value>
-  </metadata>
-  <metadata name="LabelX3.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>711, 17</value>
-  </metadata>
-  <metadata name="tbCodigo.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>821, 17</value>
-  </metadata>
-  <metadata name="tbCodigoExterno.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>941, 17</value>
-  </metadata>
-  <metadata name="btnTipoDocumento.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>319, 60</value>
-  </metadata>
-  <metadata name="btnSalir.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>199, 60</value>
-  </metadata>
-  <metadata name="btnEliminar.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>150, 103</value>
-  </metadata>
-  <metadata name="btnGrabar.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>307, 60</value>
-  </metadata>
-  <metadata name="btnModificar.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>433, 60</value>
-  </metadata>
-  <metadata name="btnNuevo.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>577, 60</value>
-  </metadata>
-  <metadata name="btnUltimo.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>701, 60</value>
-  </metadata>
-  <metadata name="btnSiguiente.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>826, 60</value>
-  </metadata>
-  <metadata name="btnAnterior.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>969, 60</value>
-  </metadata>
-  <metadata name="btnPrimero.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 103</value>
+  <metadata name="MeuOpciones.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>304, 146</value>
   </metadata>
   <metadata name="MEP.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>710, 189</value>

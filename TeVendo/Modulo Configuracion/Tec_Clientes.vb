@@ -431,7 +431,7 @@ Public Class Tec_Clientes
         tbNroDocumento.Text = ""
         tbRazonSocial.Text = ""
         tbnit.Text = ""
-
+        QrFactura.Text = "CLIENTE NUEVO - GUARDE PRIMERO LOS DATOS"
         swEstado.Value = True
         seleccionarPrimerItemCombo(cbTipoDocumento)
         seleccionarPrimerItemCombo(cbZona)
@@ -638,12 +638,14 @@ Public Class Tec_Clientes
             swEstado.Value = .GetValue("estado")
             _latitud = .GetValue("Latitud")
             _longitud = .GetValue("Longitud")
+            QrFactura.Text = .GetValue("NombreCliente").ToString + " CEL: " + .GetValue("Telefono") + " COCHABAMBA"
         End With
         TablaImagenes = L_prCargarImagenesRecepcion(tbCodigo.Text)
         LblPaginacion.Text = Str(_MPos + 1) + "/" + JGrM_Buscador.RowCount.ToString
         If (Mapa = 1) Then
             _dibujarUbicacion(JGrM_Buscador.GetValue("NombreCliente").ToString, JGrM_Buscador.GetValue("Id").ToString)
         End If
+
 
 
     End Sub
