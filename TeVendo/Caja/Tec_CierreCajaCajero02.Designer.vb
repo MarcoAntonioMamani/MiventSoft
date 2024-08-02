@@ -47,7 +47,7 @@ Partial Class Tec_CierreCajaCajero02
         Me.tbDetalle = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.tbEfectivoRecibido = New DevComponents.Editors.DoubleInput()
         Me.LabelX12 = New DevComponents.DotNetBar.LabelX()
-        Me.tbFechaCierre = New Janus.Windows.CalendarCombo.CalendarCombo()
+        Me.tbFechaInicioCierre = New Janus.Windows.CalendarCombo.CalendarCombo()
         Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.tbPersonal = New DevComponents.DotNetBar.Controls.TextBoxX()
@@ -122,6 +122,7 @@ Partial Class Tec_CierreCajaCajero02
         Me.VerToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.EditarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EliminarToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ImprimirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
@@ -135,7 +136,8 @@ Partial Class Tec_CierreCajaCajero02
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.Highlighter2 = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.ImprimirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tbFechaFinCierre = New Janus.Windows.CalendarCombo.CalendarCombo()
+        Me.LabelX21 = New DevComponents.DotNetBar.LabelX()
         CType(Me.TabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControlPrincipal.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -378,6 +380,8 @@ Partial Class Tec_CierreCajaCajero02
         'Panel9
         '
         Me.Panel9.BackColor = System.Drawing.Color.White
+        Me.Panel9.Controls.Add(Me.tbFechaFinCierre)
+        Me.Panel9.Controls.Add(Me.LabelX21)
         Me.Panel9.Controls.Add(Me.tbTipoCambio)
         Me.Panel9.Controls.Add(Me.LabelX20)
         Me.Panel9.Controls.Add(Me.btnCargarDatos)
@@ -391,7 +395,7 @@ Partial Class Tec_CierreCajaCajero02
         Me.Panel9.Controls.Add(Me.tbDetalle)
         Me.Panel9.Controls.Add(Me.tbEfectivoRecibido)
         Me.Panel9.Controls.Add(Me.LabelX12)
-        Me.Panel9.Controls.Add(Me.tbFechaCierre)
+        Me.Panel9.Controls.Add(Me.tbFechaInicioCierre)
         Me.Panel9.Controls.Add(Me.LabelX5)
         Me.Panel9.Controls.Add(Me.LabelX1)
         Me.Panel9.Controls.Add(Me.tbPersonal)
@@ -589,7 +593,7 @@ Partial Class Tec_CierreCajaCajero02
         Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX3.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX3.Location = New System.Drawing.Point(37, 104)
+        Me.LabelX3.Location = New System.Drawing.Point(36, 155)
         Me.LabelX3.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX3.Name = "LabelX3"
         Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
@@ -605,7 +609,7 @@ Partial Class Tec_CierreCajaCajero02
         Me.tbDetalle.Border.Class = "TextBoxBorder"
         Me.tbDetalle.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbDetalle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbDetalle.Location = New System.Drawing.Point(36, 125)
+        Me.tbDetalle.Location = New System.Drawing.Point(35, 176)
         Me.tbDetalle.Margin = New System.Windows.Forms.Padding(4)
         Me.tbDetalle.MaxLength = 450
         Me.tbDetalle.Multiline = True
@@ -650,41 +654,41 @@ Partial Class Tec_CierreCajaCajero02
         Me.LabelX12.TabIndex = 231
         Me.LabelX12.Text = "Efectivo Recibido"
         '
-        'tbFechaCierre
+        'tbFechaInicioCierre
         '
-        Me.tbFechaCierre.BackColor = System.Drawing.Color.White
-        Me.tbFechaCierre.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.Flat
+        Me.tbFechaInicioCierre.BackColor = System.Drawing.Color.White
+        Me.tbFechaInicioCierre.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.Flat
         '
         '
         '
-        Me.tbFechaCierre.DropDownCalendar.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.None
-        Me.tbFechaCierre.DropDownCalendar.DayOfWeekAbbreviation = Janus.Windows.CalendarCombo.DayOfWeekAbbreviation.UseAbbreviatedName
-        Me.tbFechaCierre.DropDownCalendar.DaysFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
-        Me.tbFechaCierre.DropDownCalendar.DaysFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
-        Me.tbFechaCierre.DropDownCalendar.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbFechaCierre.DropDownCalendar.ForeColor = System.Drawing.Color.DarkSlateGray
-        Me.tbFechaCierre.DropDownCalendar.HeaderAppearance = Janus.Windows.CalendarCombo.ButtonAppearance.PopUp
-        Me.tbFechaCierre.DropDownCalendar.HeaderFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
-        Me.tbFechaCierre.DropDownCalendar.HeaderFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
-        Me.tbFechaCierre.DropDownCalendar.Name = ""
-        Me.tbFechaCierre.DropDownCalendar.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
-        Me.tbFechaCierre.DropDownCalendar.Office2007CustomColor = System.Drawing.Color.Turquoise
-        Me.tbFechaCierre.DropDownCalendar.TodayRectColor = System.Drawing.Color.DarkCyan
-        Me.tbFechaCierre.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
-        Me.tbFechaCierre.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
-        Me.tbFechaCierre.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbFechaCierre.Location = New System.Drawing.Point(36, 25)
-        Me.tbFechaCierre.Name = "tbFechaCierre"
-        Me.tbFechaCierre.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
-        Me.tbFechaCierre.Office2007CustomColor = System.Drawing.Color.Turquoise
-        Me.tbFechaCierre.SecondIncrement = 10
-        Me.tbFechaCierre.Size = New System.Drawing.Size(127, 26)
-        Me.tbFechaCierre.TabIndex = 1
-        Me.tbFechaCierre.TodayButtonText = "Hoy"
-        Me.tbFechaCierre.UseCompatibleTextRendering = False
-        Me.tbFechaCierre.Value = New Date(2020, 6, 21, 0, 0, 0, 0)
-        Me.tbFechaCierre.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
-        Me.tbFechaCierre.YearIncrement = 10
+        Me.tbFechaInicioCierre.DropDownCalendar.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.None
+        Me.tbFechaInicioCierre.DropDownCalendar.DayOfWeekAbbreviation = Janus.Windows.CalendarCombo.DayOfWeekAbbreviation.UseAbbreviatedName
+        Me.tbFechaInicioCierre.DropDownCalendar.DaysFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.tbFechaInicioCierre.DropDownCalendar.DaysFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.tbFechaInicioCierre.DropDownCalendar.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFechaInicioCierre.DropDownCalendar.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.tbFechaInicioCierre.DropDownCalendar.HeaderAppearance = Janus.Windows.CalendarCombo.ButtonAppearance.PopUp
+        Me.tbFechaInicioCierre.DropDownCalendar.HeaderFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.tbFechaInicioCierre.DropDownCalendar.HeaderFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.tbFechaInicioCierre.DropDownCalendar.Name = ""
+        Me.tbFechaInicioCierre.DropDownCalendar.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.tbFechaInicioCierre.DropDownCalendar.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.tbFechaInicioCierre.DropDownCalendar.TodayRectColor = System.Drawing.Color.DarkCyan
+        Me.tbFechaInicioCierre.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.tbFechaInicioCierre.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
+        Me.tbFechaInicioCierre.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFechaInicioCierre.Location = New System.Drawing.Point(36, 25)
+        Me.tbFechaInicioCierre.Name = "tbFechaInicioCierre"
+        Me.tbFechaInicioCierre.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.tbFechaInicioCierre.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.tbFechaInicioCierre.SecondIncrement = 10
+        Me.tbFechaInicioCierre.Size = New System.Drawing.Size(127, 26)
+        Me.tbFechaInicioCierre.TabIndex = 1
+        Me.tbFechaInicioCierre.TodayButtonText = "Hoy"
+        Me.tbFechaInicioCierre.UseCompatibleTextRendering = False
+        Me.tbFechaInicioCierre.Value = New Date(2020, 6, 21, 0, 0, 0, 0)
+        Me.tbFechaInicioCierre.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.tbFechaInicioCierre.YearIncrement = 10
         '
         'LabelX5
         '
@@ -700,9 +704,9 @@ Partial Class Tec_CierreCajaCajero02
         Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX5.Name = "LabelX5"
         Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX5.Size = New System.Drawing.Size(84, 21)
+        Me.LabelX5.Size = New System.Drawing.Size(121, 21)
         Me.LabelX5.TabIndex = 217
-        Me.LabelX5.Text = "Fecha Cierre:"
+        Me.LabelX5.Text = "Fecha Inicio Cierre:"
         '
         'LabelX1
         '
@@ -714,7 +718,7 @@ Partial Class Tec_CierreCajaCajero02
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX1.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.LabelX1.Location = New System.Drawing.Point(36, 52)
+        Me.LabelX1.Location = New System.Drawing.Point(35, 103)
         Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
@@ -730,7 +734,7 @@ Partial Class Tec_CierreCajaCajero02
         Me.tbPersonal.Border.Class = "TextBoxBorder"
         Me.tbPersonal.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbPersonal.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbPersonal.Location = New System.Drawing.Point(37, 74)
+        Me.tbPersonal.Location = New System.Drawing.Point(36, 125)
         Me.tbPersonal.Margin = New System.Windows.Forms.Padding(4)
         Me.tbPersonal.Name = "tbPersonal"
         Me.tbPersonal.PreventEnterBeep = True
@@ -1894,7 +1898,7 @@ Partial Class Tec_CierreCajaCajero02
         Me.MeuOpciones.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.MeuOpciones.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VerToolStripMenuItem1, Me.EditarToolStripMenuItem, Me.EliminarToolStripMenuItem1, Me.ImprimirToolStripMenuItem})
         Me.MeuOpciones.Name = "MeuOpciones"
-        Me.MeuOpciones.Size = New System.Drawing.Size(215, 168)
+        Me.MeuOpciones.Size = New System.Drawing.Size(152, 140)
         Me.MeuOpciones.Text = "Opciones"
         '
         'VerToolStripMenuItem1
@@ -1903,7 +1907,7 @@ Partial Class Tec_CierreCajaCajero02
         Me.VerToolStripMenuItem1.Image = Global.TeVendo.My.Resources.Resources.verRegistros2
         Me.VerToolStripMenuItem1.Name = "VerToolStripMenuItem1"
         Me.VerToolStripMenuItem1.Padding = New System.Windows.Forms.Padding(5)
-        Me.VerToolStripMenuItem1.Size = New System.Drawing.Size(224, 36)
+        Me.VerToolStripMenuItem1.Size = New System.Drawing.Size(161, 36)
         Me.VerToolStripMenuItem1.Text = "Ver"
         '
         'EditarToolStripMenuItem
@@ -1912,7 +1916,7 @@ Partial Class Tec_CierreCajaCajero02
         Me.EditarToolStripMenuItem.Image = Global.TeVendo.My.Resources.Resources.edit
         Me.EditarToolStripMenuItem.Name = "EditarToolStripMenuItem"
         Me.EditarToolStripMenuItem.Padding = New System.Windows.Forms.Padding(5)
-        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(224, 36)
+        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(161, 36)
         Me.EditarToolStripMenuItem.Text = "Editar"
         '
         'EliminarToolStripMenuItem1
@@ -1921,8 +1925,16 @@ Partial Class Tec_CierreCajaCajero02
         Me.EliminarToolStripMenuItem1.Image = Global.TeVendo.My.Resources.Resources.trash2
         Me.EliminarToolStripMenuItem1.Name = "EliminarToolStripMenuItem1"
         Me.EliminarToolStripMenuItem1.Padding = New System.Windows.Forms.Padding(5)
-        Me.EliminarToolStripMenuItem1.Size = New System.Drawing.Size(224, 36)
+        Me.EliminarToolStripMenuItem1.Size = New System.Drawing.Size(161, 36)
         Me.EliminarToolStripMenuItem1.Text = "Eliminar"
+        '
+        'ImprimirToolStripMenuItem
+        '
+        Me.ImprimirToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ImprimirToolStripMenuItem.Image = Global.TeVendo.My.Resources.Resources.printee
+        Me.ImprimirToolStripMenuItem.Name = "ImprimirToolStripMenuItem"
+        Me.ImprimirToolStripMenuItem.Size = New System.Drawing.Size(151, 28)
+        Me.ImprimirToolStripMenuItem.Text = "Imprimir"
         '
         'Panel4
         '
@@ -2076,13 +2088,59 @@ Partial Class Tec_CierreCajaCajero02
         '
         Me.MEP.ContainerControl = Me
         '
-        'ImprimirToolStripMenuItem
+        'tbFechaFinCierre
         '
-        Me.ImprimirToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ImprimirToolStripMenuItem.Image = Global.TeVendo.My.Resources.Resources.printee
-        Me.ImprimirToolStripMenuItem.Name = "ImprimirToolStripMenuItem"
-        Me.ImprimirToolStripMenuItem.Size = New System.Drawing.Size(214, 28)
-        Me.ImprimirToolStripMenuItem.Text = "Imprimir"
+        Me.tbFechaFinCierre.BackColor = System.Drawing.Color.White
+        Me.tbFechaFinCierre.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.Flat
+        '
+        '
+        '
+        Me.tbFechaFinCierre.DropDownCalendar.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.None
+        Me.tbFechaFinCierre.DropDownCalendar.DayOfWeekAbbreviation = Janus.Windows.CalendarCombo.DayOfWeekAbbreviation.UseAbbreviatedName
+        Me.tbFechaFinCierre.DropDownCalendar.DaysFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.tbFechaFinCierre.DropDownCalendar.DaysFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.tbFechaFinCierre.DropDownCalendar.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFechaFinCierre.DropDownCalendar.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.tbFechaFinCierre.DropDownCalendar.HeaderAppearance = Janus.Windows.CalendarCombo.ButtonAppearance.PopUp
+        Me.tbFechaFinCierre.DropDownCalendar.HeaderFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.tbFechaFinCierre.DropDownCalendar.HeaderFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.tbFechaFinCierre.DropDownCalendar.Name = ""
+        Me.tbFechaFinCierre.DropDownCalendar.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.tbFechaFinCierre.DropDownCalendar.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.tbFechaFinCierre.DropDownCalendar.TodayRectColor = System.Drawing.Color.DarkCyan
+        Me.tbFechaFinCierre.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.tbFechaFinCierre.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
+        Me.tbFechaFinCierre.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFechaFinCierre.Location = New System.Drawing.Point(36, 74)
+        Me.tbFechaFinCierre.Name = "tbFechaFinCierre"
+        Me.tbFechaFinCierre.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.tbFechaFinCierre.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.tbFechaFinCierre.SecondIncrement = 10
+        Me.tbFechaFinCierre.Size = New System.Drawing.Size(127, 26)
+        Me.tbFechaFinCierre.TabIndex = 237
+        Me.tbFechaFinCierre.TodayButtonText = "Hoy"
+        Me.tbFechaFinCierre.UseCompatibleTextRendering = False
+        Me.tbFechaFinCierre.Value = New Date(2020, 6, 21, 0, 0, 0, 0)
+        Me.tbFechaFinCierre.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.tbFechaFinCierre.YearIncrement = 10
+        '
+        'LabelX21
+        '
+        Me.LabelX21.AutoSize = True
+        Me.LabelX21.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX21.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX21.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX21.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX21.Location = New System.Drawing.Point(36, 53)
+        Me.LabelX21.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX21.Name = "LabelX21"
+        Me.LabelX21.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX21.Size = New System.Drawing.Size(101, 21)
+        Me.LabelX21.TabIndex = 238
+        Me.LabelX21.Text = "Fecha Fin Cierre"
         '
         'Tec_CierreCajaCajero02
         '
@@ -2199,7 +2257,7 @@ Partial Class Tec_CierreCajaCajero02
     Friend WithEvents Panel9 As Panel
     Friend WithEvents LabelX3 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbDetalle As DevComponents.DotNetBar.Controls.TextBoxX
-    Friend WithEvents tbFechaCierre As Janus.Windows.CalendarCombo.CalendarCombo
+    Friend WithEvents tbFechaInicioCierre As Janus.Windows.CalendarCombo.CalendarCombo
     Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbPersonal As DevComponents.DotNetBar.Controls.TextBoxX
@@ -2267,4 +2325,6 @@ Partial Class Tec_CierreCajaCajero02
     Friend WithEvents tbTipoCambio As DevComponents.Editors.DoubleInput
     Friend WithEvents LabelX20 As DevComponents.DotNetBar.LabelX
     Friend WithEvents ImprimirToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents tbFechaFinCierre As Janus.Windows.CalendarCombo.CalendarCombo
+    Friend WithEvents LabelX21 As DevComponents.DotNetBar.LabelX
 End Class

@@ -271,7 +271,7 @@ Public Class Tec_CierreCajaCajero02
 
         If (id = 0) Then
 
-            dt = L_prListarCobrosCajaPendiente(tbFechaCierre.Value.ToString("yyyy/MM/dd"))
+            dt = L_prListarCobrosCajaPendiente(tbFechaInicioCierre.Value.ToString("yyyy/MM/dd"), tbFechaFinCierre.Value.ToString("yyyy/MM/dd"), cbSucursal.Value)
         Else
             dt = L_prListarCobranzaCierresCaja(id)
         End If
@@ -448,7 +448,7 @@ Public Class Tec_CierreCajaCajero02
 
         If (id = 0) Then
 
-            dt = L_prListarMovimientosIngresoEgresoCierrePendiente(cbSucursal.Value, tbFechaCierre.Value.ToString("yyyy/MM/dd"))
+            dt = L_prListarMovimientosIngresoEgresoCierrePendiente(cbSucursal.Value, tbFechaInicioCierre.Value.ToString("yyyy/MM/dd"), tbFechaFinCierre.Value.ToString("yyyy/MM/dd"))
         Else
             dt = L_prListarMovimientosIngresoEgresoCierre(id)
         End If
@@ -548,7 +548,7 @@ Public Class Tec_CierreCajaCajero02
 
         If (id = 0) Then
 
-            dt = L_prListarVentaCierresCajaPendiente(PersonalId, cbSucursal.Value, tbFechaCierre.Value.ToString("yyyy/MM/dd"))
+            dt = L_prListarVentaCierresCajaPendiente(PersonalId, cbSucursal.Value, tbFechaInicioCierre.Value.ToString("yyyy/MM/dd"), tbFechaFinCierre.Value.ToString("yyyy/MM/dd"))
         Else
             dt = L_prListarVentaCierresCaja(id)
         End If
@@ -729,6 +729,9 @@ Public Class Tec_CierreCajaCajero02
 
         End If
         tbTipoCambio.IsInputReadOnly = False
+
+        tbFechaFinCierre.ReadOnly = False
+        tbFechaInicioCierre.ReadOnly = False
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -739,12 +742,15 @@ Public Class Tec_CierreCajaCajero02
 
         tbEfectivoRecibido.IsInputReadOnly = True
         tbTipoCambio.IsInputReadOnly = True
+        tbFechaFinCierre.ReadOnly = True
+        tbFechaInicioCierre.ReadOnly = True
     End Sub
 
     Public Sub _PMOLimpiar()
         tbCodigo.Text = ""
 
-        tbFechaCierre.Value = Now.Date
+        tbFechaInicioCierre.Value = Now.Date
+        tbFechaFinCierre.Value = Now.Date
         tbPersonal.Clear()
         tbMontoInicial.Value = 0
         tbDetalle.Clear()
@@ -808,7 +814,7 @@ Public Class Tec_CierreCajaCajero02
         Dim res As Boolean
         Try
             TipoCambio = tbTipoCambio.Value
-            res = L_prCierreCajeroInsertar(tbCodigo.Text, tbFechaCierre.Value.ToString("yyyy/MM/dd"), PersonalId, cbSucursal.Value, tbMontoInicial.Value, IIf(swEstado.Value = True, 1, 0), TipoCambio, tbVentasContadoCobranza.Value, tbTotalPagos.Value, tbIngresos.Value, tbGastos.Value, tbTotalCaja.Value, tbTotalCortesEfectivo.Value, TbTotalTransferencia.Value, tbTotalTarjeta.Value, tbEfectivoRecibido.Value, tbDiferencia.Value, tbDetalle.Text)
+            res = L_prCierreCajeroInsertar(tbCodigo.Text, tbFechaFinCierre.Value.ToString("yyyy/MM/dd"), tbFechaInicioCierre.Value.ToString("yyyy/MM/dd"), PersonalId, cbSucursal.Value, tbMontoInicial.Value, IIf(swEstado.Value = True, 1, 0), TipoCambio, tbVentasContadoCobranza.Value, tbTotalPagos.Value, tbIngresos.Value, tbGastos.Value, tbTotalCaja.Value, tbTotalCortesEfectivo.Value, TbTotalTransferencia.Value, tbTotalTarjeta.Value, tbEfectivoRecibido.Value, tbDiferencia.Value, tbDetalle.Text)
 
             If res Then
 
@@ -868,7 +874,7 @@ Public Class Tec_CierreCajaCajero02
         Dim Res As Boolean
         Try
             TipoCambio = tbTipoCambio.Value
-            Res = L_prCierreCajeroModificar(tbCodigo.Text, tbFechaCierre.Value.ToString("yyyy/MM/dd"), PersonalId, cbSucursal.Value, tbMontoInicial.Value, 0, TipoCambio, tbVentasContadoCobranza.Value, tbTotalPagos.Value, tbIngresos.Value, tbGastos.Value, tbTotalCaja.Value, tbTotalCortesEfectivo.Value, TbTotalTransferencia.Value, tbTotalTarjeta.Value, tbEfectivoRecibido.Value, tbDiferencia.Value, tbDetalle.Text, CType(grEfectivo.DataSource, DataTable), ArmarIdModulos())
+            Res = L_prCierreCajeroModificar(tbCodigo.Text, tbFechaFinCierre.Value.ToString("yyyy/MM/dd"), tbFechaInicioCierre.Value.ToString("yyyy/MM/dd"), PersonalId, cbSucursal.Value, tbMontoInicial.Value, 0, TipoCambio, tbVentasContadoCobranza.Value, tbTotalPagos.Value, tbIngresos.Value, tbGastos.Value, tbTotalCaja.Value, tbTotalCortesEfectivo.Value, TbTotalTransferencia.Value, tbTotalTarjeta.Value, tbEfectivoRecibido.Value, tbDiferencia.Value, tbDetalle.Text, CType(grEfectivo.DataSource, DataTable), ArmarIdModulos())
 
 
             If Res Then
@@ -1073,7 +1079,7 @@ Public Class Tec_CierreCajaCajero02
 
         With JGrM_Buscador
             tbCodigo.Text = .GetValue("Id").ToString
-            tbFechaCierre.Value = .GetValue("Fecha")
+            tbFechaInicioCierre.Value = .GetValue("Fecha")
             PersonalId = .GetValue("PersonalId")
             tbPersonal.Text = .GetValue("NombrePersonal").ToString
             cbSucursal.Value = .GetValue("SucursalId")
