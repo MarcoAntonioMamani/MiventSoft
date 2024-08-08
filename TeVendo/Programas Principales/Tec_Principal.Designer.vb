@@ -133,6 +133,8 @@ Partial Class Tec_Principal
         Me.btnCerrarSesion = New DevComponents.DotNetBar.ButtonX()
         Me.PanelLine = New System.Windows.Forms.Panel()
         Me.imguser = New System.Windows.Forms.PictureBox()
+        Me.MetroTileItem1 = New DevComponents.DotNetBar.Metro.MetroTileItem()
+        Me.btnClientesQueMasCompran = New DevComponents.DotNetBar.Metro.MetroTileItem()
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlMenu.SuspendLayout()
         Me.SuperTabControlPanel5.SuspendLayout()
@@ -240,7 +242,7 @@ Partial Class Tec_Principal
         Me.ItemContainer2.ItemSpacing = 10
         Me.ItemContainer2.MultiLine = True
         Me.ItemContainer2.Name = "ItemContainer2"
-        Me.ItemContainer2.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnProforma, Me.btVentVenta, Me.btVentVentaDirecto, Me.btVentReporteRealizada, Me.btVentGrafica, Me.btVentReporteVentaVsCosto, Me.btInvUtilidad, Me.btVentProdMasVendidos, Me.btVentRendimiento, Me.btnCredPago, Me.btnHistorico, Me.btVentReporteUtilidadPorNota})
+        Me.ItemContainer2.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnProforma, Me.btVentVenta, Me.btVentVentaDirecto, Me.btVentReporteRealizada, Me.btVentGrafica, Me.btVentReporteVentaVsCosto, Me.btInvUtilidad, Me.btVentProdMasVendidos, Me.btVentRendimiento, Me.btnCredPago, Me.btnHistorico, Me.btVentReporteUtilidadPorNota, Me.btnClientesQueMasCompran})
         '
         '
         '
@@ -2353,6 +2355,52 @@ Partial Class Tec_Principal
         Me.imguser.TabIndex = 1
         Me.imguser.TabStop = False
         '
+        'MetroTileItem1
+        '
+        Me.MetroTileItem1.Image = CType(resources.GetObject("MetroTileItem1.Image"), System.Drawing.Image)
+        Me.MetroTileItem1.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.MetroTileItem1.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.MetroTileItem1.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.MetroTileItem1.Name = "MetroTileItem1"
+        Me.MetroTileItem1.SymbolColor = System.Drawing.Color.Black
+        Me.MetroTileItem1.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.MetroTileItem1.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.MetroTileItem1.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(159, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.MetroTileItem1.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.MetroTileItem1.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.MetroTileItem1.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MetroTileItem1.TileStyle.PaddingRight = 20
+        Me.MetroTileItem1.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.MetroTileItem1.TitleText = "Reporte " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Productos Mas " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Vendidos"
+        Me.MetroTileItem1.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.MetroTileItem1.TitleTextColor = System.Drawing.Color.White
+        '
+        'btnClientesQueMasCompran
+        '
+        Me.btnClientesQueMasCompran.Image = CType(resources.GetObject("btnClientesQueMasCompran.Image"), System.Drawing.Image)
+        Me.btnClientesQueMasCompran.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnClientesQueMasCompran.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnClientesQueMasCompran.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnClientesQueMasCompran.Name = "btnClientesQueMasCompran"
+        Me.btnClientesQueMasCompran.SymbolColor = System.Drawing.Color.Black
+        Me.btnClientesQueMasCompran.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnClientesQueMasCompran.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btnClientesQueMasCompran.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(159, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.btnClientesQueMasCompran.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.btnClientesQueMasCompran.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnClientesQueMasCompran.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnClientesQueMasCompran.TileStyle.PaddingRight = 20
+        Me.btnClientesQueMasCompran.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnClientesQueMasCompran.TitleText = "Reporte " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Clientes Que" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Mas Compran"
+        Me.btnClientesQueMasCompran.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnClientesQueMasCompran.TitleTextColor = System.Drawing.Color.White
+        '
         'Tec_Principal
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -2494,4 +2542,6 @@ Partial Class Tec_Principal
     Friend WithEvents btnReporteHistoricoProveedor As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents btnHistoricoComprasProductos As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents btVentReporteUtilidadPorNota As DevComponents.DotNetBar.Metro.MetroTileItem
+    Friend WithEvents btnClientesQueMasCompran As DevComponents.DotNetBar.Metro.MetroTileItem
+    Friend WithEvents MetroTileItem1 As DevComponents.DotNetBar.Metro.MetroTileItem
 End Class
