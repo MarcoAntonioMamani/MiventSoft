@@ -41,6 +41,7 @@ Partial Class Tec_Principal
         Me.btnCredPago = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btnHistorico = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btVentReporteUtilidadPorNota = New DevComponents.DotNetBar.Metro.MetroTileItem()
+        Me.btnClientesQueMasCompran = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.ItemContainer8 = New DevComponents.DotNetBar.ItemContainer()
         Me.btnGastos = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btnCierreCajero = New DevComponents.DotNetBar.Metro.MetroTileItem()
@@ -134,7 +135,7 @@ Partial Class Tec_Principal
         Me.PanelLine = New System.Windows.Forms.Panel()
         Me.imguser = New System.Windows.Forms.PictureBox()
         Me.MetroTileItem1 = New DevComponents.DotNetBar.Metro.MetroTileItem()
-        Me.btnClientesQueMasCompran = New DevComponents.DotNetBar.Metro.MetroTileItem()
+        Me.btnVentasMorosos = New DevComponents.DotNetBar.Metro.MetroTileItem()
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlMenu.SuspendLayout()
         Me.SuperTabControlPanel5.SuspendLayout()
@@ -242,7 +243,7 @@ Partial Class Tec_Principal
         Me.ItemContainer2.ItemSpacing = 10
         Me.ItemContainer2.MultiLine = True
         Me.ItemContainer2.Name = "ItemContainer2"
-        Me.ItemContainer2.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnProforma, Me.btVentVenta, Me.btVentVentaDirecto, Me.btVentReporteRealizada, Me.btVentGrafica, Me.btVentReporteVentaVsCosto, Me.btInvUtilidad, Me.btVentProdMasVendidos, Me.btVentRendimiento, Me.btnCredPago, Me.btnHistorico, Me.btVentReporteUtilidadPorNota, Me.btnClientesQueMasCompran})
+        Me.ItemContainer2.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnProforma, Me.btVentVenta, Me.btVentVentaDirecto, Me.btVentReporteRealizada, Me.btVentGrafica, Me.btVentReporteVentaVsCosto, Me.btInvUtilidad, Me.btVentProdMasVendidos, Me.btVentRendimiento, Me.btnCredPago, Me.btnHistorico, Me.btVentReporteUtilidadPorNota, Me.btnClientesQueMasCompran, Me.btnVentasMorosos})
         '
         '
         '
@@ -529,6 +530,29 @@ Partial Class Tec_Principal
         Me.btVentReporteUtilidadPorNota.TitleText = "Reporte" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Utilidad" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Por Nota"
         Me.btVentReporteUtilidadPorNota.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
         Me.btVentReporteUtilidadPorNota.TitleTextColor = System.Drawing.Color.White
+        '
+        'btnClientesQueMasCompran
+        '
+        Me.btnClientesQueMasCompran.Image = CType(resources.GetObject("btnClientesQueMasCompran.Image"), System.Drawing.Image)
+        Me.btnClientesQueMasCompran.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnClientesQueMasCompran.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnClientesQueMasCompran.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnClientesQueMasCompran.Name = "btnClientesQueMasCompran"
+        Me.btnClientesQueMasCompran.SymbolColor = System.Drawing.Color.Black
+        Me.btnClientesQueMasCompran.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnClientesQueMasCompran.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btnClientesQueMasCompran.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(159, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.btnClientesQueMasCompran.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.btnClientesQueMasCompran.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnClientesQueMasCompran.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnClientesQueMasCompran.TileStyle.PaddingRight = 20
+        Me.btnClientesQueMasCompran.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnClientesQueMasCompran.TitleText = "Reporte " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Clientes Que" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Mas Compran"
+        Me.btnClientesQueMasCompran.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnClientesQueMasCompran.TitleTextColor = System.Drawing.Color.White
         '
         'ItemContainer8
         '
@@ -2378,28 +2402,28 @@ Partial Class Tec_Principal
         Me.MetroTileItem1.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
         Me.MetroTileItem1.TitleTextColor = System.Drawing.Color.White
         '
-        'btnClientesQueMasCompran
+        'btnVentasMorosos
         '
-        Me.btnClientesQueMasCompran.Image = CType(resources.GetObject("btnClientesQueMasCompran.Image"), System.Drawing.Image)
-        Me.btnClientesQueMasCompran.ImageIndent = New System.Drawing.Point(-50, 0)
-        Me.btnClientesQueMasCompran.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
-        Me.btnClientesQueMasCompran.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
-        Me.btnClientesQueMasCompran.Name = "btnClientesQueMasCompran"
-        Me.btnClientesQueMasCompran.SymbolColor = System.Drawing.Color.Black
-        Me.btnClientesQueMasCompran.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
-        Me.btnClientesQueMasCompran.TileSize = New System.Drawing.Size(250, 135)
+        Me.btnVentasMorosos.Image = Global.TeVendo.My.Resources.Resources.credito
+        Me.btnVentasMorosos.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnVentasMorosos.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnVentasMorosos.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnVentasMorosos.Name = "btnVentasMorosos"
+        Me.btnVentasMorosos.SymbolColor = System.Drawing.Color.Black
+        Me.btnVentasMorosos.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnVentasMorosos.TileSize = New System.Drawing.Size(250, 135)
         '
         '
         '
-        Me.btnClientesQueMasCompran.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(159, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.btnClientesQueMasCompran.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.btnClientesQueMasCompran.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
-        Me.btnClientesQueMasCompran.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnClientesQueMasCompran.TileStyle.PaddingRight = 20
-        Me.btnClientesQueMasCompran.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
-        Me.btnClientesQueMasCompran.TitleText = "Reporte " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Clientes Que" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Mas Compran"
-        Me.btnClientesQueMasCompran.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
-        Me.btnClientesQueMasCompran.TitleTextColor = System.Drawing.Color.White
+        Me.btnVentasMorosos.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnVentasMorosos.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
+        Me.btnVentasMorosos.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnVentasMorosos.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnVentasMorosos.TileStyle.PaddingRight = 20
+        Me.btnVentasMorosos.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnVentasMorosos.TitleText = "Clientes" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Morosos"
+        Me.btnVentasMorosos.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnVentasMorosos.TitleTextColor = System.Drawing.Color.White
         '
         'Tec_Principal
         '
@@ -2544,4 +2568,5 @@ Partial Class Tec_Principal
     Friend WithEvents btVentReporteUtilidadPorNota As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents btnClientesQueMasCompran As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents MetroTileItem1 As DevComponents.DotNetBar.Metro.MetroTileItem
+    Friend WithEvents btnVentasMorosos As DevComponents.DotNetBar.Metro.MetroTileItem
 End Class

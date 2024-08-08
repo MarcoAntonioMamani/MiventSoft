@@ -769,6 +769,12 @@
       <DependentUpon>R_SaldosValorados.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ReporteSmartApps\UltimosCambios\Form_ClientesMasMorosos.Designer.vb">
+      <DependentUpon>Form_ClientesMasMorosos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteSmartApps\UltimosCambios\Form_ClientesMasMorosos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ReporteSmartApps\UltimosCambios\Form_ClientesQueMasCompran.Designer.vb">
       <DependentUpon>Form_ClientesQueMasCompran.vb</DependentUpon>
     </Compile>
@@ -810,6 +816,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reporte_HistoricoProveedor.rpt</DependentUpon>
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReporteSmartApps\UltimosCambios\Rep_ClientesMorosos.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rep_ClientesMorosos.rpt</DependentUpon>
     </Compile>
     <Compile Include="ReporteSmartApps\UltimosCambios\RptClienteQueMasCompran.vb">
       <AutoGen>True</AutoGen>
@@ -1234,6 +1245,9 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_SaldosValorados.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\UltimosCambios\Form_ClientesMasMorosos.resx">
+      <DependentUpon>Form_ClientesMasMorosos.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\UltimosCambios\Form_ClientesQueMasCompran.resx">
       <DependentUpon>Form_ClientesQueMasCompran.vb</DependentUpon>
     </EmbeddedResource>
@@ -1257,6 +1271,10 @@
     <EmbeddedResource Include="ReporteSmartApps\UltimosCambios\Reporte_HistoricoProveedor.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Reporte_HistoricoProveedor.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\UltimosCambios\Rep_ClientesMorosos.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rep_ClientesMorosos.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\UltimosCambios\RptClienteQueMasCompran.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
