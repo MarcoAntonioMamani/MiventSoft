@@ -775,11 +775,23 @@
     <Compile Include="ReporteSmartApps\UltimosCambios\Form_ReporteHistoricoProductos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ReporteSmartApps\UltimosCambios\Form_UtilidadNotaVenta.Designer.vb">
+      <DependentUpon>Form_UtilidadNotaVenta.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteSmartApps\UltimosCambios\Form_UtilidadNotaVenta.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ReporteSmartApps\UltimosCambios\ReporteHistoricoProveedor.Designer.vb">
       <DependentUpon>ReporteHistoricoProveedor.vb</DependentUpon>
     </Compile>
     <Compile Include="ReporteSmartApps\UltimosCambios\ReporteHistoricoProveedor.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteSmartApps\UltimosCambios\ReporteUtilidadNotaVenta.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteUtilidadNotaVenta.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ReporteSmartApps\UltimosCambios\Reporte_HistoricoComprasProductos.vb">
       <AutoGen>True</AutoGen>
@@ -1213,8 +1225,15 @@
     <EmbeddedResource Include="ReporteSmartApps\UltimosCambios\Form_ReporteHistoricoProductos.resx">
       <DependentUpon>Form_ReporteHistoricoProductos.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\UltimosCambios\Form_UtilidadNotaVenta.resx">
+      <DependentUpon>Form_UtilidadNotaVenta.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\UltimosCambios\ReporteHistoricoProveedor.resx">
       <DependentUpon>ReporteHistoricoProveedor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\UltimosCambios\ReporteUtilidadNotaVenta.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteUtilidadNotaVenta.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\UltimosCambios\Reporte_HistoricoComprasProductos.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

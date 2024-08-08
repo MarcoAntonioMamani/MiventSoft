@@ -12,7 +12,7 @@ Public Class Form_UtilidadNotaVenta
 
         Me.Text = "REPORTE UTILIDAD POR NOTA DE VENTAS"
         MReportViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
-
+        chkTodos.Checked = True
 
     End Sub
 
@@ -24,7 +24,20 @@ Public Class Form_UtilidadNotaVenta
 
 
     Public Sub GenerarData(ByRef dt As DataTable)
-        dt = ReporteUtilidadPorNotaVenta(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"))
+
+        If (chkTodos.Checked = True) Then
+
+            dt = ReporteUtilidadPorNotaVenta(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"))
+        Else
+            If (IdPersonal > 0) Then
+
+                dt = ReporteUtilidadPorNotaVentaPorCliente(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"), IdPersonal)
+            Else
+                tbVendedor.Focus()
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "Seleccione un Cliente Por Favor".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            End If
+        End If
 
     End Sub
 
@@ -64,5 +77,50 @@ Public Class Form_UtilidadNotaVenta
 
 
 
+    End Sub
+
+    Private Sub btnVendedor_Click(sender As Object, e As EventArgs) Handles btnVendedor.Click
+        Dim dt As DataTable
+
+        dt = ListarCliente()
+        'a.Id ,a.NombreCliente  as NombreProveedor ,a.DireccionCliente  ,a.Telefono
+
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("Id", False, "ID", 50))
+        listEstCeldas.Add(New Celda("NombreProveedor", True, "NOMBRE", 350))
+        listEstCeldas.Add(New Celda("DireccionCliente", True, "DIRECCION", 180))
+        listEstCeldas.Add(New Celda("Telefono", True, "Telefono".ToUpper, 200))
+        Dim ef = New Efecto
+        ef.tipo = 6
+        ef.dt = dt
+        ef.SeleclCol = 2
+        ef.listEstCeldasNew = listEstCeldas
+        ef.alto = 50
+        ef.ancho = 350
+        ef.Context = "Seleccione Personal".ToUpper
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+            IdPersonal = Row.Cells("Id").Value
+            tbVendedor.Text = Row.Cells("NombreProveedor").Value
+            cbFechaDesde.Focus()
+
+        End If
+    End Sub
+
+    Private Sub chkTodos_CheckedChanged(sender As Object, e As EventArgs) Handles chkTodos.CheckedChanged
+        If (chkTodos.Checked = True) Then
+            tbVendedor.Enabled = False
+            btnVendedor.Visible = False
+            tbVendedor.BackColor = Color.DarkGray
+        Else
+            tbVendedor.Enabled = True
+            btnVendedor.Visible = True
+            tbVendedor.BackColor = Color.White
+            tbVendedor.Focus()
+        End If
     End Sub
 End Class
