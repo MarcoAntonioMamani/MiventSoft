@@ -781,6 +781,12 @@
     <Compile Include="ReporteSmartApps\UltimosCambios\Form_ClientesQueMasCompran.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ReporteSmartApps\UltimosCambios\Form_ProductosDadoBaja.Designer.vb">
+      <DependentUpon>Form_ProductosDadoBaja.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteSmartApps\UltimosCambios\Form_ProductosDadoBaja.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ReporteSmartApps\UltimosCambios\Form_ReporteHistoricoProductos.Designer.vb">
       <DependentUpon>Form_ReporteHistoricoProductos.vb</DependentUpon>
     </Compile>
@@ -1255,6 +1261,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\UltimosCambios\Form_ClientesQueMasCompran.resx">
       <DependentUpon>Form_ClientesQueMasCompran.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\UltimosCambios\Form_ProductosDadoBaja.resx">
+      <DependentUpon>Form_ProductosDadoBaja.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\UltimosCambios\Form_ReporteHistoricoProductos.resx">
       <DependentUpon>Form_ReporteHistoricoProductos.vb</DependentUpon>
