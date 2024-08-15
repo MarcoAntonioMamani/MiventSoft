@@ -23,11 +23,7 @@ Public Class Form_ProductosDadoBaja
 
 
     Public Sub GenerarData(ByRef dt As DataTable)
-
-
         dt = ReporteProductosDadoBaja()
-
-
     End Sub
 
 
