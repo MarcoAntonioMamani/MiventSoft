@@ -289,6 +289,12 @@
     <Compile Include="Inventarios\FormularioStock.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Inventarios\Form_ReporteInventarioPrecio.Designer.vb">
+      <DependentUpon>Form_ReporteInventarioPrecio.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Inventarios\Form_ReporteInventarioPrecio.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Inventarios\F_MonitoreoProductos.Designer.vb">
       <DependentUpon>F_MonitoreoProductos.vb</DependentUpon>
     </Compile>
@@ -625,6 +631,12 @@
       <DependentUpon>ReportePagosPagados.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ReporteSmartApps\ReporteStockGeneralPrecios.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteStockGeneralPrecios.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ReporteSmartApps\ReporteVentaMasCopia.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -732,6 +744,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reporte_ResumenIngresoEgresos.rpt</DependentUpon>
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReporteSmartApps\Reporte_StockGeneralV2.vb">
+      <DependentUpon>Reporte_StockGeneralV2.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="ReporteSmartApps\Reporte_StockGeneral.vb">
       <AutoGen>True</AutoGen>
@@ -912,6 +930,9 @@
     <EmbeddedResource Include="Inventarios\FormularioStock.resx">
       <DependentUpon>FormularioStock.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Inventarios\Form_ReporteInventarioPrecio.resx">
+      <DependentUpon>Form_ReporteInventarioPrecio.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\F_MonitoreoProductos.resx">
       <DependentUpon>F_MonitoreoProductos.vb</DependentUpon>
     </EmbeddedResource>
@@ -1089,6 +1110,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReportePagosPagados.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\ReporteStockGeneralPrecios.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteStockGeneralPrecios.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\ReporteVentaMasCopia.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReporteVentaMasCopia.vb</LastGenOutput>
@@ -1160,6 +1185,10 @@
     <EmbeddedResource Include="ReporteSmartApps\Reporte_ResumenIngresoEgresos.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Reporte_ResumenIngresoEgresos.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\Reporte_StockGeneralV2.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reporte_StockGeneralV2.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\Reporte_StockGeneral.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

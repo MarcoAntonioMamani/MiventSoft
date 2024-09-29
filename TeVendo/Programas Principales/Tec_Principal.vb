@@ -1307,4 +1307,9 @@ Public Class Tec_Principal
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub
+
+    Private Sub btInvGeneralPrecios_Click(sender As Object, e As EventArgs) Handles btInvGeneralPrecios.Click
+        Dim f1 As Form_ReporteInventarioPrecio = New Form_ReporteInventarioPrecio
+        f1.Show()
+    End Sub
 End Class
