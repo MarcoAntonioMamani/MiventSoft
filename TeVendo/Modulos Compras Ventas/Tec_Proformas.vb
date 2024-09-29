@@ -290,10 +290,7 @@ Public Class Tec_Proformas
         grDetalle.DataSource = dt
         grDetalle.RetrieveStructure()
         grDetalle.AlternatingColors = True
-        '     a.Id , a.VentaId, a.ProductoId, p.NombreProducto As Producto, a.Cantidad, a.Precio, a.SubTotal,
-        '     a.ProcentajeDescuento, a.MontoDescuento, a.Total, a.Detalle, a.PrecioCosto, a.Lote, a.FechaVencimiento,
-        '     1 As estado, cast('' as image ) as img
-        '     ,   as stock
+
         With grDetalle.RootTable.Columns("Id")
             .Width = 100
             .Caption = "CODIGO"
@@ -319,9 +316,21 @@ Public Class Tec_Proformas
             .Visible = True
             .WordWrap = True
             .MaxLines = 3
-
         End With
-
+        With grDetalle.RootTable.Columns("Cajas")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Cajas".ToUpper
+        End With
+        With grDetalle.RootTable.Columns("Conversion")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Conversion".ToUpper
+        End With
         With grDetalle.RootTable.Columns("Cantidad")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
@@ -336,7 +345,7 @@ Public Class Tec_Proformas
         End With
         With grDetalle.RootTable.Columns("TipoNombre")
             .Width = 40
-            .Visible = True
+            .Visible = False
             .Caption = "Tipo"
         End With
         With grDetalle.RootTable.Columns("KitId")
@@ -346,7 +355,7 @@ Public Class Tec_Proformas
         End With
         With grDetalle.RootTable.Columns("KitNombre")
             .Width = 80
-            .Visible = True
+            .Visible = False
             .Caption = "Kit"
             .WordWrap = True
             .MaxLines = 2
@@ -357,9 +366,19 @@ Public Class Tec_Proformas
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .Caption = "Precio"
-            .FormatString = "0.00"
+            .FormatString = "Bs0.00"
+            .WordWrap = True
+            .MaxLines = 2
         End With
-
+        With grDetalle.RootTable.Columns("PrecioDolar")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .Caption = "Precio$us"
+            .FormatString = "$0.00"
+            .WordWrap = True
+            .MaxLines = 2
+        End With
         With grDetalle.RootTable.Columns("SubTotal")
             .Width = 60
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
@@ -374,14 +393,14 @@ Public Class Tec_Proformas
         With grDetalle.RootTable.Columns("CantidadKit")
             .Width = 40
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "CantidadKit"
         End With
         With grDetalle.RootTable.Columns("ProcentajeDescuento")
             .Width = 70
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0"
             .Caption = "%.Descuento".ToUpper
         End With
@@ -389,7 +408,7 @@ Public Class Tec_Proformas
         With grDetalle.RootTable.Columns("MontoDescuento")
             .Width = 70
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "M.Descuento".ToUpper
         End With
@@ -398,10 +417,22 @@ Public Class Tec_Proformas
         With grDetalle.RootTable.Columns("Total")
             .Width = 60
             .Visible = True
-            .Caption = "Total".ToUpper
+            .Caption = "Total"
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .FormatString = "0.00"
+            .FormatString = "Bs0.00"
             .AggregateFunction = AggregateFunction.Sum
+            .WordWrap = True
+            .MaxLines = 2
+        End With
+        With grDetalle.RootTable.Columns("TotalDolar")
+            .Width = 60
+            .Visible = True
+            .Caption = "Total$us"
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .FormatString = "$0.00"
+            .AggregateFunction = AggregateFunction.Sum
+            .WordWrap = True
+            .MaxLines = 2
         End With
 
         With grDetalle.RootTable.Columns("Detalle")
@@ -447,23 +478,9 @@ Public Class Tec_Proformas
         End If
 
 
-        If (Lote = True) Then
-            With grDetalle.RootTable.Columns("Lote")
-                .Width = 60
-                .Caption = "lote".ToUpper
-                .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
-                .Visible = True
-            End With
-            With grDetalle.RootTable.Columns("FechaVencimiento")
-                .Width = 70
-                .Caption = "FECHA VENC.".ToUpper
-                .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
-                .FormatString = "yyyy/MM/dd"
-                .Visible = True
-            End With
-        Else
 
-            With grDetalle.RootTable.Columns("Lote")
+
+        With grDetalle.RootTable.Columns("Lote")
                 .Width = 120
                 .Caption = "lote".ToUpper
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
@@ -477,8 +494,6 @@ Public Class Tec_Proformas
                 .Visible = False
             End With
 
-
-        End If
 
         With grDetalle
             .GroupByBoxVisible = False
@@ -617,6 +632,7 @@ Public Class Tec_Proformas
 
             End If
         End If
+        _prCalcularPrecioTotal()
 
 
     End Sub
@@ -1043,10 +1059,39 @@ salirIf:
             tbMdesc.Value = 0
         End If
 
+
+        Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
+
+        If (IsNothing(dt)) Then
+            Return
+
+        End If
+
+        If (tbMdesc.Text.ToString = String.Empty) Then
+            tbMdesc.Value = 0
+        End If
+
         Dim montodesc As Double = tbMdesc.Value
-        Dim pordesc As Double = ((montodesc * 100) / grDetalle.GetTotal(grDetalle.RootTable.Columns("Total"), AggregateFunction.Sum))
+
+        Dim total As Double = 0
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            If (dt.Rows(i).Item("estado") >= 0) Then
+
+                total += dt.Rows(i).Item("Total")
+            End If
+        Next
+
+
+
+        Dim pordesc As Double = ((montodesc * 100) / total)
         tbPdesc.Value = pordesc
-        tbTotal.Value = grDetalle.GetTotal(grDetalle.RootTable.Columns("Total"), AggregateFunction.Sum) - montodesc
+
+
+
+
+        tbTotal.Value = total - montodesc
+
+        tbDolar.Value = (total - montodesc) / Global_TipoCambio
     End Sub
     Private Sub grdetalle_CellEdited(sender As Object, e As ColumnActionEventArgs) Handles grDetalle.CellEdited
         If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
@@ -1263,7 +1308,7 @@ salirIf:
 
             res = ProformaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                            IdVendedor, IdCliente, 1, Now.Date.ToString("yyyy/MM/dd"),
-                           1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value)
+                           1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, Global_TipoCambio)
 
             If res Then
 
@@ -1293,7 +1338,7 @@ salirIf:
 
             Res = ProformaModificar(tbCodigo.Text, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
                                IdVendedor, IdCliente, 1, Now.Date.ToString("yyyy/MM/dd"),
-                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value)
+                               1, 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, Global_TipoCambio)
             If Res Then
                 ReporteVenta(tbCodigo.Text)
                 ToastNotification.Show(Me, "Codigo de Proforma ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
@@ -1514,7 +1559,7 @@ salirIf:
 
 
         End With
-
+        tbDolar.Value = tbTotal.Value / TipoCambio
         _prCargarDetalleVenta(tbCodigo.Text)
         tbMdesc.Value = JGrM_Buscador.GetValue("Descuento")
         _prCalcularPrecioTotal()
@@ -1981,12 +2026,13 @@ salirIf:
 
     Private Sub btnSeleccionarProducto_Click(sender As Object, e As EventArgs) Handles btnSeleccionarProducto.Click
         Dim ef = New Efecto
-        ef.tipo = 16
+        ef.tipo = 24
         ef.dtDetalle = CType(grDetalle.DataSource, DataTable)
 
         ef.SucursalId = cbSucursal.Value
         ef.Lotebool = Lote
         ef.TipoPrograma = 2
+        ef.CategoriaPrecioSelected = 1
         ef.IdCliente = IdCliente
         ef.ShowDialog()
         grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
