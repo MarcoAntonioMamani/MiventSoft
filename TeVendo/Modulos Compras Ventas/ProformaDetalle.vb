@@ -751,7 +751,7 @@ Public Class ProformaDetalle
                 _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"), grDetalle.GetValue("Tipo"))
                 If ((pos >= 0)) Then
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = grProducto.GetValue("Id")
-                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = grProducto.GetValue("NombreProducto")
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = grProducto.GetValue("NombreProducto") + " - " + grProducto.GetValue("Presentacion")
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = grProducto.GetValue("PrecioVenta")
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("conversion") = grProducto.GetValue("conversion")
