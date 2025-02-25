@@ -419,6 +419,86 @@ Public Class Tec_AdministrarCuentasPorCobrar
         ''P_Global.Visualizador.BringToFront() 'Comentar
     End Sub
 
+    Public Sub P_GenerarReportePagosPendientesDetallado()
+        dtPendiente.Rows.Clear()
+
+        For Each _fil As GridEXRow In gr_CreditoPendientes.GetRows
+
+            dtPendiente.Rows.Add(_fil.Cells("Credito").Value, _fil.Cells("venta").Value, _fil.Cells("Nombrecliente").Value, _fil.Cells("Monto").Value, _fil.Cells("abonado").Value, _fil.Cells("Restante").Value, _fil.Cells("FechaVencimientoCredito").Value, _fil.Cells("DiasMora").Value)
+
+        Next
+        Dim dtpendienteCopy As DataTable = dtPendiente.Copy
+        For i As Integer = 0 To dtPendiente.Rows.Count - 1 Step 1
+            Dim nombre As String = dtPendiente.Rows(i).Item("Nombrecliente")
+            Dim sumaMonto As Decimal = 0
+            Dim sumaAbono As Decimal = 0
+            Dim sumaPendiente As Decimal = 0
+
+            For j As Integer = 0 To dtpendienteCopy.Rows.Count - 1 Step 1
+                If (dtPendiente.Rows(j).Item("Nombrecliente").ToString.Equals(nombre)) Then
+                    sumaMonto += dtpendienteCopy.Rows(j).Item("Monto")
+                    sumaAbono += dtpendienteCopy.Rows(j).Item("abonado")
+                    sumaPendiente += dtpendienteCopy.Rows(j).Item("Restante")
+                End If
+            Next
+            dtPendiente.Rows(i).Item("Monto") = sumaMonto
+            dtPendiente.Rows(i).Item("abonado") = sumaAbono
+            dtPendiente.Rows(i).Item("Restante") = sumaPendiente
+
+        Next
+
+        Dim dtDeudaDetallada As New DataTable
+        dtDeudaDetallada = L_prListarPagosPendientesClientesDetallado()
+
+        Dim dtFiltrada As DataTable = dtDeudaDetallada.Copy
+
+        dtFiltrada.Rows.Clear()
+
+        For i As Integer = 0 To dtDeudaDetallada.Rows.Count - 1 Step 1
+
+            Dim venta As String = dtDeudaDetallada.Rows(i).Item("venta")
+            Dim bandera As Boolean = False
+
+            For j As Integer = 0 To dtPendiente.Rows.Count - 1
+
+                If (dtPendiente.Rows(j).Item("venta").ToString.Equals(venta)) Then
+                    dtDeudaDetallada.Rows(i).Item("Monto") = dtPendiente.Rows(j).Item("Monto")
+                    dtDeudaDetallada.Rows(i).Item("abonado") = dtPendiente.Rows(j).Item("abonado")
+                    dtDeudaDetallada.Rows(i).Item("Restante") = dtPendiente.Rows(j).Item("Restante")
+                    bandera = True
+                End If
+
+            Next
+            If (bandera = True) Then
+                dtFiltrada.ImportRow(dtDeudaDetallada.Rows(i))
+            End If
+
+        Next
+
+
+
+        If Not IsNothing(P_Global.Visualizador) Then
+            P_Global.Visualizador.Close()
+        End If
+        If (dtPendiente.Rows.Count <= 0) Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "No Existen Datos Para Generar el Reporte".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            Return
+
+        End If
+
+        P_Global.Visualizador = New Visualizador
+
+        Dim objrep As New Reporte_DeudaDetallada
+
+        objrep.SetDataSource(dtFiltrada)
+        objrep.SetParameterValue("Usuario", L_Usuario)
+        P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+        P_Global.Visualizador.CrGeneral.Zoom(110)
+        P_Global.Visualizador.Show() 'Comentar
+        ''P_Global.Visualizador.BringToFront() 'Comentar
+    End Sub
+
     Public Sub P_GenerarReporteDeudasPagadas()
         dtPagados.Rows.Clear()
 
@@ -1027,6 +1107,10 @@ Public Class Tec_AdministrarCuentasPorCobrar
         If (grPagosTodos.Row >= 0) Then
             P_GenerarReporte(grPagosTodos.GetValue("id"))
         End If
+    End Sub
+
+    Private Sub ButtonX5_Click(sender As Object, e As EventArgs) Handles ButtonX5.Click
+        P_GenerarReportePagosPendientesDetallado()
     End Sub
 
 #End Region

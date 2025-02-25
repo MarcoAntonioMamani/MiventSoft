@@ -3156,6 +3156,18 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
+    Public Shared Function L_prListarPagosPendientesClientesDetallado() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 10))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("MAM_CreditosVentas", _listParam)
+
+        Return _Tabla
+    End Function
+
     Public Shared Function L_prGrabarPagosCreditoCompras(ByRef TransaccionCompraId As String,
         CreditoCompraId As Integer, FechaPAgo As String, PersonalId As Integer, Glosa As String, NroComprobante As String, Pago As Double) As Boolean
         Dim _Tabla As DataTable
