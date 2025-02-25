@@ -112,7 +112,7 @@ Public Class Form_ReporteClienteDetallado
 
 
             IdPersonal = Row.Cells("ID").Value
-            tbVendedor.Text = Row.Cells("NombreCliente").Value
+            tbVendedor.Text = Row.Cells("NombreProveedor").Value
             cbFechaDesde.Focus()
         End If
     End Sub
@@ -186,9 +186,9 @@ Public Class Form_ReporteClienteDetallado
 
             If (_dt.Rows.Count > 0) Then
 
-            Dim objrep As Rep_ClienteDetallado
+            Dim objrep As New Rep_ClienteDetallado
             objrep.SetDataSource(_dt)
-                Dim fechaI As String = cbFechaDesde.Value.ToString("dd/MM/yyyy")
+            Dim fechaI As String = cbFechaDesde.Value.ToString("dd/MM/yyyy")
                 Dim fechaF As String = cbFechaHasta.Value.ToString("dd/MM/yyyy")
                 objrep.SetParameterValue("FechaDesde", fechaI)
                 objrep.SetParameterValue("FechaHasta", fechaF)
