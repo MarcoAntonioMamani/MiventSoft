@@ -382,7 +382,7 @@ Public Class Tec_ComprasDetalle
     End Sub
 
     Private Sub _DesHabilitarProductos()
-        tbProducto.Clear()
+
         tbProducto.Focus()
     End Sub
     Public Function _fnExisteProducto(idprod As Integer) As Boolean
@@ -440,7 +440,7 @@ Public Class Tec_ComprasDetalle
 
                 CambiarEstado(grProducto.GetValue("Id"), 0)
                 'grproducto.RemoveFilters()
-                tbProducto.Clear()
+
                 tbProducto.Focus()
             End If
 
@@ -554,7 +554,7 @@ Public Class Tec_ComprasDetalle
 
                 CambiarEstado(grProducto.GetValue("Id"), 0)
                 'grproducto.RemoveFilters()
-                tbProducto.Clear()
+
                 tbProducto.Focus()
             End If
 
