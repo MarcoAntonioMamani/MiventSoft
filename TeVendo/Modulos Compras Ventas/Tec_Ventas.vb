@@ -1291,11 +1291,7 @@ salirIf:
         tbCliente.BackColor = Color.White
 
     End Sub
-
-    Public Function _PMOGrabarRegistro() As Boolean
-        'ByRef _numi As String, ConceptoId As Integer, DepositoId As Integer,Observacion as String,
-        'Estado as integer, FechaDocumento As String, _dtDetalle As DataTable
-        'tbFechaTransaccion.Value.ToString("yyyy/MM/dd")   CType(grDetalle.DataSource, DataTable)
+    Public Function GrabarVenta02() As Boolean
         Dim res As Boolean
         Dim Id As String = "0"
         Try
@@ -1363,6 +1359,47 @@ salirIf:
         End Try
 
         Return res
+
+    End Function
+    Public Function _PMOGrabarRegistro() As Boolean
+        'ByRef _numi As String, ConceptoId As Integer, DepositoId As Integer,Observacion as String,
+        'Estado as integer, FechaDocumento As String, _dtDetalle As DataTable
+        'tbFechaTransaccion.Value.ToString("yyyy/MM/dd")   CType(grDetalle.DataSource, DataTable)
+
+        Dim dt As DataTable = pr_ObtenerDeuda(IdCliente)
+
+        Dim montoDeuda As Double = dt.Rows(0).Item("DeudaPendiente")
+
+        If (montoDeuda > 0) Then
+            Dim ef = New Efecto
+
+
+            ef.tipo = 8
+            ef.titulo = "Validar Deudas Cliente"
+            ef.descripcion = "El Cliente >> " & tbCliente.Text & vbCrLf &
+                 " tiene deuda con monto pendiente de " & Str(montoDeuda) &
+                 vbCrLf &
+                 "¿Desea continuar con la venta?"
+
+            ef.ShowDialog()
+            Dim bandera As Boolean = False
+            bandera = ef.band
+            If (bandera = True) Then
+                Return GrabarVenta02()
+
+
+            Else
+                Return False
+
+            End If
+
+        Else
+            Return GrabarVenta02()
+
+        End If
+
+
+
 
     End Function
 
@@ -2146,31 +2183,77 @@ salirIf:
 
 
 
+
             P_Global.Visualizador = New Visualizador
 
-            Dim objrep As New Recibo
+            ''Dim objrep As New Recibo
+
+
+            Dim ef = New Efecto
+
+
+            ef.tipo = 8
+            ef.titulo = "Reporte"
+            ef.descripcion = "¿Desea Generar Reporte Tamaño Media Carta ?"
+            ef.ShowDialog()
+            Dim bandera As Boolean = False
+            bandera = ef.band
+
+
+
+            If (bandera = True) Then
+                Dim objrep As New Recibo
+
+                objrep.SetDataSource(dt)
+
+
+                objrep.SetParameterValue("Monto", li)
+                objrep.SetParameterValue("Fecha", _FechaPar)
+                objrep.SetParameterValue("Total", Str(total))
+                objrep.SetParameterValue("TipoReporte", "COTIZACIÓN")
+                P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+                P_Global.Visualizador.CrGeneral.Zoom(130)
+                P_Global.Visualizador.Show() 'Comentar
+            Else
+
+                Dim objrep As New Recibo07_1000
+
+
+
+                objrep.SetDataSource(dt)
+                objrep.SetParameterValue("Literal1", li)
+                objrep.SetParameterValue("TipoReporte", "COTIZACIÓN")
+                P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+                P_Global.Visualizador.CrGeneral.Zoom(130)
+                P_Global.Visualizador.Show() 'Comentar
+            End If
+
+            'P_Global.Visualizador = New Visualizador
+
+            'Dim objrep As New Recibo07_1000
+
+            ''objrep.SetDataSource(dt)
+            ''objrep.Subreports.Item("Recibo.rpt").SetDataSource(dt)
+            ''objrep.Subreports.Item("Recibo.rpt - 01").SetDataSource(dt)
+            ''objrep.SetParameterValue("MontoA", li)
+            ''objrep.SetParameterValue("FechaA", _FechaPar)
+            ''objrep.SetParameterValue("TotalA", Str(total))
+            ''objrep.SetParameterValue("TipoReporteA", "NOTA DE VENTA")
+
+
+
+
             'objrep.SetDataSource(dt)
-            'objrep.Subreports.Item("Recibo.rpt").SetDataSource(dt)
-            'objrep.Subreports.Item("Recibo.rpt - 01").SetDataSource(dt)
-            'objrep.SetParameterValue("MontoA", li)
-            'objrep.SetParameterValue("FechaA", _FechaPar)
-            'objrep.SetParameterValue("TotalA", Str(total))
-            'objrep.SetParameterValue("TipoReporteA", "NOTA DE VENTA")
 
 
-
-
-            objrep.SetDataSource(dt)
-
-
-            objrep.SetParameterValue("Monto", li)
-            objrep.SetParameterValue("Fecha", _FechaPar)
-            objrep.SetParameterValue("Total", Str(total))
-            objrep.SetParameterValue("TipoReporte", "NOTA DE VENTA")
-            P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
-            P_Global.Visualizador.CrGeneral.Zoom(130)
-            P_Global.Visualizador.Show() 'Comentar
-            ''P_Global.Visualizador.BringToFront() 'Comentar
+            'objrep.SetParameterValue("Monto", li)
+            'objrep.SetParameterValue("Fecha", _FechaPar)
+            'objrep.SetParameterValue("Total", Str(total))
+            'objrep.SetParameterValue("TipoReporte", "NOTA DE VENTA")
+            'P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+            'P_Global.Visualizador.CrGeneral.Zoom(130)
+            'P_Global.Visualizador.Show() 'Comentar
+            '''P_Global.Visualizador.BringToFront() 'Comentar
 
         Catch ex As Exception
             ToastNotification.Show(Me, "Error al Generar el Reporte " + ex.Message, img, 16000, eToastGlowColor.Red, eToastPosition.TopCenter)

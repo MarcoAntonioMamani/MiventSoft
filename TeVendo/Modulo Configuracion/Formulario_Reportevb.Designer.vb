@@ -88,11 +88,14 @@ Partial Class Formulario_Reportevb
         '
         'txtDescripcion
         '
+        Me.txtDescripcion.AutoEllipsis = True
+        Me.txtDescripcion.AutoSize = True
+        Me.txtDescripcion.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.txtDescripcion.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtDescripcion.ForeColor = System.Drawing.Color.FromArgb(CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer))
-        Me.txtDescripcion.Location = New System.Drawing.Point(184, 183)
+        Me.txtDescripcion.Location = New System.Drawing.Point(222, 183)
         Me.txtDescripcion.Name = "txtDescripcion"
-        Me.txtDescripcion.Size = New System.Drawing.Size(380, 22)
+        Me.txtDescripcion.Size = New System.Drawing.Size(294, 21)
         Me.txtDescripcion.TabIndex = 6
         Me.txtDescripcion.Text = "Quiere Generar Reporte de la Venta #01?"
         Me.txtDescripcion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -129,6 +132,7 @@ Partial Class Formulario_Reportevb
         Me.btnSi.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
