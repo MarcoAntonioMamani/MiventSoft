@@ -25,8 +25,15 @@ Public Class FrmVentasPorCategoria
         dt.Rows.Add(-1, "TODOS")
         P_Global._prCargarComboGenerico(cbVendedor, dt, "Id", "Codigo", "NombrePersonal", "NombrePersonal")
 
+        Dim dtSubcategoria As DataTable = L_prListarSubcategoriaAsignados()
+        dtSubcategoria.Rows.Add(-1, "TODOS")
+        P_Global._prCargarComboGenerico(cbSubCategoria, dtSubcategoria, "Id", "Codigo", "Descripcion", "Descripcion")
+
+
+
         cbVendedor.Value = -1
         cbCategoria.Value = -1
+        cbSubCategoria.Value = -1
         _habilitarFocus()
 
         cbFechaDesde.Value = Now.Date
@@ -220,7 +227,7 @@ Public Class FrmVentasPorCategoria
 
 
         dt = L_prListarProductosPorCategoria(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"),
-                                             cbVendedor.Value, cbCategoria.Value)  ''1=Almacen
+                                             cbVendedor.Value, cbCategoria.Value, cbSubCategoria.Value)  ''1=Almacen
         dtProductos = dt
 
         'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock 
@@ -242,6 +249,15 @@ Public Class FrmVentasPorCategoria
             .Width = 300
             .Caption = "PRODUCTOS"
             .Visible = False
+            .MaxLines = 2
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
+            .WordWrap = True
+        End With
+        With grProducto.RootTable.Columns("Subcategoria")
+            .Width = 100
+            .Caption = "Subcategoria"
+            .Visible = True
             .MaxLines = 2
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
@@ -280,7 +296,7 @@ Public Class FrmVentasPorCategoria
         End With
         With grProducto.RootTable.Columns("ProductoId")
             .Width = 70
-            .Visible = True
+            .Visible = False
             .FormatString = "0"
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
@@ -354,7 +370,7 @@ Public Class FrmVentasPorCategoria
     Private Sub btnProductos_Click(sender As Object, e As EventArgs) Handles btnProductos.Click
         Dim _dt As New DataTable
         _dt = L_prListarProductosPorCategoria(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"),
-                                             cbVendedor.Value, cbCategoria.Value)
+                                             cbVendedor.Value, cbCategoria.Value, cbSubCategoria.Value)
         If (IsNothing(_dt) Or _dt.Rows.Count = 0) Then
 
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
@@ -586,6 +602,13 @@ Public Class FrmVentasPorCategoria
         Else
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
             ToastNotification.Show(Me, "No Existen Datos Para Mostrar. con Los Filtros Seleccionados".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+        End If
+    End Sub
+
+    Private Sub cbSubCategoria_ValueChanged(sender As Object, e As EventArgs) Handles cbSubCategoria.ValueChanged
+        If (Inicial <> 0) Then
+            _prCargarProductos(cbCategoria.Value)
+            '' tbProducto.Text = cbCategoria.Text
         End If
     End Sub
 End Class

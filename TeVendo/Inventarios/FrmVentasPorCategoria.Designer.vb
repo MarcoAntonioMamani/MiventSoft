@@ -24,11 +24,13 @@ Partial Class FrmVentasPorCategoria
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim cbVendedor_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmVentasPorCategoria))
         Dim cbCategoria_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim cbSubCategoria_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmVentasPorCategoria))
         Me.Paneltop = New System.Windows.Forms.Panel()
         Me.grProducto = New Janus.Windows.GridEX.GridEX()
         Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.cbFechaHasta = New Janus.Windows.CalendarCombo.CalendarCombo()
         Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
         Me.cbFechaDesde = New Janus.Windows.CalendarCombo.CalendarCombo()
@@ -47,7 +49,8 @@ Partial Class FrmVentasPorCategoria
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
-        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
+        Me.cbSubCategoria = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
         Me.Paneltop.SuspendLayout()
         CType(Me.grProducto, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
@@ -57,6 +60,7 @@ Partial Class FrmVentasPorCategoria
         Me.Panel11.SuspendLayout()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbSubCategoria, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Paneltop
@@ -98,7 +102,7 @@ Partial Class FrmVentasPorCategoria
         Me.grProducto.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grProducto.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
         Me.grProducto.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
-        Me.grProducto.Location = New System.Drawing.Point(0, 180)
+        Me.grProducto.Location = New System.Drawing.Point(0, 247)
         Me.grProducto.Margin = New System.Windows.Forms.Padding(4)
         Me.grProducto.Name = "grProducto"
         Me.grProducto.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
@@ -116,7 +120,7 @@ Partial Class FrmVentasPorCategoria
         Me.grProducto.SelectedFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
         Me.grProducto.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grProducto.SelectedFormatStyle.ForeColor = System.Drawing.Color.Black
-        Me.grProducto.Size = New System.Drawing.Size(1212, 403)
+        Me.grProducto.Size = New System.Drawing.Size(1212, 336)
         Me.grProducto.TabIndex = 4
         Me.grProducto.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grProducto.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -128,6 +132,8 @@ Partial Class FrmVentasPorCategoria
         '
         'Panel5
         '
+        Me.Panel5.Controls.Add(Me.cbSubCategoria)
+        Me.Panel5.Controls.Add(Me.LabelX5)
         Me.Panel5.Controls.Add(Me.ButtonX1)
         Me.Panel5.Controls.Add(Me.cbFechaHasta)
         Me.Panel5.Controls.Add(Me.LabelX4)
@@ -144,8 +150,27 @@ Partial Class FrmVentasPorCategoria
         Me.Panel5.Location = New System.Drawing.Point(0, 36)
         Me.Panel5.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(1212, 144)
+        Me.Panel5.Size = New System.Drawing.Size(1212, 211)
         Me.Panel5.TabIndex = 3
+        '
+        'ButtonX1
+        '
+        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.ButtonX1.Font = New System.Drawing.Font("Calibri", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX1.Image = Global.TeVendo.My.Resources.Resources.search
+        Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(24, 24)
+        Me.ButtonX1.Location = New System.Drawing.Point(888, 72)
+        Me.ButtonX1.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX1.Name = "ButtonX1"
+        Me.ButtonX1.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
+        Me.ButtonX1.Size = New System.Drawing.Size(163, 53)
+        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX1.Symbol = ""
+        Me.ButtonX1.SymbolColor = System.Drawing.Color.DarkOrange
+        Me.ButtonX1.SymbolSize = 20.0!
+        Me.ButtonX1.TabIndex = 385
+        Me.ButtonX1.Text = "Reporte General"
         '
         'cbFechaHasta
         '
@@ -170,7 +195,7 @@ Partial Class FrmVentasPorCategoria
         Me.cbFechaHasta.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
         Me.cbFechaHasta.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
         Me.cbFechaHasta.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbFechaHasta.Location = New System.Drawing.Point(182, 111)
+        Me.cbFechaHasta.Location = New System.Drawing.Point(182, 146)
         Me.cbFechaHasta.Name = "cbFechaHasta"
         Me.cbFechaHasta.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
         Me.cbFechaHasta.Office2007CustomColor = System.Drawing.Color.Turquoise
@@ -193,7 +218,7 @@ Partial Class FrmVentasPorCategoria
         Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX4.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX4.ForeColor = System.Drawing.Color.Black
-        Me.LabelX4.Location = New System.Drawing.Point(102, 111)
+        Me.LabelX4.Location = New System.Drawing.Point(102, 146)
         Me.LabelX4.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX4.Name = "LabelX4"
         Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
@@ -224,7 +249,7 @@ Partial Class FrmVentasPorCategoria
         Me.cbFechaDesde.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
         Me.cbFechaDesde.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
         Me.cbFechaDesde.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbFechaDesde.Location = New System.Drawing.Point(182, 82)
+        Me.cbFechaDesde.Location = New System.Drawing.Point(182, 117)
         Me.cbFechaDesde.Name = "cbFechaDesde"
         Me.cbFechaDesde.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
         Me.cbFechaDesde.Office2007CustomColor = System.Drawing.Color.Turquoise
@@ -247,7 +272,7 @@ Partial Class FrmVentasPorCategoria
         Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX3.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX3.ForeColor = System.Drawing.Color.Black
-        Me.LabelX3.Location = New System.Drawing.Point(99, 82)
+        Me.LabelX3.Location = New System.Drawing.Point(99, 117)
         Me.LabelX3.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX3.Name = "LabelX3"
         Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
@@ -467,24 +492,47 @@ Partial Class FrmVentasPorCategoria
         '
         Me.MHighlighterFocus.FocusHighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Orange
         '
-        'ButtonX1
+        'cbSubCategoria
         '
-        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.ButtonX1.Font = New System.Drawing.Font("Calibri", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX1.Image = Global.TeVendo.My.Resources.Resources.search
-        Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(24, 24)
-        Me.ButtonX1.Location = New System.Drawing.Point(888, 72)
-        Me.ButtonX1.Margin = New System.Windows.Forms.Padding(4)
-        Me.ButtonX1.Name = "ButtonX1"
-        Me.ButtonX1.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
-        Me.ButtonX1.Size = New System.Drawing.Size(163, 53)
-        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX1.Symbol = ""
-        Me.ButtonX1.SymbolColor = System.Drawing.Color.DarkOrange
-        Me.ButtonX1.SymbolSize = 20.0!
-        Me.ButtonX1.TabIndex = 385
-        Me.ButtonX1.Text = "Reporte General"
+        Me.cbSubCategoria.BackColor = System.Drawing.Color.Azure
+        Me.cbSubCategoria.ColorScheme = ""
+        Me.cbSubCategoria.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.cbSubCategoria.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.PopUp
+        Me.cbSubCategoria.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        cbSubCategoria_DesignTimeLayout.LayoutString = resources.GetString("cbSubCategoria_DesignTimeLayout.LayoutString")
+        Me.cbSubCategoria.DesignTimeLayout = cbSubCategoria_DesignTimeLayout
+        Me.cbSubCategoria.FlatBorderColor = System.Drawing.Color.Black
+        Me.cbSubCategoria.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbSubCategoria.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.cbSubCategoria.HideSelection = False
+        Me.cbSubCategoria.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cbSubCategoria.Location = New System.Drawing.Point(182, 83)
+        Me.cbSubCategoria.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbSubCategoria.Name = "cbSubCategoria"
+        Me.cbSubCategoria.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbSubCategoria.Office2007CustomColor = System.Drawing.Color.MediumTurquoise
+        Me.cbSubCategoria.SelectedIndex = -1
+        Me.cbSubCategoria.SelectedItem = Nothing
+        Me.cbSubCategoria.Size = New System.Drawing.Size(332, 28)
+        Me.cbSubCategoria.TabIndex = 387
+        Me.cbSubCategoria.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'LabelX5
+        '
+        Me.LabelX5.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX5.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX5.Location = New System.Drawing.Point(45, 81)
+        Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX5.Name = "LabelX5"
+        Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX5.Size = New System.Drawing.Size(121, 28)
+        Me.LabelX5.TabIndex = 386
+        Me.LabelX5.Text = "Sub Categoria:"
         '
         'FrmVentasPorCategoria
         '
@@ -504,6 +552,7 @@ Partial Class FrmVentasPorCategoria
         Me.Panel11.ResumeLayout(False)
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbSubCategoria, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -530,4 +579,6 @@ Partial Class FrmVentasPorCategoria
     Friend WithEvents cbFechaDesde As Janus.Windows.CalendarCombo.CalendarCombo
     Friend WithEvents LabelX3 As DevComponents.DotNetBar.LabelX
     Friend WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents cbSubCategoria As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
 End Class

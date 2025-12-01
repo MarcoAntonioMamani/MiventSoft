@@ -3087,6 +3087,22 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
+
+    Public Shared Function L_prListarSubcategoriaAsignados() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 11))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Productos", _listParam)
+
+        Return _Tabla
+    End Function
+
+
+
     Public Shared Function L_prListarProveedores() As DataTable
         Dim _Tabla As DataTable
 
@@ -3177,7 +3193,7 @@ Public Class AccesoLogica
 
     Public Shared Function L_prListarProductosPorCategoria(FechaI As String,
                                                            FechaF As String,
-                                                           PersonalId As Integer, CategoriaId As Integer) As DataTable
+                                                           PersonalId As Integer, CategoriaId As Integer, SubCategoriaId As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
@@ -3188,6 +3204,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@FechaF", FechaF))
         _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
         _listParam.Add(New Datos.DParametro("@CategoriaId", CategoriaId))
+        _listParam.Add(New Datos.DParametro("@SubCategoriaId", SubCategoriaId))
         _Tabla = D_ProcedimientoConParam("MAM_Productos", _listParam)
 
         Return _Tabla
