@@ -3074,6 +3074,19 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
+    Public Shared Function L_prListaPersonalCB() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 8))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Productos", _listParam)
+
+        Return _Tabla
+    End Function
+
     Public Shared Function L_prListarProveedores() As DataTable
         Dim _Tabla As DataTable
 
@@ -3158,6 +3171,42 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@CategoriaPrecio", CategoriaPrecio))
         _listParam.Add(New Datos.DParametro("@ProveedorId", ProveedorId))
         _Tabla = D_ProcedimientoConParam("MAM_Movimientos", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prListarProductosPorCategoria(FechaI As String,
+                                                           FechaF As String,
+                                                           PersonalId As Integer, CategoriaId As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 9))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@FechaI", FechaI))
+        _listParam.Add(New Datos.DParametro("@FechaF", FechaF))
+        _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
+        _listParam.Add(New Datos.DParametro("@CategoriaId", CategoriaId))
+        _Tabla = D_ProcedimientoConParam("MAM_Productos", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prListarProductosPorCategoriaTotal(FechaI As String,
+                                                           FechaF As String,
+                                                           PersonalId As Integer, CategoriaId As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 10))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@FechaI", FechaI))
+        _listParam.Add(New Datos.DParametro("@FechaF", FechaF))
+        _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
+        _listParam.Add(New Datos.DParametro("@CategoriaId", CategoriaId))
+        _Tabla = D_ProcedimientoConParam("MAM_Productos", _listParam)
 
         Return _Tabla
     End Function

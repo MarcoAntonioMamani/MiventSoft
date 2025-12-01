@@ -1446,6 +1446,7 @@ salirIf:
         listEstCeldas.Add(New Celda("NombrePersonal", False))
         listEstCeldas.Add(New Celda("EstadoConciliacion", False))
         listEstCeldas.Add(New Celda("conciliacionId", True, "Nro Conciliacion", 60))
+        listEstCeldas.Add(New Celda("HoraRegistro", True, "HoraRegistro", 60))
         Return listEstCeldas
     End Function
 

@@ -298,6 +298,12 @@
     <Compile Include="Inventarios\FormularioStock.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Inventarios\FrmVentasPorCategoria.Designer.vb">
+      <DependentUpon>FrmVentasPorCategoria.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Inventarios\FrmVentasPorCategoria.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Inventarios\F_MonitoreoProductos.Designer.vb">
       <DependentUpon>F_MonitoreoProductos.vb</DependentUpon>
     </Compile>
@@ -598,6 +604,12 @@
     <Compile Include="Programas Principales\Tec_Principal.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ReporteSmartApps\ProductosXCategoriaRep.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProductosXCategoriaRep.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ReporteSmartApps\ProformaReport.vb">
       <DependentUpon>ProformaReport.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -638,6 +650,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ReporteConciliacion05.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReporteSmartApps\ReporteGeneralPorCategoria.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteGeneralPorCategoria.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ReporteSmartApps\ReporteGraficoProductosMasVendidos.vb">
@@ -951,6 +969,9 @@
     <EmbeddedResource Include="Inventarios\FormularioStock.resx">
       <DependentUpon>FormularioStock.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Inventarios\FrmVentasPorCategoria.resx">
+      <DependentUpon>FrmVentasPorCategoria.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\F_MonitoreoProductos.resx">
       <DependentUpon>F_MonitoreoProductos.vb</DependentUpon>
     </EmbeddedResource>
@@ -1101,6 +1122,10 @@
     <EmbeddedResource Include="Programas Principales\Tec_Principal.resx">
       <DependentUpon>Tec_Principal.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\ProductosXCategoriaRep.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ProductosXCategoriaRep.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\ProformaReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ProformaReport.vb</LastGenOutput>
@@ -1128,6 +1153,10 @@
     <EmbeddedResource Include="ReporteSmartApps\ReporteConciliacion05.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReporteConciliacion05.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteSmartApps\ReporteGeneralPorCategoria.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteGeneralPorCategoria.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteSmartApps\ReporteGraficoProductosMasVendidos.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
