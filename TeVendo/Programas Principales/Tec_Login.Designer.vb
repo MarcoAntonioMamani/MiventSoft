@@ -208,7 +208,7 @@ Partial Class Tec_Login
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Tec_Login"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Tec_Login"
+        Me.Text = "1"
         Me.Panel3.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()

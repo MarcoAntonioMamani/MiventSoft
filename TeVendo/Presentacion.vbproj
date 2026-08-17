@@ -298,6 +298,12 @@
     <Compile Include="Inventarios\FormularioStock.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Inventarios\FProductosPorClientes.Designer.vb">
+      <DependentUpon>FProductosPorClientes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Inventarios\FProductosPorClientes.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Inventarios\FrmVentasPorCategoria.Designer.vb">
       <DependentUpon>FrmVentasPorCategoria.vb</DependentUpon>
     </Compile>
@@ -968,6 +974,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\FormularioStock.resx">
       <DependentUpon>FormularioStock.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventarios\FProductosPorClientes.resx">
+      <DependentUpon>FProductosPorClientes.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\FrmVentasPorCategoria.resx">
       <DependentUpon>FrmVentasPorCategoria.vb</DependentUpon>

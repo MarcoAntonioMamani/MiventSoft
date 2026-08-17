@@ -2011,7 +2011,15 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+    Public Shared Function ListarCategorias() As DataTable
+        Dim _Tabla As DataTable
 
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 30))
+        _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function ListarPersonalCredito() As DataTable
         Dim _Tabla As DataTable
 
