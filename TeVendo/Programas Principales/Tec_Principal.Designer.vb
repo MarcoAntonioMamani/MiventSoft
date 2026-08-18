@@ -41,6 +41,7 @@ Partial Class Tec_Principal
         Me.btnVentaProductos = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btnReporteCobranza = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btVentProforma = New DevComponents.DotNetBar.Metro.MetroTileItem()
+        Me.btnReporteProductoCategoria = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.tab_compraventa = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel_Configuracion = New DevComponents.DotNetBar.Metro.MetroTilePanel()
@@ -127,7 +128,7 @@ Partial Class Tec_Principal
         Me.btnCerrarSesion = New DevComponents.DotNetBar.ButtonX()
         Me.PanelLine = New System.Windows.Forms.Panel()
         Me.imguser = New System.Windows.Forms.PictureBox()
-        Me.btnReporteProductoCategoria = New DevComponents.DotNetBar.Metro.MetroTileItem()
+        Me.btnReporteVentasPorProductos = New DevComponents.DotNetBar.Metro.MetroTileItem()
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlMenu.SuspendLayout()
         Me.SuperTabControlPanel5.SuspendLayout()
@@ -163,9 +164,9 @@ Partial Class Tec_Principal
         Me.SuperTabControlMenu.ControlBox.MenuBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControlMenu.ControlBox.MenuBox, Me.SuperTabControlMenu.ControlBox.CloseBox})
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel9)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel3)
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel9)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel1)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel8)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel7)
@@ -523,6 +524,29 @@ Partial Class Tec_Principal
         Me.btVentProforma.TitleText = "Crear" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Proformas"
         Me.btVentProforma.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
         Me.btVentProforma.TitleTextColor = System.Drawing.Color.White
+        '
+        'btnReporteProductoCategoria
+        '
+        Me.btnReporteProductoCategoria.Image = CType(resources.GetObject("btnReporteProductoCategoria.Image"), System.Drawing.Image)
+        Me.btnReporteProductoCategoria.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnReporteProductoCategoria.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnReporteProductoCategoria.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnReporteProductoCategoria.Name = "btnReporteProductoCategoria"
+        Me.btnReporteProductoCategoria.SymbolColor = System.Drawing.Color.Black
+        Me.btnReporteProductoCategoria.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnReporteProductoCategoria.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btnReporteProductoCategoria.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnReporteProductoCategoria.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
+        Me.btnReporteProductoCategoria.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnReporteProductoCategoria.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnReporteProductoCategoria.TileStyle.PaddingRight = 20
+        Me.btnReporteProductoCategoria.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnReporteProductoCategoria.TitleText = "Ventas" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Por" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Categoria"
+        Me.btnReporteProductoCategoria.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnReporteProductoCategoria.TitleTextColor = System.Drawing.Color.White
         '
         'tab_compraventa
         '
@@ -904,7 +928,7 @@ Partial Class Tec_Principal
         Me.ItemContainer6.ItemSpacing = 10
         Me.ItemContainer6.MultiLine = True
         Me.ItemContainer6.Name = "ItemContainer6"
-        Me.ItemContainer6.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnDespacho, Me.btnConciliaciones, Me.btnCierreCaja, Me.MetroTileItem4, Me.MetroTileItem5, Me.btnCierreReporteGastos, Me.btnCierreRegistroIngresoEgresoGenerales, Me.btnCierreReporteAnual, Me.btnCierreReporteDetallado, Me.btnAsignacionZona, Me.btnhistoricoCliente})
+        Me.ItemContainer6.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnDespacho, Me.btnConciliaciones, Me.btnCierreCaja, Me.MetroTileItem4, Me.MetroTileItem5, Me.btnCierreReporteGastos, Me.btnCierreRegistroIngresoEgresoGenerales, Me.btnCierreReporteAnual, Me.btnCierreReporteDetallado, Me.btnAsignacionZona, Me.btnhistoricoCliente, Me.btnReporteVentasPorProductos})
         '
         '
         '
@@ -2206,28 +2230,28 @@ Partial Class Tec_Principal
         Me.imguser.TabIndex = 1
         Me.imguser.TabStop = False
         '
-        'btnReporteProductoCategoria
+        'btnReporteVentasPorProductos
         '
-        Me.btnReporteProductoCategoria.Image = CType(resources.GetObject("btnReporteProductoCategoria.Image"), System.Drawing.Image)
-        Me.btnReporteProductoCategoria.ImageIndent = New System.Drawing.Point(-50, 0)
-        Me.btnReporteProductoCategoria.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
-        Me.btnReporteProductoCategoria.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
-        Me.btnReporteProductoCategoria.Name = "btnReporteProductoCategoria"
-        Me.btnReporteProductoCategoria.SymbolColor = System.Drawing.Color.Black
-        Me.btnReporteProductoCategoria.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
-        Me.btnReporteProductoCategoria.TileSize = New System.Drawing.Size(250, 135)
+        Me.btnReporteVentasPorProductos.Image = CType(resources.GetObject("btnReporteVentasPorProductos.Image"), System.Drawing.Image)
+        Me.btnReporteVentasPorProductos.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnReporteVentasPorProductos.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnReporteVentasPorProductos.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnReporteVentasPorProductos.Name = "btnReporteVentasPorProductos"
+        Me.btnReporteVentasPorProductos.SymbolColor = System.Drawing.Color.Black
+        Me.btnReporteVentasPorProductos.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnReporteVentasPorProductos.TileSize = New System.Drawing.Size(250, 135)
         '
         '
         '
-        Me.btnReporteProductoCategoria.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.btnReporteProductoCategoria.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
-        Me.btnReporteProductoCategoria.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
-        Me.btnReporteProductoCategoria.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnReporteProductoCategoria.TileStyle.PaddingRight = 20
-        Me.btnReporteProductoCategoria.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
-        Me.btnReporteProductoCategoria.TitleText = "Ventas" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Por" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Categoria"
-        Me.btnReporteProductoCategoria.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
-        Me.btnReporteProductoCategoria.TitleTextColor = System.Drawing.Color.White
+        Me.btnReporteVentasPorProductos.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnReporteVentasPorProductos.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
+        Me.btnReporteVentasPorProductos.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnReporteVentasPorProductos.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnReporteVentasPorProductos.TileStyle.PaddingRight = 20
+        Me.btnReporteVentasPorProductos.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnReporteVentasPorProductos.TitleText = "Ventas" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Productos " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Por Cliente"
+        Me.btnReporteVentasPorProductos.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnReporteVentasPorProductos.TitleTextColor = System.Drawing.Color.White
         '
         'Tec_Principal
         '
@@ -2365,4 +2389,5 @@ Partial Class Tec_Principal
     Friend WithEvents btnReporteCobranza As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents btVentProforma As DevComponents.DotNetBar.Metro.MetroTileItem
     Friend WithEvents btnReporteProductoCategoria As DevComponents.DotNetBar.Metro.MetroTileItem
+    Friend WithEvents btnReporteVentasPorProductos As DevComponents.DotNetBar.Metro.MetroTileItem
 End Class

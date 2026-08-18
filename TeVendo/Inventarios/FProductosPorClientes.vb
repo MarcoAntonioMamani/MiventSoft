@@ -16,14 +16,14 @@ Public Class FProductosPorClientes
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
 
     Public Sub IniciarTodod()
-
+        IdCliente = -1
         Dim dt As DataTable = ListarProveedoresCombo()
         dt.Rows.Add(-1, "TODOS")
         P_Global._prCargarComboGenerico(cbProveedor, dt, "Id", "Codigo", "Proveedor", "Proveedor")
 
         Dim dtCategoria As DataTable = ListarCategorias()
         dtCategoria.Rows.Add(-1, "TODOS")
-        P_Global._prCargarComboGenerico(cbCategoriaProducto, dtCategoria, "ygnumi", "Codigo", "ygdesc", "Cat.Precio")
+        P_Global._prCargarComboGenerico(cbCategoriaProducto, dtCategoria, "id", "Codigo", "NombreCategoria", "Categoria")
 
 
 
@@ -39,17 +39,7 @@ Public Class FProductosPorClientes
 
     End Sub
 
-    Public Sub _prAplicarCondiccionJanusSinLote()
-        Dim fc As GridEXFormatCondition
-        fc = New GridEXFormatCondition(grProducto.RootTable.Columns("stock"), ConditionOperator.LessThanOrEqualTo, 0)
-        'fc.FormatStyle.FontBold = TriState.True
-        fc.FormatStyle.ForeColor = Color.Red    'Color.Tan
-        grProducto.RootTable.FormatConditions.Add(fc)
-        Dim fr As GridEXFormatCondition
-        fr = New GridEXFormatCondition(grProducto.RootTable.Columns("stock"), ConditionOperator.Equal, -9999)
-        fr.FormatStyle.ForeColor = Color.Black
-        grProducto.RootTable.FormatConditions.Add(fr)
-    End Sub
+
     Public Sub New()
         InitializeComponent()
 
@@ -225,7 +215,7 @@ Public Class FProductosPorClientes
 
 
 
-        dt = L_prListarProductosTodosInventario(CategoriaPrecio, cbProveedor.Value)  ''1=Almacen
+        dt = L_prGenerarReporteProductosPorVentas(cbProveedor.Value, cbCategoriaProducto.Value, IdCliente, cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"))  ''1=Almacen
         dtProductos = dt
 
         'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock 
@@ -233,25 +223,36 @@ Public Class FProductosPorClientes
         grProducto.DataSource = dt
         grProducto.RetrieveStructure()
         grProducto.AlternatingColors = True
-        With grProducto.RootTable.Columns("Id")
+        With grProducto.RootTable.Columns("ClienteId")
             .Width = 100
-            .Caption = "Id"
             .Visible = False
-
-
         End With
 
-        With grProducto.RootTable.Columns("CodigoExterno")
-            .Width = 100
-            .Caption = "Cod. Externo"
+        With grProducto.RootTable.Columns("NombreCliente")
+            .Width = 150
+            .Caption = "Cliente"
             .Visible = True
+            .WordWrap = True
+            .MaxLines = 3
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
 
         End With
+        With grProducto.RootTable.Columns("ProductoId")
+            .Width = 100
+            .Visible = False
+        End With
+
+        With grProducto.RootTable.Columns("CodigoExterno")
+            .Width = 100
+            .Caption = "Codigo"
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
+            .WordWrap = True
+        End With
         With grProducto.RootTable.Columns("NombreProveedor")
-            .Width = 200
-            .Caption = "Proveedor"
+            .Width = 150
+            .Caption = "PROVEEDOR"
             .Visible = True
             .MaxLines = 2
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
@@ -259,9 +260,9 @@ Public Class FProductosPorClientes
             .WordWrap = True
         End With
         With grProducto.RootTable.Columns("NombreProducto")
-            .Width = 300
-            .Caption = "PRODUCTOS"
-            .Visible = False
+            .Width = 150
+            .Caption = "PRODUCTO"
+            .Visible = True
             .MaxLines = 2
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
@@ -269,78 +270,47 @@ Public Class FProductosPorClientes
         End With
         With grProducto.RootTable.Columns("Categoria")
             .Width = 150
-            .Caption = "CATEGORIA"
+            .Caption = "Categoria"
             .Visible = True
-            .MaxLines = 2
-            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-            .TextAlignment = TextAlignment.Center
-            .WordWrap = True
-        End With
-        With grProducto.RootTable.Columns("industria")
-            .Width = 150
-            .Caption = "Industria"
-            .Visible = False
             .MaxLines = 2
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
             .WordWrap = True
         End With
         With grProducto.RootTable.Columns("unidad")
-            .Width = 100
-            .Caption = "Unidad Venta"
             .Visible = False
-            .MaxLines = 2
-            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-            .TextAlignment = TextAlignment.Center
-            .WordWrap = True
         End With
         ''NombreCategoria
-        With grProducto.RootTable.Columns("DescripcionProducto")
-            .Width = 300
-            .Visible = True
-            .Caption = "DESCRIPCION"
-            .MaxLines = 2
-            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-            .TextAlignment = TextAlignment.Center
-            .WordWrap = True
-        End With
-
-
-        With grProducto.RootTable.Columns("stockMinimo")
-            .Width = 150
-            .Visible = True
-            .FormatString = "0.00"
-            .Caption = "Stock Minimo"
-            .MaxLines = 2
-            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-            .TextAlignment = TextAlignment.Center
-            .WordWrap = True
-        End With
-        With grProducto.RootTable.Columns("precio")
-            .Width = 110
-            .Visible = True
-            .FormatString = "0.00"
-            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-            .TextAlignment = TextAlignment.Center
-            .Caption = "Precio"
-            .MaxLines = 2
-            .WordWrap = True
-        End With
-        With grProducto.RootTable.Columns("stock")
-            .Width = 250
+        With grProducto.RootTable.Columns("Conversion")
             .Visible = False
+        End With
+
+
+        With grProducto.RootTable.Columns("CantidadUni")
+            .Width = 100
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "CantUnitaria"
+            .MaxLines = 2
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .TextAlignment = TextAlignment.Center
+            .WordWrap = True
+        End With
+        With grProducto.RootTable.Columns("CantidadCaja")
+            .Width = 100
+            .Visible = True
             .FormatString = "0.00"
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .TextAlignment = TextAlignment.Center
-            .Caption = "Stock"
+            .Caption = "CantCajas"
             .MaxLines = 2
             .WordWrap = True
         End With
-        With grProducto.RootTable.Columns("stockGeneral")
+        With grProducto.RootTable.Columns("TotalVenta")
             .Width = 150
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "Stock General"
+            .Caption = "TOTAL"
             .MaxLines = 2
             .WordWrap = True
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
@@ -358,7 +328,6 @@ Public Class FProductosPorClientes
             'diseño de la grilla
             .VisualStyle = VisualStyle.Office2007
         End With
-        _prAplicarCondiccionJanusSinLote()
     End Sub
 
     Private Sub btnConfirmarSalir_Click(sender As Object, e As EventArgs) Handles btnConfirmarSalir.Click
@@ -369,7 +338,7 @@ Public Class FProductosPorClientes
 
     Private Sub btnProductos_Click(sender As Object, e As EventArgs) Handles btnProductos.Click
         Dim _dt As New DataTable
-        _dt = L_prListarProductosTodosInventario(cbCategoriaProducto.Value, cbProveedor.Value)
+        _dt = L_prGenerarReporteProductosPorVentas(cbProveedor.Value, cbCategoriaProducto.Value, IdCliente, cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"))
         If (IsNothing(_dt) Or _dt.Rows.Count = 0) Then
 
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
@@ -578,5 +547,25 @@ Public Class FProductosPorClientes
             tbNameCliente.BackColor = Color.White
             tbNameCliente.Focus()
         End If
+    End Sub
+
+    Private Sub chkTodosClientes_CheckedChanged(sender As Object, e As EventArgs) Handles chkTodosClientes.CheckedChanged
+        If (chkTodosClientes.Checked = True) Then
+            tbNameCliente.Enabled = False
+            btnClientes.Visible = False
+            tbNameCliente.BackColor = Color.DarkGray
+            IdCliente = -1
+        Else
+            IdCliente = -1
+            tbNameCliente.Enabled = True
+            btnClientes.Visible = True
+            tbNameCliente.BackColor = Color.White
+            tbNameCliente.Focus()
+
+        End If
+    End Sub
+
+    Private Sub CheckBoxX1_CheckedChanged(sender As Object, e As EventArgs) Handles c.CheckedChanged
+
     End Sub
 End Class

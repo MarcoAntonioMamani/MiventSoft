@@ -3198,7 +3198,23 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+    Public Shared Function L_prGenerarReporteProductosPorVentas(ProveedorId As Integer, CategoriaID As Integer, ClienteId As Integer,
+                                                                FechaI As String, FechaF As String) As DataTable
+        Dim _Tabla As DataTable
 
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 31))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@ProveedorId", ProveedorId))
+        _listParam.Add(New Datos.DParametro("@CategoriaId", CategoriaID))
+        _listParam.Add(New Datos.DParametro("@ClienteId", ClienteId))
+        _listParam.Add(New Datos.DParametro("@FechaI", FechaI))
+        _listParam.Add(New Datos.DParametro("@FechaF", FechaF))
+        _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_prListarProductosPorCategoria(FechaI As String,
                                                            FechaF As String,
                                                            PersonalId As Integer, CategoriaId As Integer, SubCategoriaId As Integer) As DataTable

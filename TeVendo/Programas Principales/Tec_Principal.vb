@@ -1303,4 +1303,11 @@ Public Class Tec_Principal
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub
+
+    Private Sub btnReporteVentasPorProductos_Click(sender As Object, e As EventArgs) Handles btnReporteVentasPorProductos.Click
+
+        Dim frm As New FProductosPorClientes
+
+        frm.Show()
+    End Sub
 End Class

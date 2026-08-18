@@ -51,6 +51,8 @@ Partial Class FProductosPorClientes
         Me.cbFechaDesde = New Janus.Windows.CalendarCombo.CalendarCombo()
         Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
+        Me.c = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.Paneltop.SuspendLayout()
         CType(Me.grProducto, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
@@ -71,7 +73,7 @@ Partial Class FProductosPorClientes
         Me.Paneltop.Location = New System.Drawing.Point(0, 0)
         Me.Paneltop.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Paneltop.Name = "Paneltop"
-        Me.Paneltop.Size = New System.Drawing.Size(1168, 532)
+        Me.Paneltop.Size = New System.Drawing.Size(1444, 532)
         Me.Paneltop.TabIndex = 3
         '
         'grProducto
@@ -118,7 +120,7 @@ Partial Class FProductosPorClientes
         Me.grProducto.SelectedFormatStyle.BackColorAlphaMode = Janus.Windows.GridEX.AlphaMode.UseAlpha
         Me.grProducto.SelectedFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grProducto.SelectedFormatStyle.ForeColor = System.Drawing.Color.Black
-        Me.grProducto.Size = New System.Drawing.Size(1168, 320)
+        Me.grProducto.Size = New System.Drawing.Size(1444, 320)
         Me.grProducto.TabIndex = 4
         Me.grProducto.TabKeyBehavior = Janus.Windows.GridEX.TabKeyBehavior.ControlNavigation
         Me.grProducto.TableHeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -130,6 +132,8 @@ Partial Class FProductosPorClientes
         '
         'Panel5
         '
+        Me.Panel5.Controls.Add(Me.c)
+        Me.Panel5.Controls.Add(Me.ButtonX1)
         Me.Panel5.Controls.Add(Me.cbFechaHasta)
         Me.Panel5.Controls.Add(Me.LabelX4)
         Me.Panel5.Controls.Add(Me.cbFechaDesde)
@@ -151,7 +155,7 @@ Partial Class FProductosPorClientes
         Me.Panel5.Location = New System.Drawing.Point(0, 36)
         Me.Panel5.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(1168, 176)
+        Me.Panel5.Size = New System.Drawing.Size(1444, 176)
         Me.Panel5.TabIndex = 3
         '
         'cbProveedor
@@ -247,7 +251,7 @@ Partial Class FProductosPorClientes
         Me.btnProductosSinStock.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnProductosSinStock.Image = Global.TeVendo.My.Resources.Resources.sheets
         Me.btnProductosSinStock.ImageFixedSize = New System.Drawing.Size(25, 25)
-        Me.btnProductosSinStock.Location = New System.Drawing.Point(912, 18)
+        Me.btnProductosSinStock.Location = New System.Drawing.Point(1068, 16)
         Me.btnProductosSinStock.Margin = New System.Windows.Forms.Padding(4)
         Me.btnProductosSinStock.Name = "btnProductosSinStock"
         Me.btnProductosSinStock.Size = New System.Drawing.Size(160, 42)
@@ -263,7 +267,7 @@ Partial Class FProductosPorClientes
         Me.btnProductos.Font = New System.Drawing.Font("Calibri", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnProductos.Image = Global.TeVendo.My.Resources.Resources.search
         Me.btnProductos.ImageFixedSize = New System.Drawing.Size(24, 24)
-        Me.btnProductos.Location = New System.Drawing.Point(917, 70)
+        Me.btnProductos.Location = New System.Drawing.Point(1073, 68)
         Me.btnProductos.Margin = New System.Windows.Forms.Padding(4)
         Me.btnProductos.Name = "btnProductos"
         Me.btnProductos.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
@@ -282,7 +286,7 @@ Partial Class FProductosPorClientes
         Me.btnConfirmarSalir.Font = New System.Drawing.Font("Calibri", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnConfirmarSalir.Image = Global.TeVendo.My.Resources.Resources.search
         Me.btnConfirmarSalir.ImageFixedSize = New System.Drawing.Size(24, 24)
-        Me.btnConfirmarSalir.Location = New System.Drawing.Point(556, 79)
+        Me.btnConfirmarSalir.Location = New System.Drawing.Point(712, 77)
         Me.btnConfirmarSalir.Margin = New System.Windows.Forms.Padding(4)
         Me.btnConfirmarSalir.Name = "btnConfirmarSalir"
         Me.btnConfirmarSalir.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
@@ -338,7 +342,7 @@ Partial Class FProductosPorClientes
         Me.Panel10.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel10.Size = New System.Drawing.Size(1168, 36)
+        Me.Panel10.Size = New System.Drawing.Size(1444, 36)
         Me.Panel10.TabIndex = 2
         '
         'Panel11
@@ -351,7 +355,7 @@ Partial Class FProductosPorClientes
         Me.Panel11.Location = New System.Drawing.Point(1, 1)
         Me.Panel11.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(1166, 34)
+        Me.Panel11.Size = New System.Drawing.Size(1442, 34)
         Me.Panel11.TabIndex = 0
         '
         'Label3
@@ -434,7 +438,7 @@ Partial Class FProductosPorClientes
         Me.chkTodosClientes.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
         Me.chkTodosClientes.CheckSignSize = New System.Drawing.Size(16, 16)
         Me.chkTodosClientes.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkTodosClientes.Location = New System.Drawing.Point(590, 140)
+        Me.chkTodosClientes.Location = New System.Drawing.Point(605, 139)
         Me.chkTodosClientes.Name = "chkTodosClientes"
         Me.chkTodosClientes.Size = New System.Drawing.Size(85, 23)
         Me.chkTodosClientes.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -448,10 +452,10 @@ Partial Class FProductosPorClientes
         Me.btnClientes.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
         Me.btnClientes.Image = Global.TeVendo.My.Resources.Resources.search
         Me.btnClientes.ImageFixedSize = New System.Drawing.Size(28, 28)
-        Me.btnClientes.Location = New System.Drawing.Point(548, 140)
+        Me.btnClientes.Location = New System.Drawing.Point(549, 132)
         Me.btnClientes.Margin = New System.Windows.Forms.Padding(4)
         Me.btnClientes.Name = "btnClientes"
-        Me.btnClientes.Size = New System.Drawing.Size(35, 31)
+        Me.btnClientes.Size = New System.Drawing.Size(50, 36)
         Me.btnClientes.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnClientes.TabIndex = 383
         Me.btnClientes.Visible = False
@@ -479,7 +483,7 @@ Partial Class FProductosPorClientes
         Me.cbFechaHasta.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
         Me.cbFechaHasta.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
         Me.cbFechaHasta.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbFechaHasta.Location = New System.Drawing.Point(605, 50)
+        Me.cbFechaHasta.Location = New System.Drawing.Point(761, 48)
         Me.cbFechaHasta.Name = "cbFechaHasta"
         Me.cbFechaHasta.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
         Me.cbFechaHasta.Office2007CustomColor = System.Drawing.Color.Turquoise
@@ -502,7 +506,7 @@ Partial Class FProductosPorClientes
         Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX4.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX4.Location = New System.Drawing.Point(556, 50)
+        Me.LabelX4.Location = New System.Drawing.Point(712, 48)
         Me.LabelX4.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX4.Name = "LabelX4"
         Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
@@ -533,7 +537,7 @@ Partial Class FProductosPorClientes
         Me.cbFechaDesde.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
         Me.cbFechaDesde.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
         Me.cbFechaDesde.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbFechaDesde.Location = New System.Drawing.Point(605, 21)
+        Me.cbFechaDesde.Location = New System.Drawing.Point(761, 19)
         Me.cbFechaDesde.Name = "cbFechaDesde"
         Me.cbFechaDesde.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
         Me.cbFechaDesde.Office2007CustomColor = System.Drawing.Color.Turquoise
@@ -556,7 +560,7 @@ Partial Class FProductosPorClientes
         Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX5.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX5.Location = New System.Drawing.Point(553, 21)
+        Me.LabelX5.Location = New System.Drawing.Point(709, 19)
         Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX5.Name = "LabelX5"
         Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
@@ -568,14 +572,46 @@ Partial Class FProductosPorClientes
         '
         Me.MHighlighterFocus.FocusHighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Orange
         '
+        'c
+        '
+        '
+        '
+        '
+        Me.c.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.c.CheckSignSize = New System.Drawing.Size(16, 16)
+        Me.c.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.c.Location = New System.Drawing.Point(605, 16)
+        Me.c.Name = "c"
+        Me.c.Size = New System.Drawing.Size(85, 23)
+        Me.c.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.c.TabIndex = 390
+        Me.c.Text = "Todos"
+        Me.c.TextColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        '
+        'ButtonX1
+        '
+        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.ButtonX1.Image = Global.TeVendo.My.Resources.Resources.search
+        Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(28, 28)
+        Me.ButtonX1.Location = New System.Drawing.Point(549, 9)
+        Me.ButtonX1.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX1.Name = "ButtonX1"
+        Me.ButtonX1.Size = New System.Drawing.Size(50, 36)
+        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX1.TabIndex = 389
+        Me.ButtonX1.Visible = False
+        '
         'FProductosPorClientes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1168, 532)
+        Me.ClientSize = New System.Drawing.Size(1444, 532)
         Me.Controls.Add(Me.Paneltop)
         Me.Name = "FProductosPorClientes"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FProductosPorClientes"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.Paneltop.ResumeLayout(False)
         CType(Me.grProducto, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel5.ResumeLayout(False)
@@ -615,4 +651,6 @@ Partial Class FProductosPorClientes
     Friend WithEvents cbFechaDesde As Janus.Windows.CalendarCombo.CalendarCombo
     Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
     Protected WithEvents MHighlighterFocus As DevComponents.DotNetBar.Validator.Highlighter
+    Friend WithEvents c As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
 End Class
