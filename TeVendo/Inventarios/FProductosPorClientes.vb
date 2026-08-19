@@ -6,12 +6,15 @@ Imports DevComponents.DotNetBar
 Imports System.IO
 Public Class FProductosPorClientes
     Public dtProductos As DataTable
+    Dim dtFiltrado As DataTable
+
     Public dtDetalle As DataTable
     Public Lote As Boolean
     Dim RutaGlobal As String = gs_CarpetaRaiz
     Public TipoMovimientoId As Integer
     Public DepositoId As Integer
     Dim IdCliente As Integer
+
 
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
 
@@ -80,11 +83,11 @@ Public Class FProductosPorClientes
             Dim cant As Integer = vectoraux.Length
             'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock 
             For i As Integer = 0 To dt.Rows.Count - 1 Step 1
-                Dim nombre As String = dt.Rows(i).Item("CodigoExterno").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("industria").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("DescripcionProducto").ToString.ToUpper +
+                Dim nombre As String = dt.Rows(i).Item("NombreProducto").ToString.ToUpper +
                     " " + dt.Rows(i).Item("Categoria").ToString.ToUpper +
-                    " " + dt.Rows(i).Item("unidad").ToString.ToUpper
+                    " " + dt.Rows(i).Item("NombreProveedor").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("NombreCliente").ToString.ToUpper +
+                    " " + dt.Rows(i).Item("CodigoExterno").ToString.ToUpper
                 Select Case cant
                     Case 1
 
@@ -191,6 +194,7 @@ Public Class FProductosPorClientes
 
             Next
             grProducto.DataSource = dtProductoCopy.Copy
+            dtFiltrado = dtProductoCopy.Copy
         Else
             grProducto.DataSource = dtProductos.Copy
         End If
@@ -217,7 +221,7 @@ Public Class FProductosPorClientes
 
         dt = L_prGenerarReporteProductosPorVentas(cbProveedor.Value, cbCategoriaProducto.Value, IdCliente, cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"))  ''1=Almacen
         dtProductos = dt
-
+        dtFiltrado = dt.Copy
         'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock 
 
         grProducto.DataSource = dt
@@ -338,7 +342,7 @@ Public Class FProductosPorClientes
 
     Private Sub btnProductos_Click(sender As Object, e As EventArgs) Handles btnProductos.Click
         Dim _dt As New DataTable
-        _dt = L_prGenerarReporteProductosPorVentas(cbProveedor.Value, cbCategoriaProducto.Value, IdCliente, cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"))
+        _dt = dtFiltrado
         If (IsNothing(_dt) Or _dt.Rows.Count = 0) Then
 
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
@@ -359,10 +363,14 @@ Public Class FProductosPorClientes
 
             P_Global.Visualizador = New Visualizador
 
-            Dim objrep As New Reporte_StockGeneral
+            Dim objrep As New RepPorProductos
 
             objrep.SetDataSource(_dt)
             objrep.SetParameterValue("Usuario", L_Usuario)
+            Dim fechaI As String = cbFechaDesde.Value.ToString("yyyy/MM/dd")
+            Dim fechaF As String = cbFechaHasta.Value.ToString("yyyy/MM/dd")
+            objrep.SetParameterValue("FechaDesde", fechaI)
+            objrep.SetParameterValue("FechaHasta", fechaF)
             P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
             P_Global.Visualizador.CrGeneral.Zoom(90)
             P_Global.Visualizador.Show() 'Comentar
@@ -397,7 +405,7 @@ Public Class FProductosPorClientes
     Private Sub btnProductosSinStock_Click(sender As Object, e As EventArgs) Handles btnProductosSinStock.Click
         _prCrearCarpetaReportes()
         Dim imgOk As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
-        If (P_ExportarExcel(RutaGlobal + "\Reporte\Reporte Productos", "ProductosStockGeneral")) Then
+        If (P_ExportarExcel(RutaGlobal + "\Reporte\Reporte MovimientosPorProducto", "MovimientosPorProducto")) Then
             ToastNotification.Show(Me, "Los Datos Fueron Exportados Correctamente..!!!",
                                        imgOk, 2000,
                                        eToastGlowColor.Green,
