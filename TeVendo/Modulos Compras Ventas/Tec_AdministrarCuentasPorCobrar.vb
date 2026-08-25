@@ -165,10 +165,6 @@ Public Class Tec_AdministrarCuentasPorCobrar
             .Visible = True
         End With
 
-
-
-
-
         With grPagosTodos
             .GroupByBoxVisible = False
             'diseño de la grilla
@@ -357,6 +353,16 @@ Public Class Tec_AdministrarCuentasPorCobrar
         With gr_CreditoPendientes.RootTable.Columns("Nombrecliente")
             .Width = 150
             .Caption = "Cliente"
+            .WordWrap = True
+            .MaxLines = 3
+            .Visible = True
+        End With
+
+        With gr_CreditoPendientes.RootTable.Columns("NombrePersonal")
+            .Width = 120
+            .Caption = "Vendedor"
+            .WordWrap = True
+            .MaxLines = 3
             .Visible = True
         End With
         With gr_CreditoPendientes.RootTable.Columns("PersonalId")
@@ -939,6 +945,12 @@ Public Class Tec_AdministrarCuentasPorCobrar
 
 
             If (grPagosTodos.CurrentColumn.Index = grPagosTodos.RootTable.Columns("img").Index) Then
+
+                If (Global_ModificarRegistro = 0 And grPagosTodos.GetValue("FechaPago") < Global_FechaActual) Then
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    ToastNotification.Show(Me, "No puede Eliminar Pagos Anteriores a la fecha de Hoy, Consulte con su Administrador".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                    Return
+                End If
 
                 If (grPagosTodos.GetValue("CierreModulo") > 0) Then
                     ToastNotification.Show(Me, "No Es Posible Eliminar El Cobro por Que ya Pertenece a un Cierre De Caja # " + Str(grPagosTodos.GetValue("CierreModulo")), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)

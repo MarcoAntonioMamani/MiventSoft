@@ -1258,6 +1258,11 @@ Public Class Tec_CierreCajaCajero
 
     Private Sub EditarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditarToolStripMenuItem.Click
         If (JGrM_Buscador.Row >= 0) Then
+            If (Global_ModificarRegistro = 0 And JGrM_Buscador.GetValue("Fecha") < Global_FechaActual) Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "No puede Modificar Cierre Anteriores a la fecha de Hoy, Consulte con su Administrador".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                Return
+            End If
 
             TabControlPrincipal.SelectedTabIndex = 0
             btnModificar.PerformClick()
@@ -1267,7 +1272,11 @@ Public Class Tec_CierreCajaCajero
 
     Private Sub EliminarToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles EliminarToolStripMenuItem1.Click
         If (JGrM_Buscador.Row >= 0) Then
-
+            If (Global_ModificarRegistro = 0 And JGrM_Buscador.GetValue("Fecha") < Global_FechaActual) Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "No puede Eliminar Cierre Anteriores a la fecha de Hoy, Consulte con su Administrador".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                Return
+            End If
             btnEliminar.PerformClick()
 
         End If

@@ -1772,6 +1772,12 @@ salirIf:
     End Sub
 
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
+
+        If (Global_ModificarRegistro = 0 And JGrM_Buscador.GetValue("FechaVenta") < Global_FechaActual) Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "No puede Modificar Ventas Anteriores a la fecha de Hoy, Consulte con su Administrador".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Return
+        End If
         _PMModificar()
 
     End Sub
@@ -1782,6 +1788,11 @@ salirIf:
     End Sub
 
     Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
+        If (Global_ModificarRegistro = 0 And JGrM_Buscador.GetValue("FechaVenta") < Global_FechaActual) Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "No puede Eliminar Ventas Anteriores a la fecha de Hoy, Consulte con su Administrador".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Return
+        End If
         _PMEliminar()
 
 
@@ -2316,6 +2327,11 @@ salirIf:
     End Sub
 
     Private Sub EditarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditarToolStripMenuItem.Click
+        If (Global_ModificarRegistro = 0 And JGrM_Buscador.GetValue("FechaVenta") < Global_FechaActual) Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "No puede Modificar Ventas Anteriores a la fecha de Hoy, Consulte con su Administrador".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Return
+        End If
 
         If (JGrM_Buscador.GetValue("CierreModulo") > 0) Then
             ToastNotification.Show(Me, "No Es Posible Modificar La Venta Ya que Pertenece A un cierre De Caja Cerrado # " + Str(JGrM_Buscador.GetValue("CierreModulo")), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
@@ -2330,6 +2346,13 @@ salirIf:
     End Sub
 
     Private Sub EliminarToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles EliminarToolStripMenuItem1.Click
+
+
+        If (Global_ModificarRegistro = 0 And JGrM_Buscador.GetValue("FechaVenta") < Global_FechaActual) Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "No puede Eliminar Ventas Anteriores a la fecha de Hoy, Consulte con su Administrador".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Return
+        End If
         If (JGrM_Buscador.GetValue("CierreModulo") > 0) Then
             ToastNotification.Show(Me, "No Es Posible Eliminar La Venta Ya que Pertenece A un cierre De Caja Cerrado # " + Str(JGrM_Buscador.GetValue("CierreModulo")), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
             Return

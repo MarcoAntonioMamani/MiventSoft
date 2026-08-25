@@ -113,6 +113,7 @@ Public Class Tec_Login
             Global_ModificarRegistro = dtUsuario.Rows(0).Item("ModificarRegistroAnteriores")
             Global_CierreTodos = dtUsuario.Rows(0).Item("VerTodosVentasCierre")
             Global_VentasTodos = dtUsuario.Rows(0).Item("VerTodasVentas")
+            Global_FechaActual = dtUsuario.Rows(0).Item("FechaBolivia")
             'gb_userTodasSuc = IIf(dtUsuario.Rows(0).Item("ydall") = 1, True, False)
 
             _prDesvenecerPantalla()

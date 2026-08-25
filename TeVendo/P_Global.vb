@@ -131,6 +131,7 @@ Module P_Global
     Public Global_VentasTodos As String = ""
     Public Global_CierreTodos As String = ""
     Public Global_ModificarRegistro As String = ""
+    Public Global_FechaActual As Date
     'configuracion del sistema tabla TCG011
     Public gd_notaAproTeo As Double = 0
 #End Region

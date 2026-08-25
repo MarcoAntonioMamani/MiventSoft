@@ -1147,6 +1147,16 @@ Public Class Tec_Movimientos
 
     Private Sub EditarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditarToolStripMenuItem.Click
         If (JGrM_Buscador.Row >= 0) Then
+
+            Dim dt As DataTable = CType(JGrM_Buscador.DataSource, DataTable)
+
+            If (Global_ModificarRegistro = 0 And JGrM_Buscador.GetValue("fdoc") < Global_FechaActual) Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "No puede Modificar Movimientos Anteriores a la fecha de Hoy, Consulte con su Administrador".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                Return
+            End If
+
+
             If (cbTipoMovimiento.Value = 8) Then
                 Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
                 ToastNotification.Show(Me, "No Se puede Modificar un Movimiento de Traspaso. Elimine el Movimiento y Vuelva a Crearlo".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
@@ -1161,6 +1171,11 @@ Public Class Tec_Movimientos
 
     Private Sub EliminarToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles EliminarToolStripMenuItem1.Click
         If (JGrM_Buscador.Row >= 0) Then
+            If (Global_ModificarRegistro = 0 And JGrM_Buscador.GetValue("fdoc") < Global_FechaActual) Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "No puede Eliminar Movimientos Anteriores a la fecha de Hoy, Consulte con su Administrador".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                Return
+            End If
 
             btnEliminar.PerformClick()
 
