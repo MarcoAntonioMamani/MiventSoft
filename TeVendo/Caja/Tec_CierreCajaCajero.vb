@@ -247,7 +247,8 @@ Public Class Tec_CierreCajaCajero
     Private Sub _prIniciarTodo()
 
 
-
+        tbDesde.Value = Now.Date
+        tbHasta.Value = Now.Date
         'L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
         Me.Text = "Cierre Caja Cajero"
 
@@ -266,7 +267,7 @@ Public Class Tec_CierreCajaCajero
 
         If (id = 0) Then
 
-            dt = L_prListarCobrosCajaPendiente(tbFechaCierre.Value.ToString("yyyy/MM/dd"), PersonalId)
+            dt = L_prListarCobrosCajaPendiente(tbFechaCierre.Value.ToString("yyyy/MM/dd"), PersonalId, Global_CierreTodos)
         Else
             dt = L_prListarCobranzaCierresCaja(id)
         End If
@@ -443,7 +444,7 @@ Public Class Tec_CierreCajaCajero
 
         If (id = 0) Then
 
-            dt = L_prListarMovimientosIngresoEgresoCierrePendiente(cbSucursal.Value, tbFechaCierre.Value.ToString("yyyy/MM/dd"), PersonalId)
+            dt = L_prListarMovimientosIngresoEgresoCierrePendiente(cbSucursal.Value, tbFechaCierre.Value.ToString("yyyy/MM/dd"), PersonalId, Global_CierreTodos)
         Else
             dt = L_prListarMovimientosIngresoEgresoCierre(id)
         End If
@@ -543,7 +544,7 @@ Public Class Tec_CierreCajaCajero
 
         If (id = 0) Then
 
-            dt = L_prListarVentaCierresCajaPendiente(PersonalId, cbSucursal.Value, tbFechaCierre.Value.ToString("yyyy/MM/dd"))
+            dt = L_prListarVentaCierresCajaPendiente(PersonalId, cbSucursal.Value, tbFechaCierre.Value.ToString("yyyy/MM/dd"), Global_CierreTodos)
         Else
             dt = L_prListarVentaCierresCaja(id)
         End If
@@ -1015,25 +1016,27 @@ Public Class Tec_CierreCajaCajero
 
     Public Function _PMOGetTablaBuscador() As DataTable
 
-        Dim dtBuscador As DataTable = L_prListarGeneral("MAM_CierreCajero")
+        Dim dtBuscador As DataTable = L_prListarGeneralCierreCajero("MAM_CierreCajero", tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"))
         If gi_userRol <> 1 Then
 
-            Dim dt As DataTable = dtBuscador.Copy
-            dt.Rows.Clear()
+            If (Global_CierreTodos = 0) Then
+                Dim dt As DataTable = dtBuscador.Copy
+                dt.Rows.Clear()
 
-            For i As Integer = 0 To dtBuscador.Rows.Count - 1 Step 1
+                For i As Integer = 0 To dtBuscador.Rows.Count - 1 Step 1
 
-                If (dtBuscador.Rows(i).Item("PersonalId") = Global_IdPersonal) Then
-                    dt.ImportRow(dtBuscador.Rows(i))
-                End If
-            Next
+                    If (dtBuscador.Rows(i).Item("PersonalId") = Global_IdPersonal) Then
+                        dt.ImportRow(dtBuscador.Rows(i))
+                    End If
+                Next
 
-            dtBuscador = dt
+                dtBuscador = dt
 
+            End If
 
         End If
 
-        Return dtBuscador
+            Return dtBuscador
     End Function
 
     Public Function _PMOGetListEstructuraBuscador() As List(Of Celda)
@@ -1464,6 +1467,16 @@ Public Class Tec_CierreCajaCajero
         Calculartotales()
 
 
+    End Sub
+
+    Private Sub btnFiltrarVentas_Click(sender As Object, e As EventArgs) Handles btnFiltrarVentas.Click
+
+        If (tbDesde.Value > tbHasta.Value) Then
+
+            ToastNotification.Show(Me, "La Fecha Desde Debe Ser Menor Que la Fecha Hasta", img, 5000, eToastGlowColor.Red, eToastPosition.BottomRight)
+        Else
+            _PMCargarBuscador()
+        End If
     End Sub
 
 

@@ -85,7 +85,8 @@ Public Class AccesoLogica
 
     Public Shared Function L_Validar_Usuario(_Nom As String, _Pass As String) As DataTable
         Dim _Tabla As DataTable
-        _Tabla = D_Datos_Tabla("Id,RolId,SucursalId,IdPersonal,isnull((select top 1 Monto from TipoCambio as t order by id desc),0) as Monto,isnull(ModificarPrecioVenta,0) as ModificarPrecioVenta, isnull(AplicarDescuentoVenta,0)as AplicarDescuentoVenta,isnull((select al.Nombrealmacen from Almacenes  as al where al.id=SucursalId ),'Todos') as NombreSucursal", "Usuarios", "NombreUsuario = '" + _Nom + "' AND Contrasena = '" + _Pass + "'")
+        _Tabla = D_Datos_Tabla("Id,RolId,SucursalId,IdPersonal,isnull((select top 1 Monto from TipoCambio as t order by id desc),0) as Monto,isnull(ModificarPrecioVenta,0) as ModificarPrecioVenta, isnull(AplicarDescuentoVenta,0)as AplicarDescuentoVenta,isnull(VerTodasVentas,0) as VerTodasVentas,isnull(VerTodosVentasCierre,0) as VerTodosVentasCierre,
+		isnull(ModificarRegistroAnteriores,0) as ModificarRegistroAnteriores,isnull((select al.Nombrealmacen from Almacenes  as al where al.id=SucursalId ),'Todos') as NombreSucursal", "Usuarios", "NombreUsuario = '" + _Nom + "' AND Contrasena = '" + _Pass + "'")
         Return _Tabla
     End Function
 
@@ -2227,6 +2228,22 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+
+
+
+    Public Shared Function L_prListarGeneralCierreCajero(NameSp As String, Desde As String, Hasta As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@desde", Desde))
+        _listParam.Add(New Datos.DParametro("@hasta", Hasta))
+        _Tabla = D_ProcedimientoConParam(NameSp, _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_prListarGeneralComprasFiltro(NameSp As String, Desde As String, Hasta As String) As DataTable
         Dim _Tabla As DataTable
 
@@ -2650,7 +2667,8 @@ Public Class AccesoLogica
 
     Public Shared Function L_prUsuarioModificar(_numi As String, _RolId As Integer, _NombreUsuario As String,
                                                 _Contrasena As String, _estado As Integer,
- _sucursalId As Integer, _IdEmpresa As Integer, IdPersonal As Integer, _ModificarPrecio As Integer, _ModificarDescuento As Integer) As Boolean
+ _sucursalId As Integer, _IdEmpresa As Integer, IdPersonal As Integer, _ModificarPrecio As Integer, _ModificarDescuento As Integer,
+                                                _VerTodasVentas As Integer, _VerTodosCierres As Integer, _ModificarRegistrosAntiguos As Integer) As Boolean
         Dim _resultado As Boolean
 
         'INSERT INTO Usuarios  VALUES(@RolId ,@NombreUsuario ,@Contrasena ,@Estado 
@@ -2669,6 +2687,9 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@IdEmpresa", _IdEmpresa))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@IdPersonal", IdPersonal))
+        _listParam.Add(New Datos.DParametro("@VentasTodasVentas", _VerTodasVentas))
+        _listParam.Add(New Datos.DParametro("@VerTodasVentasCierre", _VerTodosCierres))
+        _listParam.Add(New Datos.DParametro("@ModificarRegistroAntiguos", _ModificarRegistrosAntiguos))
         _listParam.Add(New Datos.DParametro("@ModificarPrecio", _ModificarPrecio))
         _listParam.Add(New Datos.DParametro("@ModificarDescuento", _ModificarDescuento))
         _Tabla = D_ProcedimientoConParam("MAM_Usuarios", _listParam)
@@ -2685,7 +2706,8 @@ Public Class AccesoLogica
 
     Public Shared Function L_prUsuarioInsertar(ByRef _numi As String, _RolId As Integer, _NombreUsuario As String,
                                                 _Contrasena As String, _estado As Integer,
- _sucursalId As Integer, _IdEmpresa As Integer, IdPersonal As Integer, _ModificarPrecio As Integer, _ModificarDescuento As Integer) As Boolean
+ _sucursalId As Integer, _IdEmpresa As Integer, IdPersonal As Integer, _ModificarPrecio As Integer, _ModificarDescuento As Integer,
+                                               _VerTodasVentas As Integer, _VerTodosCierres As Integer, _ModificarRegistrosAntiguos As Integer) As Boolean
         Dim _resultado As Boolean
 
         'INSERT INTO Usuarios  VALUES(@RolId ,@NombreUsuario ,@Contrasena ,@Estado 
@@ -2704,6 +2726,9 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@IdEmpresa", _IdEmpresa))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@IdPersonal", IdPersonal))
+        _listParam.Add(New Datos.DParametro("@VentasTodasVentas", _VerTodasVentas))
+        _listParam.Add(New Datos.DParametro("@VerTodasVentasCierre", _VerTodosCierres))
+        _listParam.Add(New Datos.DParametro("@ModificarRegistroAntiguos", _ModificarRegistrosAntiguos))
         _listParam.Add(New Datos.DParametro("@ModificarPrecio", _ModificarPrecio))
         _listParam.Add(New Datos.DParametro("@ModificarDescuento", _ModificarDescuento))
 
@@ -3326,7 +3351,8 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
-    Public Shared Function L_prListarVentaCierresCajaPendiente(PersonalId As Integer, SucursalId As Integer, Fecha As String) As DataTable
+    Public Shared Function L_prListarVentaCierresCajaPendiente(PersonalId As Integer, SucursalId As Integer, Fecha As String,
+                                                               Global_CierreTodos As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
@@ -3336,6 +3362,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@Fecha", Fecha))
         _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
         _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
+        _listParam.Add(New Datos.DParametro("@Global_CierreTodos", Global_CierreTodos))
         _Tabla = D_ProcedimientoConParam("MAM_CierreCajero", _listParam)
 
         Return _Tabla
@@ -3392,7 +3419,7 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
-    Public Shared Function L_prListarMovimientosIngresoEgresoCierrePendiente(SucursalId As Integer, Fecha As String, PersonalId As Integer) As DataTable
+    Public Shared Function L_prListarMovimientosIngresoEgresoCierrePendiente(SucursalId As Integer, Fecha As String, PersonalId As Integer, _Global_CierreTodos As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
@@ -3402,11 +3429,12 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@SucursalId", SucursalId))
         _listParam.Add(New Datos.DParametro("@Fecha", Fecha))
         _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
+        _listParam.Add(New Datos.DParametro("@Global_CierreTodos", _Global_CierreTodos))
         _Tabla = D_ProcedimientoConParam("MAM_CierreCajero", _listParam)
 
         Return _Tabla
     End Function
-    Public Shared Function L_prListarCobrosCajaPendiente(Fecha As String, PersonalId As Integer) As DataTable
+    Public Shared Function L_prListarCobrosCajaPendiente(Fecha As String, PersonalId As Integer, _Global_CierreTodos As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
@@ -3415,6 +3443,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@Fecha", Fecha))
         _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
+        _listParam.Add(New Datos.DParametro("@Global_CierreTodos", _Global_CierreTodos))
         _Tabla = D_ProcedimientoConParam("MAM_CierreCajero", _listParam)
 
         Return _Tabla

@@ -244,6 +244,9 @@ Public Class Tec_Users
             .SetHighlightOnFocus(cbSucursal, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(swModificarDescuento, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(swModificarPrecio, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(swVentasTodos, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(swCierreTodos, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(swModificarRegistros, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
 
             .SetHighlightOnFocus(tbContrasena, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(cbEmpresa, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
@@ -329,6 +332,9 @@ Public Class Tec_Users
         cbSucursal.ReadOnly = False
         swModificarDescuento.IsReadOnly = False
         swModificarPrecio.IsReadOnly = False
+        swModificarRegistros.IsReadOnly = False
+        swVentasTodos.IsReadOnly = False
+        swCierreTodos.IsReadOnly = False
     End Sub
 
     Public Sub _PMOInhabilitar()
@@ -340,6 +346,9 @@ Public Class Tec_Users
         swEstado.IsReadOnly = True
         tbVendedor.ReadOnly = True
 
+        swModificarRegistros.IsReadOnly = True
+        swVentasTodos.IsReadOnly = True
+        swCierreTodos.IsReadOnly = True
 
         cbSucursal.ReadOnly = True
         swModificarDescuento.IsReadOnly = True
@@ -358,6 +367,10 @@ Public Class Tec_Users
 
         swModificarDescuento.Value = False
         swModificarPrecio.Value = False
+
+        swModificarRegistros.Value = False
+        swVentasTodos.Value = False
+        swCierreTodos.Value = False
 
         If (ObtenerLongitudCombo(cbRol) > 0) Then
             cbRol.SelectedIndex = 0
@@ -385,7 +398,10 @@ Public Class Tec_Users
     Public Function _PMOGrabarRegistro() As Boolean
 
         Dim res As Boolean = L_prUsuarioInsertar(tbCodigo.Text, cbRol.Value, tbNombreUsuario.Text,
-                                                  tbContrasena.Text, IIf(swEstado.Value = True, 1, 0), cbSucursal.Value, cbEmpresa.Value, IdPersonal, IIf(swModificarPrecio.Value = True, 1, 0), IIf(swModificarDescuento.Value = True, 1, 0))
+                                                  tbContrasena.Text, IIf(swEstado.Value = True, 1, 0),
+                                                  cbSucursal.Value, cbEmpresa.Value, IdPersonal,
+                                                  IIf(swModificarPrecio.Value = True, 1, 0), IIf(swModificarDescuento.Value = True, 1, 0),
+ IIf(swVentasTodos.Value = True, 1, 0), IIf(swCierreTodos.Value = True, 1, 0), IIf(swModificarRegistros.Value = True, 1, 0))
         If res Then
             ToastNotification.Show(Me, "Codigo de Usuario ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
         End If
@@ -396,7 +412,9 @@ Public Class Tec_Users
     Public Function _PMOModificarRegistro() As Boolean
 
         Dim res As Boolean = L_prUsuarioModificar(tbCodigo.Text, cbRol.Value, tbNombreUsuario.Text,
-                                                  tbContrasena.Text, IIf(swEstado.Value = True, 1, 0), cbSucursal.Value, cbEmpresa.Value, IdPersonal, IIf(swModificarPrecio.Value = True, 1, 0), IIf(swModificarDescuento.Value = True, 1, 0))
+                                                  tbContrasena.Text, IIf(swEstado.Value = True, 1, 0),
+                                                  cbSucursal.Value, cbEmpresa.Value, IdPersonal,
+                                                  IIf(swModificarPrecio.Value = True, 1, 0), IIf(swModificarDescuento.Value = True, 1, 0), IIf(swVentasTodos.Value = True, 1, 0), IIf(swCierreTodos.Value = True, 1, 0), IIf(swModificarRegistros.Value = True, 1, 0))
         If res Then
 
             ToastNotification.Show(Me, "Codigo de Usuario ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
@@ -528,6 +546,9 @@ Public Class Tec_Users
         listEstCeldas.Add(New Celda("NombreAlmacen", True, "Sucursal", 120))
         listEstCeldas.Add(New Celda("ModificarPrecioVenta", False))
         listEstCeldas.Add(New Celda("AplicarDescuentoVenta", False))
+        listEstCeldas.Add(New Celda("VerTodasVentas", False))
+        listEstCeldas.Add(New Celda("VerTodosVentasCierre", False))
+        listEstCeldas.Add(New Celda("ModificarRegistroAnteriores", False))
 
         Return listEstCeldas
     End Function
@@ -555,6 +576,9 @@ Public Class Tec_Users
             cbSucursal.Value = .GetValue("SucursalId")
             swModificarPrecio.Value = .GetValue("ModificarPrecioVenta")
             swModificarDescuento.Value = .GetValue("AplicarDescuentoVenta")
+            swModificarRegistros.Value = .GetValue("ModificarRegistroAnteriores")
+            swVentasTodos.Value = .GetValue("VerTodasVentas")
+            swCierreTodos.Value = .GetValue("VerTodosVentasCierre")
 
         End With
 
@@ -709,6 +733,10 @@ Public Class Tec_Users
     End Sub
 
     Private Sub JGrM_Buscador_FormattingRow(sender As Object, e As RowLoadEventArgs) Handles JGrM_Buscador.FormattingRow
+
+    End Sub
+
+    Private Sub LabelX11_Click(sender As Object, e As EventArgs) Handles LabelX11.Click
 
     End Sub
 

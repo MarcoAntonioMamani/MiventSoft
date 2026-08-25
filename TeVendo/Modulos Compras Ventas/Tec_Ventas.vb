@@ -1614,7 +1614,7 @@ salirIf:
 
     Public Function _PMOGetTablaBuscador() As DataTable
         Dim dtBuscador As DataTable
-        If gi_userRol = 1 Then
+        If gi_userRol = 1 Or Global_VentasTodos = 1 Then
             dtBuscador = L_prListarVentasGeneralFiltroFecha("MAM_Ventas", tbDesde.Value.ToString("yyyy/MM/dd"), tbHasta.Value.ToString("yyyy/MM/dd"), Global_Sucursal)
 
 
