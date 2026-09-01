@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="MeuOpciones.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>168, 103</value>
-  </metadata>
   <data name="cbPrecios_DesignTimeLayout.LayoutString" xml:space="preserve">
     <value>&lt;GridEXLayoutData&gt;&lt;RootTable&gt;&lt;GroupCondition /&gt;&lt;/RootTable&gt;&lt;RowWithErrorsFormatStyle&gt;&lt;PredefinedStyle&gt;RowWithErrorsFormatStyle&lt;/PredefinedStyle&gt;&lt;/RowWithErrorsFormatStyle&gt;&lt;LinkFormatStyle&gt;&lt;PredefinedStyle&gt;LinkFormatStyle&lt;/PredefinedStyle&gt;&lt;/LinkFormatStyle&gt;&lt;CardCaptionFormatStyle&gt;&lt;PredefinedStyle&gt;CardCaptionFormatStyle&lt;/PredefinedStyle&gt;&lt;/CardCaptionFormatStyle&gt;&lt;GroupByBoxFormatStyle&gt;&lt;PredefinedStyle&gt;GroupByBoxFormatStyle&lt;/PredefinedStyle&gt;&lt;/GroupByBoxFormatStyle&gt;&lt;GroupByBoxInfoFormatStyle&gt;&lt;PredefinedStyle&gt;GroupByBoxInfoFormatStyle&lt;/PredefinedStyle&gt;&lt;/GroupByBoxInfoFormatStyle&gt;&lt;GroupRowFormatStyle&gt;&lt;BackColor&gt;White&lt;/BackColor&gt;&lt;BackColorGradient&gt;White&lt;/BackColorGradient&gt;&lt;PredefinedStyle&gt;GroupRowFormatStyle&lt;/PredefinedStyle&gt;&lt;/GroupRowFormatStyle&gt;&lt;HeaderFormatStyle&gt;&lt;ForeColor&gt;Black&lt;/ForeColor&gt;&lt;BackColorGradient&gt;White&lt;/BackColorGradient&gt;&lt;Font&gt;Calibri, 9pt, style=Bold&lt;/Font&gt;&lt;PredefinedStyle&gt;HeaderFormatStyle&lt;/PredefinedStyle&gt;&lt;/HeaderFormatStyle&gt;&lt;PreviewRowFormatStyle&gt;&lt;PredefinedStyle&gt;PreviewRowFormatStyle&lt;/PredefinedStyle&gt;&lt;/PreviewRowFormatStyle&gt;&lt;RowFormatStyle&gt;&lt;PredefinedStyle&gt;RowFormatStyle&lt;/PredefinedStyle&gt;&lt;/RowFormatStyle&gt;&lt;SelectedFormatStyle&gt;&lt;BackColor&gt;Black&lt;/BackColor&gt;&lt;ForeColor&gt;White&lt;/ForeColor&gt;&lt;Font&gt;Calibri, 10.8pt, style=Bold&lt;/Font&gt;&lt;PredefinedStyle&gt;SelectedFormatStyle&lt;/PredefinedStyle&gt;&lt;/SelectedFormatStyle&gt;&lt;SelectedInactiveFormatStyle&gt;&lt;PredefinedStyle&gt;SelectedInactiveFormatStyle&lt;/PredefinedStyle&gt;&lt;/SelectedInactiveFormatStyle&gt;&lt;FocusCellFormatStyle&gt;&lt;BackColor&gt;Lime&lt;/BackColor&gt;&lt;Font&gt;Calibri, 9pt, style=Bold&lt;/Font&gt;&lt;PredefinedStyle&gt;FocusCellFormatStyle&lt;/PredefinedStyle&gt;&lt;/FocusCellFormatStyle&gt;&lt;GroupRowVisualStyle&gt;UseRowStyle&lt;/GroupRowVisualStyle&gt;&lt;WatermarkImage /&gt;&lt;AlternatingColors&gt;True&lt;/AlternatingColors&gt;&lt;GridLineColor&gt;DarkSlateGray&lt;/GridLineColor&gt;&lt;BorderStyle&gt;Sunken&lt;/BorderStyle&gt;&lt;ThemedAreas&gt;EditControls&lt;/ThemedAreas&gt;&lt;FlatBorderColor&gt;Black&lt;/FlatBorderColor&gt;&lt;BackColor&gt;White&lt;/BackColor&gt;&lt;ControlStyle&gt;&lt;ButtonAppearance&gt;PopUp&lt;/ButtonAppearance&gt;&lt;/ControlStyle&gt;&lt;VisualStyle&gt;Office2007&lt;/VisualStyle&gt;&lt;AllowEdit&gt;False&lt;/AllowEdit&gt;&lt;ExpandableGroups&gt;False&lt;/ExpandableGroups&gt;&lt;GridLines&gt;RowOutline&lt;/GridLines&gt;&lt;GroupByBoxVisible&gt;False&lt;/GroupByBoxVisible&gt;&lt;HideSelection&gt;Highlight&lt;/HideSelection&gt;&lt;/GridEXLayoutData&gt;</value>
   </data>
@@ -129,37 +126,42 @@
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="QrCodeImage.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAAHQAAAB0CAYAAABUmhYnAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAABmJJREFUeF7t0UFuI0cUBFHd/9L2/kFQIFFd1IhgALFxZP3mWF//fXgrvvwPH/42
-        nz/om/H5g74Znz/om/H5g74Znz/om/H5g74Z+Qf9+vp6qWJXud3F/W2LXHjwtmJXud3F/W2LXHjwtmJX
-        ud3F/W2LXHjwtmJXud3F/W2LXKwHV+q+XVfW97Wvfsp6PxfrwZW6b9eV9X3tq5+y3s/FenCl7tt1ZX1f
-        ++qnrPdzsR5cqft2XVnf1776Kev9XNRBeynVxX15St1beynVJRd10F5KdXFfnlL31l5KdclFHbSXUl3c
-        l6fUvbWXUl1yUQftpVQX9+UpdW/tpVSXXNRBeylPdy3cl7L2UqpLLuqgvZSnuxbuS1l7KdUlF3XQXsrT
-        XQv3pay9lOqSizpoL+XproX7UtZeSnXJRR20l1Jdnt7btai9vZTqkos6aC+lujy9t2tRe3sp1SUXddBe
-        SnV5em/Xovb2UqpLLuqgvZTq8vTerkXt7aVUl1ysB1eevl/3qkvtq5+y3s/FenDl6ft1r7rUvvop6/1c
-        rAdXnr5f96pL7aufst7PxXpw5en7da+61L76Kev9XHjwtvLX+m2LXHjwtvLX+m2LXHjwtvLX+m2LXHjw
-        tvLX+m2LXvwy/oNU7Lpy+v7V/PO/0P+hKnZdOX3/av75X+j/UBW7rpy+fzX//C/0f6iKXVdO37+a/IX1
-        D7Kr2MsV35diV6kutbdrkYs6aFexlyu+L8WuUl1qb9ciF3XQrmIvV3xfil2lutTerkUu6qBdxV6u+L4U
-        u0p1qb1di1x4cFWq38bvq6xdpbrMe/+DeHBVqt/G76usXaW6zHv/g3hwVarfxu+rrF2lusx7/4N4cFWq
-        38bvq6xdpbrMe/+D1EG7iv1UOe3iXmXtekpeqA/aVeynymkX9ypr11PyQn3QrmI/VU67uFdZu56SF+qD
-        dhX7qXLaxb3K2vWU+cL6A9zrbdbv1d6uhXuV6tILmD/wzY9e3p+yfq/2di3cq1SXXsD8gW9+9PL+lPV7
-        tbdr4V6luvQC5g9886OX96es36u9XQv3KtUlF3WwurhXsZ8q1cW9ir2U6pKLOlhd3KvYT5Xq4l7FXkp1
-        yUUdrC7uVeynSnVxr2Ivpbrkog5WF/cq9lOlurhXsZdSXXoB8we++dE/vbeXYlex/7ZSXXoB8we++dE/
-        vbeXYlex/7ZSXXoB8we++dE/vbeXYlex/7ZSXXoB8we++dE/vbeXYlex/7ZSXXoB9YHq4l5X6n11cV8W
-        ta9ezC/qg9XFva7U++rivixqX72YX9QHq4t7Xan31cV9WdS+ejG/qA9WF/e6Uu+ri/uyqH31Il/UB+yr
-        Yi+lujy9t2vhXotc1EH7qthLqS5P7+1auNciF3XQvir2UqrL03u7Fu61yEUdtK+KvZTq8vTeroV7LXoR
-        +MGnlepS+7WfKnZd2V+AP+BppbrUfu2nil1X9hfgD3haqS61X/upYteV/QX4A55Wqkvt136q2HVlf/Fi
-        /AeWK74vV3y/urK/eDH+A8sV35crvl9d2V+8GP+B5YrvyxXfr67sL16M/8Byxffliu9XV/KFH7it2HXF
-        9ypPdxW7Frnw4G3Friu+V3m6q9i1yIUHbyt2XfG9ytNdxa5FLjx4W7Hriu9Vnu4qdi1ysR5cqftrV7Gv
-        rvhenyYvXv8BcX/tKvbVFd/r0+TF6z8g7q9dxb664nt9mrx4/QfE/bWr2FdXfK9PkxfrB9hLqV6s792r
-        2E+9TX6hfpC9lOrF+t69iv3U2+QX6gfZS6lerO/dq9hPvU1+oX6QvZTqxfrevYr91NvkF+oH2UtZe3lK
-        3bOrVBf3WuSiDtpLWXt5St2zq1QX91rkog7aS1l7eUrds6tUF/da5KIO2ktZe3lK3bOrVBf3WuSiDtpL
-        ud0L36vYT5XqRb6oD9hLud0L36vYT5XqRb6oD9hLud0L36vYT5XqRb6oD9hLud0L36vYT5XqRb44/UCx
-        3nd/W7Fr4V5PyQtPf1DW++5vK3Yt3OspeeHpD8p63/1txa6Fez0lLzz9QVnvu7+t2LVwr6fkBT94W6ku
-        6/42/h4Vuxa58OBtpbqs+9v4e1TsWuTCg7eV6rLub+PvUbFrkQsP3laqy7q/jb9Hxa5FLz78KT5/0Dfj
-        8wd9Mz5/0Dfj8wd9Mz5/0Dfj8wd9Mz5/0Dfjf2kstU9npaCAAAAAAElFTkSuQmCC
+        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
 </value>
   </data>
+  <metadata name="MeuOpciones.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>168, 103</value>
+  </metadata>
   <metadata name="MHighlighterFocus.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 60</value>
   </metadata>
