@@ -1664,6 +1664,10 @@ salirIf:
         listEstCeldas.Add(New Celda("MonedaVenta", False))
         listEstCeldas.Add(New Celda("Estado", False))
         listEstCeldas.Add(New Celda("Facturado", False))
+        listEstCeldas.Add(New Celda("EstadoDespacho", False))
+        listEstCeldas.Add(New Celda("FechaDespacho", False))
+        listEstCeldas.Add(New Celda("Despachante", False))
+        listEstCeldas.Add(New Celda("TDespachado", False))
 
         listEstCeldas.Add(New Celda("Glosa", True, " Glosa", 200))
         listEstCeldas.Add(New Celda("NombreAlmacen", True, " Sucursal", 120))

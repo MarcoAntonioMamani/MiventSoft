@@ -126,6 +126,7 @@ Partial Class Tec_Principal
         Me.btnCerrarSesion = New DevComponents.DotNetBar.ButtonX()
         Me.PanelLine = New System.Windows.Forms.Panel()
         Me.imguser = New System.Windows.Forms.PictureBox()
+        Me.btnDespachoVenta = New DevComponents.DotNetBar.Metro.MetroTileItem()
         CType(Me.SuperTabControlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlMenu.SuspendLayout()
         Me.SuperTabControlPanel3.SuspendLayout()
@@ -161,12 +162,12 @@ Partial Class Tec_Principal
         Me.SuperTabControlMenu.ControlBox.MenuBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.Name = ""
         Me.SuperTabControlMenu.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControlMenu.ControlBox.MenuBox, Me.SuperTabControlMenu.ControlBox.CloseBox})
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
+        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel9)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel2)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel7)
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel9)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel8)
-        Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel5)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel10)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel6)
         Me.SuperTabControlMenu.Controls.Add(Me.SuperTabControlPanel1)
@@ -194,9 +195,9 @@ Partial Class Tec_Principal
         '
         Me.SuperTabControlPanel3.Controls.Add(Me.Panel_Configuracion)
         Me.SuperTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel3.Location = New System.Drawing.Point(190, 0)
+        Me.SuperTabControlPanel3.Location = New System.Drawing.Point(220, 0)
         Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
-        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(1268, 682)
+        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(1238, 682)
         Me.SuperTabControlPanel3.TabIndex = 3
         Me.SuperTabControlPanel3.TabItem = Me.tab_configuraciones
         '
@@ -221,7 +222,7 @@ Partial Class Tec_Principal
         Me.Panel_Configuracion.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel_Configuracion.MultiLine = True
         Me.Panel_Configuracion.Name = "Panel_Configuracion"
-        Me.Panel_Configuracion.Size = New System.Drawing.Size(1268, 682)
+        Me.Panel_Configuracion.Size = New System.Drawing.Size(1238, 682)
         Me.Panel_Configuracion.TabIndex = 3
         Me.Panel_Configuracion.Text = "mtp2Logistica"
         '
@@ -796,9 +797,9 @@ Partial Class Tec_Principal
         '
         Me.SuperTabControlPanel9.Controls.Add(Me.Panel_Distribucion)
         Me.SuperTabControlPanel9.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel9.Location = New System.Drawing.Point(190, 0)
+        Me.SuperTabControlPanel9.Location = New System.Drawing.Point(220, 0)
         Me.SuperTabControlPanel9.Name = "SuperTabControlPanel9"
-        Me.SuperTabControlPanel9.Size = New System.Drawing.Size(1268, 682)
+        Me.SuperTabControlPanel9.Size = New System.Drawing.Size(1238, 682)
         Me.SuperTabControlPanel9.TabIndex = 0
         Me.SuperTabControlPanel9.TabItem = Me.tab_distribucion
         '
@@ -823,7 +824,7 @@ Partial Class Tec_Principal
         Me.Panel_Distribucion.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel_Distribucion.MultiLine = True
         Me.Panel_Distribucion.Name = "Panel_Distribucion"
-        Me.Panel_Distribucion.Size = New System.Drawing.Size(1268, 682)
+        Me.Panel_Distribucion.Size = New System.Drawing.Size(1238, 682)
         Me.Panel_Distribucion.TabIndex = 7
         Me.Panel_Distribucion.Text = "mtp2Logistica"
         '
@@ -1046,7 +1047,7 @@ Partial Class Tec_Principal
         Me.SuperTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel5.Location = New System.Drawing.Point(220, 0)
         Me.SuperTabControlPanel5.Name = "SuperTabControlPanel5"
-        Me.SuperTabControlPanel5.Size = New System.Drawing.Size(1238, 693)
+        Me.SuperTabControlPanel5.Size = New System.Drawing.Size(1238, 682)
         Me.SuperTabControlPanel5.TabIndex = 5
         Me.SuperTabControlPanel5.TabItem = Me.tab_compraventa
         '
@@ -1071,7 +1072,7 @@ Partial Class Tec_Principal
         Me.Panel_Ventas.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel_Ventas.MultiLine = True
         Me.Panel_Ventas.Name = "Panel_Ventas"
-        Me.Panel_Ventas.Size = New System.Drawing.Size(1238, 693)
+        Me.Panel_Ventas.Size = New System.Drawing.Size(1238, 682)
         Me.Panel_Ventas.TabIndex = 4
         Me.Panel_Ventas.Text = "mtp2Logistica"
         '
@@ -1084,7 +1085,7 @@ Partial Class Tec_Principal
         Me.ItemContainer2.ItemSpacing = 10
         Me.ItemContainer2.MultiLine = True
         Me.ItemContainer2.Name = "ItemContainer2"
-        Me.ItemContainer2.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnProforma, Me.btVentVenta, Me.btVentReporteRealizada, Me.btVentGrafica, Me.btVentReporteVentaVsCosto, Me.btInvUtilidad, Me.btVentProdMasVendidos, Me.btVentRendimiento, Me.btnCredPago})
+        Me.ItemContainer2.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.btnProforma, Me.btVentVenta, Me.btVentReporteRealizada, Me.btVentGrafica, Me.btVentReporteVentaVsCosto, Me.btInvUtilidad, Me.btVentProdMasVendidos, Me.btVentRendimiento, Me.btnCredPago, Me.btnDespachoVenta})
         '
         '
         '
@@ -2186,6 +2187,29 @@ Partial Class Tec_Principal
         Me.imguser.TabIndex = 1
         Me.imguser.TabStop = False
         '
+        'btnDespachoVenta
+        '
+        Me.btnDespachoVenta.Image = Global.TeVendo.My.Resources.Resources.despacho
+        Me.btnDespachoVenta.ImageIndent = New System.Drawing.Point(-50, 0)
+        Me.btnDespachoVenta.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnDespachoVenta.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far
+        Me.btnDespachoVenta.Name = "btnDespachoVenta"
+        Me.btnDespachoVenta.SymbolColor = System.Drawing.Color.Black
+        Me.btnDespachoVenta.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Azure
+        Me.btnDespachoVenta.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btnDespachoVenta.TileStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnDespachoVenta.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(184, Byte), Integer), CType(CType(132, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(132, Byte), Integer))
+        Me.btnDespachoVenta.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Diagonal
+        Me.btnDespachoVenta.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnDespachoVenta.TileStyle.PaddingRight = 30
+        Me.btnDespachoVenta.TileStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.btnDespachoVenta.TitleText = "Despacho De" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Productos"
+        Me.btnDespachoVenta.TitleTextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnDespachoVenta.TitleTextColor = System.Drawing.Color.White
+        '
         'Tec_Principal
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -2320,4 +2344,5 @@ Partial Class Tec_Principal
     Friend WithEvents SuperTabControlPanel10 As DevComponents.DotNetBar.SuperTabControlPanel
     Friend WithEvents tab_InvProductos As DevComponents.DotNetBar.SuperTabItem
     Friend WithEvents PanelBuscador As Panel
+    Friend WithEvents btnDespachoVenta As DevComponents.DotNetBar.Metro.MetroTileItem
 End Class

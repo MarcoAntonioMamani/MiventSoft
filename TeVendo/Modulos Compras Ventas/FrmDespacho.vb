@@ -23,6 +23,7 @@ Public Class FrmDespacho
     Dim nameImg As String = "Default.jpg"
     Dim Lote As Boolean = False
     Dim IdVendedor As Integer = 0
+    Dim IdDespachador As Integer = 0
     Dim IdCliente As Integer = 0
 
 #End Region
@@ -50,6 +51,8 @@ Public Class FrmDespacho
                     .Caption = _MListEstBuscador.Item(i).titulo
                     .Width = _MListEstBuscador.Item(i).tamano
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                    .WordWrap = True
+                    .MaxLines = 2
 
                     Dim col As DataColumn = dtBuscador.Columns(campo)
                     Dim tipo As Type = col.DataType
@@ -725,55 +728,6 @@ Public Class FrmDespacho
 
     End Sub
 
-    Private Sub grdetalle_KeyDown(sender As Object, e As KeyEventArgs) Handles grDetalle.KeyDown
-        If (Not _fnAccesible()) Then
-            Return
-        End If
-
-        If (e.KeyData = Keys.Enter) Then
-            Dim f, c As Integer
-            c = grDetalle.Col
-            f = grDetalle.Row
-
-            If (grDetalle.Col = grDetalle.RootTable.Columns("Cantidad").Index) Then
-                If (grDetalle.GetValue("Producto") <> String.Empty) Then
-
-                    btnSeleccionarProducto.Focus()
-                Else
-                    ToastNotification.Show(Me, "Seleccione Producto", img, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                End If
-
-            End If
-            If (grDetalle.Col = grDetalle.RootTable.Columns("Producto").Index) Then
-                If (grDetalle.GetValue("Producto") <> String.Empty) Then
-
-                    btnSeleccionarProducto.Focus()
-                Else
-                    ToastNotification.Show(Me, "Seleccione un Producto", img, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                End If
-
-            End If
-salirIf:
-        End If
-
-        If (e.KeyData = Keys.Control + Keys.Enter And grDetalle.Row >= 0 And
-            grDetalle.Col = grDetalle.RootTable.Columns("Producto").Index) Then
-            Dim indexfil As Integer = grDetalle.Row
-            Dim indexcol As Integer = grDetalle.Col
-            btnSeleccionarProducto.Focus()
-
-        End If
-        If (e.KeyData = Keys.Escape And grDetalle.Row >= 0) Then
-
-            _prEliminarFila()
-
-
-        End If
-
-
-
-    End Sub
-
 
 
 
@@ -1185,47 +1139,47 @@ salirIf:
         '@StockMinimo ,@estado ,@CategoriaId ,@EmpresaId ,@ProveedorId ,@MarcaId ,
         '@AttributoId ,@FamiliaId ,
         '@UnidadVentaId ,@UnidadMaximaId ,@Conversion ,@newFecha,@newHora,@usuario )
-        btnSeleccionarProducto.Visible = True
-
+        'btnSeleccionarProducto.Visible = True
+        swEntregado.IsReadOnly = False
         tbGlosa.ReadOnly = False
-        If (Global_Sucursal >= 0) Then
+        'If (Global_Sucursal >= 0) Then
 
-            cbSucursal.ReadOnly = True
-        Else
+        '    cbSucursal.ReadOnly = True
+        'Else
 
-            cbSucursal.ReadOnly = False
-        End If
+        '    cbSucursal.ReadOnly = False
+        'End If
 
-        swTipoVenta.IsReadOnly = False
-        tbFechaVencimientoCredito.ReadOnly = False
-        tbFechaTransaccion.ReadOnly = False
+        'swTipoVenta.IsReadOnly = False
+        'tbFechaVencimientoCredito.ReadOnly = False
+        'tbFechaTransaccion.ReadOnly = False
 
-        If (Global_ModificarDescuento = 1) Then
-            tbMdesc.IsInputReadOnly = False
-            tbPdesc.IsInputReadOnly = False
-        Else
-            tbMdesc.IsInputReadOnly = True
-            tbPdesc.IsInputReadOnly = True
-        End If
+        'If (Global_ModificarDescuento = 1) Then
+        '    tbMdesc.IsInputReadOnly = False
+        '    tbPdesc.IsInputReadOnly = False
+        'Else
+        '    tbMdesc.IsInputReadOnly = True
+        '    tbPdesc.IsInputReadOnly = True
+        'End If
 
-        tbTotal.IsInputReadOnly = False
+        'tbTotal.IsInputReadOnly = False
 
-        'btnVendedor.Visible = True
-        btnCliente.Visible = True
-        BtnImprimir.Visible = False
-        tab_Cobro.Visible = False
+        ''btnVendedor.Visible = True
+        'btnCliente.Visible = True
+        'BtnImprimir.Visible = False
+        'tab_Cobro.Visible = False
 
-        lbPrecios.Visible = True
-        cbPrecios.Visible = True
+        'lbPrecios.Visible = True
+        'cbPrecios.Visible = True
 
     End Sub
 
     Public Sub _PMOInhabilitar()
         tbCodigo.ReadOnly = True
-        btnSeleccionarProducto.Visible = False
         tbVendedor.ReadOnly = True
         tbCliente.ReadOnly = True
         tbGlosa.ReadOnly = True
+        swEntregado.IsReadOnly = True
         tbTotal.IsInputReadOnly = True
         cbSucursal.ReadOnly = True
         swTipoVenta.IsReadOnly = True
@@ -1452,8 +1406,8 @@ salirIf:
 
 
         ef.tipo = 8
-        ef.titulo = "Comprobante de Venta"
-        ef.descripcion = "¿Desea Generar el Reporte de la Venta #" + Id + " ?"
+        ef.titulo = "Comprobante de Despacho"
+        ef.descripcion = "¿Desea Generar el Reporte del Despacho #" + Id + " ?"
         ef.ShowDialog()
         Dim bandera As Boolean = False
         bandera = ef.band
@@ -1473,7 +1427,7 @@ salirIf:
 
         ef.tipo = 3
         ef.titulo = "Confirmación de Eliminación"
-        ef.descripcion = "¿Esta Seguro de Eliminar la Venta " + tbCodigo.Text + " ?"
+        ef.descripcion = "¿Esta Seguro de Eliminar el Despacho " + tbCodigo.Text + " ?"
         ef.ShowDialog()
         Dim bandera As Boolean = False
         bandera = ef.band
@@ -1673,6 +1627,14 @@ salirIf:
         listEstCeldas.Add(New Celda("TarjetaBancaria", False))
         listEstCeldas.Add(New Celda("TransferenciaBancaria", False))
         listEstCeldas.Add(New Celda("TipoCambio", False))
+
+        listEstCeldas.Add(New Celda("EstadoDespacho", False))
+        listEstCeldas.Add(New Celda("TDespachado", True, "Estado Despacho", 200))
+        listEstCeldas.Add(New Celda("FechaDespacho", True, "Fecha Despacho", 120))
+        listEstCeldas.Add(New Celda("Despachante", True, "Despachante", 200))
+
+
+
         Return listEstCeldas
     End Function
 
@@ -1755,7 +1717,7 @@ salirIf:
 
                 IdCliente = fila01(0).Item("Id")
                 tbCliente.Text = fila01(0).Item("NombreCliente").ToString
-                btnSeleccionarProducto.Focus()
+
 
             End If
         End If
@@ -1848,29 +1810,6 @@ salirIf:
         btnSi.BackColor = Color.FromArgb(26, 179, 148)
     End Sub
 
-    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
-        Dim dtCierre As DataTable = L_prListarGeneral("MAM_CierreCajero")
-        Dim fila As DataRow()
-        If (Global_Sucursal > 0) Then
-
-            fila = dtCierre.Select("SucursalId=" + Str(Global_Sucursal) + " and EstadoCaja=1")
-        Else
-            fila = dtCierre.Select("EstadoCaja=1")
-        End If
-
-        If (Not IsDBNull(fila)) Then
-            If (fila.Count <= 0) Then
-
-                ToastNotification.Show(Me, "No Es Posible Hacer La Venta Por que no Existe Caja Chica con Estado Abierta", img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                Return
-            Else
-                TabControlPrincipal.SelectedTabIndex = 0
-                btnNuevo.PerformClick()
-            End If
-
-        End If
-
-    End Sub
 
     Private Sub JGrM_Buscador_KeyDown(sender As Object, e As KeyEventArgs) Handles JGrM_Buscador.KeyDown
         If (e.KeyCode = Keys.Enter) Then
@@ -2113,13 +2052,11 @@ salirIf:
             IdCliente = Row.Cells("ID").Value
             tbCliente.Text = Row.Cells("NombreProveedor").Value.ToString
 
-            btnSeleccionarProducto.Focus()
         Else
             If (ef.NewCliente) Then
                 IdCliente = ef.IdCliente
                 tbCliente.Text = ef.NombreCliente
 
-                btnSeleccionarProducto.Focus()
             End If
         End If
 
@@ -2197,7 +2134,7 @@ salirIf:
                 objrep.SetParameterValue("Monto", li)
                 objrep.SetParameterValue("Fecha", _FechaPar)
                 objrep.SetParameterValue("Total", Str(total))
-                objrep.SetParameterValue("TipoReporte", "NOTA DE VENTA")
+                objrep.SetParameterValue("TipoReporte", "NOTA DE DESPACHO")
                 P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
                 P_Global.Visualizador.CrGeneral.Zoom(130)
                 P_Global.Visualizador.Show() 'Comentar
@@ -2306,6 +2243,11 @@ salirIf:
     End Sub
     Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles BtnImprimir.Click
         If (Not _fnAccesible() And tbCodigo.Text <> String.Empty) Then
+            If (swEntregado.Value = False) Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "No se puede imprimir por que el despacho no esta entregado".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                Return
+            End If
             P_GenerarReporte(tbCodigo.Text)
 
         End If
@@ -2321,30 +2263,36 @@ salirIf:
     Private Sub VerToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles VerToolStripMenuItem1.Click
         If (JGrM_Buscador.Row >= 0) Then
             TabControlPrincipal.SelectedTabIndex = 0
-
+            ButtonX1.Enabled = False
+            ButtonX1.Visible = False
+            swEntregado.IsReadOnly = True
+            btnModificarEntregado.Visible = False
         End If
     End Sub
 
     Private Sub EditarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditarToolStripMenuItem.Click
         If (Global_ModificarRegistro = 0 And JGrM_Buscador.GetValue("FechaVenta") < Global_FechaActual) Then
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-            ToastNotification.Show(Me, "No puede Modificar Ventas Anteriores a la fecha de Hoy, Consulte con su Administrador".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            ToastNotification.Show(Me, "No puede Modificar Despachos Anteriores a la fecha de Hoy, Consulte con su Administrador".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
             Return
         End If
 
-        If (JGrM_Buscador.GetValue("CierreModulo") > 0) Then
-            ToastNotification.Show(Me, "No Es Posible Modificar La Venta Ya que Pertenece A un cierre De Caja Cerrado # " + Str(JGrM_Buscador.GetValue("CierreModulo")), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
-            Return
-        End If
+        'If (JGrM_Buscador.GetValue("CierreModulo") > 0) Then
+        '    ToastNotification.Show(Me, "No Es Posible Modificar Despachos Ya que Pertenece A un cierre De Caja Cerrado # " + Str(JGrM_Buscador.GetValue("CierreModulo")), img, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
+        '    Return
+        'End If
 
         If (JGrM_Buscador.Row >= 0) Then
             TabControlPrincipal.SelectedTabIndex = 0
-            btnModificar.PerformClick()
-
+            'btnModificar.PerformClick()
+            ButtonX1.Enabled = True
+            ButtonX1.Visible = True
+            swEntregado.IsReadOnly = False
+            btnModificarEntregado.Visible = True
         End If
     End Sub
 
-    Private Sub EliminarToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles EliminarToolStripMenuItem1.Click
+    Private Sub EliminarToolStripMenuItem1_Click(sender As Object, e As EventArgs)
 
 
         If (Global_ModificarRegistro = 0 And JGrM_Buscador.GetValue("FechaVenta") < Global_FechaActual) Then
@@ -2368,7 +2316,7 @@ salirIf:
 
     End Sub
 
-    Private Sub btnSeleccionarProducto_Click(sender As Object, e As EventArgs) Handles btnSeleccionarProducto.Click
+    Private Sub btnSeleccionarProducto_Click(sender As Object, e As EventArgs)
         Dim ef = New Efecto
         ef.tipo = 16
         ef.dtDetalle = CType(grDetalle.DataSource, DataTable)
@@ -2414,19 +2362,11 @@ salirIf:
         End If
     End Sub
 
-    Private Sub LabelX19_Click(sender As Object, e As EventArgs) Handles LabelX19.Click
+    Private Sub LabelX19_Click(sender As Object, e As EventArgs)
 
     End Sub
 
-    Private Sub swFacturado_ValueChanged(sender As Object, e As EventArgs) Handles swFacturado.ValueChanged
-        If (swFacturado.Value = False) Then
-            GpanelFacturado.Visible = False
-            TabFacturado.Visible = False
-        Else
-            GpanelFacturado.Visible = True
-            TabFacturado.Visible = True
-        End If
-    End Sub
+
 
     Private Sub DoubleInput1_ValueChanged(sender As Object, e As EventArgs) Handles tbSubTotal.ValueChanged
 
@@ -2478,6 +2418,46 @@ salirIf:
 
 
         End If
+
+    End Sub
+
+    Private Sub btnSi_Paint(sender As Object, e As PaintEventArgs) Handles btnSi.Paint
+
+    End Sub
+
+    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
+        Dim dt As DataTable
+
+        dt = ListarPersonal()
+        'a.Id ,a.NombreProveedor ,a.Direccion ,a.Telefono01
+
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("Id,", False, "ID", 50))
+        listEstCeldas.Add(New Celda("Nombre", True, "NOMBRE", 350))
+        listEstCeldas.Add(New Celda("Direccion", True, "DIRECCION", 180))
+        listEstCeldas.Add(New Celda("Telefono01", True, "Telefono".ToUpper, 200))
+        Dim ef = New Efecto
+        ef.tipo = 6
+        ef.dt = dt
+        ef.SeleclCol = 2
+        ef.listEstCeldasNew = listEstCeldas
+        ef.alto = 50
+        ef.ancho = 350
+        ef.Context = "Seleccione Despachador".ToUpper
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+            IdDespachador = Row.Cells("Id").Value
+            tbDespachador.Text = Row.Cells("Nombre").Value
+            swEntregado.Focus()
+
+        End If
+    End Sub
+
+    Private Sub btnModificarEntregado_Click(sender As Object, e As EventArgs) Handles btnModificarEntregado.Click
 
     End Sub
 #End Region
