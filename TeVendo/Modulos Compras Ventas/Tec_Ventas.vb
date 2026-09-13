@@ -1678,6 +1678,15 @@ salirIf:
         listEstCeldas.Add(New Celda("TarjetaBancaria", False))
         listEstCeldas.Add(New Celda("TransferenciaBancaria", False))
         listEstCeldas.Add(New Celda("TipoCambio", False))
+
+
+        listEstCeldas.Add(New Celda("EstadoDespacho", False))
+        listEstCeldas.Add(New Celda("TDespachado", True, "Estado Despacho", 200))
+        listEstCeldas.Add(New Celda("FechaDespacho", False))
+        listEstCeldas.Add(New Celda("Despachante", True, "Despachante", 200))
+        listEstCeldas.Add(New Celda("PersonalDespachadorId", False))
+        listEstCeldas.Add(New Celda("ObservacionDespacho", False))
+
         Return listEstCeldas
     End Function
 

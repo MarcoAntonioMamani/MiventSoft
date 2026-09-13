@@ -80,11 +80,19 @@ Public Class FrmDespacho
             .Height = 200
         End With
 
-
+        _prAplicarCondiccionJanusCreditoPendientes()
 
     End Sub
 
+    Public Sub _prAplicarCondiccionJanusCreditoPendientes()
+        Dim fc As GridEXFormatCondition
+        fc = New GridEXFormatCondition(JGrM_Buscador.RootTable.Columns("EstadoDespacho"), ConditionOperator.Equal, 0)
+        fc.FormatStyle.BackColor = Color.Red
+        fc.FormatStyle.ForeColor = Color.White
+        fc.FormatStyle.FontBold = TriState.True
+        JGrM_Buscador.RootTable.FormatConditions.Add(fc)
 
+    End Sub
     Public Sub _PMInhabilitar()
         btnNuevo.Visible = False
         btnModificar.Visible = False
@@ -1632,7 +1640,8 @@ Public Class FrmDespacho
         listEstCeldas.Add(New Celda("TDespachado", True, "Estado Despacho", 200))
         listEstCeldas.Add(New Celda("FechaDespacho", True, "Fecha Despacho", 120))
         listEstCeldas.Add(New Celda("Despachante", True, "Despachante", 200))
-
+        listEstCeldas.Add(New Celda("PersonalDespachadorId", False))
+        listEstCeldas.Add(New Celda("ObservacionDespacho", False))
 
 
         Return listEstCeldas
@@ -1672,7 +1681,10 @@ Public Class FrmDespacho
             TipoCambio = .GetValue("TipoCambio")
             tbTotalPagado.Value = tbMontoBs.Value + (tbMontoDolar.Value * TipoCambio) + tbTransferencia.Value + tbTarjeta.Value
             lbTipoCambio.Text = "Tipo Cambio = " + Str(TipoCambio)
-
+            swEntregado.Value = .GetValue("EstadoDespacho")
+            IdDespachador = .GetValue("PersonalDespachadorId")
+            tbDespachador.Text = .GetValue("Despachante")
+            tbDespacho.Text = .GetValue("ObservacionDespacho")
         End With
 
         _prCargarDetalleVenta(tbCodigo.Text)
@@ -2456,8 +2468,36 @@ Public Class FrmDespacho
 
         End If
     End Sub
-
     Private Sub btnModificarEntregado_Click(sender As Object, e As EventArgs) Handles btnModificarEntregado.Click
+
+        Dim Res As Boolean
+        If (IdDespachador > 0) Then
+            Res = VentaInsertarDespacho(tbCodigo.Text, tbDespacho.Text, IdDespachador, IIf(swEntregado.Value = True, 1, 0))
+
+            If (Res) Then
+                IdDespachador = 0
+
+                ToastNotification.Show(Me, "Despacho Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                TabControlPrincipal.SelectedTabIndex = 1
+                'btnModificar.PerformClick()
+                ButtonX1.Enabled = False
+                ButtonX1.Visible = False
+                swEntregado.IsReadOnly = True
+                btnModificarEntregado.Visible = False
+                tbDespachador.Text = ""
+                _PMCargarBuscador()
+
+            Else
+                ToastNotification.Show(Me, "Hubo un Error al guardar el despacho".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+
+            End If
+
+
+        Else
+            ToastNotification.Show(Me, "Debe Seleccionar un Despachador".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+        End If
+
+
 
     End Sub
 #End Region

@@ -206,15 +206,18 @@ Public Class Tec_AdministrarCuentasPorCobrar
         dt = L_prListarCreditosPagadosCliente()
 
         If gi_userRol <> 1 Then
-            Dim dt2 As DataTable = dt.Copy
-            dt2.Rows.Clear()
-            For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            If (Global_VentasTodos <> 1) Then
+                Dim dt2 As DataTable = dt.Copy
+                dt2.Rows.Clear()
+                For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
-                If (dt.Rows(i).Item("PersonalId") = Global_IdPersonal) Then
-                    dt2.ImportRow(dt.Rows(i))
-                End If
-            Next
-            dt = dt2
+                    If (dt.Rows(i).Item("PersonalId") = Global_IdPersonal) Then
+                        dt2.ImportRow(dt.Rows(i))
+                    End If
+                Next
+                dt = dt2
+            End If
+
         End If
 
 
@@ -308,15 +311,21 @@ Public Class Tec_AdministrarCuentasPorCobrar
 
 
         If gi_userRol <> 1 Then
-            Dim dt2 As DataTable = dt.Copy
-            dt2.Rows.Clear()
-            For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
-                If (dt.Rows(i).Item("PersonalId") = Global_IdPersonal) Then
-                    dt2.ImportRow(dt.Rows(i))
-                End If
-            Next
-            dt = dt2
+            If (Global_VentasTodos <> 1) Then
+
+                Dim dt2 As DataTable = dt.Copy
+                dt2.Rows.Clear()
+                For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+
+                    If (dt.Rows(i).Item("PersonalId") = Global_IdPersonal) Then
+                        dt2.ImportRow(dt.Rows(i))
+                    End If
+                Next
+                dt = dt2
+
+            End If
+
         End If
 
 
@@ -619,15 +628,18 @@ Public Class Tec_AdministrarCuentasPorCobrar
 
 
         If gi_userRol <> 1 Then
-            Dim dt2 As DataTable = dt.Copy
-            dt2.Rows.Clear()
-            For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            If (Global_VentasTodos <> 1) Then
+                Dim dt2 As DataTable = dt.Copy
+                dt2.Rows.Clear()
+                For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
-                If (dt.Rows(i).Item("PersonalId") = Global_IdPersonal) Then
-                    dt2.ImportRow(dt.Rows(i))
-                End If
-            Next
-            dt = dt2
+                    If (dt.Rows(i).Item("PersonalId") = Global_IdPersonal) Then
+                        dt2.ImportRow(dt.Rows(i))
+                    End If
+                Next
+                dt = dt2
+            End If
+
         End If
 
 
@@ -869,15 +881,18 @@ Public Class Tec_AdministrarCuentasPorCobrar
 
         dt = L_prListarPagosTodosCuentasPorCobrar()
         If gi_userRol <> 1 Then
-            Dim dt2 As DataTable = dt.Copy
-            dt2.Rows.Clear()
-            For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            If (Global_VentasTodos <> 1) Then
+                Dim dt2 As DataTable = dt.Copy
+                dt2.Rows.Clear()
+                For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
-                If (dt.Rows(i).Item("PersonalId") = Global_IdPersonal) Then
-                    dt2.ImportRow(dt.Rows(i))
-                End If
-            Next
-            dt = dt2
+                    If (dt.Rows(i).Item("PersonalId") = Global_IdPersonal) Then
+                        dt2.ImportRow(dt.Rows(i))
+                    End If
+                Next
+                dt = dt2
+            End If
+
         End If
         'Credito Compra	Nombre	Monto	abonado	Restante	FechaVencimientoCredito	DiasMora
 
