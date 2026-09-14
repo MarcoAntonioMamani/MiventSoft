@@ -1955,6 +1955,44 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
+    ''El detalle de la grilla (grDetalle en Tec_ComprasDetalle.vb/Tec_Compras.vb) ahora trae
+    ''columnas extra que solo se usan para mostrar/calcular en pantalla (UnidadVentaId,
+    ''UnidadVenta, UnidadMaximaId, UnidadMaxima, Conversion, CantidadCaja), pero el TVP
+    ''@detalle (CompraDetalleType) sigue esperando exactamente las mismas 17 columnas de
+    ''siempre. Sin esta proyeccion, ComprasInsertar/ComprasModificar fallarian con el mismo
+    ''error que ya vimos en Movimientos ("Trying to pass a table-valued parameter with N
+    ''column(s) where the corresponding user-defined table type requires M column(s)").
+    Private Shared Function _fnProyectarDetalleCompra(_dtDetalle As DataTable) As DataTable
+        Dim _dtTvp As New DataTable
+        _dtTvp.Columns.Add("Id", GetType(Integer))
+        _dtTvp.Columns.Add("CompraId", GetType(Integer))
+        _dtTvp.Columns.Add("ProductoId", GetType(Integer))
+        _dtTvp.Columns.Add("Producto", GetType(String))
+        _dtTvp.Columns.Add("CantidadCompra", GetType(Decimal))
+        _dtTvp.Columns.Add("PorcentajeIncremento", GetType(Decimal))
+        _dtTvp.Columns.Add("CantidadIncremento", GetType(Decimal))
+        _dtTvp.Columns.Add("Cantidad", GetType(Decimal))
+        _dtTvp.Columns.Add("PrecioCosto", GetType(Decimal))
+        _dtTvp.Columns.Add("Lote", GetType(String))
+        _dtTvp.Columns.Add("FechaVencimiento", GetType(Date))
+        _dtTvp.Columns.Add("TotalCompra", GetType(Decimal))
+        _dtTvp.Columns.Add("PrecioVenta", GetType(Decimal))
+        _dtTvp.Columns.Add("estado", GetType(Integer))
+        _dtTvp.Columns.Add("img", GetType(Byte()))
+        _dtTvp.Columns.Add("costo", GetType(Decimal))
+        _dtTvp.Columns.Add("venta", GetType(Decimal))
+
+        For Each _fila As DataRow In _dtDetalle.Rows
+            _dtTvp.Rows.Add(_fila("Id"), _fila("CompraId"), _fila("ProductoId"), _fila("Producto"),
+                            CDec(_fila("CantidadCompra")), CDec(_fila("PorcentajeIncremento")), CDec(_fila("CantidadIncremento")),
+                            CDec(_fila("Cantidad")), CDec(_fila("PrecioCosto")), _fila("Lote"), _fila("FechaVencimiento"),
+                            CDec(_fila("TotalCompra")), CDec(_fila("PrecioVenta")), _fila("estado"), _fila("img"),
+                            CDec(_fila("costo")), CDec(_fila("venta")))
+        Next
+
+        Return _dtTvp
+    End Function
+
     Public Shared Function ComprasInsertar(ByRef _numi As String, AlmacenId As Integer,
                                            FechaTransacccion As String, ProveedorId As Integer, TipoVenta As Integer,
        FechaVencCredito As String, Moneda As Integer, estado As Integer, glosa As String,
@@ -1982,7 +2020,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@TotalCompra", TotalCompra))
         _listParam.Add(New Datos.DParametro("@EmpresaId", EmpresaId))
         _listParam.Add(New Datos.DParametro("@Descuento", Descuento))
-        _listParam.Add(New Datos.DParametro("@detalle", "", _dtDetalle))
+        _listParam.Add(New Datos.DParametro("@detalle", "", _fnProyectarDetalleCompra(_dtDetalle)))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("MAM_Compras", _listParam)
@@ -2026,7 +2064,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@TotalCompra", TotalCompra))
         _listParam.Add(New Datos.DParametro("@EmpresaId", EmpresaId))
 
-        _listParam.Add(New Datos.DParametro("@detalle", "", _dtDetalle))
+        _listParam.Add(New Datos.DParametro("@detalle", "", _fnProyectarDetalleCompra(_dtDetalle)))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("MAM_Compras", _listParam)

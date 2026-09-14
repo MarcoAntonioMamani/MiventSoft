@@ -475,15 +475,20 @@ Public Class Efecto
         End If
     End Sub
 
+    ''Formulario_Cantidad_Lote pregunta en un solo paso: Cantidad (Unidad/Caja, igual que
+    ''FormularioCantidadProductos), Lote y Fecha de Vencimiento.
     Sub _prMostrarFormularioCantidadLote()
         Dim frmAyuda As Formulario_Cantidad_Lote
         frmAyuda = New Formulario_Cantidad_Lote
         frmAyuda.NombreProducto = NombreProducto
         frmAyuda.CantidadTotal = StockActual
+        frmAyuda.Conversion = Conversion
+        frmAyuda.UnidadMinNombre = UnidadMinNombre
+        frmAyuda.UnidadMaxNombre = UnidadMaxNombre
         frmAyuda.ShowDialog()
         If frmAyuda.respuesta = True Then
-            Lote = frmAyuda.Lote
             CantidadTransaccion = frmAyuda.CantidadVenta
+            Lote = frmAyuda.Lote
             FechaVencimiento = frmAyuda.Fecha
             band = True
             Me.Close()

@@ -36,6 +36,8 @@ Partial Class Formulario_Cantidad_Lote
         Me.tbLote = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.cbFecha = New Janus.Windows.CalendarCombo.CalendarCombo()
+        Me.tbCantidadCaja = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelCaja = New System.Windows.Forms.Label()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.btnNo.SuspendLayout()
         Me.btnSi.SuspendLayout()
@@ -82,7 +84,7 @@ Partial Class Formulario_Cantidad_Lote
         Me.btnNo.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.btnNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.btnNo.Controls.Add(Me.Label4)
-        Me.btnNo.Location = New System.Drawing.Point(130, 429)
+        Me.btnNo.Location = New System.Drawing.Point(130, 477)
         Me.btnNo.Name = "btnNo"
         Me.btnNo.Size = New System.Drawing.Size(156, 50)
         Me.btnNo.TabIndex = 13
@@ -103,10 +105,10 @@ Partial Class Formulario_Cantidad_Lote
         Me.btnSi.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(179, Byte), Integer), CType(CType(148, Byte), Integer))
         Me.btnSi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.btnSi.Controls.Add(Me.Label3)
-        Me.btnSi.Location = New System.Drawing.Point(344, 429)
+        Me.btnSi.Location = New System.Drawing.Point(344, 477)
         Me.btnSi.Name = "btnSi"
         Me.btnSi.Size = New System.Drawing.Size(156, 50)
-        Me.btnSi.TabIndex = 3
+        Me.btnSi.TabIndex = 4
         '
         'Label3
         '
@@ -188,12 +190,12 @@ Partial Class Formulario_Cantidad_Lote
         Me.tbLote.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbLote.Font = New System.Drawing.Font("Calibri", 16.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbLote.ForeColor = System.Drawing.Color.Black
-        Me.tbLote.Location = New System.Drawing.Point(332, 295)
+        Me.tbLote.Location = New System.Drawing.Point(332, 343)
         Me.tbLote.Margin = New System.Windows.Forms.Padding(4)
         Me.tbLote.Name = "tbLote"
         Me.tbLote.PreventEnterBeep = True
         Me.tbLote.Size = New System.Drawing.Size(206, 40)
-        Me.tbLote.TabIndex = 1
+        Me.tbLote.TabIndex = 2
         Me.tbLote.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label5
@@ -201,7 +203,7 @@ Partial Class Formulario_Cantidad_Lote
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Calibri", 16.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(89, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(89, Byte), Integer))
-        Me.Label5.Location = New System.Drawing.Point(165, 352)
+        Me.Label5.Location = New System.Drawing.Point(165, 400)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(151, 35)
         Me.Label5.TabIndex = 21
@@ -230,18 +232,53 @@ Partial Class Formulario_Cantidad_Lote
         Me.cbFecha.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
         Me.cbFecha.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
         Me.cbFecha.Font = New System.Drawing.Font("Calibri", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbFecha.Location = New System.Drawing.Point(332, 352)
+        Me.cbFecha.Location = New System.Drawing.Point(332, 400)
         Me.cbFecha.Name = "cbFecha"
         Me.cbFecha.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
         Me.cbFecha.Office2007CustomColor = System.Drawing.Color.Turquoise
         Me.cbFecha.SecondIncrement = 10
         Me.cbFecha.Size = New System.Drawing.Size(206, 36)
-        Me.cbFecha.TabIndex = 2
+        Me.cbFecha.TabIndex = 3
         Me.cbFecha.TodayButtonText = "Hoy"
         Me.cbFecha.UseCompatibleTextRendering = False
         Me.cbFecha.Value = New Date(2020, 6, 21, 0, 0, 0, 0)
         Me.cbFecha.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
         Me.cbFecha.YearIncrement = 10
+        '
+        'tbCantidadCaja
+        '
+        '
+        '
+        '
+        Me.tbCantidadCaja.Border.BackColor = System.Drawing.Color.MediumVioletRed
+        Me.tbCantidadCaja.Border.BackColor2 = System.Drawing.Color.MediumTurquoise
+        Me.tbCantidadCaja.Border.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Dot
+        Me.tbCantidadCaja.Border.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Dot
+        Me.tbCantidadCaja.Border.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Dot
+        Me.tbCantidadCaja.Border.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Dot
+        Me.tbCantidadCaja.Border.Class = "TextBoxBorder"
+        Me.tbCantidadCaja.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCantidadCaja.Font = New System.Drawing.Font("Calibri", 16.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbCantidadCaja.ForeColor = System.Drawing.Color.Black
+        Me.tbCantidadCaja.Location = New System.Drawing.Point(332, 295)
+        Me.tbCantidadCaja.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbCantidadCaja.Name = "tbCantidadCaja"
+        Me.tbCantidadCaja.PreventEnterBeep = True
+        Me.tbCantidadCaja.Size = New System.Drawing.Size(206, 40)
+        Me.tbCantidadCaja.TabIndex = 1
+        Me.tbCantidadCaja.Text = "0"
+        Me.tbCantidadCaja.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'LabelCaja
+        '
+        Me.LabelCaja.AutoSize = True
+        Me.LabelCaja.Font = New System.Drawing.Font("Calibri", 16.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelCaja.ForeColor = System.Drawing.Color.FromArgb(CType(CType(89, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(89, Byte), Integer))
+        Me.LabelCaja.Location = New System.Drawing.Point(162, 297)
+        Me.LabelCaja.Name = "LabelCaja"
+        Me.LabelCaja.Size = New System.Drawing.Size(151, 35)
+        Me.LabelCaja.TabIndex = 22
+        Me.LabelCaja.Text = "Cantidad Caja:"
         '
         'MHighlighterFocus
         '
@@ -253,11 +290,13 @@ Partial Class Formulario_Cantidad_Lote
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(671, 556)
+        Me.ClientSize = New System.Drawing.Size(671, 604)
         Me.Controls.Add(Me.cbFecha)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.tbLote)
+        Me.Controls.Add(Me.LabelCaja)
+        Me.Controls.Add(Me.tbCantidadCaja)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.tbCantidad)
         Me.Controls.Add(Me.txtStock)
@@ -294,5 +333,7 @@ Partial Class Formulario_Cantidad_Lote
     Friend WithEvents tbLote As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents Label5 As Label
     Friend WithEvents cbFecha As Janus.Windows.CalendarCombo.CalendarCombo
+    Friend WithEvents tbCantidadCaja As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents LabelCaja As Label
     Protected WithEvents MHighlighterFocus As DevComponents.DotNetBar.Validator.Highlighter
 End Class

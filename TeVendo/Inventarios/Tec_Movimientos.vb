@@ -362,7 +362,7 @@ Public Class Tec_Movimientos
         End With
         With grDetalle.RootTable.Columns("UnidadMaxima")
             .Width = 90
-            .Visible = True
+            .Visible = False
             .Caption = "Unidad Caja".ToUpper
         End With
         With grDetalle.RootTable.Columns("Conversion")
@@ -470,7 +470,7 @@ Public Class Tec_Movimientos
             Dim Bin As New MemoryStream
             Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
             img.Save(Bin, Imaging.ImageFormat.Png)
-                CType(grDetalle.DataSource, DataTable).Rows(i).Item("img") = Bin.GetBuffer
+            CType(grDetalle.DataSource, DataTable).Rows(i).Item("img") = Bin.GetBuffer
 
 
         Next
