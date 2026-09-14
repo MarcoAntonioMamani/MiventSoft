@@ -21,6 +21,9 @@ Public Class Efecto
     Public StockActual As Double
     Public CantidadTransaccion As Double
     Public TipoMovimiento As Integer
+    Public Conversion As Double = 1
+    Public UnidadMinNombre As String = "UNIDAD"
+    Public UnidadMaxNombre As String = "CAJA"
     Public NewCliente As Boolean = False
     Public IdCliente As Integer
     Public NombreCliente As String
@@ -457,6 +460,9 @@ Public Class Efecto
         frmAyuda.NombreProducto = NombreProducto
         frmAyuda.CantidadTotal = StockActual
         frmAyuda.TipoMovimiento = TipoMovimiento
+        frmAyuda.Conversion = Conversion
+        frmAyuda.UnidadMinNombre = UnidadMinNombre
+        frmAyuda.UnidadMaxNombre = UnidadMaxNombre
         frmAyuda.ShowDialog()
         If frmAyuda.respuesta = True Then
 

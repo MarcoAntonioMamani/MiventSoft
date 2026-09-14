@@ -31,6 +31,9 @@ Partial Class FormularioCantidadProductos
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.txtStock = New System.Windows.Forms.Label()
         Me.tbCantidad = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.lblUnidadMin = New System.Windows.Forms.Label()
+        Me.tbCantidadCaja = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.lblUnidadMax = New System.Windows.Forms.Label()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
         Me.btnNo.SuspendLayout()
         Me.btnSi.SuspendLayout()
@@ -42,7 +45,7 @@ Partial Class FormularioCantidadProductos
         Me.btnNo.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.btnNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.btnNo.Controls.Add(Me.Label4)
-        Me.btnNo.Location = New System.Drawing.Point(116, 302)
+        Me.btnNo.Location = New System.Drawing.Point(116, 350)
         Me.btnNo.Name = "btnNo"
         Me.btnNo.Size = New System.Drawing.Size(156, 50)
         Me.btnNo.TabIndex = 2
@@ -63,7 +66,7 @@ Partial Class FormularioCantidadProductos
         Me.btnSi.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(179, Byte), Integer), CType(CType(148, Byte), Integer))
         Me.btnSi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.btnSi.Controls.Add(Me.Label3)
-        Me.btnSi.Location = New System.Drawing.Point(330, 302)
+        Me.btnSi.Location = New System.Drawing.Point(330, 350)
         Me.btnSi.Name = "btnSi"
         Me.btnSi.Size = New System.Drawing.Size(156, 50)
         Me.btnSi.TabIndex = 1
@@ -137,14 +140,60 @@ Partial Class FormularioCantidadProductos
         Me.tbCantidad.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbCantidad.Font = New System.Drawing.Font("Calibri", 25.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbCantidad.ForeColor = System.Drawing.Color.Black
-        Me.tbCantidad.Location = New System.Drawing.Point(183, 232)
+        Me.tbCantidad.Location = New System.Drawing.Point(76, 254)
         Me.tbCantidad.Margin = New System.Windows.Forms.Padding(4)
         Me.tbCantidad.Name = "tbCantidad"
         Me.tbCantidad.PreventEnterBeep = True
-        Me.tbCantidad.Size = New System.Drawing.Size(206, 60)
+        Me.tbCantidad.Size = New System.Drawing.Size(200, 60)
         Me.tbCantidad.TabIndex = 0
         Me.tbCantidad.Text = "0"
         Me.tbCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblUnidadMin
+        '
+        Me.lblUnidadMin.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblUnidadMin.ForeColor = System.Drawing.Color.FromArgb(CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer))
+        Me.lblUnidadMin.Location = New System.Drawing.Point(76, 232)
+        Me.lblUnidadMin.Name = "lblUnidadMin"
+        Me.lblUnidadMin.Size = New System.Drawing.Size(200, 20)
+        Me.lblUnidadMin.TabIndex = 11
+        Me.lblUnidadMin.Text = "UNIDAD"
+        Me.lblUnidadMin.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'tbCantidadCaja
+        '
+        '
+        '
+        '
+        Me.tbCantidadCaja.Border.BackColor = System.Drawing.Color.MediumVioletRed
+        Me.tbCantidadCaja.Border.BackColor2 = System.Drawing.Color.MediumTurquoise
+        Me.tbCantidadCaja.Border.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Dot
+        Me.tbCantidadCaja.Border.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Dot
+        Me.tbCantidadCaja.Border.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Dot
+        Me.tbCantidadCaja.Border.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Dot
+        Me.tbCantidadCaja.Border.Class = "TextBoxBorder"
+        Me.tbCantidadCaja.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCantidadCaja.Font = New System.Drawing.Font("Calibri", 25.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbCantidadCaja.ForeColor = System.Drawing.Color.Black
+        Me.tbCantidadCaja.Location = New System.Drawing.Point(296, 254)
+        Me.tbCantidadCaja.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbCantidadCaja.Name = "tbCantidadCaja"
+        Me.tbCantidadCaja.PreventEnterBeep = True
+        Me.tbCantidadCaja.Size = New System.Drawing.Size(200, 60)
+        Me.tbCantidadCaja.TabIndex = 12
+        Me.tbCantidadCaja.Text = "0"
+        Me.tbCantidadCaja.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblUnidadMax
+        '
+        Me.lblUnidadMax.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblUnidadMax.ForeColor = System.Drawing.Color.FromArgb(CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer))
+        Me.lblUnidadMax.Location = New System.Drawing.Point(296, 232)
+        Me.lblUnidadMax.Name = "lblUnidadMax"
+        Me.lblUnidadMax.Size = New System.Drawing.Size(200, 20)
+        Me.lblUnidadMax.TabIndex = 13
+        Me.lblUnidadMax.Text = "CAJA"
+        Me.lblUnidadMax.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'MHighlighterFocus
         '
@@ -156,7 +205,10 @@ Partial Class FormularioCantidadProductos
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(571, 401)
+        Me.ClientSize = New System.Drawing.Size(571, 440)
+        Me.Controls.Add(Me.lblUnidadMax)
+        Me.Controls.Add(Me.tbCantidadCaja)
+        Me.Controls.Add(Me.lblUnidadMin)
         Me.Controls.Add(Me.tbCantidad)
         Me.Controls.Add(Me.txtStock)
         Me.Controls.Add(Me.btnNo)
@@ -187,5 +239,8 @@ Partial Class FormularioCantidadProductos
     Friend WithEvents txtTitulo As Label
     Friend WithEvents txtStock As Label
     Friend WithEvents tbCantidad As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents lblUnidadMin As Label
+    Friend WithEvents tbCantidadCaja As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents lblUnidadMax As Label
     Protected WithEvents MHighlighterFocus As DevComponents.DotNetBar.Validator.Highlighter
 End Class

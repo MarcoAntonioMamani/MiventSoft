@@ -2044,6 +2044,36 @@ Public Class AccesoLogica
 #End Region
 #Region "Movimientos TecBrinc"
 
+    ''El detalle que arma la grilla (grDetalle) ahora trae columnas extra que solo se usan para
+    ''mostrar/calcular en pantalla (CodigoBarras, UnidadVentaId, UnidadVenta, UnidadMaximaId,
+    ''UnidadMaxima, Conversion, precio, Total, CantidadCaja), pero el TVP @detalle sigue siendo
+    ''del tipo MovimientoDetalleType, que solo tiene sus 10 columnas originales, en un orden fijo
+    ''(un TVP se enlaza por posicion, no por nombre de columna). Si se manda la tabla de la
+    ''grilla tal cual, con mas columnas que el tipo, SQL Server rechaza el parametro
+    ''("Trying to pass a table-valued parameter with N column(s) where the corresponding
+    ''user-defined table type requires 10 column(s)"). Por eso se arma una copia acotada a esas
+    ''10 columnas, en el orden que espera MovimientoDetalleType, antes de mandarla al SP.
+    Private Shared Function _fnProyectarDetalleMovimiento(_dtDetalle As DataTable) As DataTable
+        Dim _dtTvp As New DataTable
+        _dtTvp.Columns.Add("Id", GetType(Integer))
+        _dtTvp.Columns.Add("MovimientoId", GetType(Integer))
+        _dtTvp.Columns.Add("ProductoId", GetType(Integer))
+        _dtTvp.Columns.Add("Producto", GetType(String))
+        _dtTvp.Columns.Add("Cantidad", GetType(Decimal))
+        _dtTvp.Columns.Add("Lote", GetType(String))
+        _dtTvp.Columns.Add("FechaVencimiento", GetType(Date))
+        _dtTvp.Columns.Add("img", GetType(Byte()))
+        _dtTvp.Columns.Add("estado", GetType(Integer))
+        _dtTvp.Columns.Add("stock", GetType(Double))
+
+        For Each _fila As DataRow In _dtDetalle.Rows
+            _dtTvp.Rows.Add(_fila("Id"), _fila("MovimientoId"), _fila("ProductoId"), _fila("Producto"), CDec(_fila("Cantidad")),
+                            _fila("Lote"), _fila("FechaVencimiento"), _fila("img"), _fila("estado"), _fila("stock"))
+        Next
+
+        Return _dtTvp
+    End Function
+
     Public Shared Function L_prMovimientoInsertar(ByRef _numi As String, ConceptoId As Integer, DepositoId As Integer, Observacion As String, Estado As Integer, FechaDocumento As String, _dtDetalle As DataTable, _DepositoIdDestino As Integer, _IdMovimientoDestino As Integer) As Boolean
         Dim _resultado As Boolean
 
@@ -2062,7 +2092,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@DepositoIdDestino", _DepositoIdDestino))
         _listParam.Add(New Datos.DParametro("@IdMovimientoDestino", _IdMovimientoDestino))
         _listParam.Add(New Datos.DParametro("@FechaDocumento", FechaDocumento))
-        _listParam.Add(New Datos.DParametro("@detalle", "", _dtDetalle))
+        _listParam.Add(New Datos.DParametro("@detalle", "", _fnProyectarDetalleMovimiento(_dtDetalle)))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("MAM_Movimientos", _listParam)
@@ -2094,7 +2124,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@Observacion", Observacion))
         _listParam.Add(New Datos.DParametro("@Estado", Estado))
         _listParam.Add(New Datos.DParametro("@FechaDocumento", FechaDocumento))
-        _listParam.Add(New Datos.DParametro("@detalle", "", _dtDetalle))
+        _listParam.Add(New Datos.DParametro("@detalle", "", _fnProyectarDetalleMovimiento(_dtDetalle)))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("MAM_Movimientos", _listParam)

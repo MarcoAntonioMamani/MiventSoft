@@ -13,6 +13,10 @@ Public Class Tec_MovimientoDetalle
     Public TipoMovimientoId As Integer
     Public DepositoId As Integer
 
+    ''Evita el ciclo entre _prSincronizarCantidadCaja/_prSincronizarCantidadUnidad cuando
+    ''el sync de un campo dispara el CellValueChanged del otro.
+    Private _sincronizandoDetalle As Boolean = False
+
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
 
     Public Sub IniciarTodod()
@@ -86,6 +90,37 @@ Public Class Tec_MovimientoDetalle
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Cantidad".ToUpper
+        End With
+
+        ''Cantidad Caja / Unidad Maxima: solo referencial, se sincroniza con Cantidad via
+        ''_prSincronizarCantidadCaja/_prSincronizarCantidadUnidad. El stock siempre se valida
+        ''en unidades (columna Cantidad), nunca en cajas.
+        With grDetalle.RootTable.Columns("CantidadCaja")
+            .Width = 90
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Cantidad Caja".ToUpper
+        End With
+        With grDetalle.RootTable.Columns("UnidadMaxima")
+            .Width = 90
+            .Visible = True
+            .Caption = "Unidad Caja".ToUpper
+        End With
+        With grDetalle.RootTable.Columns("Conversion")
+            .Visible = False
+        End With
+        With grDetalle.RootTable.Columns("UnidadVenta")
+            .Visible = False
+        End With
+        With grDetalle.RootTable.Columns("UnidadVentaId")
+            .Visible = False
+        End With
+        With grDetalle.RootTable.Columns("UnidadMaximaId")
+            .Visible = False
+        End With
+        With grDetalle.RootTable.Columns("CodigoBarras")
+            .Visible = False
         End With
 
         With grDetalle.RootTable.Columns("estado")
@@ -493,6 +528,24 @@ Public Class Tec_MovimientoDetalle
             .Visible = False
 
         End With
+        With grProducto.RootTable.Columns("CodigoBarras")
+            .Visible = False
+        End With
+        With grProducto.RootTable.Columns("UnidadVentaId")
+            .Visible = False
+        End With
+        With grProducto.RootTable.Columns("UnidadVenta")
+            .Visible = False
+        End With
+        With grProducto.RootTable.Columns("UnidadMaximaId")
+            .Visible = False
+        End With
+        With grProducto.RootTable.Columns("UnidadMaxima")
+            .Visible = False
+        End With
+        With grProducto.RootTable.Columns("Conversion")
+            .Visible = False
+        End With
         With grProducto.RootTable.Columns("NombreProducto")
             .Width = 350
             .Caption = "PRODUCTOS"
@@ -568,7 +621,29 @@ Public Class Tec_MovimientoDetalle
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, "20200101", CDate("2020/01/01"), 0, 0, Bin.GetBuffer, 0, 0)
+        ''Se arma la fila por nombre de columna (en vez de Rows.Add posicional) porque
+        ''MAM_Movimientos ahora trae mas columnas que antes (CodigoBarras, Unidad*, Conversion,
+        ''precio, Total) y varias de ellas (Conversion/precio/Total) salen con ISNULL en el SP,
+        ''por lo que ADO.NET las marca como no nulas: un Rows.Add posicional que no las cubre
+        ''revienta con "no cuadra el tipo de dato". CantidadCaja tampoco es columna del SP, la
+        ''agrega Tec_Movimientos.vb en _prCargarDetalleVenta antes de que este formulario reciba
+        ''la misma tabla por referencia.
+        Dim fila As DataRow = CType(grDetalle.DataSource, DataTable).NewRow()
+        fila("id") = _GenerarId() + 1
+        fila("MovimientoId") = 0
+        fila("ProductoId") = 0
+        fila("Producto") = ""
+        fila("Cantidad") = 0
+        fila("Lote") = "20200101"
+        fila("FechaVencimiento") = CDate("2020/01/01")
+        fila("img") = Bin.GetBuffer
+        fila("estado") = 0
+        fila("stock") = 0
+        fila("Conversion") = 1
+        fila("precio") = 0
+        fila("Total") = 0
+        fila("CantidadCaja") = 0
+        CType(grDetalle.DataSource, DataTable).Rows.Add(fila)
     End Sub
     Public Function _fnExisteProducto(idprod As Integer) As Boolean
         For i As Integer = 0 To CType(grDetalle.DataSource, DataTable).Rows.Count - 1 Step 1
@@ -603,6 +678,13 @@ Public Class Tec_MovimientoDetalle
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = grProducto.GetValue("NombreProducto")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("stock")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion") = grProducto.GetValue("Conversion")
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("UnidadMaxima") = grProducto.GetValue("UnidadMaxima")
+                Dim conversionNueva As Double = 1
+                If (Not IsDBNull(grProducto.GetValue("Conversion")) And grProducto.GetValue("Conversion") > 0) Then
+                    conversionNueva = grProducto.GetValue("Conversion")
+                End If
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadCaja") = cantidad / conversionNueva
 
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("precio") = grProducto.GetValue("precio")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("total") = grProducto.GetValue("precio") * cantidad
@@ -780,12 +862,33 @@ Public Class Tec_MovimientoDetalle
         Next
         Return False
     End Function
+    ''Traslada al Efecto (que a su vez se lo pasa a FormularioCantidadProductos) el factor de
+    ''conversion Unidad->Caja y los nombres de unidad del producto elegido, cuidando los DBNull
+    ''(producto sin Unidad Maxima configurada).
+    Public Sub _prAsignarUnidadesEfecto(ef As Efecto, valorConversion As Object, nombreUnidadMin As Object, nombreUnidadMax As Object)
+        If (IsDBNull(valorConversion) Or IsNothing(valorConversion)) Then
+            ef.Conversion = 1
+        Else
+            ef.Conversion = valorConversion
+        End If
+        If (IsDBNull(nombreUnidadMin) Or IsNothing(nombreUnidadMin) Or nombreUnidadMin.ToString = String.Empty) Then
+            ef.UnidadMinNombre = "UNIDAD"
+        Else
+            ef.UnidadMinNombre = nombreUnidadMin.ToString
+        End If
+        If (IsDBNull(nombreUnidadMax) Or IsNothing(nombreUnidadMax) Or nombreUnidadMax.ToString = String.Empty) Then
+            ef.UnidadMaxNombre = "CAJA"
+        Else
+            ef.UnidadMaxNombre = nombreUnidadMax.ToString
+        End If
+    End Sub
+
     Public Sub seleccionarProducto()
         If (IsNothing(FilaSelectLote)) Then
             ''''''''''''''''''''''''
             If (Lote = True) Then
-                If (TipoMovimientoId = 4) Then ''' Aqui pregunto si es con lote y tambien si es una 
-                    ''entrada debe solo insertar solo el producto y no seguir con los lotes 
+                If (TipoMovimientoId = 4) Then ''' Aqui pregunto si es con lote y tambien si es una
+                    ''entrada debe solo insertar solo el producto y no seguir con los lotes
                     Dim ef = New Efecto
 
 
@@ -793,6 +896,7 @@ Public Class Tec_MovimientoDetalle
                     ef.NombreProducto = grProducto.GetValue("NombreProducto")
                     ef.StockActual = grProducto.GetValue("stock")
                     ef.TipoMovimiento = TipoMovimientoId
+                    _prAsignarUnidadesEfecto(ef, grProducto.GetValue("Conversion"), grProducto.GetValue("UnidadVenta"), grProducto.GetValue("UnidadMaxima"))
                     ef.ShowDialog()
                     Dim bandera As Boolean = False
                     bandera = ef.band
@@ -815,6 +919,7 @@ Public Class Tec_MovimientoDetalle
                 ef.NombreProducto = grProducto.GetValue("NombreProducto")
                 ef.StockActual = grProducto.GetValue("stock")
                 ef.TipoMovimiento = TipoMovimientoId
+                _prAsignarUnidadesEfecto(ef, grProducto.GetValue("Conversion"), grProducto.GetValue("UnidadVenta"), grProducto.GetValue("UnidadMaxima"))
                 ef.ShowDialog()
                 Dim bandera As Boolean = False
                 bandera = ef.band
@@ -839,6 +944,10 @@ Public Class Tec_MovimientoDetalle
                 ef.NombreProducto = grProducto.GetValue("NombreProducto")
                 ef.StockActual = grProducto.GetValue("stock")
                 ef.TipoMovimiento = TipoMovimientoId
+                ''Aca grProducto ya esta mostrando los Lotes del producto (no la lista de productos),
+                ''por eso la Conversion/Unidad se leen de FilaSelectLote, que sigue siendo la fila
+                ''original del producto elegido antes de entrar a la pantalla de lotes.
+                _prAsignarUnidadesEfecto(ef, FilaSelectLote.Item("Conversion"), FilaSelectLote.Item("UnidadVenta"), FilaSelectLote.Item("UnidadMaxima"))
                 ef.ShowDialog()
                 Dim bandera As Boolean = False
                 bandera = ef.band
@@ -856,6 +965,13 @@ Public Class Tec_MovimientoDetalle
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = FilaSelectLote.Item("Id")
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = FilaSelectLote.Item("NombreProducto")
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = CantidadVenta
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion") = FilaSelectLote.Item("Conversion")
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("UnidadMaxima") = FilaSelectLote.Item("UnidadMaxima")
+                    Dim conversionLote As Double = 1
+                    If (Not IsDBNull(FilaSelectLote.Item("Conversion")) And FilaSelectLote.Item("Conversion") > 0) Then
+                        conversionLote = FilaSelectLote.Item("Conversion")
+                    End If
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadCaja") = CantidadVenta / conversionLote
 
 
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("stock")
@@ -913,7 +1029,8 @@ Public Class Tec_MovimientoDetalle
     End Function
 
     Private Sub grDetalle_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grDetalle.EditingCell
-        If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
+        If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index Or
+            e.Column.Index = grDetalle.RootTable.Columns("CantidadCaja").Index) Then
             e.Cancel = False
         Else
             If ((e.Column.Index = grDetalle.RootTable.Columns("Lote").Index Or
@@ -938,6 +1055,9 @@ Public Class Tec_MovimientoDetalle
 
     End Sub
     Private Sub grDetalle_CellValueChanged(sender As Object, e As ColumnActionEventArgs) Handles grDetalle.CellValueChanged
+        If (_sincronizandoDetalle) Then
+            Return
+        End If
         If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
             If (Not IsNumeric(grDetalle.GetValue("Cantidad")) Or grDetalle.GetValue("Cantidad").ToString = String.Empty) Then
 
@@ -982,6 +1102,55 @@ Public Class Tec_MovimientoDetalle
                     grDetalle.SetValue("total", grDetalle.GetValue("precio"))
                 End If
             End If
+            _prSincronizarCantidadCaja()
+        ElseIf (e.Column.Index = grDetalle.RootTable.Columns("CantidadCaja").Index) Then
+            If (Not IsNumeric(grDetalle.GetValue("CantidadCaja")) Or grDetalle.GetValue("CantidadCaja").ToString = String.Empty) Then
+                _prSincronizarCantidadCaja()
+            Else
+                _prSincronizarCantidadUnidad()
+            End If
+        End If
+    End Sub
+
+    ''Recalcula Cantidad Caja (referencial) = Cantidad / Conversion de la fila. Se usa tanto
+    ''cuando el usuario edita Cantidad como cuando Cantidad Caja queda invalida y hay que
+    ''recomponerla desde la Cantidad vigente.
+    Private Sub _prSincronizarCantidadCaja()
+        Dim lin As Integer = grDetalle.GetValue("Id")
+        Dim pos As Integer = -1
+        _fnObtenerFilaDetalle(pos, lin)
+        If (pos >= 0) Then
+            Dim conversion As Double = 1
+            If (Not IsDBNull(CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion")) And CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion") > 0) Then
+                conversion = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion")
+            End If
+            Dim cantidad As Double = grDetalle.GetValue("Cantidad")
+            _sincronizandoDetalle = True
+            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadCaja") = cantidad / conversion
+            grDetalle.SetValue("CantidadCaja", cantidad / conversion)
+            _sincronizandoDetalle = False
+        End If
+    End Sub
+
+    ''Recalcula Cantidad (unidad) = Cantidad Caja * Conversion, cuando el usuario modifica
+    ''directo la columna Cantidad Caja en la grilla, y recalcula el Total en base a la nueva
+    ''Cantidad. El stock se sigue validando solo en unidades (ver grDetalle_CellEdited).
+    Private Sub _prSincronizarCantidadUnidad()
+        Dim lin As Integer = grDetalle.GetValue("Id")
+        Dim pos As Integer = -1
+        _fnObtenerFilaDetalle(pos, lin)
+        If (pos >= 0) Then
+            Dim conversion As Double = 1
+            If (Not IsDBNull(CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion")) And CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion") > 0) Then
+                conversion = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion")
+            End If
+            Dim nuevaCantidad As Double = grDetalle.GetValue("CantidadCaja") * conversion
+            _sincronizandoDetalle = True
+            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = nuevaCantidad
+            grDetalle.SetValue("Cantidad", nuevaCantidad)
+            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("total") = nuevaCantidad * grDetalle.GetValue("precio")
+            grDetalle.SetValue("total", nuevaCantidad * grDetalle.GetValue("precio"))
+            _sincronizandoDetalle = False
         End If
     End Sub
 
@@ -1003,26 +1172,44 @@ Public Class Tec_MovimientoDetalle
                 grDetalle.SetValue("Cantidad", 1)
             Else
                 If (grDetalle.GetValue("Cantidad") > 0) Then
-                    Dim stock As Double = grDetalle.GetValue("stock")
-                    If (grDetalle.GetValue("Cantidad") > stock And TipoMovimientoId <> 4) Then
-                        Dim lin As Integer = grDetalle.GetValue("Id")
-                        Dim pos As Integer = -1
-                        _fnObtenerFilaDetalle(pos, lin)
-                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = stock
-                        grDetalle.SetValue("Cantidad", stock)
-                        Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-                        ToastNotification.Show(Me, "La cantidad que se quiere sacar es mayor a la que existe en el stock solo puede Sacar : ".ToUpper + Str(stock).Trim,
-                          img,
-                          5000,
-                          eToastGlowColor.Blue,
-                          eToastPosition.BottomLeft)
-                    End If
+                    _prValidarStockDetalle()
                 Else
 
                     grDetalle.SetValue("Cantidad", 1)
 
                 End If
             End If
+        ElseIf (e.Column.Index = grDetalle.RootTable.Columns("CantidadCaja").Index) Then
+            ''La Cantidad (unidad) ya fue recalculada por _prSincronizarCantidadUnidad en el
+            ''CellValueChanged; aca solo falta validarla contra el stock, igual que si se
+            ''hubiera editado la columna Cantidad directamente.
+            If (IsNumeric(grDetalle.GetValue("Cantidad"))) Then
+                If (grDetalle.GetValue("Cantidad") > 0) Then
+                    _prValidarStockDetalle()
+                End If
+            End If
+        End If
+    End Sub
+
+    ''Valida que la Cantidad (unidad) de la fila actual no supere el stock disponible cuando el
+    ''movimiento es de salida (mismo criterio que ya existia antes de este cambio: solo se exime
+    ''TipoMovimientoId=4). Si se excede, recorta Cantidad al stock disponible y recalcula
+    ''Cantidad Caja para que quede consistente con el recorte.
+    Private Sub _prValidarStockDetalle()
+        Dim stock As Double = grDetalle.GetValue("stock")
+        If (grDetalle.GetValue("Cantidad") > stock And TipoMovimientoId <> 4) Then
+            Dim lin As Integer = grDetalle.GetValue("Id")
+            Dim pos As Integer = -1
+            _fnObtenerFilaDetalle(pos, lin)
+            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = stock
+            grDetalle.SetValue("Cantidad", stock)
+            _prSincronizarCantidadCaja()
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "La cantidad que se quiere sacar es mayor a la que existe en el stock solo puede Sacar : ".ToUpper + Str(stock).Trim,
+              img,
+              5000,
+              eToastGlowColor.Blue,
+              eToastPosition.BottomLeft)
         End If
     End Sub
 
