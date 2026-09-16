@@ -5,6 +5,11 @@ Imports System.IO
 Imports DevComponents.DotNetBar.SuperGrid
 Imports DevComponents.DotNetBar.Controls
 Public Class Tec_Movimientos
+    ''Id de MovimientosTipos correspondiente a "Ingreso". Pendiente de confirmar contra la BD
+    ''real (SELECT Id, Descripcion FROM MovimientosTipos): -1 hasta confirmarlo, para que
+    ''btnAgregarTodos quede oculto/deshabilitado por defecto en vez de activarse con un Id
+    ''equivocado.
+    Private Const ID_TIPO_MOVIMIENTO_INGRESO As Integer = -1
 #Region "Atributos"
     Public _nameButton As String
     Public _tab As SuperTabItem
@@ -1366,6 +1371,72 @@ Public Class Tec_Movimientos
         grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
     End Sub
 
+    ''Boton "Agregar Todos los Productos", habilitado solo cuando cbTipoMovimiento = Ingreso
+    ''(ver cbTipoMovimiento_ValueChanged). Trae TODOS los productos activos via
+    ''L_prListarProductosIngresoMasivo (MAM_Movimientos @tipo=19, sin las restricciones de
+    ''stock/Atributo que tiene el selector individual) y los agrega de un saque a grDetalle,
+    ''todos con la misma cantidad por defecto que se pide en FormularioCantidadDefectoIngreso.
+    ''Respeta el mismo criterio de duplicados que usa btnSeleccionarProducto (_fnExisteProducto).
+    Private Sub btnAgregarTodos_Click(sender As Object, e As EventArgs) Handles btnAgregarTodos.Click
+        'If (cbDepositos.SelectedIndex < 0) Then
+        '    Dim imgVal As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+        '    ToastNotification.Show(Me, "Seleccion Deposito".ToUpper, imgVal, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+        '    cbDepositos.Focus()
+        '    Return
+        'End If
+
+        'Dim frmCantidad As New FormularioCantidadDefectoIngreso
+        'frmCantidad.ShowDialog()
+        'If (Not frmCantidad.respuesta) Then
+        '    Return
+        'End If
+        'Dim cantidadPorDefecto As Double = frmCantidad.CantidadPorDefecto
+
+        'Dim dtProductos As DataTable = L_prListarProductosIngresoMasivo(cbDepositos.Value)
+        'Dim _detalle As DataTable = CType(grDetalle.DataSource, DataTable)
+        'Dim nuevoId As Integer = _GenerarId()
+        'Dim agregados As Integer = 0
+
+        'Dim Bin As New MemoryStream
+        'Dim imgFila As New Bitmap(My.Resources.rowdelete, 30, 28)
+        'imgFila.Save(Bin, Imaging.ImageFormat.Png)
+        'Dim bufferImg() As Byte = Bin.GetBuffer
+
+        'For i As Integer = 0 To dtProductos.Rows.Count - 1 Step 1
+        '    Dim productoId As Integer = dtProductos.Rows(i).Item("Id")
+        '    If (Not _fnExisteProducto(productoId)) Then
+        '        nuevoId += 1
+        '        Dim conversion As Double = 1
+        '        If (Not IsDBNull(dtProductos.Rows(i).Item("Conversion")) And dtProductos.Rows(i).Item("Conversion") > 0) Then
+        '            conversion = dtProductos.Rows(i).Item("Conversion")
+        '        End If
+        '        Dim fila As DataRow = _detalle.NewRow()
+        '        fila("id") = nuevoId
+        '        fila("MovimientoId") = 0
+        '        fila("ProductoId") = productoId
+        '        fila("Producto") = dtProductos.Rows(i).Item("NombreProducto")
+        '        fila("Cantidad") = cantidadPorDefecto
+        '        fila("Lote") = "20200101"
+        '        fila("FechaVencimiento") = CDate("2020/01/01")
+        '        fila("img") = bufferImg
+        '        fila("estado") = 0
+        '        fila("stock") = dtProductos.Rows(i).Item("stock")
+        '        fila("Conversion") = conversion
+        '        fila("precio") = dtProductos.Rows(i).Item("precio")
+        '        fila("Total") = dtProductos.Rows(i).Item("precio") * cantidadPorDefecto
+        '        fila("CantidadCaja") = cantidadPorDefecto / conversion
+        '        _detalle.Rows.Add(fila)
+        '        agregados += 1
+        '    End If
+        'Next
+
+        'CargarIconEstado()
+        'grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
+
+        'Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+        'ToastNotification.Show(Me, agregados.ToString + " Productos Agregados".ToUpper, img, 3000, eToastGlowColor.Green, eToastPosition.TopCenter)
+    End Sub
+
     Private Sub P_GenerarReporte(numi As String)
         Dim dt As DataTable = ListarReporteMovimientoProductos(numi)
 
@@ -1463,6 +1534,13 @@ Public Class Tec_Movimientos
 
             End If
 
+            ''"Agregar Todos los Productos" solo tiene sentido en un Ingreso.
+            btnAgregarTodos.Visible = (cbTipoMovimiento.Value = ID_TIPO_MOVIMIENTO_INGRESO)
+            btnAgregarTodos.Enabled = btnAgregarTodos.Visible
+
+        Else
+            btnAgregarTodos.Visible = False
+            btnAgregarTodos.Enabled = False
         End If
     End Sub
 

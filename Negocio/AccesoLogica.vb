@@ -1665,7 +1665,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@Glosa", glosa))
         _listParam.Add(New Datos.DParametro("@TotalVenta", TotalCompra))
         _listParam.Add(New Datos.DParametro("@Descuento", Descuento))
-        _listParam.Add(New Datos.DParametro("@VentaDetalleType", "", _dtDetalle))
+        _listParam.Add(New Datos.DParametro("@VentaDetalleType", "", _fnProyectarDetalleVenta(_dtDetalle)))
         _listParam.Add(New Datos.DParametro("@VentaPagos", "", dtPago))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@Facturado", Facturado))
@@ -1712,7 +1712,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@Glosa", glosa))
         _listParam.Add(New Datos.DParametro("@TotalVenta", TotalCompra))
         _listParam.Add(New Datos.DParametro("@Descuento", Descuento))
-        _listParam.Add(New Datos.DParametro("@VentaDetalleType", "", _dtDetalle))
+        _listParam.Add(New Datos.DParametro("@VentaDetalleType", "", _fnProyectarDetalleVenta(_dtDetalle)))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@VentaPagos", "", dtPago))
         _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
@@ -1988,6 +1988,51 @@ Public Class AccesoLogica
                             CDec(_fila("Cantidad")), CDec(_fila("PrecioCosto")), _fila("Lote"), _fila("FechaVencimiento"),
                             CDec(_fila("TotalCompra")), CDec(_fila("PrecioVenta")), _fila("estado"), _fila("img"),
                             CDec(_fila("costo")), CDec(_fila("venta")))
+        Next
+
+        Return _dtTvp
+    End Function
+
+    ''El detalle de la grilla (grDetalle en Tec_Ventas.vb/Tec_VentasDetalle.vb) ahora trae
+    ''columnas extra que solo se usan para mostrar/calcular en pantalla (UnidadVentaId,
+    ''UnidadVenta, UnidadMaximaId, UnidadMaxima, Conversion, CantidadCaja), pero el TVP
+    ''@VentaDetalleType (VentaDetalle02Type) sigue esperando exactamente las mismas 22
+    ''columnas de siempre (confirmadas por sys.table_types/sys.columns). Sin esta proyeccion,
+    ''VentaInsertar/VentaModificar fallarian con el mismo error que ya vimos en Movimientos
+    ''("Trying to pass a table-valued parameter with N column(s) where the corresponding
+    ''user-defined table type requires M column(s)").
+    Private Shared Function _fnProyectarDetalleVenta(_dtDetalle As DataTable) As DataTable
+        Dim _dtTvp As New DataTable
+        _dtTvp.Columns.Add("Id", GetType(Integer))
+        _dtTvp.Columns.Add("VentaId", GetType(Integer))
+        _dtTvp.Columns.Add("ProductoId", GetType(Integer))
+        _dtTvp.Columns.Add("Producto", GetType(String))
+        _dtTvp.Columns.Add("Cantidad", GetType(Decimal))
+        _dtTvp.Columns.Add("Precio", GetType(Decimal))
+        _dtTvp.Columns.Add("Subtotal", GetType(Decimal))
+        _dtTvp.Columns.Add("PorcentajeDescuento", GetType(Decimal))
+        _dtTvp.Columns.Add("MontoDescuento", GetType(Decimal))
+        _dtTvp.Columns.Add("Total", GetType(Decimal))
+        _dtTvp.Columns.Add("Detalle", GetType(String))
+        _dtTvp.Columns.Add("PrecioCosto", GetType(Decimal))
+        _dtTvp.Columns.Add("Lote", GetType(String))
+        _dtTvp.Columns.Add("FechaVencimiento", GetType(Date))
+        _dtTvp.Columns.Add("Tipo", GetType(Integer))
+        _dtTvp.Columns.Add("TipoNombre", GetType(String))
+        _dtTvp.Columns.Add("KitId", GetType(Integer))
+        _dtTvp.Columns.Add("KitNombre", GetType(String))
+        _dtTvp.Columns.Add("CantidadKit", GetType(Integer))
+        _dtTvp.Columns.Add("estado", GetType(Integer))
+        _dtTvp.Columns.Add("img", GetType(Byte()))
+        _dtTvp.Columns.Add("stock", GetType(Decimal))
+
+        For Each _fila As DataRow In _dtDetalle.Rows
+            _dtTvp.Rows.Add(_fila("Id"), _fila("VentaId"), _fila("ProductoId"), _fila("Producto"),
+                            CDec(_fila("Cantidad")), CDec(_fila("Precio")), CDec(_fila("SubTotal")),
+                            CDec(_fila("ProcentajeDescuento")), CDec(_fila("MontoDescuento")), CDec(_fila("Total")),
+                            _fila("Detalle"), CDec(_fila("PrecioCosto")), _fila("Lote"), _fila("FechaVencimiento"),
+                            _fila("Tipo"), _fila("TipoNombre"), _fila("KitId"), _fila("KitNombre"), _fila("CantidadKit"),
+                            _fila("estado"), _fila("img"), CDec(_fila("stock")))
         Next
 
         Return _dtTvp

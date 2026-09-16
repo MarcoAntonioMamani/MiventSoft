@@ -1,0 +1,15 @@
+{
+  "name": "migracion-anabel",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Migra el Excel de productos (ANABEL) a la BD de MiventSoft: Categorias, Clasificadores (Marca), Productos, Precios y ProductosCodigoBarras.",
+  "main": "migrar_anabel.js",
+  "scripts": {
+    "migrar": "node migrar_anabel.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "mssql": "^11.0.1",
+    "xlsx": "^0.18.5"
+  }
+}

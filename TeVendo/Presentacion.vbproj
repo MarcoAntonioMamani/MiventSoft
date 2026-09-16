@@ -349,6 +349,12 @@
     <Compile Include="Inventarios\Tec_MovimientoDetalle.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Inventarios\FormularioCantidadDefectoIngreso.Designer.vb">
+      <DependentUpon>FormularioCantidadDefectoIngreso.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Inventarios\FormularioCantidadDefectoIngreso.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Inventarios\Tec_Movimientos.Designer.vb">
       <DependentUpon>Tec_Movimientos.vb</DependentUpon>
     </Compile>
@@ -923,6 +929,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\Tec_MovimientoDetalle.resx">
       <DependentUpon>Tec_MovimientoDetalle.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventarios\FormularioCantidadDefectoIngreso.resx">
+      <DependentUpon>FormularioCantidadDefectoIngreso.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventarios\Tec_Movimientos.resx">
       <DependentUpon>Tec_Movimientos.vb</DependentUpon>

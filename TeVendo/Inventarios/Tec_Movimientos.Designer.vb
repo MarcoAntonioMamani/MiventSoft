@@ -74,6 +74,7 @@ Partial Class Tec_Movimientos
         Me.cbDepositoDestino = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.lbDepositoDestino = New DevComponents.DotNetBar.LabelX()
         Me.btnSeleccionarProducto = New DevComponents.DotNetBar.ButtonX()
+        Me.btnAgregarTodos = New DevComponents.DotNetBar.ButtonX()
         Me.tbFechaTransaccion = New Janus.Windows.CalendarCombo.CalendarCombo()
         Me.cbDepositos = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.cbTipoMovimiento = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
@@ -814,6 +815,7 @@ Partial Class Tec_Movimientos
         Me.Panel3.Controls.Add(Me.cbDepositoDestino)
         Me.Panel3.Controls.Add(Me.lbDepositoDestino)
         Me.Panel3.Controls.Add(Me.btnSeleccionarProducto)
+        Me.Panel3.Controls.Add(Me.btnAgregarTodos)
         Me.Panel3.Controls.Add(Me.tbFechaTransaccion)
         Me.Panel3.Controls.Add(Me.cbDepositos)
         Me.Panel3.Controls.Add(Me.cbTipoMovimiento)
@@ -892,6 +894,22 @@ Partial Class Tec_Movimientos
         Me.btnSeleccionarProducto.SymbolSize = 30.0!
         Me.btnSeleccionarProducto.TabIndex = 52
         Me.btnSeleccionarProducto.Text = "Agregar Productos"
+        '
+        'btnAgregarTodos
+        '
+        Me.btnAgregarTodos.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnAgregarTodos.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnAgregarTodos.Font = New System.Drawing.Font("Calibri", 10.8!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnAgregarTodos.Location = New System.Drawing.Point(45, 390)
+        Me.btnAgregarTodos.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnAgregarTodos.Name = "btnAgregarTodos"
+        Me.btnAgregarTodos.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2)
+        Me.btnAgregarTodos.Size = New System.Drawing.Size(254, 53)
+        Me.btnAgregarTodos.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnAgregarTodos.SymbolColor = System.Drawing.Color.MediumTurquoise
+        Me.btnAgregarTodos.TabIndex = 55
+        Me.btnAgregarTodos.Text = "Agregar Todos los Productos"
+        Me.btnAgregarTodos.Visible = False
         '
         'tbFechaTransaccion
         '
@@ -1496,6 +1514,7 @@ Partial Class Tec_Movimientos
     Friend WithEvents cbTipoMovimiento As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents tbFechaTransaccion As Janus.Windows.CalendarCombo.CalendarCombo
     Friend WithEvents btnSeleccionarProducto As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents btnAgregarTodos As DevComponents.DotNetBar.ButtonX
     Friend WithEvents ReporteToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents cbDepositoDestino As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents lbDepositoDestino As DevComponents.DotNetBar.LabelX

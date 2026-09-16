@@ -23,6 +23,14 @@ Public Class Tec_VentasDetalle
     Public TipoProgramas As Integer = 0   ''1=venta  2 =  proforma
 
     Public BanderaPrimeraVes As Boolean = False
+
+    ''Busqueda por codigo de barras (mismo patron que VenderDirecto.vb, sin modificar ese
+    ''formulario): se carga una sola vez al abrir la pantalla.
+    Dim dtCodigoBarras As DataTable
+
+    ''Evita el ciclo entre _prSincronizarCantidadCaja/_prSincronizarCantidadUnidad cuando se
+    ''escribe Cantidad/CantidadCaja por codigo (mismo patron que Tec_Ventas.vb).
+    Private _sincronizandoDetalle As Boolean = False
     Public Sub IniciarTodod()
         BanderaPrimeraVes = True
         CargarProductosVentas()
@@ -30,6 +38,7 @@ Public Class Tec_VentasDetalle
         cbPrecios.Value = CategoriaPrecio
         BanderaPrimeraVes = False
         _prCargarProductos()
+        dtCodigoBarras = ListProductoCodigoBarraAll()
 
         _habilitarFocus()
         ActualizarProductos()
@@ -105,10 +114,28 @@ Public Class Tec_VentasDetalle
         End With
         With grProducto.RootTable.Columns("NombreTipo")
             .Width = 90
-            .Visible = True
+            .Visible = False
             .MaxLines = 2
             .WordWrap = True
             .Caption = "Tipo"
+        End With
+        ''Columnas de Unidad Caja (agregadas para el calculo de Cantidad Caja en el detalle):
+        ''en el buscador de productos no se muestran, solo se leen por codigo desde
+        ''InsertarProductosSinLote/_prAsignarUnidadesEfecto.
+        With grProducto.RootTable.Columns("UnidadVentaId")
+            .Visible = False
+        End With
+        With grProducto.RootTable.Columns("UnidadVenta")
+            .Visible = False
+        End With
+        With grProducto.RootTable.Columns("UnidadMaximaId")
+            .Visible = False
+        End With
+        With grProducto.RootTable.Columns("UnidadMaxima")
+            .Visible = False
+        End With
+        With grProducto.RootTable.Columns("Conversion")
+            .Visible = False
         End With
         With grProducto.RootTable.Columns("NombreCategoria")
             .Width = 120
@@ -200,7 +227,39 @@ Public Class Tec_VentasDetalle
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.rowdelete, 25, 18)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grDetalle.DataSource, DataTable).Rows.Add(_GenerarId() + 1, 0, 0, "", 0, 0, 0, 0, 0, 0, "", 0, "20200101", CDate("2020/01/01"), 0, "", 0, "", 0, 0, Bin.GetBuffer, 0)
+        ''Se arma la fila por nombre de columna (en vez de Rows.Add posicional) porque ahora hay
+        ''columnas extra (UnidadVentaId, UnidadVenta, UnidadMaximaId, UnidadMaxima, Conversion,
+        ''CantidadCaja) que no forman parte de un Rows.Add posicional ya fragil de por si -
+        ''mismo criterio aplicado en Tec_ComprasDetalle.vb/Tec_MovimientoDetalle.vb. Conversion
+        ''en particular llega de la SP como ISNULL(...,1), por lo que ADO.NET la infiere como
+        ''columna NOT NULL: un Rows.Add posicional que la deje sin cubrir revienta con
+        ''"Column 'Conversion' does not allow nulls".
+        Dim fila As DataRow = CType(grDetalle.DataSource, DataTable).NewRow()
+        fila("Id") = _GenerarId() + 1
+        fila("VentaId") = 0
+        fila("ProductoId") = 0
+        fila("Producto") = ""
+        fila("Cantidad") = 0
+        fila("Precio") = 0
+        fila("SubTotal") = 0
+        fila("ProcentajeDescuento") = 0
+        fila("MontoDescuento") = 0
+        fila("Total") = 0
+        fila("Detalle") = ""
+        fila("PrecioCosto") = 0
+        fila("Lote") = "20200101"
+        fila("FechaVencimiento") = CDate("01/01/2020")
+        fila("Tipo") = 0
+        fila("TipoNombre") = ""
+        fila("KitId") = 0
+        fila("KitNombre") = ""
+        fila("CantidadKit") = 0
+        fila("estado") = 0
+        fila("img") = Bin.GetBuffer
+        fila("stock") = 0
+        fila("Conversion") = 1
+        fila("CantidadCaja") = 0
+        CType(grDetalle.DataSource, DataTable).Rows.Add(fila)
     End Sub
 
     Public Function _GenerarId()
@@ -254,7 +313,7 @@ Public Class Tec_VentasDetalle
         End With
         With grDetalle.RootTable.Columns("TipoNombre")
             .Width = 60
-            .Visible = True
+            .Visible = False
             .Caption = "Tipo"
         End With
         With grDetalle.RootTable.Columns("KitId")
@@ -264,7 +323,7 @@ Public Class Tec_VentasDetalle
         End With
         With grDetalle.RootTable.Columns("KitNombre")
             .Width = 100
-            .Visible = True
+            .Visible = False
             .Caption = "Kit"
             .WordWrap = True
             .MaxLines = 3
@@ -285,7 +344,7 @@ Public Class Tec_VentasDetalle
         With grDetalle.RootTable.Columns("CantidadKit")
             .Width = 40
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "CantidadKit"
         End With
@@ -295,6 +354,34 @@ Public Class Tec_VentasDetalle
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Cantidad".ToUpper
+        End With
+        ''Cantidad Caja / Unidad Maxima: solo referencial, se sincroniza con Cantidad via
+        ''_prSincronizarCantidadCaja/_prSincronizarCantidadUnidad. Los Kits (Tipo=2) no tienen
+        ''Unidad Venta/Unidad Maxima/Conversion propios en Productos, asi que quedan sin
+        ''Cantidad Caja (deshabilitada via grdetalle_EditingCell, igual que Tec_Ventas.vb).
+        With grDetalle.RootTable.Columns("CantidadCaja")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Cantidad Caja".ToUpper
+        End With
+        With grDetalle.RootTable.Columns("UnidadMaxima")
+            .Width = 50
+            .Visible = False
+            .Caption = "Unidad Caja".ToUpper
+        End With
+        With grDetalle.RootTable.Columns("Conversion")
+            .Visible = False
+        End With
+        With grDetalle.RootTable.Columns("UnidadVenta")
+            .Visible = False
+        End With
+        With grDetalle.RootTable.Columns("UnidadVentaId")
+            .Visible = False
+        End With
+        With grDetalle.RootTable.Columns("UnidadMaximaId")
+            .Visible = False
         End With
 
 
@@ -735,6 +822,16 @@ Public Class Tec_VentasDetalle
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("Stock")
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Tipo") = 1
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("TipoNombre") = "Productos"
+                    ''Cantidad Unidad / Cantidad Caja: se guarda el factor de conversion del
+                    ''producto en la fila del detalle y se precalcula CantidadCaja = cantidad /
+                    ''Conversion (misma logica que Tec_ComprasDetalle.vb/Tec_MovimientoDetalle.vb).
+                    Dim conversionNueva As Double = 1
+                    If (Not IsDBNull(grProducto.GetValue("Conversion")) And grProducto.GetValue("Conversion") > 0) Then
+                        conversionNueva = grProducto.GetValue("Conversion")
+                    End If
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion") = conversionNueva
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("UnidadMaxima") = grProducto.GetValue("UnidadMaxima")
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadCaja") = cantidad / conversionNueva
 
                     CambiarEstado(grProducto.GetValue("Id"), 0)
                     'grproducto.RemoveFilters()
@@ -771,6 +868,10 @@ Public Class Tec_VentasDetalle
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("KitNombre") = grProducto.GetValue("NombreProducto")
 
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadKit") = cantidad
+                        ''Los Kits no tienen Unidad Venta/Unidad Maxima/Conversion propios en
+                        ''Productos: Cantidad Caja queda en blanco (ver _prCalcularCantidadCajaDetalle
+                        ''en Tec_Ventas.vb, mismo criterio).
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadCaja") = DBNull.Value
 
                     End If
 
@@ -799,6 +900,28 @@ Public Class Tec_VentasDetalle
 
 
     End Sub
+    ''Traslada al Efecto (que a su vez se lo pasa a FormularioCantidadProductos) el factor de
+    ''conversion Unidad->Caja y los nombres de unidad del producto elegido, cuidando los DBNull
+    ''(producto sin Unidad Maxima configurada). Mismo patron que Tec_ComprasDetalle.vb/
+    ''Tec_MovimientoDetalle.vb.
+    Public Sub _prAsignarUnidadesEfecto(ef As Efecto, valorConversion As Object, nombreUnidadMin As Object, nombreUnidadMax As Object)
+        If (IsDBNull(valorConversion) Or IsNothing(valorConversion)) Then
+            ef.Conversion = 1
+        Else
+            ef.Conversion = valorConversion
+        End If
+        If (IsDBNull(nombreUnidadMin) Or IsNothing(nombreUnidadMin) Or nombreUnidadMin.ToString = String.Empty) Then
+            ef.UnidadMinNombre = "UNIDAD"
+        Else
+            ef.UnidadMinNombre = nombreUnidadMin.ToString
+        End If
+        If (IsDBNull(nombreUnidadMax) Or IsNothing(nombreUnidadMax) Or nombreUnidadMax.ToString = String.Empty) Then
+            ef.UnidadMaxNombre = "CAJA"
+        Else
+            ef.UnidadMaxNombre = nombreUnidadMax.ToString
+        End If
+    End Sub
+
     Public Sub seleccionarProducto()
         If (IsNothing(FilaSelectLote)) Then
 
@@ -825,6 +948,7 @@ Public Class Tec_VentasDetalle
                     ef.TipoMovimiento = 4
 
                 End If
+                _prAsignarUnidadesEfecto(ef, grProducto.GetValue("Conversion"), grProducto.GetValue("UnidadVenta"), grProducto.GetValue("UnidadMaxima"))
 
                 ef.ShowDialog()
                 Dim bandera As Boolean = False
@@ -847,6 +971,11 @@ Public Class Tec_VentasDetalle
                 ef.NombreProducto = grProducto.GetValue("NombreProducto")
                 ef.StockActual = grProducto.GetValue("stock")
                 ef.TipoMovimiento = 3
+                ''Aca grProducto ya esta mostrando los Lotes del producto (no la lista de
+                ''productos), por eso la Conversion/Unidad se leen de FilaSelectLote, que sigue
+                ''siendo la fila original del producto elegido antes de entrar a la pantalla de
+                ''lotes.
+                _prAsignarUnidadesEfecto(ef, FilaSelectLote.Item("Conversion"), FilaSelectLote.Item("UnidadVenta"), FilaSelectLote.Item("UnidadMaxima"))
                 ef.ShowDialog()
                 Dim bandera As Boolean = False
                 bandera = ef.band
@@ -872,6 +1001,15 @@ Public Class Tec_VentasDetalle
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("Stock")
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Lote") = mLote
                         CType(grDetalle.DataSource, DataTable).Rows(pos).Item("FechaVencimiento") = FechaVenc
+                        ''Cantidad Unidad / Cantidad Caja: se guarda el factor de conversion del
+                        ''producto y se precalcula CantidadCaja = CantidadVenta / Conversion.
+                        Dim conversionLote As Double = 1
+                        If (Not IsDBNull(FilaSelectLote.Item("Conversion")) And FilaSelectLote.Item("Conversion") > 0) Then
+                            conversionLote = FilaSelectLote.Item("Conversion")
+                        End If
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion") = conversionLote
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("UnidadMaxima") = FilaSelectLote.Item("UnidadMaxima")
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadCaja") = CantidadVenta / conversionLote
 
                         tbProducto.Clear()
                         tbProducto.Focus()
@@ -900,6 +1038,94 @@ Public Class Tec_VentasDetalle
 
         End If
     End Sub
+
+    ''Casi identico a seleccionarProducto(), salvo que en la rama sin lote no se muestra el
+    ''popup de cantidad: se agrega directo con Cantidad=1, igual que un lector de codigo de
+    ''barras fisico incrementaria de a una unidad por cada escaneo (si el producto ya esta en
+    ''el detalle, _fnExisteProducto/InsertarProductosSinLote avisan "ya existe" y el usuario
+    ''ajusta la cantidad a mano en la grilla). Mismo patron que VenderDirecto.vb (no se modifica
+    ''ese formulario).
+    Public Sub seleccionarProductoCodigoBarra()
+        If (IsNothing(FilaSelectLote)) Then
+
+            If (grProducto.GetValue("stock") <= 0 And TipoProgramas = 1) Then
+
+                ToastNotification.Show(Me, "No Existe Stock del Producto Para Proceder con la Venta".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                Return
+
+            End If
+
+            If (Lote = True) Then
+                InsertarProductosConLote()
+            Else
+                InsertarProductosSinLote(1)
+            End If
+
+        Else
+
+            Dim numiProd As Integer = FilaSelectLote.Item("Id")
+            Dim mLote As String = grProducto.GetValue("Lote")
+            Dim FechaVenc As Date = grProducto.GetValue("FechaVencimiento")
+            If (Not _fnExisteProductoConLote(numiProd, Lote, FechaVenc, 1)) Then
+                Dim ef = New Efecto
+                ef.tipo = 5
+                ef.NombreProducto = grProducto.GetValue("NombreProducto")
+                ef.StockActual = grProducto.GetValue("stock")
+                ef.TipoMovimiento = 3
+                _prAsignarUnidadesEfecto(ef, FilaSelectLote.Item("Conversion"), FilaSelectLote.Item("UnidadVenta"), FilaSelectLote.Item("UnidadMaxima"))
+                ef.ShowDialog()
+                Dim bandera As Boolean = False
+                bandera = ef.band
+                Dim CantidadVenta As Double = 0
+                If (bandera = True) Then
+                    CantidadVenta = ef.CantidadTransaccion
+                    If (grDetalle.GetValue("ProductoId") > 0) Then
+                        _prAddDetalleVenta()
+                    End If
+                    Dim pos As Integer = -1
+                    grDetalle.Row = grDetalle.RowCount - 1
+                    _fnObtenerFilaDetalle(pos, grDetalle.GetValue("Id"), grDetalle.GetValue("Tipo"))
+
+                    If ((pos >= 0)) Then
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("ProductoId") = numiProd
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = FilaSelectLote.Item("NombreProducto")
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = CantidadVenta
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Precio") = FilaSelectLote.Item("PrecioVenta")
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("SubTotal") = FilaSelectLote.Item("PrecioVenta") * CantidadVenta
+
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Total") = FilaSelectLote.Item("PrecioVenta") * CantidadVenta
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("PrecioCosto") = FilaSelectLote.Item("PrecioCosto")
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("Stock")
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Lote") = mLote
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("FechaVencimiento") = FechaVenc
+                        Dim conversionLote As Double = 1
+                        If (Not IsDBNull(FilaSelectLote.Item("Conversion")) And FilaSelectLote.Item("Conversion") > 0) Then
+                            conversionLote = FilaSelectLote.Item("Conversion")
+                        End If
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion") = conversionLote
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("UnidadMaxima") = FilaSelectLote.Item("UnidadMaxima")
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadCaja") = CantidadVenta / conversionLote
+
+                        tbProducto.Clear()
+                        tbProducto.Focus()
+
+                    End If
+
+                    FilaSelectLote = Nothing
+                    _DesHabilitarProductos()
+                    tbProducto.Focus()
+                    _prCargarProductos()
+                End If
+
+            Else
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "El producto con el lote ya existe modifique su cantidad".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            End If
+
+
+        End If
+    End Sub
+
     Public Function _fnExisteProductoLote(idprod As Integer, mLote As String, mFecha As Date) As Boolean
         For i As Integer = 0 To CType(grDetalle.DataSource, DataTable).Rows.Count - 1 Step 1
             Dim _idprod As Integer = CType(grDetalle.DataSource, DataTable).Rows(i).Item("ProductoId")
@@ -1032,7 +1258,8 @@ Public Class Tec_VentasDetalle
 
             End If
 
-            If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
+            If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index Or
+                e.Column.Index = grDetalle.RootTable.Columns("CantidadCaja").Index) Then
                 e.Cancel = False
                 Return
             Else
@@ -1126,6 +1353,44 @@ salirIf:
             grProducto.Focus()
         End If
         If e.KeyData = Keys.Enter Then
+            ''Busqueda por codigo de barras (mismo patron que VenderDirecto.vb, sin modificar ese
+            ''formulario): si el texto ingresado coincide EXACTO con un codigo de barras, se
+            ''agrega el producto directo (como al escanear con lector fisico), sin pasar por el
+            ''filtro de nombre. Si no coincide con ningun codigo (lo normal cuando se esta
+            ''escribiendo un nombre para filtrar), se mantiene tal cual el comportamiento
+            ''existente: Enter selecciona la primera fila de la lista ya filtrada por nombre.
+            If (tbProducto.Text.Trim <> String.Empty) Then
+                Dim CodigoB As String = tbProducto.Text.Trim
+                Dim fila As DataRow() = dtCodigoBarras.Select("CodigoBarras='" + CodigoB + "'")
+
+                If (Not IsDBNull(fila) AndAlso fila.Count > 0) Then
+                    Dim ProductoId As Integer = fila(0).Item("ProductoId")
+
+                    ''grProducto puede estar mostrando una lista filtrada por nombre (o los Lotes
+                    ''de un producto, si FilaSelectLote esta activo): se recarga la lista completa
+                    ''de productos para poder ubicar el producto escaneado por Id.
+                    If (IsNothing(FilaSelectLote)) Then
+                        grProducto.DataSource = dtProductos.Copy
+                    End If
+
+                    Dim posicion As Integer = -1
+                    Dim dt As DataTable = CType(grProducto.DataSource, DataTable)
+                    For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+                        If (dt.Rows(i).Item("Id") = ProductoId) Then
+                            posicion = i
+                            Exit For
+                        End If
+                    Next
+                    If (posicion >= 0) Then
+                        grProducto.Row = posicion
+                        seleccionarProductoCodigoBarra()
+                    Else
+                        ToastNotification.Show(Me, "Producto No Existe".ToUpper, img, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                    End If
+                    Return
+                End If
+            End If
+
             If grProducto.RowCount > 0 Then
 
                 grProducto.Row = 0
@@ -1362,9 +1627,24 @@ salirIf:
 
     End Sub
     Private Sub grdetalle_CellValueChanged(sender As Object, e As ColumnActionEventArgs) Handles grDetalle.CellValueChanged
+        If (_sincronizandoDetalle) Then
+            Return
+        End If
+
         Dim lin As Integer = grDetalle.GetValue("Id")
         Dim pos As Integer = -1
         _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
+        If (e.Column.Index = grDetalle.RootTable.Columns("CantidadCaja").Index) Then
+            ''Cantidad Caja editada directo en la grilla: se recalcula Cantidad (y con ella el
+            ''descuento y el total, ver _prSincronizarCantidadUnidad) a partir de
+            ''Cantidad Caja * Conversion.
+            If (Not IsNumeric(grDetalle.GetValue("CantidadCaja")) Or grDetalle.GetValue("CantidadCaja").ToString = String.Empty) Then
+                _prSincronizarCantidadCaja()
+            Else
+                _prSincronizarCantidadUnidad()
+            End If
+            Return
+        End If
         If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
             If (Not IsNumeric(grDetalle.GetValue("Cantidad")) Or grDetalle.GetValue("Cantidad").ToString = String.Empty) Then
 
@@ -1462,6 +1742,9 @@ salirIf:
 
                 End If
             End If
+            ''Cantidad Caja es solo referencial: se recalcula a partir de Cantidad ya resuelta
+            ''arriba, nunca al reves en esta rama.
+            _prSincronizarCantidadCaja()
         End If
 
 
@@ -1639,6 +1922,70 @@ salirIf:
 
 
 
+    End Sub
+
+    ''Recalcula Cantidad Caja (referencial) = Cantidad / Conversion de la fila. Se usa cuando
+    ''el usuario edita Cantidad (o esta se recalcula) y cuando Cantidad Caja queda invalida y
+    ''hay que recomponerla desde la Cantidad vigente.
+    Private Sub _prSincronizarCantidadCaja()
+        Dim lin As Integer = grDetalle.GetValue("Id")
+        Dim pos As Integer = -1
+        _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
+        If (pos >= 0) Then
+            If (grDetalle.GetValue("Tipo") = 2) Then
+                Return
+            End If
+            Dim conversion As Double = 1
+            If (Not IsDBNull(CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion")) And CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion") > 0) Then
+                conversion = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion")
+            End If
+            Dim cantidad As Double = grDetalle.GetValue("Cantidad")
+            _sincronizandoDetalle = True
+            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadCaja") = cantidad / conversion
+            grDetalle.SetValue("CantidadCaja", cantidad / conversion)
+            _sincronizandoDetalle = False
+        End If
+    End Sub
+
+    ''Recalcula Cantidad (unidad) = Cantidad Caja * Conversion cuando el usuario edita directo
+    ''la columna Cantidad Caja en la grilla, y vuelve a aplicar el descuento (ProcentajeDescuento
+    ''-> MontoDescuento) y el Total, respetando el mismo tope de Stock que
+    ''grdetalle_CellValueChanged aplica cuando se edita Cantidad directamente (solo para
+    ''TipoProgramas=1, venta; en proforma no hay tope de stock).
+    Private Sub _prSincronizarCantidadUnidad()
+        Dim lin As Integer = grDetalle.GetValue("Id")
+        Dim pos As Integer = -1
+        Dim rowIndex As Integer = grDetalle.Row
+        _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
+        If (pos >= 0) Then
+            Dim conversion As Double = 1
+            If (Not IsDBNull(CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion")) And CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion") > 0) Then
+                conversion = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion")
+            End If
+            Dim nuevaCantidad As Double = grDetalle.GetValue("CantidadCaja") * conversion
+            If (nuevaCantidad > 0 And (TipoProgramas <> 1 Or nuevaCantidad <= grDetalle.GetValue("stock"))) Then
+                Dim porcdesc As Double = grDetalle.GetValue("ProcentajeDescuento")
+                Dim montodesc As Double = ((grDetalle.GetValue("Precio") * nuevaCantidad) * (porcdesc / 100))
+
+                _sincronizandoDetalle = True
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = nuevaCantidad
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = montodesc
+                grDetalle.SetValue("Cantidad", nuevaCantidad)
+                grDetalle.SetValue("MontoDescuento", montodesc)
+                _sincronizandoDetalle = False
+
+                Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+                P_PonerTotal(rowIndex)
+                If (estado = 1) Then
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                End If
+            Else
+                If (TipoProgramas = 1) Then
+                    ToastNotification.Show(Me, "La Cantidad = " + Str(nuevaCantidad) + " es mayor al Stock del Producto = " + Str(grDetalle.GetValue("stock")), img, 6000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                End If
+                _prSincronizarCantidadCaja()
+            End If
+        End If
     End Sub
     Private Sub btnConfirmarSalir_Click(sender As Object, e As EventArgs) Handles btnConfirmarSalir.Click
 

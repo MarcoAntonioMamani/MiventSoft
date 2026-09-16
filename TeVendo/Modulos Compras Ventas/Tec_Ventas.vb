@@ -26,6 +26,10 @@ Public Class Tec_Ventas
     Dim IdVendedor As Integer = 0
     Dim IdCliente As Integer = 0
 
+    ''Evita el ciclo entre _prSincronizarCantidadCaja/_prSincronizarCantidadUnidad cuando se
+    ''escribe Cantidad/CantidadCaja por codigo (mismo patron que Tec_Compras.vb).
+    Private _sincronizandoDetalle As Boolean = False
+
 #End Region
 
 #Region "Metodos Overrides"
@@ -287,6 +291,18 @@ Public Class Tec_Ventas
     Private Sub _prCargarDetalleVenta(_numi As String)
         Dim dt As New DataTable
         dt = ListaVentasDetalles(_numi)
+        ''Cantidad Caja / Unidad Maxima: columna solo de pantalla (no existe en VentasDetalles
+        ''ni en VentaDetalle02Type), igual que se hizo en Compras/Movimientos. Se agrega y se
+        ''ubica junto a Cantidad con SetOrdinal, porque en Janus GridEX (sin VisiblePosition,
+        ''que este proyecto no usa) el orden visual de columnas sigue el orden fisico del
+        ''DataTable, no el orden de los bloques "With grDetalle.RootTable.Columns(...)".
+        ''CantidadCaja puede venir ya calculada del SP (@tipo=4) o llegar vacia si el SP
+        ''todavia no tiene ese cambio: en ambos casos se reubica al lado de Cantidad, porque el
+        ''orden fisico del DataTable es el que manda en Janus GridEX.
+        If (Not dt.Columns.Contains("CantidadCaja")) Then
+            dt.Columns.Add("CantidadCaja", GetType(Double))
+        End If
+        dt.Columns("CantidadCaja").SetOrdinal(dt.Columns("Cantidad").Ordinal + 1)
         grDetalle.DataSource = dt
         grDetalle.RetrieveStructure()
         grDetalle.AlternatingColors = True
@@ -328,6 +344,35 @@ Public Class Tec_Ventas
             .FormatString = "0.00"
             .Caption = "Cantidad".ToUpper
         End With
+        ''Cantidad Caja / Unidad Maxima: solo referencial, se sincroniza con Cantidad via
+        ''_prSincronizarCantidadCaja/_prSincronizarCantidadUnidad. El calculo/grabado siempre
+        ''es en unidades (Cantidad), nunca en cajas. Los Kits (Tipo=2) no tienen Unidad
+        ''Venta/Unidad Maxima/Conversion propios en Productos, asi que quedan sin Cantidad
+        ''Caja (deshabilitada via grdetalle_EditingCell).
+        With grDetalle.RootTable.Columns("CantidadCaja")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Cantidad Caja".ToUpper
+        End With
+        With grDetalle.RootTable.Columns("UnidadMaxima")
+            .Width = 50
+            .Visible = False
+            .Caption = "Unidad Caja".ToUpper
+        End With
+        With grDetalle.RootTable.Columns("Conversion")
+            .Visible = False
+        End With
+        With grDetalle.RootTable.Columns("UnidadVenta")
+            .Visible = False
+        End With
+        With grDetalle.RootTable.Columns("UnidadVentaId")
+            .Visible = False
+        End With
+        With grDetalle.RootTable.Columns("UnidadMaximaId")
+            .Visible = False
+        End With
         With grDetalle.RootTable.Columns("Tipo")
             .Width = 100
             .Visible = False
@@ -335,7 +380,7 @@ Public Class Tec_Ventas
         End With
         With grDetalle.RootTable.Columns("TipoNombre")
             .Width = 40
-            .Visible = True
+            .Visible = False
             .Caption = "Tipo"
         End With
         With grDetalle.RootTable.Columns("KitId")
@@ -345,7 +390,7 @@ Public Class Tec_Ventas
         End With
         With grDetalle.RootTable.Columns("KitNombre")
             .Width = 80
-            .Visible = True
+            .Visible = False
             .Caption = "Kit"
             .WordWrap = True
             .MaxLines = 2
@@ -373,7 +418,7 @@ Public Class Tec_Ventas
         With grDetalle.RootTable.Columns("CantidadKit")
             .Width = 40
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "CantidadKit"
         End With
@@ -493,6 +538,31 @@ Public Class Tec_Ventas
             .TotalRowPosition = TotalRowPosition.BottomFixed
         End With
         CargarIconEstado()
+        _prCalcularCantidadCajaDetalle()
+    End Sub
+    ''Recalcula Cantidad Caja = Cantidad / Conversion para las filas que ya vienen cargadas
+    ''(edicion de una venta existente). El SP (@tipo=4) ya la trae calculada; esto queda como
+    ''respaldo por si el SP en uso todavia no tiene ese cambio. Para filas nuevas la calcula
+    ''InsertarProductosSinLote/InsertarProductosConLote/seleccionarProductoCodigoBarra en
+    ''Tec_VentasDetalle.vb. Los Kits (Tipo=2) no tienen Conversion propia: quedan sin
+    ''Cantidad Caja.
+    Public Sub _prCalcularCantidadCajaDetalle()
+        Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            If (Not IsDBNull(dt.Rows(i).Item("Tipo")) AndAlso dt.Rows(i).Item("Tipo") = 2) Then
+                dt.Rows(i).Item("CantidadCaja") = DBNull.Value
+                Continue For
+            End If
+            Dim conversion As Double = 1
+            If (Not IsDBNull(dt.Rows(i).Item("Conversion")) And dt.Rows(i).Item("Conversion") > 0) Then
+                conversion = dt.Rows(i).Item("Conversion")
+            End If
+            Dim cantidad As Double = 0
+            If (Not IsDBNull(dt.Rows(i).Item("Cantidad"))) Then
+                cantidad = dt.Rows(i).Item("Cantidad")
+            End If
+            dt.Rows(i).Item("CantidadCaja") = cantidad / conversion
+        Next
     End Sub
     Public Sub CargarIconEstado()
 
@@ -690,7 +760,8 @@ Public Class Tec_Ventas
 
             End If
 
-            If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
+            If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index Or
+                e.Column.Index = grDetalle.RootTable.Columns("CantidadCaja").Index) Then
                 e.Cancel = False
                 Return
             Else
@@ -781,9 +852,24 @@ salirIf:
 
 
     Private Sub grdetalle_CellValueChanged(sender As Object, e As ColumnActionEventArgs) Handles grDetalle.CellValueChanged
+        If (_sincronizandoDetalle) Then
+            Return
+        End If
+
         Dim lin As Integer = grDetalle.GetValue("Id")
         Dim pos As Integer = -1
         _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
+        If (e.Column.Index = grDetalle.RootTable.Columns("CantidadCaja").Index) Then
+            ''Cantidad Caja editada directo en la grilla: se recalcula Cantidad (y con ella el
+            ''descuento y el total, ver _prSincronizarCantidadUnidad) a partir de
+            ''Cantidad Caja * Conversion.
+            If (Not IsNumeric(grDetalle.GetValue("CantidadCaja")) Or grDetalle.GetValue("CantidadCaja").ToString = String.Empty) Then
+                _prSincronizarCantidadCaja()
+            Else
+                _prSincronizarCantidadUnidad()
+            End If
+            Return
+        End If
         If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
             If (Not IsNumeric(grDetalle.GetValue("Cantidad")) Or grDetalle.GetValue("Cantidad").ToString = String.Empty) Then
 
@@ -865,6 +951,9 @@ salirIf:
 
                 End If
             End If
+            ''Cantidad Caja es solo referencial: se recalcula a partir de Cantidad ya resuelta
+            ''arriba, nunca al reves en esta rama.
+            _prSincronizarCantidadCaja()
         End If
 
         If (e.Column.Index = grDetalle.RootTable.Columns("Precio").Index) Then
@@ -1037,6 +1126,68 @@ salirIf:
 
 
     End Sub
+
+    ''Recalcula Cantidad Caja (referencial) = Cantidad / Conversion de la fila. Se usa cuando
+    ''el usuario edita Cantidad (o esta se recalcula) y cuando Cantidad Caja queda invalida y
+    ''hay que recomponerla desde la Cantidad vigente.
+    Private Sub _prSincronizarCantidadCaja()
+        Dim lin As Integer = grDetalle.GetValue("Id")
+        Dim pos As Integer = -1
+        _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
+        If (pos >= 0) Then
+            If (grDetalle.GetValue("Tipo") = 2) Then
+                Return
+            End If
+            Dim conversion As Double = 1
+            If (Not IsDBNull(CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion")) And CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion") > 0) Then
+                conversion = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion")
+            End If
+            Dim cantidad As Double = grDetalle.GetValue("Cantidad")
+            _sincronizandoDetalle = True
+            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("CantidadCaja") = cantidad / conversion
+            grDetalle.SetValue("CantidadCaja", cantidad / conversion)
+            _sincronizandoDetalle = False
+        End If
+    End Sub
+
+    ''Recalcula Cantidad (unidad) = Cantidad Caja * Conversion cuando el usuario edita directo
+    ''la columna Cantidad Caja en la grilla, y vuelve a aplicar el descuento (ProcentajeDescuento
+    ''-> MontoDescuento) y el Total, respetando el mismo tope de Stock que
+    ''grdetalle_CellValueChanged aplica cuando se edita Cantidad directamente.
+    Private Sub _prSincronizarCantidadUnidad()
+        Dim lin As Integer = grDetalle.GetValue("Id")
+        Dim pos As Integer = -1
+        Dim rowIndex As Integer = grDetalle.Row
+        _fnObtenerFilaDetalle(pos, lin, grDetalle.GetValue("Tipo"))
+        If (pos >= 0) Then
+            Dim conversion As Double = 1
+            If (Not IsDBNull(CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion")) And CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion") > 0) Then
+                conversion = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Conversion")
+            End If
+            Dim nuevaCantidad As Double = grDetalle.GetValue("CantidadCaja") * conversion
+            If (nuevaCantidad > 0 And nuevaCantidad <= grDetalle.GetValue("Stock")) Then
+                Dim porcdesc As Double = grDetalle.GetValue("ProcentajeDescuento")
+                Dim montodesc As Double = ((grDetalle.GetValue("Precio") * nuevaCantidad) * (porcdesc / 100))
+
+                _sincronizandoDetalle = True
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = nuevaCantidad
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("MontoDescuento") = montodesc
+                grDetalle.SetValue("Cantidad", nuevaCantidad)
+                grDetalle.SetValue("MontoDescuento", montodesc)
+                _sincronizandoDetalle = False
+
+                Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
+                P_PonerTotal(rowIndex)
+                If (estado = 1) Then
+                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado") = 2
+                End If
+            Else
+                ToastNotification.Show(Me, "La Cantidad = " + Str(nuevaCantidad) + " es mayor al Stock del Producto = " + Str(grDetalle.GetValue("Stock")), img, 6000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                _prSincronizarCantidadCaja()
+            End If
+        End If
+    End Sub
+
     Public Sub _prCalcularPrecioTotal()
 
 
