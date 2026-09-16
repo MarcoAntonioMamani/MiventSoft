@@ -2323,6 +2323,25 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
+    ''Lista TODOS los productos activos (Productos.Estado=1), sin exigir que ya tengan stock
+    ''previo en el deposito ni un Atributo/Familia/UnidadVenta asignado (a diferencia de
+    ''L_prListarProductosLote y L_prListarProductosTodosInventario, que usan INNER JOIN contra
+    ''ProductosStock/ClasificadorDetalle y por eso excluyen productos nuevos sin stock aun,
+    ''como los recien migrados). Pensada unicamente para el boton "Agregar todos los productos"
+    ''en un movimiento de Ingreso (MAM_Movimientos @tipo=19).
+    Public Shared Function L_prListarProductosIngresoMasivo(_deposito As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 19))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@DepositoId", _deposito))
+        _Tabla = D_ProcedimientoConParam("MAM_Movimientos", _listParam)
+
+        Return _Tabla
+    End Function
+
     Public Shared Function L_prListarProductosTodosInventario(CategoriaPrecio As Integer) As DataTable
         Dim _Tabla As DataTable
 
