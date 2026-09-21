@@ -560,7 +560,7 @@ Public Class FrmVentasPorCategoria
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
         Dim _dt As New DataTable
-        _dt = L_prListarProductosPorCategoriaTotal(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"),
+        _dt = L_prListarProductosPorCategoriaTotalV2PorCategoria(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"),
                                              cbVendedor.Value, cbCategoria.Value)
         If (IsNothing(_dt) Or _dt.Rows.Count = 0) Then
 

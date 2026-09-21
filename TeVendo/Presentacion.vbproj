@@ -862,6 +862,7 @@
       <DependentUpon>VentasVsCostos.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Utils\BuscadorJanus.vb" />
     <Compile Include="Utils\Celda.vb" />
     <Compile Include="Utils\CrearCategoria.Designer.vb">
       <DependentUpon>CrearCategoria.vb</DependentUpon>

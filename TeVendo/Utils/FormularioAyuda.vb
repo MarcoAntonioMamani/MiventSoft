@@ -159,8 +159,9 @@ Public Class FormularioAyuda
 
         Else
             'grProducto.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grProducto.RootTable.Columns("NombreProducto"), Janus.Windows.GridEX.ConditionOperator.Contains, tbNombreProducto.Text))
+            FiltrarGridEX(grJBuscador, dtBuscador, tbNombre.Text)
 
-            grJBuscador.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grJBuscador.RootTable.Columns("Nombre"), Janus.Windows.GridEX.ConditionOperator.Contains, tbNombre.Text))
+            '' grJBuscador.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grJBuscador.RootTable.Columns("Nombre"), Janus.Windows.GridEX.ConditionOperator.Contains, tbNombre.Text))
 
         End If
     End Sub

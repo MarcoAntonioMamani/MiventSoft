@@ -14,12 +14,13 @@ Public Class FProductosPorClientes
     Public TipoMovimientoId As Integer
     Public DepositoId As Integer
     Dim IdCliente As Integer
-
+    Dim IdProducto As Integer
 
     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
 
     Public Sub IniciarTodod()
         IdCliente = -1
+        IdProducto = -1
         Dim dt As DataTable = ListarProveedoresCombo()
         dt.Rows.Add(-1, "TODOS")
         P_Global._prCargarComboGenerico(cbProveedor, dt, "Id", "Codigo", "Proveedor", "Proveedor")
@@ -39,7 +40,7 @@ Public Class FProductosPorClientes
         cbFechaDesde.Value = Now.Date
         cbFechaHasta.Value = Now.Date
         chkTodosClientes.CheckValue = True
-
+        chkTodosProductos.CheckValue = True
     End Sub
 
 
@@ -219,7 +220,7 @@ Public Class FProductosPorClientes
 
 
 
-        dt = L_prGenerarReporteProductosPorVentas(cbProveedor.Value, cbCategoriaProducto.Value, IdCliente, cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"))  ''1=Almacen
+        dt = L_prGenerarReporteProductosPorVentas(cbProveedor.Value, cbCategoriaProducto.Value, IdCliente, cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"), IdProducto)  ''1=Almacen
         dtProductos = dt
         dtFiltrado = dt.Copy
         'p.Id , p.CodigoExterno, p.NombreProducto, p.DescripcionProducto, Sum(stock.Cantidad) as stock 
@@ -336,7 +337,7 @@ Public Class FProductosPorClientes
 
     Private Sub btnConfirmarSalir_Click(sender As Object, e As EventArgs) Handles btnConfirmarSalir.Click
         _prCargarProductos(cbCategoriaProducto.Value)
-        tbProducto.Clear()
+
 
     End Sub
 
@@ -563,6 +564,7 @@ Public Class FProductosPorClientes
             btnClientes.Visible = False
             tbNameCliente.BackColor = Color.DarkGray
             IdCliente = -1
+            tbNameCliente.Clear()
         Else
             IdCliente = -1
             tbNameCliente.Enabled = True
@@ -573,7 +575,53 @@ Public Class FProductosPorClientes
         End If
     End Sub
 
-    Private Sub CheckBoxX1_CheckedChanged(sender As Object, e As EventArgs) Handles c.CheckedChanged
+    Private Sub CheckBoxX1_CheckedChanged(sender As Object, e As EventArgs) Handles chkTodosProductos.CheckedChanged
+        If (chkTodosProductos.Checked = True) Then
+            tbProducto.Enabled = False
+            btnProducto.Visible = False
+            tbProducto.BackColor = Color.DarkGray
+            IdProducto = -1
+            tbProducto.Clear()
 
+        Else
+            IdProducto = -1
+            tbProducto.Enabled = True
+            btnProducto.Visible = True
+            tbProducto.BackColor = Color.White
+            tbProducto.Focus()
+
+        End If
+    End Sub
+
+    Private Sub btnProducto_Click(sender As Object, e As EventArgs) Handles btnProducto.Click
+        Dim dt As DataTable
+
+        dt = ListarProductosBuscador()
+        ' a.Id,a.CodigoExterno ,a.NombreProducto,cat.NombreCategoria 
+
+        Dim listEstCeldas As New List(Of Celda)
+        listEstCeldas.Add(New Celda("Id", False, "ID", 50))
+        listEstCeldas.Add(New Celda("CodigoExterno", True, "Cod Externo", 180))
+        listEstCeldas.Add(New Celda("NombreProducto", True, "Producto", 350))
+        listEstCeldas.Add(New Celda("NombreCategoria", True, "Categoria".ToUpper, 200))
+        Dim ef = New Efecto
+        ef.tipo = 6
+        ef.dt = dt
+        ef.SeleclCol = 2
+        ef.listEstCeldasNew = listEstCeldas
+        ef.alto = 50
+        ef.ancho = 350
+        ef.Context = "Seleccione Producto".ToUpper
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+            IdProducto = Row.Cells("Id").Value
+            tbProducto.Text = Row.Cells("NombreProducto").Value
+            btnConfirmarSalir.Focus()
+
+        End If
     End Sub
 End Class

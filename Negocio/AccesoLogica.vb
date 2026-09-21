@@ -2471,6 +2471,16 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+
+    Public Shared Function ListarProductosBuscador() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 14))
+        _Tabla = D_ProcedimientoConParam("MAM_Clientes", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_prListarProductosCompras(_deposito As Integer) As DataTable
         Dim _Tabla As DataTable
 
@@ -3199,7 +3209,7 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
     Public Shared Function L_prGenerarReporteProductosPorVentas(ProveedorId As Integer, CategoriaID As Integer, ClienteId As Integer,
-                                                                FechaI As String, FechaF As String) As DataTable
+                                                                FechaI As String, FechaF As String, IdProducto As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
@@ -3211,6 +3221,10 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@ClienteId", ClienteId))
         _listParam.Add(New Datos.DParametro("@FechaI", FechaI))
         _listParam.Add(New Datos.DParametro("@FechaF", FechaF))
+        _listParam.Add(New Datos.DParametro("@IdProducto", IdProducto))
+
+
+
         _Tabla = D_ProcedimientoConParam("MAM_Ventas", _listParam)
 
         Return _Tabla
@@ -3242,6 +3256,24 @@ Public Class AccesoLogica
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 10))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@FechaI", FechaI))
+        _listParam.Add(New Datos.DParametro("@FechaF", FechaF))
+        _listParam.Add(New Datos.DParametro("@PersonalId", PersonalId))
+        _listParam.Add(New Datos.DParametro("@CategoriaId", CategoriaId))
+        _Tabla = D_ProcedimientoConParam("MAM_Productos", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prListarProductosPorCategoriaTotalV2PorCategoria(FechaI As String,
+                                                           FechaF As String,
+                                                           PersonalId As Integer, CategoriaId As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 12))
         _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
         _listParam.Add(New Datos.DParametro("@FechaI", FechaI))
         _listParam.Add(New Datos.DParametro("@FechaF", FechaF))

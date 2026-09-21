@@ -28,6 +28,16 @@ Partial Class FProductosPorClientes
         Me.Paneltop = New System.Windows.Forms.Panel()
         Me.grProducto = New Janus.Windows.GridEX.GridEX()
         Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.chkTodosProductos = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.btnProducto = New DevComponents.DotNetBar.ButtonX()
+        Me.cbFechaHasta = New Janus.Windows.CalendarCombo.CalendarCombo()
+        Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
+        Me.cbFechaDesde = New Janus.Windows.CalendarCombo.CalendarCombo()
+        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
+        Me.chkTodosClientes = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.btnClientes = New DevComponents.DotNetBar.ButtonX()
+        Me.LabelX3 = New DevComponents.DotNetBar.LabelX()
+        Me.tbNameCliente = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.cbProveedor = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
         Me.cbCategoriaProducto = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
@@ -42,17 +52,7 @@ Partial Class FProductosPorClientes
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel12 = New System.Windows.Forms.Panel()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
-        Me.LabelX3 = New DevComponents.DotNetBar.LabelX()
-        Me.tbNameCliente = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.chkTodosClientes = New DevComponents.DotNetBar.Controls.CheckBoxX()
-        Me.btnClientes = New DevComponents.DotNetBar.ButtonX()
-        Me.cbFechaHasta = New Janus.Windows.CalendarCombo.CalendarCombo()
-        Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
-        Me.cbFechaDesde = New Janus.Windows.CalendarCombo.CalendarCombo()
-        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
-        Me.c = New DevComponents.DotNetBar.Controls.CheckBoxX()
-        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.Paneltop.SuspendLayout()
         CType(Me.grProducto, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
@@ -132,8 +132,8 @@ Partial Class FProductosPorClientes
         '
         'Panel5
         '
-        Me.Panel5.Controls.Add(Me.c)
-        Me.Panel5.Controls.Add(Me.ButtonX1)
+        Me.Panel5.Controls.Add(Me.chkTodosProductos)
+        Me.Panel5.Controls.Add(Me.btnProducto)
         Me.Panel5.Controls.Add(Me.cbFechaHasta)
         Me.Panel5.Controls.Add(Me.LabelX4)
         Me.Panel5.Controls.Add(Me.cbFechaDesde)
@@ -157,6 +157,208 @@ Partial Class FProductosPorClientes
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(1444, 176)
         Me.Panel5.TabIndex = 3
+        '
+        'chkTodosProductos
+        '
+        '
+        '
+        '
+        Me.chkTodosProductos.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.chkTodosProductos.CheckSignSize = New System.Drawing.Size(16, 16)
+        Me.chkTodosProductos.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkTodosProductos.Location = New System.Drawing.Point(605, 16)
+        Me.chkTodosProductos.Name = "chkTodosProductos"
+        Me.chkTodosProductos.Size = New System.Drawing.Size(85, 23)
+        Me.chkTodosProductos.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.chkTodosProductos.TabIndex = 390
+        Me.chkTodosProductos.Text = "Todos"
+        Me.chkTodosProductos.TextColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        '
+        'btnProducto
+        '
+        Me.btnProducto.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnProducto.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnProducto.Image = Global.TeVendo.My.Resources.Resources.search
+        Me.btnProducto.ImageFixedSize = New System.Drawing.Size(28, 28)
+        Me.btnProducto.Location = New System.Drawing.Point(549, 9)
+        Me.btnProducto.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnProducto.Name = "btnProducto"
+        Me.btnProducto.Size = New System.Drawing.Size(50, 36)
+        Me.btnProducto.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnProducto.TabIndex = 389
+        Me.btnProducto.Visible = False
+        '
+        'cbFechaHasta
+        '
+        Me.cbFechaHasta.BackColor = System.Drawing.Color.White
+        Me.cbFechaHasta.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.Flat
+        '
+        '
+        '
+        Me.cbFechaHasta.DropDownCalendar.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.None
+        Me.cbFechaHasta.DropDownCalendar.DayOfWeekAbbreviation = Janus.Windows.CalendarCombo.DayOfWeekAbbreviation.UseAbbreviatedName
+        Me.cbFechaHasta.DropDownCalendar.DaysFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.cbFechaHasta.DropDownCalendar.DaysFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.cbFechaHasta.DropDownCalendar.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbFechaHasta.DropDownCalendar.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.cbFechaHasta.DropDownCalendar.HeaderAppearance = Janus.Windows.CalendarCombo.ButtonAppearance.PopUp
+        Me.cbFechaHasta.DropDownCalendar.HeaderFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.cbFechaHasta.DropDownCalendar.HeaderFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.cbFechaHasta.DropDownCalendar.Name = ""
+        Me.cbFechaHasta.DropDownCalendar.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.cbFechaHasta.DropDownCalendar.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.cbFechaHasta.DropDownCalendar.TodayRectColor = System.Drawing.Color.DarkCyan
+        Me.cbFechaHasta.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.cbFechaHasta.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
+        Me.cbFechaHasta.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbFechaHasta.Location = New System.Drawing.Point(761, 48)
+        Me.cbFechaHasta.Name = "cbFechaHasta"
+        Me.cbFechaHasta.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.cbFechaHasta.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.cbFechaHasta.SecondIncrement = 10
+        Me.cbFechaHasta.Size = New System.Drawing.Size(200, 26)
+        Me.cbFechaHasta.TabIndex = 388
+        Me.cbFechaHasta.TodayButtonText = "Hoy"
+        Me.cbFechaHasta.UseCompatibleTextRendering = False
+        Me.cbFechaHasta.Value = New Date(2020, 6, 21, 0, 0, 0, 0)
+        Me.cbFechaHasta.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.cbFechaHasta.YearIncrement = 10
+        '
+        'LabelX4
+        '
+        Me.LabelX4.AutoSize = True
+        Me.LabelX4.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX4.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX4.Location = New System.Drawing.Point(712, 48)
+        Me.LabelX4.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX4.Name = "LabelX4"
+        Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX4.Size = New System.Drawing.Size(42, 21)
+        Me.LabelX4.TabIndex = 387
+        Me.LabelX4.Text = "Hasta:"
+        '
+        'cbFechaDesde
+        '
+        Me.cbFechaDesde.BackColor = System.Drawing.Color.White
+        Me.cbFechaDesde.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.Flat
+        '
+        '
+        '
+        Me.cbFechaDesde.DropDownCalendar.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.None
+        Me.cbFechaDesde.DropDownCalendar.DayOfWeekAbbreviation = Janus.Windows.CalendarCombo.DayOfWeekAbbreviation.UseAbbreviatedName
+        Me.cbFechaDesde.DropDownCalendar.DaysFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.cbFechaDesde.DropDownCalendar.DaysFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.cbFechaDesde.DropDownCalendar.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbFechaDesde.DropDownCalendar.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.cbFechaDesde.DropDownCalendar.HeaderAppearance = Janus.Windows.CalendarCombo.ButtonAppearance.PopUp
+        Me.cbFechaDesde.DropDownCalendar.HeaderFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
+        Me.cbFechaDesde.DropDownCalendar.HeaderFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.cbFechaDesde.DropDownCalendar.Name = ""
+        Me.cbFechaDesde.DropDownCalendar.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.cbFechaDesde.DropDownCalendar.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.cbFechaDesde.DropDownCalendar.TodayRectColor = System.Drawing.Color.DarkCyan
+        Me.cbFechaDesde.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.cbFechaDesde.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
+        Me.cbFechaDesde.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbFechaDesde.Location = New System.Drawing.Point(761, 19)
+        Me.cbFechaDesde.Name = "cbFechaDesde"
+        Me.cbFechaDesde.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
+        Me.cbFechaDesde.Office2007CustomColor = System.Drawing.Color.Turquoise
+        Me.cbFechaDesde.SecondIncrement = 10
+        Me.cbFechaDesde.Size = New System.Drawing.Size(200, 26)
+        Me.cbFechaDesde.TabIndex = 386
+        Me.cbFechaDesde.TodayButtonText = "Hoy"
+        Me.cbFechaDesde.UseCompatibleTextRendering = False
+        Me.cbFechaDesde.Value = New Date(2020, 6, 21, 0, 0, 0, 0)
+        Me.cbFechaDesde.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
+        Me.cbFechaDesde.YearIncrement = 10
+        '
+        'LabelX5
+        '
+        Me.LabelX5.AutoSize = True
+        Me.LabelX5.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX5.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX5.Location = New System.Drawing.Point(709, 19)
+        Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX5.Name = "LabelX5"
+        Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX5.Size = New System.Drawing.Size(45, 21)
+        Me.LabelX5.TabIndex = 385
+        Me.LabelX5.Text = "Desde:"
+        '
+        'chkTodosClientes
+        '
+        '
+        '
+        '
+        Me.chkTodosClientes.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.chkTodosClientes.CheckSignSize = New System.Drawing.Size(16, 16)
+        Me.chkTodosClientes.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkTodosClientes.Location = New System.Drawing.Point(605, 139)
+        Me.chkTodosClientes.Name = "chkTodosClientes"
+        Me.chkTodosClientes.Size = New System.Drawing.Size(85, 23)
+        Me.chkTodosClientes.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.chkTodosClientes.TabIndex = 384
+        Me.chkTodosClientes.Text = "Todos"
+        Me.chkTodosClientes.TextColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        '
+        'btnClientes
+        '
+        Me.btnClientes.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnClientes.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnClientes.Image = Global.TeVendo.My.Resources.Resources.search
+        Me.btnClientes.ImageFixedSize = New System.Drawing.Size(28, 28)
+        Me.btnClientes.Location = New System.Drawing.Point(549, 132)
+        Me.btnClientes.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnClientes.Name = "btnClientes"
+        Me.btnClientes.Size = New System.Drawing.Size(50, 36)
+        Me.btnClientes.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnClientes.TabIndex = 383
+        Me.btnClientes.Visible = False
+        '
+        'LabelX3
+        '
+        Me.LabelX3.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX3.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX3.Location = New System.Drawing.Point(15, 140)
+        Me.LabelX3.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX3.Name = "LabelX3"
+        Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX3.Size = New System.Drawing.Size(151, 28)
+        Me.LabelX3.TabIndex = 382
+        Me.LabelX3.Text = "Cliente"
+        '
+        'tbNameCliente
+        '
+        Me.tbNameCliente.BackColor = System.Drawing.Color.White
+        '
+        '
+        '
+        Me.tbNameCliente.Border.Class = "TextBoxBorder"
+        Me.tbNameCliente.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbNameCliente.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbNameCliente.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tbNameCliente.Location = New System.Drawing.Point(209, 141)
+        Me.tbNameCliente.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbNameCliente.Name = "tbNameCliente"
+        Me.tbNameCliente.PreventEnterBeep = True
+        Me.tbNameCliente.Size = New System.Drawing.Size(332, 24)
+        Me.tbNameCliente.TabIndex = 381
         '
         'cbProveedor
         '
@@ -396,211 +598,9 @@ Partial Class FProductosPorClientes
         Me.PictureBox3.TabIndex = 0
         Me.PictureBox3.TabStop = False
         '
-        'LabelX3
-        '
-        Me.LabelX3.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX3.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX3.Location = New System.Drawing.Point(15, 140)
-        Me.LabelX3.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX3.Name = "LabelX3"
-        Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX3.Size = New System.Drawing.Size(151, 28)
-        Me.LabelX3.TabIndex = 382
-        Me.LabelX3.Text = "Cliente"
-        '
-        'tbNameCliente
-        '
-        Me.tbNameCliente.BackColor = System.Drawing.Color.White
-        '
-        '
-        '
-        Me.tbNameCliente.Border.Class = "TextBoxBorder"
-        Me.tbNameCliente.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbNameCliente.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbNameCliente.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbNameCliente.Location = New System.Drawing.Point(209, 141)
-        Me.tbNameCliente.Margin = New System.Windows.Forms.Padding(4)
-        Me.tbNameCliente.Name = "tbNameCliente"
-        Me.tbNameCliente.PreventEnterBeep = True
-        Me.tbNameCliente.Size = New System.Drawing.Size(332, 24)
-        Me.tbNameCliente.TabIndex = 381
-        '
-        'chkTodosClientes
-        '
-        '
-        '
-        '
-        Me.chkTodosClientes.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
-        Me.chkTodosClientes.CheckSignSize = New System.Drawing.Size(16, 16)
-        Me.chkTodosClientes.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkTodosClientes.Location = New System.Drawing.Point(605, 139)
-        Me.chkTodosClientes.Name = "chkTodosClientes"
-        Me.chkTodosClientes.Size = New System.Drawing.Size(85, 23)
-        Me.chkTodosClientes.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.chkTodosClientes.TabIndex = 384
-        Me.chkTodosClientes.Text = "Todos"
-        Me.chkTodosClientes.TextColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        '
-        'btnClientes
-        '
-        Me.btnClientes.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnClientes.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.btnClientes.Image = Global.TeVendo.My.Resources.Resources.search
-        Me.btnClientes.ImageFixedSize = New System.Drawing.Size(28, 28)
-        Me.btnClientes.Location = New System.Drawing.Point(549, 132)
-        Me.btnClientes.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnClientes.Name = "btnClientes"
-        Me.btnClientes.Size = New System.Drawing.Size(50, 36)
-        Me.btnClientes.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnClientes.TabIndex = 383
-        Me.btnClientes.Visible = False
-        '
-        'cbFechaHasta
-        '
-        Me.cbFechaHasta.BackColor = System.Drawing.Color.White
-        Me.cbFechaHasta.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.Flat
-        '
-        '
-        '
-        Me.cbFechaHasta.DropDownCalendar.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.None
-        Me.cbFechaHasta.DropDownCalendar.DayOfWeekAbbreviation = Janus.Windows.CalendarCombo.DayOfWeekAbbreviation.UseAbbreviatedName
-        Me.cbFechaHasta.DropDownCalendar.DaysFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
-        Me.cbFechaHasta.DropDownCalendar.DaysFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
-        Me.cbFechaHasta.DropDownCalendar.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbFechaHasta.DropDownCalendar.ForeColor = System.Drawing.Color.DarkSlateGray
-        Me.cbFechaHasta.DropDownCalendar.HeaderAppearance = Janus.Windows.CalendarCombo.ButtonAppearance.PopUp
-        Me.cbFechaHasta.DropDownCalendar.HeaderFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
-        Me.cbFechaHasta.DropDownCalendar.HeaderFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
-        Me.cbFechaHasta.DropDownCalendar.Name = ""
-        Me.cbFechaHasta.DropDownCalendar.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
-        Me.cbFechaHasta.DropDownCalendar.Office2007CustomColor = System.Drawing.Color.Turquoise
-        Me.cbFechaHasta.DropDownCalendar.TodayRectColor = System.Drawing.Color.DarkCyan
-        Me.cbFechaHasta.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
-        Me.cbFechaHasta.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
-        Me.cbFechaHasta.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbFechaHasta.Location = New System.Drawing.Point(761, 48)
-        Me.cbFechaHasta.Name = "cbFechaHasta"
-        Me.cbFechaHasta.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
-        Me.cbFechaHasta.Office2007CustomColor = System.Drawing.Color.Turquoise
-        Me.cbFechaHasta.SecondIncrement = 10
-        Me.cbFechaHasta.Size = New System.Drawing.Size(200, 26)
-        Me.cbFechaHasta.TabIndex = 388
-        Me.cbFechaHasta.TodayButtonText = "Hoy"
-        Me.cbFechaHasta.UseCompatibleTextRendering = False
-        Me.cbFechaHasta.Value = New Date(2020, 6, 21, 0, 0, 0, 0)
-        Me.cbFechaHasta.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
-        Me.cbFechaHasta.YearIncrement = 10
-        '
-        'LabelX4
-        '
-        Me.LabelX4.AutoSize = True
-        Me.LabelX4.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX4.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX4.Location = New System.Drawing.Point(712, 48)
-        Me.LabelX4.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX4.Name = "LabelX4"
-        Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX4.Size = New System.Drawing.Size(42, 21)
-        Me.LabelX4.TabIndex = 387
-        Me.LabelX4.Text = "Hasta:"
-        '
-        'cbFechaDesde
-        '
-        Me.cbFechaDesde.BackColor = System.Drawing.Color.White
-        Me.cbFechaDesde.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.Flat
-        '
-        '
-        '
-        Me.cbFechaDesde.DropDownCalendar.BorderStyle = Janus.Windows.CalendarCombo.BorderStyle.None
-        Me.cbFechaDesde.DropDownCalendar.DayOfWeekAbbreviation = Janus.Windows.CalendarCombo.DayOfWeekAbbreviation.UseAbbreviatedName
-        Me.cbFechaDesde.DropDownCalendar.DaysFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
-        Me.cbFechaDesde.DropDownCalendar.DaysFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
-        Me.cbFechaDesde.DropDownCalendar.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbFechaDesde.DropDownCalendar.ForeColor = System.Drawing.Color.DarkSlateGray
-        Me.cbFechaDesde.DropDownCalendar.HeaderAppearance = Janus.Windows.CalendarCombo.ButtonAppearance.PopUp
-        Me.cbFechaDesde.DropDownCalendar.HeaderFormatStyle.FontBold = Janus.Windows.CalendarCombo.TriState.[True]
-        Me.cbFechaDesde.DropDownCalendar.HeaderFormatStyle.ForeColor = System.Drawing.Color.DarkSlateGray
-        Me.cbFechaDesde.DropDownCalendar.Name = ""
-        Me.cbFechaDesde.DropDownCalendar.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
-        Me.cbFechaDesde.DropDownCalendar.Office2007CustomColor = System.Drawing.Color.Turquoise
-        Me.cbFechaDesde.DropDownCalendar.TodayRectColor = System.Drawing.Color.DarkCyan
-        Me.cbFechaDesde.DropDownCalendar.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
-        Me.cbFechaDesde.EditStyle = Janus.Windows.CalendarCombo.EditStyle.Free
-        Me.cbFechaDesde.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbFechaDesde.Location = New System.Drawing.Point(761, 19)
-        Me.cbFechaDesde.Name = "cbFechaDesde"
-        Me.cbFechaDesde.Office2007ColorScheme = Janus.Windows.CalendarCombo.Office2007ColorScheme.Custom
-        Me.cbFechaDesde.Office2007CustomColor = System.Drawing.Color.Turquoise
-        Me.cbFechaDesde.SecondIncrement = 10
-        Me.cbFechaDesde.Size = New System.Drawing.Size(200, 26)
-        Me.cbFechaDesde.TabIndex = 386
-        Me.cbFechaDesde.TodayButtonText = "Hoy"
-        Me.cbFechaDesde.UseCompatibleTextRendering = False
-        Me.cbFechaDesde.Value = New Date(2020, 6, 21, 0, 0, 0, 0)
-        Me.cbFechaDesde.VisualStyle = Janus.Windows.CalendarCombo.VisualStyle.Office2007
-        Me.cbFechaDesde.YearIncrement = 10
-        '
-        'LabelX5
-        '
-        Me.LabelX5.AutoSize = True
-        Me.LabelX5.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX5.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX5.Location = New System.Drawing.Point(709, 19)
-        Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX5.Name = "LabelX5"
-        Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX5.Size = New System.Drawing.Size(45, 21)
-        Me.LabelX5.TabIndex = 385
-        Me.LabelX5.Text = "Desde:"
-        '
         'MHighlighterFocus
         '
         Me.MHighlighterFocus.FocusHighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Orange
-        '
-        'c
-        '
-        '
-        '
-        '
-        Me.c.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
-        Me.c.CheckSignSize = New System.Drawing.Size(16, 16)
-        Me.c.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.c.Location = New System.Drawing.Point(605, 16)
-        Me.c.Name = "c"
-        Me.c.Size = New System.Drawing.Size(85, 23)
-        Me.c.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.c.TabIndex = 390
-        Me.c.Text = "Todos"
-        Me.c.TextColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        '
-        'ButtonX1
-        '
-        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.ButtonX1.Image = Global.TeVendo.My.Resources.Resources.search
-        Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(28, 28)
-        Me.ButtonX1.Location = New System.Drawing.Point(549, 9)
-        Me.ButtonX1.Margin = New System.Windows.Forms.Padding(4)
-        Me.ButtonX1.Name = "ButtonX1"
-        Me.ButtonX1.Size = New System.Drawing.Size(50, 36)
-        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX1.TabIndex = 389
-        Me.ButtonX1.Visible = False
         '
         'FProductosPorClientes
         '
@@ -651,6 +651,6 @@ Partial Class FProductosPorClientes
     Friend WithEvents cbFechaDesde As Janus.Windows.CalendarCombo.CalendarCombo
     Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
     Protected WithEvents MHighlighterFocus As DevComponents.DotNetBar.Validator.Highlighter
-    Friend WithEvents c As DevComponents.DotNetBar.Controls.CheckBoxX
-    Friend WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents chkTodosProductos As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents btnProducto As DevComponents.DotNetBar.ButtonX
 End Class
