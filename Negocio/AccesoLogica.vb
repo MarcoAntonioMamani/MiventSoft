@@ -1938,6 +1938,39 @@ Public Class AccesoLogica
     End Function
 
 #End Region
+
+
+
+    Public Shared Function L_prListarAuditoriaVentas(fechaI As String, fechaF As String, tipoEvento As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@fechaDesde", fechaI))
+        _listParam.Add(New Datos.DParametro("@fechaHasta", fechaF))
+        _listParam.Add(New Datos.DParametro("@tipoEvento", tipoEvento))
+
+        _Tabla = D_ProcedimientoConParam("MAM_AuditoriaVentas", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prListarAuditoriaVentasDetalle(EventoId As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@EventoId", EventoId))
+
+        _Tabla = D_ProcedimientoConParam("MAM_AuditoriaVentas", _listParam)
+
+        Return _Tabla
+    End Function
+
 #Region "Compras TecBrinc"
     Public Shared Function ListaComprasDetalles(CompraId As String) As DataTable
         Dim _Tabla As DataTable

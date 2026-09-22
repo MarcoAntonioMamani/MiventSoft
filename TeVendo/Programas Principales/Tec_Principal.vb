@@ -1310,4 +1310,10 @@ Public Class Tec_Principal
 
         frm.Show()
     End Sub
+
+    Private Sub btnRepAuditoriaVentas_Click(sender As Object, e As EventArgs) Handles btnRepAuditoriaVentas.Click
+        Dim frm As New Rep_AuditoriaVentas
+
+        frm.Show()
+    End Sub
 End Class
