@@ -1,13 +1,17 @@
 /* ============================================================================
-   MAM_AuditoriaVentas - Nuevo procedimiento de CONSULTA (solo lectura)
+   MAM_AuditoriaVentas - Procedimiento de CONSULTA (solo lectura)  -- v2
    Base de datos: DistribucionDistralKCP2023
    Generado con Claude para Marco Mamani (BANCOSOL)
 
-   Sigue exactamente tu convencion MAM_<Entidad> + @tipo dispatcher (igual que
-   MAM_Ventas, MAM_Clientes, MAM_Clasificadores, etc). No modifica ninguna
-   tabla, solo lee de VentasAuditoriaEventos / VentasAuditoriaDetalle (las
-   tablas que ya creamos) y de Ventas/Clientes/Productos para mostrar nombres
-   en vez de solo Ids.
+   CAMBIO vs. v1: se agrega el vendedor/personal que registro la Venta
+   (columna "Personal", via Ventas.PersonalId -> Personal.NombrePersonal),
+   ademas de Cliente y Origen que ya traia v1. Es seguro volver a ejecutar
+   este script: hace DROP + CREATE, no toca datos ni las tablas de auditoria.
+
+   Sigue tu convencion MAM_<Entidad> + @tipo dispatcher (igual que MAM_Ventas,
+   MAM_Clientes, MAM_Clasificadores, etc). No modifica ninguna tabla, solo lee
+   de VentasAuditoriaEventos / VentasAuditoriaDetalle y de Ventas/Clientes/
+   Personal/Productos para mostrar nombres en vez de solo Ids.
 
    @tipo = 1  ->  Grilla MAESTRA: eventos (Anulado/Eliminado/Modificado) de un
                   rango de fechas, opcionalmente filtrados por TipoEvento.
@@ -17,12 +21,11 @@
 
    Por que el filtro de fecha usa >= @Desde AND < @Hasta (y no
    CAST(FechaHora AS DATE) = ...): asi el motor SI puede usar el indice
-   IX_VentasAuditoriaEventos_FechaHora_Tipo que ya quedo creado sobre
-   (FechaHora, TipoEvento) - es "sargable". Con CAST(...) el indice no se
-   usaria y tendria que recorrer toda la tabla.
+   IX_VentasAuditoriaEventos_FechaHora_Tipo (sargable). Con CAST(...) el
+   indice no se usaria.
 
-   Nunca se ejecuto todavia contra la base - recomendado probarlo primero
-   en un ambiente de desarrollo/pruebas antes de usarlo en produccion.
+   Recomendado probarlo primero en un ambiente de desarrollo/pruebas antes
+   de usarlo en produccion.
    ============================================================================ */
 
 IF OBJECT_ID('dbo.MAM_AuditoriaVentas', 'P') IS NOT NULL
@@ -49,7 +52,7 @@ BEGIN
             e.Id,                                    -- EventoId: usar este para pedir el detalle (@tipo=2)
             e.VentaId,
             e.TipoEvento,
-            e.Origen,
+            e.Origen,                                 -- 'DESKTOP' o 'MOVIL': desde donde se hizo la accion
             e.FechaHora,
             e.Usuario,
             e.EstadoAnterior,
@@ -58,12 +61,14 @@ BEGIN
             e.AnuladoNuevo,
             e.Observacion,
             v.ClienteId,
-            ISNULL(c.NombreCliente, '') AS Cliente,
+            ISNULL(c.NombreCliente, '')  AS Cliente,
+            ISNULL(per.NombrePersonal, '') AS Personal,   -- quien registro la Venta original
             v.TotalVenta,
             v.Glosa
         FROM dbo.VentasAuditoriaEventos AS e
         INNER JOIN dbo.Ventas AS v ON v.Id = e.VentaId
         LEFT JOIN dbo.Clientes AS c ON c.Id = v.ClienteId
+        LEFT JOIN dbo.Personal AS per ON per.Id = v.PersonalId
         WHERE e.FechaHora >= @Desde
           AND e.FechaHora <  @Hasta
           AND (@tipoEvento IS NULL OR @tipoEvento = 'TODOS' OR e.TipoEvento = @tipoEvento)
@@ -100,11 +105,8 @@ END
 GO
 
 /* ============================================================================
-   PRUEBA RAPIDA (ajusta las fechas a un dia donde ya tengas eventos):
-
+   PRUEBA RAPIDA:
    EXEC dbo.MAM_AuditoriaVentas @tipo = 1, @usuario = 'PRUEBA',
         @fechaDesde = '2026/09/01', @fechaHasta = '2026/09/21', @tipoEvento = 'TODOS';
-
-   -- Con el Id que te devuelva la fila (columna "Id", NO "VentaId"):
    EXEC dbo.MAM_AuditoriaVentas @tipo = 2, @usuario = 'PRUEBA', @EventoId = 1;
    ============================================================================ */

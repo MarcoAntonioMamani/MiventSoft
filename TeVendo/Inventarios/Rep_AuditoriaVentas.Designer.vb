@@ -29,8 +29,11 @@ Partial Class Rep_AuditoriaVentas
         Me.PanelDetalle = New System.Windows.Forms.Panel()
         Me.grDetalle = New Janus.Windows.GridEX.GridEX()
         Me.lblDetalle = New System.Windows.Forms.Label()
+        Me.PanelSeparador = New System.Windows.Forms.Panel()
         Me.PanelMaestro = New System.Windows.Forms.Panel()
         Me.grMaestro = New Janus.Windows.GridEX.GridEX()
+        Me.lblMaestro = New System.Windows.Forms.Label()
+        Me.PanelFiltrosLinea = New System.Windows.Forms.Panel()
         Me.PanelFiltros = New System.Windows.Forms.Panel()
         Me.btnBuscar = New DevComponents.DotNetBar.ButtonX()
         Me.cbTipoEvento = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
@@ -56,6 +59,7 @@ Partial Class Rep_AuditoriaVentas
         '
         Me.Principal.BackColor = System.Drawing.Color.White
         Me.Principal.Controls.Add(Me.PanelDatos)
+        Me.Principal.Controls.Add(Me.PanelFiltrosLinea)
         Me.Principal.Controls.Add(Me.PanelFiltros)
         Me.Principal.Controls.Add(Me.PanelTitulo)
         Me.Principal.Dock = System.Windows.Forms.DockStyle.Fill
@@ -66,12 +70,15 @@ Partial Class Rep_AuditoriaVentas
         '
         'PanelDatos
         '
+        Me.PanelDatos.BackColor = System.Drawing.Color.WhiteSmoke
         Me.PanelDatos.Controls.Add(Me.PanelDetalle)
+        Me.PanelDatos.Controls.Add(Me.PanelSeparador)
         Me.PanelDatos.Controls.Add(Me.PanelMaestro)
         Me.PanelDatos.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelDatos.Location = New System.Drawing.Point(0, 106)
+        Me.PanelDatos.Location = New System.Drawing.Point(0, 107)
         Me.PanelDatos.Name = "PanelDatos"
-        Me.PanelDatos.Size = New System.Drawing.Size(1200, 544)
+        Me.PanelDatos.Padding = New System.Windows.Forms.Padding(8)
+        Me.PanelDatos.Size = New System.Drawing.Size(1200, 543)
         Me.PanelDatos.TabIndex = 2
         '
         'PanelDetalle
@@ -80,19 +87,35 @@ Partial Class Rep_AuditoriaVentas
         Me.PanelDetalle.Controls.Add(Me.grDetalle)
         Me.PanelDetalle.Controls.Add(Me.lblDetalle)
         Me.PanelDetalle.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelDetalle.Location = New System.Drawing.Point(700, 0)
+        Me.PanelDetalle.Location = New System.Drawing.Point(590, 8)
         Me.PanelDetalle.Name = "PanelDetalle"
-        Me.PanelDetalle.Padding = New System.Windows.Forms.Padding(4, 0, 0, 0)
-        Me.PanelDetalle.Size = New System.Drawing.Size(500, 544)
+        Me.PanelDetalle.Padding = New System.Windows.Forms.Padding(1)
+        Me.PanelDetalle.Size = New System.Drawing.Size(602, 527)
         Me.PanelDetalle.TabIndex = 1
         '
         'grDetalle
         '
+        Me.grDetalle.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
         Me.grDetalle.AlternatingColors = True
+        Me.grDetalle.BackColor = System.Drawing.Color.White
+        Me.grDetalle.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
+        Me.grDetalle.ColumnAutoResize = True
         Me.grDetalle.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grDetalle.Location = New System.Drawing.Point(4, 30)
+        Me.grDetalle.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
+        Me.grDetalle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grDetalle.GridLines = Janus.Windows.GridEX.GridLines.None
+        Me.grDetalle.HeaderFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.grDetalle.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 9.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grDetalle.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
+        Me.grDetalle.Location = New System.Drawing.Point(1, 31)
         Me.grDetalle.Name = "grDetalle"
-        Me.grDetalle.Size = New System.Drawing.Size(496, 514)
+        Me.grDetalle.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.grDetalle.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.grDetalle.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grDetalle.SelectedFormatStyle.BackColor = System.Drawing.Color.Gold
+        Me.grDetalle.SelectedFormatStyle.FontBold = Janus.Windows.GridEX.TriState.[True]
+        Me.grDetalle.SelectedFormatStyle.ForeColor = System.Drawing.Color.Black
+        Me.grDetalle.Size = New System.Drawing.Size(600, 495)
         Me.grDetalle.TabIndex = 1
         Me.grDetalle.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -102,40 +125,87 @@ Partial Class Rep_AuditoriaVentas
         Me.lblDetalle.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblDetalle.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblDetalle.ForeColor = System.Drawing.Color.White
-        Me.lblDetalle.Location = New System.Drawing.Point(4, 0)
+        Me.lblDetalle.Location = New System.Drawing.Point(1, 1)
         Me.lblDetalle.Name = "lblDetalle"
-        Me.lblDetalle.Padding = New System.Windows.Forms.Padding(10, 0, 0, 0)
-        Me.lblDetalle.Size = New System.Drawing.Size(496, 30)
+        Me.lblDetalle.Padding = New System.Windows.Forms.Padding(12, 0, 0, 0)
+        Me.lblDetalle.Size = New System.Drawing.Size(600, 30)
         Me.lblDetalle.TabIndex = 0
         Me.lblDetalle.Text = "DETALLE DEL EVENTO SELECCIONADO"
         Me.lblDetalle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'PanelSeparador
+        '
+        Me.PanelSeparador.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.PanelSeparador.Dock = System.Windows.Forms.DockStyle.Left
+        Me.PanelSeparador.Location = New System.Drawing.Point(580, 8)
+        Me.PanelSeparador.Name = "PanelSeparador"
+        Me.PanelSeparador.Size = New System.Drawing.Size(10, 527)
+        Me.PanelSeparador.TabIndex = 2
+        '
         'PanelMaestro
         '
+        Me.PanelMaestro.BackColor = System.Drawing.Color.White
         Me.PanelMaestro.Controls.Add(Me.grMaestro)
+        Me.PanelMaestro.Controls.Add(Me.lblMaestro)
         Me.PanelMaestro.Dock = System.Windows.Forms.DockStyle.Left
-        Me.PanelMaestro.Location = New System.Drawing.Point(0, 0)
+        Me.PanelMaestro.Location = New System.Drawing.Point(8, 8)
         Me.PanelMaestro.Name = "PanelMaestro"
-        Me.PanelMaestro.Padding = New System.Windows.Forms.Padding(0, 0, 4, 0)
-        Me.PanelMaestro.Size = New System.Drawing.Size(700, 544)
+        Me.PanelMaestro.Padding = New System.Windows.Forms.Padding(1)
+        Me.PanelMaestro.Size = New System.Drawing.Size(572, 527)
         Me.PanelMaestro.TabIndex = 0
         '
         'grMaestro
         '
         Me.grMaestro.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
         Me.grMaestro.AlternatingColors = True
+        Me.grMaestro.BackColor = System.Drawing.Color.White
+        Me.grMaestro.BorderStyle = Janus.Windows.GridEX.BorderStyle.None
+        Me.grMaestro.ColumnAutoResize = True
         Me.grMaestro.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grMaestro.Location = New System.Drawing.Point(0, 0)
+        Me.grMaestro.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
+        Me.grMaestro.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grMaestro.GridLines = Janus.Windows.GridEX.GridLines.None
+        Me.grMaestro.HeaderFormatStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.grMaestro.HeaderFormatStyle.Font = New System.Drawing.Font("Calibri", 9.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grMaestro.HeaderFormatStyle.ForeColor = System.Drawing.Color.Black
+        Me.grMaestro.Location = New System.Drawing.Point(1, 31)
         Me.grMaestro.Name = "grMaestro"
-        Me.grMaestro.SelectedFormatStyle.BackColor = System.Drawing.Color.Green
+        Me.grMaestro.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.grMaestro.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.grMaestro.RowFormatStyle.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grMaestro.SelectedFormatStyle.BackColor = System.Drawing.Color.Gold
         Me.grMaestro.SelectedFormatStyle.FontBold = Janus.Windows.GridEX.TriState.[True]
-        Me.grMaestro.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grMaestro.Size = New System.Drawing.Size(696, 544)
+        Me.grMaestro.SelectedFormatStyle.ForeColor = System.Drawing.Color.Black
+        Me.grMaestro.Size = New System.Drawing.Size(570, 495)
         Me.grMaestro.TabIndex = 0
         Me.grMaestro.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
+        'lblMaestro
+        '
+        Me.lblMaestro.BackColor = System.Drawing.Color.MidnightBlue
+        Me.lblMaestro.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblMaestro.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblMaestro.ForeColor = System.Drawing.Color.White
+        Me.lblMaestro.Location = New System.Drawing.Point(1, 1)
+        Me.lblMaestro.Name = "lblMaestro"
+        Me.lblMaestro.Padding = New System.Windows.Forms.Padding(12, 0, 0, 0)
+        Me.lblMaestro.Size = New System.Drawing.Size(570, 30)
+        Me.lblMaestro.TabIndex = 1
+        Me.lblMaestro.Text = "EVENTOS DEL DIA"
+        Me.lblMaestro.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'PanelFiltrosLinea
+        '
+        Me.PanelFiltrosLinea.BackColor = System.Drawing.Color.Gainsboro
+        Me.PanelFiltrosLinea.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PanelFiltrosLinea.Location = New System.Drawing.Point(0, 106)
+        Me.PanelFiltrosLinea.Name = "PanelFiltrosLinea"
+        Me.PanelFiltrosLinea.Size = New System.Drawing.Size(1200, 1)
+        Me.PanelFiltrosLinea.TabIndex = 3
+        '
         'PanelFiltros
         '
+        Me.PanelFiltros.BackColor = System.Drawing.Color.WhiteSmoke
         Me.PanelFiltros.Controls.Add(Me.btnBuscar)
         Me.PanelFiltros.Controls.Add(Me.cbTipoEvento)
         Me.PanelFiltros.Controls.Add(Me.LabelX3)
@@ -165,7 +235,6 @@ Partial Class Rep_AuditoriaVentas
         '
         'cbTipoEvento
         '
-        Me.cbTipoEvento.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
         cbTipoEvento_DesignTimeLayout.LayoutString = resources.GetString("cbTipoEvento_DesignTimeLayout.LayoutString")
         Me.cbTipoEvento.DesignTimeLayout = cbTipoEvento_DesignTimeLayout
         Me.cbTipoEvento.Location = New System.Drawing.Point(650, 20)
@@ -308,6 +377,7 @@ Partial Class Rep_AuditoriaVentas
     Friend WithEvents Principal As Panel
     Friend WithEvents PanelTitulo As Panel
     Friend WithEvents lblTitulo As Label
+    Friend WithEvents PanelFiltrosLinea As Panel
     Friend WithEvents PanelFiltros As Panel
     Friend WithEvents btnBuscar As DevComponents.DotNetBar.ButtonX
     Friend WithEvents cbTipoEvento As Janus.Windows.GridEX.EditControls.MultiColumnCombo
@@ -318,7 +388,9 @@ Partial Class Rep_AuditoriaVentas
     Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
     Friend WithEvents PanelDatos As Panel
     Friend WithEvents PanelMaestro As Panel
+    Friend WithEvents lblMaestro As Label
     Friend WithEvents grMaestro As Janus.Windows.GridEX.GridEX
+    Friend WithEvents PanelSeparador As Panel
     Friend WithEvents PanelDetalle As Panel
     Friend WithEvents lblDetalle As Label
     Friend WithEvents grDetalle As Janus.Windows.GridEX.GridEX

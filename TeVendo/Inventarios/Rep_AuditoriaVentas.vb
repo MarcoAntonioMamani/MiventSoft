@@ -12,7 +12,21 @@ Public Class Rep_AuditoriaVentas
         _prIniciarTodo()
     End Sub
 
+    ''La tabla maestra (izquierda) reparte el ancho de forma proporcional con la
+    ''de detalle (47% / 53%) en vez de un valor fijo en pixeles - asi se ve bien
+    ''tanto maximizado como en una pantalla mas chica.
+    Private Sub Rep_AuditoriaVentas_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
+        _prAjustarAnchoPaneles()
+    End Sub
+
+    Private Sub _prAjustarAnchoPaneles()
+        If (PanelDatos.ClientSize.Width > 300) Then
+            PanelMaestro.Width = CInt(PanelDatos.ClientSize.Width * 0.47)
+        End If
+    End Sub
+
     Private Sub _prIniciarTodo()
+        _prAjustarAnchoPaneles()
         cbFechaDesde.Value = Now.Date
         cbFechaHasta.Value = Now.Date
 
@@ -29,6 +43,32 @@ Public Class Rep_AuditoriaVentas
         _prCargarEventos()
     End Sub
 
+    ''Ayuda para no romper el formulario si algun dia una columna cambia o no llega
+    ''(por ejemplo si todavia no actualizaste el SP en la base): configura la
+    ''columna solo si existe en el DataTable devuelto.
+    Private Sub _prConfigColumna(gr As GridEX, nombre As String, ancho As Integer, caption As String, visible As Boolean,
+                                  Optional formato As String = "", Optional alinear As Boolean = True, Optional wordWrap As Boolean = False)
+        If (Not gr.RootTable.Columns.Contains(nombre)) Then
+            Return
+        End If
+        With gr.RootTable.Columns(nombre)
+            .Width = ancho
+            .Caption = caption
+            .Visible = visible
+            If (alinear) Then
+                .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                .TextAlignment = TextAlignment.Center
+            End If
+            If (formato <> "") Then
+                .FormatString = formato
+            End If
+            If (wordWrap) Then
+                .WordWrap = True
+                .MaxLines = 2
+            End If
+        End With
+    End Sub
+
     Private Sub _prCargarEventos()
         Dim dt As New DataTable
 
@@ -42,117 +82,54 @@ Public Class Rep_AuditoriaVentas
         grMaestro.DataSource = dt
         grMaestro.RetrieveStructure()
         grMaestro.AlternatingColors = True
+        grMaestro.RootTable.FormatConditions.Clear()
 
-        With grMaestro.RootTable.Columns("Id")
-            .Width = 70
-            .Caption = "COD".ToUpper
-            .Visible = False
-        End With
+        _prConfigColumna(grMaestro, "Id", 70, "COD", False)
+        _prConfigColumna(grMaestro, "VentaId", 80, "VENTA", True)
+        _prConfigColumna(grMaestro, "TipoEvento", 120, "ACCION", True, "", True, True)
+        _prConfigColumna(grMaestro, "Origen", 100, "ORIGEN", True, "", True, True)
+        _prConfigColumna(grMaestro, "FechaHora", 150, "FECHA Y HORA", True, "dd/MM/yyyy HH:mm:ss", True, True)
+        _prConfigColumna(grMaestro, "Usuario", 130, "USUARIO", True, "", False, True)
+        _prConfigColumna(grMaestro, "Personal", 190, "VENDEDOR", True, "", False, True)
+        _prConfigColumna(grMaestro, "Cliente", 260, "CLIENTE", True, "", False, True)
+        _prConfigColumna(grMaestro, "TotalVenta", 110, "TOTAL VENTA", True, "0.00")
+        _prConfigColumna(grMaestro, "Glosa", 150, "GLOSA", False)
+        _prConfigColumna(grMaestro, "ClienteId", 70, "", False)
+        _prConfigColumna(grMaestro, "EstadoAnterior", 90, "ESTADO ANTES", False)
+        _prConfigColumna(grMaestro, "EstadoNuevo", 90, "ESTADO DESPUES", False)
+        _prConfigColumna(grMaestro, "AnuladoAnterior", 90, "", False)
+        _prConfigColumna(grMaestro, "AnuladoNuevo", 90, "", False)
+        ''Observacion se quita de la vista (pedido explicito) - se deja el dato en el
+        ''DataTable por si algun dia se quiere volver a mostrar, solo Visible=False
+        _prConfigColumna(grMaestro, "Observacion", 250, "OBSERVACION", False, "", False, True)
 
-        With grMaestro.RootTable.Columns("VentaId")
-            .Width = 80
-            .Caption = "Venta".ToUpper
-            .Visible = True
-            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-            .TextAlignment = TextAlignment.Center
-        End With
+        ''Resaltar la accion (mismo criterio de color en toda la fila: rojo=Eliminado,
+        ''naranja=Anulado, azul=Modificado) - solo estetico, con condiciones nativas de
+        ''Janus (GridEXFormatCondition), sin ninguna libreria externa
+        If (grMaestro.RootTable.Columns.Contains("TipoEvento")) Then
+            Dim fcEliminado As New GridEXFormatCondition(grMaestro.RootTable.Columns("TipoEvento"), ConditionOperator.Equal, "ELIMINADO")
+            fcEliminado.FormatStyle.ForeColor = Color.FromArgb(178, 34, 34)
+            fcEliminado.FormatStyle.FontBold = TriState.True
+            grMaestro.RootTable.FormatConditions.Add(fcEliminado)
 
-        With grMaestro.RootTable.Columns("TipoEvento")
-            .Width = 100
-            .Caption = "Accion".ToUpper
-            .Visible = True
-            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-            .TextAlignment = TextAlignment.Center
-        End With
+            Dim fcAnulado As New GridEXFormatCondition(grMaestro.RootTable.Columns("TipoEvento"), ConditionOperator.Equal, "ANULADO")
+            fcAnulado.FormatStyle.ForeColor = Color.FromArgb(184, 108, 0)
+            fcAnulado.FormatStyle.FontBold = TriState.True
+            grMaestro.RootTable.FormatConditions.Add(fcAnulado)
 
-        With grMaestro.RootTable.Columns("Origen")
-            .Width = 90
-            .Caption = "Origen".ToUpper
-            .Visible = True
-            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-            .TextAlignment = TextAlignment.Center
-        End With
+            Dim fcModificado As New GridEXFormatCondition(grMaestro.RootTable.Columns("TipoEvento"), ConditionOperator.Equal, "MODIFICADO")
+            fcModificado.FormatStyle.ForeColor = Color.FromArgb(30, 90, 160)
+            fcModificado.FormatStyle.FontBold = TriState.True
+            grMaestro.RootTable.FormatConditions.Add(fcModificado)
+        End If
 
-        With grMaestro.RootTable.Columns("FechaHora")
-            .Width = 140
-            .Caption = "Fecha y Hora".ToUpper
-            .Visible = True
-            .FormatString = "dd/MM/yyyy HH:mm:ss"
-            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-            .TextAlignment = TextAlignment.Center
-        End With
-
-        With grMaestro.RootTable.Columns("Usuario")
-            .Width = 110
-            .Caption = "Usuario".ToUpper
-            .Visible = True
-            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-            .TextAlignment = TextAlignment.Center
-        End With
-
-        With grMaestro.RootTable.Columns("Cliente")
-            .Width = 200
-            .Caption = "Cliente".ToUpper
-            .Visible = True
-            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-            .TextAlignment = TextAlignment.Near
-        End With
-
-        With grMaestro.RootTable.Columns("TotalVenta")
-            .Width = 100
-            .Caption = "Total Venta".ToUpper
-            .Visible = True
-            .FormatString = "0.00"
-            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-            .TextAlignment = TextAlignment.Center
-        End With
-
-        With grMaestro.RootTable.Columns("Glosa")
-            .Width = 150
-            .Caption = "Glosa".ToUpper
-            .Visible = False
-        End With
-
-        With grMaestro.RootTable.Columns("ClienteId")
-            .Width = 70
-            .Visible = False
-        End With
-
-        With grMaestro.RootTable.Columns("EstadoAnterior")
-            .Width = 90
-            .Caption = "Estado Antes".ToUpper
-            .Visible = False
-            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-            .TextAlignment = TextAlignment.Center
-        End With
-
-        With grMaestro.RootTable.Columns("EstadoNuevo")
-            .Width = 90
-            .Caption = "Estado Despues".ToUpper
-            .Visible = False
-            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-            .TextAlignment = TextAlignment.Center
-        End With
-
-        With grMaestro.RootTable.Columns("AnuladoAnterior")
-            .Width = 90
-            .Visible = False
-        End With
-
-        With grMaestro.RootTable.Columns("AnuladoNuevo")
-            .Width = 90
-            .Visible = False
-        End With
-
-        With grMaestro.RootTable.Columns("Observacion")
-            .Width = 250
-            .Caption = "Observacion".ToUpper
-            .Visible = True
-            .WordWrap = True
-            .MaxLines = 3
-            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-            .TextAlignment = TextAlignment.Near
-        End With
+        ''Distinguir de un vistazo si la accion vino de la PC (Desktop) o del celular (App Movil)
+        If (grMaestro.RootTable.Columns.Contains("Origen")) Then
+            Dim fcMovil As New GridEXFormatCondition(grMaestro.RootTable.Columns("Origen"), ConditionOperator.Equal, "MOVIL")
+            fcMovil.FormatStyle.ForeColor = Color.FromArgb(96, 60, 160)
+            fcMovil.FormatStyle.FontBold = TriState.True
+            grMaestro.RootTable.FormatConditions.Add(fcMovil)
+        End If
 
         With grMaestro
             .DefaultFilterRowComparison = FilterConditionOperator.Contains
@@ -160,10 +137,16 @@ Public Class Rep_AuditoriaVentas
             .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
             .GroupByBoxVisible = False
             .VisualStyle = VisualStyle.Office2007
+            .ColumnAutoResize = True
+            .GridLines = Janus.Windows.GridEX.GridLines.None
+            .BorderStyle = Janus.Windows.GridEX.BorderStyle.None
         End With
+
+        lblMaestro.Text = "EVENTOS DEL DIA  (" & dt.Rows.Count.ToString() & ")"
 
         ''limpiar el detalle cada vez que se recarga la maestra
         grDetalle.DataSource = Nothing
+        lblDetalle.Text = "DETALLE DEL EVENTO SELECCIONADO"
 
         If (dt.Rows.Count = 0) Then
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
@@ -179,91 +162,59 @@ Public Class Rep_AuditoriaVentas
         grDetalle.RetrieveStructure()
         grDetalle.AlternatingColors = True
 
-        With grDetalle.RootTable.Columns("Id")
-            .Width = 70
-            .Visible = False
-        End With
+        _prConfigColumna(grDetalle, "Id", 70, "", False)
+        _prConfigColumna(grDetalle, "EventoId", 70, "", False)
+        _prConfigColumna(grDetalle, "VentaId", 70, "", False)
+        _prConfigColumna(grDetalle, "ProductoId", 90, "COD PRODUCTO", True)
+        _prConfigColumna(grDetalle, "Producto", 260, "PRODUCTO", True, "", False, True)
+        _prConfigColumna(grDetalle, "TipoCambio", 150, "CAMBIO", True, "", True, True)
+        _prConfigColumna(grDetalle, "CantidadAntes", 90, "CANT. ANTES", True, "0.00")
+        _prConfigColumna(grDetalle, "CantidadDespues", 95, "CANT. DESPUES", True, "0.00")
+        _prConfigColumna(grDetalle, "PrecioAntes", 90, "PRECIO ANTES", True, "0.00")
+        _prConfigColumna(grDetalle, "PrecioDespues", 95, "PRECIO DESPUES", True, "0.00")
 
-        With grDetalle.RootTable.Columns("EventoId")
-            .Width = 70
-            .Visible = False
-        End With
+        If (grDetalle.RootTable.Columns.Contains("TipoCambio")) Then
+            Dim fcAgregado As New GridEXFormatCondition(grDetalle.RootTable.Columns("TipoCambio"), ConditionOperator.Equal, "AGREGADO")
+            fcAgregado.FormatStyle.ForeColor = Color.FromArgb(30, 130, 76)
+            fcAgregado.FormatStyle.FontBold = TriState.True
+            grDetalle.RootTable.FormatConditions.Add(fcAgregado)
 
-        With grDetalle.RootTable.Columns("VentaId")
-            .Width = 70
-            .Visible = False
-        End With
+            Dim fcEliminado As New GridEXFormatCondition(grDetalle.RootTable.Columns("TipoCambio"), ConditionOperator.Equal, "ELIMINADO")
+            fcEliminado.FormatStyle.ForeColor = Color.FromArgb(178, 34, 34)
+            fcEliminado.FormatStyle.FontBold = TriState.True
+            grDetalle.RootTable.FormatConditions.Add(fcEliminado)
 
-        With grDetalle.RootTable.Columns("ProductoId")
-            .Width = 80
-            .Caption = "Cod Producto".ToUpper
-            .Visible = True
-            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-            .TextAlignment = TextAlignment.Center
-        End With
-
-        With grDetalle.RootTable.Columns("Producto")
-            .Width = 220
-            .Caption = "Producto".ToUpper
-            .Visible = True
-            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-            .TextAlignment = TextAlignment.Near
-        End With
-
-        With grDetalle.RootTable.Columns("TipoCambio")
-            .Width = 150
-            .Caption = "Cambio".ToUpper
-            .Visible = True
-            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-            .TextAlignment = TextAlignment.Center
-        End With
-
-        With grDetalle.RootTable.Columns("CantidadAntes")
-            .Width = 90
-            .Caption = "Cant. Antes".ToUpper
-            .Visible = True
-            .FormatString = "0.00"
-            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-            .TextAlignment = TextAlignment.Center
-        End With
-
-        With grDetalle.RootTable.Columns("CantidadDespues")
-            .Width = 90
-            .Caption = "Cant. Despues".ToUpper
-            .Visible = True
-            .FormatString = "0.00"
-            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-            .TextAlignment = TextAlignment.Center
-        End With
-
-        With grDetalle.RootTable.Columns("PrecioAntes")
-            .Width = 90
-            .Caption = "Precio Antes".ToUpper
-            .Visible = True
-            .FormatString = "0.00"
-            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-            .TextAlignment = TextAlignment.Center
-        End With
-
-        With grDetalle.RootTable.Columns("PrecioDespues")
-            .Width = 90
-            .Caption = "Precio Despues".ToUpper
-            .Visible = True
-            .FormatString = "0.00"
-            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-            .TextAlignment = TextAlignment.Center
-        End With
+            Dim fcCantMod As New GridEXFormatCondition(grDetalle.RootTable.Columns("TipoCambio"), ConditionOperator.Equal, "CANTIDAD_MODIFICADA")
+            fcCantMod.FormatStyle.ForeColor = Color.FromArgb(184, 108, 0)
+            fcCantMod.FormatStyle.FontBold = TriState.True
+            grDetalle.RootTable.FormatConditions.Add(fcCantMod)
+        End If
 
         With grDetalle
             .GroupByBoxVisible = False
             .VisualStyle = VisualStyle.Office2007
             .BoundMode = Janus.Data.BoundMode.Bound
             .RowHeaders = InheritableBoolean.True
+            .ColumnAutoResize = True
+            .GridLines = Janus.Windows.GridEX.GridLines.None
+            .BorderStyle = Janus.Windows.GridEX.BorderStyle.None
+            If (dt.Columns.Contains("CantidadAntes")) Then
+                .TotalRow = InheritableBoolean.True
+                .TotalRowPosition = TotalRowPosition.BottomFixed
+                .TotalRowFormatStyle.BackColor = Color.Gold
+                .TotalRowFormatStyle.ForeColor = Color.Black
+                .TotalRowFormatStyle.FontBold = TriState.True
+                .RootTable.Columns("CantidadAntes").AggregateFunction = AggregateFunction.Sum
+                .RootTable.Columns("CantidadDespues").AggregateFunction = AggregateFunction.Sum
+            End If
         End With
     End Sub
 
     Private Sub grMaestro_SelectionChanged(sender As Object, e As EventArgs) Handles grMaestro.SelectionChanged
         If (grMaestro.Row >= 0) Then
+            Dim _venta As String = grMaestro.GetValue("VentaId").ToString()
+            Dim _accion As String = grMaestro.GetValue("TipoEvento").ToString()
+            lblDetalle.Text = "DETALLE - VENTA " & _venta & " (" & _accion & ")"
             _prCargarDetalleEvento(grMaestro.GetValue("Id"))
         End If
     End Sub
