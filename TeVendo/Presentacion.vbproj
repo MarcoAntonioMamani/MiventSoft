@@ -604,6 +604,18 @@
     <Compile Include="Modulos Compras Ventas\Tec_VentasDetalle.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Programas Principales\Rep_HistorialIncrementoVenta.designer.vb">
+      <DependentUpon>Rep_HistorialIncrementoVenta.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Programas Principales\Rep_HistorialIncrementoVenta.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programas Principales\Tec_IncrementoVenta.designer.vb">
+      <DependentUpon>Tec_IncrementoVenta.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Programas Principales\Tec_IncrementoVenta.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Programas Principales\Tec_Login.Designer.vb">
       <DependentUpon>Tec_Login.vb</DependentUpon>
     </Compile>
@@ -1140,6 +1152,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modulos Compras Ventas\Tec_VentasDetalle.resx">
       <DependentUpon>Tec_VentasDetalle.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programas Principales\Rep_HistorialIncrementoVenta.resx">
+      <DependentUpon>Rep_HistorialIncrementoVenta.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programas Principales\Tec_IncrementoVenta.resx">
+      <DependentUpon>Tec_IncrementoVenta.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Programas Principales\Tec_Login.resx">
       <DependentUpon>Tec_Login.vb</DependentUpon>

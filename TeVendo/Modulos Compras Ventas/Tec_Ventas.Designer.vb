@@ -71,6 +71,8 @@ Partial Class Tec_Ventas
         Me.Panel13 = New System.Windows.Forms.Panel()
         Me.LabelX10 = New DevComponents.DotNetBar.LabelX()
         Me.tbTotal = New DevComponents.Editors.DoubleInput()
+        Me.LabelXIncremento = New DevComponents.DotNetBar.LabelX()
+        Me.tbIncrementoVenta = New DevComponents.Editors.DoubleInput()
         Me.LabelX9 = New DevComponents.DotNetBar.LabelX()
         Me.tbMdesc = New DevComponents.Editors.DoubleInput()
         Me.LabelX8 = New DevComponents.DotNetBar.LabelX()
@@ -159,6 +161,7 @@ Partial Class Tec_Ventas
         Me.PanelTotal.SuspendLayout()
         Me.Panel13.SuspendLayout()
         CType(Me.tbTotal, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbIncrementoVenta, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbMdesc, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbPdesc, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
@@ -892,6 +895,8 @@ Partial Class Tec_Ventas
         Me.Panel13.BackColor = System.Drawing.Color.Transparent
         Me.Panel13.Controls.Add(Me.LabelX10)
         Me.Panel13.Controls.Add(Me.tbTotal)
+        Me.Panel13.Controls.Add(Me.LabelXIncremento)
+        Me.Panel13.Controls.Add(Me.tbIncrementoVenta)
         Me.Panel13.Controls.Add(Me.LabelX9)
         Me.Panel13.Controls.Add(Me.tbMdesc)
         Me.Panel13.Controls.Add(Me.LabelX8)
@@ -913,13 +918,59 @@ Partial Class Tec_Ventas
         Me.LabelX10.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX10.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX10.ForeColor = System.Drawing.Color.White
-        Me.LabelX10.Location = New System.Drawing.Point(8, 118)
+        Me.LabelX10.Location = New System.Drawing.Point(8, 173)
         Me.LabelX10.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX10.Name = "LabelX10"
         Me.LabelX10.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX10.Size = New System.Drawing.Size(79, 21)
         Me.LabelX10.TabIndex = 53
         Me.LabelX10.Text = "Total Venta:"
+        '
+        'LabelXIncremento
+        '
+        Me.LabelXIncremento.AutoSize = True
+        Me.LabelXIncremento.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelXIncremento.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelXIncremento.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelXIncremento.ForeColor = System.Drawing.Color.White
+        Me.LabelXIncremento.Location = New System.Drawing.Point(8, 118)
+        Me.LabelXIncremento.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelXIncremento.Name = "LabelXIncremento"
+        Me.LabelXIncremento.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelXIncremento.Size = New System.Drawing.Size(140, 21)
+        Me.LabelXIncremento.TabIndex = 54
+        Me.LabelXIncremento.Text = "Incremento Adicional:"
+        '
+        'tbIncrementoVenta
+        '
+        Me.tbIncrementoVenta.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        '
+        '
+        '
+        Me.tbIncrementoVenta.BackgroundStyle.BorderBottomColor = System.Drawing.Color.Red
+        Me.tbIncrementoVenta.BackgroundStyle.BorderTopColor = System.Drawing.Color.Gold
+        Me.tbIncrementoVenta.BackgroundStyle.BorderTopWidth = 1
+        Me.tbIncrementoVenta.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbIncrementoVenta.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.tbIncrementoVenta.BackgroundStyle.CornerTypeBottomLeft = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.tbIncrementoVenta.BackgroundStyle.CornerTypeBottomRight = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.tbIncrementoVenta.BackgroundStyle.CornerTypeTopLeft = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.tbIncrementoVenta.BackgroundStyle.CornerTypeTopRight = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.tbIncrementoVenta.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.tbIncrementoVenta.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbIncrementoVenta.Increment = 1.0R
+        Me.tbIncrementoVenta.IsInputReadOnly = True
+        Me.tbIncrementoVenta.Location = New System.Drawing.Point(75, 140)
+        Me.tbIncrementoVenta.LockUpdateChecked = False
+        Me.tbIncrementoVenta.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbIncrementoVenta.MinValue = 0R
+        Me.tbIncrementoVenta.Name = "tbIncrementoVenta"
+        Me.tbIncrementoVenta.Size = New System.Drawing.Size(108, 28)
+        Me.tbIncrementoVenta.TabIndex = 55
+        Me.tbIncrementoVenta.WatermarkAlignment = DevComponents.Editors.eTextAlignment.Right
         '
         'tbTotal
         '
@@ -942,7 +993,7 @@ Partial Class Tec_Ventas
         Me.tbTotal.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
         Me.tbTotal.Font = New System.Drawing.Font("Calibri", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbTotal.Increment = 1.0R
-        Me.tbTotal.Location = New System.Drawing.Point(9, 143)
+        Me.tbTotal.Location = New System.Drawing.Point(9, 198)
         Me.tbTotal.LockUpdateChecked = False
         Me.tbTotal.Margin = New System.Windows.Forms.Padding(4)
         Me.tbTotal.MinValue = 0R
@@ -2021,6 +2072,7 @@ Partial Class Tec_Ventas
         Me.Panel13.ResumeLayout(False)
         Me.Panel13.PerformLayout()
         CType(Me.tbTotal, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbIncrementoVenta, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbMdesc, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbPdesc, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel5.ResumeLayout(False)
@@ -2057,6 +2109,8 @@ Partial Class Tec_Ventas
     Friend WithEvents Panel13 As Panel
     Friend WithEvents LabelX10 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbTotal As DevComponents.Editors.DoubleInput
+    Friend WithEvents LabelXIncremento As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbIncrementoVenta As DevComponents.Editors.DoubleInput
     Friend WithEvents LabelX9 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbMdesc As DevComponents.Editors.DoubleInput
     Friend WithEvents LabelX8 As DevComponents.DotNetBar.LabelX

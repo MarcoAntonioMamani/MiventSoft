@@ -17,6 +17,27 @@ Public Class Tec_Principal
         btnFecha.ForeColor = Color.White
     End Sub
 
+    ''Trae el monto vigente del incremento diario (si hoy no se configuro todavia,
+    ''el SP devuelve el ultimo monto configurado; si nunca se configuro, devuelve 2.00)
+    ''y lo muestra en el boton, igual que btnFecha muestra la fecha.
+    Sub _prCargarIncrementoVenta()
+        Dim dt As DataTable = L_fnObtenerIncrementoVentaHoy()
+        Dim monto As Decimal = 2.0D
+        If (dt IsNot Nothing AndAlso dt.Rows.Count > 0) Then
+            monto = dt.Rows(0).Item("Monto")
+        End If
+        btnIncrementoVenta.Text = "     Incremento: Bs " & monto.ToString("0.00")
+        btnIncrementoVenta.ForeColor = Color.White
+    End Sub
+
+    Private Sub btnIncrementoVenta_Click(sender As Object, e As EventArgs) Handles btnIncrementoVenta.Click
+        Dim frm As New Tec_IncrementoVenta
+        frm.ShowDialog()
+        ''se vuelve a cargar por si lo modificaron, para que el boton siempre
+        ''refleje el monto vigente
+        _prCargarIncrementoVenta()
+    End Sub
+
     Public Sub New()
 
 
@@ -36,6 +57,7 @@ Public Class Tec_Principal
         L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
         Me.WindowState = FormWindowState.Maximized
         btnUser.Text = "Bienvenido: " + L_Usuario
+        _prCargarIncrementoVenta()
 
 
         FSearchProductos = New FormularioStock With {.TopLevel = False, .AutoSize = True}
@@ -1313,6 +1335,12 @@ Public Class Tec_Principal
 
     Private Sub btnRepAuditoriaVentas_Click(sender As Object, e As EventArgs) Handles btnRepAuditoriaVentas.Click
         Dim frm As New Rep_AuditoriaVentas
+
+        frm.Show()
+    End Sub
+
+    Private Sub btnhistoricoIncremento_Click(sender As Object, e As EventArgs) Handles btnhistoricoIncremento.Click
+        Dim frm As New Rep_HistorialIncrementoVenta
 
         frm.Show()
     End Sub

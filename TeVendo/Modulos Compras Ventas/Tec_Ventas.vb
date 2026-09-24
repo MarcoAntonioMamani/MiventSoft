@@ -28,6 +28,18 @@ Public Class Tec_Ventas
     Dim VentaDirecta As Integer = 0
     Dim VentaDirectaSinConciliacion As Integer = 0
 
+    ''Incremento diario configurable (ver Tec_Principal / Tec_IncrementoVenta).
+    ''Se suma al Total Venta SOLO cuando se esta creando una venta NUEVA
+    ''(_MNuevo = True) - al ver o modificar una venta ya guardada NO se aplica
+    ''este valor, para no alterar el total historico con el incremento
+    ''vigente de HOY.
+    Dim _IncrementoVentaHoy As Double = 0
+
+    ''Monto de incremento REALMENTE registrado para la venta que se esta
+    ''viendo/modificando (leido de VentasIncrementoAplicado via el buscador).
+    ''0 si es una venta vieja de antes de este feature, o una venta movil.
+    Dim _IncrementoVentaRegistrado As Double = 0
+
 #End Region
 
 #Region "Metodos Overrides"
@@ -276,7 +288,7 @@ Public Class Tec_Ventas
         cbFechaDesde.Value = Now.Date
         cbFechaHasta.Value = Now.Date
 
-
+        _prCargarIncrementoVenta()
 
 
 
@@ -1008,8 +1020,30 @@ salirIf:
         Dim montodesc As Double = tbMdesc.Value
         Dim pordesc As Double = ((montodesc * 100) / grDetalle.GetTotal(grDetalle.RootTable.Columns("Total"), AggregateFunction.Sum))
         tbPdesc.Value = pordesc
-        tbTotal.Value = grDetalle.GetTotal(grDetalle.RootTable.Columns("Total"), AggregateFunction.Sum) - montodesc
+        tbTotal.Value = grDetalle.GetTotal(grDetalle.RootTable.Columns("Total"), AggregateFunction.Sum) - montodesc + _prIncrementoAAplicar()
     End Sub
+
+    ''Trae el monto vigente del incremento diario (mismo criterio que Tec_Principal:
+    ''si hoy no se configuro todavia, usa el ultimo monto configurado; si nunca se
+    ''configuro nada, 2.00 por defecto) y lo muestra en el campo informativo.
+    Private Sub _prCargarIncrementoVenta()
+        Dim dt As DataTable = L_fnObtenerIncrementoVentaHoy()
+        _IncrementoVentaHoy = 2.0
+        If (dt IsNot Nothing AndAlso dt.Rows.Count > 0) Then
+            _IncrementoVentaHoy = dt.Rows(0).Item("Monto")
+        End If
+        tbIncrementoVenta.Value = _IncrementoVentaHoy
+    End Sub
+
+    ''Venta NUEVA: usa el monto configurado para HOY.
+    ''Venta existente (ver o modificar): usa el monto REALMENTE registrado
+    ''para esa venta (0 si nunca se registro ninguno para ella).
+    Private Function _prIncrementoAAplicar() As Double
+        If (_MNuevo) Then
+            Return _IncrementoVentaHoy
+        End If
+        Return _IncrementoVentaRegistrado
+    End Function
     Private Sub grdetalle_CellEdited(sender As Object, e As ColumnActionEventArgs) Handles grDetalle.CellEdited
         If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
             If (Not IsNumeric(grDetalle.GetValue("Cantidad")) Or grDetalle.GetValue("Cantidad").ToString = String.Empty) Then
@@ -1171,7 +1205,9 @@ salirIf:
 
         tbMdesc.Value = 0
         tbPdesc.Value = 0
-        tbTotal.Value = 0
+        _IncrementoVentaRegistrado = 0
+        _prCargarIncrementoVenta()
+        tbTotal.Value = _prIncrementoAAplicar()
         _prCargarDetalleVenta(-1)
 
 
@@ -1217,7 +1253,7 @@ salirIf:
 
 
             res = VentaInsertar(Id, cbSucursal.Value, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"),
-                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"), 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, cbEstadoPedido.Value, cbFechaEntregado.Value.ToString("yyyy/MM/dd"), IIf(VentaDirectaSinConciliacion = 1, 0, VentaDirecta), VentaDirectaSinConciliacion)
+                                IdVendedor, IdCliente, IIf(swTipoVenta.Value = True, 1, 0), tbFechaVencimientoCredito.Value.ToString("yyyy/MM/dd"), 1, tbGlosa.Text, tbTotal.Value, CType(grDetalle.DataSource, DataTable), tbMdesc.Value, cbEstadoPedido.Value, cbFechaEntregado.Value.ToString("yyyy/MM/dd"), IIf(VentaDirectaSinConciliacion = 1, 0, VentaDirecta), VentaDirectaSinConciliacion, _prIncrementoAAplicar())
 
             If res Then
 
@@ -1304,21 +1340,21 @@ salirIf:
 
             End If
             Try
-                    res = L_prBorrarRegistro(tbCodigo.Text, mensajeError, "MAM_Ventas")
-                    If res Then
+                res = L_prBorrarRegistro(tbCodigo.Text, mensajeError, "MAM_Ventas")
+                If res Then
 
-                        ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
-                        _PMFiltrar()
-                    Else
+                    ToastNotification.Show(Me, "Codigo de Venta ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                    _PMFiltrar()
+                Else
                     ToastNotification.Show(Me, mensajeError, img, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
                 End If
-                Catch ex As Exception
-                    ToastNotification.Show(Me, "Error al eliminar la Venta".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Catch ex As Exception
+                ToastNotification.Show(Me, "Error al eliminar la Venta".ToUpper + " " + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
-                End Try
+            End Try
 
-            End If
-            ef.Dispose()
+        End If
+        ef.Dispose()
 
 
     End Sub
@@ -1483,6 +1519,17 @@ salirIf:
 
         _prCargarDetalleVenta(tbCodigo.Text)
         tbMdesc.Value = JGrM_Buscador.GetValue("Descuento")
+
+        ''Monto de incremento REALMENTE registrado para esta venta (0 si no tiene -
+        ''venta vieja o movil). El chequeo de Columns.Contains es defensivo, por si
+        ''todavia no corriste el script que agrega esta columna al buscador.
+        If (JGrM_Buscador.RootTable.Columns.Contains("IncrementoVenta")) Then
+            _IncrementoVentaRegistrado = JGrM_Buscador.GetValue("IncrementoVenta")
+        Else
+            _IncrementoVentaRegistrado = 0
+        End If
+        tbIncrementoVenta.Value = _IncrementoVentaRegistrado
+
         _prCalcularPrecioTotal()
         LblPaginacion.Text = Str(_MPos + 1) + "/" + JGrM_Buscador.RowCount.ToString
 
@@ -1720,7 +1767,7 @@ salirIf:
                     Dim porcdesc As Double = tbPdesc.Value
                     Dim montodesc As Double = (grDetalle.GetTotal(grDetalle.RootTable.Columns("Total"), AggregateFunction.Sum) * (porcdesc / 100))
                     tbMdesc.Value = montodesc
-                    tbTotal.Value = grDetalle.GetTotal(grDetalle.RootTable.Columns("Total"), AggregateFunction.Sum) - montodesc
+                    tbTotal.Value = grDetalle.GetTotal(grDetalle.RootTable.Columns("Total"), AggregateFunction.Sum) - montodesc + _prIncrementoAAplicar()
                 End If
 
 
@@ -1745,7 +1792,7 @@ salirIf:
                     Dim montodesc As Double = tbMdesc.Value
                     Dim pordesc As Double = ((montodesc * 100) / grDetalle.GetTotal(grDetalle.RootTable.Columns("Total"), AggregateFunction.Sum))
                     tbPdesc.Value = pordesc
-                    tbTotal.Value = grDetalle.GetTotal(grDetalle.RootTable.Columns("Total"), AggregateFunction.Sum) - montodesc
+                    tbTotal.Value = grDetalle.GetTotal(grDetalle.RootTable.Columns("Total"), AggregateFunction.Sum) - montodesc + _prIncrementoAAplicar()
 
                 End If
 
@@ -1862,6 +1909,12 @@ salirIf:
 
         Dim total As Decimal = dt.Compute("SUM(Total)", "")
         total = total - dt.Rows(0).Item("DescuentoVenta")
+        ''Suma el incremento REALMENTE guardado para esta venta (VentasIncrementoAplicado,
+        ''via MAM_Ventas @tipo=6) - no el vigente de hoy, para que un recibo reimpreso
+        ''de una venta vieja siga mostrando el monto correcto de esa venta.
+        If (dt.Columns.Contains("IncrementoVenta")) Then
+            total = total + dt.Rows(0).Item("IncrementoVenta")
+        End If
         Dim fechaven As String = dt.Rows(0).Item("FechaVenta")
         Dim dtImage As DataTable = ObtenerImagenEmpresa()
         If (dtImage.Rows.Count > 0) Then
