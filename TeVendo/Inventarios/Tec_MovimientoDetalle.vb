@@ -24,15 +24,27 @@ Public Class Tec_MovimientoDetalle
         tbProducto.Focus()
     End Sub
     Public Sub ActualizarProductos()
-
+        'Antes: por cada fila del detalle se llamaba a CambiarEstado, que recorre TODOS los productos
+        'y aplica el filtro de la grilla cada vez. Con "Agregar Todos" (cientos de filas) se colgaba.
+        'Ahora: se juntan los productos del detalle, se recorre la lista de productos UNA vez
+        'y se aplica el filtro UNA sola vez.
+        Dim productosEnDetalle As New HashSet(Of Integer)
         For i As Integer = 0 To CType(grDetalle.DataSource, DataTable).Rows.Count - 1 Step 1
             If (CType(grDetalle.DataSource, DataTable).Rows(i).Item("estado") >= 0) Then
-                CambiarEstado(CType(grDetalle.DataSource, DataTable).Rows(i).Item("ProductoId"), 0)
-
+                productosEnDetalle.Add(CInt(CType(grDetalle.DataSource, DataTable).Rows(i).Item("ProductoId")))
             End If
-
-
         Next
+
+        If (productosEnDetalle.Count > 0 And Not IsNothing(grProducto.DataSource)) Then
+            Dim dtProd As DataTable = CType(grProducto.DataSource, DataTable)
+            For i As Integer = 0 To dtProd.Rows.Count - 1 Step 1
+                If (productosEnDetalle.Contains(CInt(dtProd.Rows(i).Item("Id")))) Then
+                    dtProd.Rows(i).Item("estado") = 0
+                End If
+            Next
+            grProducto.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grProducto.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.Equal, 1))
+        End If
+
         grDetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grDetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
     End Sub
     Public Sub _habilitarFocus()
@@ -77,6 +89,9 @@ Public Class Tec_MovimientoDetalle
             .Width = 150
             .Caption = "Producto"
             .Visible = True
+
+            .WordWrap = True
+            .MaxLines = 3
         End With
 
 
@@ -132,10 +147,24 @@ Public Class Tec_MovimientoDetalle
 
         End If
         With grDetalle.RootTable.Columns("stock")
-            .Width = 120
-            .Caption = "stock".ToUpper
-            .Visible = False
+            .Width = 110
+            .Caption = "Stock Actual".ToUpper
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .FormatString = "0.00"
+            .Visible = _fnEsMovimientoNuevo()
+            .Position = grDetalle.RootTable.Columns("Cantidad").Position
         End With
+        'Columna StockFinal: la crea Tec_Movimientos en tiempo de ejecucion (no se graba)
+        If (dtDetalle.Columns.Contains("StockFinal")) Then
+            With grDetalle.RootTable.Columns("StockFinal")
+                .Width = 110
+                .Caption = "Stock Final".ToUpper
+                .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+                .FormatString = "0.00"
+                .Visible = _fnEsMovimientoNuevo()
+                .Position = grDetalle.RootTable.Columns("Cantidad").Position + 1
+            End With
+        End If
         With grDetalle
             .GroupByBoxVisible = False
             'diseño de la grilla
@@ -144,19 +173,109 @@ Public Class Tec_MovimientoDetalle
             .RowHeaders = InheritableBoolean.True
         End With
         CargarIconEstado()
+        _prCalcularStockFinal()
     End Sub
+
+    'Es movimiento nuevo si ninguna fila viene de la base de datos
+    'estado 0 = nueva, -2 = nueva eliminada ; 1, 2, -1 = filas ya grabadas (Modificar)
+    Public Function _fnEsMovimientoNuevo() As Boolean
+        For i As Integer = 0 To dtDetalle.Rows.Count - 1 Step 1
+            Dim estado As Integer = dtDetalle.Rows(i).Item("estado")
+            If (estado = 1 Or estado = 2 Or estado = -1) Then
+                Return False
+            End If
+        Next
+        Return True
+    End Function
+
+    'Recalcula Stock Final de la fila actual con la cantidad que se esta escribiendo
+    'Se llama desde CellValueChanged (mientras escribe) y CellEdited (al salir de la celda)
+    Public Sub _prCalcularStockFinalFilaActual()
+        If (grDetalle.Row < 0) Then
+            Return
+        End If
+        If (Not CType(grDetalle.DataSource, DataTable).Columns.Contains("StockFinal")) Then
+            Return
+        End If
+
+        Dim stock As Decimal = 0
+        Dim cantidad As Decimal = 0
+        Dim estado As Integer = 0
+        If (Not IsDBNull(grDetalle.GetValue("stock"))) Then
+            stock = grDetalle.GetValue("stock")
+        End If
+        If (IsNumeric(grDetalle.GetValue("Cantidad"))) Then
+            cantidad = grDetalle.GetValue("Cantidad")
+        End If
+        If (Not IsDBNull(grDetalle.GetValue("estado"))) Then
+            estado = grDetalle.GetValue("estado")
+        End If
+
+        Dim stockFinal As Decimal
+        If (estado <> 0) Then
+            stockFinal = stock
+        ElseIf (TipoMovimientoId = 4) Then
+            stockFinal = stock + cantidad
+        Else
+            stockFinal = stock - cantidad
+        End If
+
+        Dim lin As Integer = grDetalle.GetValue("Id")
+        Dim pos As Integer = -1
+        _fnObtenerFilaDetalle(pos, lin)
+        If (pos >= 0) Then
+            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("StockFinal") = stockFinal
+        End If
+    End Sub
+
+    'Calcula cuanto quedaria el stock despues de grabar
+    'Solo filas nuevas (estado = 0): Ingreso (4) suma la cantidad, los demas tipos la restan
+    'Filas ya grabadas: el stock actual ya incluye esa cantidad
+    Public Sub _prCalcularStockFinal()
+        Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
+        If (IsNothing(dt)) Then
+            Return
+        End If
+        If (Not dt.Columns.Contains("StockFinal")) Then
+            Return
+        End If
+
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            Dim stock As Decimal = 0
+            Dim cantidad As Decimal = 0
+            Dim estado As Integer = 0
+            If (Not IsDBNull(dt.Rows(i).Item("stock"))) Then
+                stock = dt.Rows(i).Item("stock")
+            End If
+            If (Not IsDBNull(dt.Rows(i).Item("Cantidad"))) Then
+                cantidad = dt.Rows(i).Item("Cantidad")
+            End If
+            If (Not IsDBNull(dt.Rows(i).Item("estado"))) Then
+                estado = dt.Rows(i).Item("estado")
+            End If
+
+            If (estado <> 0) Then
+                dt.Rows(i).Item("StockFinal") = stock
+            ElseIf (TipoMovimientoId = 4) Then
+                dt.Rows(i).Item("StockFinal") = stock + cantidad
+            Else
+                dt.Rows(i).Item("StockFinal") = stock - cantidad
+            End If
+        Next
+    End Sub
+
     Public Sub CargarIconEstado()
 
         Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
         Dim n As Integer = dt.Rows.Count
+        'La imagen se arma una sola vez (antes se creaba un Bitmap por cada fila)
+        Dim Bin As New MemoryStream
+        Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
+        img.Save(Bin, Imaging.ImageFormat.Png)
+        Dim imgBytes As Byte() = Bin.ToArray()
+        Bin.Dispose()
         For i As Integer = 0 To n - 1 Step 1
-
-            Dim Bin As New MemoryStream
-            Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
-            img.Save(Bin, Imaging.ImageFormat.Png)
-            CType(grDetalle.DataSource, DataTable).Rows(i).Item("img") = Bin.GetBuffer
-
-
+            dt.Rows(i).Item("img") = imgBytes
         Next
 
     End Sub
@@ -578,6 +697,7 @@ Public Class Tec_MovimientoDetalle
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Producto") = grProducto.GetValue("NombreProducto")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProducto.GetValue("stock")
                 CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = cantidad
+                _prCalcularStockFinal()
 
                 ''    _DesHabilitarProductos()
 
@@ -835,6 +955,7 @@ Public Class Tec_MovimientoDetalle
 
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Lote") = grProducto.GetValue("Lote")
                     CType(grDetalle.DataSource, DataTable).Rows(pos).Item("FechaVencimiento") = grProducto.GetValue("FechaVencimiento")
+                    _prCalcularStockFinal()
 
                     btnProductos.Visible = False
                     FilaSelectLote = Nothing
@@ -919,7 +1040,8 @@ Public Class Tec_MovimientoDetalle
                 Dim lin As Integer = grDetalle.GetValue("Id")
                 Dim pos As Integer = -1
                 _fnObtenerFilaDetalle(pos, lin)
-                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+                'Celda vacia = 0 (antes ponia 1). Las filas en 0 no se graban
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 0
 
                 Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
 
@@ -942,7 +1064,11 @@ Public Class Tec_MovimientoDetalle
                     Dim lin As Integer = grDetalle.GetValue("Id")
                     Dim pos As Integer = -1
                     _fnObtenerFilaDetalle(pos, lin)
-                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+                    '0 se respeta (producto sin cantidad, no se graba)
+                    'Negativo solo en Ingreso (4), que es como funciona el Reseteo; en otros tipos pasa a 0
+                    If (grDetalle.GetValue("Cantidad") < 0 And TipoMovimientoId <> 4) Then
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 0
+                    End If
                     Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
 
                     If (estado = 1) Then
@@ -951,6 +1077,7 @@ Public Class Tec_MovimientoDetalle
 
                 End If
             End If
+            _prCalcularStockFinalFilaActual()
         End If
     End Sub
 
@@ -969,7 +1096,7 @@ Public Class Tec_MovimientoDetalle
         If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
             If (Not IsNumeric(grDetalle.GetValue("Cantidad")) Or grDetalle.GetValue("Cantidad").ToString = String.Empty) Then
 
-                grDetalle.SetValue("Cantidad", 1)
+                grDetalle.SetValue("Cantidad", 0)
             Else
                 If (grDetalle.GetValue("Cantidad") > 0) Then
                     Dim stock As Double = grDetalle.GetValue("stock")
@@ -987,11 +1114,14 @@ Public Class Tec_MovimientoDetalle
                           eToastPosition.BottomLeft)
                     End If
                 Else
-
-                    grDetalle.SetValue("Cantidad", 1)
-
+                    '0 se respeta; negativo solo en Ingreso (4) por el Reseteo
+                    If (grDetalle.GetValue("Cantidad") < 0 And TipoMovimientoId <> 4) Then
+                        grDetalle.SetValue("Cantidad", 0)
+                    End If
                 End If
             End If
+            'Recalcular Stock Final de la fila que se esta editando
+            _prCalcularStockFinalFilaActual()
         End If
     End Sub
 

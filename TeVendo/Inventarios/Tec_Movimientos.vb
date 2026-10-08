@@ -291,6 +291,10 @@ Public Class Tec_Movimientos
     Private Sub _prCargarDetalleVenta(_numi As String)
         Dim dt As New DataTable
         dt = L_prListarDetalleMovimiento(_numi)
+        'Columna creada en tiempo de ejecucion (NO se envia al grabar, ver _fnDetalleParaGrabar)
+        If (Not dt.Columns.Contains("StockFinal")) Then
+            dt.Columns.Add("StockFinal", GetType(Decimal))
+        End If
         grDetalle.DataSource = dt
         grDetalle.RetrieveStructure()
         grDetalle.AlternatingColors = True
@@ -317,6 +321,9 @@ Public Class Tec_Movimientos
             .Width = 150
             .Caption = "Producto"
             .Visible = True
+
+            .WordWrap = True
+            .MaxLines = 3
         End With
 
 
@@ -372,9 +379,20 @@ Public Class Tec_Movimientos
 
         End If
         With grDetalle.RootTable.Columns("stock")
-            .Width = 120
-            .Caption = "stock".ToUpper
-            .Visible = False
+            .Width = 110
+            .Caption = "Stock Actual".ToUpper
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .FormatString = "0.00"
+            .Visible = (_fnAccesible() And _MNuevo)
+            .Position = grDetalle.RootTable.Columns("Cantidad").Position
+        End With
+        With grDetalle.RootTable.Columns("StockFinal")
+            .Width = 110
+            .Caption = "Stock Final".ToUpper
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .FormatString = "0.00"
+            .Visible = (_fnAccesible() And _MNuevo)
+            .Position = grDetalle.RootTable.Columns("Cantidad").Position + 1
         End With
         With grDetalle
             .GroupByBoxVisible = False
@@ -384,7 +402,114 @@ Public Class Tec_Movimientos
             .RowHeaders = InheritableBoolean.True
         End With
         CargarIconEstado()
+        _prCalcularStockFinal()
     End Sub
+
+    'Recalcula Stock Final de la fila actual con la cantidad que se esta escribiendo
+    'Se llama desde CellValueChanged (mientras escribe) y CellEdited (al salir de la celda)
+    Public Sub _prCalcularStockFinalFilaActual()
+        If (grDetalle.Row < 0) Then
+            Return
+        End If
+        If (Not CType(grDetalle.DataSource, DataTable).Columns.Contains("StockFinal")) Then
+            Return
+        End If
+
+        Dim stock As Decimal = 0
+        Dim cantidad As Decimal = 0
+        Dim estado As Integer = 0
+        If (Not IsDBNull(grDetalle.GetValue("stock"))) Then
+            stock = grDetalle.GetValue("stock")
+        End If
+        If (IsNumeric(grDetalle.GetValue("Cantidad"))) Then
+            cantidad = grDetalle.GetValue("Cantidad")
+        End If
+        If (Not IsDBNull(grDetalle.GetValue("estado"))) Then
+            estado = grDetalle.GetValue("estado")
+        End If
+
+        Dim stockFinal As Decimal
+        If (estado <> 0) Then
+            stockFinal = stock
+        ElseIf (cbTipoMovimiento.Value = 4) Then
+            stockFinal = stock + cantidad
+        Else
+            stockFinal = stock - cantidad
+        End If
+
+        Dim lin As Integer = grDetalle.GetValue("Id")
+        Dim pos As Integer = -1
+        _fnObtenerFilaDetalle(pos, lin)
+        If (pos >= 0) Then
+            CType(grDetalle.DataSource, DataTable).Rows(pos).Item("StockFinal") = stockFinal
+        End If
+    End Sub
+
+    'Calcula cuanto quedaria el stock despues de grabar
+    'Solo filas nuevas (estado = 0): Ingreso (4) suma la cantidad, los demas tipos la restan
+    'Filas ya grabadas: el stock actual ya incluye esa cantidad
+    Public Sub _prCalcularStockFinal()
+        Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
+        If (IsNothing(dt)) Then
+            Return
+        End If
+        If (Not dt.Columns.Contains("StockFinal")) Then
+            Return
+        End If
+
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            Dim stock As Decimal = 0
+            Dim cantidad As Decimal = 0
+            Dim estado As Integer = 0
+            If (Not IsDBNull(dt.Rows(i).Item("stock"))) Then
+                stock = dt.Rows(i).Item("stock")
+            End If
+            If (Not IsDBNull(dt.Rows(i).Item("Cantidad"))) Then
+                cantidad = dt.Rows(i).Item("Cantidad")
+            End If
+            If (Not IsDBNull(dt.Rows(i).Item("estado"))) Then
+                estado = dt.Rows(i).Item("estado")
+            End If
+
+            If (estado <> 0) Then
+                dt.Rows(i).Item("StockFinal") = stock
+            ElseIf (cbTipoMovimiento.Value = 4) Then
+                dt.Rows(i).Item("StockFinal") = stock + cantidad
+            Else
+                dt.Rows(i).Item("StockFinal") = stock - cantidad
+            End If
+        Next
+    End Sub
+
+    'Muestra u oculta Stock Actual y Stock Final
+    'Visibles solo en Nuevo; ocultas al Modificar o al visualizar
+    Public Sub _prMostrarColumnasStock(mostrar As Boolean)
+        If (IsNothing(grDetalle.DataSource)) Then
+            Return
+        End If
+        If (CType(grDetalle.DataSource, DataTable).Columns.Contains("stock")) Then
+            grDetalle.RootTable.Columns("stock").Visible = mostrar
+        End If
+        If (CType(grDetalle.DataSource, DataTable).Columns.Contains("StockFinal")) Then
+            grDetalle.RootTable.Columns("StockFinal").Visible = mostrar
+        End If
+    End Sub
+
+    'Copia del detalle SIN la columna StockFinal, para que coincida con MovimientoDetalleType
+    Public Function _fnDetalleParaGrabar() As DataTable
+        Dim dt As DataTable = CType(grDetalle.DataSource, DataTable).Copy()
+        If (dt.Columns.Contains("StockFinal")) Then
+            dt.Columns.Remove("StockFinal")
+        End If
+        'Las filas con cantidad 0 (de Agregar Todos o que el usuario dejo en 0) no se envian
+        For i As Integer = dt.Rows.Count - 1 To 0 Step -1
+            If (dt.Rows(i).Item("Cantidad") = 0) Then
+                dt.Rows.RemoveAt(i)
+            End If
+        Next
+        Return dt
+    End Function
+
     Public Sub CargarIconEstado()
 
         Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
@@ -394,7 +519,7 @@ Public Class Tec_Movimientos
             Dim Bin As New MemoryStream
             Dim img As New Bitmap(My.Resources.rowdelete, 30, 28)
             img.Save(Bin, Imaging.ImageFormat.Png)
-                CType(grDetalle.DataSource, DataTable).Rows(i).Item("img") = Bin.GetBuffer
+            CType(grDetalle.DataSource, DataTable).Rows(i).Item("img") = Bin.GetBuffer
 
 
         Next
@@ -620,7 +745,8 @@ Public Class Tec_Movimientos
                 Dim lin As Integer = grDetalle.GetValue("Id")
                 Dim pos As Integer = -1
                 _fnObtenerFilaDetalle(pos, lin)
-                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+                'Celda vacia = 0 (antes ponia 1). Las filas en 0 no se graban
+                CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 0
 
                 Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
 
@@ -643,7 +769,11 @@ Public Class Tec_Movimientos
                     Dim lin As Integer = grDetalle.GetValue("Id")
                     Dim pos As Integer = -1
                     _fnObtenerFilaDetalle(pos, lin)
-                    CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 1
+                    '0 se respeta (producto sin cantidad, no se graba)
+                    'Negativo solo en Ingreso (4), que es como funciona el Reseteo; en otros tipos pasa a 0
+                    If (grDetalle.GetValue("Cantidad") < 0 And cbTipoMovimiento.Value <> 4) Then
+                        CType(grDetalle.DataSource, DataTable).Rows(pos).Item("Cantidad") = 0
+                    End If
                     Dim estado As Integer = CType(grDetalle.DataSource, DataTable).Rows(pos).Item("estado")
 
                     If (estado = 1) Then
@@ -652,6 +782,7 @@ Public Class Tec_Movimientos
 
                 End If
             End If
+            _prCalcularStockFinalFilaActual()
         End If
     End Sub
 
@@ -659,7 +790,7 @@ Public Class Tec_Movimientos
         If (e.Column.Index = grDetalle.RootTable.Columns("Cantidad").Index) Then
             If (Not IsNumeric(grDetalle.GetValue("Cantidad")) Or grDetalle.GetValue("Cantidad").ToString = String.Empty) Then
 
-                grDetalle.SetValue("Cantidad", 1)
+                grDetalle.SetValue("Cantidad", 0)
             Else
                 If (grDetalle.GetValue("Cantidad") > 0) Then
                     Dim stock As Double = grDetalle.GetValue("stock")
@@ -677,11 +808,14 @@ Public Class Tec_Movimientos
                           eToastPosition.BottomLeft)
                     End If
                 Else
-
-                    grDetalle.SetValue("Cantidad", 1)
-
+                    '0 se respeta; negativo solo en Ingreso (4) por el Reseteo
+                    If (grDetalle.GetValue("Cantidad") < 0 And cbTipoMovimiento.Value <> 4) Then
+                        grDetalle.SetValue("Cantidad", 0)
+                    End If
                 End If
             End If
+            'Recalcular Stock Final de la fila que se esta editando
+            _prCalcularStockFinalFilaActual()
         End If
     End Sub
 
@@ -733,6 +867,8 @@ Public Class Tec_Movimientos
 
 
         btnSeleccionarProducto.Visible = True
+        _prMostrarBotonesIngreso()
+        _prMostrarColumnasStock(_MNuevo)
         cbDepositos.ReadOnly = False
         cbTipoMovimiento.ReadOnly = False
         tbDescripcion.ReadOnly = False
@@ -745,6 +881,9 @@ Public Class Tec_Movimientos
         tbCodigo.ReadOnly = True
         btnSeleccionarProducto.Visible = False
 
+        ButtonX2.Visible = False
+        btnAgregarTodos.Visible = False
+        _prMostrarColumnasStock(False)
 
         cbDepositos.ReadOnly = True
         cbTipoMovimiento.ReadOnly = True
@@ -788,7 +927,7 @@ Public Class Tec_Movimientos
         Dim res As Boolean
         '= L_prMovimientoChoferGrabar(numi, tbFecha.Value.ToString("yyyy/MM/dd"), cbConcepto.Value, tbObservacion.Text, cbAlmacenOrigen.Value, cbDepositoDestino.Value, 0, CType(grDetalle.DataSource, DataTable))
         res = L_prMovimientoInsertar(numi, cbTipoMovimiento.Value, cbDepositos.Value, tbDescripcion.Text,
-                                         1, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), CType(grDetalle.DataSource, DataTable), cbDepositoDestino.Value, 0)
+                                         1, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), _fnDetalleParaGrabar(), cbDepositoDestino.Value, 0)
 
         If res Then
 
@@ -796,7 +935,7 @@ Public Class Tec_Movimientos
             Dim resDestino As Boolean
             '= L_prMovimientoChoferGrabar(numDestino, tbFecha.Value.ToString("yyyy/MM/dd"), 5, tbObservacion.Text, cbDepositoDestino.Value, cbAlmacenOrigen.Value, numi, CType(grDetalle.DataSource, DataTable))
             resDestino = L_prMovimientoInsertar(numDestino, 7, cbDepositoDestino.Value, tbDescripcion.Text,
-                                         1, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), CType(grDetalle.DataSource, DataTable), cbDepositos.Value, numi)
+                                         1, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), _fnDetalleParaGrabar(), cbDepositos.Value, numi)
 
             If resDestino Then
 
@@ -831,7 +970,7 @@ Public Class Tec_Movimientos
         Dim res As Boolean
         Try
             res = L_prMovimientoInsertar(tbCodigo.Text, cbTipoMovimiento.Value, cbDepositos.Value, tbDescripcion.Text,
-                                         1, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), CType(grDetalle.DataSource, DataTable), 0, 0)
+                                         1, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), _fnDetalleParaGrabar(), 0, 0)
 
             If res Then
                 ReporteVenta(tbCodigo.Text)
@@ -857,7 +996,7 @@ Public Class Tec_Movimientos
         Dim Res As Boolean
         Try
             Res = L_prMovimientoActualizar(tbCodigo.Text, cbTipoMovimiento.Value, cbDepositos.Value, tbDescripcion.Text,
-                                         1, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), CType(grDetalle.DataSource, DataTable))
+                                         1, tbFechaTransaccion.Value.ToString("yyyy/MM/dd"), _fnDetalleParaGrabar())
 
 
             If Res Then
@@ -970,6 +1109,21 @@ Public Class Tec_Movimientos
 
                 Return False
             End If
+        End If
+
+        'Con Agregar Todos puede haber filas en 0: al menos una debe tener cantidad
+        Dim dtValidar As DataTable = _fnDetalleParaGrabar()
+        Dim conCantidad As Integer = 0
+        For i As Integer = 0 To dtValidar.Rows.Count - 1 Step 1
+            If (dtValidar.Rows(i).Item("estado") >= 0 And dtValidar.Rows(i).Item("ProductoId") > 0) Then
+                conCantidad = conCantidad + 1
+            End If
+        Next
+        If (conCantidad = 0) Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Ingrese la Cantidad de al menos un Producto".ToUpper, img, 3000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            grDetalle.Focus()
+            Return False
         End If
 
         If (cbTipoMovimiento.SelectedIndex < 0) Then
@@ -1190,6 +1344,7 @@ Public Class Tec_Movimientos
         ef.DepositoId = cbDepositos.Value
         ef.Lotebool = Lote
         ef.ShowDialog()
+        _prCalcularStockFinal()
     End Sub
 
     Private Sub P_GenerarReporte(numi As String)
@@ -1290,6 +1445,187 @@ Public Class Tec_Movimientos
             End If
 
         End If
+        _prMostrarBotonesIngreso()
     End Sub
+
+    'Al cambiar de deposito en un movimiento Nuevo se limpia el detalle,
+    'porque el stock y el Stock Final se calculan por deposito
+    Private Sub cbDepositos_ValueChanged(sender As Object, e As EventArgs) Handles cbDepositos.ValueChanged
+        If (cbDepositos.SelectedIndex < 0) Then
+            Return
+        End If
+        If (Not _fnAccesible() Or tbCodigo.Text <> String.Empty Or IsNothing(grDetalle.DataSource)) Then
+            Return
+        End If
+
+        Dim dt As DataTable = CType(grDetalle.DataSource, DataTable)
+        Dim conProductos As Integer = 0
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            If (dt.Rows(i).Item("ProductoId") > 0 And dt.Rows(i).Item("estado") >= 0) Then
+                conProductos = conProductos + 1
+            End If
+        Next
+
+        dt.Rows.Clear()
+
+        If (conProductos > 0) Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Cambio de deposito: se limpio el detalle. Vuelva a agregar los productos de ".ToUpper + cbDepositos.Text,
+                                   img, 4000, eToastGlowColor.Blue, eToastPosition.BottomCenter)
+        End If
+    End Sub
+
+    'Botones Resetear y Agregar Todos: solo en registro Nuevo y tipo Ingreso de Productos (4)
+    Public Sub _prMostrarBotonesIngreso()
+        Dim mostrar As Boolean = False
+        If (_fnAccesible() And _MNuevo And cbTipoMovimiento.SelectedIndex >= 0) Then
+            If (cbTipoMovimiento.Value = TIPO_MOV_INGRESO) Then
+                mostrar = True
+            End If
+        End If
+        ButtonX2.Visible = mostrar
+        btnAgregarTodos.Visible = mostrar
+    End Sub
+
+    'Agrega al detalle todos los productos del deposito con Cantidad 0,
+    'para que el usuario solo escriba la cantidad (las filas que queden en 0 no se graban)
+    Private Sub btnAgregarTodos_Click(sender As Object, e As EventArgs) Handles btnAgregarTodos.Click
+        Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+
+        If (cbDepositos.SelectedIndex < 0) Then
+            ToastNotification.Show(Me, "Seleccione un Deposito".ToUpper, img, 3000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            cbDepositos.Focus()
+            Return
+        End If
+
+        'MAM_Movimientos @tipo=7: productos del deposito con su stock
+        Dim dtProductos As DataTable = L_prListarProductosLote(cbDepositos.Value)
+        If (IsNothing(dtProductos) OrElse dtProductos.Rows.Count = 0) Then
+            ToastNotification.Show(Me, "No hay productos en el deposito".ToUpper, img, 3000, eToastGlowColor.Blue, eToastPosition.BottomCenter)
+            Return
+        End If
+
+        Dim dtDetalle As DataTable = CType(grDetalle.DataSource, DataTable)
+
+        'quitar la fila vacia (ProductoId = 0) si existe
+        For i As Integer = dtDetalle.Rows.Count - 1 To 0 Step -1
+            If (dtDetalle.Rows(i).Item("ProductoId") = 0) Then
+                dtDetalle.Rows.RemoveAt(i)
+            End If
+        Next
+
+        Dim Bin As New MemoryStream
+        Dim imgDel As New Bitmap(My.Resources.rowdelete, 30, 28)
+        imgDel.Save(Bin, Imaging.ImageFormat.Png)
+        Dim imgBytes As Byte() = Bin.ToArray()
+        Bin.Dispose()
+
+        'columnas: id, MovimientoId, ProductoId, Producto, Cantidad, Lote, FechaVencimiento, img, estado, stock
+        Dim idFila As Integer = _GenerarId()
+        Dim agregados As Integer = 0
+        For i As Integer = 0 To dtProductos.Rows.Count - 1 Step 1
+            Dim idProducto As Integer = dtProductos.Rows(i).Item("Id")
+            If (_fnExisteProducto(idProducto)) Then
+                Continue For
+            End If
+            Dim stock As Decimal = 0
+            If (Not IsDBNull(dtProductos.Rows(i).Item("stock"))) Then
+                stock = dtProductos.Rows(i).Item("stock")
+            End If
+            idFila = idFila + 1
+            dtDetalle.Rows.Add(idFila, 0, idProducto, dtProductos.Rows(i).Item("NombreProducto"), 0,
+                               "20200101", New Date(2020, 1, 1), imgBytes, 0, stock)
+            agregados = agregados + 1
+        Next
+
+        _prCalcularStockFinal()
+        grDetalle.Refetch()
+        ToastNotification.Show(Me, (Str(agregados).Trim + " productos agregados con cantidad 0. Escriba solo las cantidades.").ToUpper,
+                               My.Resources.GRABACION_EXITOSA, 4000, eToastGlowColor.Green, eToastPosition.BottomCenter)
+    End Sub
+
+    Private Const TIPO_MOV_INGRESO As Integer = 4
+    Private Const OBS_RESETEO As String = "RESETEO DE INVENTARIO A CERO"
+
+    'Carga en el detalle todos los productos (por lote) del deposito con stock <> 0
+    'y la cantidad necesaria para dejarlos en 0: stock -5 => +5 ; stock 10 => -10
+    Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles ButtonX2.Click
+        Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+
+        If (Not _fnAccesible() Or tbCodigo.Text <> String.Empty) Then
+            ToastNotification.Show(Me, "El reseteo solo se puede hacer en un Movimiento Nuevo".ToUpper, img, 3000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            Return
+        End If
+        If (cbTipoMovimiento.SelectedIndex < 0 OrElse cbTipoMovimiento.Value <> TIPO_MOV_INGRESO) Then
+            ToastNotification.Show(Me, "Solo se Puede Resetear de un Ingreso de Movimiento".ToUpper, img, 3000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            cbTipoMovimiento.Focus()
+            Return
+        End If
+        If (cbDepositos.SelectedIndex < 0) Then
+            ToastNotification.Show(Me, "Seleccione un Deposito".ToUpper, img, 3000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            cbDepositos.Focus()
+            Return
+        End If
+        If (Lote = True) Then
+            'MAM_Movimientos @tipo=7 devuelve stock por producto (sin lote/fecha venc.).
+            'Con control por lote activo el reseteo no puede saber a que lote aplicar la cantidad.
+            ToastNotification.Show(Me, "El Reseteo no esta disponible con control por Lote activo".ToUpper, img, 4000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            Return
+        End If
+
+        Dim ef = New Efecto
+        ef.tipo = 3
+        ef.titulo = "Confirmación de Reseteo"
+        ef.descripcion = "¿Cargar TODOS los productos del deposito " + cbDepositos.Text + " con la cantidad necesaria para dejar su stock en 0? Se reemplazara el detalle actual."
+        ef.ShowDialog()
+        If (ef.band <> True) Then Return
+
+        'Reutiliza MAM_Movimientos @tipo=7 (stock por producto del deposito); el filtro <> 0 se hace aqui
+        Dim dtStock As DataTable = L_prListarProductosLote(cbDepositos.Value)
+        If (IsNothing(dtStock) OrElse dtStock.Rows.Count = 0) Then
+            ToastNotification.Show(Me, "No hay productos con stock distinto de 0 en el deposito".ToUpper, img, 3000, eToastGlowColor.Blue, eToastPosition.BottomCenter)
+            Return
+        End If
+
+        Dim dtDetalle As DataTable = CType(grDetalle.DataSource, DataTable)
+        dtDetalle.Rows.Clear()
+
+        Dim Bin As New MemoryStream
+        Dim imgDel As New Bitmap(My.Resources.rowdelete, 30, 28)
+        imgDel.Save(Bin, Imaging.ImageFormat.Png)
+        Dim imgBytes As Byte() = Bin.ToArray()
+        Bin.Dispose()
+
+        'Sin control de lote el sistema usa lote/fecha por defecto (ver _prAddDetalleVenta)
+        Const LOTE_DEFECTO As String = "20200101"
+        Dim fechaVencDefecto As Date = New Date(2020, 1, 1)
+
+        'columnas: id, MovimientoId, ProductoId, Producto, Cantidad, Lote, FechaVencimiento, img, estado, stock
+        Dim idFila As Integer = 0
+        For Each r As DataRow In dtStock.Rows
+            If (IsDBNull(r.Item("stock"))) Then Continue For
+            Dim stock As Decimal = CDec(r.Item("stock"))
+            If (stock = 0) Then Continue For
+            idFila += 1
+            dtDetalle.Rows.Add(idFila, 0, r.Item("Id"), r.Item("NombreProducto"), -stock,
+                               LOTE_DEFECTO, fechaVencDefecto, imgBytes, 0, stock)
+        Next
+
+        If (idFila = 0) Then
+            ToastNotification.Show(Me, "Todos los productos del deposito ya tienen stock 0".ToUpper, img, 3000, eToastGlowColor.Blue, eToastPosition.BottomCenter)
+            Return
+        End If
+
+        If (tbDescripcion.Text.Trim = String.Empty) Then
+            tbDescripcion.Text = OBS_RESETEO
+        End If
+
+        _prCalcularStockFinal()
+        grDetalle.Refetch()
+        ToastNotification.Show(Me, (Str(idFila).Trim + " lineas cargadas para resetear el stock a 0. Revise y Grabe.").ToUpper,
+                               My.Resources.GRABACION_EXITOSA, 4000, eToastGlowColor.Green, eToastPosition.BottomCenter)
+    End Sub
+
+
 #End Region
 End Class
