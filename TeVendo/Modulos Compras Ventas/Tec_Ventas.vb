@@ -1912,8 +1912,10 @@ salirIf:
         ''Suma el incremento REALMENTE guardado para esta venta (VentasIncrementoAplicado,
         ''via MAM_Ventas @tipo=6) - no el vigente de hoy, para que un recibo reimpreso
         ''de una venta vieja siga mostrando el monto correcto de esa venta.
+        Dim incrementoRecibo As Decimal = 0
         If (dt.Columns.Contains("IncrementoVenta")) Then
-            total = total + dt.Rows(0).Item("IncrementoVenta")
+            incrementoRecibo = dt.Rows(0).Item("IncrementoVenta")
+            total = total + incrementoRecibo
         End If
         Dim fechaven As String = dt.Rows(0).Item("FechaVenta")
         Dim dtImage As DataTable = ObtenerImagenEmpresa()
@@ -1963,6 +1965,19 @@ salirIf:
         objrep.SetParameterValue("Monto", li)
         objrep.SetParameterValue("Fecha", _FechaPar)
         objrep.SetParameterValue("Total", Str(total))
+        ''Parametro "Incremento" del Recibo.rpt (Crystal Reports). Solo se envia si el
+        ''parametro YA existe en el reporte: si el .rpt aun no lo tiene, el recibo se
+        ''imprime igual (sin la linea) en vez de lanzar excepcion.
+        Try
+            For Each pf As CrystalDecisions.CrystalReports.Engine.ParameterFieldDefinition In objrep.DataDefinition.ParameterFields
+                If (String.Equals(pf.Name.Trim("{}?".ToCharArray()), "Incremento", StringComparison.OrdinalIgnoreCase)) Then
+                    objrep.SetParameterValue("Incremento", incrementoRecibo.ToString("0.00"))
+                    Exit For
+                End If
+            Next
+        Catch ex As Exception
+            ''No bloquear la impresion del recibo por este parametro opcional.
+        End Try
         P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
         P_Global.Visualizador.CrGeneral.Zoom(130)
         P_Global.Visualizador.Show() 'Comentar
