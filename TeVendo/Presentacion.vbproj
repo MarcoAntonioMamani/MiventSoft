@@ -378,6 +378,11 @@
     <Compile Include="Modulo Configuracion\Formulario_Reportevb.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modulo Configuracion\Reporte_Clientes.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reporte_Clientes.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Modulo Configuracion\TecCategorias.Designer.vb">
       <DependentUpon>TecCategorias.vb</DependentUpon>
     </Compile>
@@ -1188,6 +1193,17 @@
   <ItemGroup>
     <None Include="bin\Debug\TeVendo.exe.config" />
     <None Include="bin\Release\TeVendo.exe.config" />
+    <None Include="Modulo Configuracion\Reporte_Clientes.xsc">
+      <DependentUpon>Reporte_Clientes.xsd</DependentUpon>
+    </None>
+    <None Include="Modulo Configuracion\Reporte_Clientes.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Reporte_Clientes.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Modulo Configuracion\Reporte_Clientes.xss">
+      <DependentUpon>Reporte_Clientes.xsd</DependentUpon>
+    </None>
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>

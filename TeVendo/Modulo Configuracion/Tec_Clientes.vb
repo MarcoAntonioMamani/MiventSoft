@@ -905,4 +905,232 @@ Public Class Tec_Clientes
     Private Sub Tec_Precios_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         Me.Dispose()
     End Sub
+#Region "Reporte de Clientes"
+
+    'Boton y opcion del menu llaman al mismo procedimiento
+    Private Sub btnReporteClientes_Click(sender As Object, e As EventArgs) Handles btnReporteClientes.Click
+        P_GenerarReporteClientes()
+    End Sub
+
+    Private Sub ReporteClientesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReporteClientesToolStripMenuItem.Click
+        P_GenerarReporteClientes()
+    End Sub
+
+    'Reporte en HTML (sin Crystal): se arma una pagina con todos los clientes en orden alfabetico,
+    'se guarda en la carpeta temporal de Windows y se abre en el navegador (desde ahi se imprime o se guarda como PDF)
+    Private Sub P_GenerarReporteClientes()
+        Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+        Try
+            'Misma consulta del buscador (MAM_Clientes @tipo=3), ordenada en codigo por nombre
+            Dim dt As DataTable = L_prListarGeneral("MAM_Clientes")
+            If (dt.Rows.Count = 0) Then
+                ToastNotification.Show(Me, "No hay clientes para mostrar".ToUpper, img, 3000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                Return
+            End If
+            'Se ordena por el nombre normalizado (sin espacios de mas, mayusculas, sin tildes)
+            'asi los repetidos quedan uno debajo del otro aunque esten escritos distinto
+            Dim dtOrden As DataTable = dt.Copy()
+            dtOrden.Columns.Add("NombreOrden", GetType(String))
+            For i As Integer = 0 To dtOrden.Rows.Count - 1 Step 1
+                dtOrden.Rows(i).Item("NombreOrden") = _fnNormalizarNombre(dtOrden.Rows(i).Item("NombreCliente"))
+            Next
+            Dim vista As New DataView(dtOrden)
+            vista.Sort = "NombreOrden ASC"
+
+            Dim html As String = _fnArmarHtmlClientes(vista)
+
+            P_BorrarReportesClientesAnteriores()
+            Dim ruta As String = Path.Combine(Path.GetTempPath(), "ReporteClientes_" + Now.ToString("yyyyMMdd_HHmmss") + ".html")
+            File.WriteAllText(ruta, html, System.Text.Encoding.UTF8)
+            Process.Start(ruta)
+
+        Catch ex As Exception
+            ToastNotification.Show(Me, "Error al generar el reporte de clientes: ".ToUpper + ex.Message, img, 5000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+        End Try
+    End Sub
+
+    Public Function _fnArmarHtmlClientes(vista As DataView) As String
+        Dim sb As New System.Text.StringBuilder
+
+        sb.AppendLine("<!DOCTYPE html>")
+        sb.AppendLine("<html lang='es'><head><meta charset='utf-8'>")
+        sb.AppendLine("<title>Reporte de Clientes</title>")
+        sb.AppendLine("<style>")
+        sb.AppendLine("body{font-family:Calibri,Arial,sans-serif;margin:24px;color:#222}")
+        sb.AppendLine(".cab{display:flex;align-items:center;gap:16px;border-bottom:2px solid #2874AA;padding-bottom:8px}")
+        sb.AppendLine(".cab img{max-height:70px}")
+        sb.AppendLine("h1{margin:0;font-size:22px;color:#2874AA}")
+        sb.AppendLine(".info{font-size:12px;color:#555}")
+        sb.AppendLine(".barra{margin:12px 0;display:flex;gap:8px}")
+        sb.AppendLine("#buscar{flex:1;padding:6px;font-size:14px}")
+        sb.AppendLine("#soloRep{width:18px;height:18px;cursor:pointer}")
+        sb.AppendLine(".barra button{padding:6px 14px;font-size:14px;background:#1AB394;color:#fff;border:0;cursor:pointer}")
+        sb.AppendLine("table{width:100%;border-collapse:collapse;font-size:12px}")
+        sb.AppendLine("th{background:#2874AA;color:#fff;text-align:left;padding:5px}")
+        sb.AppendLine("td{padding:4px 5px;border-bottom:1px solid #ddd}")
+        sb.AppendLine("tr:nth-child(even) td{background:#f4f8fb}")
+        sb.AppendLine("tr.rep td{background:#FFF176 !important}")
+        sb.AppendLine(".leyenda{display:inline-block;background:#FFF176;padding:1px 8px;border:1px solid #d4c200}")
+        sb.AppendLine(".barra label{display:flex;align-items:center;gap:4px;font-size:14px;white-space:nowrap;cursor:pointer}")
+        sb.AppendLine("@media print{.barra{display:none} th,tr.rep td{-webkit-print-color-adjust:exact;print-color-adjust:exact}}")
+        sb.AppendLine("</style></head><body>")
+
+        'Contar cuantas veces aparece cada nombre (normalizado) para marcar los repetidos
+        Dim conteoNombres As New Dictionary(Of String, Integer)
+        For i As Integer = 0 To vista.Count - 1 Step 1
+            Dim clave As String = _fnNormalizarNombre(vista(i).Item("NombreCliente"))
+            If (clave = String.Empty) Then
+                Continue For
+            End If
+            If (conteoNombres.ContainsKey(clave)) Then
+                conteoNombres(clave) = conteoNombres(clave) + 1
+            Else
+                conteoNombres.Add(clave, 1)
+            End If
+        Next
+        Dim totalRepetidos As Integer = 0
+        For i As Integer = 0 To vista.Count - 1 Step 1
+            Dim clave As String = _fnNormalizarNombre(vista(i).Item("NombreCliente"))
+            If (clave <> String.Empty AndAlso conteoNombres(clave) > 1) Then
+                totalRepetidos = totalRepetidos + 1
+            End If
+        Next
+
+        'Cabecera con logo de la empresa (si existe)
+        sb.AppendLine("<div class='cab'>")
+        Dim logo As String = _fnLogoEmpresaBase64()
+        If (logo <> String.Empty) Then
+            sb.AppendLine("<img src='data:image/png;base64," + logo + "'>")
+        End If
+        sb.AppendLine("<div><h1>REPORTE DE CLIENTES</h1>")
+        sb.AppendLine("<div class='info'>Orden alfabetico &middot; Total: " + vista.Count.ToString + " clientes &middot; Generado: " +
+                      Now.ToString("dd/MM/yyyy HH:mm") + " &middot; Usuario: " + _fnHtml(gs_user) + "</div>")
+        If (totalRepetidos > 0) Then
+            sb.AppendLine("<div class='info'><span class='leyenda'>Amarillo</span> = nombre repetido (" + totalRepetidos.ToString + " clientes)</div>")
+        End If
+        sb.AppendLine("</div>")
+        sb.AppendLine("</div>")
+
+        sb.AppendLine("<div class='barra'><input id='buscar' placeholder='Buscar cliente, telefono, documento...' oninput='filtrarDespues()' onkeyup='filtrarDespues()'>")
+        If (totalRepetidos > 0) Then
+            sb.AppendLine("<label for='soloRep'><input type='checkbox' id='soloRep' onclick='filtrar()'> Solo repetidos</label>")
+        End If
+        sb.AppendLine("<button onclick='window.print()'>Imprimir / PDF</button></div>")
+
+        sb.AppendLine("<table id='tabla'><thead><tr>")
+        sb.AppendLine("<th>#</th><th>Codigo</th><th>Nombre</th><th>Direccion</th><th>Telefono</th><th>Nro Documento</th><th>Razon Social</th><th>NIT</th><th>Veces</th>")
+        sb.AppendLine("</tr></thead><tbody>")
+
+        For i As Integer = 0 To vista.Count - 1 Step 1
+            Dim fila As DataRowView = vista(i)
+            Dim claveFila As String = _fnNormalizarNombre(fila.Item("NombreCliente"))
+            If (claveFila <> String.Empty AndAlso conteoNombres(claveFila) > 1) Then
+                sb.Append("<tr class='rep'>")
+            Else
+                sb.Append("<tr>")
+            End If
+            sb.Append("<td>" + (i + 1).ToString + "</td>")
+            sb.Append("<td>" + _fnHtml(fila.Item("Id")) + "</td>")
+            sb.Append("<td>" + _fnHtml(fila.Item("NombreCliente")) + "</td>")
+            sb.Append("<td>" + _fnHtml(fila.Item("DireccionCliente")) + "</td>")
+            sb.Append("<td>" + _fnHtml(fila.Item("Telefono")) + "</td>")
+            sb.Append("<td>" + _fnHtml(fila.Item("NroDocumento")) + "</td>")
+            sb.Append("<td>" + _fnHtml(fila.Item("RazonSocial")) + "</td>")
+            sb.Append("<td>" + _fnHtml(fila.Item("Nit")) + "</td>")
+            If (claveFila <> String.Empty AndAlso conteoNombres(claveFila) > 1) Then
+                sb.Append("<td><b>" + conteoNombres(claveFila).ToString + "</b></td>")
+            Else
+                sb.Append("<td></td>")
+            End If
+            sb.AppendLine("</tr>")
+        Next
+
+        sb.AppendLine("</tbody></table>")
+
+        'Buscador dentro de la pagina
+        sb.AppendLine("<script>")
+        'Filtro rapido: el texto de cada fila se lee UNA sola vez (antes se leia innerText de cada fila
+        'en cada filtrado, lo que obliga al navegador a recalcular la pagina por cada fila y la colgaba).
+        'Durante el filtrado la tabla se oculta para que el navegador dibuje una sola vez al final.
+        sb.AppendLine("var filas=null,textos=[],reps=[],espera=null;")
+        sb.AppendLine("function iniciar(){var tb=document.getElementById('tabla').tBodies[0];filas=tb.rows;")
+        sb.AppendLine("for(var i=0;i<filas.length;i++){var tx=filas[i].textContent||filas[i].innerText||'';")
+        sb.AppendLine("textos.push(tx.toLowerCase());reps.push(filas[i].className.indexOf('rep')>=0);}}")
+        sb.AppendLine("function filtrar(){if(filas===null){iniciar();}")
+        sb.AppendLine("var t=document.getElementById('buscar').value.toLowerCase();")
+        sb.AppendLine("var c=document.getElementById('soloRep');var sr=c?c.checked:false;")
+        sb.AppendLine("var tb=document.getElementById('tabla').tBodies[0];tb.style.display='none';")
+        sb.AppendLine("for(var i=0;i<filas.length;i++){var ok=(t==='' || textos[i].indexOf(t)>=0);")
+        sb.AppendLine("if(sr && !reps[i]){ok=false;}filas[i].style.display=ok?'':'none';}")
+        sb.AppendLine("tb.style.display='';}")
+        sb.AppendLine("function filtrarDespues(){if(espera){clearTimeout(espera);}espera=setTimeout(filtrar,250);}")
+        sb.AppendLine("</script>")
+        sb.AppendLine("</body></html>")
+
+        Return sb.ToString
+    End Function
+
+    'Nombre para comparar repetidos: sin espacios de mas, en mayusculas y sin tildes
+    '"Juan  Pérez " y "JUAN PEREZ" se consideran el mismo nombre
+    Public Function _fnNormalizarNombre(valor As Object) As String
+        If (IsDBNull(valor) Or IsNothing(valor)) Then
+            Return ""
+        End If
+        Dim texto As String = valor.ToString.Trim.ToUpper
+        texto = Regex.Replace(texto, "\s+", " ")
+        Dim sinTildes As New System.Text.StringBuilder
+        For Each c As Char In texto.Normalize(System.Text.NormalizationForm.FormD)
+            If (Globalization.CharUnicodeInfo.GetUnicodeCategory(c) <> Globalization.UnicodeCategory.NonSpacingMark) Then
+                sinTildes.Append(c)
+            End If
+        Next
+        Return sinTildes.ToString.Normalize(System.Text.NormalizationForm.FormC)
+    End Function
+
+    'Convierte el valor a texto seguro para HTML (evita que un nombre con < o & rompa la pagina)
+    Public Function _fnHtml(valor As Object) As String
+        If (IsDBNull(valor) Or IsNothing(valor)) Then
+            Return ""
+        End If
+        Return System.Net.WebUtility.HtmlEncode(valor.ToString)
+    End Function
+
+    'Logo de la empresa en base64 para incrustarlo en el HTML
+    Public Function _fnLogoEmpresaBase64() As String
+        Try
+            Dim dtImage As DataTable = ObtenerImagenEmpresa()
+            If (dtImage.Rows.Count > 0) Then
+                Dim Name As String = dtImage.Rows(0).Item(0).ToString
+                Dim ruta As String = gs_CarpetaRaiz + "\Imagenes\Imagenes Empresa\" + Name.TrimStart("\"c)
+                If (File.Exists(ruta)) Then
+                    Dim Bin As New MemoryStream
+                    Dim im As New Bitmap(ruta)
+                    im.Save(Bin, Imaging.ImageFormat.Png)
+                    im.Dispose()
+                    Dim base64 As String = Convert.ToBase64String(Bin.ToArray())
+                    Bin.Dispose()
+                    Return base64
+                End If
+            End If
+        Catch ex As Exception
+            'sin logo no pasa nada, el reporte se genera igual
+        End Try
+        Return ""
+    End Function
+
+    'El HTML tiene datos de clientes: se borran los reportes anteriores de la carpeta temporal
+    Private Sub P_BorrarReportesClientesAnteriores()
+        Try
+            For Each archivo As String In Directory.GetFiles(Path.GetTempPath(), "ReporteClientes_*.html")
+                Try
+                    File.Delete(archivo)
+                Catch ex As Exception
+                    'puede estar abierto en el navegador, se ignora
+                End Try
+            Next
+        Catch ex As Exception
+        End Try
+    End Sub
+
+#End Region
 End Class
