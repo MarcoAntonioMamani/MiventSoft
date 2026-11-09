@@ -1,0 +1,2538 @@
+{
+ "*NameSp|3": [
+  {
+   "funcion": "L_prListarGeneral",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  },
+  {
+   "funcion": "L_prListarGeneralFechas",
+   "params": [
+    "@desde",
+    "@hasta",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "*sp|-1": [
+  {
+   "funcion": "L_prBorrarRegistro",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Almacenes|-1": [
+  {
+   "funcion": "L_prSucursalBorrar",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Almacenes|1": [
+  {
+   "funcion": "L_prSucursalInsertar",
+   "params": [
+    "@depositoid",
+    "@descripcion",
+    "@direccion",
+    "@estado",
+    "@id",
+    "@nombrealmacen",
+    "@telefono",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Almacenes|2": [
+  {
+   "funcion": "L_prSucursalActualizar",
+   "params": [
+    "@depositoid",
+    "@descripcion",
+    "@direccion",
+    "@estado",
+    "@id",
+    "@nombrealmacen",
+    "@telefono",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Almacenes|4": [
+  {
+   "funcion": "L_prListarDepositos",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_AuditoriaVentas|1": [
+  {
+   "funcion": "L_prListarAuditoriaVentas",
+   "params": [
+    "@fechadesde",
+    "@fechahasta",
+    "@tipo",
+    "@tipoevento",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_AuditoriaVentas|2": [
+  {
+   "funcion": "L_prListarAuditoriaVentasDetalle",
+   "params": [
+    "@eventoid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CajaIngresoEgreso|1": [
+  {
+   "funcion": "L_prIngresoSalidaInsertar",
+   "params": [
+    "@cajaid",
+    "@cajaiddestino",
+    "@cajaingresoegresoiddestino",
+    "@cajatipomovimientoid",
+    "@cierrecajeroid",
+    "@descripcion",
+    "@fecha",
+    "@id",
+    "@idmodulo",
+    "@ingresoegreso",
+    "@modulo",
+    "@monto",
+    "@personalid",
+    "@sucursalid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CajaIngresoEgreso|10": [
+  {
+   "funcion": "ReporteListarMesesIngresosEgresos",
+   "params": [
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_CajaIngresoEgreso|11": [
+  {
+   "funcion": "ReporteListarMesesIngresosEgresosGrafico",
+   "params": [
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_CajaIngresoEgreso|12": [
+  {
+   "funcion": "ReporteIngresoEgresoDetallado",
+   "params": [
+    "@fechaf",
+    "@fechai",
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_CajaIngresoEgreso|13": [
+  {
+   "funcion": "ReporteIngresoEgresoDetalladoCaja",
+   "params": [
+    "@cajaid",
+    "@fechaf",
+    "@fechai",
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_CajaIngresoEgreso|2": [
+  {
+   "funcion": "L_prIngresoSalidaModificar",
+   "params": [
+    "@cajaid",
+    "@cajaiddestino",
+    "@cajaingresoegresoiddestino",
+    "@cajatipomovimientoid",
+    "@cierrecajeroid",
+    "@descripcion",
+    "@fecha",
+    "@id",
+    "@idmodulo",
+    "@ingresoegreso",
+    "@modulo",
+    "@monto",
+    "@personalid",
+    "@sucursalid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CajaIngresoEgreso|4": [
+  {
+   "funcion": "L_prListarCaja",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CajaIngresoEgreso|5": [
+  {
+   "funcion": "L_prListarTipoMovimientoCaja",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CajaIngresoEgreso|8": [
+  {
+   "funcion": "ListarReporteIngresoEgreso",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CajaIngresoEgreso|9": [
+  {
+   "funcion": "ReporteIngresosEgresosMes",
+   "params": [
+    "@anio",
+    "@mes",
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_Categorias|-1": [
+  {
+   "funcion": "L_prCategoriaBorrar",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Categorias|1": [
+  {
+   "funcion": "L_prCategoriaInsertar",
+   "params": [
+    "@descripcioncategoria",
+    "@empresaid",
+    "@estado",
+    "@id",
+    "@imagen",
+    "@nombrecategoria",
+    "@tipo",
+    "@usuario",
+    "@visibleapp"
+   ]
+  }
+ ],
+ "MAM_Categorias|2": [
+  {
+   "funcion": "L_prCategoriaModificar",
+   "params": [
+    "@descripcioncategoria",
+    "@empresaid",
+    "@estado",
+    "@id",
+    "@imagen",
+    "@nombrecategoria",
+    "@tipo",
+    "@usuario",
+    "@visibleapp"
+   ]
+  }
+ ],
+ "MAM_Categorias|3": [
+  {
+   "funcion": "L_prCategoriaGeneral",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CierreCaja|1": [
+  {
+   "funcion": "InsertarCierreCaja",
+   "params": [
+    "@cobranzas",
+    "@conciliacionid",
+    "@detallegastos",
+    "@diferencia",
+    "@efectivocalculado",
+    "@efectivorecibido",
+    "@fechacierre",
+    "@id",
+    "@personalid",
+    "@tipo",
+    "@totalcobros",
+    "@totalgastos",
+    "@usuario",
+    "@ventascontado",
+    "@ventascredito"
+   ]
+  }
+ ],
+ "MAM_CierreCaja|10": [
+  {
+   "funcion": "ReporteGastosFecha",
+   "params": [
+    "@fechaf",
+    "@fechai",
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_CierreCaja|2": [
+  {
+   "funcion": "ModificarCierreCaja",
+   "params": [
+    "@cobranzas",
+    "@conciliacionid",
+    "@detallegastos",
+    "@diferencia",
+    "@efectivocalculado",
+    "@efectivorecibido",
+    "@fechacierre",
+    "@id",
+    "@personalid",
+    "@tipo",
+    "@totalcobros",
+    "@totalgastos",
+    "@usuario",
+    "@ventascontado",
+    "@ventascredito"
+   ]
+  }
+ ],
+ "MAM_CierreCaja|4": [
+  {
+   "funcion": "ListaDetalleGastosCierreId",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CierreCaja|5": [
+  {
+   "funcion": "ListarConciliacionesCaja",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CierreCaja|6": [
+  {
+   "funcion": "ListaDetallePedidosconciliacion",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CierreCaja|7": [
+  {
+   "funcion": "ListaCobranzasPorPersonalSinCierre",
+   "params": [
+    "@fechacierre",
+    "@personalid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CierreCaja|8": [
+  {
+   "funcion": "ListaCobranzasPorPersonalconCierre",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CierreCaja|9": [
+  {
+   "funcion": "DatosreporteCierreCaja",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Clasificadores|1": [
+  {
+   "funcion": "L_prClasificadorGrabar",
+   "params": [
+    "@descripcion",
+    "@id",
+    "@idclasificador",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Clasificadores|3": [
+  {
+   "funcion": "L_prLibreriaDetalleGeneral",
+   "params": [
+    "@idclasificador",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Clientes|-1": [
+  {
+   "funcion": "L_prClienteBorrar",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Clientes|1": [
+  {
+   "funcion": "InsertarCliente",
+   "params": [
+    "@codigoexterno",
+    "@direccioncliente",
+    "@estado",
+    "@fechaingreso",
+    "@id",
+    "@latitud",
+    "@longitud",
+    "@nit",
+    "@nombrecliente",
+    "@nrodocumento",
+    "@observacion",
+    "@preciocategoriaid",
+    "@razonsocial",
+    "@referencia",
+    "@telefono",
+    "@tipo",
+    "@tipodocumento",
+    "@tiponegocio",
+    "@zonaid"
+   ]
+  }
+ ],
+ "MAM_Clientes|10": [
+  {
+   "funcion": "ListarCliente",
+   "params": [
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_Clientes|11": [
+  {
+   "funcion": "ListarPersonalById",
+   "params": [
+    "@id",
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_Clientes|12": [
+  {
+   "funcion": "ListarSoloChoferes",
+   "params": [
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_Clientes|13": [
+  {
+   "funcion": "L_prListarHistorico",
+   "params": [
+    "@fechaf",
+    "@fechi",
+    "@idvendedor",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Clientes|14": [
+  {
+   "funcion": "ListarProductosBuscador",
+   "params": [
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_Clientes|2": [
+  {
+   "funcion": "ModificarCliente",
+   "params": [
+    "@codigoexterno",
+    "@direccioncliente",
+    "@estado",
+    "@fechaingreso",
+    "@id",
+    "@latitud",
+    "@longitud",
+    "@nit",
+    "@nombrecliente",
+    "@nrodocumento",
+    "@observacion",
+    "@preciocategoriaid",
+    "@razonsocial",
+    "@referencia",
+    "@telefono",
+    "@tipo",
+    "@tipodocumento",
+    "@tiponegocio",
+    "@zonaid"
+   ]
+  }
+ ],
+ "MAM_Clientes|4": [
+  {
+   "funcion": "L_prListarZonas",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Clientes|5": [
+  {
+   "funcion": "L_prListaCategoriasPrecios",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Clientes|6": [
+  {
+   "funcion": "L_prMapaCLienteGeneral",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Clientes|7": [
+  {
+   "funcion": "L_prMapaCLienteGeneralPorZona",
+   "params": [
+    "@tipo",
+    "@usuario",
+    "@zonaid"
+   ]
+  }
+ ],
+ "MAM_Clientes|8": [
+  {
+   "funcion": "InsertarClienteFormularioExterno",
+   "params": [
+    "@id",
+    "@nit",
+    "@nombrecliente",
+    "@nrodocumento",
+    "@observacion",
+    "@preciocategoriaid",
+    "@razonsocial",
+    "@tipo",
+    "@tipodocumento"
+   ]
+  }
+ ],
+ "MAM_Clientes|9": [
+  {
+   "funcion": "ListarPersonal",
+   "params": [
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_Compras|1": [
+  {
+   "funcion": "ComprasInsertar",
+   "params": [
+    "@almacenid",
+    "@descuento",
+    "@detalle",
+    "@empresaid",
+    "@estado",
+    "@fechatransaccion",
+    "@fechavencimientocredito",
+    "@glosa",
+    "@id",
+    "@moneda",
+    "@nronotacompra",
+    "@nronotarecepcion",
+    "@proveedor",
+    "@tipo",
+    "@tipoventa",
+    "@totalcompra",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Compras|10": [
+  {
+   "funcion": "ListaComprasTotalesHistorico",
+   "params": [
+    "@fechaf",
+    "@fechai",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Compras|11": [
+  {
+   "funcion": "ListaComprasProductosHistorico",
+   "params": [
+    "@fechaf",
+    "@fechai",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Compras|12": [
+  {
+   "funcion": "ListarProveedoresCombo",
+   "params": [
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_Compras|2": [
+  {
+   "funcion": "ComprasModificar",
+   "params": [
+    "@almacenid",
+    "@descuento",
+    "@detalle",
+    "@empresaid",
+    "@estado",
+    "@fechatransaccion",
+    "@fechavencimientocredito",
+    "@glosa",
+    "@id",
+    "@moneda",
+    "@nronotacompra",
+    "@nronotarecepcion",
+    "@proveedor",
+    "@tipo",
+    "@tipoventa",
+    "@totalcompra",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Compras|4": [
+  {
+   "funcion": "ListaComprasDetalles",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Compras|5": [
+  {
+   "funcion": "L_prListarProductosCompras",
+   "params": [
+    "@almacenid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Compras|6": [
+  {
+   "funcion": "ListarProveedores",
+   "params": [
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_Compras|7": [
+  {
+   "funcion": "ReporteCompras",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Compras|8": [
+  {
+   "funcion": "ListarPersonalCredito",
+   "params": [
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_Compras|9": [
+  {
+   "funcion": "ListaComprasHistorico",
+   "params": [
+    "@fechaf",
+    "@fechai",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_ConceptosFijos|1": [
+  {
+   "funcion": "L_prConceptoFijoInsertar",
+   "params": [
+    "@estado",
+    "@id",
+    "@nombreconcepto",
+    "@operacionid",
+    "@porcentaje",
+    "@tipo",
+    "@tipoconcepto",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_ConceptosFijos|2": [
+  {
+   "funcion": "L_prConceptoFijoModificar",
+   "params": [
+    "@estado",
+    "@id",
+    "@nombreconcepto",
+    "@operacionid",
+    "@porcentaje",
+    "@tipo",
+    "@tipoconcepto",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_ConceptosFijos|4": [
+  {
+   "funcion": "L_prListarOperacionesConceptosFijos",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Conciliacion|2": [
+  {
+   "funcion": "ModificarConciliacion",
+   "params": [
+    "@detalleconciliacion",
+    "@estado",
+    "@fecha",
+    "@id",
+    "@observacion",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Conciliacion|4": [
+  {
+   "funcion": "ListarProductosSalidasConciliacion",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Conciliacion|5": [
+  {
+   "funcion": "ListarTodasSalidas",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Conciliacion|6": [
+  {
+   "funcion": "ListarProductosEntregadoConciliaciones",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Conciliacion|7": [
+  {
+   "funcion": "ListarProductosDetalleConciliacion",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Contratos|1": [
+  {
+   "funcion": "InsertarContratos",
+   "params": [
+    "@cargo",
+    "@detallecontratoconcepto",
+    "@estado",
+    "@fincontrato",
+    "@id",
+    "@indefinido",
+    "@iniciocontrato",
+    "@personalid",
+    "@sueldobase",
+    "@tipo",
+    "@tipocontratoid",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Contratos|2": [
+  {
+   "funcion": "ModificarContratos",
+   "params": [
+    "@cargo",
+    "@detallecontratoconcepto",
+    "@estado",
+    "@fincontrato",
+    "@id",
+    "@indefinido",
+    "@iniciocontrato",
+    "@personalid",
+    "@sueldobase",
+    "@tipo",
+    "@tipocontratoid",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Contratos|4": [
+  {
+   "funcion": "ListaConceptosContratos",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Contratos|5": [
+  {
+   "funcion": "ListaConceptosFijosContrato",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CreditosCompras|1": [
+  {
+   "funcion": "L_prListarPagosPendientes",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CreditosCompras|2": [
+  {
+   "funcion": "L_prListarCreditosPagados",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CreditosCompras|3": [
+  {
+   "funcion": "L_prListarPagosPendientesFiltros",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CreditosCompras|4": [
+  {
+   "funcion": "L_prGrabarPagosCreditoCompras",
+   "params": [
+    "@creditocompraid",
+    "@fechapago",
+    "@glosa",
+    "@monto",
+    "@nrorecibo",
+    "@personalid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CreditosCompras|5": [
+  {
+   "funcion": "L_prListarPagosCreditoCompra",
+   "params": [
+    "@creditocompraid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CreditosCompras|6": [
+  {
+   "funcion": "L_prListarPagosTodosCuentasPorPagar",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CreditosCompras|7": [
+  {
+   "funcion": "L_prEliminarPagosCuentaPorPagar",
+   "params": [
+    "@tipo",
+    "@transaccioncompraid",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CreditosCompras|8": [
+  {
+   "funcion": "L_EstadoDeCuentasPorPagar",
+   "params": [
+    "@creditocompraid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CreditosVentas|1": [
+  {
+   "funcion": "L_prListarPagosPendientesClientes",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CreditosVentas|2": [
+  {
+   "funcion": "L_prListarCreditosPagadosCliente",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CreditosVentas|3": [
+  {
+   "funcion": "L_prListarPagosPendientesFiltrosClientes",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CreditosVentas|4": [
+  {
+   "funcion": "L_prGrabarPagosCreditoVentas",
+   "params": [
+    "@creditoventaid",
+    "@fechapago",
+    "@glosa",
+    "@monto",
+    "@nrorecibo",
+    "@personalid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CreditosVentas|5": [
+  {
+   "funcion": "L_prListarPagosCreditoVenta",
+   "params": [
+    "@creditoventaid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CreditosVentas|6": [
+  {
+   "funcion": "L_prListarPagosTodosCuentasPorCobrar",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CreditosVentas|7": [
+  {
+   "funcion": "L_prEliminarPagosCuentaPorCobrar",
+   "params": [
+    "@tipo",
+    "@transaccionventaid",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_CreditosVentas|8": [
+  {
+   "funcion": "L_EstadoDeCuentasPorCobrar",
+   "params": [
+    "@creditoventaid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_DespachoProductos|1": [
+  {
+   "funcion": "InsertarDespachoProductos",
+   "params": [
+    "@conciliacionid",
+    "@despachoautomatico",
+    "@detalle",
+    "@detalledespacho",
+    "@fecha",
+    "@id",
+    "@nronota",
+    "@personalid",
+    "@referenciaventa",
+    "@sucursalid",
+    "@tipo",
+    "@tipomovimientoid",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_DespachoProductos|2": [
+  {
+   "funcion": "ModificarDespachoProductos",
+   "params": [
+    "@conciliacionid",
+    "@detalle",
+    "@detalledespacho",
+    "@fecha",
+    "@id",
+    "@nronota",
+    "@personalid",
+    "@sucursalid",
+    "@tipo",
+    "@tipomovimientoid",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_DespachoProductos|4": [
+  {
+   "funcion": "ListaDetalleDespachoProductos",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_DespachoProductos|5": [
+  {
+   "funcion": "ListarProductosSeleccionables",
+   "params": [
+    "@sucursalid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_DespachoProductos|6": [
+  {
+   "funcion": "GenerarDatosDespachoReporte",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_DespachoProductos|7": [
+  {
+   "funcion": "CargarProductosAutomatico",
+   "params": [
+    "@personalid",
+    "@sucursalid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_DespachoProductos|8": [
+  {
+   "funcion": "CargarReferenciaVentas",
+   "params": [
+    "@personalid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Empresas|1": [
+  {
+   "funcion": "InsertarEmpresa",
+   "params": [
+    "@ciudad",
+    "@descripcion",
+    "@direccion",
+    "@id",
+    "@imagen",
+    "@latitud",
+    "@longitud",
+    "@nit",
+    "@nombre",
+    "@propietario",
+    "@telefono",
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_Empresas|2": [
+  {
+   "funcion": "ModificarEmpresa",
+   "params": [
+    "@ciudad",
+    "@descripcion",
+    "@direccion",
+    "@id",
+    "@imagen",
+    "@latitud",
+    "@longitud",
+    "@nit",
+    "@nombre",
+    "@propietario",
+    "@telefono",
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_Movimientos|1": [
+  {
+   "funcion": "L_prMovimientoInsertar",
+   "params": [
+    "@conceptoid",
+    "@depositoid",
+    "@detalle",
+    "@estado",
+    "@fechadocumento",
+    "@id",
+    "@observacion",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Movimientos|10": [
+  {
+   "funcion": "ReporteSaldosTodosAlmacenesTodos",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Movimientos|11": [
+  {
+   "funcion": "ReporteSaldosUnAlmacenTodosCantidad",
+   "params": [
+    "@depositoid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Movimientos|12": [
+  {
+   "funcion": "ReporteSaldosUnAlmacenCantidadMayor0",
+   "params": [
+    "@depositoid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Movimientos|13": [
+  {
+   "funcion": "L_prListarProductosKardex",
+   "params": [
+    "@depositoid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Movimientos|14": [
+  {
+   "funcion": "L_fnObtenerHistorialProductoGeneral",
+   "params": [
+    "@depositoid",
+    "@fechadocumento",
+    "@productoid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Movimientos|15": [
+  {
+   "funcion": "L_fnObtenerHistorialProducto",
+   "params": [
+    "@depositoid",
+    "@fechaf",
+    "@fechai",
+    "@productoid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Movimientos|16": [
+  {
+   "funcion": "L_fnListarProductosQueTienenMovimientos",
+   "params": [
+    "@depositoid",
+    "@fechaf",
+    "@fechai",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Movimientos|18": [
+  {
+   "funcion": "L_prListarProductosTodosInventario",
+   "params": [
+    "@categoriaprecio",
+    "@proveedorid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Movimientos|2": [
+  {
+   "funcion": "L_prMovimientoActualizar",
+   "params": [
+    "@conceptoid",
+    "@depositoid",
+    "@detalle",
+    "@estado",
+    "@fechadocumento",
+    "@id",
+    "@observacion",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Movimientos|4": [
+  {
+   "funcion": "L_prListarDetalleMovimiento",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Movimientos|5": [
+  {
+   "funcion": "L_prListarTiposMovimientos",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Movimientos|6": [
+  {
+   "funcion": "L_prLeerConfiguracion",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Movimientos|7": [
+  {
+   "funcion": "L_prListarProductosLote",
+   "params": [
+    "@depositoid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Movimientos|8": [
+  {
+   "funcion": "LotesPorProducto",
+   "params": [
+    "@depositoid",
+    "@productoid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Movimientos|9": [
+  {
+   "funcion": "ReporteSaldosTodosAlmacenesMayorA0",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Personal|1": [
+  {
+   "funcion": "InsertarPersonal",
+   "params": [
+    "@direccionpersonal",
+    "@empresaid",
+    "@estado",
+    "@fechanacimiento",
+    "@id",
+    "@nombrepersonal",
+    "@nrodocumento",
+    "@telefono01",
+    "@tipo",
+    "@tipodocumento",
+    "@tipopersonal"
+   ]
+  }
+ ],
+ "MAM_Personal|2": [
+  {
+   "funcion": "ModificarPersonal",
+   "params": [
+    "@direccionpersonal",
+    "@empresaid",
+    "@estado",
+    "@fechanacimiento",
+    "@id",
+    "@nombrepersonal",
+    "@nrodocumento",
+    "@telefono01",
+    "@tipo",
+    "@tipodocumento",
+    "@tipopersonal"
+   ]
+  }
+ ],
+ "MAM_Planilla|1": [
+  {
+   "funcion": "InsertarPlanilla",
+   "params": [
+    "@anio",
+    "@contratoid",
+    "@id",
+    "@mes",
+    "@planillaconcepto",
+    "@sueldo",
+    "@sueldobruto",
+    "@sueldoneto",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Planilla|3": [
+  {
+   "funcion": "ListarPlanilla",
+   "params": [
+    "@anio",
+    "@mes",
+    "@tipo",
+    "@todos",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Planilla|4": [
+  {
+   "funcion": "ListaConceptosPlanilla",
+   "params": [
+    "@id",
+    "@tipo",
+    "@tipoconcepto",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Planilla|5": [
+  {
+   "funcion": "ListarPersonalSinPlanilla",
+   "params": [
+    "@anio",
+    "@mes",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Planilla|6": [
+  {
+   "funcion": "ListarConceptoVariablePlanilla",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Planilla|7": [
+  {
+   "funcion": "ModificarPlanillaSoloDetalle",
+   "params": [
+    "@id",
+    "@planillaconcepto",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Planilla|8": [
+  {
+   "funcion": "ReporteBoletaSalarioIndividual",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Planilla|9": [
+  {
+   "funcion": "ListarPlanillaReporte",
+   "params": [
+    "@anio",
+    "@mes",
+    "@tipo",
+    "@todos",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Productos|-1": [
+  {
+   "funcion": "L_prProductoBorrar",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Productos|1": [
+  {
+   "funcion": "L_prProductoInsertar",
+   "params": [
+    "@attributoid",
+    "@categoriaid",
+    "@codigobarras",
+    "@codigoexterno",
+    "@conversion",
+    "@descripcionproducto",
+    "@empresaid",
+    "@estado",
+    "@familiaid",
+    "@id",
+    "@marcaid",
+    "@nombreproducto",
+    "@proveedorid",
+    "@stockminimo",
+    "@tcl0064",
+    "@tipo",
+    "@unidadmaximaid",
+    "@unidadventaid",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Productos|10": [
+  {
+   "funcion": "L_prListarProductosPorCategoriaTotal",
+   "params": [
+    "@categoriaid",
+    "@fechaf",
+    "@fechai",
+    "@personalid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Productos|11": [
+  {
+   "funcion": "L_prListarSubcategoriaAsignados",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Productos|12": [
+  {
+   "funcion": "L_prListarProductosPorCategoriaTotalV2PorCategoria",
+   "params": [
+    "@categoriaid",
+    "@fechaf",
+    "@fechai",
+    "@personalid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Productos|2": [
+  {
+   "funcion": "L_prProductoModificar",
+   "params": [
+    "@attributoid",
+    "@categoriaid",
+    "@codigobarras",
+    "@codigoexterno",
+    "@conversion",
+    "@descripcionproducto",
+    "@empresaid",
+    "@estado",
+    "@familiaid",
+    "@id",
+    "@marcaid",
+    "@nombreproducto",
+    "@proveedorid",
+    "@stockminimo",
+    "@tcl0064",
+    "@tipo",
+    "@unidadmaximaid",
+    "@unidadventaid",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Productos|4": [
+  {
+   "funcion": "L_prListaCategorias",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Productos|5": [
+  {
+   "funcion": "L_prCargarImagenesRecepcion",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Productos|7": [
+  {
+   "funcion": "L_prListarProveedores",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Productos|8": [
+  {
+   "funcion": "L_prListaPersonalCB",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Productos|9": [
+  {
+   "funcion": "L_prListarProductosPorCategoria",
+   "params": [
+    "@categoriaid",
+    "@fechaf",
+    "@fechai",
+    "@personalid",
+    "@subcategoriaid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Proforma|1": [
+  {
+   "funcion": "ProformaInsertar",
+   "params": [
+    "@clienteid",
+    "@descuento",
+    "@estado",
+    "@estadopedido",
+    "@fechaentregar",
+    "@fechavencimientocredito",
+    "@fechaventa",
+    "@glosa",
+    "@id",
+    "@monedaventa",
+    "@personalid",
+    "@sucursalid",
+    "@tipo",
+    "@tipoventa",
+    "@totalventa",
+    "@usuario",
+    "@ventadetalletype",
+    "@ventadirecta",
+    "@ventadirectasinconciliacion"
+   ]
+  }
+ ],
+ "MAM_Proforma|2": [
+  {
+   "funcion": "ProformaModificar",
+   "params": [
+    "@clienteid",
+    "@descuento",
+    "@estado",
+    "@estadopedido",
+    "@fechaentregar",
+    "@fechavencimientocredito",
+    "@fechaventa",
+    "@glosa",
+    "@id",
+    "@monedaventa",
+    "@personalid",
+    "@sucursalid",
+    "@tipo",
+    "@tipoventa",
+    "@totalventa",
+    "@usuario",
+    "@ventadetalletype",
+    "@ventadirecta",
+    "@ventadirectasinconciliacion"
+   ]
+  }
+ ],
+ "MAM_Proforma|4": [
+  {
+   "funcion": "ListaProformaDetalles",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Proforma|6": [
+  {
+   "funcion": "ListarProformaRecibo",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Proveedores|1": [
+  {
+   "funcion": "InsertarProveedor",
+   "params": [
+    "@descripcion",
+    "@direccionproveedor",
+    "@estado",
+    "@id",
+    "@nombreproveedor",
+    "@nrodocumento",
+    "@telefono01",
+    "@telefono02",
+    "@tipo",
+    "@tipodocumento"
+   ]
+  }
+ ],
+ "MAM_Proveedores|2": [
+  {
+   "funcion": "ModificarProveedor",
+   "params": [
+    "@descripcion",
+    "@direccionproveedor",
+    "@estado",
+    "@id",
+    "@nombreproveedor",
+    "@nrodocumento",
+    "@telefono01",
+    "@telefono02",
+    "@tipo",
+    "@tipodocumento"
+   ]
+  }
+ ],
+ "MAM_ReporteVentas|1": [
+  {
+   "funcion": "ReporteVentasAtendidasTodos",
+   "params": [
+    "@fechaf",
+    "@fechai",
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_ReporteVentas|10": [
+  {
+   "funcion": "L_prListarProductosConStock0",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_ReporteVentas|11": [
+  {
+   "funcion": "L_prListarProductosConStockMinimo",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_ReporteVentas|12": [
+  {
+   "funcion": "L_prListarProductosStockVencidos",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_ReporteVentas|13": [
+  {
+   "funcion": "ReporteVentasAtendidasTodosUnCliente",
+   "params": [
+    "@fechaf",
+    "@fechai",
+    "@idcliente",
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_ReporteVentas|14": [
+  {
+   "funcion": "ReporteVentasAtendidasTodosUnVendedorUnCliente",
+   "params": [
+    "@fechaf",
+    "@fechai",
+    "@idcliente",
+    "@idpersonal",
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_ReporteVentas|15": [
+  {
+   "funcion": "ReporteVentasPorProductos",
+   "params": [
+    "@fechaf",
+    "@fechai",
+    "@productoid",
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_ReporteVentas|16": [
+  {
+   "funcion": "ReporteComprasPorProductos",
+   "params": [
+    "@fechaf",
+    "@fechai",
+    "@productoid",
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_ReporteVentas|17": [
+  {
+   "funcion": "ReporteHistoricoCobrosTodos",
+   "params": [
+    "@fechaf",
+    "@fechai",
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_ReporteVentas|18": [
+  {
+   "funcion": "ReporteHistoricoCobrosbyVendedor",
+   "params": [
+    "@fechaf",
+    "@fechai",
+    "@idpersonal",
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_ReporteVentas|2": [
+  {
+   "funcion": "ReporteVentasAtendidasTodosUnVendedor",
+   "params": [
+    "@fechaf",
+    "@fechai",
+    "@idpersonal",
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_ReporteVentas|3": [
+  {
+   "funcion": "ObtenerImagenEmpresa",
+   "params": [
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_ReporteVentas|4": [
+  {
+   "funcion": "ReporteVentasUtilidadesTodos",
+   "params": [
+    "@fechaf",
+    "@fechai",
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_ReporteVentas|5": [
+  {
+   "funcion": "ReporteVentasUtilidadesTodosUnVendedor",
+   "params": [
+    "@fechaf",
+    "@fechai",
+    "@idpersonal",
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_ReporteVentas|6": [
+  {
+   "funcion": "ReporteVentasProductosMasVendido",
+   "params": [
+    "@fechaf",
+    "@fechai",
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_ReporteVentas|7": [
+  {
+   "funcion": "ReporteListarPersonal",
+   "params": [
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_ReporteVentas|8": [
+  {
+   "funcion": "ReporteVentasRendimientoPersonal",
+   "params": [
+    "@fechaf",
+    "@fechai",
+    "@personaltype",
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_ReporteVentas|9": [
+  {
+   "funcion": "ReporteSaldosValorados",
+   "params": [
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_Roles|-1": [
+  {
+   "funcion": "L_prRolBorrar",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Roles|1": [
+  {
+   "funcion": "L_prRolGrabar",
+   "params": [
+    "@id",
+    "@nombrerol",
+    "@roldetalletype",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Roles|2": [
+  {
+   "funcion": "L_prRolModificar",
+   "params": [
+    "@id",
+    "@nombrerol",
+    "@roldetalletype",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Roles|3": [
+  {
+   "funcion": "L_prRolGeneral",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Roles|4": [
+  {
+   "funcion": "L_prRolDetalleGeneral",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Usuarios|-1": [
+  {
+   "funcion": "L_prUsuarioBorrar",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Usuarios|1": [
+  {
+   "funcion": "L_prUsuarioInsertar",
+   "params": [
+    "@contrasena",
+    "@estado",
+    "@id",
+    "@idempresa",
+    "@idpersonal",
+    "@nombreusuario",
+    "@pedidosinconciliacion",
+    "@rolid",
+    "@sucursalid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Usuarios|2": [
+  {
+   "funcion": "L_prUsuarioModificar",
+   "params": [
+    "@contrasena",
+    "@estado",
+    "@id",
+    "@idempresa",
+    "@idpersonal",
+    "@nombreusuario",
+    "@pedidosinconciliacion",
+    "@rolid",
+    "@sucursalid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Usuarios|3": [
+  {
+   "funcion": "L_prUsuarioGeneral",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Usuarios|4": [
+  {
+   "funcion": "L_prListaEmpresasUsuarios",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Usuarios|5": [
+  {
+   "funcion": "L_prListaRolesUsuarios",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_VentasIncremento|1": [
+  {
+   "funcion": "L_fnObtenerIncrementoVentaHoy",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_VentasIncremento|2": [
+  {
+   "funcion": "L_prGuardarIncrementoVentaHoy",
+   "params": [
+    "@monto",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_VentasIncremento|3": [
+  {
+   "funcion": "L_prListarHistorialIncrementoVenta",
+   "params": [
+    "@fechadesde",
+    "@fechahasta",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Ventas|1": [
+  {
+   "funcion": "VentaInsertar",
+   "params": [
+    "@clienteid",
+    "@descuento",
+    "@estado",
+    "@estadopedido",
+    "@fechaentregar",
+    "@fechavencimientocredito",
+    "@fechaventa",
+    "@glosa",
+    "@id",
+    "@incrementoventa",
+    "@monedaventa",
+    "@personalid",
+    "@sucursalid",
+    "@tipo",
+    "@tipoventa",
+    "@totalventa",
+    "@usuario",
+    "@ventadetalletype",
+    "@ventadirecta",
+    "@ventadirectasinconciliacion"
+   ]
+  },
+  {
+   "funcion": "VentaInsertar",
+   "params": [
+    "@clienteid",
+    "@descuento",
+    "@estado",
+    "@estadopedido",
+    "@fechaentregar",
+    "@fechavencimientocredito",
+    "@fechaventa",
+    "@glosa",
+    "@id",
+    "@monedaventa",
+    "@personalid",
+    "@sucursalid",
+    "@tipo",
+    "@tipoventa",
+    "@totalventa",
+    "@usuario",
+    "@ventadetalletype",
+    "@ventadirecta",
+    "@ventadirectasinconciliacion"
+   ]
+  }
+ ],
+ "MAM_Ventas|10": [
+  {
+   "funcion": "ListaProductosAsignadosByChofer",
+   "params": [
+    "@choferid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Ventas|11": [
+  {
+   "funcion": "ListaClientesAsignadosByChofer",
+   "params": [
+    "@choferid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Ventas|12": [
+  {
+   "funcion": "VentaQuitarAsignaciones",
+   "params": [
+    "@asignacion",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Ventas|13": [
+  {
+   "funcion": "VentaAnularPedidos",
+   "params": [
+    "@asignacion",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Ventas|14": [
+  {
+   "funcion": "VentaEntregarPedidos",
+   "params": [
+    "@asignacion",
+    "@choferid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Ventas|15": [
+  {
+   "funcion": "ListaPedidosEntregadosByChofer",
+   "params": [
+    "@choferid",
+    "@idconciliacion",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Ventas|16": [
+  {
+   "funcion": "VentaRevertiEstadoEntregado",
+   "params": [
+    "@asignacionentregado",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Ventas|17": [
+  {
+   "funcion": "ListaPedidosAnulados",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Ventas|18": [
+  {
+   "funcion": "VentaRevertirAnulacion",
+   "params": [
+    "@asignacionanulacion",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Ventas|19": [
+  {
+   "funcion": "L_prVerificarConcicliacionAbierta",
+   "params": [
+    "@choferid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Ventas|2": [
+  {
+   "funcion": "VentaModificar",
+   "params": [
+    "@clienteid",
+    "@descuento",
+    "@estado",
+    "@estadopedido",
+    "@fechaentregar",
+    "@fechavencimientocredito",
+    "@fechaventa",
+    "@glosa",
+    "@id",
+    "@monedaventa",
+    "@personalid",
+    "@sucursalid",
+    "@tipo",
+    "@tipoventa",
+    "@totalventa",
+    "@usuario",
+    "@ventadetalletype",
+    "@ventadirecta",
+    "@ventadirectasinconciliacion"
+   ]
+  }
+ ],
+ "MAM_Ventas|20": [
+  {
+   "funcion": "L_prListarProductosVentasConciliaciones",
+   "params": [
+    "@choferid",
+    "@clienteid",
+    "@precioid",
+    "@sucursalid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Ventas|21": [
+  {
+   "funcion": "InsertarTipoMovimiento",
+   "params": [
+    "@descripcion",
+    "@id",
+    "@tipo",
+    "@tipomovimiento",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Ventas|22": [
+  {
+   "funcion": "ListarConciliacion",
+   "params": [
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_Ventas|30": [
+  {
+   "funcion": "ListarCategorias",
+   "params": [
+    "@tipo"
+   ]
+  }
+ ],
+ "MAM_Ventas|31": [
+  {
+   "funcion": "L_prGenerarReporteProductosPorVentas",
+   "params": [
+    "@categoriaid",
+    "@clienteid",
+    "@fechaf",
+    "@fechai",
+    "@idproducto",
+    "@proveedorid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Ventas|4": [
+  {
+   "funcion": "ListaVentasDetalles",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Ventas|5": [
+  {
+   "funcion": "L_prListarProductosVentas",
+   "params": [
+    "@clienteid",
+    "@precioid",
+    "@sucursalid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Ventas|6": [
+  {
+   "funcion": "ListarVentaRecibo",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Ventas|7": [
+  {
+   "funcion": "ListaPedidosPendientesAsignaciones",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Ventas|8": [
+  {
+   "funcion": "VentaInsertarAsignaciones",
+   "params": [
+    "@asignacion",
+    "@personalid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "MAM_Ventas|9": [
+  {
+   "funcion": "ListaPedidosAsignadosByChofer",
+   "params": [
+    "@choferid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "sp_Mam_Precios|-1": [
+  {
+   "funcion": "L_fnEliminarCategoria",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "sp_Mam_Precios|1": [
+  {
+   "funcion": "L_fnGrabarCategorias",
+   "params": [
+    "@codigo",
+    "@descripcion",
+    "@tipo",
+    "@tipocategoria",
+    "@usuario"
+   ]
+  }
+ ],
+ "sp_Mam_Precios|10": [
+  {
+   "funcion": "L_fnListarCategoriaPrecioFilter",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "sp_Mam_Precios|11": [
+  {
+   "funcion": "L_fnListarCategoriaProductos",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "sp_Mam_Precios|2": [
+  {
+   "funcion": "L_fnGrabarPrecios",
+   "params": [
+    "@almacen",
+    "@tipo",
+    "@ty007",
+    "@usuario"
+   ]
+  }
+ ],
+ "sp_Mam_Precios|3": [
+  {
+   "funcion": "L_fnGeneralCategorias",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "sp_Mam_Precios|4": [
+  {
+   "funcion": "L_fnGeneralSucursales",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "sp_Mam_Precios|5": [
+  {
+   "funcion": "L_fnListarProductosConPrecios",
+   "params": [
+    "@almacen",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "sp_Mam_Precios|6": [
+  {
+   "funcion": "L_fnListarProductos",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "sp_Mam_Precios|7": [
+  {
+   "funcion": "L_fnListarCategorias",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "sp_Mam_Precios|8": [
+  {
+   "funcion": "L_fnPedidosEstados",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "sp_Mam_Precios|9": [
+  {
+   "funcion": "L_fnListarCategoriaPrecio",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "sp_Mam_Zonas|-1": [
+  {
+   "funcion": "EliminarZona",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "sp_Mam_Zonas|1": [
+  {
+   "funcion": "InsertarZona",
+   "params": [
+    "@color",
+    "@descripcionzona",
+    "@id",
+    "@nombrezona",
+    "@tipo",
+    "@usuario",
+    "@zonaspuntos"
+   ]
+  }
+ ],
+ "sp_Mam_Zonas|2": [
+  {
+   "funcion": "ActualizarZona",
+   "params": [
+    "@color",
+    "@descripcionzona",
+    "@id",
+    "@nombrezona",
+    "@tipo",
+    "@usuario",
+    "@zonaspuntos"
+   ]
+  }
+ ],
+ "sp_Mam_Zonas|3": [
+  {
+   "funcion": "GeneralZona",
+   "params": [
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "sp_Mam_Zonas|4": [
+  {
+   "funcion": "L_fnListarPuntosPorZona",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "sp_Mam_Zonas|5": [
+  {
+   "funcion": "L_fnListarZonasAsignadas",
+   "params": [
+    "@idrepartidor",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
+ "sp_Mam_Zonas|6": [
+  {
+   "funcion": "L_prRegistrarAsignacion",
+   "params": [
+    "@asignaciontype",
+    "@idrepartidor",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ]
+}
