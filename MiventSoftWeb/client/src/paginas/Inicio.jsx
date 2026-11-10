@@ -3,15 +3,15 @@
 //  Datos de /api/dashboard (solo agregados, calculados con los SP del escritorio)
 // =====================================================================
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSesion } from '../global/Sesion';
-import { PROGRAMAS_WEB, iconoModulo, imgPrograma, slug, titulo } from '../global/programas';
+import { titulo } from '../global/programas';
 import { api } from '../api/http';
 import { ComboMulti } from '../componentes/Controles';
 import { LineaHoras, BarrasDias, BarrasH, BarraSegmentada, fmtBs, fmtN } from '../componentes/Graficos';
 import Icono from '../componentes/Icono';
-import { usePestanas } from './Tec_Principal';
 import DetalleDashboard from '../componentes/DetalleDashboard';
+import PedidosVendedor from '../componentes/PedidosVendedor';
 
 const REFRESCO_MS = 120000; // 2 minutos
 const COLOR_ESTADO = (n) => (/ENTREG/.test(n) ? 'var(--estado-ok)' : /ANUL/.test(n) ? 'var(--estado-mal)' : /PEND/.test(n) ? 'var(--estado-aviso)' : /ASIG|RUTA|DESP/.test(n) ? 'var(--serie-1)' : 'var(--serie-7)');
@@ -113,7 +113,6 @@ function Esqueleto() {
 }
 
 export default function Inicio() {
-  const { urlDe } = usePestanas(); // si el programa ya esta abierto, vuelve a como estaba
   const { sesion, tienePrograma } = useSesion();
   const navegar = useNavigate();
   const [fecha, setFecha] = useState(hoyLocal());
@@ -267,6 +266,9 @@ export default function Inicio() {
             ) : <SinDatos texto="Sin pedidos en el día" />}
           </Panel>
 
+          {/* ===== Pedidos por vendedor y mapa de donde se registraron ===== */}
+          <PedidosVendedor fecha={fecha} vendedor={vendedor} recarga={actualizado?.getTime()} />
+
           {/* ===== Destacados del mes ===== */}
           <Panel clase="span-12" titulo="Destacados del mes" sub={`${subMes}${vendedor && nomVend ? ` · clientes de ${titulo(nomVend)}` : ''}`}
             accion={m ? <div className="mes-total"><span>Ventas del mes</span><b>{fmtBs(m.monto, 0)}</b><small>{pedidosTxt(m.pedidos)} · {fmtN(m.clientesAtendidos)} clientes</small></div> : null}>
@@ -340,21 +342,6 @@ export default function Inicio() {
       )}
 
       {detalle && <DetalleDashboard consulta={detalle} onCerrar={() => setDetalle(null)} />}
-
-      {/* ===== Accesos rapidos ===== */}
-      <section className="accesos">
-        <h2>Accesos rápidos</h2>
-        <div className="accesos-lista">
-          {sesion.modulos.flatMap((m) => m.programas.filter((p) => PROGRAMAS_WEB[p.IdPrograma]).map((p) => (
-            <Link key={p.IdPrograma} to={urlDe(PROGRAMAS_WEB[p.IdPrograma].ruta)} className="acceso">
-              {imgPrograma(p.IdPrograma) ? <img className="acceso-img" src={imgPrograma(p.IdPrograma)} alt="" /> : <Icono n={PROGRAMAS_WEB[p.IdPrograma].icono} size={18} />}<span>{titulo(p.DescripcionPrograma)}</span>
-            </Link>
-          )))}
-          {sesion.modulos.map((m) => (
-            <Link key={m.cnnum} to={`/${slug(m.cndesc1)}`} className="acceso modulo"><Icono n={iconoModulo(m.cndesc1)} size={18} /><span>{titulo(m.cndesc1)}</span></Link>
-          ))}
-        </div>
-      </section>
     </div>
   );
 }

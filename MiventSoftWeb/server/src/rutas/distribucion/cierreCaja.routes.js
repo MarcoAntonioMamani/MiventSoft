@@ -87,7 +87,7 @@ router.get('/:id/detalle', asyncHandler(async (req, res) => {
 router.get('/:id/reporte', asyncHandler(async (req, res) => {
     const [dt, emp] = await Promise.all([L.DatosreporteCierreCaja(v.idRuta(req.params.id)), L.ObtenerImagenEmpresa()]);
     const e = emp[0] || {};
-    res.json({ ok: true, data: { filas: sinBin(dt), empresa: { nombre: e.Nombre ?? '', direccion: e.Direccion ?? '' } } });
+    res.json({ ok: true, data: { filas: sinBin(dt), empresa: { nombre: e.Nombre ?? '', direccion: e.Direccion ?? '' }, imagenEmpresa: emp.length ? String(Object.values(e)[0] ?? '') : '' } });
 }));
 
 // ---------------- grabar ----------------

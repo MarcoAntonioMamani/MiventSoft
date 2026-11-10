@@ -10,6 +10,7 @@ import { useToast } from '../../componentes/Toast';
 import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
+import { palabrasDe, coincide } from '../../global/buscar';
 
 const URL = '/api/mapa/clientes';
 // Con muchos clientes se dibujan puntos livianos (canvas) y solo el seleccionado lleva pin
@@ -38,7 +39,7 @@ export default function Tec_MapaClientes() {
 
   const conPunto = useMemo(() => clientes.filter((c) => c.Latitud && c.Longitud), [clientes]);
   const puntos = useMemo(() => conPunto.map((c) => [c.Latitud, c.Longitud]), [conPunto]);
-  const filtrados = useMemo(() => { const w = q.toUpperCase().split(/\s+/).filter(Boolean); return clientes.filter((c) => w.every((x) => `${c.Id} ${c.NombreCliente} ${c.Telefono}`.toUpperCase().includes(x))); }, [clientes, q]);
+  const filtrados = useMemo(() => { const w = palabrasDe(q); return clientes.filter((c) => coincide(`${c.Id} ${c.NombreCliente} ${c.Telefono}`, w)); }, [clientes, q]);
   const elegir = (c) => {
     if (!c.Latitud || !c.Longitud) { toast('NO EXISTE DATOS PARA ESTE CLIENTE', 'error'); return; }
     setSel(c);

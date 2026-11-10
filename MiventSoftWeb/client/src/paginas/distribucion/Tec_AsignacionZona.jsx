@@ -8,6 +8,7 @@ import { usePermisos } from '../../global/Sesion';
 import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
+import { palabrasDe, coincide } from '../../global/buscar';
 
 const URL = '/api/distribucion/zonas';
 
@@ -31,7 +32,7 @@ export default function Tec_AsignacionZona() {
       setZonas(r.data); setMarcadas(s); setOriginal(new Set(s));
     } catch (e) { toast(e.message, 'error'); }
   };
-  const filtrado = useMemo(() => { const w = q.toUpperCase().split(/\s+/).filter(Boolean); return personal.filter((p) => w.every((x) => `${p.Id} ${p.NombrePersonal} ${p.Tipo ?? ''}`.toUpperCase().includes(x))); }, [personal, q]);
+  const filtrado = useMemo(() => { const w = palabrasDe(q); return personal.filter((p) => coincide(`${p.Id} ${p.NombrePersonal} ${p.Tipo ?? ''}`, w)); }, [personal, q]);
   const cambio = zonas && (marcadas.size !== original.size || [...marcadas].some((z) => !original.has(z)));
   const alternar = (id) => setMarcadas((s) => { const n = new Set(s); if (n.has(id)) n.delete(id); else n.add(id); return n; });
   const guardar = async () => {

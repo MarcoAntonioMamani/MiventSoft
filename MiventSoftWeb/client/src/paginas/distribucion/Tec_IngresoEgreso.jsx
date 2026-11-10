@@ -7,13 +7,17 @@ import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import ModeloF1, { useModeloF1 } from '../../componentes/ModeloF1';
 import { Campo, ComboMulti, fechaCorta } from '../../componentes/Controles';
-import TablaReporte from '../../componentes/TablaReporte';
 import { useToast } from '../../componentes/Toast';
 import { Celda } from '../../global/Celda';
 import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
 import { columnasDe } from '../ventas/Reportes';
+import { imprimirReporte } from '../../componentes/ReporteImpreso';
+import { useSesion } from '../../global/Sesion';
+
+// Columnas para la hoja impresa (mismas que en pantalla; los textos en MAYUSCULAS se muestran como Titulo)
+const colsImpresion = (filas) => columnasDe(filas).map((c) => (c.render ? { ...c, valor: c.render } : c));
 
 const URL = '/api/distribucion/ingresos-egresos';
 const TRASPASO = 9;
@@ -23,10 +27,11 @@ const MSJ_CIERRE = 'No Es Posible Modificar El Movimiento ya Que Pertenece a Un 
 
 export default function Tec_IngresoEgreso() {
   const toast = useToast();
+  const { sesion } = useSesion();
+  const [nuevoMotivo, setNuevoMotivo] = useState(false);
   const [c, setC] = useState({ cajas: [], tipos: [], sucursales: [], personal: null });
   const [form, setForm] = useState({});
   const [errores, setErrores] = useState({});
-  const [comp, setComp] = useState(null);
   useEffect(() => { api.get(`${URL}/combos`).then((r) => setC(r.data)).catch((e) => toast(e.message, 'error')); }, [toast]);
   const tipo = c.tipos.find((t) => Number(t.Id) === Number(form.CajaTipoMovimientoId));
   const esIngreso = tipo ? Number(tipo.Tipo) === 1 : true;
@@ -73,14 +78,24 @@ export default function Tec_IngresoEgreso() {
   });
   const ro = !m.habilitado;
 
-  const comprobante = async () => {
-    const f = m.filaActual; if (!f) return;
-    try { const r = await api.get(`${URL}/${f.Id}/reporte`); setComp({ ...r.data, fila: f }); } catch (e) { toast(e.message, 'error'); }
+  const comprobante = async (fila) => {
+    const f = fila || m.filaActual; if (!f) return;
+    try {
+      const r = await api.get(`${URL}/${f.Id}/reporte`);
+      if (!r.data.filas.length) { toast('No Existen Datos Para Mostrar', 'error'); return; }
+      imprimirReporte({
+        titulo: `Comprobante ingreso / egreso #${f.Id}`, subtitulo: tit(f.NombreTipoMovimiento || ''), usuario: tit(sesion?.gs_user || ''),
+        empresa: { Nombre: r.data.empresa.nombre, Direccion: r.data.empresa.direccion }, imagenEmpresa: r.data.imagenEmpresa,
+        columnas: colsImpresion(r.data.filas), filas: r.data.filas,
+      });
+    } catch (e) { toast(e.message, 'error'); }
   };
 
   return (
+    <>
     <ModeloF1 m={m} titulo="Ingresos y egresos" subtitulo="Ingreso/Egreso Caja" icono="wallet"
-      accionesRegistro={<button className="btn btn-sec" onClick={comprobante} disabled={!m.filaActual || m.habilitado}><Icono n="receipt" size={16} /> <span className="txt-btn">Comprobante</span></button>}>
+      accionesRegistro={<button className="btn btn-sec" onClick={() => comprobante()} disabled={!m.filaActual || m.habilitado}><Icono n="receipt" size={16} /> <span className="txt-btn">Comprobante</span></button>}
+      accionesFila={(f) => [{ texto: 'Comprobante', icono: 'printer', onClick: () => comprobante(f) }]}>
       <div className="registro-grid una">
         <div className="tarjeta">
           <h2 className="tarjeta-tit">Movimiento de caja <span className={`chip-mora ${esIngreso ? 'al-dia' : 'mora-alta'}`}>{esTraspaso ? 'Traspaso' : esIngreso ? 'Ingreso' : 'Egreso'}</span></h2>
@@ -88,7 +103,10 @@ export default function Tec_IngresoEgreso() {
             <Campo etiqueta="Código"><input className="control" value={form.Id ?? ''} readOnly placeholder="Automático" /></Campo>
             <Campo etiqueta="Fecha" requerido><input type="date" className="control" value={form.Fecha ?? ''} onChange={set('Fecha')} readOnly={ro} disabled={ro} /></Campo>
             <Campo etiqueta="Motivo" ancho={2} error={errores.CajaTipoMovimientoId} requerido>
-              <ComboMulti dt={c.tipos} valor={form.CajaTipoMovimientoId} onChange={set('CajaTipoMovimientoId')} id="Id" nameId="Cód." descripcionId="Descripcion" descripcion="Motivo Movimiento" deshabilitado={ro} error={errores.CajaTipoMovimientoId} />
+              <div className="control-con-btn">
+                <ComboMulti dt={c.tipos} valor={form.CajaTipoMovimientoId} onChange={set('CajaTipoMovimientoId')} id="Id" nameId="Cód." descripcionId="Descripcion" descripcion="Motivo Movimiento" deshabilitado={ro} error={errores.CajaTipoMovimientoId} />
+                {!ro && <button type="button" className="btn btn-sec btn-cuadrado" title="Nuevo motivo" aria-label="Nuevo motivo" onClick={() => setNuevoMotivo(true)}><Icono n="plus" size={16} /></button>}
+              </div>
             </Campo>
             <Campo etiqueta={esTraspaso ? 'Caja origen' : 'Caja'} error={errores.CajaId} requerido>
               <ComboMulti dt={c.cajas} valor={form.CajaId} onChange={set('CajaId')} id="Id" nameId="Cód." descripcionId="NombreCaja" descripcion="Caja" deshabilitado={ro} error={errores.CajaId} />
@@ -109,16 +127,41 @@ export default function Tec_IngresoEgreso() {
           </div>
         </div>
       </div>
-      {comp && createPortal(
-        <div className="modal-fondo" onMouseDown={() => setComp(null)}>
-          <div className="modal modal-lg dialogo-asig" role="dialog" aria-modal="true" aria-label="Comprobante" onMouseDown={(e) => e.stopPropagation()} onKeyDown={(e) => e.key === 'Escape' && setComp(null)}>
-            <div className="modal-cab"><h3>Comprobante #{comp.fila.Id}</h3><button className="btn-icono" onClick={() => setComp(null)} aria-label="Cerrar"><Icono n="x" /></button></div>
-            <TablaReporte titulo={`COMPROBANTE INGRESO / EGRESO #${comp.fila.Id}`} subtitulo={[comp.empresa.nombre, comp.empresa.direccion].filter(Boolean).join(' · ')} columnas={columnasDe(comp.filas)} filas={comp.filas} claveFila="__no" />
-            <div className="modal-acciones"><button className="btn btn-sec" onClick={() => setComp(null)}>Cerrar</button></div>
-          </div>
-        </div>,
-        document.body,
-      )}
     </ModeloF1>
+    {nuevoMotivo && <DialogoMotivo onCerrar={() => setNuevoMotivo(false)} onCreado={(r) => { setC((o) => ({ ...o, tipos: r.data })); set('CajaTipoMovimientoId')(r.id); setNuevoMotivo(false); toast(r.mensaje, 'ok'); }} />}
+    </>
+  );
+}
+
+// btnAgregarMotivoMovimiento -> Crear_TipoMovimientoCaja: descripcion (mas de 3 letras) + Ingreso / Egreso
+function DialogoMotivo({ onCreado, onCerrar }) {
+  const [desc, setDesc] = useState('');
+  const [ingreso, setIngreso] = useState(true);
+  const [err, setErr] = useState('');
+  const [enviando, setEnviando] = useState(false);
+  const guardar = async () => {
+    if (enviando) return;
+    if (desc.trim().length <= 3) { setErr('Debe Ingresar un Texto Valido en Tipo Movimiento (mas de 3 letras)'); return; }
+    setEnviando(true); setErr('');
+    try { onCreado(await api.post(`${URL}/motivos`, { descripcion: desc.trim(), ingreso })); } catch (e) { setErr(e.message); setEnviando(false); }
+  };
+  return createPortal(
+    <div className="modal-fondo" onMouseDown={onCerrar}>
+      <div className="modal modal-sm" role="dialog" aria-modal="true" aria-label="Nuevo motivo de movimiento" onMouseDown={(e) => e.stopPropagation()}
+        onKeyDown={(e) => { if (e.key === 'Escape') onCerrar(); if (e.key === 'Enter') { e.preventDefault(); guardar(); } }}>
+        <div className="modal-cab"><h3>Nuevo motivo de movimiento</h3><button className="btn-icono" onClick={onCerrar} aria-label="Cerrar"><Icono n="x" /></button></div>
+        <div className="campos una-col">
+          <Campo etiqueta="Tipo movimiento" requerido error={err}><input autoFocus className="control mayus" value={desc} maxLength={100} onChange={(e) => { setDesc(e.target.value.toUpperCase()); setErr(''); }} /></Campo>
+          <Campo etiqueta="Tipo">
+            <div className="seg" role="radiogroup" aria-label="Ingreso o egreso">
+              <button type="button" role="radio" aria-checked={ingreso} className={`btn ${ingreso ? 'btn-pri' : 'btn-sec'}`} onClick={() => setIngreso(true)}>Ingreso</button>
+              <button type="button" role="radio" aria-checked={!ingreso} className={`btn ${!ingreso ? 'btn-pri' : 'btn-sec'}`} onClick={() => setIngreso(false)}>Egreso</button>
+            </div>
+          </Campo>
+        </div>
+        <div className="modal-acciones"><button className="btn btn-sec" onClick={onCerrar}>Cancelar</button><button className="btn btn-pri" disabled={enviando} onClick={guardar}>{enviando ? 'Guardando...' : 'Guardar'}</button></div>
+      </div>
+    </div>,
+    document.body,
   );
 }

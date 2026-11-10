@@ -27,6 +27,8 @@ export const PROGRAMAS_WEB = {
   BTINVSALDOSVALORADOS: { ruta: '/inventario/saldos-valorados', icono: 'pie' },
   BTINVKARDEXREPORTE: { ruta: '/inventario/reporte-general', icono: 'area' },
   BTNINVMONITOREO: { ruta: '/inventario/monitoreo', icono: 'target' },
+  // Pestaña fija "Inventario" del escritorio (FormularioStock), la ve todo usuario
+  FORMULARIOSTOCK: { ruta: '/inventario/productos', icono: 'box' },
   // Compras
   BTNCOMPRAS: { ruta: '/compras/compras', icono: 'bag' },
   BTNCOMPRACREDITO: { ruta: '/compras/cuentas-pagar', icono: 'wallet' },
@@ -61,6 +63,7 @@ export const PROGRAMAS_WEB = {
 };
 
 export const ICONO_MODULO = {
+  'INGRESO Y SALIDA': 'truck',
   CONFIGURACION: 'settings',
   VENTAS: 'cart',
   INVENTARIO: 'box',

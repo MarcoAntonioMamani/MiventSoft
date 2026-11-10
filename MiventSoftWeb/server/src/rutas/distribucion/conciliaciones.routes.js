@@ -29,17 +29,23 @@ async function buscar(id, fecha) {
 
 /** _prCargarTablaDetalle de VB: matriz producto x salida + totales */
 async function armarDetalle(id, abierta) {
-    const [productos, salidas] = await Promise.all([L.ListarProductosSalidasConciliacion(id), L.ListarTodasSalidas(id)]);
+    // Los 3 SP son independientes: se piden en paralelo (antes el de entregados esperaba a los otros dos)
+    const [productos, salidas, fuente] = await Promise.all([
+        L.ListarProductosSalidasConciliacion(id), L.ListarTodasSalidas(id),
+        abierta ? L.ListarProductosEntregadoConciliaciones(id) : L.ListarProductosDetalleConciliacion(id),
+    ]);
     const ids = [...new Set(salidas.map((s) => num(col(s, 'DespachoProductosId'))))].sort((a, b) => a - b);
     const n = salidas.length ? Math.min(num(col(salidas[0], 'CantidadSalidas')) || ids.length, ids.length) : 0;
     const usadas = ids.slice(0, n);
-    const fuente = abierta ? await L.ListarProductosEntregadoConciliaciones(id) : await L.ListarProductosDetalleConciliacion(id);
+    // Agrupados por producto una sola vez (antes se filtraba toda la lista por cada producto)
+    const porProd = (lista) => { const m = new Map(); for (const x of lista) { const k = num(col(x, 'ProductoId')); if (!m.has(k)) m.set(k, []); m.get(k).push(x); } return m; };
+    const salidasProd = porProd(salidas); const fuenteProd = porProd(fuente);
     const filas = productos.map((p) => {
         const pid = num(col(p, 'ProductoId'));
-        const deEste = salidas.filter((s) => num(col(s, 'ProductoId')) === pid);
+        const deEste = salidasProd.get(pid) || [];
         const cant = usadas.map((sid) => { const r = deEste.filter((s) => num(col(s, 'DespachoProductosId')) === sid); return r.length === 1 ? num(col(r[0], 'Cantidad')) : null; });
         const TotalSalida = deEste.reduce((t, s) => t + num(col(s, 'Cantidad')), 0);
-        const ent = fuente.filter((e) => num(col(e, 'ProductoId')) === pid);
+        const ent = fuenteProd.get(pid) || [];
         let r;
         if (!ent.length) r = { TotalEntregado: 0, TotalDevoluciones: TotalSalida, TotalDevolucionesCalculado: TotalSalida, Diferencia: 0 };
         else if (abierta) {
@@ -60,9 +66,16 @@ router.get('/', asyncHandler(async (req, res) => {
 }));
 
 // Empresa y logo para el comprobante de conciliacion (mismos SP que la nota de venta, solo lectura)
-router.get('/aux/cabecera', asyncHandler(async (req, res) => {
+async function cabecera() {
     const [empresas, imagen] = await Promise.all([L.L_prListarGeneral('MAM_Empresas').catch(() => []), L.ObtenerImagenEmpresa().catch(() => [])]);
-    res.json({ ok: true, data: { empresa: v.proyectar(empresas, ['Nombre', 'Direccion', 'Telefono', 'Nit', 'Ciudad'])[0] || null, imagenEmpresa: imagen.length ? String(Object.values(imagen[0])[0] ?? '') : '' } });
+    return { empresa: v.proyectar(empresas, ['Nombre', 'Direccion', 'Telefono', 'Nit', 'Ciudad'])[0] || null, imagenEmpresa: imagen.length ? String(Object.values(imagen[0])[0] ?? '') : '' };
+}
+router.get('/aux/cabecera', asyncHandler(async (req, res) => { res.json({ ok: true, data: await cabecera() }); }));
+// Comprobante desde la lista: detalle + empresa/logo en una sola llamada (como la nota de despacho)
+router.get('/:id/reporte', asyncHandler(async (req, res) => {
+    const id = v.idRuta(req.params.id);
+    const [detalle, cab] = await Promise.all([armarDetalle(id, v.bit(req.query.abierta)), cabecera()]);
+    res.json({ ok: true, data: { ...detalle, ...cab } });
 }));
 router.get('/:id/detalle', asyncHandler(async (req, res) => {
     const id = v.idRuta(req.params.id);

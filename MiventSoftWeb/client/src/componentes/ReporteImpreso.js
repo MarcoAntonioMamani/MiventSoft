@@ -99,7 +99,7 @@ function filaTotales(columnas, filas, etiqueta, clase) {
  * @param {string} [o.antes]            HTML (ya escapado) antes de la tabla, ej. graficos/resumen
  * @param {boolean} [o.sinTabla]        solo cabecera + o.antes (reporte grafico)
  */
-export function htmlReporte({ titulo, subtitulo = '', empresa, imagenEmpresa, usuario, datos = [], columnas = [], filas = [], niveles, agruparPor, tituloGrupo = '', unidad = 'registro', antes = '', sinTabla = false }) {
+export function htmlReporte({ titulo, subtitulo = '', empresa, imagenEmpresa, usuario, datos = [], columnas = [], filas = [], niveles, agruparPor, tituloGrupo = '', unidad = 'registro', antes = '', sinTabla = false, totalGeneral = true, despues = '', cuerpoHtml = '' }) {
   const nc = Math.max(1, sinTabla ? 1 : columnas.length);
   const plural = (k) => `${k} ${unidad}${k === 1 ? '' : (/[aeiouáéíóú]$/i.test(unidad) ? 's' : 'es')}`;
   const ahora = new Date();
@@ -132,14 +132,17 @@ export function htmlReporte({ titulo, subtitulo = '', empresa, imagenEmpresa, us
 
   let cuerpo = '';
   if (sinTabla) cuerpo = '';
+  else if (cuerpoHtml) cuerpo = cuerpoHtml; // filas ya armadas (agrupaciones compactas propias del reporte)
   else if (!filas.length) cuerpo = `<tr><td colspan="${nc}" class="rp-vacio">Sin registros</td></tr>`;
   else if (lv.length) {
-    cuerpo = grupos(filas, 0) + `<tr class="rp-espacio"><td colspan="${nc}"></td></tr>` + filaTotales(columnas, filas, `TOTAL GENERAL (${plural(filas.length)})`, 'rp-total');
+    // totalGeneral = false: sin TOTAL GENERAL (ej. ingresos y egresos no se suman entre si)
+    cuerpo = grupos(filas, 0) + (totalGeneral ? `<tr class="rp-espacio"><td colspan="${nc}"></td></tr>` + filaTotales(columnas, filas, `TOTAL GENERAL (${plural(filas.length)})`, 'rp-total') : '');
   } else {
     cuerpo = filasHtml(filas);
     if (columnas.some((c) => c.total)) cuerpo += filaTotales(columnas, filas, `TOTAL (${plural(filas.length)})`, 'rp-total');
   }
-  if (antes) cuerpo = `<tr class="rp-antes"><td colspan="${nc}">${antes}</td></tr>` + cuerpo;
+  if (despues) cuerpo += `<tr class="rp-antes"><td colspan="${nc}">${despues}</td></tr>`; // HTML ya escapado al final (ej. balance)
+  if (antes) cuerpo =`<tr class="rp-antes"><td colspan="${nc}">${antes}</td></tr>` + cuerpo;
 
   const anchos = sinTabla ? '' : `<colgroup>${columnas.map((c) => `<col${c.ancho ? ` style="width:${c.ancho}"` : ''}>`).join('')}</colgroup>`;
   const titulosCol = sinTabla || !filas.length && antes ? '' : `<tr class="rp-col">${columnas.map((c) => `<th${esNum(c) ? ' class="num"' : ''}>${esc(c.titulo)}</th>`).join('')}</tr>`;
@@ -178,5 +181,5 @@ export function htmlIndicadores(items) {
 const CSS_HOJA = 'body { padding: 0 9mm; }';
 
 export function imprimirReporte(opciones) {
-  return imprimirHtml({ cuerpo: htmlReporte(opciones), css: CSS_HOJA + CSS_REPORTE + (opciones.css || ''), horizontal: opciones.horizontal, titulo: opciones.titulo });
+  return imprimirHtml({ cuerpo: htmlReporte(opciones), css: CSS_HOJA + CSS_REPORTE + (opciones.css || ''), horizontal: opciones.horizontal, titulo: opciones.titulo, alCerrar: opciones.alCerrar });
 }

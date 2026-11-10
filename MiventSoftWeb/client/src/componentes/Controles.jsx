@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Icono from './Icono';
+import { palabrasDe, coincide } from '../global/buscar';
 
 export function Campo({ etiqueta, error, children, ancho, requerido }) {
   return (
@@ -45,8 +46,8 @@ export function ComboMulti({ dt = [], valor, onChange, id = 'Id', nameId = 'Codi
 
   const actual = dt.find((r) => String(r[id]) === String(valor));
   const filas = useMemo(() => {
-    const f = filtro.toLowerCase();
-    return f ? dt.filter((r) => `${r[id]} ${r[descripcionId]}`.toLowerCase().includes(f)) : dt;
+    const w = palabrasDe(filtro); // palabras en cualquier orden, sin tildes
+    return w.length ? dt.filter((r) => coincide(`${r[id]} ${r[descripcionId]}`, w)) : dt;
   }, [dt, filtro, id, descripcionId]);
 
   const calcular = useCallback(() => {

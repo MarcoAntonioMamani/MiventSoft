@@ -3,13 +3,12 @@
 //  del escritorio, en una vista previa con Imprimir / Cerrar (o "No imprimir" al ofrecerla despues de grabar).
 //  Cada programa solo arma sus datos: cabecera, columnas, filas, pie y totales.
 // =====================================================================
-import { useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
+import { useEffect, useRef } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 import { urlImagen } from '../api/http';
 import { imprimirHtml } from '../global/imprimir';
 import { montoLiteral } from '../global/literal';
 import { titulo as tit } from '../global/programas';
-import Icono from './Icono';
 
 // ---------- P_GenerarReporte: Nota de venta imprimible (mismo esquema que Recibo.rpt del escritorio) ----------
 // Formato compacto como el escritorio: ocupa ~media hoja carta y se imprime desde el borde superior.
@@ -87,59 +86,53 @@ export const bsNota = (n, d = 2) => Number(n || 0).toLocaleString('es-BO', { min
  * @param {(n:number)=>string} [p.formatoTotal]
  * @param {string[]} [p.firmas]     lineas de firma al pie (ej. ['Encargado Almacen', 'Distribuidor'])
  */
+// La hoja se arma como HTML y se abre en la vista previa comun (global/imprimir.js), igual que los reportes:
+// hoja carta con Imprimir / Cerrar; Imprimir abre la hoja en una ventana aparte.
 export default function NotaImpresa({ titulo, id, fecha, empresa, imagenEmpresa, cabecera = [], columnas = [], filas = [], claveFila = (f, i) => i, pie = [], totales = [], etiquetaTotal = 'Total: Bs', total = 0, grabada = null, literal = true, formatoTotal = bsNota, firmas = [], onCerrar }) {
-  const papel = useRef(null);
-  const [logoOk, setLogoOk] = useState(true);
-  const [a, mm, d] = String(fecha || '').slice(0, 10).split('-');
-  const ciudad = tit(empresa?.Ciudad || 'Potosí');
-  const fechaTxt = a ? `${ciudad}, ${String(Number(d)).padStart(2, '0')} De ${MESES[Number(mm) - 1]} Del ${a}` : '';
-  const logo = imagenEmpresa ? urlImagen('empresa', imagenEmpresa) : null;
-  const imprimir = () => papel.current && imprimirHtml({ cuerpo: papel.current.outerHTML, css: CSS_HOJA + CSS_NOTA, directo: true }); // ya es la vista previa
-  useEffect(() => { const k = (e) => e.key === 'Escape' && onCerrar(); window.addEventListener('keydown', k); return () => window.removeEventListener('keydown', k); }, [onCerrar]);
-  return createPortal(
-    <div className="modal-fondo nota-fondo" onMouseDown={onCerrar}>
-      <div className="modal modal-lg nota-venta" role="dialog" aria-modal="true" aria-label={titulo} onMouseDown={(e) => e.stopPropagation()}>
-        <style>{CSS_NOTA}</style>
-        <div className="modal-cab no-imprimir"><h3>{titulo} #{id}</h3>
-          {grabada && <p className="nota-grabada" role="status"><Icono n="check" size={16} /> {grabada} ¿Desea imprimir el comprobante?</p>}
-          <button className="btn-icono" onClick={onCerrar} aria-label="Cerrar"><Icono n="x" /></button></div>
-        <div className="nota-vista">
-          <article className="nota-papel" ref={papel}>
-            <header className="nv-titulo"><h1>{titulo}</h1><b>{String(id).padStart(10, '0')}</b></header>
-            <section className="nv-cab">
-              <div className="nv-empresa">
-                <b>{empresa?.Nombre || ''}</b>
-                <span>{ciudad} - Bolivia</span>
-                {empresa?.Direccion && <span>{empresa.Direccion}</span>}
-                {(empresa?.Telefono || empresa?.Nit) && <span>{empresa?.Telefono ? `Tel. ${empresa.Telefono}` : ''}{empresa?.Telefono && empresa?.Nit ? ' · ' : ''}{empresa?.Nit ? `NIT ${empresa.Nit}` : ''}</span>}
-                <small>{fechaTxt}</small>
-              </div>
-              <div className="nv-logo">{logo && logoOk ? <img src={logo} alt="" onError={() => setLogoOk(false)} /> : null}</div>
-            </section>
-            <section className="nv-caja nv-cliente">
-              <dl>{cabecera.map(([k, x]) => <div key={k}><dt>{k}</dt><dd>{x ?? ''}</dd></div>)}</dl>
-            </section>
-            <table className="nota-tabla">
-              <thead><tr>{columnas.map((c) => <th key={c.titulo} className={c.num ? 'num' : ''} style={c.ancho ? { width: c.ancho } : undefined}>{c.titulo}</th>)}</tr></thead>
-              <tbody>{filas.map((f, i) => <tr key={claveFila(f, i)}>{columnas.map((c) => <td key={c.titulo} className={c.num ? 'num' : ''}>{c.valor(f)}</td>)}</tr>)}</tbody>
-            </table>
-            <section className="nv-caja nv-pie">
-              <dl className="nv-pie-izq">{pie.map(([k, x]) => <div key={k}><dt>{k}</dt><dd>{x ?? ''}</dd></div>)}</dl>
-              <div className="nota-totales">
-                {totales.map(([k, x]) => <div key={k}><span>{k}</span><b>{x}</b></div>)}
-                <div className="nota-total"><span>{etiquetaTotal}</span><b>{formatoTotal(total)}</b></div>
-              </div>
-              {literal && <p className="nota-literal"><span>Son:</span> {montoLiteral(total)}</p>}
-            </section>
-            {firmas.length > 0 && <section className="nv-firmas">{firmas.map((x) => <div key={x}><span /><b>{x}</b></div>)}</section>}
-          </article>
-        </div>
-        <div className="modal-acciones no-imprimir">
-          <button className="btn btn-sec" onClick={onCerrar}>{grabada ? 'No imprimir' : 'Cerrar'}</button>
-          <button className="btn btn-pri" autoFocus onClick={imprimir}><Icono n="printer" size={16} /> Imprimir</button>
-        </div>
-      </div>
-    </div>,
-    document.body,
-  );
+  const cerrarRef = useRef(onCerrar);
+  cerrarRef.current = onCerrar;
+  useEffect(() => {
+    const [a, mm, d] = String(fecha || '').slice(0, 10).split('-');
+    const ciudad = tit(empresa?.Ciudad || 'Potosí');
+    const fechaTxt = a ? `${ciudad}, ${String(Number(d)).padStart(2, '0')} De ${MESES[Number(mm) - 1]} Del ${a}` : '';
+    const logo = imagenEmpresa ? urlImagen('empresa', imagenEmpresa) : null;
+    const hoja = renderToStaticMarkup(
+      <article className="nota-papel">
+        <header className="nv-titulo"><h1>{titulo}</h1><b>{String(id).padStart(10, '0')}</b></header>
+        <section className="nv-cab">
+          <div className="nv-empresa">
+            <b>{empresa?.Nombre || ''}</b>
+            <span>{ciudad} - Bolivia</span>
+            {empresa?.Direccion && <span>{empresa.Direccion}</span>}
+            {(empresa?.Telefono || empresa?.Nit) && <span>{empresa?.Telefono ? `Tel. ${empresa.Telefono}` : ''}{empresa?.Telefono && empresa?.Nit ? ' · ' : ''}{empresa?.Nit ? `NIT ${empresa.Nit}` : ''}</span>}
+            <small>{fechaTxt}</small>
+          </div>
+          <div className="nv-logo">{logo ? <img src={logo} alt="" /> : null}</div>
+        </section>
+        <section className="nv-caja nv-cliente">
+          <dl>{cabecera.map(([k, x]) => <div key={k}><dt>{k}</dt><dd>{x ?? ''}</dd></div>)}</dl>
+        </section>
+        <table className="nota-tabla">
+          <thead><tr>{columnas.map((c) => <th key={c.titulo} className={c.num ? 'num' : ''} style={c.ancho ? { width: c.ancho } : undefined}>{c.titulo}</th>)}</tr></thead>
+          <tbody>{filas.map((f, i) => <tr key={claveFila(f, i)}>{columnas.map((c) => <td key={c.titulo} className={c.num ? 'num' : ''}>{c.valor(f)}</td>)}</tr>)}</tbody>
+        </table>
+        <section className="nv-caja nv-pie">
+          <dl className="nv-pie-izq">{pie.map(([k, x]) => <div key={k}><dt>{k}</dt><dd>{x ?? ''}</dd></div>)}</dl>
+          <div className="nota-totales">
+            {totales.map(([k, x]) => <div key={k}><span>{k}</span><b>{x}</b></div>)}
+            <div className="nota-total"><span>{etiquetaTotal}</span><b>{formatoTotal(total)}</b></div>
+          </div>
+          {literal && <p className="nota-literal"><span>Son:</span> {montoLiteral(total)}</p>}
+        </section>
+        {firmas.length > 0 && <section className="nv-firmas">{firmas.map((x) => <div key={x}><span /><b>{x}</b></div>)}</section>}
+      </article>,
+    ).replace('<img ', '<img onerror="this.remove()" '); // logo que no carga: no se muestra
+    const vp = imprimirHtml({
+      cuerpo: hoja, css: CSS_HOJA + CSS_NOTA, titulo: `${titulo} #${id}`,
+      aviso: grabada ? `${grabada} ¿Desea imprimir el comprobante?` : '', textoCerrar: grabada ? 'No imprimir' : 'Cerrar',
+      alCerrar: () => cerrarRef.current?.(),
+    });
+    return () => vp?.cerrar(true); // al desmontar se cierra sin volver a avisar
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  return null;
 }

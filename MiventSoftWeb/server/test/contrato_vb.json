@@ -2257,6 +2257,17 @@
    ]
   }
  ],
+ "MAM_Ventas|23": [
+  {
+   "funcion": "ListarVentasVendedorFecha",
+   "params": [
+    "@fechaventa",
+    "@personalid",
+    "@tipo",
+    "@usuario"
+   ]
+  }
+ ],
  "MAM_Ventas|30": [
   {
    "funcion": "ListarCategorias",

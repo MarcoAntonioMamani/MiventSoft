@@ -87,6 +87,7 @@ app.use('/api/planilla/contratos', requiereSesion, require('./rutas/planilla/con
 app.use('/api/planilla/planilla', requiereSesion, require('./rutas/planilla/planilla.routes'));
 app.use('/api/inventario/movimientos', requiereSesion, require('./rutas/inventario/movimientos.routes'));
 app.use('/api/inventario/reportes', requiereSesion, require('./rutas/inventario/reportes.routes'));
+app.use('/api/inventario/stock', requiereSesion, require('./rutas/inventario/stock.routes')); // pestaña fija "Inventario" (FormularioStock)
 app.use('/api/distribucion/cierre-caja', requiereSesion, require('./rutas/distribucion/cierreCaja.routes'));
 app.use('/api/incremento', requiereSesion, require('./rutas/incremento.routes'));
 

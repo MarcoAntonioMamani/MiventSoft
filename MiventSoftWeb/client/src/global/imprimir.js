@@ -8,7 +8,9 @@
 //     El margen de la hoja lo da el documento (padding del body, o filas espaciadoras en los reportes).
 // =====================================================================
 
-export const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+import { imprimirEnApp } from './appMovil';
+
+export const esc =(s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 const CSS_BASE = `@page { size: letter portrait; margin: 0; }
 html, body { margin: 0; padding: 0; background: #fff; }`;
@@ -31,7 +33,8 @@ const esperarImagenes = (doc) => Promise.race([
 ]);
 
 // Impresion directa en un iframe oculto (sin vista previa)
-function imprimirDirecto(html) {
+function imprimirDirecto(html, { titulo, horizontal } = {}) {
+  if (imprimirEnApp(html, titulo, horizontal)) return; // app Android: impresion nativa
   const ifr = document.createElement('iframe');
   ifr.setAttribute('aria-hidden', 'true');
   ifr.setAttribute('tabindex', '-1');
@@ -56,15 +59,15 @@ function imprimirDirecto(html) {
 }
 
 // Vista previa en ventana emergente: hoja + Imprimir / Cerrar. Esc o clic fuera cierra.
-function vistaPrevia(html, { titulo, horizontal }) {
+function vistaPrevia(html, { titulo, horizontal, aviso = '', textoCerrar = 'Cerrar', alCerrar }) {
   const antes = document.activeElement;
   const fondo = document.createElement('div');
   fondo.className = 'vp-fondo';
   fondo.innerHTML = `<div class="vp" role="dialog" aria-modal="true" aria-label="${esc(`Vista previa: ${titulo}`)}">
   <div class="vp-cab">
-    <div class="vp-tit"><b>${esc(titulo)}</b><span>Vista previa · hoja carta ${horizontal ? 'horizontal' : 'vertical'}</span></div>
+    <div class="vp-tit"><b>${esc(titulo)}</b><span>Vista previa · hoja carta ${horizontal ? 'horizontal' : 'vertical'}</span>${aviso ? `<span class="vp-aviso" role="status">${esc(aviso)}</span>` : ''}</div>
     <div class="vp-acc">
-      <button type="button" class="btn btn-sec vp-cerrar">Cerrar</button>
+      <button type="button" class="btn btn-sec vp-cerrar">${esc(textoCerrar)}</button>
       <button type="button" class="btn btn-pri vp-imprimir"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg> Imprimir</button>
     </div>
   </div>
@@ -82,19 +85,24 @@ function vistaPrevia(html, { titulo, horizontal }) {
   ajustar();
   const ro = new ResizeObserver(ajustar); ro.observe(ifr);
 
-  const cerrar = () => {
+  let cerrado = false;
+  // silencioso = true: lo cierra el programa (no se avisa con alCerrar)
+  const cerrar = (silencioso) => {
+    if (cerrado) return; cerrado = true;
     ro.disconnect();
     document.removeEventListener('keydown', teclas, true);
     try { doc.removeEventListener('keydown', teclas, true); } catch { /* ya cerrado */ }
     fondo.remove();
     if (!document.querySelector('.vp-fondo')) document.body.classList.remove('vp-abierta');
     if (antes && document.contains(antes)) antes.focus({ preventScroll: true });
+    if (silencioso !== true && alCerrar) alCerrar();
   };
   const btnImp = () => fondo.querySelector('.vp-imprimir');
   // al terminar, el foco vuelve al boton (Escape y Ctrl+P siguen funcionando)
   // Imprimir en una VENTANA APARTE: el cuadro de impresion del navegador aparece en esa ventana y no tapa la app.
   // Al imprimir o cancelar, la ventana se cierra sola. Si el navegador bloquea ventanas emergentes, se imprime desde la hoja.
   const imprimir = () => {
+    if (imprimirEnApp(html.replace('<title> </title>', `<title>${esc(titulo)}</title>`), titulo, horizontal)) return; // app Android
     const w = window.screen?.availWidth || 1280; const h = window.screen?.availHeight || 900;
     const ancho = Math.min(w - 40, horizontal ? 1180 : 940); const alto = Math.min(h - 40, 1000);
     const win = window.open('', 'santit_imprimir', `popup=yes,width=${ancho},height=${alto},left=${Math.max(0, (w - ancho) / 2)},top=${Math.max(0, (h - alto) / 2)}`);
@@ -117,7 +125,7 @@ function vistaPrevia(html, { titulo, horizontal }) {
   document.addEventListener('keydown', teclas, true);
   doc.addEventListener('keydown', teclas, true); // tambien con el foco dentro de la hoja
   fondo.addEventListener('mousedown', (e) => { if (e.target === fondo) cerrar(); });
-  fondo.querySelector('.vp-cerrar').addEventListener('click', cerrar);
+  fondo.querySelector('.vp-cerrar').addEventListener('click', () => cerrar());
   fondo.querySelector('.vp-imprimir').addEventListener('click', imprimir);
   fondo.querySelector('.vp-imprimir').focus();
   return { cerrar, imprimir };
@@ -125,10 +133,11 @@ function vistaPrevia(html, { titulo, horizontal }) {
 
 /**
  * Imprime un documento HTML: abre la vista previa (o imprime directo si directo = true).
- * @param {{ cuerpo: string, css?: string, horizontal?: boolean, titulo?: string, directo?: boolean }} o
+ * @param {{ cuerpo: string, css?: string, horizontal?: boolean, titulo?: string, directo?: boolean, aviso?: string, textoCerrar?: string, alCerrar?: () => void }} o
  *   cuerpo: HTML ya escapado; css: estilos propios del documento
+ *   aviso: texto bajo el titulo (ej. "Venta grabada. ¿Desea imprimir?"); alCerrar: al cerrar la vista previa
  */
-export function imprimirHtml({ cuerpo, css = '', horizontal = false, titulo = 'Reporte', directo = false }) {
-  if (directo) { imprimirDirecto(documento({ cuerpo, css, horizontal, previa: false })); return null; }
-  return vistaPrevia(documento({ cuerpo, css, horizontal, previa: true }), { titulo, horizontal });
+export function imprimirHtml({ cuerpo, css = '', horizontal = false, titulo = 'Reporte', directo = false, aviso, textoCerrar, alCerrar }) {
+  if (directo) { imprimirDirecto(documento({ cuerpo, css, horizontal, previa: false }), { titulo, horizontal }); return null; }
+  return vistaPrevia(documento({ cuerpo, css, horizontal, previa: true }), { titulo, horizontal, aviso, textoCerrar, alCerrar });
 }

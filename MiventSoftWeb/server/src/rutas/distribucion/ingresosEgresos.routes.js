@@ -1,7 +1,7 @@
 // =====================================================================
 //  Tec_ProgramaIngresoEgresoCaja.vb (programa: btnCierreRegistroIngresoEgresoGenerales)
 //  SP: MAM_CajaIngresoEgreso  lista (L_prListarGeneral) / 1 insertar / 2 modificar / -1 eliminar
-//      4 cajas, 5 motivos, 8 comprobante.  Caja chica: MAM_CierreCajero (L_prListarGeneral)
+//      4 cajas, 5 motivos, 8 comprobante.  Nuevo motivo: MAM_Ventas @tipo 21 (Crear_TipoMovimientoCaja)  Caja chica: MAM_CierreCajero (L_prListarGeneral)
 //  Reglas del escritorio:
 //   - Monto > 0, motivo, caja y sucursal requeridos. Ingreso/Egreso lo define el motivo (columna Tipo).
 //   - Motivo 9 = traspaso entre cajas: exige caja destino distinta; graba 2 movimientos
@@ -72,10 +72,20 @@ router.get('/combos', asyncHandler(async (req, res) => {
     const p = req.sesion.Global_IdPersonal ? await L.ListarPersonalById(req.sesion.Global_IdPersonal) : [];
     res.json({ ok: true, data: { ...c, personal: p[0] ? { Id: req.sesion.Global_IdPersonal, Nombre: col(p[0], 'Nombre') ?? '' } : null } });
 }));
+// btnAgregarMotivoMovimiento (Efecto 21 -> Crear_TipoMovimientoCaja): descripcion de mas de 3 letras + ingreso/egreso
+router.post('/motivos', asyncHandler(async (req, res) => {
+    const desc = v.requerido(req.body?.descripcion, 'Tipo Movimiento', 100).toUpperCase();
+    if (desc.length <= 3) throw new ErrorNegocio('Debe Ingresar un Texto Valido en Tipo Movimiento');
+    const tipos = await L.L_prListarTipoMovimientoCaja();
+    if (tipos.some((t) => String(col(t, 'Descripcion') ?? '').trim().toUpperCase() === desc)) throw new ErrorNegocio(`El motivo "${desc}" ya existe.`);
+    const r = await L.InsertarTipoMovimiento(desc, v.bit(req.body?.ingreso) ? 1 : 0);
+    if (!r.resultado) throw new ErrorNegocio('Error Al guardar Tipo Movimiento');
+    res.json({ ok: true, id: Number(String(r._numi).trim()), data: (await combos()).tipos, mensaje: `MOTIVO ${desc} REGISTRADO CON EXITO.` });
+}));
 router.get('/:id/reporte', asyncHandler(async (req, res) => {
     const [dt, emp] = await Promise.all([L.ListarReporteIngresoEgreso(v.idRuta(req.params.id)), L.ObtenerImagenEmpresa()]);
     const e = emp[0] || {};
-    res.json({ ok: true, data: { filas: limpiar(dt).map((f) => { const o = { ...f }; delete o.img; return o; }), empresa: { nombre: e.Nombre ?? '', direccion: e.Direccion ?? '' } } });
+    res.json({ ok: true, data: { filas: limpiar(dt).map((f) => { const o = { ...f }; delete o.img; return o; }), empresa: { nombre: e.Nombre ?? '', direccion: e.Direccion ?? '' }, imagenEmpresa: emp.length ? String(Object.values(e)[0] ?? '') : '' } });
 }));
 
 router.post('/', asyncHandler(async (req, res) => {

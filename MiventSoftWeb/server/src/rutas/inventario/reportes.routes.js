@@ -5,8 +5,10 @@
 //   saldos-valorados   Rep_SaldosValoradosP      btInvSaldosValorados  MAM_ReporteVentas 9
 //   general            Rep_MovimientosProductos  btInvKardexReporte    MAM_Movimientos 16 + 14 + 15 por producto
 //   monitoreo          F_MonitoreoProductos      btnInvMonitoreo       MAM_ReporteVentas 10 / 11 / 12
-//  Calculo del kardex igual que VB: ingresos = conceptos 2 y 4, salidas = 1 y 3 (Sum(entrada)+Sum(salida));
-//  saldo inicial = movimientos anteriores a "Desde"; saldo acumulado fila por fila.
+//  SP MAM_Movimientos 14/15: concep 1 = tipo con Factor 1 (ingreso/compra) -> columna 'entrada' (+)
+//                            concep 2 = tipo con Factor -1 (venta/salida)  -> columna 'salida'  (-)
+//  Igual que la grilla VB: INGRESOS = entrada, SALIDA = salida. Saldo inicial = movimientos anteriores
+//  a "Desde"; saldo acumulado fila por fila (concep 1/3 suma entrada, 2/4 suma salida).
 // =====================================================================
 const express = require('express');
 const L = require('../../negocio/AccesoLogica');
@@ -19,6 +21,8 @@ const router = express.Router();
 const sinImg = (dt) => limpiar(dt).map((f) => { const o = { ...f }; delete o.img; delete o.Img; return o; });
 const r6 = (x) => Math.round(x * 1e6) / 1e6;
 const concep = (f) => String(col(f, 'concep') ?? '').trim();
+const ING = ['1', '3'];
+const SAL = ['2', '4'];
 const mov = (dt, cs) => dt.filter((f) => cs.includes(concep(f))).reduce((s, f) => s + num(col(f, 'entrada')) + num(col(f, 'salida')), 0);
 
 router.use('/aux', asyncHandler(async (req, res, next) => {
@@ -38,17 +42,17 @@ router.get('/kardex', requierePrograma('btInvKardex'), asyncHandler(async (req, 
     const dep = v.entero(req.query.deposito, 'Deposito', { requeridoPositivo: true });
     const [total, periodo] = await Promise.all([L.L_fnObtenerHistorialProductoGeneral(prod, d, dep), L.L_fnObtenerHistorialProducto(prod, d, h, dep)]);
     if (!periodo.length) return res.json({ ok: true, data: { filas: [], resumen: null } });
-    const inicial = mov(total, ['2', '4']) + mov(total, ['1', '3']);
+    const inicial = mov(total, ING) + mov(total, SAL);
     let saldo = inicial;
     const filas = sinImg(periodo).map((f) => {
         const c = concep(f);
-        if (c === '1' || c === '3') saldo += num(f.entrada);
-        else if (c === '2' || c === '4') saldo += num(f.salida);
-        const m = num(f.entrada) + num(f.salida); // VB: ingresos (2,4) y salidas (1,3) = Sum(entrada)+Sum(salida)
-        return { fecha: f.fdoc, concepto: f.descConcep, observacion: f.obs, ingreso: c === '2' || c === '4' ? r6(m) : 0, salida: c === '1' || c === '3' ? r6(Math.abs(m)) : 0, saldo: r6(saldo), documento: f.fechaDocumento ?? '' };
+        const ent = ING.includes(c) ? num(f.entrada) : 0;
+        const sal = SAL.includes(c) ? num(f.salida) : 0; // viene negativo del SP
+        saldo += ent + sal;
+        return { fecha: f.fdoc, concepto: f.descConcep, observacion: f.obs, ingreso: r6(ent), salida: r6(Math.abs(sal)), saldo: r6(saldo), documento: f.fechaDocumento ?? '' };
     });
     filas.unshift({ fecha: req.query.desde, concepto: 'Saldo Inicial', observacion: `Saldo A la Fecha ${String(req.query.desde).split('-').reverse().join('/')}`, ingreso: 0, salida: 0, saldo: r6(inicial), documento: '' });
-    res.json({ ok: true, data: { filas, resumen: { inicial: r6(inicial), ingresos: r6(mov(periodo, ['2', '4'])), salidas: r6(Math.abs(mov(periodo, ['1', '3']))), final: r6(saldo) } } });
+    res.json({ ok: true, data: { filas, resumen: { inicial: r6(inicial), ingresos: r6(mov(periodo, ING)), salidas: r6(Math.abs(mov(periodo, SAL))), final: r6(saldo) } } });
 }));
 
 // ---------- Rep_SaldoProductos ----------
@@ -79,8 +83,8 @@ router.get('/general', requierePrograma('btInvKardexReporte'), asyncHandler(asyn
             const [total, periodo] = await Promise.all([L.L_fnObtenerHistorialProductoGeneral(id, d, dep), L.L_fnObtenerHistorialProducto(id, d, h, dep)]);
             const o = sinImg([p])[0];
             if (periodo.length) {
-                const saldo = mov(total, ['2', '4']) + mov(total, ['1', '3']);
-                const ing = mov(periodo, ['2', '4']); const sal = mov(periodo, ['1', '3']);
+                const saldo = mov(total, ING) + mov(total, SAL);
+                const ing = mov(periodo, ING); const sal = mov(periodo, SAL); // sal negativo
                 Object.assign(o, { SaldoAnterior: r6(saldo), Entradas: r6(ing), Salidas: r6(Math.abs(sal)), SaldoFinal: r6(Math.abs(ing + saldo + sal)) });
             }
             return o;

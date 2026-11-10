@@ -1,0 +1,4 @@
+// AGP 7.4.2: ultima version que compila con JDK 11 (AGP 8 exige JDK 17)
+plugins {
+    id 'com.android.application' version '7.4.2' apply false
+}

@@ -5,13 +5,16 @@
 //   C.Variable -> Tec_VisualizarConceptosVariablesPlanilla (agregar / quitar, @tipo 7)
 //   Reporte    -> boleta de sueldo (@tipo 8) · Reporte planilla (@tipo 9)
 // =====================================================================
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 import TablaReporte from '../../componentes/TablaReporte';
 import { ComboMulti } from '../../componentes/Controles';
 import { useToast } from '../../componentes/Toast';
 import { usePermisos } from '../../global/Sesion';
 import { titulo as tit } from '../../global/programas';
-import { api } from '../../api/http';
+import { api, urlImagen } from '../../api/http';
+import { imprimirHtml } from '../../global/imprimir';
+import { CSS_HOJA } from '../../componentes/NotaImpresa';
 import Icono from '../../componentes/Icono';
 import { columnasDe } from '../ventas/Reportes';
 import { periodoInicial } from './Tec_RegistrarPlanilla';
@@ -67,7 +70,7 @@ export default function Tec_Planilla() {
       </div>
       {dialogo?.tipo === 'fijos' && <ConceptosFijos fila={dialogo.fila} onCerrar={() => setDialogo(null)} />}
       {dialogo?.tipo === 'variables' && <ConceptosVariables fila={dialogo.fila} puede={puede.modificar} onCerrar={(cambio) => { setDialogo(null); if (cambio) cargar(); }} />}
-      {dialogo?.tipo === 'boleta' && <Documento titulo={`Boleta de sueldo · ${tit(dialogo.fila.Trabajador ?? '')}`} url={`${URL}/listar/${dialogo.fila.PlanillaId}/boleta`} onCerrar={() => setDialogo(null)} />}
+      {dialogo?.tipo === 'boleta' && <BoletaPago fila={dialogo.fila} onCerrar={() => setDialogo(null)} />}
       {dialogo?.tipo === 'reporte' && <Documento titulo="Reporte de planilla" url={`${URL}/listar/reporte?${q}`} onCerrar={() => setDialogo(null)} />}
     </section>
   );
@@ -154,4 +157,113 @@ function Documento({ titulo, url, onCerrar }) {
       <TablaReporte titulo={titulo.toUpperCase()} cargando={!filas} filas={filas || []} columnas={columnasDe(filas || [])} claveFila="__no" vacio="Sin datos" />
     </Modal>
   );
+}
+
+// ---------- Reporte_BoletaSueldo.rpt (GenerarReporteIndividual): BOLETA DE PAGO ----------
+// SP MAM_Planilla @tipo 8: una fila por concepto (LEFT JOIN; sin conceptos viene 1 fila con NombreConcepto NULL)
+//   HaberBasicoBase = sueldo del contrato · HaberBasico = sueldo del mes prorrateado por dias trabajados
+export const CSS_BOLETA = `
+.boleta { --bo-azul: #0b1f7a; box-sizing: border-box; width: 100%; background: #fff; color: #111; font: 12px/1.4 Arial, Helvetica, sans-serif;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.boleta * { box-sizing: border-box; }
+.boleta .bo-cab { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--bo-azul); }
+.boleta .bo-logo img { display: block; max-width: 240px; max-height: 84px; object-fit: contain; }
+.boleta .bo-cab h1 { margin: 0; font-size: 20px; color: var(--bo-azul); white-space: nowrap; }
+.boleta .bo-emp { text-align: right; text-transform: uppercase; font-size: 12px; line-height: 1.5; }
+.boleta .bo-datos { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr); gap: 24px; margin: 12px 0 16px; }
+.boleta dl { margin: 0; display: grid; gap: 5px 14px; align-content: start; }
+.boleta .bo-izq { grid-template-columns: max-content minmax(0, 1fr) max-content max-content; }
+.boleta .bo-der { grid-template-columns: max-content minmax(0, 1fr); }
+.boleta dt { color: var(--bo-azul); font-weight: 700; white-space: nowrap; }
+.boleta dd { margin: 0; overflow-wrap: anywhere; }
+.boleta .bo-ancho { grid-column: span 3; }
+.boleta .bo-num { text-align: right; font-variant-numeric: tabular-nums; }
+.boleta .bo-banda { background: #0a0a80; color: #fff; text-align: center; font-size: 15px; padding: 4px 8px; }
+.boleta table { width: 100%; border-collapse: collapse; font: inherit; }
+.boleta thead th { text-align: left; font-weight: 700; padding: 6px 6px 3px; border-bottom: 2px solid #111; }
+.boleta tbody td { padding: 3px 6px; vertical-align: top; white-space: pre-line; }
+.boleta tbody tr { break-inside: avoid; }
+.boleta .bo-c { text-align: center; }
+.boleta .bo-sin { color: #666; font-style: italic; }
+.boleta .bo-tot { width: 432px; max-width: 100%; margin: 8px 0 0 auto; break-inside: avoid; }
+.boleta .bo-tot div { display: grid; grid-template-columns: minmax(0, 1fr) 120px; gap: 12px; padding: 3px 6px; }
+.boleta .bo-tot span { text-align: right; color: var(--bo-azul); }
+.boleta .bo-tot b { text-align: right; font-variant-numeric: tabular-nums; }
+.boleta .bo-tot .bo-linea { border-top: 2px solid var(--bo-azul); margin-top: 6px; padding-top: 6px; }
+.boleta .bo-tot .bo-fuerte span { font-weight: 700; }
+.boleta .bo-tot .bo-neto { margin-top: 10px; padding: 9px 6px; border: 1px solid #111; background: #eceef1; }
+.boleta .bo-tot .bo-neto span { font-weight: 700; }
+.boleta .bo-firmas { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 90px; break-inside: avoid; }
+.boleta .bo-firmas div { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+.boleta .bo-firmas span { width: 90%; border-top: 1px dotted #111; }
+`;
+const bo2 = (n) => Number(n || 0).toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const val = (f, ...ks) => { for (const k of ks) if (f?.[k] !== undefined && f?.[k] !== null) return f[k]; return ''; };
+
+export function hojaBoleta({ filas, empresa, imagenEmpresa }) {
+  const f = filas[0] || {};
+  const conceptos = filas.filter((x) => x.NombreConcepto); // la fila del LEFT JOIN sin concepto no se lista
+  const logo = imagenEmpresa ? urlImagen('empresa', imagenEmpresa) : null;
+  return renderToStaticMarkup(
+    <article className="boleta">
+      <header className="bo-cab">
+        <div className="bo-logo">{logo ? <img src={logo} alt="" /> : null}</div>
+        <h1>BOLETA DE PAGO</h1>
+        <div className="bo-emp">{empresa?.nombre && <div>{empresa.nombre}</div>}{empresa?.direccion && <div>{empresa.direccion}</div>}</div>
+      </header>
+      <section className="bo-datos">
+        <dl className="bo-izq">
+          <dt>Trabajador:</dt><dd className="bo-ancho">{val(f, 'NombrePersonal')}</dd>
+          <dt>Cargo:</dt><dd className="bo-ancho">{val(f, 'Cargo')}</dd>
+          <dt>Mes:</dt><dd>{String(val(f, 'Mes')).toUpperCase()}</dd><dt>Haber Basico Base:</dt><dd className="bo-num">{bo2(f.HaberBasicoBase)}</dd>
+          <dt>Antigüedad:</dt><dd className="bo-ancho">{val(f, 'Antigüedad', 'Antiguedad')}</dd>
+        </dl>
+        <dl className="bo-der">
+          <dt>Documento:</dt><dd>{val(f, 'NroDocumento')}</dd>
+          <dt>Regional:</dt><dd>{val(f, 'Regional')}</dd>
+          <dt>Fecha Ingreso:</dt><dd>{val(f, 'FechaIngreso')}</dd>
+          <dt>Haber Basico:</dt><dd>{bo2(f.HaberBasico)}</dd>
+        </dl>
+      </section>
+      <div className="bo-banda">Resumen Descuentos / Ingresos</div>
+      <table>
+        <thead><tr><th style={{ width: 36 }} className="bo-c">#</th><th>Concepto</th><th style={{ width: 150 }}>Tipo Concepto</th><th style={{ width: 120 }} className="bo-c">Porcentaje</th><th style={{ width: 110 }} className="bo-num">Monto</th></tr></thead>
+        <tbody>
+          {conceptos.map((x, i) => (
+            <tr key={i}><td className="bo-c">{i + 1}</td><td>{x.NombreConcepto}</td><td>{val(x, 'TipoConcepto')}</td><td className="bo-c">{val(x, 'Porcentaje') || '---'}</td><td className="bo-num">{bo2(x.Monto)}</td></tr>
+          ))}
+          {!conceptos.length && <tr><td className="bo-c">-</td><td className="bo-sin" colSpan={3}>Sin conceptos asignados</td><td className="bo-num">{bo2(0)}</td></tr>}
+        </tbody>
+      </table>
+      <section className="bo-tot">
+        <div className="bo-linea bo-fuerte"><span>Sueldo Base:</span><b>{bo2(f.HaberBasico)}</b></div>
+        <div><span>Descuentos o Aumentos Fijos:</span><b>{bo2(f.SumaConceptoFijo)}</b></div>
+        <div className="bo-linea bo-fuerte"><span>Sueldo Bruto:</span><b>{bo2(f.SueldoBruto)}</b></div>
+        <div><span>Descuentos o Aumentos Variables:</span><b>{bo2(f.SumaConceptoVariable)}</b></div>
+        <div className="bo-neto"><span>Sueldo Neto:</span><b>{bo2(f.SueldoNeto)}</b></div>
+      </section>
+      <section className="bo-firmas">
+        <div><span /><div>{val(f, 'NombrePersonal')}</div></div>
+        <div><span /><div>Recursos Humanos</div></div>
+      </section>
+    </article>,
+  ).replace('<img ', '<img onerror="this.remove()" '); // logo que no carga: no se muestra
+}
+
+// Vista previa con Imprimir / Cerrar (como las notas)
+function BoletaPago({ fila, onCerrar }) {
+  const toast = useToast();
+  const cerrarRef = useRef(onCerrar);
+  cerrarRef.current = onCerrar;
+  useEffect(() => {
+    let vp = null;
+    let vivo = true;
+    api.get(`${URL}/listar/${fila.PlanillaId}/boleta`).then((r) => {
+      if (!vivo) return;
+      if (!r.data.filas.length) { toast('No Existen Datos En Planilla Para Generar Reporte', 'error'); cerrarRef.current?.(); return; }
+      vp = imprimirHtml({ cuerpo: hojaBoleta(r.data), css: CSS_HOJA + CSS_BOLETA, titulo: `Boleta de pago · ${tit(fila.Trabajador ?? '')}`, alCerrar: () => cerrarRef.current?.() });
+    }).catch((e) => { if (vivo) { toast(e.message, 'error'); cerrarRef.current?.(); } });
+    return () => { vivo = false; vp?.cerrar(true); };
+  }, [fila.PlanillaId]); // eslint-disable-line react-hooks/exhaustive-deps
+  return null;
 }

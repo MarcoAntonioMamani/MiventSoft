@@ -13,7 +13,7 @@ import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import NotaImpresa from '../../componentes/NotaImpresa';
 import Icono from '../../componentes/Icono';
-import { NumeroCelda } from '../ventas/Tec_Ventas';
+import { NumeroCelda, errorDetalle } from '../ventas/Tec_Ventas';
 import { SelectorProductos } from '../distribucion/Tec_Despachos';
 
 const URL = '/api/compras/compras';
@@ -78,6 +78,8 @@ export default function Tec_Compras() {
       setErrores(e);
       if (Object.keys(e).length) { toast('Los Siguientes Campos Son Requeridos'.toUpperCase(), 'error'); return false; }
       if (!vig.length) { toast('Por Favor Inserte un Detalle'.toUpperCase(), 'error'); return false; }
+      const ed = errorDetalle(vig, errFila, (d) => d.Producto);
+      if (ed) { toast(ed, 'error', 6000); return false; }
       return true;
     },
     _PMOGrabarRegistro: async () => {
@@ -99,15 +101,21 @@ export default function Tec_Compras() {
   const ro = !m.habilitado;
   const cambiarSucursal = (x) => { set('AlmacenId')(x); if (m.modo === 'nuevo' && detalle.length) { setDetalle([]); toast('Se limpió el detalle por el cambio de sucursal', 'ok', 2500); } };
   // Cantidad (unidades) / Cajas / precios -> SubTotal = P.Costo x Cajas (P_PonerTotal)
+  // el valor se aplica en cada tecla aunque sea invalido: la celda lo marca (errFila) y Grabar lo bloquea
   const cambiar = (key, cambios) => setDetalle((d) => d.map((x) => {
     if (x.key !== key) return x;
-    const y = { ...x, ...cambios };
-    if (!(num(y.Cantidad) > 0)) { toast('La Cantidad debe ser Mayor a 0', 'error'); return { ...x }; }
-    if (!(num(y.PrecioCosto) > 0)) { toast('El Precio Costo debe ser Mayor a 0', 'error'); return { ...x }; }
-    if (num(y.PrecioVenta) < 0) { toast('El Precio Venta no puede ser negativo', 'error'); return { ...x }; }
+    const y = { ...x, ...cambios, _editado: true };
     const cajas = num(y.Cantidad) / (num(y.conversion) || 1);
     return { ...y, CantidadCajas: cajas, TotalCompra: r2(num(y.PrecioCosto) * cajas) };
   }));
+  const errFila = (d) => {
+    if (!d._editado) return {};
+    const e = {};
+    if (!(num(d.Cantidad) > 0)) e.Cantidad = 'La Cantidad debe ser Mayor a 0';
+    if (!(num(d.PrecioCosto) > 0)) e.PrecioCosto = 'El Precio Costo debe ser Mayor a 0';
+    if (num(d.PrecioVenta) < 0) e.PrecioVenta = 'El Precio Venta no puede ser negativo';
+    return e;
+  };
   const enDetalle = useMemo(() => new Set(vig.map((d) => Number(d.ProductoId))), [vig]);
   const porc = suma > 0 ? (num(form.Descuento) * 100) / suma : 0;
 
@@ -151,10 +159,10 @@ export default function Tec_Compras() {
                   {vig.map((d) => (
                     <tr key={d.key} className={d.nuevo ? 'fila-nueva' : ''}>
                       <td data-label="Producto" className="det-producto"><b>{tit(d.Producto)}</b><small>Cód. {d.ProductoId} · {n2(d.conversion)} u/caja</small></td>
-                      <td data-label="Cajas" className="num">{ro ? n2(d.CantidadCajas) : <NumeroCelda valor={num(d.CantidadCajas)} onCambio={(x) => cambiar(d.key, { Cantidad: num(x) * (num(d.conversion) || 1) })} etiqueta={`Cajas de ${d.Producto}`} />}</td>
-                      <td data-label="Unidades" className="num">{ro ? n2(d.Cantidad) : <NumeroCelda valor={num(d.Cantidad)} onCambio={(x) => cambiar(d.key, { Cantidad: num(x) })} etiqueta={`Unidades de ${d.Producto}`} />}</td>
-                      <td data-label="P. Costo" className="num">{ro ? n2(d.PrecioCosto) : <NumeroCelda valor={num(d.PrecioCosto)} onCambio={(x) => cambiar(d.key, { PrecioCosto: num(x) })} etiqueta={`Precio costo de ${d.Producto}`} />}</td>
-                      <td data-label="P. Venta" className="num">{ro ? n2(d.PrecioVenta) : <NumeroCelda valor={num(d.PrecioVenta)} onCambio={(x) => cambiar(d.key, { PrecioVenta: num(x) })} etiqueta={`Precio venta de ${d.Producto}`} />}</td>
+                      <td data-label="Cajas" className="num">{ro ? n2(d.CantidadCajas) : <NumeroCelda valor={num(d.CantidadCajas)} onCambio={(x) => cambiar(d.key, { Cantidad: num(x) * (num(d.conversion) || 1) })} etiqueta={`Cajas de ${d.Producto}`} error={errFila(d).Cantidad} />}</td>
+                      <td data-label="Unidades" className="num">{ro ? n2(d.Cantidad) : <NumeroCelda valor={num(d.Cantidad)} onCambio={(x) => cambiar(d.key, { Cantidad: num(x) })} etiqueta={`Unidades de ${d.Producto}`} error={errFila(d).Cantidad} />}</td>
+                      <td data-label="P. Costo" className="num">{ro ? n2(d.PrecioCosto) : <NumeroCelda valor={num(d.PrecioCosto)} onCambio={(x) => cambiar(d.key, { PrecioCosto: num(x) })} etiqueta={`Precio costo de ${d.Producto}`} error={errFila(d).PrecioCosto} />}</td>
+                      <td data-label="P. Venta" className="num">{ro ? n2(d.PrecioVenta) : <NumeroCelda valor={num(d.PrecioVenta)} onCambio={(x) => cambiar(d.key, { PrecioVenta: num(x) })} etiqueta={`Precio venta de ${d.Producto}`} error={errFila(d).PrecioVenta} />}</td>
                       <td data-label="SubTotal" className="num"><b>{n2(d.TotalCompra)}</b></td>
                       {!ro && <td className="col-acc"><button className="btn-icono peligro" onClick={() => setDetalle((x) => x.map((y) => (y.key === d.key ? { ...y, eliminado: true } : y)))} aria-label={`Quitar ${d.Producto}`} title="Quitar"><Icono n="trash" size={16} /></button></td>}
                     </tr>

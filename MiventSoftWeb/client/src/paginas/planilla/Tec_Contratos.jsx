@@ -125,7 +125,7 @@ export default function Tec_Contratos() {
                 ))}
                 {!vig.length && <tr><td colSpan={4} className="vacio">Sin conceptos fijos</td></tr>}
               </tbody>
-              {vig.length > 0 && <tfoot><tr><td><b>Total</b></td><td className="num"><b>{n2(totalPorc)} %</b></td><td className="num"><b>{n2((Number(form.SueldoBase) || 0) * totalPorc / 100)}</b></td>{!ro && <td />}</tr></tfoot>}
+              {vig.length > 0 && <tfoot><tr className="tr-total"><td className="tf-tit"><b>Total</b></td><td className="num" data-label="Total porcentaje"><b>{n2(totalPorc)} %</b></td><td className="num" data-label="Total monto aprox."><b>{n2((Number(form.SueldoBase) || 0) * totalPorc / 100)}</b></td>{!ro && <td />}</tr></tfoot>}
             </table>
           </div>
         </div>

@@ -15,12 +15,15 @@ import { Celda } from '../../global/Celda';
 import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
+import { palabrasDe, coincide } from '../../global/buscar';
 
 const URL = '/api/distribucion/conciliaciones';
 const dos = (n) => String(n).padStart(2, '0');
 const hoy = () => { const d = new Date(); return `${d.getFullYear()}-${dos(d.getMonth() + 1)}-${dos(d.getDate())}`; };
 const n2 = (n) => Number(n || 0).toLocaleString('es-BO', { maximumFractionDigits: 2 });
 const num = (x) => { const n = Number(x); return Number.isFinite(n) ? n : 0; };
+// Empresa y logo del comprobante: no cambian durante la sesion, se piden una sola vez
+let cabCache = null;
 
 // Igual que el escritorio: sin Nuevo ni Eliminar
 export default function Tec_Conciliacion() {
@@ -34,7 +37,7 @@ function Pantalla() {
   const [form, setForm] = useState({ Id: '', Personal: '', Fecha: '', Observacion: '', Estado: true });
   const [matriz, setMatriz] = useState({ salidas: [], filas: [] });
   const [cargandoDet, setCargandoDet] = useState(false);
-  const [reporte, setReporte] = useState(false);
+  const [reporte, setReporte] = useState(null); // { form, matriz }
   const [qDet, setQDet] = useState('');
 
   const m = useModeloF1({
@@ -46,7 +49,7 @@ function Pantalla() {
       new Celda('FechaTxt', true, 'Fecha Conciliación', 110),
       new Celda('NombrePersonal', true, 'Nombre Personal', 220),
       new Celda('Observacion', true, 'Detalle Conciliación', 200),
-      new Celda('EstadoTxt', true, 'Estado Conciliación', 120),
+      new Celda('EstadoTxt', true, 'Estado Conciliación', 120, 'ABIERTA', 'estado'),
       new Celda('CierreTxt', true, 'Cierre de caja', 100),
     ],
     _PMOLimpiar: () => { setForm({ Id: '', Personal: '', Fecha: hoy(), Observacion: '', Estado: true }); setMatriz({ salidas: [], filas: [] }); },
@@ -83,14 +86,28 @@ function Pantalla() {
       }),
     }));
   };
+  // Comprobante desde la lista: carga el detalle de esa conciliacion sin abrir el registro
+  const reporteDesdeLista = async (f) => {
+    try {
+      const r = await api.get(`${URL}/${f.Id}/reporte?abierta=${f.Estado === 1 ? 1 : 0}`);
+      if (!r.data.filas.length) { toast('No Existen Datos Para Mostrar', 'error'); return; }
+      cabCache = { empresa: r.data.empresa, imagenEmpresa: r.data.imagenEmpresa };
+      setReporte({
+        form: { Id: f.Id, Personal: f.NombrePersonal ?? '', Fecha: f.Fecha ?? '', Observacion: f.Observacion ?? '', Estado: f.Estado === 1 },
+        matriz: { ...r.data, filas: r.data.filas.map((x) => ({ ...x, real: x.TotalDevoluciones })) },
+      });
+    } catch (e) { toast(e.message, 'error'); }
+  };
   const tot = (k) => matriz.filas.reduce((s, x) => s + num(x[k]), 0);
   // Buscador del detalle: filtra por codigo o nombre (los totales siguen siendo de toda la conciliacion)
-  const qn = qDet.trim().toLowerCase();
-  const filasVis = qn ? matriz.filas.filter((x) => String(x.ProductoId).includes(qn) || String(x.NombreProducto ?? '').toLowerCase().includes(qn)) : matriz.filas;
+  const qn = palabrasDe(qDet);
+  const filasVis = qn.length ? matriz.filas.filter((x) => coincide(`${x.ProductoId} ${x.NombreProducto ?? ''}`, qn)) : matriz.filas;
 
   return (
+    <>
     <ModeloF1 m={m} titulo="Conciliaciones" subtitulo="Conciliaciones De Productos" icono="check"
-      accionesRegistro={<button className="btn btn-sec" onClick={() => setReporte(true)} disabled={!m.filaActual || m.habilitado || !matriz.filas.length}><Icono n="printer" size={16} /> <span className="txt-btn">Comprobante</span></button>}
+      accionesRegistro={<button className="btn btn-sec" onClick={() => setReporte({ form, matriz })} disabled={!m.filaActual || m.habilitado || !matriz.filas.length}><Icono n="printer" size={16} /> <span className="txt-btn">Comprobante</span></button>}
+      accionesFila={(f) => [{ texto: 'Comprobante', icono: 'printer', onClick: () => reporteDesdeLista(f) }]}
       extraBuscador={(
         <div className="filtros-lista">
           <label className="filtro"><span>Desde</span><input type="date" className="control" value={filtro.desde} max={filtro.hasta} onChange={(e) => e.target.value && setFiltro((x) => ({ ...x, desde: e.target.value }))} /></label>
@@ -151,9 +168,9 @@ function Pantalla() {
                 </tbody>
                 {matriz.filas.length > 0 && (
                   <tfoot><tr className="tr-total">
-                    <td /><td><b>TOTAL</b></td>{matriz.salidas.map((s, i) => <td key={s} className="num">{n2(matriz.filas.reduce((t, x) => t + num(x.salidas[i]), 0))}</td>)}
-                    <td className="num cc-sal"><b>{n2(tot('TotalSalida'))}</b></td><td className="num cc-dev"><b>{n2(tot('real'))}</b></td>
-                    <td className="num cc-ent"><b>{n2(tot('TotalEntregado'))}</b></td><td className="num cc-dif"><b>{n2(tot('Diferencia'))}</b></td>
+                    <td /><td className="tf-tit"><b>TOTAL ({matriz.filas.length} productos)</b></td>{matriz.salidas.map((s, i) => <td key={s} className="num" data-label={`Sal. #${String(i + 1).padStart(2, '0')}`}>{n2(matriz.filas.reduce((t, x) => t + num(x.salidas[i]), 0))}</td>)}
+                    <td className="num cc-sal" data-label="Tot. salidas"><b>{n2(tot('TotalSalida'))}</b></td><td className="num cc-dev" data-label="Devoluciones"><b>{n2(tot('real'))}</b></td>
+                    <td className="num cc-ent" data-label="Entregado"><b>{n2(tot('TotalEntregado'))}</b></td><td className="num cc-dif" data-label="Diferencia"><b>{n2(tot('Diferencia'))}</b></td>
                   </tr></tfoot>
                 )}
               </table>
@@ -163,8 +180,9 @@ function Pantalla() {
           )}
         </div>
       </div>
-      {reporte && <ReporteConciliacion form={form} matriz={matriz} onCerrar={() => setReporte(false)} />}
     </ModeloF1>
+      {reporte && <ReporteConciliacion form={reporte.form} matriz={reporte.matriz} onCerrar={() => setReporte(null)} />}
+    </>
   );
 }
 
@@ -190,8 +208,11 @@ function CeldaDevolucion({ valor, onCambio, etiqueta }) {
 // GenerarReporte (Reporte_Conciliacion01..05): "Comprobante de Conciliacion de Productos" en la hoja comun
 function ReporteConciliacion({ form, matriz, onCerrar }) {
   const toast = useToast();
-  const [cab, setCab] = useState(null);
-  useEffect(() => { api.get(`${URL}/aux/cabecera`).then((r) => setCab(r.data)).catch((e) => { toast(e.message, 'error'); setCab({}); }); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const [cab, setCab] = useState(cabCache);
+  useEffect(() => {
+    if (cabCache) return;
+    api.get(`${URL}/aux/cabecera`).then((r) => { cabCache = r.data; setCab(r.data); }).catch((e) => { toast(e.message, 'error'); setCab({}); });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   if (!cab) return null;
   const ahora = new Date(); const dd = (x) => String(x).padStart(2, '0');
   return (

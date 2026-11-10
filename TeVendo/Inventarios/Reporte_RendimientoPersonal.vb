@@ -129,42 +129,49 @@ Public Class Reporte_RendimientoPersonal
     End Sub
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
-        If (ContarPersonalSeleccionado() = 0) Then
-            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-            ToastNotification.Show(Me, "Seleccione al menos un Personal Por Favor".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
-            Return
-
-        End If
-        Dim _dt As New DataTable
-        _dt = ReporteVentasRendimientoPersonal(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"), CType(gr_Personal.DataSource, DataTable))
-        If (IsNothing(_dt) Or _dt.Rows.Count = 0) Then
-
-            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-            ToastNotification.Show(Me, "No Existen Datos Para Mostrar con Los Filtros Seleccionados".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
-
-            Return
-
-        End If
-        InsertarLogo(_dt)
-
-        If (_dt.Rows.Count > 0) Then
-
-            Dim objrep As New Reporte_Rendimiento_Personal
 
 
-            objrep.SetDataSource(_dt)
-            Dim fechaI As String = cbFechaDesde.Value.ToString("dd/MM/yyyy")
-            Dim fechaF As String = cbFechaHasta.Value.ToString("dd/MM/yyyy")
-            objrep.SetParameterValue("FechaDesde", fechaI)
-            objrep.SetParameterValue("FechaHasta", fechaF)
-            objrep.SetParameterValue("Usuario", L_Usuario)
-            MReportViewer.ReportSource = objrep
-            MReportViewer.Show()
-            MReportViewer.BringToFront()
-        Else
-            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-            ToastNotification.Show(Me, "No Existen Datos Para Mostrar. con Los Filtros Seleccionados".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
-        End If
+        Try
+            If (ContarPersonalSeleccionado() = 0) Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "Seleccione al menos un Personal Por Favor".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                Return
+
+            End If
+            Dim _dt As New DataTable
+            _dt = ReporteVentasRendimientoPersonal(cbFechaDesde.Value.ToString("yyyy/MM/dd"), cbFechaHasta.Value.ToString("yyyy/MM/dd"), CType(gr_Personal.DataSource, DataTable))
+            If (IsNothing(_dt) Or _dt.Rows.Count = 0) Then
+
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "No Existen Datos Para Mostrar con Los Filtros Seleccionados".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+
+                Return
+
+            End If
+            InsertarLogo(_dt)
+
+            If (_dt.Rows.Count > 0) Then
+
+                Dim objrep As New Reporte_Rendimiento_Personal
+
+
+                objrep.SetDataSource(_dt)
+                Dim fechaI As String = cbFechaDesde.Value.ToString("dd/MM/yyyy")
+                Dim fechaF As String = cbFechaHasta.Value.ToString("dd/MM/yyyy")
+                objrep.SetParameterValue("FechaDesde", fechaI)
+                objrep.SetParameterValue("FechaHasta", fechaF)
+                objrep.SetParameterValue("Usuario", L_Usuario)
+                MReportViewer.ReportSource = objrep
+                MReportViewer.Show()
+                MReportViewer.BringToFront()
+            Else
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "No Existen Datos Para Mostrar. con Los Filtros Seleccionados".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            End If
+        Catch ex As Exception
+
+        End Try
+
 
     End Sub
 

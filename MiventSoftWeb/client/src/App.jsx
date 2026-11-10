@@ -36,6 +36,7 @@ import Tec_Almacenes from './paginas/inventario/Tec_Almacenes';
 import Tec_Movimientos from './paginas/inventario/Tec_Movimientos';
 import Tec_MapaClientes from './paginas/mapa/Tec_MapaClientes';
 import ReporteInventario from './paginas/inventario/ReportesInventario';
+import Tec_InventarioProductos from './paginas/inventario/Tec_InventarioProductos';
 
 // Reportes de Gestion Pedidos: [ruta, programa del escritorio, clave]
 const REPORTES = [
@@ -81,6 +82,7 @@ const PROGRAMAS = [
   ['compras/compras-por-producto', 'btnComprasPorProducto', () => <ReporteCompras key="cpp" clave="compras-por-producto" />],
   ['inventario/almacenes', 'btInvAmacen', Tec_Almacenes],
   ['inventario/movimientos', 'btInvMovimiento', Tec_Movimientos],
+  ['inventario/productos', 'FormularioStock', Tec_InventarioProductos],
   ['mapa-clientes/ubicacion', 'btZonaMapaCliente', Tec_MapaClientes],
   ...[['historial-productos', 'btInvKardex', 'kardex'], ['saldos', 'btInvSaldo', 'saldos'], ['saldos-valorados', 'btInvSaldosValorados', 'saldos-valorados'],
     ['reporte-general', 'btInvKardexReporte', 'general'], ['monitoreo', 'btnInvMonitoreo', 'monitoreo']]

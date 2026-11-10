@@ -14,9 +14,10 @@ import { Celda } from '../../global/Celda';
 import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
-import { CantidadCajas, NumeroCelda } from '../ventas/Tec_Ventas';
+import { CantidadCajas, NumeroCelda, errorDetalle } from '../ventas/Tec_Ventas';
 import { useListaTeclado } from '../../componentes/useListaTeclado';
 import NotaImpresa, { bsNota } from '../../componentes/NotaImpresa';
+import { palabrasDe, coincide } from '../../global/buscar';
 
 const URL = '/api/distribucion/despachos';
 const dos = (n) => String(n).padStart(2, '0');
@@ -57,7 +58,7 @@ export default function Tec_Despachos() {
       new Celda('Detalle', true, 'Detalle', 200),
       new Celda('Tipo', true, 'Tipo', 100),
       new Celda('ConciliacionId', true, 'Conciliación', 90),
-      new Celda('EstadoTxt', true, 'Estado Conciliación', 120),
+      new Celda('EstadoTxt', true, 'Estado Conciliación', 120, 'ABIERTA', 'estado'),
     ],
     _PMOLimpiar: () => { setForm({ ...VACIO, Fecha: hoy() }); setDetalle([]); setAutomatico(false); },
     _PMOMostrarRegistro: (f) => {
@@ -73,6 +74,8 @@ export default function Tec_Despachos() {
       if (!vigentes.length) e.detalle = 'Por Favor Inserte un Detalle';
       setErrores(e);
       if (Object.keys(e).length) toast(`Los Siguientes Campos Son Requeridos: ${Object.values(e).join(', ')}`, 'error');
+      const ed = errorDetalle(vigentes, errFila, (f) => f.NombreProducto);
+      if (ed) { setErrores({ ...e, detalle: ed }); toast(ed, 'error', 6000); return false; }
       return !Object.keys(e).length;
     },
     _PMOGrabarRegistro: async () => {
@@ -112,13 +115,19 @@ export default function Tec_Despachos() {
       quitarError('detalle');
     } catch (e) { toast(e.message, 'error'); }
   };
+  // el valor se aplica en cada tecla aunque sea invalido: la celda lo marca (errFila) y Grabar lo bloquea
   const cambiarFila = (key, txt) => setDetalle((d) => d.map((f) => {
     if (f.key !== key) return f;
-    const c = Number(txt);
-    if (!Number.isFinite(c) || c <= 0) { toast('La Cantidad debe ser Mayor a 0', 'error'); return { ...f }; }
-    if (c > num(f.Stock) + 1e-9) { toast(`La Cantidad = ${c} es mayor al Stock del Producto = ${n2(f.Stock)}`, 'error'); return { ...f }; }
-    return { ...f, Cantidad: c, CantidadCaja: c / (num(f.conversion) || 1) };
+    const c = num(txt);
+    return { ...f, Cantidad: c, CantidadCaja: c / (num(f.conversion) || 1), _editado: true };
   }));
+  const errFila = (f) => {
+    if (!f._editado) return {};
+    const c = num(f.Cantidad);
+    if (!(c > 0)) return { Cantidad: 'La Cantidad debe ser Mayor a 0' };
+    if (c > num(f.Stock) + 1e-9) return { Cantidad: `La Cantidad = ${n2(c)} es mayor al Stock del Producto = ${n2(f.Stock)}` };
+    return {};
+  };
   const quitarFila = (key) => setDetalle((d) => d.map((f) => (f.key === key ? { ...f, eliminado: true } : f)));
   const enDetalle = useMemo(() => new Set(vigentes.map((f) => Number(f.ProductoId))), [vigentes]);
 
@@ -178,15 +187,15 @@ export default function Tec_Despachos() {
                   {vigentes.map((f) => (
                     <tr key={f.key} className={f.nuevo ? 'fila-nueva' : ''}>
                       <td data-label="Producto" className="det-producto"><b>{tit(f.NombreProducto)}</b><small>Cód. {f.ProductoId} · {n2(f.conversion)} u/caja</small></td>
-                      <td data-label="Cajas" className="num">{ro ? n2(f.CantidadCaja) : <NumeroCelda valor={num(f.CantidadCaja)} onCambio={(x) => cambiarFila(f.key, num(x) * (num(f.conversion) || 1))} etiqueta={`Cajas de ${f.NombreProducto}`} />}</td>
-                      <td data-label="Unidades" className="num">{ro ? n2(f.Cantidad) : <NumeroCelda valor={num(f.Cantidad)} onCambio={(x) => cambiarFila(f.key, x)} etiqueta={`Unidades de ${f.NombreProducto}`} />}</td>
+                      <td data-label="Cajas" className="num">{ro ? n2(f.CantidadCaja) : <NumeroCelda valor={num(f.CantidadCaja)} onCambio={(x) => cambiarFila(f.key, num(x) * (num(f.conversion) || 1))} etiqueta={`Cajas de ${f.NombreProducto}`} error={errFila(f).Cantidad} />}</td>
+                      <td data-label="Unidades" className="num">{ro ? n2(f.Cantidad) : <NumeroCelda valor={num(f.Cantidad)} onCambio={(x) => cambiarFila(f.key, x)} etiqueta={`Unidades de ${f.NombreProducto}`} error={errFila(f).Cantidad} />}</td>
                       {!ro && <td data-label="Stock" className="num">{n2(f.Stock)}</td>}
                       {!ro && <td className="col-acc"><button className="btn-icono peligro" onClick={() => quitarFila(f.key)} aria-label={`Quitar ${f.NombreProducto}`} title="Quitar"><Icono n="trash" size={16} /></button></td>}
                     </tr>
                   ))}
                   {!vigentes.length && <tr><td colSpan={5} className="vacio">{ro ? 'Sin productos' : 'Agregue productos o cárguelos de las ventas del personal'}</td></tr>}
                 </tbody>
-                {vigentes.length > 0 && <tfoot><tr className="tr-total"><td><b>TOTAL</b></td><td className="num"><b>{n2(vigentes.reduce((s, f) => s + num(f.CantidadCaja), 0))}</b></td><td className="num"><b>{n2(totalU)}</b></td>{!ro && <td />}{!ro && <td />}</tr></tfoot>}
+                {vigentes.length > 0 && <tfoot><tr className="tr-total"><td className="tf-tit"><b>TOTAL ({vigentes.length} {vigentes.length === 1 ? 'producto' : 'productos'})</b></td><td className="num" data-label="Total cajas"><b>{n2(vigentes.reduce((s, f) => s + num(f.CantidadCaja), 0))}</b></td><td className="num" data-label="Total unidades"><b>{n2(totalU)}</b></td>{!ro && <td />}{!ro && <td />}</tr></tfoot>}
               </table>
             </div>
           )}
@@ -214,9 +223,9 @@ export function SelectorProductos({ enDetalle, onAgregar, onCerrar, url = `${URL
   const [agregados, setAgregados] = useState(0); // como el buscador de Pedido: cuantos se agregaron en esta ventana
   useEffect(() => { api.get(url).then((r) => setProductos(r.data)).catch((e) => { toast(e.message, 'error'); onCerrar(); }); }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const filtrados = useMemo(() => {
-    const w = q.toUpperCase().split(/[\s.,;-]+/).filter(Boolean);
+    const w = palabrasDe(q);
     return (productos || []).filter((p) => !enDetalle.has(Number(p.Id)))
-      .filter((p) => w.every((x) => `${p.CodigoExterno ?? ''} ${p.NombreProducto ?? ''} ${p.DescripcionProducto ?? ''} ${p.NombreCategoria ?? ''}`.toUpperCase().includes(x)));
+      .filter((p) => coincide(`${p.CodigoExterno ?? ''} ${p.NombreProducto ?? ''} ${p.DescripcionProducto ?? ''} ${p.NombreCategoria ?? ''}`, w));
   }, [productos, q, enDetalle]);
   const elegir = (p) => (sinLimite || num(p.stock) > 0 ? setElegido(p) : toast('El Producto no Cuenta con Stock Disponible', 'error'));
   const nav = useListaTeclado(filtrados, elegir, { onCerrar, pausado: !!elegido });

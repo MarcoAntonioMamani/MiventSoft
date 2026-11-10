@@ -18,6 +18,7 @@ import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
 import NotaImpresa from '../../componentes/NotaImpresa';
 import { useListaTeclado } from '../../componentes/useListaTeclado';
+import { palabrasDe, coincide } from '../../global/buscar';
 
 const URL = '/api/ventas/ventas';
 
@@ -49,15 +50,32 @@ const VACIO = {
 };
 
 // ---------- calculos de una fila (P_PonerTotal / CellValueChanged) ----------
+// Un descuento invalido se conserva tal cual (la celda queda en rojo y no deja grabar) y el total va sin descuento
 function recalcular(f) {
   const sub = num(f.CantidadUnitaria) * num(f.Precio);
   let porc = num(f.ProcentajeDescuento);
   let monto = num(f.MontoDescuento);
   if (f._origenDesc === 'monto') {
-    if (monto > 0 && monto <= sub) porc = sub ? (monto * 100) / sub : 0; else { porc = 0; monto = 0; }
-  } else if (porc > 0 && porc <= 100) monto = sub * (porc / 100);
-  else { porc = 0; monto = 0; }
+    if (monto < 0 || monto > sub + 1e-9) return { ...f, SubTotal: sub, Total: sub };
+    porc = sub ? (monto * 100) / sub : 0;
+  } else {
+    if (porc < 0 || porc > 100) return { ...f, SubTotal: sub, Total: sub };
+    monto = sub * (porc / 100);
+  }
   return { ...f, SubTotal: sub, ProcentajeDescuento: porc, MontoDescuento: monto, Total: sub - monto };
+}
+
+// Validacion de una fila editada (CellValueChanged de VB): { campo: mensaje }
+function errorFilaVenta(f, sinStock) {
+  const e = {};
+  const cant = num(f.CantidadUnitaria);
+  if (!(cant > 0)) e.Cantidad = 'La Cantidad debe ser Mayor a 0';
+  else if (!sinStock && cant > num(f.stock) + 1e-9) e.Cantidad = `La Cantidad = ${n2(cant)} es mayor al Stock del Producto = ${n2(f.stock)}`;
+  const sub = cant * num(f.Precio);
+  if (f._origenDesc === 'monto') {
+    if (num(f.MontoDescuento) < 0 || num(f.MontoDescuento) > sub + 1e-9) e.Desc = `El Monto de Descuento no puede ser mayor al SubTotal = ${n2(sub)}`;
+  } else if (num(f.ProcentajeDescuento) < 0 || num(f.ProcentajeDescuento) > 100) e.Desc = 'El Porcentaje de Descuento debe estar entre 0 y 100';
+  return e;
 }
 
 export default function Tec_Ventas() { return <PantallaVentas cfg={CFG_VENTAS} />; }
@@ -88,6 +106,7 @@ export function PantallaVentas({ cfg }) {
   useEffect(() => { api.get(`${URL}/inicio`).then((r) => setIni(r.data)).catch((e) => toast(e.message, 'error')); }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const vigentes = detalle.filter((f) => !f.eliminado);
+  const errFila = (f) => (f._editado ? errorFilaVenta(f, cfg.sinStock) : {});
   const suma = vigentes.reduce((s, f) => s + num(f.Total), 0);
 
   // _PMOLimpiar (venta NUEVA): vendedor = personal del usuario, cliente Id 1, sucursal 1ra, fechas hoy
@@ -170,6 +189,8 @@ export function PantallaVentas({ cfg }) {
       if (!(form.ClienteId > 0)) e.Cliente = 'Seleccione un Cliente';
       if (!form.FechaVenta) e.FechaVenta = 'Ingrese una Fecha Valida';
       if (!vigentes.length) e.detalle = 'Por Favor Inserte un Detalle';
+      const ed = errorDetalle(vigentes, errFila, (f) => f.Producto);
+      if (ed) { e.detalle = ed; toast(ed, 'error', 6000); }
       if (num(form.Descuento) > suma + 1e-9) e.Descuento = 'El descuento no puede ser mayor al total';
       setErrores(e);
       return !Object.keys(e).length;
@@ -218,15 +239,12 @@ export function PantallaVentas({ cfg }) {
   const cambiarFila = (key, cambio) => {
     setDetalle((d) => d.map((f) => {
       if (f.key !== key) return f;
-      let nf = { ...f, ...cambio };
+      // el valor se aplica aunque sea invalido: la celda lo marca y Grabar lo bloquea (errorFilaVenta)
+      let nf = { ...f, ...cambio, _editado: true };
       if ('Cantidad' in cambio) nf.CantidadUnitaria = num(cambio.Cantidad) * num(f.Conversion);
       if ('CantidadUnitaria' in cambio || 'Cantidad' in cambio) {
-        if (!(num(nf.CantidadUnitaria) > 0)) { toast('La Cantidad debe ser Mayor a 0', 'error'); return f; }
-        if (!cfg.sinStock && num(nf.CantidadUnitaria) > num(f.stock) + 1e-9) {
-          toast(`La Cantidad = ${n2(nf.CantidadUnitaria)} es mayor al Stock del Producto = ${n2(f.stock)}`, 'error', 6000);
-          return f;
-        }
-        nf.Cantidad = num(nf.CantidadUnitaria) / (num(f.Conversion) || 1);
+        nf.CantidadUnitaria = num(nf.CantidadUnitaria);
+        nf.Cantidad = nf.CantidadUnitaria / (num(f.Conversion) || 1);
         nf._origenDesc = 'porc'; // al cambiar la cantidad se conserva el % (CellValueChanged de VB)
       }
       nf = recalcular(nf);
@@ -390,12 +408,12 @@ export function PantallaVentas({ cfg }) {
                   {vigentes.map((f) => (
                     <tr key={f.key} className={f.nuevo ? 'fila-nueva' : ''}>
                       <td data-label="Producto" className="det-producto"><b>{tit(f.Producto)}</b><small>Cód. {f.ProductoId} · stock {n2(f.stock)} u · {n2(f.Conversion)} u/caja</small></td>
-                      <td data-label="Cant. caja" className="num">{ro ? n2(f.Cantidad) : <NumeroCelda valor={f.Cantidad} onCambio={(x) => cambiarFila(f.key, { Cantidad: x })} etiqueta={`Cajas de ${f.Producto}`} />}</td>
-                      <td data-label="Cant. unid." className="num">{ro ? n2(f.CantidadUnitaria) : <NumeroCelda valor={f.CantidadUnitaria} onCambio={(x) => cambiarFila(f.key, { CantidadUnitaria: x })} etiqueta={`Unidades de ${f.Producto}`} />}</td>
+                      <td data-label="Cant. caja" className="num">{ro ? n2(f.Cantidad) : <NumeroCelda valor={f.Cantidad} onCambio={(x) => cambiarFila(f.key, { Cantidad: x })} etiqueta={`Cajas de ${f.Producto}`} error={errFila(f).Cantidad} />}</td>
+                      <td data-label="Cant. unid." className="num">{ro ? n2(f.CantidadUnitaria) : <NumeroCelda valor={f.CantidadUnitaria} onCambio={(x) => cambiarFila(f.key, { CantidadUnitaria: x })} etiqueta={`Unidades de ${f.Producto}`} error={errFila(f).Cantidad} />}</td>
                       <td data-label="Precio" className="num">{bs(f.Precio, 4)}</td>
                       <td data-label="SubTotal" className="num">{bs(f.SubTotal)}</td>
-                      <td data-label="% Desc." className="num">{ro ? n2(f.ProcentajeDescuento) : <NumeroCelda valor={Math.round(num(f.ProcentajeDescuento) * 100) / 100} onCambio={(x) => cambiarFila(f.key, { ProcentajeDescuento: x, _origenDesc: 'porc' })} etiqueta="Porcentaje de descuento" />}</td>
-                      <td data-label="M. Desc." className="num">{ro ? bs(f.MontoDescuento) : <NumeroCelda valor={Math.round(num(f.MontoDescuento) * 100) / 100} onCambio={(x) => cambiarFila(f.key, { MontoDescuento: x, _origenDesc: 'monto' })} etiqueta="Monto de descuento" />}</td>
+                      <td data-label="% Desc." className="num">{ro ? n2(f.ProcentajeDescuento) : <NumeroCelda valor={Math.round(num(f.ProcentajeDescuento) * 100) / 100} onCambio={(x) => cambiarFila(f.key, { ProcentajeDescuento: num(x), _origenDesc: 'porc' })} etiqueta="Porcentaje de descuento" error={f._origenDesc !== 'monto' ? errFila(f).Desc : undefined} />}</td>
+                      <td data-label="M. Desc." className="num">{ro ? bs(f.MontoDescuento) : <NumeroCelda valor={Math.round(num(f.MontoDescuento) * 100) / 100} onCambio={(x) => cambiarFila(f.key, { MontoDescuento: num(x), _origenDesc: 'monto' })} etiqueta="Monto de descuento" error={f._origenDesc === 'monto' ? errFila(f).Desc : undefined} />}</td>
                       <td data-label="Total" className="num det-total"><b>{bs(f.Total)}</b></td>
                       {!ro && <td className="col-acc"><button className="btn-icono peligro" onClick={() => quitarFila(f.key)} aria-label={`Quitar ${f.Producto}`} title="Quitar"><Icono n="trash" size={16} /></button></td>}
                     </tr>
@@ -457,15 +475,35 @@ export function PantallaVentas({ cfg }) {
   }
 }
 
-// Celda numerica: aplica el valor al salir o con Enter (como CellValueChanged del grid)
-export function NumeroCelda({ valor, onCambio, etiqueta }) {
-  const [txt, setTxt] = useState(String(Math.round(num(valor) * 100000) / 100000));
-  useEffect(() => { setTxt(String(Math.round(num(valor) * 100000) / 100000)); }, [valor]);
-  const aplicar = () => { if (Number(txt) !== Math.round(num(valor) * 100000) / 100000) onCambio(txt); };
+// Celda numerica: aplica el valor en cada tecla (CellValueChanged inmediato: totales y cajas<->unidades al instante).
+// Si el valor queda invalido (prop error) la celda se marca en rojo y la alerta sale al salir de la celda o con Enter;
+// la pantalla bloquea el grabado con errorDetalle().
+export function NumeroCelda({ valor, onCambio, etiqueta, error }) {
+  const toast = useToast();
+  const fmt = (v) => String(Math.round(num(v) * 100000) / 100000);
+  const [txt, setTxt] = useState(fmt(valor));
+  const foco = useRef(false);
+  // mientras se escribe no se pisa lo tecleado ("1." / "") con el valor normalizado
+  useEffect(() => { if (!foco.current) setTxt(fmt(valor)); }, [valor]); // eslint-disable-line react-hooks/exhaustive-deps
+  const avisar = () => { if (error) toast(error, 'error', 6000); };
   return (
-    <input className="control control-celda num" type="number" inputMode="decimal" step="any" min="0" value={txt} aria-label={etiqueta}
-      onChange={(e) => setTxt(e.target.value)} onBlur={aplicar} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); aplicar(); } }} />
+    <input className={`control control-celda num${error ? ' invalido' : ''}`} type="number" inputMode="decimal" step="any" min="0" value={txt}
+      aria-label={etiqueta} aria-invalid={!!error} title={error || undefined}
+      onFocus={(e) => { foco.current = true; e.target.select(); }}
+      onChange={(e) => { setTxt(e.target.value); onCambio(e.target.value); }}
+      onBlur={() => { foco.current = false; setTxt(fmt(valor)); avisar(); }}
+      onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); avisar(); } }} />
   );
+}
+
+// Primer error de las filas editadas del detalle (para bloquear Grabar/Modificar). errorFila(f) -> { campo: mensaje }
+export function errorDetalle(filas, errorFila, nombre) {
+  for (const f of filas) {
+    if (f.eliminado || !f._editado) continue;
+    const msg = Object.values(errorFila(f) || {}).find(Boolean);
+    if (msg) return `${tit(nombre(f))}: ${msg}`;
+  }
+  return null;
 }
 
 // ---------- Buscar cliente (btnCliente -> ListarCliente) con busqueda en el servidor ----------
@@ -532,10 +570,9 @@ function SelectorProductos({ url, parametros, categorias, enDetalle, onAgregar, 
 
   // tbProducto_TextChanged: todas las palabras deben estar en codigo + nombre + descripcion + categoria
   const filtrados = useMemo(() => {
-    const palabras = q.toUpperCase().split(/[\s.,;-]+/).filter(Boolean);
+    const palabras = palabrasDe(q);
     return productos.filter((p) => !enDetalle.has(Number(p.Id))).filter((p) => {
-      const t = `${p.CodigoExterno ?? ''} ${p.NombreProducto ?? ''} ${p.DescripcionProducto ?? ''} ${p.NombreCategoria ?? ''}`.toUpperCase();
-      return palabras.every((w) => t.includes(w));
+      return coincide(`${p.CodigoExterno ?? ''} ${p.NombreProducto ?? ''} ${p.DescripcionProducto ?? ''} ${p.NombreCategoria ?? ''}`, palabras);
     });
   }, [productos, q, enDetalle]);
 
@@ -597,6 +634,16 @@ export function CantidadCajas({ producto, onAceptar, onCancelar, sinLimite = fal
   const [cajas, setCajas] = useState('');
   const [unid, setUnid] = useState('');
   const [err, setErr] = useState('');
+  const refCajas = useRef(null);
+  const refUnid = useRef(null);
+  // Flecha izquierda en Unidades -> Cajas; flecha derecha en Cajas -> Unidades (con todo seleccionado)
+  const saltar = (destino) => (e) => {
+    if (e.altKey || e.ctrlKey || e.shiftKey || e.metaKey) return;
+    e.preventDefault();
+    destino.current?.focus();
+    destino.current?.select();
+  };
+  const seleccionar = (e) => e.target.select();
   const validar = () => {
     const u = num(unid);
     if (!(num(cajas) > 0) || !(u > 0)) { setErr('La Cantidad debe ser Mayor a 0'); return; }
@@ -610,10 +657,12 @@ export function CantidadCajas({ producto, onAceptar, onCancelar, sinLimite = fal
         <h3>{tit(producto.NombreProducto)}</h3>
         <p className="cc-stock">Stock: <b>{n2(stock)}</b> unidades · <b>{n2(stock / conv)}</b> cajas · {n2(conv)} u/caja</p>
         <div className="cc-campos">
-          <label>Cajas<input className="control num" type="number" inputMode="decimal" min="0" step="any" value={cajas}
+          <label>Cajas<input ref={refCajas} onFocus={seleccionar} onKeyDown={(e) => { if (e.key === 'ArrowRight') saltar(refUnid)(e); }}
+            className="control num" type="number" inputMode="decimal" min="0" step="any" value={cajas}
             onChange={(e) => { setErr(''); setCajas(e.target.value); setUnid(e.target.value === '' ? '' : String(Math.round(num(e.target.value) * conv * 100000) / 100000)); }} /></label>
           <span className="cc-igual" aria-hidden="true">=</span>
-          <label>Unidades<input autoFocus onFocus={(e) => e.target.select()} className="control num" type="number" inputMode="decimal" min="0" step="any" value={unid}
+          <label>Unidades<input ref={refUnid} autoFocus onFocus={seleccionar} onKeyDown={(e) => { if (e.key === 'ArrowLeft') saltar(refCajas)(e); }}
+            className="control num" type="number" inputMode="decimal" min="0" step="any" value={unid}
             onChange={(e) => { setErr(''); setUnid(e.target.value); setCajas(e.target.value === '' ? '' : String(Math.round((num(e.target.value) / conv) * 100000) / 100000)); }} /></label>
         </div>
         {err && <p className="campo-error" role="alert">{err}</p>}

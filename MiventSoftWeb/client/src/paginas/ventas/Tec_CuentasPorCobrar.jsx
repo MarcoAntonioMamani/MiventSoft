@@ -312,7 +312,7 @@ function DialogoCredito({ fila, modo, puede, onCerrar }) {
                   ))}
                   {!pagos.length && <tr><td colSpan={6} className="vacio">Sin pagos registrados</td></tr>}
                 </tbody>
-                {pagos.length > 0 && <tfoot><tr className="tr-total"><td><b>TOTAL</b></td><td className="num" data-label="Total pagado"><b>{bs(totalPagado)}</b></td><td colSpan={4} /></tr></tfoot>}
+                {pagos.length > 0 && <tfoot><tr className="tr-total"><td className="tf-tit"><b>TOTAL ({pagos.length} {pagos.length === 1 ? 'pago' : 'pagos'})</b></td><td className="num" data-label="Total pagado"><b>{bs(totalPagado)}</b></td><td colSpan={4} /></tr></tfoot>}
               </table>
             </div>
           </div>

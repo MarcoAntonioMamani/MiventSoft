@@ -10,6 +10,7 @@ import { Paginador, FILAS_POR_PAGINA } from '../../componentes/GridBuscador';
 import { api } from '../../api/http';
 import { useToast } from '../../componentes/Toast';
 import Icono from '../../componentes/Icono';
+import { palabrasDe, coincide } from '../../global/buscar';
 
 const URL = '/api/configuracion/precios';
 const clave = (p, c) => `${p}|${c}`;
@@ -115,9 +116,9 @@ export default function Tec_Precios() {
 
   const precios = useMemo(() => new Map(datos.precios.map(([p, c, v]) => [clave(p, c), v])), [datos.precios]);
   const filas = useMemo(() => {
-    const f = filtro.trim().toLowerCase();
-    if (!f) return datos.productos;
-    return datos.productos.filter((p) => `${p.yfcprod} ${p.yfcdprod1} ${p.NombreCategoria} ${p.proveedor}`.toLowerCase().includes(f));
+    const w = palabrasDe(filtro);
+    if (!w.length) return datos.productos;
+    return datos.productos.filter((p) => coincide(`${p.yfcprod} ${p.yfcdprod1} ${p.NombreCategoria} ${p.proveedor}`, w));
   }, [datos.productos, filtro]);
   useEffect(() => setPagina(0), [filtro, almacen]);
   const totalPaginas = Math.max(1, Math.ceil(filas.length / FILAS_POR_PAGINA));

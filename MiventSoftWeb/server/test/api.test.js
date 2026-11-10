@@ -488,6 +488,9 @@ test('INVENTARIO: movimientos (stock, estados, ingreso sin limite), kardex, sald
     assert.equal(k.filas[0].concepto, 'Saldo Inicial');
     assert.equal(k.resumen.final, k.filas[k.filas.length - 1].saldo);
     assert.equal(k.resumen.final, k.resumen.inicial + k.resumen.ingresos - k.resumen.salidas);
+    // ventas/mermas son salida, compras/ingresos son ingreso (no invertido)
+    assert.ok(k.filas.filter((f) => f.concepto === 'SALIDA').every((f) => f.salida > 0 && f.ingreso === 0));
+    assert.ok(k.filas.filter((f) => f.concepto === 'INGRESO').every((f) => f.ingreso > 0 && f.salida === 0));
     await ok('GET', '/api/inventario/reportes/saldos?mayor0=1');
     await ok('GET', '/api/inventario/reportes/saldos?deposito=1');
     assert.equal(ultimaLlamada('MAM_Movimientos', 11).params['@DepositoId'], 1);
@@ -624,7 +627,10 @@ test('PLANILLA: conceptos fijos, contratos (vigente, conceptos por estado), regi
     const v0 = (await ok('GET', `/api/planilla/planilla/listar/${p1.PlanillaId}/conceptos?tipo=0`)).data;
     assert.equal(v0.length, 1);
     await ok('DELETE', `/api/planilla/planilla/listar/${p1.PlanillaId}/variables/${v0[0].Id}`);
-    await ok('GET', `/api/planilla/planilla/listar/${p1.PlanillaId}/boleta`);
+    const bol = (await ok('GET', `/api/planilla/planilla/listar/${p1.PlanillaId}/boleta`)).data;
+    assert.ok(bol.filas.length > 0 && bol.filas[0].HaberBasicoBase !== undefined && bol.filas[0].img === undefined, 'boleta: columnas del SP sin binarios');
+    assert.equal(bol.empresa.nombre, 'DISTRAL REGIONAL- POTOSI');
+    assert.equal(bol.imagenEmpresa, 'Default.jpg');
     await ok('GET', '/api/planilla/planilla/listar/reporte?todos=1');
     await ok('DELETE', `/api/planilla/contratos/${n.id}`);
 });
@@ -664,4 +670,45 @@ test('BUSCAR POR ID: columna en cualquier mayuscula o repetida por un JOIN (mssq
 
 test('ningun llamado rompio el contrato de los SP del escritorio', () => {
     assert.ok(mock.__llamadas.length > 40, `se validaron ${mock.__llamadas.length} llamadas`);
+});
+
+test('panel: pedidos por vendedor con ubicacion (MAM_Ventas @tipo 3 + @tipo 23), en orden de creacion', async () => {
+    const r = await ok('GET', '/api/dashboard/pedidos-mapa');
+    const { vendedores, vendedor, pedidos } = r.data;
+    assert.ok(Array.isArray(vendedores));
+    if (!vendedores.length) return;
+    assert.equal(vendedor, vendedores[0].id);
+    const ll = ultimaLlamada('MAM_Ventas', 23);
+    assert.ok(ll, 'llama a MAM_Ventas @tipo 23');
+    assert.equal(pedidos.length, vendedores[0].pedidos);
+    pedidos.forEach((p, i) => { assert.equal(p.orden, i + 1); if (i) assert.ok(p.id > pedidos[i - 1].id); });
+    assert.ok(pedidos.some((p) => p.punto) && pedidos.every((p) => p.punto === null || p.punto.length === 2));
+    // recorrido: suma de tramos entre pedidos con GPS (el primero no tiene tramo)
+    const { recorrido } = r.data;
+    const conGps = pedidos.filter((p) => p.punto);
+    assert.equal(conGps[0].tramoKm, null);
+    assert.equal(recorrido.tramos, conGps.length - 1);
+    assert.ok(Math.abs(recorrido.km - conGps.reduce((s, p) => s + (p.tramoKm || 0), 0)) < 0.05);
+    assert.equal(recorrido.desde, conGps[0].hora);
+    const otro = vendedores[1] || vendedores[0];
+    assert.equal((await ok('GET', `/api/dashboard/pedidos-mapa?vendedor=${otro.id}`)).data.vendedor, otro.id);
+    assert.equal((await api('GET', '/api/dashboard/pedidos-mapa?vendedor=1;drop')).status, 400);
+});
+
+test('Inventario (FormularioStock): modulo fijo, menu "Ingreso y Salida De Productos" y stock general (MAM_Movimientos @tipo 18)', async () => {
+    const s = await ok('GET', '/api/auth/sesion');
+    const nombres = s.data.modulos.map((m) => m.cndesc1);
+    assert.equal(nombres[nombres.length - 1], 'INVENTARIO');
+    assert.ok(s.data.modulos.at(-1).programas.some((p) => p.IdPrograma === 'FORMULARIOSTOCK'));
+    const ing = s.data.modulos.find((m) => m.programas.some((p) => p.IdPrograma === 'BTINVMOVIMIENTO'));
+    assert.equal(ing.cndesc1, 'INGRESO Y SALIDA DE PRODUCTOS');
+    const c = (await ok('GET', '/api/inventario/stock/combos')).data;
+    assert.ok(c.categorias.length && c.proveedores.at(-1).Id === -1);
+    const todos = (await ok('GET', `/api/inventario/stock?categoria=${c.categorias[0].Id}&proveedor=-1`)).data;
+    const ll = ultimaLlamada('MAM_Movimientos', 18);
+    assert.equal(ll.params['@ProveedorId'], -1);
+    assert.ok(todos.length > 0 && 'stockGeneral' in todos[0] && 'precio' in todos[0]);
+    const p1 = (await ok('GET', `/api/inventario/stock?categoria=${c.categorias[0].Id}&proveedor=${c.proveedores[0].Id}`)).data;
+    assert.ok(p1.length <= todos.length);
+    assert.equal((await api('GET', '/api/inventario/stock?categoria=x')).status, 400);
 });

@@ -12,9 +12,10 @@ import TablaReporte from '../../componentes/TablaReporte';
 import { useToast } from '../../componentes/Toast';
 import { Celda } from '../../global/Celda';
 import { titulo as tit } from '../../global/programas';
-import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
 import { columnasDe } from '../ventas/Reportes';
+import { api, urlImagen } from '../../api/http';
+import { esc, imprimirHtml } from '../../global/imprimir';
 
 const URL = '/api/distribucion/cierre-caja';
 const dos = (n) => String(n).padStart(2, '0');
@@ -27,6 +28,91 @@ const colsVentas = (filas) => columnasDe(filas).map((c) => (c.campo === 'Credito
 const VACIO = { Id: '', ConciliacionId: '', PersonalId: 0, Personal: '', FechaCierre: '', VentasContado: 0, VentasCredito: 0, TotalCobros: 0, EfectivoRecibido: '' };
 let _k = 0;
 
+// ---------- ReporteCierreCajaChofer.rpt: Reporte de arqueo dinero en efectivo (SP MAM_CierreCaja @tipo 9) ----------
+// Cada fila del SP es una venta (cliente / nota / contado / credito) y repite los totales del cierre.
+const n2 = (x) => num(x).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const fechaHora = (s) => {
+  const [a, mm, d] = String(s || '').slice(0, 10).split('-');
+  if (!a) return '';
+  const h = String(s).slice(11, 16);
+  return `${d}/${mm}/${a}${h ? `&nbsp;&nbsp; ${h}` : ''}`;
+};
+const CSS_ARQUEO = `
+body { padding: 8mm 10mm; }
+.arq { box-sizing: border-box; width: 100%; color: #111; font: 11px/1.35 Arial, Helvetica, sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.arq * { box-sizing: border-box; }
+.arq .a-cab { display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 12px; align-items: start; margin-bottom: 16px; }
+.arq .a-logo { border: 1px solid #f0b37e; border-radius: 6px; height: 72px; display: flex; align-items: center; justify-content: center; padding: 4px; }
+.arq .a-logo img { max-width: 100%; max-height: 62px; object-fit: contain; }
+.arq h1 { margin: 2px 0 0; text-align: center; color: #1c2f8f; font-size: 16px; line-height: 1.35; text-transform: uppercase; }
+.arq .a-emp { text-align: right; text-transform: uppercase; font-size: 11px; letter-spacing: .3px; }
+.arq .a-datos { border: 1px dotted #1c2f8f; background: #fafbfc; padding: 8px 12px; margin-bottom: 18px; min-height: 60px; }
+.arq .a-datos div { display: grid; grid-template-columns: 110px 1fr; gap: 8px; margin-bottom: 6px; }
+.arq .a-et { color: #1c2f8f; font-weight: 700; }
+.arq .a-sec { display: inline-block; min-width: 45%; background: #6b6b6b; color: #fff; font-weight: 700; padding: 2px 8px; margin: 0 0 18px 16px; }
+.arq table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+.arq thead th { background: #1c2f8f; color: #fff; font-weight: 700; text-align: left; padding: 4px 16px; border: 1px solid #14226b; }
+.arq td { padding: 3px 16px; border-bottom: 1px dotted #9aa1a9; font-variant-numeric: tabular-nums; }
+.arq .num { text-align: right; }
+.arq .vacio { text-align: center; color: #555; }
+.arq .a-tot { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; margin: 0 16px 90px; break-inside: avoid; }
+.arq .a-tot dl { margin: 0; }
+.arq .a-tot dl div { display: grid; gap: 10px; padding: 4px 6px; align-items: baseline; }
+.arq .a-izq div { grid-template-columns: 190px 1fr; }
+.arq .a-izq dt { text-align: right; }
+.arq .a-der div { grid-template-columns: 130px 1fr; max-width: 290px; }
+.arq .a-tot dt { color: #1c2f8f; font-weight: 700; }
+.arq .a-tot dd { margin: 0; font-variant-numeric: tabular-nums; }
+.arq .a-tot .a-rec { background: #f1f1f1; }
+.arq .a-firmas { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 0 16px; text-align: center; break-inside: avoid; }
+.arq .a-firmas span { display: block; border-top: 1px dotted #555; margin-bottom: 8px; }
+.arq .a-firmas b { display: block; color: #1c2f8f; font-size: 13px; }
+.arq .a-firmas small { display: block; margin-top: 10px; font-size: 11px; text-transform: uppercase; }
+`;
+function hojaArqueo({ filas, f, empresa, imagenEmpresa }) {
+  const c = filas[0] || {};
+  const v = (campo, alterno) => (c[campo] ?? f?.[alterno ?? campo] ?? 0);
+  const personal = c.NombrePersonal ?? f?.NombrePersonal ?? '';
+  const logo = imagenEmpresa ? urlImagen('empresa', imagenEmpresa) : '';
+  const cuerpo = filas.length
+    ? filas.map((x) => `<tr><td>${esc(x.NombreCliente)}</td><td class="num">${esc(Number(x.NroNotaVenta || 0).toLocaleString('en-US'))}</td><td class="num">${n2(x.Contado)}</td><td class="num">${n2(x.Credito)}</td></tr>`).join('')
+    : '<tr><td colspan="4" class="vacio">Sin ventas</td></tr>';
+  return `<article class="arq">
+  <header class="a-cab">
+    <div class="a-logo">${logo ? `<img src="${esc(logo)}" alt="" onerror="this.remove()">` : ''}</div>
+    <h1>Reporte de arqueo dinero<br>en efectivo (Bs)</h1>
+    <div class="a-emp">${esc(empresa?.nombre)}<br>${esc(empresa?.direccion)}</div>
+  </header>
+  <section class="a-datos">
+    <div><span class="a-et">Distribuidor:</span><span>${esc(personal)}</span></div>
+    <div><span class="a-et">Fecha Arqueo:</span><span>${fechaHora(c.FechaArqueo ?? f?.FechaCierre)}</span></div>
+  </section>
+  <div class="a-sec">Resumen De Venta Realizadas</div>
+  <table>
+    <thead><tr><th>Cliente</th><th class="num">Nro De Nota Ventas</th><th class="num">Contado</th><th class="num">Credito</th></tr></thead>
+    <tbody>${cuerpo}</tbody>
+  </table>
+  <section class="a-tot">
+    <dl class="a-izq">
+      <div><dt>Dinero De Ventas Al Credito:</dt><dd>${n2(v('VentasCreditos'))}</dd></div>
+      <div><dt>Dinero De Ventas Al Contado:</dt><dd>${n2(v('VentasContado'))}</dd></div>
+      <div><dt>Amortizaciones:</dt><dd>${n2(v('TotalCobros'))}</dd></div>
+    </dl>
+    <dl class="a-der">
+      <div><dt>Total Gastos:</dt><dd>${n2(v('TotalGastos'))}</dd></div>
+      <div><dt>Efectivo Calculado:</dt><dd>${n2(v('EfectivoCalculado'))}</dd></div>
+      <div class="a-rec"><dt>Efectivo Recibido:</dt><dd>${n2(v('EfectivoRecibido'))}</dd></div>
+      <div><dt>Diferencia (+/-):</dt><dd>${n2(v('Diferencia'))}</dd></div>
+    </dl>
+  </section>
+  <section class="a-firmas">
+    <div><span></span><b>Entregado Conforme</b><small>${esc(personal)}</small></div>
+    <div><span></span><b>Revisado y Recibido Conforme</b></div>
+  </section>
+</article>`;
+}
+
+
 export default function Tec_CierreCaja() {
   const toast = useToast();
   const [filtro, setFiltro] = useState({ desde: hoy(), hasta: hoy() });
@@ -36,7 +122,6 @@ export default function Tec_CierreCaja() {
   const [gastos, setGastos] = useState([]);
   const [concs, setConcs] = useState(null);
   const [nuevoGasto, setNuevoGasto] = useState(false);
-  const [rep, setRep] = useState(null);
   const vig = gastos.filter((g) => !g.eliminado);
   const totalGastos = r2(vig.reduce((s, g) => s + num(g.Monto), 0));
   const calculado = r2(num(form.VentasContado) + num(form.TotalCobros) - totalGastos);
@@ -86,14 +171,19 @@ export default function Tec_CierreCaja() {
       setVentas(r.data.ventas); setCobranzas(r.data.cobranzas);
     } catch (e) { toast(e.message, 'error'); }
   };
-  const imprimir = async () => {
-    const f = m.filaActual; if (!f) return;
-    try { const r = await api.get(`${URL}/${f.Id}/reporte`); setRep({ ...r.data, fila: f }); } catch (e) { toast(e.message, 'error'); }
+  const imprimir = async (fila) => {
+    const f = fila || m.filaActual; if (!f) return;
+    try {
+      const r = await api.get(`${URL}/${f.Id}/reporte`);
+      imprimirHtml({ cuerpo: hojaArqueo({ ...r.data, f }), css: CSS_ARQUEO, titulo: `Arqueo de caja #${f.Id}` });
+    } catch (e) { toast(e.message, 'error'); }
   };
 
   return (
+    <>
     <ModeloF1 m={m} titulo="Cierre de caja" subtitulo="Cierre De Caja Del Distribuidor" icono="calc"
-      accionesRegistro={<button className="btn btn-sec" onClick={imprimir} disabled={!m.filaActual || m.habilitado}><Icono n="receipt" size={16} /> <span className="txt-btn">Reporte</span></button>}
+      accionesRegistro={<button className="btn btn-sec" onClick={() => imprimir()} disabled={!m.filaActual || m.habilitado}><Icono n="receipt" size={16} /> <span className="txt-btn">Reporte</span></button>}
+      accionesFila={(f) => [{ texto: 'Reporte', icono: 'printer', onClick: () => imprimir(f) }]}
       extraBuscador={(
         <div className="filtros-lista">
           <label className="filtro"><span>Desde</span><input type="date" className="control" value={filtro.desde} max={filtro.hasta} onChange={(e) => e.target.value && setFiltro((x) => ({ ...x, desde: e.target.value }))} /></label>
@@ -159,17 +249,8 @@ export default function Tec_CierreCaja() {
         columnas={[new Celda('NroConciliacion', true, 'NRO CONCILIACIÓN', 120), new Celda('FechaTxt', true, 'FECHA', 120), new Celda('NombrePersonal', true, 'CHOFER / DISTRIBUIDOR', 300)]}
         onCancelar={() => setConcs(null)} onSeleccionar={elegirConc} />
       {nuevoGasto && <DialogoGasto onCerrar={() => setNuevoGasto(false)} onAgregar={(g) => { setGastos((x) => [...x, { ...g, key: ++_k, nuevo: true }]); setNuevoGasto(false); }} />}
-      {rep && createPortal(
-        <div className="modal-fondo" onMouseDown={() => setRep(null)}>
-          <div className="modal modal-lg dialogo-asig" role="dialog" aria-modal="true" aria-label="Reporte de cierre" onMouseDown={(e) => e.stopPropagation()} onKeyDown={(e) => e.key === 'Escape' && setRep(null)}>
-            <div className="modal-cab"><h3>Cierre de caja #{rep.fila.Id}</h3><button className="btn-icono" onClick={() => setRep(null)} aria-label="Cerrar"><Icono n="x" /></button></div>
-            <TablaReporte titulo={`CIERRE DE CAJA #${rep.fila.Id} - ${rep.fila.NombrePersonal}`} subtitulo={[rep.empresa.nombre, rep.empresa.direccion].filter(Boolean).join(' · ')} columnas={columnasDe(rep.filas)} filas={rep.filas} claveFila="__no" />
-            <div className="modal-acciones"><button className="btn btn-sec" onClick={() => setRep(null)}>Cerrar</button></div>
-          </div>
-        </div>,
-        document.body,
-      )}
     </ModeloF1>
+    </>
   );
 }
 

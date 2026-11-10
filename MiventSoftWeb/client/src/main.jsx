@@ -8,9 +8,13 @@ import App from './App';
 import { SesionProvider } from './global/Sesion';
 import { ToastProvider } from './componentes/Toast';
 import { activarRipple } from './global/ripple';
+import { activarTeclado } from './global/teclado';
+import { instalarPuenteApp } from './global/appMovil';
 import './estilos/app.css';
 
 activarRipple();
+activarTeclado();
+instalarPuenteApp();
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

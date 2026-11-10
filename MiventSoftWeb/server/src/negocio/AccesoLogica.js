@@ -453,6 +453,16 @@ async function L_fnGeneralSucursales() { return _sp(4); }
 async function L_fnListarProductos() { return _sp(6); }
 async function L_fnListarCategorias() { return _sp(7); }
 async function L_fnListarProductosConPrecios(_almacen) { return _sp(5, [new DParametro('@almacen', _almacen)]); }
+async function L_fnListarCategoriaPrecio() { return _sp(9); }   // FormularioStock: combo Categoria Precio
+// FormularioStock (Inventario Productos): MAM_Movimientos @tipo 18, ProveedorId -1 = todos
+async function L_prListarProductosTodosInventario(CategoriaPrecio, ProveedorId) {
+    return D_ProcedimientoConParam('MAM_Movimientos', [
+        new DParametro('@tipo', 18),
+        new DParametro('@usuario', L_Usuario()),
+        new DParametro('@CategoriaPrecio', CategoriaPrecio),
+        new DParametro('@ProveedorId', ProveedorId),
+    ]);
+}
 
 async function L_fnGrabarCategorias(_ygnumi, cod, desc, tipo) {
     // VB usa "@Usuario" con mayuscula aqui; SQL Server no distingue mayusculas en nombres de parametro
@@ -515,6 +525,15 @@ async function L_prListarProductosConStockMinimo() {
 }
 async function ListaPedidosPendientesAsignaciones() {
     return D_ProcedimientoConParam('MAM_Ventas', [new DParametro('@tipo', 7), new DParametro('@usuario', L_Usuario())]);
+}
+// Pedidos de un vendedor en un dia con la ubicacion donde se registro (app movil): MAM_Ventas @tipo 23, ordenado por Id (orden de creacion)
+async function ListarVentasVendedorFecha(FechaVenta, PersonalId) {
+    return D_ProcedimientoConParam('MAM_Ventas', [
+        new DParametro('@tipo', 23),
+        new DParametro('@usuario', L_Usuario()),
+        new DParametro('@FechaVenta', FechaVenta),
+        new DParametro('@PersonalId', PersonalId),
+    ]);
 }
 
 // =====================================================================
@@ -913,6 +932,10 @@ async function ModificarConciliacion(_Id, Fecha, Estado, Observacion, detalle) {
 const _spT = (sp, tipo, extra = []) => D_ProcedimientoConParam(sp, [new DParametro('@tipo', tipo), ...extra]);
 async function L_prListarCaja() { return _spUsu('MAM_CajaIngresoEgreso', 4); }
 async function L_prListarTipoMovimientoCaja() { return _spUsu('MAM_CajaIngresoEgreso', 5); }
+/** VB InsertarTipoMovimiento (Crear_TipoMovimientoCaja): MAM_Ventas @tipo 21 -> { resultado, _numi } ; Tipo 1 = ingreso, 0 = egreso */
+async function InsertarTipoMovimiento(Descripcion, Tipo) {
+    return _fnResultadoGrabar(await _spUsu('MAM_Ventas', 21, [new DParametro('@Id', ''), new DParametro('@Descripcion', Descripcion), new DParametro('@TipoMovimiento', Tipo)]));
+}
 async function ListarReporteIngresoEgreso(Id) { return _spUsu('MAM_CajaIngresoEgreso', 8, [new DParametro('@id', Id)]); }
 const _paramsIE = (tipo, m) => [
     new DParametro('@tipo', tipo),
@@ -1133,7 +1156,7 @@ module.exports = {
     L_fnObtenerHistorialProductoGeneral, L_fnObtenerHistorialProducto, L_fnListarProductosQueTienenMovimientos, ReporteSaldosValorados, L_prListarProductosStockVencidos,
     ListaDetalleGastosCierreId, ListarConciliacionesCaja, ListaDetallePedidosconciliacion, ListaCobranzasPorPersonalSinCierre, ListaCobranzasPorPersonalconCierre,
     DatosreporteCierreCaja, InsertarCierreCaja, ModificarCierreCaja,
-    L_prListarCaja, L_prListarTipoMovimientoCaja, ListarReporteIngresoEgreso, L_prIngresoSalidaInsertar, L_prIngresoSalidaModificar,
+    L_prListarCaja, L_prListarTipoMovimientoCaja, InsertarTipoMovimiento, ListarReporteIngresoEgreso, L_prIngresoSalidaInsertar, L_prIngresoSalidaModificar,
     ReporteIngresosEgresosMes, ReporteIngresoEgresoDetallado, ReporteGastosFecha, L_prListarHistorico, L_prListarAuditoriaVentas, L_prListarAuditoriaVentasDetalle,
     ListarProveedoresCombo, ListarCategoriasVentas, ListarProductosBuscador, L_prGenerarReporteProductosPorVentas, L_fnListarZonasAsignadas, L_prRegistrarAsignacion,
     ListaDetalleDespachoProductos, ListarProductosSeleccionables, GenerarDatosDespachoReporte, CargarProductosAutomatico, CargarReferenciaVentas,
@@ -1155,7 +1178,8 @@ module.exports = {
     L_prListarProductosVentas, L_prListarProductosVentasConciliaciones, L_prVerificarConcicliacionAbierta, ObtenerImagenEmpresa,
     VentaInsertar, VentaModificar,
     L_prListarGeneralFechas, L_prListarPagosPendientes, L_prListarPagosPendientesClientes, ReporteVentasProductosMasVendido,
-    L_prListarProductosConStock0, L_prListarProductosConStockMinimo, ListaPedidosPendientesAsignaciones,
+    L_prListarProductosConStock0, L_prListarProductosConStockMinimo, ListaPedidosPendientesAsignaciones, ListarVentasVendedorFecha,
+    L_fnListarCategoriaPrecio, L_prListarProductosTodosInventario,
     _columnasDe,
     L_prClasificadorGrabar,
     InsertarCliente, ModificarCliente, L_prClienteBorrar, L_prListaCategoriasPrecios, L_prListarZonas,

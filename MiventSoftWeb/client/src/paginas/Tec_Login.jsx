@@ -2,6 +2,7 @@
 import { useRef, useState } from 'react';
 import { useSesion } from '../global/Sesion';
 import Icono from '../componentes/Icono';
+import { esApp, servidorApp, configurarServidorApp } from '../global/appMovil';
 
 export default function Tec_Login() {
   const { ingresar, aviso } = useSesion();
@@ -58,6 +59,11 @@ export default function Tec_Login() {
           </div>
         </label>
         <button className="btn btn-pri btn-bloque" disabled={cargando}>{cargando ? 'Validando...' : 'Ingresar'}</button>
+        {esApp && (
+          <button type="button" className="btn btn-sec btn-bloque" onClick={configurarServidorApp} disabled={cargando}>
+            <Icono n="settings" size={16} /> Servidor: {servidorApp() || 'sin configurar'}
+          </button>
+        )}
         <p className="login-pie">© {new Date().getFullYear()} Santit</p>
       </form>
     </div>

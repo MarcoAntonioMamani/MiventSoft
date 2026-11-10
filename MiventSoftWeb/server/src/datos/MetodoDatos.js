@@ -93,6 +93,8 @@ async function _ObtenerTiposTabla(pool, nombreSp) {
     return definicion;
 }
 
+const _TIPOS_TEXTO = new Set(['char', 'varchar', 'nchar', 'nvarchar', 'text', 'ntext']);
+
 function _ConstruirTabla(defTVP, detalle, nombreParam) {
     const tabla = new sql.Table(defTVP.tipo);
     defTVP.columnas.forEach((c) => {
@@ -114,7 +116,10 @@ function _ConstruirTabla(defTVP, detalle, nombreParam) {
             let v;
             if (Array.isArray(fila)) v = fila[i];
             else v = fila[columnasOrigen[i] ?? c.columna];
-            if (v === undefined || v === '') v = null;
+            if (v === undefined) v = null;
+            // '' -> NULL salvo en columnas de texto NOT NULL del tipo tabla (ADO.NET envia la cadena vacia tal cual;
+            // p.ej. PlanillaConcetoType.Descripcion NOT NULL fallaba con "Cannot insert the value NULL")
+            if (v === '' && (c.is_nullable || !_TIPOS_TEXTO.has(c.tipoColumna))) v = null;
             if (typeof v === 'boolean') v = v ? 1 : 0;
             return v;
         });

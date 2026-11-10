@@ -5,6 +5,7 @@
 // =====================================================================
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Icono from './Icono';
+import { palabrasDe, coincide } from '../global/buscar';
 
 export function EfectoConfirmar({ abierto, titulo, descripcion, onAceptar, onCancelar, peligro = true }) {
   const btn = useRef(null);
@@ -42,9 +43,9 @@ export function EfectoAyuda({ abierto, titulo, dt = [], columnas, onSeleccionar,
   }, [abierto]);
 
   const filas = useMemo(() => {
-    const f = filtro.trim().toLowerCase();
-    if (!f) return dt;
-    return dt.filter((r) => columnas.some((c) => String(r[c.campo] ?? '').toLowerCase().includes(f)));
+    const w = palabrasDe(filtro); // palabras en cualquier orden, en cualquier columna
+    if (!w.length) return dt;
+    return dt.filter((r) => coincide(columnas.map((c) => r[c.campo] ?? '').join(' '), w));
   }, [dt, filtro, columnas]);
 
   if (!abierto) return null;

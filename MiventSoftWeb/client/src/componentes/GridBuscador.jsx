@@ -73,6 +73,12 @@ function Celdita({ fila, c }) {
   if (c.tipo === 'bool') {
     return <span className={`badge ${v ? 'badge-ok' : 'badge-off'}`}>{v ? c.formato || 'SI' : c.formatoNo || 'NO'}</span>;
   }
+  // Estado con color: verde si coincide con c.formato (o empieza con ABIERT/ACTIV/VIGENTE), rojo en otro caso
+  if (c.tipo === 'estado') {
+    if (v === null || v === undefined || v === '') return '';
+    const ok = c.formato ? String(v).toUpperCase() === c.formato.toUpperCase() : /^(ABIERT|ACTIV|VIGENTE)/i.test(String(v));
+    return <span className={`chip-mora ${ok ? 'al-dia' : 'mora-alta'}`}>{v}</span>;
+  }
   // Codigos (Id, ...Id) se muestran tal cual: 3035, no 3.035
   if (c.tipo === 'num' && /(^id$|id$)/i.test(c.campo) && c.formato === '') return v ?? '';
   if (c.tipo === 'num' && v !== null && v !== undefined && v !== '') {
@@ -253,7 +259,7 @@ export default function GridBuscador({ estructura, filas, totalFilas, filtros, s
                 className={`fila ${f.__id === idSel ? 'sel' : ''} ${f.__id === resaltado ? 'resaltado' : ''}`}
                 onClick={() => habilitado && onSeleccionar(f)} onDoubleClick={() => habilitado && !tactil.current && onAbrir(f)} {...eventosFila(f)}>
                 {cols.map((c) => (
-                  <td key={c.campo} data-label={c.titulo} className={c.tipo === 'num' ? 'num' : c.tipo === 'bool' ? 'centro' : /fecha|hora/i.test(c.campo) || c.tipo === 'fecha' ? 'nw' : ''}>
+                  <td key={c.campo} data-label={c.titulo} className={c.tipo === 'num' ? 'num' : c.tipo === 'bool' || c.tipo === 'estado' ? 'centro' : /fecha|hora/i.test(c.campo) || c.tipo === 'fecha' ? 'nw' : ''}>
                     <Celdita fila={f} c={c} />
                   </td>
                 ))}

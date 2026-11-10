@@ -10,6 +10,7 @@ import { Paginador, FILAS_POR_PAGINA } from './GridBuscador';
 import { fmtBs, fmtN } from './Graficos';
 import { titulo } from '../global/programas';
 import Icono from './Icono';
+import { palabrasDe, coincide } from '../global/buscar';
 
 const COLOR_CHIP = (n) => (/ENTREG/.test(n) ? 'ok' : /ANUL/.test(n) ? 'mal' : /PEND/.test(n) ? 'aviso' : 'info');
 
@@ -56,9 +57,9 @@ export default function DetalleDashboard({ consulta, onCerrar }) {
   const d = estado.datos;
   const filtradas = useMemo(() => {
     if (!d) return [];
-    const t = texto.trim().toUpperCase();
-    if (!t) return d.filas;
-    return d.filas.filter((f) => Object.values(f).some((v) => String(v ?? '').toUpperCase().includes(t)));
+    const w = palabrasDe(texto);
+    if (!w.length) return d.filas;
+    return d.filas.filter((f) => coincide(Object.values(f).map((v) => v ?? '').join(' '), w));
   }, [d, texto]);
   const totalPaginas = Math.max(1, Math.ceil(filtradas.length / FILAS_POR_PAGINA));
   const pag = Math.min(pagina, totalPaginas - 1);

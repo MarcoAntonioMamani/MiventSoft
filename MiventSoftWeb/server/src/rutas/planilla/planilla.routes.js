@@ -85,7 +85,12 @@ router.get('/listar/reporte', LIS, asyncHandler(async (req, res) => {
 router.get('/listar/variables', LIS, asyncHandler(async (req, res) => {
     res.json({ ok: true, data: (await L.ListarConceptoVariablePlanilla()).map((f) => ({ Id: num(col(f, 'id')), NombreConcepto: col(f, 'NombreConcepto') ?? '', Operacion: num(col(f, 'Operacion')) })) });
 }));
-router.get('/listar/:id/boleta', LIS, asyncHandler(async (req, res) => res.json({ ok: true, data: sinBinarios(await L.ReporteBoletaSalarioIndividual(v.idRuta(req.params.id))) })));
+// GenerarReporteIndividual (VB): boleta @tipo 8 + logo, nombre y direccion de ObtenerImagenEmpresa (parametros NombreEmpresa / Ciudad)
+router.get('/listar/:id/boleta', LIS, asyncHandler(async (req, res) => {
+    const [dt, emp] = await Promise.all([L.ReporteBoletaSalarioIndividual(v.idRuta(req.params.id)), L.ObtenerImagenEmpresa().catch(() => [])]);
+    const e = limpiar(emp)[0] || {};
+    res.json({ ok: true, data: { filas: sinBinarios(dt), empresa: { nombre: String(col(e, 'Nombre') ?? ''), direccion: String(col(e, 'Direccion') ?? '') }, imagenEmpresa: emp.length ? String(Object.values(emp[0])[0] ?? '') : '' } });
+}));
 router.get('/listar/:id/conceptos', LIS, asyncHandler(async (req, res) => {
     res.json({ ok: true, data: await conceptos(v.idRuta(req.params.id), req.query.tipo === '0' ? 0 : 1) });
 }));

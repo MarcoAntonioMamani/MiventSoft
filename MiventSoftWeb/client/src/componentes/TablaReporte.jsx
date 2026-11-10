@@ -7,6 +7,7 @@
 //  columnas: [{ campo, titulo, tipo: 'texto'|'num'|'bs'|'fecha'|'entero', total, render(f), clase(f) }]
 //  seleccion (opcional): { ids: Set, onCambio(Set) } -> casilla por fila (como la columna Asignar de Janus);
 //    la casilla del encabezado marca / desmarca todas las filas del filtro actual
+//  claseFila(f) (opcional): clase CSS extra por fila (color de toda la fila, como GridEXFormatCondition)
 //  onImprimir(filasFiltradas) (opcional): impresion propia (ej. ReporteImpreso con grupos) en vez de la tabla simple
 // =====================================================================
 import { useMemo, useState } from 'react';
@@ -14,6 +15,8 @@ import { Paginador, FILAS_POR_PAGINA } from './GridBuscador';
 import { useSesion } from '../global/Sesion';
 import Icono from './Icono';
 import { imprimirReporte } from './ReporteImpreso';
+import { palabrasDe, coincide } from '../global/buscar';
+import { descargarTexto } from '../global/appMovil';
 
 const bs = (n, d = 2) => Number(n || 0).toLocaleString('es-BO', { minimumFractionDigits: d, maximumFractionDigits: d });
 export function fechaTxt(v) {
@@ -30,18 +33,17 @@ export function valorTexto(c, v) {
 }
 const esNum = (c) => ['bs', 'num', 'entero'].includes(c.tipo);
 
-export default function TablaReporte({ columnas, filas = [], cargando, titulo, subtitulo, onFila, accion, vacio = 'Sin registros', claveFila = 'Id', herramientas, filaSel, seleccion, onImprimir }) {
+export default function TablaReporte({ columnas, filas = [], cargando, titulo, subtitulo, onFila, accion, vacio = 'Sin registros', claveFila = 'Id', herramientas, filaSel, seleccion, onImprimir, claseFila }) {
   const { sesion } = useSesion();
   const [texto, setTexto] = useState('');
   const [pagina, setPagina] = useState(0);
   const [orden, setOrden] = useState({ campo: null, asc: true });
 
   const filtradas = useMemo(() => {
-    const palabras = texto.trim().toUpperCase().split(/\s+/).filter(Boolean);
+    const palabras = palabrasDe(texto);
     let r = filas.filter((f) => {
       if (!palabras.length) return true;
-      const t = columnas.map((c) => valorTexto(c, f[c.campo])).join(' ').toUpperCase();
-      return palabras.every((p) => t.includes(p));
+      return coincide(columnas.map((c) => valorTexto(c, f[c.campo])).join(' '), palabras);
     });
     if (orden.campo) {
       const c = columnas.find((x) => x.campo === orden.campo);
@@ -79,12 +81,7 @@ export default function TablaReporte({ columnas, filas = [], cargando, titulo, s
     const esc = (s) => `"${String(s ?? '').replace(/"/g, '""')}"`;
     const lineas = [columnas.map((c) => esc(c.titulo)).join(';'),
       ...filtradas.map((f) => columnas.map((c) => (esNum(c) ? String(Number(f[c.campo] || 0)).replace('.', ',') : esc(valorTexto(c, f[c.campo])))).join(';'))];
-    const blob = new Blob([`﻿${lineas.join('\r\n')}`], { type: 'text/csv;charset=utf-8' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `${(titulo || 'reporte').replace(/[^\w\- ]+/g, '').trim().replace(/\s+/g, '_')}.csv`;
-    a.click();
-    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    descargarTexto(`${(titulo || 'reporte').replace(/[^\w\- ]+/g, '').trim().replace(/\s+/g, '_')}.csv`, `﻿${lineas.join('\r\n')}`);
   };
   const imprimir = () => {
     if (onImprimir) { onImprimir(filtradas); return; }
@@ -130,7 +127,7 @@ export default function TablaReporte({ columnas, filas = [], cargando, titulo, s
           <tbody>
             {cargando && !filas.length && <tr><td colSpan={nCols} className="vacio"><span className="spinner" /> Cargando...</td></tr>}
             {visibles.map((f, i) => (
-              <tr key={f[claveFila] ?? i} className={`${onFila ? 'fila-clic' : ''} ${(filaSel !== undefined && filaSel === f[claveFila]) || seleccion?.ids.has(f[claveFila]) ? 'sel' : ''}`} onClick={onFila ? () => onFila(f) : undefined}
+              <tr key={f[claveFila] ?? i} className={`${onFila ? 'fila-clic' : ''} ${(filaSel !== undefined && filaSel === f[claveFila]) || seleccion?.ids.has(f[claveFila]) ? 'sel' : ''} ${claseFila ? claseFila(f) || '' : ''}`} onClick={onFila ? () => onFila(f) : undefined}
                 tabIndex={onFila ? 0 : undefined} onKeyDown={onFila ? (e) => e.key === 'Enter' && e.target === e.currentTarget && onFila(f) : undefined}>
                 {seleccion && (
                   <td className="col-sel" data-label="Seleccionar" onClick={(e) => e.stopPropagation()}>
@@ -149,7 +146,7 @@ export default function TablaReporte({ columnas, filas = [], cargando, titulo, s
             <tfoot>
               <tr className="tr-total">
                 {seleccion && <td className="col-sel" />}
-                {columnas.map((c, i) => <td key={c.campo} className={esNum(c) ? 'num' : ''} data-label={c.total ? `Total ${c.titulo}` : ''}>{c.total ? <b>{valorTexto(c, totales[c.campo])}</b> : i === 0 ? <b>TOTAL ({filtradas.length})</b> : ''}</td>)}
+                {columnas.map((c, i) => <td key={c.campo} className={`${esNum(c) ? 'num' : ''} ${!c.total && i === 0 ? 'tf-tit' : ''}`} data-label={c.total ? `Total ${c.titulo}` : ''}>{c.total ? <b>{valorTexto(c, totales[c.campo])}</b> : i === 0 ? <b>TOTAL ({filtradas.length})</b> : ''}</td>)}
                 {accion && <td />}
               </tr>
             </tfoot>

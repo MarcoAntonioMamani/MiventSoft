@@ -231,8 +231,8 @@ db.tiposMovInv = [{ Id: 3, Descripcion: 'SALIDA' }, { Id: 4, Descripcion: 'INGRE
 db.movInv = [{ Id: 1, fdoc: diaUTC(20), concep: 4, obs: 'COMPRA INICIAL', alm: 1, det: [{ Id: 1, ProductoId: 1, Cantidad: 100 }, { Id: 2, ProductoId: 2, Cantidad: 50 }] },
     { Id: 2, fdoc: diaUTC(2), concep: 3, obs: 'MERMA', alm: 1, det: [{ Id: 1, ProductoId: 1, Cantidad: 4 }] }];
 const COLS_MDET = ['Id', 'MovimientoId', 'ProductoId', 'Producto', 'Cantidad', 'CantidadCajas', 'Lote', 'FechaVencimiento', 'img', 'estado', 'stock', 'stockFinal', 'conversion'];
-const kardexDe = (pid, dep) => db.movInv.filter((m) => m.alm === dep).flatMap((m) => m.det.filter((d) => d.ProductoId === pid).map((d) => ({ id: m.Id, fdoc: m.fdoc, concep: m.concep, descConcep: m.concep === 4 ? 'INGRESO' : 'SALIDA', obs: m.obs,
-    Lote: '', FechaVenc: null, est: 1, alm: dep, id2: 0, cprod: pid, descProd: nombreDe(db.productos, pid, 'NombreProducto'), entrada: m.concep === 4 ? 0 : -d.Cantidad, salida: m.concep === 4 ? d.Cantidad : 0, saldo: 0, fechaDocumento: m.fdoc })));
+const kardexDe = (pid, dep) => db.movInv.filter((m) => m.alm === dep).flatMap((m) => m.det.filter((d) => d.ProductoId === pid).map((d) => ({ id: m.Id, fdoc: m.fdoc, concep: m.concep === 4 ? 1 : 2, descConcep: m.concep === 4 ? 'INGRESO' : 'SALIDA', obs: m.obs, // como el SP: 1 = Factor 1, 2 = Factor -1
+    Lote: '', FechaVenc: null, est: 1, alm: dep, id2: 0, cprod: pid, descProd: nombreDe(db.productos, pid, 'NombreProducto'), entrada: m.concep === 4 ? d.Cantidad : 0, salida: m.concep === 4 ? 0 : -d.Cantidad, saldo: 0, fechaDocumento: m.fdoc })));
 db.cajas = [{ Id: 1, NombreCaja: 'CAJA GENERAL' }, { Id: 2, NombreCaja: 'CAJA CHICA' }, { Id: 3, NombreCaja: 'BANCO' }];
 db.tiposMov = [{ Id: 1, Descripcion: 'VENTA', Tipo: 1 }, { Id: 2, Descripcion: 'PAGO SERVICIOS', Tipo: 0 }, { Id: 9, Descripcion: 'TRASPASO', Tipo: 0 }, { Id: 10, Descripcion: 'INGRESO POR TRASPASO', Tipo: 1 }];
 db.cierreCajero = [{ Id: 1, SucursalId: 1, EstadoCaja: 1, Fecha: diaUTC(0) }];
@@ -467,6 +467,16 @@ async function EjecutarProcedimiento(nombre, lista) {
                 return tabla(db.ventas.filter((x) => x.FechaVenta >= d && x.FechaVenta <= h));
             }
             if (tipo === 7) return tabla(db.ventas.filter((x) => x.NombreEstado === 'PENDIENTE').map(filaAsig));
+            if (tipo === 23) {
+                const f = String(v('FechaVenta')).replace(/\//g, '-');
+                return tabla(db.ventas.filter((x) => x.FechaVenta.toISOString().slice(0, 10) === f && x.PersonalId === Number(v('PersonalId'))).sort((x, y) => x.Id - y.Id).map((x, i) => {
+                    const cl = db.clientes.find((c) => c.Id === x.ClienteId) || {};
+                    const sinGps = i % 6 === 5;
+                    const lat = sinGps ? 0 : (Number(cl.Latitud) || -19.585 + i * 0.0011) + 0.0003;
+                    const lon = sinGps ? 0 : (Number(cl.Longitud) || -65.755 + (i % 4) * 0.0013) - 0.0002;
+                    return { id: x.Id, FechaVenta: x.FechaVenta, ClienteId: x.ClienteId, NombreCliente: x.NombreCliente, TotalVenta: x.TotalVenta, HoraRegistro: x.HoraRegistro, Latitud: lat, Longitud: lon, DistanciaKm: sinGps ? null : 0.04 };
+                }));
+            }
             if (tipo === 30) return tabla(db.categorias.map((c) => ({ id: c.Id, NombreCategoria: c.NombreCategoria })));
             if (tipo === 31) return tabla([{ ClienteId: 1, NombreCliente: 'TIENDA LOS PINOS', ProductoId: 1, CodigoExterno: 'CC2', NombreProveedor: 'EMBOL', NombreProducto: 'COCA COLA 2L', Categoria: 'BEBIDAS', unidad: 'UNIDAD', Conversion: 6, CantidadUni: 24, CantidadCaja: 4, TotalVenta: 240 }]);
             if (tipo === 22) return tabla(db.conciliaciones.map(({ id: cid, conciliacion }) => ({ id: cid, conciliacion })));
@@ -574,6 +584,13 @@ async function EjecutarProcedimiento(nombre, lista) {
                 return tabla([{ Id: m.Id }]);
             }
             if (tipo === 13) return tabla(db.productos.map((x) => ({ Id: x.Id, Nombre: x.NombreProducto, Stock: db.stock[x.Id] || 0 })));
+            if (tipo === 18) {
+                const cat = Number(v('CategoriaPrecio')); const prov = Number(v('ProveedorId'));
+                return tabla(db.productos.filter((x) => prov === -1 || x.ProveedorId === prov).map((x) => ({
+                    Id: x.Id, CodigoExterno: x.CodigoExterno, NombreProveedor: nombreDe(db.proveedores, x.ProveedorId, 'NombreProveedor'), NombreProducto: x.NombreProducto,
+                    Categoria: x.NombreCategoria, industria: '', unidad: 'UNIDAD', DescripcionProducto: x.DescripcionProducto || x.NombreProducto, stockMinimo: x.StockMinimo,
+                    precio: (db.precios.find((y) => y.almacen === 1 && y.yhprod === x.Id && y.yhcatpre === cat) || {}).yhprecio || 0, stock: db.stock[x.Id] || 0, stockGeneral: db.stock[x.Id] || 0 })));
+            }
             return tipo === 6 ? tabla([{ Lote: false }]) : tabla([]);
         }
         case 'MAM_DespachoProductos': {
@@ -813,7 +830,22 @@ async function EjecutarProcedimiento(nombre, lista) {
             if (tipo === 6) return tabla(db.conceptosFijos.filter((c) => c.Tipo === 0).map((c) => ({ id: c.Id, NombreConcepto: c.NombreConcepto, Operacion: nombreDe(db.operacionesCF, c.OperacionId, 'Operacion') })));
             if (tipo === 3) return tabla(delPeriodo().map(filaPl));
             if (tipo === 9) return tabla(delPeriodo().map((pl, i) => { const { ConceptoFijos, ConceptoVariable, Reporte, ...x } = filaPl(pl, i); return { ...x, img: Buffer.from('x') }; }));
-            if (tipo === 8) { const pl = db.planillas.find((x) => x.Id === id); return tabla(pl ? db.planillaConceptos.filter((x) => x.PlanillaId === id).map((x) => ({ Trabajador: filaPl(pl, 0).Trabajador, Concepto: x.NombreConcepto, Monto: x.Monto, SueldoNeto: neto(pl), img: Buffer.from('x') })) : []); }
+            if (tipo === 8) { // mismas columnas que el SP (LEFT JOIN: sin conceptos sale 1 fila con NombreConcepto NULL)
+                const pl = db.planillas.find((x) => x.Id === id);
+                if (!pl) return tabla([]);
+                const c = ctr(pl.ContratoId); const fp = filaPl(pl, 0);
+                const per = db.personal.find((x) => x.Id === c.PersonalId) || {};
+                const conc = db.planillaConceptos.filter((x) => x.PlanillaId === id);
+                const suma = (t) => conc.filter((x) => Number(x.TipoConcepto) === t).reduce((a, x) => a + Number(x.Monto), 0);
+                const ddmm = (d) => new Date(d).toISOString().slice(0, 10).split('-').reverse().join('/');
+                const base = { PlanillaId: id, NombrePersonal: fp.Trabajador, Cargo: fp.Cargo, Mes: `${fp.Mes} - ${fp.Anio}`, HaberBasicoBase: c.SueldoBase, NroDocumento: per.NroDocumento ?? per.Ci ?? '',
+                    Regional: 'Santa Cruz', FechaIngreso: ddmm(c.InicioContrato), 'Antigüedad': '1 Año; 1 Meses; 4 Dias', HaberBasico: pl.Sueldo };
+                const tot = { SueldoBruto: pl.SueldoBruto, SueldoNeto: neto(pl), img: Buffer.from('x'), SumaConceptoFijo: suma(1), SumaConceptoVariable: suma(0) };
+                if (!conc.length) return tabla([{ ...base, NombreConcepto: null, TipoConcepto: 'Variable', asNombreOperacion: '---', Porcentaje: '---', Monto: 0, ...tot }]);
+                return tabla(conc.map((x) => ({ ...base, NombreConcepto: `${x.NombreConcepto}
+Fecha: ${ddmm(x.Fecha || new Date())}`, TipoConcepto: Number(x.TipoConcepto) === 1 ? 'Fijo' : 'Variable',
+                    asNombreOperacion: Number(x.Monto) < 0 ? 'Resta' : 'Suma', Porcentaje: Number(x.TipoConcepto) === 1 ? String(Math.abs(Number(x.Porcentaje))) : '---', Monto: x.Monto, ...tot })));
+            }
             return tabla([]);
         }
         case 'MAM_CreditosCompras': {
@@ -846,7 +878,7 @@ async function EjecutarProcedimiento(nombre, lista) {
             return tabla([]);
         }
         case 'MAM_ReporteVentas': {
-            if (tipo === 3) return tabla([{ Imagen: 'Default.jpg' }]);
+            if (tipo === 3) return tabla([{ Imagen: 'Default.jpg', Nombre: 'DISTRAL REGIONAL- POTOSI', Direccion: 'CALLE ARGOTE 168' }]);
             if (tipo === 9) return tabla(db.productos.map((x) => ({ Id: x.Id, NombreProducto: x.NombreProducto, Stock: db.stock[x.Id] || 0, PrecioCosto: 5 + x.Id, Total: (db.stock[x.Id] || 0) * (5 + x.Id), img: null })));
             if (tipo === 12) return tabla([{ Id: 3, NombreProducto: nombreDe(db.productos, 3, 'NombreProducto'), lote: 'L-2025', FechaVencimiento: diaUTC(15), cantidad: 12 }]);
             const fi = () => new Date(String(v('FechaI')).replace(/\//g, '-') + 'T00:00:00Z');
@@ -892,7 +924,7 @@ async function EjecutarProcedimiento(nombre, lista) {
             if (tipo === 4) return tabla(db.almacenes);
             if (tipo === 8) return tabla(db.estados);
             if (tipo === 6) return tabla(db.productos.map((x) => ({ yfnumi: x.Id, yfcprod: x.CodigoExterno, yfcdprod1: x.NombreProducto, NombreCategoria: x.NombreCategoria, proveedor: nombreDe(db.proveedores, x.ProveedorId, 'NombreProveedor') })));
-            if (tipo === 7) return tabla(db.catPrecio.map(({ ygnumi, ygcod, ygdesc }) => ({ ygnumi, ygcod, ygdesc })));
+            if (tipo === 7 || tipo === 9) return tabla(db.catPrecio.map(({ ygnumi, ygcod, ygdesc }) => ({ ygnumi, ygcod, ygdesc })));
             if (tipo === 5) return matrizPrecios(Number(v('almacen')));
             if (tipo === 1) { const ygnumi = sig(db.catPrecio, 'ygnumi'); db.catPrecio.push({ ygnumi, ygcod: v('Codigo'), ygdesc: v('Descripcion'), ygpcv: 1, estado: Number(v('TipoCategoria')) ? 'LETRA' : 'NUMERO' }); return tabla([{ ygnumi }]); }
             if (tipo === -1) { db.catPrecio = db.catPrecio.filter((x) => x.ygnumi !== id); return tabla([{ ygnumi: id }]); }

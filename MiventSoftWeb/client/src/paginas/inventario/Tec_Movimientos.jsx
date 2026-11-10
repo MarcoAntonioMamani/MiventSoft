@@ -11,7 +11,7 @@ import { Celda } from '../../global/Celda';
 import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
-import { NumeroCelda } from '../ventas/Tec_Ventas';
+import { NumeroCelda, errorDetalle } from '../ventas/Tec_Ventas';
 import { SelectorProductos } from '../distribucion/Tec_Despachos';
 
 const URL = '/api/inventario/movimientos';
@@ -55,6 +55,8 @@ export default function Tec_Movimientos() {
       if (!form.ConceptoId) { toast('Seleccione Tipo Movimiento'.toUpperCase(), 'error'); return false; }
       if (!form.DepositoId) { toast('Seleccion Deposito'.toUpperCase(), 'error'); return false; }
       if (!vig.length) { toast('Por Favor Inserte un Detalle'.toUpperCase(), 'error'); return false; }
+      const ed = errorDetalle(vig, errFila, (d) => d.Producto);
+      if (ed) { toast(ed, 'error', 6000); return false; }
       return true;
     },
     _PMOGrabarRegistro: () => api.post(URL, { ...form, detalle: vig.map((d) => ({ ProductoId: d.ProductoId, Cantidad: d.Cantidad })) }),
@@ -65,13 +67,19 @@ export default function Tec_Movimientos() {
   const ro = !m.habilitado;
   // cbTipoMovimiento / cbDepositos cambian en un registro nuevo -> se limpia el detalle (VB)
   const cambiarCab = (k) => (x) => { setForm((f) => ({ ...f, [k]: x })); if (m.modo === 'nuevo' && detalle.length) { setDetalle([]); toast('Se limpió el detalle por el cambio', 'ok', 2500); } };
+  // el valor se aplica en cada tecla aunque sea invalido: la celda lo marca (errFila) y Grabar lo bloquea
   const cambiarCant = (key, txt) => setDetalle((d) => d.map((x) => {
     if (x.key !== key) return x;
-    const n = Number(txt);
-    if (!Number.isFinite(n) || n <= 0) { toast('La Cantidad debe ser Mayor a 0', 'error'); return { ...x }; }
-    if (!esIngreso && x.stock !== undefined && n > num(x.stock) + 1e-9) { toast(`La cantidad que se quiere sacar es mayor a la que existe en el stock solo puede Sacar : ${n2(x.stock)}`.toUpperCase(), 'error'); return { ...x }; }
-    return { ...x, Cantidad: n, CantidadCajas: n / (num(x.conversion) || 1) };
+    const n = num(txt);
+    return { ...x, Cantidad: n, CantidadCajas: n / (num(x.conversion) || 1), _editado: true };
   }));
+  const errFila = (x) => {
+    if (!x._editado) return {};
+    const n = num(x.Cantidad);
+    if (!(n > 0)) return { Cantidad: 'La Cantidad debe ser Mayor a 0' };
+    if (!esIngreso && x.stock !== undefined && n > num(x.stock) + 1e-9) return { Cantidad: `La cantidad que se quiere sacar es mayor a la que existe en el stock solo puede Sacar : ${n2(x.stock)}`.toUpperCase() };
+    return {};
+  };
   const enDetalle = useMemo(() => new Set(vig.map((d) => Number(d.ProductoId))), [vig]);
   const final = (d) => (tipo === SALIDA ? num(d.stock) - num(d.Cantidad) : num(d.stock) + num(d.Cantidad));
 
@@ -106,8 +114,8 @@ export default function Tec_Movimientos() {
                   {vig.map((d) => (
                     <tr key={d.key} className={d.nuevo ? 'fila-nueva' : ''}>
                       <td data-label="Producto" className="det-producto"><b>{tit(d.Producto)}</b><small>Cód. {d.ProductoId} · {n2(d.conversion)} u/caja</small></td>
-                      <td data-label="Cajas" className="num">{ro ? n2(d.CantidadCajas) : <NumeroCelda valor={num(d.CantidadCajas)} onCambio={(x) => cambiarCant(d.key, num(x) * (num(d.conversion) || 1))} etiqueta={`Cajas de ${d.Producto}`} />}</td>
-                      <td data-label="Unidades" className="num">{ro ? n2(d.Cantidad) : <NumeroCelda valor={num(d.Cantidad)} onCambio={(x) => cambiarCant(d.key, x)} etiqueta={`Unidades de ${d.Producto}`} />}</td>
+                      <td data-label="Cajas" className="num">{ro ? n2(d.CantidadCajas) : <NumeroCelda valor={num(d.CantidadCajas)} onCambio={(x) => cambiarCant(d.key, num(x) * (num(d.conversion) || 1))} etiqueta={`Cajas de ${d.Producto}`} error={errFila(d).Cantidad} />}</td>
+                      <td data-label="Unidades" className="num">{ro ? n2(d.Cantidad) : <NumeroCelda valor={num(d.Cantidad)} onCambio={(x) => cambiarCant(d.key, x)} etiqueta={`Unidades de ${d.Producto}`} error={errFila(d).Cantidad} />}</td>
                       {!ro && <td data-label="Stock" className="num">{n2(d.stock)}</td>}
                       {!ro && <td data-label="Stock final" className={`num ${final(d) < 0 ? 'neg' : ''}`}><b>{n2(final(d))}</b></td>}
                       {!ro && <td className="col-acc"><button className="btn-icono peligro" onClick={() => setDetalle((x) => x.map((y) => (y.key === d.key ? { ...y, eliminado: true } : y)))} aria-label={`Quitar ${d.Producto}`} title="Quitar"><Icono n="trash" size={16} /></button></td>}

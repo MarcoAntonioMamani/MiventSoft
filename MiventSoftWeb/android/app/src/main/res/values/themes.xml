@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Tema.Santit" parent="@android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:colorPrimary">@color/marca</item>
+        <item name="android:colorPrimaryDark">@color/marca_oscuro</item>
+        <item name="android:colorAccent">@color/marca</item>
+        <item name="android:statusBarColor">@color/marca_oscuro</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
+        <item name="android:windowBackground">@color/fondo</item>
+        <item name="android:alertDialogTheme">@style/Tema.Santit.Dialogo</item>
+    </style>
+
+    <!-- Pantalla de arranque: se ve hasta que la web pinta su primera pagina -->
+    <style name="Tema.Santit.Inicio">
+        <item name="android:windowBackground">@drawable/inicio</item>
+    </style>
+
+    <style name="Tema.Santit.Dialogo" parent="@android:style/Theme.Material.Light.Dialog.Alert">
+        <item name="android:colorPrimary">@color/marca</item>
+        <item name="android:colorAccent">@color/marca</item>
+    </style>
+</resources>

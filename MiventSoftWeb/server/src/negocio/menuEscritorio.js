@@ -34,7 +34,8 @@ const PANELES = [
         ['BTVENTPROFORMA', "Crear Proformas"],
         ['BTNREPORTEPRODUCTOCATEGORIA', "Ventas Por Categoria"],
     ] },
-    { panel: 'Panel_ingresos', botones: [
+    // tab_ingresoproducto.Text = "Ingreso y Salida De Productos" (el modulo se muestra con ese nombre, no con el de la base)
+    { panel: 'Panel_ingresos', titulo: 'INGRESO Y SALIDA DE PRODUCTOS', botones: [
         ['BTINVMOVIMIENTO', "Ingreso y Salida De Productos"],
         ['BTINVKARDEX', "Historial De Productos"],
         ['BTINVSALDO', "Reporte De Saldos Productos"],
@@ -106,8 +107,15 @@ function comoEscritorio(modulos) {
             .filter((p) => panel.has(String(p.IdPrograma).toUpperCase()))
             .map((p) => ({ ...p, DescripcionPrograma: String(panel.get(String(p.IdPrograma).toUpperCase()).texto || p.DescripcionPrograma).toUpperCase() }))
             .sort((a, b) => panel.get(a.IdPrograma.toUpperCase()).orden - panel.get(b.IdPrograma.toUpperCase()).orden);
-        return { ...m, panel: PANELES[k].panel, programas };
-    }).filter((m) => m.programas.length);
+        return { ...m, ...(PANELES[k].titulo ? { cndesc1: PANELES[k].titulo } : {}), panel: PANELES[k].panel, programas };
+    }).filter((m) => m.programas.length).concat(MODULO_INVENTARIO);
 }
 
-module.exports = { PANELES, comoEscritorio };
+// Pestaña fija tab_InvProductos ("Inventario") con FormularioStock: en el escritorio no esta en listMenu,
+// asi que no depende de RolesDetalles y la ve todo usuario. Va al final, como en el escritorio.
+const MODULO_INVENTARIO = {
+    cnnum: 'INVENTARIO', cndesc1: 'INVENTARIO', panel: 'Panel_InvProductos', fijo: true,
+    programas: [{ IdPrograma: 'FORMULARIOSTOCK', DescripcionPrograma: 'INVENTARIO PRODUCTOS', I: 0, M: 0, E: 0 }],
+};
+
+module.exports = { PANELES, comoEscritorio, MODULO_INVENTARIO };

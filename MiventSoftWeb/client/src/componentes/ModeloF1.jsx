@@ -38,6 +38,7 @@ import { EfectoConfirmar } from './Efecto';
 import { useToast } from './Toast';
 import Icono from './Icono';
 import { usePermisos } from '../global/Sesion';
+import { coincide } from '../global/buscar';
 
 // Separa la URL en base del programa (/configuracion/clientes) y sub-ruta
 function _leerRuta(pathname) {
@@ -79,12 +80,11 @@ export function useModeloF1(opciones) {
       Object.entries(filtros).every(([campo, txt]) => {
         if (txt === '' || txt === undefined) return true;
         if (campo === '__todo') {
-          const t = String(txt).toLowerCase();
-          return est.some((c) => c.visible && c.tipo !== 'bool' && String(f[c.campo] ?? '').toLowerCase().includes(t));
+          return coincide(est.filter((c) => c.visible && c.tipo !== 'bool').map((c) => f[c.campo] ?? '').join(' '), txt);
         }
         const c = est.find((x) => x.campo === campo);
         if (c?.tipo === 'bool') return (valorCelda(f, c) ? '1' : '0') === txt;
-        return String(f[campo] ?? '').toLowerCase().includes(String(txt).toLowerCase());
+        return coincide(f[campo], txt);
       })
     );
     if (op.current.filtroExtra) r = r.filter((f) => op.current.filtroExtra(f));
