@@ -1,0 +1,12 @@
+.gradle/
+build/
+app/build/
+local.properties
+.idea/
+*.iml
+captures/
+apk/
+# Firma: NO subir al repositorio (respaldar aparte; sin ella no se puede actualizar la app instalada)
+keystore.properties
+*.jks
+*.keystore

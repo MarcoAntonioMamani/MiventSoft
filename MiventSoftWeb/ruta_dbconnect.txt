@@ -1,0 +1,1 @@
+D:\Sistemas\MivenSoft2025\MiventSoft\TeVendo\bin\Debug\dbConnect.TXT

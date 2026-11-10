@@ -1,0 +1,46 @@
+plugins {
+    id 'com.android.application'
+}
+
+// Firma release: keystore.properties (no versionado). Lo genera construir_apk.bat la primera vez.
+def firmaProps = new Properties()
+def firmaArchivo = rootProject.file('keystore.properties')
+if (firmaArchivo.exists()) firmaArchivo.withInputStream { firmaProps.load(it) }
+
+android {
+    namespace 'com.santit.movil'
+    compileSdk 33
+    buildToolsVersion '33.0.0'
+
+    defaultConfig {
+        applicationId 'com.santit.movil'
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName '1.0.0'
+    }
+
+    signingConfigs {
+        release {
+            if (firmaArchivo.exists()) {
+                storeFile rootProject.file(firmaProps['storeFile'])
+                storePassword firmaProps['storePassword']
+                keyAlias firmaProps['keyAlias']
+                keyPassword firmaProps['keyPassword']
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            // Sin R8: la app es pequeña y asi no hay riesgo de que elimine los metodos del puente JS
+            minifyEnabled false
+            if (firmaArchivo.exists()) signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}

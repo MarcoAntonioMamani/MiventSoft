@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  El servidor es una PC de la red local configurada por el usuario (IP variable), servida por http.
+  Por eso se permite trafico sin cifrar en general. Si se publica Santit Web por HTTPS,
+  marcar "Usar HTTPS" en la configuracion del servidor y cambiar esto a false.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

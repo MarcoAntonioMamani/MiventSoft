@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Santit</title>
+<style>
+  :root { --marca: #1d4ed8; --oscuro: #1e3a8a; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; height: 100%; font-family: Roboto, "Segoe UI", Arial, sans-serif; }
+  body { background: radial-gradient(circle at 20% 10%, #2563eb, var(--oscuro) 75%); color: #fff;
+         display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; }
+  .logo { width: 76px; height: 76px; border-radius: 22px; background: #fff; color: var(--marca); font: 700 44px/76px Arial, sans-serif;
+          text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+  h1 { font-size: 28px; font-weight: 500; margin: 18px 0 2px; letter-spacing: .3px; }
+  .sub { margin: 0 0 28px; color: #c7d7f2; font-size: 14px; }
+  .tarjeta { width: min(380px, 100%); background: #fff; color: #1f2937; border-radius: 16px; padding: 22px 20px; box-shadow: 0 12px 40px rgba(0,0,0,.25); }
+  .tarjeta h2 { margin: 0 0 6px; font-size: 18px; font-weight: 500; }
+  .tarjeta p { margin: 0; color: #5b6472; font-size: 14px; line-height: 1.45; word-wrap: break-word; }
+  .servidor { margin-top: 14px; padding: 10px 12px; border-radius: 10px; background: #eff4ff; color: var(--oscuro); font-size: 14px; word-break: break-all; }
+  .servidor b { display: block; font-size: 11px; color: #5b6472; font-weight: 500; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 2px; }
+  .acciones { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+  button { appearance: none; border: 0; border-radius: 10px; min-height: 46px; font: 500 15px Roboto, Arial, sans-serif; cursor: pointer; }
+  .pri { background: var(--marca); color: #fff; }
+  .pri:active { background: var(--oscuro); }
+  .sec { background: #fff; color: var(--marca); border: 1px solid #c7d2fe; }
+  .sec:active { background: #eff4ff; }
+  button:focus-visible { outline: 3px solid #93c5fd; outline-offset: 2px; }
+  .oculto { display: none; }
+</style>
+</head>
+<body>
+  <div class="logo" aria-hidden="true">S</div>
+  <h1>Santit</h1>
+  <p class="sub">Sistema de Distribución</p>
+  <main class="tarjeta" role="main">
+    <h2>{{TITULO}}</h2>
+    <p role="status">{{MENSAJE}}</p>
+    <div class="servidor {{CLASE_SERVIDOR}}"><b>Servidor</b>{{SERVIDOR}}</div>
+    <div class="acciones">
+      <button class="pri {{CLASE_REINTENTAR}}" type="button" onclick="SantitApp.reintentar()">Reintentar</button>
+      <button class="{{CLASE_CONFIGURAR}}" type="button" onclick="SantitApp.configurarServidor()">Configurar servidor</button>
+    </div>
+  </main>
+</body>
+</html>
