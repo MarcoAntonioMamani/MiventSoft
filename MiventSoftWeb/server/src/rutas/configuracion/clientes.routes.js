@@ -13,16 +13,15 @@ router.use(requierePrograma('btConfCliente'));
 
 // Solo columnas que usa la pantalla (se omiten FechaUltimaVenta, ImagenCliente, imgEstado...)
 const CAMPOS = ['Id', 'CodigoExterno', 'NombreCliente', 'DireccionCliente', 'Telefono', 'TipoDocumento', 'NroDocumento',
-    'RazonSocial', 'Nit', 'Estado', 'FechaIngreso', 'Latitud', 'Longitud', 'PrecioCategoriaId', 'ZonaId', 'TipoNegocio', 'Referencia'];
+    'RazonSocial', 'Nit', 'Estado', 'FechaIngreso', 'Latitud', 'Longitud', 'PrecioCategoriaId', 'ZonaId'];
 
 router.get('/', asyncHandler(async (req, res) => {
     res.json({ ok: true, data: v.proyectar(await L.L_prListarGeneral('MAM_Clientes'), CAMPOS) });
 }));
 
 router.get('/combos', asyncHandler(async (req, res) => {
-    const [tiposDocumento, tiposNegocio, precios, zonas] = await Promise.all([
+    const [tiposDocumento, precios, zonas] = await Promise.all([
         libreria(8),
-        libreria(15),
         L.L_prListaCategoriasPrecios(),
         L.L_prListarZonas(),
     ]);
@@ -30,15 +29,14 @@ router.get('/combos', asyncHandler(async (req, res) => {
         ok: true,
         data: {
             tiposDocumento,
-            tiposNegocio,
             precios: v.proyectar(precios, ['Id', 'Descripcion']),
             zonas: v.proyectar(zonas, ['Id', 'NombreZona']),
         },
     });
 }));
 
-// btnTipoDocumento (8) / btnTipoNegocio (15)
-router.post('/libreria/:idClasificador', rutaNuevaLibreria([8, 15]));
+// btnTipoDocumento (8)
+router.post('/libreria/:idClasificador', rutaNuevaLibreria([8]));
 
 function _leerCliente(b, fechaIngreso) {
     const lat = v.decimal(b.Latitud);
@@ -59,8 +57,6 @@ function _leerCliente(b, fechaIngreso) {
         FechaIngreso: fechaIngreso,
         Latitud: lat,
         Longitud: lng,
-        Referencia: v.texto(b.Referencia, 300),
-        TipoNegocio: v.entero(b.TipoNegocio, 'Tipo de Negocio', { requeridoPositivo: true }),
     };
 }
 

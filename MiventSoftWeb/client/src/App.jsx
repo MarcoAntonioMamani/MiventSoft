@@ -12,7 +12,9 @@ import Tec_Clientes from './paginas/configuracion/Tec_Clientes';
 import Tec_Zonas from './paginas/configuracion/Tec_Zonas';
 import Tec_Productos from './paginas/configuracion/Tec_Productos';
 import Tec_Precios from './paginas/configuracion/Tec_Precios';
-import Tec_Ventas from './paginas/ventas/Tec_Ventas';
+import Tec_Kits from './paginas/configuracion/Tec_Kits';
+// Kaily La Paz (punto de venta). Tec_Ventas.jsx (distribucion) lo sigue usando Proforma.jsx
+import Tec_Ventas from './paginas/ventas/Tec_VentasPuntoVenta';
 import Tec_Personal from './paginas/ventas/Tec_Personal';
 import Frm_Proveedor from './paginas/ventas/Frm_Proveedor';
 import Tec_CuentasPorCobrar from './paginas/ventas/Tec_CuentasPorCobrar';
@@ -21,7 +23,9 @@ import Proforma from './paginas/ventas/Proforma';
 import Tec_AsignacionPedidos from './paginas/ventas/Tec_AsignacionPedidos';
 import Tec_Despachos from './paginas/distribucion/Tec_Despachos';
 import Tec_Conciliacion from './paginas/distribucion/Tec_Conciliacion';
-import Tec_IngresoEgreso from './paginas/distribucion/Tec_IngresoEgreso';
+import Tec_IngresoEgreso, { URL_CAJA } from './paginas/distribucion/Tec_IngresoEgreso';
+import Tec_CierreCajero from './paginas/caja/Tec_CierreCajero';
+import ReporteCaja from './paginas/caja/ReportesCaja';
 import Tec_CierreCaja from './paginas/distribucion/Tec_CierreCaja';
 import Tec_AsignacionZona from './paginas/distribucion/Tec_AsignacionZona';
 import ReporteDistribucion from './paginas/distribucion/ReportesDistribucion';
@@ -66,11 +70,12 @@ const PROGRAMAS = [
   ['configuracion/zonas', 'btZona', Tec_Zonas],
   ['configuracion/productos', 'btConfProducto', Tec_Productos],
   ['configuracion/precios', 'btConfPrecio', Tec_Precios],
+  ['configuracion/kits', 'btnKits', Tec_Kits], // Kaily: MAM_Kits
   ['ventas/ventas', 'btVentVenta', Tec_Ventas],
   ['ventas/personal', 'btnPersonal', Tec_Personal],
   ['ventas/proveedores', 'btnProveedores', Frm_Proveedor],
   ['ventas/cuentas-cobrar', 'btnCredPago', Tec_CuentasPorCobrar],
-  ['ventas/proformas', 'btVentProforma', Proforma],
+  ['ventas/proformas', 'btnProforma', Proforma], // Kaily: btnProforma (MAM_Proforma)
   ['ventas/asignacion-pedidos', 'btnAsignacionPedidos', Tec_AsignacionPedidos],
   ['planilla/conceptos-fijos', 'btnConceptoFijos', Tec_ConceptosFijos],
   ['planilla/contratos', 'btnContratos', Tec_Contratos],
@@ -91,6 +96,13 @@ const PROGRAMAS = [
   ['distribucion/conciliaciones', 'btnConciliaciones', Tec_Conciliacion],
   ['distribucion/cierre-caja', 'btnCierreCaja', Tec_CierreCaja],
   ['distribucion/ingresos-egresos', 'btnCierreRegistroIngresoEgresoGenerales', Tec_IngresoEgreso],
+  // Kaily: Administrar Caja
+  ['ventas/gastos-ingresos', 'btnGastos', () => <Tec_IngresoEgreso url={URL_CAJA} />],
+  ['ventas/cierre-cajero', 'btnCierreCajero', Tec_CierreCajero],
+  ['ventas/ingresos-egresos-mensuales', 'btnIngresoEgresosMensuales', () => <ReporteDistribucion key="ie-anual" clave="ingresos-egresos-anual" />],
+  ['ventas/ingresos-egresos-detallado', 'btnIngresoEgresoDetallado', () => <ReporteDistribucion key="ie-det" clave="ingresos-egresos-detallado" />],
+  ['ventas/caja-general', 'btnCajaGeneral', () => <ReporteCaja key="caja-general" clave="caja-general" />],
+  ['ventas/reporte-caja-detallado', 'btnReporteCajaDetallado', () => <ReporteCaja key="caja-detallado" clave="caja-detallado" />],
   ['distribucion/asignacion-zonas', 'btnAsignacionZona', Tec_AsignacionZona],
   ...[
     ['gastos-chofer', 'btnCierreReporteGastos'], ['ingresos-egresos-anual', 'btnCierreReporteAnual'], ['ingresos-egresos-detallado', 'btnCierreReporteDetallado'],

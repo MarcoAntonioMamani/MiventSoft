@@ -49,9 +49,18 @@ async function L_prLibreriaDetalleGeneral(_IdClasificador) {
 
 // VB: D_Datos_Tabla("Id,RolId,SucursalId,IdPersonal","Usuarios","NombreUsuario = '" + _Nom + "' ...")
 // -> Misma consulta pero PARAMETRIZADA (la original era vulnerable a SQL Injection).
+// Kaily: mismas columnas que L_Validar_Usuario de VB (tipo de cambio, permisos de venta, fecha Bolivia, sucursal)
 async function L_Validar_Usuario(_Nom, _Pass) {
     return D_ConsultaParam(
-        `SELECT Id, RolId, SucursalId, IdPersonal
+        `SELECT Id, RolId, SucursalId, IdPersonal,
+                ISNULL((SELECT TOP 1 Monto FROM TipoCambio AS t ORDER BY id DESC), 0) AS Monto,
+                ISNULL(ModificarPrecioVenta, 0) AS ModificarPrecioVenta,
+                ISNULL(AplicarDescuentoVenta, 0) AS AplicarDescuentoVenta,
+                ISNULL(VerTodasVentas, 0) AS VerTodasVentas,
+                ISNULL(VerTodosVentasCierre, 0) AS VerTodosVentasCierre,
+                CAST(DATEADD(HOUR, -4, GETUTCDATE()) AS DATE) AS FechaBolivia,
+                ISNULL(ModificarRegistroAnteriores, 0) AS ModificarRegistroAnteriores,
+                ISNULL((SELECT al.Nombrealmacen FROM Almacenes AS al WHERE al.id = SucursalId), 'Todos') AS NombreSucursal
            FROM Usuarios
           WHERE NombreUsuario = @Nom AND Contrasena = @Pass`,
         [new DParametro('@Nom', _Nom), new DParametro('@Pass', _Pass)]
@@ -215,7 +224,12 @@ function _paramsUsuario(tipo, u) {
         new DParametro('@IdEmpresa', u._IdEmpresa),
         new DParametro('@usuario', L_Usuario()),
         new DParametro('@IdPersonal', u.IdPersonal),
-        new DParametro('@PedidoSinConciliacion', u.VentaDirecta),
+        // Kaily (punto de venta): permisos del usuario, igual que L_prUsuarioInsertar/Modificar de VB
+        new DParametro('@VentasTodasVentas', u._VerTodasVentas),
+        new DParametro('@VerTodasVentasCierre', u._VerTodosCierres),
+        new DParametro('@ModificarRegistroAntiguos', u._ModificarRegistrosAntiguos),
+        new DParametro('@ModificarPrecio', u._ModificarPrecio),
+        new DParametro('@ModificarDescuento', u._ModificarDescuento),
     ];
 }
 
@@ -323,8 +337,6 @@ function _paramsCliente(tipo, c) {
         new DParametro('@FechaIngreso', c.FechaIngreso),
         new DParametro('@Latitud', c.Latitud),
         new DParametro('@Longitud', c.Longitud),
-        new DParametro('@Referencia', c.Referencia),
-        new DParametro('@TipoNegocio', c.TipoNegocio),
     ];
 }
 
@@ -408,7 +420,15 @@ async function L_prProductoBorrar(_numi) {
     }
     return { resultado: false, _mensaje: 'No se pudo eliminar el producto' };
 }
-function _paramsProducto(tipo, p, _dtImagenes) {
+// Kaily: precios del producto por categoria (grPrecios de Tec_Productos.vb). ProductoId -1 = producto nuevo
+async function ListPreciosDetalles(ProductoId) {
+    return D_ProcedimientoConParam('MAM_Productos', [
+        new DParametro('@tipo', 10),
+        new DParametro('@usuario', L_Usuario()),
+        new DParametro('@id', ProductoId),
+    ]);
+}
+function _paramsProducto(tipo, p, _dtImagenes, dtPrecio) {
     return [
         new DParametro('@tipo', tipo),
         new DParametro('@Id', p._numi),
@@ -428,14 +448,15 @@ function _paramsProducto(tipo, p, _dtImagenes) {
         new DParametro('@UnidadMaximaId', p._UnidadMaximaId),
         new DParametro('@Conversion', p._conversion),
         new DParametro('@TCL0064', '', _dtImagenes),
+        new DParametro('@PrecioT', '', dtPrecio),
         new DParametro('@usuario', L_Usuario()),
     ];
 }
-async function L_prProductoInsertar(p, _dtImagenes) {
-    return _fnResultadoGrabar(await D_ProcedimientoConParam('MAM_Productos', _paramsProducto(1, p, _dtImagenes)), p._numi);
+async function L_prProductoInsertar(p, _dtImagenes, dtPrecio) {
+    return _fnResultadoGrabar(await D_ProcedimientoConParam('MAM_Productos', _paramsProducto(1, p, _dtImagenes, dtPrecio)), p._numi);
 }
-async function L_prProductoModificar(p, _dtImagenes) {
-    return _fnResultadoGrabar(await D_ProcedimientoConParam('MAM_Productos', _paramsProducto(2, p, _dtImagenes)), p._numi);
+async function L_prProductoModificar(p, _dtImagenes, dtPrecio) {
+    return _fnResultadoGrabar(await D_ProcedimientoConParam('MAM_Productos', _paramsProducto(2, p, _dtImagenes, dtPrecio)), p._numi);
 }
 async function L_prListaCategorias() {
     return D_ProcedimientoConParam('MAM_Productos', [new DParametro('@tipo', 4), new DParametro('@usuario', L_Usuario())]);
@@ -607,13 +628,13 @@ async function ListaVentasDetalles(VentaId) {
         new DParametro('@id', VentaId),
     ]);
 }
-async function L_prListarProductosVentas(_deposito, _ClienteId, PrecioId) {
+// Kaily: L_prListarProductosVentas(_deposito, _Precio) -> @SucursalId, @CategoriaVentaId (productos Tipo 1 y kits Tipo 2)
+async function L_prListarProductosVentas(_deposito, _Precio) {
     return D_ProcedimientoConParam('MAM_Ventas', [
         new DParametro('@tipo', 5),
         new DParametro('@usuario', L_Usuario()),
         new DParametro('@SucursalId', _deposito),
-        new DParametro('@ClienteId', _ClienteId),
-        new DParametro('@PrecioId', PrecioId),
+        new DParametro('@CategoriaVentaId', _Precio),
     ]);
 }
 async function L_prListarProductosVentasConciliaciones(_deposito, _ClienteId, ChoferId, PrecioId) {
@@ -643,9 +664,12 @@ async function ObtenerImagenEmpresa() {
  * _dtDetalle = { columnas: [orden del SELECT de MAM_Ventas @tipo 4], filas: [...] }
  * (igual que el DataTable del grid que VB envia a @VentaDetalleType por posicion)
  */
-async function VentaInsertar(v, _dtDetalle) {
-    const _Tabla = await D_ProcedimientoConParam('MAM_Ventas', [
-        new DParametro('@tipo', 1),
+// Kaily (punto de venta): VentaInsertar / VentaModificar de AccesoLogica.vb
+//   @VentaPagos = tabla de ListaVentasDetallePago (MAM_Ventas @tipo 8): efectivo Bs, dolares, tarjeta,
+//   transferencia y tipo de cambio (vacia si es credito). @Facturado = swFacturado.
+function _paramsVentaKaily(tipo, v, _dtDetalle, dtPago) {
+    return [
+        new DParametro('@tipo', tipo),
         new DParametro('@Id', v._numi),
         new DParametro('@SucursalId', v.AlmacenId),
         new DParametro('@FechaVenta', v.FechaTransacccion),
@@ -654,44 +678,143 @@ async function VentaInsertar(v, _dtDetalle) {
         new DParametro('@FechaVencimientoCredito', v.FechaVencCredito),
         new DParametro('@ClienteId', v.ClienteId),
         new DParametro('@MonedaVenta', 1),
-        new DParametro('@Estado', v.estado),
+        new DParametro('@Estado', 1),
         new DParametro('@Glosa', v.glosa),
         new DParametro('@TotalVenta', v.TotalCompra),
         new DParametro('@Descuento', v.Descuento),
         new DParametro('@VentaDetalleType', '', _dtDetalle),
+        new DParametro('@VentaPagos', '', dtPago),
         new DParametro('@usuario', L_Usuario()),
-        new DParametro('@EstadoPedido', v.EstadoPedido),
-        new DParametro('@FechaEntregar', v.FechaEntregar),
-        new DParametro('@Ventadirecta', v.VentaDirecta),
-        new DParametro('@VentaDirectaSinConciliacion', v.VentaDirectaSinConciliacion),
-        new DParametro('@IncrementoVenta', v.IncrementoVenta),
+        new DParametro('@Facturado', v.Facturado),
+    ];
+}
+async function VentaInsertar(v, _dtDetalle, dtPago) {
+    return _fnResultadoGrabar(await D_ProcedimientoConParam('MAM_Ventas', _paramsVentaKaily(1, v, _dtDetalle, dtPago)), v._numi);
+}
+async function VentaModificar(v, _dtDetalle, dtPago) {
+    return _fnResultadoGrabar(await D_ProcedimientoConParam('MAM_Ventas', _paramsVentaKaily(2, v, _dtDetalle, dtPago)), v._numi);
+}
+// Lista de Tec_Ventas (Kaily): @tipo 3 por rango y sucursal del usuario (Global_Sucursal, -1 = todas)
+async function L_prListarVentasGeneralFiltroFecha(NameSp, Desde, Hasta, SucursalId) {
+    return D_ProcedimientoConParam(NameSp, [
+        new DParametro('@tipo', 3),
+        new DParametro('@usuario', L_Usuario()),
+        new DParametro('@Desde', Desde),
+        new DParametro('@Hasta', Hasta),
+        new DParametro('@SucursalId', SucursalId),
     ]);
-    return _fnResultadoGrabar(_Tabla, v._numi);
+}
+// Estructura de @VentaPagos (VentaId -1 = vacia)
+async function ListaVentasDetallePago(VentaId) {
+    return D_ProcedimientoConParam('MAM_Ventas', [
+        new DParametro('@tipo', 8),
+        new DParametro('@usuario', L_Usuario()),
+        new DParametro('@id', VentaId),
+    ]);
+}
+// Productos que componen un kit (Tec_VentasDetalle.InsertarProductosSinLote, Tipo = 2)
+async function L_prListarProductosKitsVenta(KitId) {
+    return D_ProcedimientoConParam('MAM_Ventas', [
+        new DParametro('@tipo', 10),
+        new DParametro('@usuario', L_Usuario()),
+        new DParametro('@Id', KitId),
+    ]);
+}
+// =====================================================================
+//  Kaily: Tec_CierreCajaCajero (btnCierreCajero) - MAM_CierreCajero, mismos @tipo y parametros que AccesoLogica.vb
+// =====================================================================
+const _cc = (tipo, extra = []) => D_ProcedimientoConParam('MAM_CierreCajero', [new DParametro('@tipo', tipo), new DParametro('@usuario', L_Usuario()), ...extra]);
+async function L_prListarGeneralCierreCajero(Desde, Hasta) { return _cc(3, [new DParametro('@desde', Desde), new DParametro('@hasta', Hasta)]); }
+async function L_prListarVentaCierresCaja(CierreId) { return _cc(4, [new DParametro('@Id', CierreId)]); }
+async function L_prListarVentaCierresCajaPendiente(PersonalId, SucursalId, Fecha, CierreTodos) {
+    return _cc(5, [new DParametro('@Fecha', Fecha), new DParametro('@PersonalId', PersonalId), new DParametro('@SucursalId', SucursalId), new DParametro('@Global_CierreTodos', CierreTodos)]);
+}
+async function L_prListarCobranzaCierresCaja(CierreId) { return _cc(6, [new DParametro('@Id', CierreId)]); }
+async function L_prListarCobrosCajaPendiente(Fecha, PersonalId, CierreTodos) {
+    return _cc(7, [new DParametro('@Fecha', Fecha), new DParametro('@PersonalId', PersonalId), new DParametro('@Global_CierreTodos', CierreTodos)]);
+}
+async function L_prListarMovimientosIngresoEgresoCierre(CierreId) { return _cc(8, [new DParametro('@Id', CierreId)]); }
+async function L_prListarMovimientosIngresoEgresoCierrePendiente(SucursalId, Fecha, PersonalId, CierreTodos) {
+    return _cc(9, [new DParametro('@SucursalId', SucursalId), new DParametro('@Fecha', Fecha), new DParametro('@PersonalId', PersonalId), new DParametro('@Global_CierreTodos', CierreTodos)]);
+}
+async function L_prListarEfectivoCortesCierre(CierreId) { return _cc(10, [new DParametro('@Id', CierreId)]); }
+async function L_prListarIdModulosCierre(CierreId) { return _cc(11, [new DParametro('@Id', CierreId)]); }
+function _paramsCierreCajero(tipo, c) {
+    return [
+        new DParametro('@tipo', tipo),
+        new DParametro('@Id', c._numi),
+        new DParametro('@Fecha', c.Fecha),
+        new DParametro('@PersonalId', c.PersonalId),
+        new DParametro('@SucursalId', c.SucursalId),
+        new DParametro('@MontoInicial', c.MontoInicial),
+        new DParametro('@EstadoCaja', c.EstadoCaja),
+        new DParametro('@TipoCambio', c.TipoCambio),
+        new DParametro('@TotalVentas', c.TotalVentas),
+        new DParametro('@TotalCobranzas', c.TotalCobranzas),
+        new DParametro('@TotalIngresos', c.TotalIngresos),
+        new DParametro('@TotalEgreso', c.TotalEgresos),
+        new DParametro('@TotalCaja', c.TotalCaja),
+        new DParametro('@TotalEfectivo', c.TotalEfectivo),
+        new DParametro('@Totaltransferencia', c.TotalTransferencia),
+        new DParametro('@TotalTarjeta', c.TotalTarjeta),
+        new DParametro('@TotalEfectivoRecibido', c.TotalEfectivoRecibido),
+        new DParametro('@Diferencia', c.Diferencia),
+        new DParametro('@Observacion', c.Observacion),
+    ];
+}
+async function L_prCierreCajeroInsertar(c) {
+    return _fnResultadoGrabar(await D_ProcedimientoConParam('MAM_CierreCajero', [..._paramsCierreCajero(1, c), new DParametro('@usuario', L_Usuario())]), c._numi);
+}
+async function L_prCierreCajeroModificar(c, dtCortes, dtModulos) {
+    return _fnResultadoGrabar(await D_ProcedimientoConParam('MAM_CierreCajero', [..._paramsCierreCajero(2, c),
+        new DParametro('@CorteBilletes', '', dtCortes), new DParametro('@ModuloId', '', dtModulos), new DParametro('@usuario', L_Usuario())]), c._numi);
 }
 
-async function VentaModificar(v, _dtDetalle) {
-    const _Tabla = await D_ProcedimientoConParam('MAM_Ventas', [
-        new DParametro('@tipo', 2),
-        new DParametro('@Id', v._numi),
-        new DParametro('@SucursalId', v.AlmacenId),
-        new DParametro('@FechaVenta', v.FechaTransacccion),
-        new DParametro('@PersonalId', v.PersonalId),
-        new DParametro('@TipoVenta', v.TipoVenta),
-        new DParametro('@FechaVencimientoCredito', v.FechaVencCredito),
-        new DParametro('@ClienteId', v.ClienteId),
-        new DParametro('@VentaDirectaSinConciliacion', v.VentaDirectaSinConciliacion),
-        new DParametro('@MonedaVenta', v.Moneda),
-        new DParametro('@Estado', v.estado),
-        new DParametro('@Glosa', v.glosa),
-        new DParametro('@TotalVenta', v.TotalCompra),
-        new DParametro('@Descuento', v.Descuento),
-        new DParametro('@VentaDetalleType', '', _dtDetalle),
-        new DParametro('@usuario', L_Usuario()),
-        new DParametro('@EstadoPedido', v.EstadoPedido),
-        new DParametro('@FechaEntregar', v.FechaEntregar),
-        new DParametro('@Ventadirecta', v.VentaDirecta),
-    ]);
-    return _fnResultadoGrabar(_Tabla, v._numi);
+// =====================================================================
+//  Kaily: Tec_Kits (btnKits) - MAM_Kits. Lista L_prListarGeneral (@tipo 3), borrar L_prBorrarRegistro (@tipo -1)
+// =====================================================================
+async function ListaProductosKits(KitId) {
+    return D_ProcedimientoConParam('MAM_Kits', [new DParametro('@tipo', 4), new DParametro('@usuario', L_Usuario()), new DParametro('@id', KitId)]);
+}
+async function ListarProductosKits() {
+    return D_ProcedimientoConParam('MAM_Kits', [new DParametro('@tipo', 5), new DParametro('@usuario', L_Usuario())]);
+}
+// VB: @CategoriaId siempre 1; @Usuario con mayuscula (SQL Server no distingue)
+const _paramsKit = (tipo, k, dt) => [
+    new DParametro('@tipo', tipo),
+    new DParametro('@Id', k._Id),
+    new DParametro('@NombreKit', k.NombreKit),
+    new DParametro('@DescripcionKit', k.DescripcionKit),
+    new DParametro('@CategoriaId', 1),
+    new DParametro('@Estado', k.Estado),
+    new DParametro('@Total', k.Total),
+    new DParametro('@Usuario', L_Usuario()),
+    new DParametro('@KitsProductos', '', dt),
+];
+async function InsertarKit(k, dt) { return _fnResultadoGrabar(await D_ProcedimientoConParam('MAM_Kits', _paramsKit(1, k, dt)), k._Id); }
+async function ModificarKit(k, dt) { return _fnResultadoGrabar(await D_ProcedimientoConParam('MAM_Kits', _paramsKit(2, k, dt)), k._Id); }
+
+// Kaily: Tec_CajaGeneral (btnCajaGeneral) - saldo anterior (@tipo 6) y movimientos del rango (@tipo 7)
+async function L_fnObtenerHistorialCajaGeneral(FechaI) {
+    return _cc2(6, [new DParametro('@FechaI', FechaI)]);
+}
+async function L_fnObtenerHistorialCajaGeneralDesdeHasta(FechaI, FechaF) {
+    return _cc2(7, [new DParametro('@FechaI', FechaI), new DParametro('@FechaF', FechaF)]);
+}
+// Kaily: Tec_ReporteCajaDetallado (btnReporteCajaDetallado) - VB no envia @usuario. CajaId -1 = Todos
+async function ReporteIngresoEgresoDetalladoCaja(FechaI, FechaF, CajaId) {
+    return D_ProcedimientoConParam('MAM_CajaIngresoEgreso', [new DParametro('@tipo', 13), new DParametro('@FechaI', FechaI), new DParametro('@FechaF', FechaF), new DParametro('@CajaId', CajaId)]);
+}
+const _cc2 = (tipo, extra) => D_ProcedimientoConParam('MAM_CajaIngresoEgreso', [new DParametro('@tipo', tipo), new DParametro('@usuario', L_Usuario()), ...extra]);
+// Kaily: L_ObtenerConfiguraciones (Lote, Mapa, TotalCajaGeneral de la tabla Configuracion)
+async function L_ObtenerConfiguraciones() {
+    return D_ConsultaParam('SELECT Lote, Mapa, TotalCajaGeneral FROM Configuracion', []);
+}
+
+// Global_TipoCambio: VB lo lee al iniciar sesion (L_Validar_Usuario); aqui se lee el vigente al grabar
+async function L_ObtenerTipoCambio() {
+    const dt = await D_ConsultaParam('SELECT ISNULL((SELECT TOP 1 Monto FROM TipoCambio AS t ORDER BY id DESC), 0) AS Monto', []);
+    return dt.length ? Number(dt[0].Monto) || 0 : 0;
 }
 
 // =====================================================================
@@ -806,17 +929,14 @@ function _paramsProforma(tipo, v, _dtDetalle) {
         new DParametro('@TipoVenta', v.TipoVenta),
         new DParametro('@FechaVencimientoCredito', v.FechaVencCredito),
         new DParametro('@ClienteId', v.ClienteId),
-        new DParametro('@VentaDirectaSinConciliacion', v.VentaDirectaSinConciliacion),
-        new DParametro('@MonedaVenta', tipo === 1 ? 1 : v.Moneda),
-        new DParametro('@Estado', v.estado),
+        // Kaily: ProformaInsertar / ProformaModificar no envian campos de distribucion ni pagos
+        new DParametro('@MonedaVenta', 1),
+        new DParametro('@Estado', 1),
         new DParametro('@Glosa', v.glosa),
         new DParametro('@TotalVenta', v.TotalCompra),
         new DParametro('@Descuento', v.Descuento),
         new DParametro('@VentaDetalleType', '', _dtDetalle),
         new DParametro('@usuario', L_Usuario()),
-        new DParametro('@EstadoPedido', v.EstadoPedido),
-        new DParametro('@FechaEntregar', v.FechaEntregar),
-        new DParametro('@Ventadirecta', v.VentaDirecta),
     ];
 }
 async function ProformaInsertar(v, _dtDetalle) {
@@ -1176,7 +1296,12 @@ module.exports = {
     InsertarPersonal, ModificarPersonal, InsertarProveedor, ModificarProveedor,
     L_fnPedidosEstados, L_prLeerConfiguracion, L_fnObtenerIncrementoVentaHoy, ListarCliente, ListaVentasDetalles,
     L_prListarProductosVentas, L_prListarProductosVentasConciliaciones, L_prVerificarConcicliacionAbierta, ObtenerImagenEmpresa,
-    VentaInsertar, VentaModificar,
+    VentaInsertar, VentaModificar, L_prListarVentasGeneralFiltroFecha, ListaVentasDetallePago, L_prListarProductosKitsVenta, L_ObtenerTipoCambio,
+    L_prListarGeneralCierreCajero, L_prListarVentaCierresCaja, L_prListarVentaCierresCajaPendiente, L_prListarCobranzaCierresCaja, L_prListarCobrosCajaPendiente,
+    L_prListarMovimientosIngresoEgresoCierre, L_prListarMovimientosIngresoEgresoCierrePendiente, L_prListarEfectivoCortesCierre, L_prListarIdModulosCierre,
+    L_prCierreCajeroInsertar, L_prCierreCajeroModificar,
+    L_fnObtenerHistorialCajaGeneral, L_fnObtenerHistorialCajaGeneralDesdeHasta, ReporteIngresoEgresoDetalladoCaja, L_ObtenerConfiguraciones,
+    ListaProductosKits, ListarProductosKits, InsertarKit, ModificarKit,
     L_prListarGeneralFechas, L_prListarPagosPendientes, L_prListarPagosPendientesClientes, ReporteVentasProductosMasVendido,
     L_prListarProductosConStock0, L_prListarProductosConStockMinimo, ListaPedidosPendientesAsignaciones, ListarVentasVendedorFecha,
     L_fnListarCategoriaPrecio, L_prListarProductosTodosInventario,
@@ -1184,7 +1309,7 @@ module.exports = {
     L_prClasificadorGrabar,
     InsertarCliente, ModificarCliente, L_prClienteBorrar, L_prListaCategoriasPrecios, L_prListarZonas,
     GeneralZona, L_fnListarPuntosPorZona, InsertarZona, ActualizarZona, EliminarZona,
-    L_prCargarImagenesRecepcion, L_prProductoBorrar, L_prProductoInsertar, L_prProductoModificar, L_prListaCategorias, L_prListarProveedores,
+    L_prCargarImagenesRecepcion, L_prProductoBorrar, L_prProductoInsertar, L_prProductoModificar, L_prListaCategorias, L_prListarProveedores, ListPreciosDetalles,
     L_fnGeneralCategorias, L_fnGeneralSucursales, L_fnListarProductos, L_fnListarCategorias, L_fnListarProductosConPrecios,
     L_fnGrabarCategorias, L_fnGrabarPrecios, L_fnEliminarCategoria,
     L_prConUsuario,

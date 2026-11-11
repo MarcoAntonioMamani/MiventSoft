@@ -16,8 +16,10 @@ const { asyncHandler, ErrorNegocio } = require('../../middleware/errores');
 const v = require('../../utils/validar');
 const { fechaReq, aVB, col, num, fechaIso, limpiar } = require('./comun');
 
+// Kaily usa el mismo formulario con otro boton (btnGastos, "Registrar Gastos o Ingresos" de Administrar Caja)
+function crearRouterIE(programa) {
 const router = express.Router();
-router.use(requierePrograma('btnCierreRegistroIngresoEgresoGenerales'));
+router.use(requierePrograma(programa));
 
 const TRASPASO = 9;
 const TRASPASO_DESTINO = 10;
@@ -125,4 +127,8 @@ router.delete('/:id', asyncHandler(async (req, res) => {
     res.json({ ok: true, mensaje: `CODIGO DE CAJA INGRESO / EGRESO ${id} ELIMINADO CON EXITO.` });
 }));
 
-module.exports = router;
+return router;
+}
+
+module.exports = crearRouterIE('btnCierreRegistroIngresoEgresoGenerales');
+module.exports.crearRouterIE = crearRouterIE;

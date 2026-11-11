@@ -18,6 +18,24 @@ Migración del sistema de distribución MiventSoft (VB.NET) a la web, **usando l
 SP utilizados (sin cambios): `MAM_Categorias`, `MAM_Empresas`, `MAM_Usuarios`, `MAM_Roles` (TVP `RolDetalleType`), `MAM_Clasificadores`, `MAM_Clientes`, `sp_Mam_Zonas` (TVP `@ZonasPuntos`), `MAM_Productos` (TVP `@TCL0064`), `sp_Mam_Precios` (TVP `@TY007`).
 Tablas leídas directo (igual que en VB, pero con parámetros): `Usuarios` (login), `RolesDetalles` + `Programas` (privilegios).
 
+## Rama KailyLaPaz (punto de venta)
+La web se trajo de la rama de distribución (Distral) y se está ajustando programa por programa al escritorio de Kaily (`Negocio/AccesoLogica.vb` de esta rama). Los SP no se modifican.
+- **Menú**: los paneles y botones de `Tec_Principal.Designer.vb` de Kaily (`server/src/negocio/menuEscritorio.js`).
+- **Login**: lee las mismas columnas que `L_Validar_Usuario` de Kaily (permisos de venta, tipo de cambio, sucursal).
+- **Usuarios**: sucursal (con "Todos" = -1) y los 5 permisos de venta (`@ModificarPrecio`, `@ModificarDescuento`, `@VentasTodasVentas`, `@VerTodasVentasCierre`, `@ModificarRegistroAntiguos`). Ya no se envía `@PedidoSinConciliacion`.
+- **Clientes**: sin `@Referencia` ni `@TipoNegocio`.
+- **Productos**: precios por categoría (`ListPreciosDetalles`, `MAM_Productos` @tipo 10) enviados en `@PrecioT`.
+- **Ventas** (`ventasPuntoVenta.routes.js` + `Tec_VentasPuntoVenta.jsx`): lista por sucursal del usuario, productos y kits (`@tipo 5` con `@CategoriaVentaId`, kits `@tipo 10`), cobro en contado en `@VentaPagos` (`@tipo 8`), `@Facturado`, Caja Chica abierta obligatoria y los permisos de precio, descuento y registros anteriores.
+- **Proformas** (`btnProforma`, `proformas.routes.js` + `Proforma.jsx`): la misma pantalla de Ventas de Kaily con `MAM_Proforma`. Sin cobro, sin `@Facturado` y sin campos de distribución; TipoVenta 1 y vencimiento = hoy, como `ProformaInsertar`. Cotiza sin stock y no pide Caja Chica.
+- `test/probar_ventas_bd.js` ya prueba la venta de Kaily (con `@VentaPagos`) contra la BD, dentro de una transacción que se revierte.
+- **Administrar Caja** (módulo Ventas):
+  - Registrar gastos o ingresos (`btnGastos`): el mismo formulario y SP que ingresos/egresos (`MAM_CajaIngresoEgreso`), en `/api/caja/ingresos-egresos`.
+  - Cierre de caja del cajero (`btnCierreCajero`, `rutas/caja/cierreCajero.routes.js` + `paginas/caja/Tec_CierreCajero.jsx`): `MAM_CierreCajero` 1–11. Nuevo = abrir caja; Modificar = cerrar con ventas, cobranzas e ingresos/egresos pendientes y el conteo de billetes (`@CorteBilletes`, `@ModuloId`). Los totales se recalculan en el servidor.
+  - Caja general (`btnCajaGeneral`, `MAM_CajaIngresoEgreso` 6 + 7 con saldo inicial y acumulado) y Reporte caja detallado (`btnReporteCajaDetallado`, @tipo 13).
+  - Ingresos/egresos mensuales y detallado (`btnIngresoEgresosMensuales`, `btnIngresoEgresoDetallado`): los reportes de distribución, que usan los mismos SP. `requierePrograma` ahora acepta varios Id.
+- **Pendiente**: Kits, Dosificación, Despacho de productos y la revisión de Compras, Inventario, Cuentas por cobrar/pagar, Planilla y reportes.
+- Las pruebas de pantalla (`client/test/*.e2e.cjs`) y `test/probar_ventas_bd.js` siguen escritas para Distral.
+
 ## Arranque rápido contra tu BD (como el sistema normal)
 1. Instala **Node.js LTS** desde https://nodejs.org (una sola vez).
 2. Doble clic en **`iniciar.bat`**. Lo que hace:

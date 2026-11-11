@@ -19,13 +19,16 @@ import { useSesion } from '../../global/Sesion';
 // Columnas para la hoja impresa (mismas que en pantalla; los textos en MAYUSCULAS se muestran como Titulo)
 const colsImpresion = (filas) => columnasDe(filas).map((c) => (c.render ? { ...c, valor: c.render } : c));
 
-const URL = '/api/distribucion/ingresos-egresos';
+const URL_DISTRIBUCION = '/api/distribucion/ingresos-egresos';
+// Kaily: Administrar Caja > Registrar Gastos o Ingresos (btnGastos), mismo formulario
+export const URL_CAJA = '/api/caja/ingresos-egresos';
 const TRASPASO = 9;
 const dos = (n) => String(n).padStart(2, '0');
 const hoy = () => { const d = new Date(); return `${d.getFullYear()}-${dos(d.getMonth() + 1)}-${dos(d.getDate())}`; };
 const MSJ_CIERRE = 'No Es Posible Modificar El Movimiento ya Que Pertenece a Un cierre de Caja Con Estado Cerrado'.toUpperCase();
 
-export default function Tec_IngresoEgreso() {
+export default function Tec_IngresoEgreso({ url = URL_DISTRIBUCION }) {
+  const URL = url; // eslint-disable-line no-shadow
   const toast = useToast();
   const { sesion } = useSesion();
   const [nuevoMotivo, setNuevoMotivo] = useState(false);
@@ -128,13 +131,13 @@ export default function Tec_IngresoEgreso() {
         </div>
       </div>
     </ModeloF1>
-    {nuevoMotivo && <DialogoMotivo onCerrar={() => setNuevoMotivo(false)} onCreado={(r) => { setC((o) => ({ ...o, tipos: r.data })); set('CajaTipoMovimientoId')(r.id); setNuevoMotivo(false); toast(r.mensaje, 'ok'); }} />}
+    {nuevoMotivo && <DialogoMotivo url={URL} onCerrar={() => setNuevoMotivo(false)} onCreado={(r) => { setC((o) => ({ ...o, tipos: r.data })); set('CajaTipoMovimientoId')(r.id); setNuevoMotivo(false); toast(r.mensaje, 'ok'); }} />}
     </>
   );
 }
 
 // btnAgregarMotivoMovimiento -> Crear_TipoMovimientoCaja: descripcion (mas de 3 letras) + Ingreso / Egreso
-function DialogoMotivo({ onCreado, onCerrar }) {
+function DialogoMotivo({ url: URL, onCreado, onCerrar }) {
   const [desc, setDesc] = useState('');
   const [ingreso, setIngreso] = useState(true);
   const [err, setErr] = useState('');

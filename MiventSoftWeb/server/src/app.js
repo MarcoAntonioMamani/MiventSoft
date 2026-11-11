@@ -63,11 +63,13 @@ app.use('/api/configuracion/roles', requiereSesion, require('./rutas/configuraci
 app.use('/api/configuracion/clientes', requiereSesion, require('./rutas/configuracion/clientes.routes'));
 app.use('/api/configuracion/zonas', requiereSesion, require('./rutas/configuracion/zonas.routes'));
 app.use('/api/configuracion/productos', requiereSesion, require('./rutas/configuracion/productos.routes'));
+app.use('/api/configuracion/kits', requiereSesion, require('./rutas/configuracion/kits.routes'));
 app.use('/api/configuracion/precios', requiereSesion, require('./rutas/configuracion/precios.routes'));
 // Paso 3: modulo Ventas
 app.use('/api/ventas/personal', requiereSesion, require('./rutas/ventas/personal.routes'));
 app.use('/api/ventas/proveedores', requiereSesion, require('./rutas/ventas/proveedores.routes'));
-app.use('/api/ventas/ventas', requiereSesion, require('./rutas/ventas/ventas.routes'));
+// Kaily La Paz (punto de venta). La version de distribucion (ventas.routes.js) la sigue usando proformas.routes.js
+app.use('/api/ventas/ventas', requiereSesion, require('./rutas/ventas/ventasPuntoVenta.routes'));
 app.use('/api/ventas/cuentas-cobrar', requiereSesion, require('./rutas/ventas/cuentasCobrar.routes'));
 app.use('/api/ventas/reportes', requiereSesion, require('./rutas/ventas/reportes.routes'));
 app.use('/api/ventas/proformas', requiereSesion, require('./rutas/ventas/proformas.routes'));
@@ -75,6 +77,12 @@ app.use('/api/ventas/asignaciones', requiereSesion, require('./rutas/ventas/asig
 app.use('/api/distribucion/despachos', requiereSesion, require('./rutas/distribucion/despachos.routes'));
 app.use('/api/distribucion/conciliaciones', requiereSesion, require('./rutas/distribucion/conciliaciones.routes'));
 app.use('/api/distribucion/ingresos-egresos', requiereSesion, require('./rutas/distribucion/ingresosEgresos.routes'));
+// Kaily: Administrar Caja > Caja general y Reporte caja detallado
+app.use('/api/caja/reportes', requiereSesion, require('./rutas/caja/reportes.routes'));
+// Kaily: Administrar Caja > Cierre de caja del cajero (btnCierreCajero, MAM_CierreCajero)
+app.use('/api/caja/cierre-cajero', requiereSesion, require('./rutas/caja/cierreCajero.routes'));
+// Kaily: Administrar Caja > Registrar Gastos o Ingresos (btnGastos), mismo formulario y SP
+app.use('/api/caja/ingresos-egresos', requiereSesion, require('./rutas/distribucion/ingresosEgresos.routes').crearRouterIE('btnGastos'));
 app.use('/api/distribucion/reportes', requiereSesion, require('./rutas/distribucion/reportes.routes'));
 app.use('/api/distribucion/zonas', requiereSesion, require('./rutas/distribucion/zonas.routes'));
 app.use('/api/mapa/clientes', requiereSesion, require('./rutas/mapa/clientes.routes'));

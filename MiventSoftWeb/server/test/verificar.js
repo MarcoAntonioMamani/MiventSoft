@@ -10,7 +10,9 @@ const Configuracion = require('../src/datos/Configuracion');
 
 const SPS = ['MAM_Clasificadores', 'MAM_Categorias', 'MAM_Empresas', 'MAM_Usuarios', 'MAM_Roles', 'MAM_Clientes', 'sp_Mam_Zonas', 'MAM_Productos', 'sp_Mam_Precios',
     // Paso 3: modulo Ventas
-    'MAM_Personal', 'MAM_Proveedores', 'MAM_Ventas', 'MAM_Movimientos', 'MAM_VentasIncremento', 'MAM_ReporteVentas', 'MAM_CreditosVentas', 'MAM_CreditosCompras'];
+    'MAM_Personal', 'MAM_Proveedores', 'MAM_Ventas', 'MAM_Movimientos', 'MAM_VentasIncremento', 'MAM_ReporteVentas', 'MAM_CreditosVentas', 'MAM_CreditosCompras',
+    // Kaily: Ventas exige Caja Chica abierta
+    'MAM_CierreCajero'];
 // Parametros que la web envia a cada SP (los mismos que AccesoLogica.vb, ver test/contrato_vb.json)
 const CONTRATO = require('./contrato_vb.json');
 const SP_PARAMETROS = ['MAM_Personal', 'MAM_Proveedores', 'MAM_Ventas', 'MAM_DespachoProductos', 'MAM_Conciliacion', 'MAM_CajaIngresoEgreso', 'MAM_CierreCaja', 'MAM_AuditoriaVentas', 'MAM_Movimientos', 'MAM_Compras', 'MAM_CreditosCompras', 'MAM_Almacenes', 'MAM_ConceptosFijos', 'MAM_Contratos', 'MAM_Planilla'];
@@ -165,6 +167,8 @@ let fallas = 0;
         ['@DetalleContratoConcepto vs conceptos del contrato (@tipo 4)', 'MAM_Contratos', '@DetalleContratoConcepto', 4, { id: -1 }],
         ['@PlanillaConcepto vs conceptos de planilla (@tipo 4)', 'MAM_Planilla', '@PlanillaConcepto', 4, { Id: -1, TipoConcepto: -1 }],
         ['@Asignaciontype vs zonas del personal (@tipo 5)', 'sp_Mam_Zonas', '@Asignaciontype', 5, { idRepartidor: -1 }],
+        // Kaily: formas de pago de la venta (ListaVentasDetallePago)
+        ['@VentaPagos vs pagos de la venta (@tipo 8)', 'MAM_Ventas', '@VentaPagos', 8, { id: -1 }],
     ]) {
         try { comparar(nombre, await colsDe(sp, param), await colsSp(sp, tipo, extra)); } catch (e) { console.log(`${MAL} ${nombre}: ${e.message}`); fallas++; }
     }

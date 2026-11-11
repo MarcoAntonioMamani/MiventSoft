@@ -1,5 +1,6 @@
 // =====================================================================
-//  Tec_Productos.vb -> Gestion De Productos   (SP: MAM_Productos, TVP TCL0064)
+//  Tec_Productos.vb -> Gestion De Productos   (SP: MAM_Productos, TVP TCL0064 y PrecioT)
+//  Kaily: precios por categoria (grPrecios); solo la columna precio es editable.
 //  Imagenes: se suben solo las nuevas y se indica cuales quitar.
 // =====================================================================
 import { useEffect, useRef, useState } from 'react';
@@ -60,8 +61,26 @@ export default function Tec_Productos() {
   const [errores, setErrores] = useState({});
   const [combos, setCombos] = useState({ empresas: [], categorias: [], proveedores: [], marcas: [], atributos: [], familias: [], unidadesVenta: [], unidadesMaxima: [] });
   const [imgs, setImgs] = useState({ existentes: [], eliminar: [], nuevas: [] });
+  // Kaily: grPrecios (ListPreciosDetalles) -> [{ id, Descripcion, precio }]
+  const [precios, setPrecios] = useState([]);
   const combosRef = useRef(null);
   const pedido = useRef(0);
+  const pedidoPrecios = useRef(0);
+
+  const cargarPrecios = async (id) => {
+    const n = ++pedidoPrecios.current;
+    setPrecios([]);
+    try {
+      const r = await api.get(`${URL}/${id}/precios`);
+      if (n === pedidoPrecios.current) setPrecios(r.data.map((p) => ({ ...p, precio: String(p.precio ?? 0) })));
+    } catch (e) { toast(e.message, 'error'); }
+  };
+  // VB grPrecios_CellEdited: no numerico o <= 0 -> 0
+  const normalizarPrecio = (i) => setPrecios((ps) => ps.map((p, j) => {
+    if (j !== i) return p;
+    const n = Number.parseFloat(p.precio);
+    return { ...p, precio: Number.isFinite(n) && n > 0 ? String(n) : '0' };
+  }));
   // Al corregir un campo se quita su mensaje de error
   const quitarError = (k) => setErrores((e) => (e[k] ? { ...e, [k]: undefined } : e));
   const set = (k) => (v) => { quitarError(k); setForm((f) => ({ ...f, [k]: v?.target ? v.target.value : v })); };
@@ -89,6 +108,7 @@ export default function Tec_Productos() {
     const fd = new FormData();
     Object.keys(VACIO).filter((k) => k !== 'Id').forEach((k) => fd.append(k, k === 'estado' ? (form.estado ? 1 : 0) : form[k] ?? ''));
     if (imgs.eliminar.length) fd.append('eliminar', JSON.stringify(imgs.eliminar));
+    fd.append('precios', JSON.stringify(Object.fromEntries(precios.map((p) => [String(p.id), Number(p.precio) || 0]))));
     imgs.nuevas.forEach((f) => fd.append('imagenes', f));
     return fd;
   };
@@ -112,10 +132,12 @@ export default function Tec_Productos() {
         UnidadVentaId: p(c.unidadesVenta, 'cnnum'), UnidadMaximaId: p(c.unidadesMaxima, 'cnnum') });
       pedido.current++;
       setImgs({ existentes: [], eliminar: [], nuevas: [] });
+      cargarPrecios(-1); // VB: _prCargarDetallePrecios(-1)
     },
     _PMOMostrarRegistro: (f) => {
       setForm(Object.fromEntries(Object.keys(VACIO).map((k) => [k, k === 'estado' ? !!f.estado : f[k] ?? VACIO[k]])));
       cargarImagenes(f.Id);
+      cargarPrecios(f.Id);
     },
     _PMOLimpiarErrores: () => setErrores({}),
     _PMOValidarCampos: () => {
@@ -178,6 +200,29 @@ export default function Tec_Productos() {
           </div>
         </div>
         <div className="tarjeta">
+          <h2 className="tarjeta-tit">Precios por categoría</h2>
+          {precios.length ? (
+            <div className="tabla-scroll">
+              <table className="grid tabla-detalle">
+                <thead><tr><th>Categoría precio</th><th className="num">Precio</th></tr></thead>
+                <tbody>
+                  {precios.map((p, i) => (
+                    <tr key={p.id}>
+                      <td>{p.Descripcion}</td>
+                      <td className="num">
+                        {ro ? Number(p.precio || 0).toFixed(2) : (
+                          <input className="control control-celda num" type="number" min="0" step="any" inputMode="decimal" aria-label={`Precio ${p.Descripcion}`}
+                            value={p.precio} onChange={(e) => setPrecios((ps) => ps.map((x, j) => (j === i ? { ...x, precio: e.target.value } : x)))}
+                            onBlur={() => normalizarPrecio(i)} />
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : <p className="ayuda-tip">No hay categorías de precio.</p>}
+          <div className="sep" />
           <h2 className="tarjeta-tit">Imágenes</h2>
           <Galeria
             existentes={imgs.existentes} eliminar={imgs.eliminar} nuevas={imgs.nuevas} deshabilitado={ro}

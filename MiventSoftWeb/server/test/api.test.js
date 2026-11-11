@@ -89,8 +89,8 @@ test('CLIENTES: insertar, modificar (conserva FechaIngreso), validar y eliminar'
     await ok('PUT', '/api/configuracion/clientes/1', { ...nuevo, NombreCliente: 'TIENDA DONA ROSA (MOD)' });
     assert.equal(ultimaLlamada('MAM_Clientes', 2).params['@FechaIngreso'], '2026/01/15', 'debe conservar la fecha original');
 
-    const lib = await ok('POST', '/api/configuracion/clientes/libreria/15', { descripcion: 'farmacia' });
-    assert.ok(lib.data.some((x) => x.cndesc1 === 'FARMACIA'));
+    const lib = await ok('POST', '/api/configuracion/clientes/libreria/8', { descripcion: 'pasaporte' });
+    assert.ok(lib.data.some((x) => x.cndesc1 === 'PASAPORTE'));
     assert.equal((await api('POST', '/api/configuracion/clientes/libreria/3', { descripcion: 'x' })).status, 403);
 
     await ok('DELETE', `/api/configuracion/clientes/${r.id}`);
@@ -159,6 +159,12 @@ test('PRODUCTOS: insertar con imagenes, quitar imagen, validar y eliminar', asyn
     const prod = (await ok('GET', '/api/configuracion/productos')).data.find((x) => Number(x.Id) === Number(r.id));
     assert.equal(prod.NombreProducto, 'FANTA 3L');
 
+    // Kaily: precios por categoria (@PrecioT, tabla completa de ListPreciosDetalles por posicion)
+    assert.equal((await ok('GET', '/api/configuracion/productos/-1/precios')).data.length, 2, 'producto nuevo: ListPreciosDetalles(-1)');
+    await ok('PUT', `/api/configuracion/productos/${r.id}`, null, { form: form(base, [], { precios: JSON.stringify({ 1: 4.5, 2: -3 }) }) });
+    assert.deepEqual(ultimaLlamada('MAM_Productos', 2).params['@PrecioT'].filas, [[1, 'PRECIO COSTO', 4.5], [2, 'PRECIO VENTA', 0]], 'precio <= 0 se graba 0');
+    assert.deepEqual((await ok('GET', `/api/configuracion/productos/${r.id}/precios`)).data.map((x) => x.precio), [4.5, 0]);
+
     const bloqueado = await api('DELETE', '/api/configuracion/productos/1');
     assert.equal(bloqueado.status, 400);
     assert.match(bloqueado.mensaje, /MOVIMIENTOS/, 'muestra el mensaje que devuelve el SP');
@@ -205,9 +211,12 @@ test('PASO 1 sigue funcionando: categoria, empresa, rol y usuario', async () => 
     const rol = await ok('POST', '/api/configuracion/roles', { NombreRol: 'SUPERVISOR', detalle: det.map((d) => ({ ...d, Ver: d.ProgramaId === 5 ? 1 : 0 })) });
     const usu = await ok('POST', '/api/configuracion/usuarios', { NombreUsuario: 'sup1', Contrasena: 'abc', IdEmpresa: 1, RolId: rol.id, IdPersonal: 3, estado: true, pedido: false });
     assert.equal(ultimaLlamada('MAM_Usuarios', 1).params['@NombreUsuario'], 'SUP1');
-    await ok('PUT', `/api/configuracion/usuarios/${usu.id}`, { NombreUsuario: 'sup1', Contrasena: '', IdEmpresa: 1, RolId: rol.id, IdPersonal: 3, estado: true, pedido: true });
-    assert.equal(ultimaLlamada('MAM_Usuarios', 2).params['@Contrasena'], 'ABC', 'contrasena vacia = conserva la actual');
-    assert.equal(ultimaLlamada('MAM_Usuarios', 2).params['@PedidoSinConciliacion'], 1);
+    await ok('PUT', `/api/configuracion/usuarios/${usu.id}`, { NombreUsuario: 'sup1', Contrasena: '', IdEmpresa: 1, RolId: rol.id, IdPersonal: 3, estado: true,
+        SucursalId: -1, ModificarPrecioVenta: true, AplicarDescuentoVenta: false, VerTodasVentas: true, VerTodosVentasCierre: false, ModificarRegistroAnteriores: true });
+    const llU = ultimaLlamada('MAM_Usuarios', 2).params;
+    assert.equal(llU['@Contrasena'], 'ABC', 'contrasena vacia = conserva la actual');
+    assert.deepEqual([llU['@SucursalId'], llU['@ModificarPrecio'], llU['@ModificarDescuento'], llU['@VentasTodasVentas'], llU['@VerTodasVentasCierre'], llU['@ModificarRegistroAntiguos']],
+        [-1, 1, 0, 1, 0, 1], 'permisos de Kaily (Tec_Users.vb)');
     await ok('DELETE', `/api/configuracion/usuarios/${usu.id}`);
     await ok('DELETE', `/api/configuracion/roles/${rol.id}`);
 });
@@ -228,56 +237,121 @@ test('PASO 3 PERSONAL y PROVEEDORES: insertar, modificar, validar y eliminar', a
     await ok('DELETE', `/api/ventas/proveedores/${pr.id}`);
 });
 
-test('PASO 3 VENTAS: precios del servidor, detalle por estado (0/1/2/-1/-2), totales y bloqueos', async () => {
+test('VENTAS (Kaily): precios del servidor, kits, pagos, caja abierta, permisos y bloqueos', async () => {
+    // KAILY (punto de venta): Tec_Ventas.vb + Tec_VentasDetalle.vb + EfectivoCobranza.vb
     const hoy = (() => { const d = new Date(Date.now() - 4 * 3600e3); return d.toISOString().slice(0, 10); })();
-    const prods = await ok('GET', '/api/ventas/ventas/productos?sucursal=1&cliente=1&precio=2');
+    const ayer = new Date(Date.now() - 28 * 3600e3).toISOString().slice(0, 10);
+    const cerca = (a, b) => Math.abs(a - b) < 1e-6;
+    const prods = await ok('GET', '/api/ventas/ventas/productos?sucursal=1&precio=2');
     assert.ok(prods.data.every((p) => !('PrecioCosto' in p)), 'el costo no viaja al navegador');
-    const cab = { SucursalId: 1, FechaVenta: hoy, PersonalId: 2, ClienteId: 1, TipoVenta: 1, FechaEntregar: hoy, PrecioId: 2, Glosa: 'test' };
-    // el navegador intenta mandar un precio falso: se ignora
-    const v = await ok('POST', '/api/ventas/ventas', { modo: 'pedido', ...cab, Descuento: 1, detalle: [
-        { nuevo: true, ProductoId: 1, CantidadUnitaria: 12, Precio: 0.01, Total: 0.01 },
-        { nuevo: true, ProductoId: 3, CantidadUnitaria: 3, ProcentajeDescuento: 10 },
-        { nuevo: true, ProductoId: 2, CantidadUnitaria: 6, eliminado: true },
-    ] });
+    assert.ok(prods.data.some((p) => p.Tipo === 2), 'los kits vienen en la misma lista (Tipo 2)');
+    assert.deepEqual(Object.keys(ultimaLlamada('MAM_Ventas', 5).params).sort(), ['@CategoriaVentaId', '@SucursalId', '@tipo', '@usuario'].sort());
+    assert.equal((await ok('GET', '/api/ventas/ventas/caja-abierta')).data.abierta, true);
+
+    // el navegador manda vendedor 2 y un total falso: el vendedor es el del usuario y los montos los calcula el servidor
+    const cab = { SucursalId: 1, FechaVenta: hoy, PersonalId: 2, ClienteId: 1, TipoVenta: 1, PrecioId: 2, Glosa: 'test', TotalVenta: 1 };
+    const det1 = [
+        { nuevo: true, Tipo: 1, ProductoId: 1, Cantidad: 12 },
+        { nuevo: true, Tipo: 1, ProductoId: 3, Cantidad: 3, ProcentajeDescuento: 10 },
+        { nuevo: true, Tipo: 2, KitId: 90, CantidadKit: 2 },
+        { nuevo: true, Tipo: 1, ProductoId: 2, Cantidad: 6, eliminado: true },
+    ];
+    assert.equal((await api('POST', '/api/ventas/ventas', { ...cab, Descuento: 1, detalle: det1, pago: { MontoBs: 100 } })).mensaje, 'El Monto Pagado Es Menor Al Monto Total De La Venta');
+    // $ x tipo de cambio (6.96) tambien cuenta
+    const v = await ok('POST', '/api/ventas/ventas', { ...cab, Descuento: 1, detalle: det1, pago: { MontoBs: 50, MontoDolares: 20, Tarjeta: 0, Transferencia: 0 } });
     let ll = ultimaLlamada('MAM_Ventas', 1).params;
     const det = ll['@VentaDetalleType'];
-    assert.equal(det.columnas.length, 19, 'columnas en el orden de MAM_Ventas @tipo 4');
-    const est = (f) => f.estado;
-    assert.deepEqual(det.filas.map((f) => est(f)), [0, 0, -2], 'nuevas = 0, agregada y quitada = -2');
-    const fCoca = det.filas.find((f) => f.ProductoId === 1);
-    assert.equal(fCoca.Precio, 8.5, 'precio unitario = PrecioVenta / Conversion (no el del navegador)');
-    assert.equal(fCoca.Lote, '20200101', 'valores por defecto sin lote como _prAddDetalleVenta');
-    assert.equal(ll['@TotalVenta'], 102 + 31.05 - 1 + 2.5, 'Suma - Descuento + Incremento de hoy');
-    assert.equal(ll['@IncrementoVenta'], 2.5);
-    assert.equal(ll['@EstadoPedido'], 1);
-    assert.equal(ll['@Ventadirecta'], 0);
+    assert.equal(det.columnas.length, 22, 'columnas en el orden de MAM_Ventas @tipo 4 de Kaily');
+    assert.ok(det.filas.every((f) => f.estado === 0), 'nuevas = 0; la agregada y quitada no se envia');
+    assert.equal(det.filas.find((f) => f.ProductoId === 1 && f.Tipo === 1).Precio, 8.5, 'precio por unidad del SP, no del navegador');
+    const kit = det.filas.filter((f) => f.Tipo === 2);
+    assert.deepEqual(kit.map((f) => [f.ProductoId, f.Cantidad, f.KitId, f.CantidadKit]), [[1, 4, 90, 2], [3, 2, 90, 2]], 'el kit se agrega como sus productos');
+    assert.ok(cerca(ll['@TotalVenta'], 102 + 31.05 + 50 - 1), 'Total = Suma - Descuento (sin incremento)');
+    assert.equal(ll['@PersonalId'], 1, 'vendedor = personal del usuario');
+    assert.equal(ll['@Facturado'], 0);
+    assert.deepEqual(ll['@VentaPagos'].filas, [[0, 0, 50, 20, 0, 0, 6.96, 0]], 'fila de pago como dt.Rows.Add de VB');
+    assert.ok(!('@EstadoPedido' in ll) && !('@IncrementoVenta' in ll), 'sin campos de distribucion');
 
+    // modificar: cambia cantidad (2), quita (-1); los productos del kit quedan sin cambios (1)
     const detBD = (await ok('GET', `/api/ventas/ventas/${v.id}/detalle`)).data;
-    const idCoca = detBD.find((f) => f.ProductoId === 1).Id;
-    const idLeche = detBD.find((f) => f.ProductoId === 3).Id;
-    await ok('PUT', `/api/ventas/ventas/${v.id}`, { ...cab, fechaOriginal: hoy, Descuento: 0, detalle: [
-        { Id: idCoca, CantidadUnitaria: 18 }, { Id: idLeche, eliminado: true }, { nuevo: true, ProductoId: 2, CantidadUnitaria: 6 },
+    const idCoca = detBD.find((f) => f.ProductoId === 1 && f.Tipo === 1).Id;
+    const idLeche = detBD.find((f) => f.ProductoId === 3 && f.Tipo === 1).Id;
+    await ok('PUT', `/api/ventas/ventas/${v.id}`, { ...cab, TipoVenta: 0, Facturado: true, fechaOriginal: hoy, Descuento: 0, detalle: [
+        { Id: idCoca, Cantidad: 18 }, { Id: idLeche, eliminado: true }, ...detBD.filter((f) => f.Tipo === 2).map((f) => ({ Id: f.Id })),
     ] });
     ll = ultimaLlamada('MAM_Ventas', 2).params;
-    const d2 = ll['@VentaDetalleType'];
-    const e2 = Object.fromEntries(d2.filas.map((f) => [f.ProductoId, f.estado]));
-    assert.deepEqual(e2, { 1: 2, 3: -1, 2: 0 }, 'modificada = 2, eliminada = -1, nueva = 0');
-    assert.equal(ll['@TotalVenta'], 153 + 60 + 2.5, 'en modificacion se usa el incremento REGISTRADO');
-    assert.ok(!('@IncrementoVenta' in ll), 'VentaModificar no envia @IncrementoVenta (igual que VB)');
-
-    // sin cambios -> estado 1
-    await ok('PUT', `/api/ventas/ventas/${v.id}`, { ...cab, fechaOriginal: hoy, detalle: (await ok('GET', `/api/ventas/ventas/${v.id}/detalle`)).data.map((f) => ({ Id: f.Id, CantidadUnitaria: f.CantidadUnitaria })) });
-    const d3 = ultimaLlamada('MAM_Ventas', 2).params['@VentaDetalleType'];
-    assert.ok(d3.filas.every((f) => f.estado === 1));
+    assert.deepEqual(ll['@VentaDetalleType'].filas.map((f) => [f.Id, f.estado]).sort((a, b) => a[0] - b[0]),
+        detBD.map((f) => [f.Id, f.Id === idCoca ? 2 : f.Id === idLeche ? -1 : 1]).sort((a, b) => a[0] - b[0]));
+    assert.equal(ll['@VentaPagos'].filas.length, 0, 'credito: sin pagos');
+    assert.equal(ll['@Facturado'], 1);
 
     // reglas
-    assert.equal((await api('POST', '/api/ventas/ventas', { modo: 'pedido', ...cab, detalle: [{ nuevo: true, ProductoId: 4, CantidadUnitaria: 9999 }] })).status, 400, 'stock');
-    assert.equal((await api('POST', '/api/ventas/ventas', { modo: 'directa', ...cab, detalle: [{ nuevo: true, ProductoId: 1, CantidadUnitaria: 1 }] })).status, 400, 'conciliacion abierta');
-    assert.equal((await api('POST', '/api/ventas/ventas', { modo: 'sinconciliacion', ...cab, detalle: [{ nuevo: true, ProductoId: 1, CantidadUnitaria: 1 }] })).status, 403, 'permiso sin conciliacion');
-    const viejas = (await ok('GET', `/api/ventas/ventas?desde=${new Date(Date.now() - 25 * 864e5).toISOString().slice(0, 10)}&hasta=${hoy}`)).data;
-    const cerrada = viejas.find((x) => x.EstadoConciliacion === 0);
-    assert.equal((await api('DELETE', `/api/ventas/ventas/${cerrada.Id}?fecha=${cerrada.FechaVenta}`)).status, 400, 'conciliacion cerrada');
+    assert.equal((await api('POST', '/api/ventas/ventas', { ...cab, detalle: [{ nuevo: true, ProductoId: 4, Cantidad: 9999 }], pago: { MontoBs: 1e6 } })).status, 400, 'stock');
+    assert.match((await api('POST', '/api/ventas/ventas', { ...cab, detalle: [{ nuevo: true, ProductoId: 1, Cantidad: 1, Precio: 0.01 }], pago: { MontoBs: 100 } })).mensaje, /Precio De Costo/, 'precio < costo');
+    assert.match((await api('POST', '/api/ventas/ventas', { ...cab, FechaVenta: ayer, detalle: [{ nuevo: true, ProductoId: 1, Cantidad: 1 }], pago: { MontoBs: 100 } })).mensaje, /Caja Chica/, 'sin caja abierta');
+    const viejas = (await ok('GET', `/api/ventas/ventas?desde=${new Date(Date.now() - 25 * 864e5).toISOString().slice(0, 10)}&hasta=${ayer}`)).data;
+    assert.match((await api('DELETE', `/api/ventas/ventas/${viejas[0].Id}?fecha=${viejas[0].FechaVenta}`)).mensaje, /ANTERIORES/, 'sin ModificarRegistroAnteriores');
     await ok('DELETE', `/api/ventas/ventas/${v.id}?fecha=${hoy}`);
+});
+
+test('PROFORMAS (Kaily): MAM_Proforma sin pagos, cotiza sin stock y sin caja', async () => {
+    const hoy = new Date(Date.now() - 4 * 3600e3).toISOString().slice(0, 10);
+    const ayer = new Date(Date.now() - 28 * 3600e3).toISOString().slice(0, 10);
+    // sin caja abierta ayer y producto 5 sin stock: igual se graba (TipoPrograma 2)
+    const p = await ok('POST', '/api/ventas/proformas', { SucursalId: 1, FechaVenta: ayer, ClienteId: 1, TipoVenta: 0, PrecioId: 2, Glosa: 'cotizacion',
+        detalle: [{ nuevo: true, Tipo: 1, ProductoId: 5, Cantidad: 50 }, { nuevo: true, Tipo: 1, ProductoId: 1, Cantidad: 9999 }] });
+    let ll = ultimaLlamada('MAM_Proforma', 1).params;
+    assert.equal(ll['@TipoVenta'], 1, 'ProformaInsertar envia TipoVenta 1');
+    assert.equal(ll['@FechaVencimientoCredito'], hoy.replace(/-/g, '/'), 'vencimiento = hoy (Now.Date)');
+    assert.ok(!('@VentaPagos' in ll) && !('@Facturado' in ll) && !('@EstadoPedido' in ll), 'sin pagos ni campos de distribucion');
+    assert.equal(ll['@VentaDetalleType'].filas.length, 2);
+    const lista = (await ok('GET', `/api/ventas/proformas?desde=${ayer}&hasta=${ayer}`)).data;
+    assert.ok(lista.some((x) => Number(x.Id) === Number(p.id)));
+    const det = (await ok('GET', `/api/ventas/proformas/${p.id}/detalle`)).data;
+    await ok('PUT', `/api/ventas/proformas/${p.id}`, { SucursalId: 1, FechaVenta: ayer, ClienteId: 1, PrecioId: 2, fechaOriginal: ayer,
+        detalle: [{ Id: det[0].Id, Cantidad: 60 }, { Id: det[1].Id, eliminado: true }] });
+    ll = ultimaLlamada('MAM_Proforma', 2).params;
+    assert.deepEqual(ll['@VentaDetalleType'].filas.map((f) => f.estado).sort(), [-1, 2]);
+    assert.ok((await ok('GET', `/api/ventas/proformas/${p.id}/recibo?fecha=${ayer}`)).data.detalle.length >= 1);
+    await ok('DELETE', `/api/ventas/proformas/${p.id}?fecha=${ayer}`, null);
+});
+
+test('CIERRE CAJERO (Kaily): abrir caja, cerrar con pendientes y billetes, totales del servidor', async () => {
+    const hoy = new Date(Date.now() - 4 * 3600e3).toISOString().slice(0, 10);
+    const ini = (await ok('GET', '/api/caja/cierre-cajero/inicio')).data;
+    assert.equal(ini.cortes.length, 11, 'las 11 denominaciones del escritorio');
+    const a = await ok('POST', '/api/caja/cierre-cajero', { SucursalId: 1, MontoInicial: 100, TipoCambio: 6.96, Observacion: 'apertura' });
+    let ll = ultimaLlamada('MAM_CierreCajero', 1).params;
+    assert.deepEqual([ll['@EstadoCaja'], ll['@MontoInicial'], ll['@PersonalId']], [1, 100, 1], 'abre la caja con el personal del usuario');
+    const pend = (await ok('GET', `/api/caja/cierre-cajero/${a.id}/detalle?fecha=${hoy}&pendiente=1`)).data;
+    assert.ok(pend.ventas.length && pend.cobranzas.length && pend.movimientos.length);
+    // 1 billete de 200 Bs + 1 de 10 $us
+    const cortes = ini.cortes.map(([b, d]) => ({ CantidadBs: b === 200 ? 1 : 0, CantidadDolares: d === 10 ? 1 : 0 }));
+    await ok('PUT', `/api/caja/cierre-cajero/${a.id}`, { fechaOriginal: hoy, SucursalId: 1, MontoInicial: 100, TipoCambio: 6.96, Observacion: 'cierre', cortes, TotalCaja: 1 });
+    ll = ultimaLlamada('MAM_CierreCajero', 2).params;
+    assert.equal(ll['@EstadoCaja'], 0, 'cierra la caja');
+    assert.equal(ll['@TotalCaja'], 100 + 150 + 40 - 10, 'Inicial + Ventas + Cobranzas + Ingresos - Egresos');
+    assert.equal(ll['@TotalEfectivo'], Math.round((200 + 10 * 6.96) * 100) / 100);
+    assert.equal(ll['@Diferencia'], Math.round((200 + 69.6 - 280) * 100) / 100);
+    assert.equal(ll['@CorteBilletes'].filas.length, 11);
+    assert.deepEqual(ll['@ModuloId'].filas.map((f) => f[2]), [1, 2, 3], 'ventas = 1, cobranzas = 2, movimientos = 3');
+    assert.match((await api('PUT', `/api/caja/cierre-cajero/${a.id}`, { fechaOriginal: hoy, SucursalId: 1, cortes })).mensaje, /Cerrada/, 'una caja cerrada no se modifica');
+    await ok('DELETE', `/api/caja/cierre-cajero/${a.id}?fecha=${hoy}`);
+});
+
+test('ADMINISTRAR CAJA (Kaily): gastos por btnGastos, caja general con saldo inicial y caja detallado', async () => {
+    const hoy = new Date(Date.now() - 4 * 3600e3).toISOString().slice(0, 10);
+    const hace60 = new Date(Date.now() - 60 * 864e5).toISOString().slice(0, 10);
+    assert.ok((await ok('GET', '/api/caja/ingresos-egresos')).data.length, 'mismo formulario de ingresos y egresos con btnGastos');
+    const g = (await ok('GET', `/api/caja/reportes/caja-general?desde=${hoy}&hasta=${hoy}`)).data;
+    assert.equal(g.filas[0].TipoMovimiento, 'Saldo Inicial');
+    assert.equal(g.filas[0].Saldo, -120, 'saldo anterior: el egreso de 120 de hace 40 dias');
+    assert.equal(g.filas.at(-1).Saldo, -120 + 500, 'saldo acumulado');
+    assert.equal(g.saldoCajaGeneral, 1250.5, 'TotalCajaGeneral de Configuracion');
+    const cajas = (await ok('GET', '/api/caja/reportes/caja-detallado/cajas')).data;
+    assert.ok(cajas.some((c) => c.Id === -1), 'opcion Todos');
+    assert.ok((await ok('GET', `/api/caja/reportes/caja-detallado?desde=${hace60}&hasta=${hoy}&caja=-1`)).data.filas.length >= 2);
+    assert.deepEqual(Object.keys(ultimaLlamada('MAM_CajaIngresoEgreso', 13).params).sort(), ['@CajaId', '@FechaF', '@FechaI', '@tipo'].sort(), 'sin @usuario, como VB');
 });
 
 test('ASIGNACION DE PEDIDOS: tabla completa con Asignar, estados, validaciones y permisos', async () => {

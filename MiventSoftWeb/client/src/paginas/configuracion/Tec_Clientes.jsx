@@ -11,12 +11,12 @@ import Icono from '../../componentes/Icono';
 
 const URL = '/api/configuracion/clientes';
 const VACIO = { Id: '', CodigoExterno: '', NombreCliente: '', DireccionCliente: '', Telefono: '', TipoDocumento: '', NroDocumento: '',
-  RazonSocial: '', Nit: '', Estado: true, Latitud: 0, Longitud: 0, PrecioCategoriaId: '', ZonaId: '', TipoNegocio: '', Referencia: '' };
+  RazonSocial: '', Nit: '', Estado: true, Latitud: 0, Longitud: 0, PrecioCategoriaId: '', ZonaId: '' };
 
 export default function Tec_Clientes() {
   const [form, setForm] = useState(VACIO);
   const [errores, setErrores] = useState({});
-  const [combos, setCombos] = useState({ tiposDocumento: [], tiposNegocio: [], precios: [], zonas: [] });
+  const [combos, setCombos] = useState({ tiposDocumento: [], precios: [], zonas: [] });
   const combosRef = useRef(null);
   // Al corregir un campo se quita su mensaje de error
   const quitarError = (k) => setErrores((e) => (e[k] ? { ...e, [k]: undefined } : e));
@@ -56,7 +56,7 @@ export default function Tec_Clientes() {
     ],
     _PMOLimpiar: () => {
       const c = combosRef.current || combos;
-      setForm({ ...VACIO, TipoDocumento: c.tiposDocumento[0]?.cnnum ?? '', TipoNegocio: c.tiposNegocio[0]?.cnnum ?? '',
+      setForm({ ...VACIO, TipoDocumento: c.tiposDocumento[0]?.cnnum ?? '',
         PrecioCategoriaId: c.precios[0]?.Id ?? '', ZonaId: c.zonas[0]?.Id ?? '' });
     },
     _PMOMostrarRegistro: (f) => setForm(Object.fromEntries(Object.keys(VACIO).map((k) => [k, f[k] ?? VACIO[k]]))),
@@ -67,7 +67,6 @@ export default function Tec_Clientes() {
       if (!form.ZonaId) e.ZonaId = 'Seleccione una Zona';
       if (!form.PrecioCategoriaId) e.PrecioCategoriaId = 'Seleccione Categoria de Precio';
       if (!form.TipoDocumento) e.TipoDocumento = 'Seleccione Tipo de Documento';
-      if (!form.TipoNegocio) e.TipoNegocio = 'Seleccione Tipo de Negocio';
       setErrores(e);
       return !Object.keys(e).length;
     },
@@ -98,15 +97,11 @@ export default function Tec_Clientes() {
             </Campo>
             <Campo etiqueta="Dirección" ancho={2}><input className="control" value={form.DireccionCliente} onChange={set('DireccionCliente')} readOnly={ro} maxLength={300} /></Campo>
             <Campo etiqueta="Teléfono"><input className="control" type="tel" value={form.Telefono} onChange={set('Telefono')} readOnly={ro} maxLength={50} /></Campo>
-            <Campo etiqueta="Referencia" ancho={3}><input className="control" value={form.Referencia} onChange={set('Referencia')} readOnly={ro} maxLength={300} /></Campo>
             <Campo etiqueta="Zona" error={errores.ZonaId} requerido>
               <ComboMulti dt={combos.zonas} valor={form.ZonaId} onChange={set('ZonaId')} id="Id" nameId="Código" descripcionId="NombreZona" descripcion="Zona" deshabilitado={ro} error={errores.ZonaId} />
             </Campo>
             <Campo etiqueta="Categoría de precio" error={errores.PrecioCategoriaId} requerido>
               <ComboMulti dt={combos.precios} valor={form.PrecioCategoriaId} onChange={set('PrecioCategoriaId')} id="Id" nameId="Código" descripcionId="Descripcion" descripcion="Precio" deshabilitado={ro} error={errores.PrecioCategoriaId} />
-            </Campo>
-            <Campo etiqueta="Tipo de negocio" error={errores.TipoNegocio} requerido>
-              <ComboLibreria dt={combos.tiposNegocio} valor={form.TipoNegocio} onChange={set('TipoNegocio')} titulo="Tipo de Negocio" deshabilitado={ro} error={errores.TipoNegocio} onNuevo={nuevaLibreria(15, 'tiposNegocio')} />
             </Campo>
           </div>
           <div className="sep" />

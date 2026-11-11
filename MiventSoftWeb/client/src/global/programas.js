@@ -11,6 +11,7 @@ export const PROGRAMAS_WEB = {
   BTCONFCLIENTE: { ruta: '/configuracion/clientes', icono: 'store' },
   BTCONFPRODUCTO: { ruta: '/configuracion/productos', icono: 'box' },
   BTCONFPRECIO: { ruta: '/configuracion/precios', icono: 'dollar' },
+  BTNKITS: { ruta: '/configuracion/kits', icono: 'box' },
   BTZONA: { ruta: '/configuracion/zonas', icono: 'map' },
   BTZONAMAPACLIENTE: { ruta: '/mapa-clientes/ubicacion', icono: 'globe' },
   // Paso 3: modulo Ventas
@@ -18,7 +19,15 @@ export const PROGRAMAS_WEB = {
   BTNPERSONAL: { ruta: '/ventas/personal', icono: 'users' },
   BTNPROVEEDORES: { ruta: '/ventas/proveedores', icono: 'bag' },
   BTNCREDPAGO: { ruta: '/ventas/cuentas-cobrar', icono: 'wallet' },
-  BTVENTPROFORMA: { ruta: '/ventas/proformas', icono: 'receipt' },
+  // Kaily: btnProforma (Tec_Proformas, MAM_Proforma)
+  BTNPROFORMA: { ruta: '/ventas/proformas', icono: 'receipt' },
+  // Kaily: Administrar Caja
+  BTNGASTOS: { ruta: '/ventas/gastos-ingresos', icono: 'wallet' },
+  BTNCIERRECAJERO: { ruta: '/ventas/cierre-cajero', icono: 'calc' },
+  BTNCAJAGENERAL: { ruta: '/ventas/caja-general', icono: 'wallet' },
+  BTNINGRESOEGRESOSMENSUALES: { ruta: '/ventas/ingresos-egresos-mensuales', icono: 'chart' },
+  BTNINGRESOEGRESODETALLADO: { ruta: '/ventas/ingresos-egresos-detallado', icono: 'bars' },
+  BTNREPORTECAJADETALLADO: { ruta: '/ventas/reporte-caja-detallado', icono: 'history' },
   // Ingreso y salida de productos (Inventario)
   BTINVAMACEN: { ruta: '/inventario/almacenes', icono: 'building' },
   BTINVMOVIMIENTO: { ruta: '/inventario/movimientos', icono: 'truck' },
@@ -42,7 +51,8 @@ export const PROGRAMAS_WEB = {
   // Distribucion
   BTNDESPACHO: { ruta: '/distribucion/despachos', icono: 'truck' },
   BTNCONCILIACIONES: { ruta: '/distribucion/conciliaciones', icono: 'clipboard' },
-  BTNCIERRECAJA: { ruta: '/distribucion/cierre-caja', icono: 'calc' },
+  // Kaily: btnCierreCaja esta en Panel_Distribucion pero no tiene evento Click (no abre nada en el escritorio)
+  // BTNCIERRECAJA: { ruta: '/distribucion/cierre-caja', icono: 'calc' },
   BTNCIERREREGISTROINGRESOEGRESOGENERALES: { ruta: '/distribucion/ingresos-egresos', icono: 'wallet' },
   BTNASIGNACIONZONA: { ruta: '/distribucion/asignacion-zonas', icono: 'target' },
   BTNCIERREREPORTEGASTOS: { ruta: '/distribucion/gastos-chofer', icono: 'pie' },

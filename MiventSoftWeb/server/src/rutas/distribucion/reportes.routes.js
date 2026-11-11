@@ -45,11 +45,14 @@ router.get('/gastos-chofer', requierePrograma('btnCierreReporteGastos'), asyncHa
 }));
 
 // ---------- Ingresos / Egresos anual: Ingreso y Egreso por mes ----------
-router.get('/ingresos-egresos-anual/anios', requierePrograma('btnCierreReporteAnual'), asyncHandler(async (req, res) => {
+// Kaily: los mismos reportes se abren desde Administrar Caja (btnIngresoEgresosMensuales / btnIngresoEgresoDetallado)
+const P_ANUAL = ['btnCierreReporteAnual', 'btnIngresoEgresosMensuales'];
+const P_DETALLADO = ['btnCierreReporteDetallado', 'btnIngresoEgresoDetallado'];
+router.get('/ingresos-egresos-anual/anios', requierePrograma(P_ANUAL), asyncHandler(async (req, res) => {
     res.json({ ok: true, data: await libreria(13) });
 }));
 // btnAnio (Efecto 10, libreria 13 "Crear Gestion(Año)"): solo años de 4 digitos, sin repetir
-router.post('/ingresos-egresos-anual/anios', requierePrograma('btnCierreReporteAnual'), asyncHandler(async (req, res) => {
+router.post('/ingresos-egresos-anual/anios', requierePrograma(P_ANUAL), asyncHandler(async (req, res) => {
     const anio = String(req.body?.descripcion ?? '').trim();
     if (!/^\d{4}$/.test(anio) || +anio < 2000 || +anio > 2100) throw new ErrorNegocio('Ingrese una gestión válida (año de 4 dígitos, ej. 2026)');
     if ((await libreria(13)).some((x) => String(x.cndesc1).trim() === anio)) throw new ErrorNegocio(`La gestión ${anio} ya existe.`);
@@ -62,7 +65,7 @@ async function cabeceraImpresa() {
     const [empresas, imagen] = await Promise.all([L.L_prListarGeneral('MAM_Empresas').catch(() => []), L.ObtenerImagenEmpresa().catch(() => [])]);
     return { empresa: v.proyectar(empresas, ['Nombre', 'Direccion', 'Telefono', 'Ciudad'])[0] || null, imagenEmpresa: imagen.length ? String(Object.values(imagen[0])[0] ?? '') : '' };
 }
-router.get('/ingresos-egresos-anual', requierePrograma('btnCierreReporteAnual'), asyncHandler(async (req, res) => {
+router.get('/ingresos-egresos-anual', requierePrograma(P_ANUAL), asyncHandler(async (req, res) => {
     const anio = Number.parseInt(req.query.anio, 10);
     if (!(anio >= 2000 && anio <= 2100)) throw new ErrorNegocio('Seleccione un Año');
     const [meses, cabecera] = await Promise.all([Promise.all(MESES.map((_, i) => L.ReporteIngresosEgresosMes(anio, i + 1))), cabeceraImpresa()]);
@@ -73,7 +76,7 @@ router.get('/ingresos-egresos-anual', requierePrograma('btnCierreReporteAnual'),
     res.json({ ok: true, data: { filas: [fila('INGRESOS', ing), fila('EGRESOS', egr), fila('SALDO', ing.map((x, i) => x - egr[i]))], grafico: MESES.map((m, i) => ({ mes: m, ingreso: ing[i], egreso: egr[i] })), cabecera } });
 }));
 
-router.get('/ingresos-egresos-detallado', requierePrograma('btnCierreReporteDetallado'), asyncHandler(async (req, res) => {
+router.get('/ingresos-egresos-detallado', requierePrograma(P_DETALLADO), asyncHandler(async (req, res) => {
     const [d, h] = rango(req.query);
     // MAM_CajaIngresoEgreso 12: Modulo (tipo de ingreso/egreso), NroComprobante (Id del registro), Fecha, Monto, IngresoEgreso (1/0).
     // Los egresos vienen en negativo: se envian en positivo y el balance es ingresos - egresos.

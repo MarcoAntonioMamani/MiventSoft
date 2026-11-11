@@ -1824,3 +1824,16 @@ body.vp-abierta { overflow: hidden; }
 
 /* celda numerica del detalle con valor invalido (NumeroCelda) */
 .control-celda.invalido { border-color: var(--peligro); box-shadow: 0 0 0 1px var(--peligro); background: #fffafa; color: var(--peligro); }
+
+/* Kaily: cobro de la venta en contado (EfectivoCobranza) */
+.cobro-campos { display: flex; flex-direction: column; gap: 10px; margin: 12px 0; }
+.cobro-fila { display: grid; grid-template-columns: minmax(110px, 1fr) minmax(0, 1.2fr) 78px; align-items: center; gap: 10px; }
+.cobro-fila > span:first-child { font-weight: 500; color: var(--txt-2); }
+.cobro-fila small { color: var(--txt-3); font-variant-numeric: tabular-nums; }
+.cobro-todo { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; color: var(--txt-3); }
+.cobro-todo input { width: 17px; height: 17px; accent-color: var(--pri); }
+.venta-total .desc-inputs input { width: 130px; font-weight: 700; }
+@media (max-width: 700px) { .cobro-fila { grid-template-columns: 1fr 1fr; } .cobro-fila > :last-child { grid-column: 1 / -1; } }
+.texto-peligro { color: var(--peligro); }
+/* Kaily: Caja general, saldo negativo en rojo (GridEXFormatCondition saldo < 0) */
+td.saldo-negativo { background: #dc2626; color: #fff; font-weight: 700; }

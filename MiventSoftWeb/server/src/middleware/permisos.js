@@ -73,11 +73,13 @@ const NOMBRE_PERMISO = { insertar: 'registrar', modificar: 'modificar', eliminar
 const accionPermiso = (accion) => (req, res, next) => { req.accionPermiso = accion; next(); };
 
 // Uso: router.use(requierePrograma('btConfRoles'))
+// Tambien acepta varios Id (el mismo formulario con botones distintos segun la rama): requierePrograma(['btnA', 'btnB'])
 function requierePrograma(idPrograma) {
-    const clave = idPrograma.toUpperCase();
+    const claves = (Array.isArray(idPrograma) ? idPrograma : [idPrograma]).map((x) => x.toUpperCase());
     return async (req, res, next) => {
         try {
-            const p = await PermisosPrograma(req.sesion.gi_userRol, clave);
+            let p = null;
+            for (const clave of claves) { p = await PermisosPrograma(req.sesion.gi_userRol, clave); if (p) break; }
             if (!p) return res.status(403).json({ ok: false, mensaje: 'No tiene privilegios para este programa.' });
             if (!_accionPermitida(req, p)) {
                 return res.status(403).json({ ok: false, mensaje: `Su rol no tiene permiso para ${NOMBRE_PERMISO[req.accionPermiso] || NOMBRE_ACCION[req.method] || 'esta accion'} en este programa.` });

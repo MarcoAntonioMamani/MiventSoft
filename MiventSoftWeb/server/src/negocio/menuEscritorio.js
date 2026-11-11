@@ -3,36 +3,42 @@
 //  _PCargarPrivilegios recorre los modulos (L_prLibreriaDetalleGeneral(1)) en orden y, para el modulo i,
 //  solo muestra los botones que EXISTEN en el panel i (listaTabs) y tienen algun permiso. Lo que el rol tenga
 //  registrado pero no este en el panel, en el escritorio no aparece: la web hace lo mismo.
-//  Generado de Tec_Principal.Designer.vb (Items/SubItems.AddRange y TitleText de cada MetroTileItem).
+//  Generado de Tec_Principal.Designer.vb de KAILY LA PAZ (punto de venta):
+//  Items/SubItems.AddRange de cada panel y TitleText de cada MetroTileItem.
 // =====================================================================
 const PANELES = [
     { panel: 'Panel_Configuracion', botones: [
         ['BTCONFROLES', "Roles de Usuario"],
-        ['BTCONFUSUARIOS', "Registrar Usuarios"],
+        ['BTCONFUSUARIOS', "Gestion De Usuarios"],
         ['BTCONFCLIENTE', "Gestion De Clientes"],
         ['BTCONFPRODUCTO', "Gestion De Productos"],
-        ['BTCONFPRECIO', "Modificar Precios"],
+        ['BTCONFPRECIO', "Gestion De Precios"],
         ['BTCONFLIBRERIA', "Gestion De Datos"],
         ['BTCONFDOSIFICACION', "Gestion De Dosificacion"],
         ['BTCOMPROVEEDOR', "Gestion De Proveedores"],
         ['BTCOMVENDEDOR', "Gestion De Vendedores"],
         ['BTNCONFCATEGORIA', "Gestion De Categorias"],
         ['BTCONFEMPRESA', "Gestion De Empresas"],
+        ['BTNKITS', "Gestion De Kits"],
     ] },
+    // Panel_Ventas tiene dos grupos: "Ventas" (ItemContainer2) y "Administrar Caja" (ItemContainer8)
     { panel: 'Panel_Ventas', botones: [
-        ['BTVENTVENTA', "Crear Nuevos Pedidos"],
-        ['BTNASIGNACIONPEDIDOS', "Asignación De Pedidos"],
-        ['BTVENTGRAFICA', "Grafica De Ventas"],
+        ['BTNPROFORMA', "Crear Proformas"],
+        ['BTVENTVENTA', "Gestion De Ventas"],
         ['BTVENTREPORTEREALIZADA', "Reporte De Ventas"],
+        ['BTVENTGRAFICA', "Grafica De Ventas"],
         ['BTVENTREPORTEVENTAVSCOSTO', "Ventas Vs Costos de Productos"],
         ['BTINVUTILIDAD', "Ingresos Por Productos"],
         ['BTVENTPRODMASVENDIDOS', "Reporte Productos Mas Vendidos"],
         ['BTVENTRENDIMIENTO', "Rendimiento Personal"],
         ['BTNCREDPAGO', "Cuentas Por Cobrar A Credito"],
-        ['BTNVENTAPRODUCTOS', "Reporte Ventas Por Productos"],
-        ['BTNREPORTECOBRANZA', "REPORTE COBRANZA"],
-        ['BTVENTPROFORMA', "Crear Proformas"],
-        ['BTNREPORTEPRODUCTOCATEGORIA', "Ventas Por Categoria"],
+        ['BTNDESPACHOVENTA', "Despacho De Productos"],
+        ['BTNGASTOS', "Registrar Gastos o Ingresos"],
+        ['BTNCIERRECAJERO', "Administrar Cierre Caja"],
+        ['BTNCAJAGENERAL', "Caja General"],
+        ['BTNINGRESOEGRESOSMENSUALES', "Ingresos Egresos Mensuales"],
+        ['BTNINGRESOEGRESODETALLADO', "Ingresos Egresos Detallado"],
+        ['BTNREPORTECAJADETALLADO', "Reporte Caja Detallado"],
     ] },
     // tab_ingresoproducto.Text = "Ingreso y Salida De Productos" (el modulo se muestra con ese nombre, no con el de la base)
     { panel: 'Panel_ingresos', titulo: 'INGRESO Y SALIDA DE PRODUCTOS', botones: [
@@ -52,11 +58,9 @@ const PANELES = [
         ['METROTILEITEM30', "Ingresos Por Sucursal"],
     ] },
     { panel: 'Panel_Compras', botones: [
-        ['BTNCOMPRAS', "Realizar Compras"],
+        ['BTNCOMPRAS', "Gestionar Compras"],
         ['BTNCOMPRACREDITO', "Administrar Cuentas Por Pagar"],
         ['BTNPROVEEDORES', "Gestion De Proveedores"],
-        ['BTNHISTORICO', "Reporte Historico Compras"],
-        ['BTNCOMPRASPORPRODUCTO', "Reporte Compras Por Productos"],
     ] },
     { panel: 'Panel_Planillas', botones: [
         ['BTNPERSONAL', "Gestion De Personal"],
@@ -66,20 +70,11 @@ const PANELES = [
         ['BTNPLANILLA', "Administrar Planilla Salarios"],
     ] },
     { panel: 'Panel_Distribucion', botones: [
-        ['BTNDESPACHO', "Despachar Productos"],
-        ['BTNCONCILIACIONES', "Conciliar Productos"],
+        ['BTNDESPACHO', "Despacho De Productos"],
+        ['BTNCONCILIACIONES', "Conciliaciones De Productos"],
         ['BTNCIERRECAJA', "Cierre De Caja"],
         ['METROTILEITEM4', "Asignar Trabajador A Planilla"],
         ['METROTILEITEM5', "Administrar Planilla Salarios"],
-        ['BTNCIERREREPORTEGASTOS', "Reporte Gastos Chofer"],
-        ['BTNCIERREREGISTROINGRESOEGRESOGENERALES', "Registrar Gastos & Ingresos Generales"],
-        ['BTNCIERREREPORTEANUAL', "Reporte Ingresos & Egresos Anual"],
-        ['BTNCIERREREPORTEDETALLADO', "Reporte Ingresos & Egresos Detallado"],
-        ['BTNASIGNACIONZONA', "Asignacion De Zonas"],
-        ['BTNHISTORICOCLIENTE', "Historico Registro Clientes"],
-        ['BTNREPORTEVENTASPORPRODUCTOS', "Ventas Productos Por Cliente"],
-        ['BTNREPAUDITORIAVENTAS', "Auditoria Ventas"],
-        ['BTNHISTORICOINCREMENTO', "Historial Incremento Ventas"],
     ] }
 ];
 

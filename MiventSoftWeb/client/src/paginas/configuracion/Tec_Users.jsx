@@ -11,12 +11,21 @@ import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
 
 const URL = '/api/configuracion/usuarios';
-const VACIO = { Id: '', NombreUsuario: '', Contrasena: '', estado: true, pedido: false, RolId: '', IdEmpresa: '', IdPersonal: 0, Personal: '' };
+// Kaily (punto de venta): switches de permisos del usuario, igual que Tec_Users.vb
+const PERMISOS = [
+  ['ModificarPrecioVenta', 'Modificar precio de venta'],
+  ['AplicarDescuentoVenta', 'Aplicar descuento en venta'],
+  ['VerTodasVentas', 'Ver todas las ventas'],
+  ['VerTodosVentasCierre', 'Ver todos los cierres'],
+  ['ModificarRegistroAnteriores', 'Modificar registros anteriores'],
+];
+const PERMISOS_VACIO = Object.fromEntries(PERMISOS.map(([k]) => [k, false]));
+const VACIO = { Id: '', NombreUsuario: '', Contrasena: '', estado: true, RolId: '', IdEmpresa: '', SucursalId: 1, IdPersonal: 0, Personal: '', ...PERMISOS_VACIO };
 
 export default function Tec_Users() {
   const [form, setForm] = useState(VACIO);
   const [errores, setErrores] = useState({});
-  const [combos, setCombos] = useState({ roles: [], empresas: [], personal: [] });
+  const [combos, setCombos] = useState({ roles: [], empresas: [], personal: [], sucursales: [] });
   const [ayuda, setAyuda] = useState(false);
   // Al corregir un campo se quita su mensaje de error
   const quitarError = (k) => setErrores((e) => (e[k] ? { ...e, [k]: undefined } : e));
@@ -26,8 +35,9 @@ export default function Tec_Users() {
   useEffect(() => { api.get(`${URL}/combos`).then((r) => setCombos(r.data)).catch(() => {}); }, []);
 
   const _datos = () => ({
-    NombreUsuario: form.NombreUsuario, Contrasena: form.Contrasena, estado: form.estado, pedido: form.pedido,
-    RolId: form.RolId, IdEmpresa: form.IdEmpresa, IdPersonal: form.IdPersonal,
+    NombreUsuario: form.NombreUsuario, Contrasena: form.Contrasena, estado: form.estado,
+    RolId: form.RolId, IdEmpresa: form.IdEmpresa, SucursalId: form.SucursalId, IdPersonal: form.IdPersonal,
+    ...Object.fromEntries(PERMISOS.map(([k]) => [k, form[k]])),
   });
 
   const m = useModeloF1({
@@ -40,13 +50,16 @@ export default function Tec_Users() {
       new Celda('NombreRol', true, 'Rol', 150),
       new Celda('SucursalId', false), new Celda('IdEmpresa', false),
       new Celda('Empresa', true, 'Empresa', 180),
-      new Celda('IdPersonal', false), new Celda('pedido', false),
+      new Celda('IdPersonal', false),
       new Celda('Personal', true, 'Personal', 200),
+      ...PERMISOS.map(([k]) => new Celda(k, false)),
     ],
+    // VB: cbSucursal.Value = 1 al limpiar
     _PMOLimpiar: () => setForm({ ...VACIO, RolId: combos.roles[0]?.Id ?? '', IdEmpresa: combos.empresas[0]?.Id ?? '' }),
     _PMOMostrarRegistro: (f) => setForm({
-      Id: f.Id, NombreUsuario: f.NombreUsuario ?? '', Contrasena: '', estado: !!f.estado, pedido: !!f.pedido,
-      RolId: f.RolId ?? '', IdEmpresa: f.IdEmpresa ?? '', IdPersonal: f.IdPersonal ?? 0, Personal: f.Personal ?? '',
+      Id: f.Id, NombreUsuario: f.NombreUsuario ?? '', Contrasena: '', estado: !!f.estado,
+      RolId: f.RolId ?? '', IdEmpresa: f.IdEmpresa ?? '', SucursalId: f.SucursalId ?? 1, IdPersonal: f.IdPersonal ?? 0, Personal: f.Personal ?? '',
+      ...Object.fromEntries(PERMISOS.map(([k]) => [k, !!Number(f[k])])),
     }),
     _PMOLimpiarErrores: () => setErrores({}),
     _PMOValidarCampos: () => {
@@ -94,7 +107,17 @@ export default function Tec_Users() {
             <Campo etiqueta="Empresa" error={errores.IdEmpresa} requerido>
               <ComboMulti dt={combos.empresas} valor={form.IdEmpresa} onChange={set('IdEmpresa')} id="Id" nameId="Código" descripcionId="Nombre" descripcion="Empresa" deshabilitado={ro} error={errores.IdEmpresa} />
             </Campo>
-            <Campo etiqueta="Venta directa (pedido sin conciliación)"><SwitchButton valor={form.pedido} onChange={set('pedido')} deshabilitado={ro} textoOn="SI" textoOff="NO" /></Campo>
+            <Campo etiqueta="Sucursal">
+              <ComboMulti dt={combos.sucursales} valor={form.SucursalId} onChange={set('SucursalId')} id="aanumi" nameId="Codigo" descripcionId="aabdes" descripcion="Sucursal" deshabilitado={ro} />
+            </Campo>
+          </div>
+        </div>
+        <div className="tarjeta">
+          <h2 className="tarjeta-tit">Permisos en ventas</h2>
+          <div className="campos">
+            {PERMISOS.map(([k, texto]) => (
+              <Campo key={k} etiqueta={texto}><SwitchButton valor={form[k]} onChange={set(k)} deshabilitado={ro} textoOn="SI" textoOff="NO" /></Campo>
+            ))}
           </div>
         </div>
       </div>

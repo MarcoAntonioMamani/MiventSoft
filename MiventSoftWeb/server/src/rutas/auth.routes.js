@@ -51,6 +51,9 @@ router.post(
         const dt = await ListarPersonalById(idPersonal);
         const gs_user = dt.length > 0 ? dt[0].Nombre : tbUsuario;
 
+        // Kaily (Tec_Login.vb): Global_ModificarPrecio, Global_ModificarDescuento, Global_VentasTodos,
+        // Global_CierreTodos, Global_ModificarRegistro y Global_NombreSucursal
+        const bit = (x) => (x === true || Number(x) === 1 ? 1 : 0);
         crearSesion(res, {
             gs_user,
             gs_login: tbUsuario.toUpperCase(),
@@ -58,6 +61,12 @@ router.post(
             gi_userRol: fila.RolId,
             gi_userSuc: fila.SucursalId,
             Global_IdPersonal: idPersonal,
+            Global_ModificarPrecio: bit(fila.ModificarPrecioVenta),
+            Global_ModificarDescuento: bit(fila.AplicarDescuentoVenta),
+            Global_VentasTodos: bit(fila.VerTodasVentas),
+            Global_CierreTodos: bit(fila.VerTodosVentasCierre),
+            Global_ModificarRegistro: bit(fila.ModificarRegistroAnteriores),
+            Global_NombreSucursal: String(fila.NombreSucursal ?? ''),
         });
         res.json({ ok: true });
     })
@@ -102,6 +111,15 @@ router.get(
                 gi_userNumi: s.gi_userNumi,
                 gi_userRol: s.gi_userRol,
                 gi_userSuc: s.gi_userSuc,
+                // Kaily: permisos de venta del usuario (Tec_Login.vb -> Global_*)
+                permisosVenta: {
+                    modificarPrecio: s.Global_ModificarPrecio === 1,
+                    modificarDescuento: s.Global_ModificarDescuento === 1,
+                    verTodasVentas: s.Global_VentasTodos === 1,
+                    verTodosCierres: s.Global_CierreTodos === 1,
+                    modificarRegistrosAnteriores: s.Global_ModificarRegistro === 1,
+                },
+                nombreSucursal: s.Global_NombreSucursal || '',
                 modulos,
                 conexion: await D_InfoConexion(),
             },

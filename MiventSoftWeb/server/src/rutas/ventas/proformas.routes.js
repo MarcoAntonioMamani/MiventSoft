@@ -1,28 +1,23 @@
 // =====================================================================
-//  Proforma.vb + ProformaDetalle.vb  (programa: btVentProforma)   SP: MAM_Proforma
-//  Mismo formulario que Tec_Ventas con estas diferencias del escritorio:
-//   * Sin incremento: Total = Suma(detalle) - Descuento
-//   * Productos siempre de L_prListarProductosVentas (@tipo 5): TODOS, tambien los sin stock
-//     (el escritorio los pinta en rojo y deja elegirlos: frm_CantidadCajas con TipoMovimiento=4 no limita stock)
-//   * Nota: ListarProformaRecibo (MAM_Proforma @tipo 6), misma hoja que la nota de venta
-//   * La unica forma de crear en el escritorio es btnVentaSinConciliacion:
-//     VentaDirecta=1, SinConciliacion=1 -> se graba @Ventadirecta=0, @VentaDirectaSinConciliacion=1, EstadoPedido=4.
-//     La web graba EXACTAMENTE esos valores, pero permite crear segun el permiso Insertar del rol
-//     (en el escritorio solo lo veian usuarios con Usuarios.pedido = 1).
+//  KAILY LA PAZ: Tec_Proformas.vb (programa: btnProforma)   SP: MAM_Proforma
+//  Misma pantalla que Tec_Ventas de Kaily, con estas diferencias del escritorio:
+//   * ProformaInsertar / ProformaModificar: sin @VentaPagos ni @Facturado; TipoVenta = 1 y vencimiento = hoy.
+//   * Lista: L_prListarVentasGeneralFiltroFecha("MAM_Proforma", ...) sin filtrar por vendedor.
+//   * Productos con TipoPrograma = 2: se puede cotizar sin stock (no limita la cantidad).
+//   * No exige Caja Chica abierta ni bloquea registros de dias anteriores.
+//   * Nota: ListarVentaProforma (MAM_Proforma @tipo 6). Total = Suma - Descuento.
+//  (La proforma de distribucion, btVentProforma, queda en ventas.routes.js sin usarse en Kaily.)
 // =====================================================================
 const L = require('../../negocio/AccesoLogica');
-const { crearRouter } = require('./ventas.routes');
+const { crearRouterPV } = require('./ventasPuntoVenta.routes');
 
-module.exports = crearRouter({
-    programa: 'btVentProforma',
+module.exports = crearRouterPV({
+    programa: 'btnProforma',
     nombre: 'Proforma',
     sp: 'MAM_Proforma',
     listaDetalles: (id) => L.ListaProformaDetalles(id),
-    insertar: (v, d) => L.ProformaInsertar(v, d),
-    modificar: (v, d) => L.ProformaModificar(v, d),
+    insertar: (x, d) => L.ProformaInsertar(x, d),
+    modificar: (x, d) => L.ProformaModificar(x, d),
     recibo: (id) => L.ListarProformaRecibo(id),
-    sinStock: true,
-    conIncremento: false,
-    exigePermisoSinConciliacion: false,
-    modos: { proforma: { VentaDirecta: 1, SinConciliacion: 1, EstadoPedido: 4 } },
+    conPagos: false, exigeCaja: false, validarEditable: false, filtrarPorVendedor: false, sinStock: true, soloContado: true,
 });

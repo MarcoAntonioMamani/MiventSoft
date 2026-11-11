@@ -1,5 +1,8 @@
 // =====================================================================
-//  Tec_Productos.vb  (programa: btConfProducto)   SP: MAM_Productos (TVP @TCL0064)
+//  Tec_Productos.vb  (programa: btConfProducto)   SP: MAM_Productos (TVP @TCL0064 y @PrecioT)
+//
+//  @PrecioT (Kaily): la tabla de ListPreciosDetalles (@tipo 10) con el precio de cada
+//    categoria. El navegador envia solo { idCategoria: precio }.
 //
 //  TablaImagenes en VB: filas (?, ProductoId, lhima, img, estado)
 //    estado 0 = nueva, 1 = existente, -1 = eliminar
@@ -46,6 +49,12 @@ router.get('/:id/imagenes', asyncHandler(async (req, res) => {
     const id = v.idRuta(req.params.id);
     const dt = v.proyectar(await L.L_prCargarImagenesRecepcion(id), ['lhima']);
     res.json({ ok: true, data: dt.map((f) => f.lhima).filter(Boolean) });
+}));
+
+// Kaily: grPrecios = ListPreciosDetalles(ProductoId)  (-1 = producto nuevo)
+router.get('/:id/precios', asyncHandler(async (req, res) => {
+    const id = req.params.id === '-1' ? -1 : v.idRuta(req.params.id);
+    res.json({ ok: true, data: v.proyectar(await L.ListPreciosDetalles(id), ['id', 'Descripcion', 'precio']) });
 }));
 
 // btMarca(3) btAtributo(4) btFamilia(5) btUniVenta(6) btUniMaxima(7)
@@ -107,6 +116,29 @@ async function _armarTablaImagenes(idProducto, archivos, eliminar) {
     return { tabla: { columnas: [], filas }, nuevas, borrar };
 }
 
+// Arma dtPrecio igual que CType(grPrecios.DataSource, DataTable): la tabla de ListPreciosDetalles
+// (todas sus columnas, por posicion) con el precio que escribio el usuario.
+// VB grPrecios_CellEdited: precio no numerico o <= 0 -> 0
+async function _armarTablaPrecios(idProducto, precios) {
+    const dt = await L.ListPreciosDetalles(idProducto > 0 ? idProducto : -1);
+    const cols = L._columnasDe(dt);
+    const iId = cols.findIndex((c) => c.toLowerCase() === 'id');
+    const iPrecio = cols.findIndex((c) => c.toLowerCase() === 'precio');
+    let mapa = {};
+    if (typeof precios === 'string') { try { mapa = JSON.parse(precios) || {}; } catch { mapa = {}; } }
+    else if (precios && typeof precios === 'object') mapa = precios;
+    const filas = dt.map((f) => {
+        const fila = cols.map((c) => f[c]);
+        const k = iId >= 0 ? String(fila[iId]) : null;
+        if (iPrecio >= 0 && k !== null && Object.prototype.hasOwnProperty.call(mapa, k)) {
+            const n = Number.parseFloat(mapa[k]);
+            fila[iPrecio] = Number.isFinite(n) && n > 0 ? n : 0;
+        }
+        return fila;
+    });
+    return { columnas: [], filas };
+}
+
 // _prGuardarImagenes: despues de grabar en BD, escribe/borra archivos
 async function _guardarArchivos({ nuevas, borrar }) {
     for (const n of nuevas) await img.GuardarImagenConNombre('producto', n.nombre, n.buffer);
@@ -116,7 +148,8 @@ async function _guardarArchivos({ nuevas, borrar }) {
 router.post('/', img.subirImagenes, asyncHandler(async (req, res) => {
     const p = _leerProducto(req.body);
     const t = await _armarTablaImagenes(0, req.files, []);
-    const r = await L.L_prProductoInsertar({ _numi: '', ...p }, t.tabla);
+    const precios = await _armarTablaPrecios(0, req.body.precios);
+    const r = await L.L_prProductoInsertar({ _numi: '', ...p }, t.tabla, precios);
     if (!r.resultado) throw new ErrorNegocio('Error al guardar el producto'.toUpperCase());
     await _guardarArchivos(t);
     res.json({ ok: true, id: r._numi, mensaje: `Codigo de Producto ${r._numi} Grabado con Exito.`.toUpperCase() });
@@ -126,7 +159,8 @@ router.put('/:id', img.subirImagenes, asyncHandler(async (req, res) => {
     const id = v.idRuta(req.params.id);
     const p = _leerProducto(req.body);
     const t = await _armarTablaImagenes(id, req.files, _leerEliminar(req.body));
-    const r = await L.L_prProductoModificar({ _numi: id, ...p }, t.tabla);
+    const precios = await _armarTablaPrecios(id, req.body.precios);
+    const r = await L.L_prProductoModificar({ _numi: id, ...p }, t.tabla, precios);
     if (!r.resultado) throw new ErrorNegocio('Error al modificar el producto'.toUpperCase());
     await _guardarArchivos(t);
     res.json({ ok: true, id, mensaje: `Codigo de Producto ${id} modificado con Exito.`.toUpperCase() });

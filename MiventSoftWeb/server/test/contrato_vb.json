@@ -1,6 +1,16 @@
 {
  "*NameSp|3": [
   {
+   "funcion": "L_prListarVentasGeneralFiltroFecha",
+   "params": [
+    "@desde",
+    "@hasta",
+    "@sucursalid",
+    "@tipo",
+    "@usuario"
+   ]
+  },
+  {
    "funcion": "L_prListarGeneral",
    "params": [
     "@tipo",
@@ -17,6 +27,22 @@
    ]
   }
  ],
+ "MAM_CajaIngresoEgreso|6": [{ "funcion": "L_fnObtenerHistorialCajaGeneral", "params": ["@fechai", "@tipo", "@usuario"] }],
+ "MAM_CajaIngresoEgreso|7": [{ "funcion": "L_fnObtenerHistorialCajaGeneralDesdeHasta", "params": ["@fechaf", "@fechai", "@tipo", "@usuario"] }],
+ "MAM_CierreCajero|1": [
+  { "funcion": "L_prCierreCajeroInsertar", "params": ["@diferencia", "@estadocaja", "@fecha", "@id", "@montoinicial", "@observacion", "@personalid", "@sucursalid", "@tipo", "@tipocambio", "@totalcaja", "@totalcobranzas", "@totalefectivo", "@totalefectivorecibido", "@totalegreso", "@totalingresos", "@totaltarjeta", "@totaltransferencia", "@totalventas", "@usuario"] }
+ ],
+ "MAM_CierreCajero|2": [
+  { "funcion": "L_prCierreCajeroModificar", "params": ["@cortebilletes", "@diferencia", "@estadocaja", "@fecha", "@id", "@moduloid", "@montoinicial", "@observacion", "@personalid", "@sucursalid", "@tipo", "@tipocambio", "@totalcaja", "@totalcobranzas", "@totalefectivo", "@totalefectivorecibido", "@totalegreso", "@totalingresos", "@totaltarjeta", "@totaltransferencia", "@totalventas", "@usuario"] }
+ ],
+ "MAM_CierreCajero|4": [{ "funcion": "L_prListarVentaCierresCaja", "params": ["@id", "@tipo", "@usuario"] }],
+ "MAM_CierreCajero|5": [{ "funcion": "L_prListarVentaCierresCajaPendiente", "params": ["@fecha", "@global_cierretodos", "@personalid", "@sucursalid", "@tipo", "@usuario"] }],
+ "MAM_CierreCajero|6": [{ "funcion": "L_prListarCobranzaCierresCaja", "params": ["@id", "@tipo", "@usuario"] }],
+ "MAM_CierreCajero|7": [{ "funcion": "L_prListarCobrosCajaPendiente", "params": ["@fecha", "@global_cierretodos", "@personalid", "@tipo", "@usuario"] }],
+ "MAM_CierreCajero|8": [{ "funcion": "L_prListarMovimientosIngresoEgresoCierre", "params": ["@id", "@tipo", "@usuario"] }],
+ "MAM_CierreCajero|9": [{ "funcion": "L_prListarMovimientosIngresoEgresoCierrePendiente", "params": ["@fecha", "@global_cierretodos", "@personalid", "@sucursalid", "@tipo", "@usuario"] }],
+ "MAM_CierreCajero|10": [{ "funcion": "L_prListarEfectivoCortesCierre", "params": ["@id", "@tipo", "@usuario"] }],
+ "MAM_CierreCajero|11": [{ "funcion": "L_prListarIdModulosCierre", "params": ["@id", "@tipo", "@usuario"] }],
  "*sp|-1": [
   {
    "funcion": "L_prBorrarRegistro",
@@ -435,11 +461,9 @@
     "@observacion",
     "@preciocategoriaid",
     "@razonsocial",
-    "@referencia",
     "@telefono",
     "@tipo",
     "@tipodocumento",
-    "@tiponegocio",
     "@zonaid"
    ]
   }
@@ -506,11 +530,9 @@
     "@observacion",
     "@preciocategoriaid",
     "@razonsocial",
-    "@referencia",
     "@telefono",
     "@tipo",
     "@tipodocumento",
-    "@tiponegocio",
     "@zonaid"
    ]
   }
@@ -1482,6 +1504,7 @@
     "@id",
     "@marcaid",
     "@nombreproducto",
+    "@preciot",
     "@proveedorid",
     "@stockminimo",
     "@tcl0064",
@@ -1493,6 +1516,14 @@
   }
  ],
  "MAM_Productos|10": [
+  {
+   "funcion": "ListPreciosDetalles",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  },
   {
    "funcion": "L_prListarProductosPorCategoriaTotal",
    "params": [
@@ -1543,6 +1574,7 @@
     "@id",
     "@marcaid",
     "@nombreproducto",
+    "@preciot",
     "@proveedorid",
     "@stockminimo",
     "@tcl0064",
@@ -1611,8 +1643,6 @@
     "@clienteid",
     "@descuento",
     "@estado",
-    "@estadopedido",
-    "@fechaentregar",
     "@fechavencimientocredito",
     "@fechaventa",
     "@glosa",
@@ -1624,9 +1654,7 @@
     "@tipoventa",
     "@totalventa",
     "@usuario",
-    "@ventadetalletype",
-    "@ventadirecta",
-    "@ventadirectasinconciliacion"
+    "@ventadetalletype"
    ]
   }
  ],
@@ -1637,8 +1665,6 @@
     "@clienteid",
     "@descuento",
     "@estado",
-    "@estadopedido",
-    "@fechaentregar",
     "@fechavencimientocredito",
     "@fechaventa",
     "@glosa",
@@ -1650,9 +1676,7 @@
     "@tipoventa",
     "@totalventa",
     "@usuario",
-    "@ventadetalletype",
-    "@ventadirecta",
-    "@ventadirectasinconciliacion"
+    "@ventadetalletype"
    ]
   }
  ],
@@ -1962,12 +1986,16 @@
     "@id",
     "@idempresa",
     "@idpersonal",
+    "@modificardescuento",
+    "@modificarprecio",
+    "@modificarregistroantiguos",
     "@nombreusuario",
-    "@pedidosinconciliacion",
     "@rolid",
     "@sucursalid",
     "@tipo",
-    "@usuario"
+    "@usuario",
+    "@ventastodasventas",
+    "@vertodasventascierre"
    ]
   }
  ],
@@ -1980,12 +2008,16 @@
     "@id",
     "@idempresa",
     "@idpersonal",
+    "@modificardescuento",
+    "@modificarprecio",
+    "@modificarregistroantiguos",
     "@nombreusuario",
-    "@pedidosinconciliacion",
     "@rolid",
     "@sucursalid",
     "@tipo",
-    "@usuario"
+    "@usuario",
+    "@ventastodasventas",
+    "@vertodasventascierre"
    ]
   }
  ],
@@ -2053,13 +2085,11 @@
     "@clienteid",
     "@descuento",
     "@estado",
-    "@estadopedido",
-    "@fechaentregar",
+    "@facturado",
     "@fechavencimientocredito",
     "@fechaventa",
     "@glosa",
     "@id",
-    "@incrementoventa",
     "@monedaventa",
     "@personalid",
     "@sucursalid",
@@ -2068,36 +2098,47 @@
     "@totalventa",
     "@usuario",
     "@ventadetalletype",
-    "@ventadirecta",
-    "@ventadirectasinconciliacion"
+    "@ventapagos"
+   ]
+  }
+ ],
+ "MAM_Ventas|3": [
+  {
+   "funcion": "L_prListarVentasGeneralFiltroFecha",
+   "params": [
+    "@desde",
+    "@hasta",
+    "@sucursalid",
+    "@tipo",
+    "@usuario"
    ]
   },
   {
-   "funcion": "VentaInsertar",
+   "funcion": "L_prListarGeneralFechas",
    "params": [
-    "@clienteid",
-    "@descuento",
-    "@estado",
-    "@estadopedido",
-    "@fechaentregar",
-    "@fechavencimientocredito",
-    "@fechaventa",
-    "@glosa",
-    "@id",
-    "@monedaventa",
-    "@personalid",
-    "@sucursalid",
+    "@desde",
+    "@hasta",
     "@tipo",
-    "@tipoventa",
-    "@totalventa",
-    "@usuario",
-    "@ventadetalletype",
-    "@ventadirecta",
-    "@ventadirectasinconciliacion"
+    "@usuario"
+   ]
+  },
+  {
+   "funcion": "L_prListarGeneral",
+   "params": [
+    "@tipo",
+    "@usuario"
    ]
   }
  ],
  "MAM_Ventas|10": [
+  {
+   "funcion": "L_prListarProductosKitsVenta",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  },
   {
    "funcion": "ListaProductosAsignadosByChofer",
    "params": [
@@ -2205,8 +2246,7 @@
     "@clienteid",
     "@descuento",
     "@estado",
-    "@estadopedido",
-    "@fechaentregar",
+    "@facturado",
     "@fechavencimientocredito",
     "@fechaventa",
     "@glosa",
@@ -2219,8 +2259,7 @@
     "@totalventa",
     "@usuario",
     "@ventadetalletype",
-    "@ventadirecta",
-    "@ventadirectasinconciliacion"
+    "@ventapagos"
    ]
   }
  ],
@@ -2305,8 +2344,7 @@
   {
    "funcion": "L_prListarProductosVentas",
    "params": [
-    "@clienteid",
-    "@precioid",
+    "@categoriaventaid",
     "@sucursalid",
     "@tipo",
     "@usuario"
@@ -2333,6 +2371,14 @@
   }
  ],
  "MAM_Ventas|8": [
+  {
+   "funcion": "ListaVentasDetallePago",
+   "params": [
+    "@id",
+    "@tipo",
+    "@usuario"
+   ]
+  },
   {
    "funcion": "VentaInsertarAsignaciones",
    "params": [

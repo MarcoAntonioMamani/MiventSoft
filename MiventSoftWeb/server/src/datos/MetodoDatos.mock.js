@@ -14,11 +14,14 @@ const CONTRATO = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'te
 const llamadas = []; // historial para las pruebas automaticas
 
 // Columnas que tienen los tipos tabla (TVP) en el escritorio
-const TVP_COLUMNAS = { roldetalletype: 10, zonaspuntos: 5, tcl0064: 5, ty007: 6, ventadetalletype: 19, asignaciontype: 5, detallegastos: 8, cobranzas: 5, asignacion: 8, asignacionentregado: 11, asignacionanulacion: 9, detalledespacho: 10, referenciaventa: 2, detalleconciliacion: 5, detalle: 13 };
+const TVP_COLUMNAS = { cortebilletes: 8, moduloid: 4, roldetalletype: 10, zonaspuntos: 5, tcl0064: 5, preciot: 3, ty007: 6, ventadetalletype: 22, ventapagos: 8, asignaciontype: 5, detallegastos: 8, cobranzas: 5, asignacion: 8, asignacionentregado: 11, asignacionanulacion: 9, detalledespacho: 10, referenciaventa: 2, detalleconciliacion: 5, detalle: 13 };
 // Por SP (tiene prioridad): ancho desconocido en el escritorio -> null = no se valida (ver test/verificar.js)
 const TVP_SP = { 'MAM_Compras:detalle': null, 'MAM_Contratos:detallecontratoconcepto': 6, 'MAM_Planilla:planillaconcepto': null };
-// Orden del SELECT de MAM_Ventas @tipo 4 (simulado: 19 columnas, igual que _prAddDetalleVenta)
-const COLS_VDET = ['Id', 'VentaId', 'ProductoId', 'Producto', 'Cantidad', 'Precio', 'SubTotal', 'ProcentajeDescuento', 'MontoDescuento', 'Total', 'CantidadUnitaria', 'Detalle', 'PrecioCosto', 'Lote', 'FechaVencimiento', 'estado', 'img', 'stock', 'Conversion'];
+// Orden del SELECT de MAM_Ventas @tipo 4 de Kaily (simulado: 22 columnas, como _prAddDetalleVenta de Tec_VentasDetalle.vb)
+const COLS_VDET = ['Id', 'VentaId', 'ProductoId', 'Producto', 'Cantidad', 'Precio', 'SubTotal', 'ProcentajeDescuento', 'MontoDescuento', 'Total', 'Detalle', 'PrecioCosto',
+    'Lote', 'FechaVencimiento', 'estado', 'TipoNombre', 'Tipo', 'KitNombre', 'KitId', 'CantidadKit', 'img', 'stock'];
+// MAM_Ventas @tipo 8 (ListaVentasDetallePago): a.Id, a.VentaId, a.MontoBs, a.MontoDolares, a.TarjetaBancaria, a.TransferenciaBancaria, a.TipoCambio, estado
+const COLS_PAGO = ['Id', 'VentaId', 'MontoBs', 'MontoDolares', 'TarjetaBancaria', 'TransferenciaBancaria', 'TipoCambio', 'estado'];
 
 function _validarContrato(sp, lista) {
     const tipo = lista.find((p) => p.nombre.toLowerCase() === '@tipo')?.valor;
@@ -71,7 +74,7 @@ const db = {
     programas: [
         ['btConfRoles', 'Roles', 1], ['btConfUsuarios', 'Usuarios', 1], ['btnConfCategoria', 'Categorias', 1], ['btConfEmpresa', 'Empresas', 1],
         ['btConfCliente', 'Clientes', 1], ['btConfProducto', 'Productos', 1], ['btConfPrecio', 'Precios', 1], ['btZona', 'Gestion De Zonas', 5], ['btZonaMapaCliente', 'Ubicacion De Clientes', 5],
-        ['btVentVenta', 'Ventas', 2], ['btnPersonal', 'Personal', 7], ['btnProveedores', 'Proveedores', 6], ['btnCredPago', 'Cuentas Por Cobrar A Credito', 2], ['btVentProforma', 'Crear Proformas', 2],
+        ['btVentVenta', 'Ventas', 2], ['btnPersonal', 'Personal', 7], ['btnProveedores', 'Proveedores', 6], ['btnCredPago', 'Cuentas Por Cobrar A Credito', 2], ['btnProforma', 'Crear Proformas', 2], ['btnGastos', 'Registrar Gastos o Ingresos', 2], ['btnCierreCajero', 'Administrar Cierre Caja', 2], ['btnCajaGeneral', 'Caja General', 2], ['btnIngresoEgresosMensuales', 'Ingresos Egresos Mensuales', 2], ['btnIngresoEgresoDetallado', 'Ingresos Egresos Detallado', 2], ['btnReporteCajaDetallado', 'Reporte Caja Detallado', 2],
         ['btVentReporteRealizada', 'Reporte De Ventas', 2], ['btVentReporteVentaVsCosto', 'Ventas Vs Costos De Productos', 2], ['btVentProdMasVendidos', 'Reporte Productos Mas Vendidos', 2],
         ['btVentRendimiento', 'Rendimiento Personal', 2], ['btnVentaProductos', 'Reporte Ventas Por Productos', 2], ['btnReporteCobranza', 'Reporte Cobranza', 2], ['btnReporteProductoCategoria', 'Ventas Por Categoria', 2], ['btInvMovimiento', 'Ingreso y Salida De Productos', 3], ['btInvAmacen', 'Almacenes', 8], ['btInvUtilidad', 'Saldos Valorados', 3], ['btInvDeposito', 'Deposito', 3], ['btInvKardex', 'Historial De Productos', 3], ['btInvSaldo', 'Reporte De Saldos Productos', 3],
         ['btInvSaldosValorados', 'Saldos Valorados', 3], ['btInvKardexReporte', 'Reporte General Historial', 3], ['btnInvMonitoreo', 'Monitoreo De Productos', 3], ['btnDespacho', 'Despachos', 4], ['btnConciliaciones', 'Conciliaciones', 4], ['btnCierreCaja', 'Cierre De Caja', 4], ['btnCierreReporteGastos', 'Reporte Gastos Chofer', 4],
@@ -195,11 +198,12 @@ db.ventas.filter((vt) => vt.FechaVenta.toISOString().slice(0, 10) === hoy()).for
     const lineas = [[1, 3, 24], [3, 15, 13.33], [4, 2, 31.5]];
     lineas.forEach(([pid, cant, pr], k) => {
         const sub = Math.round(cant * pr * 100) / 100;
-        db.ventasDet.push({ Id: db.ventasDet.length + 1, VentaId: vt.Id, ProductoId: pid, Cantidad: cant / 6, Precio: pr, SubTotal: sub, ProcentajeDescuento: 0, MontoDescuento: 0, Total: sub, CantidadUnitaria: cant, PrecioCosto: pr * 0.8, Conversion: 6 });
+        db.ventasDet.push({ Id: db.ventasDet.length + 1, VentaId: vt.Id, ProductoId: pid, Cantidad: cant, Precio: pr, SubTotal: sub, ProcentajeDescuento: 0, MontoDescuento: 0, Total: sub, CantidadUnitaria: cant, PrecioCosto: pr * 0.8, Conversion: 6, Tipo: 1, KitId: 0, KitNombre: '', CantidadKit: 0 });
     });
     vt.TotalVenta = Math.round(db.ventasDet.filter((d) => d.VentaId === vt.Id).reduce((x, d) => x + d.Total, 0) * 100) / 100;
     vt.IncrementoVenta = 1; vt.Glosa = 'Entregar por la tarde';
 });
+db.tipoCambio = 6.96; // Kaily: Global_TipoCambio (tabla TipoCambio)
 db.proformas = [];
 db.proformasDet = [];
 db.pagosCxc = [];
@@ -305,10 +309,25 @@ function matrizPrecios(almacen) {
 function detalleVenta(ventaId, det = 'ventasDet') {
     return db[det].filter((d) => d.VentaId === ventaId).map((d) => ({
         Id: d.Id, VentaId: d.VentaId, ProductoId: d.ProductoId, Producto: nombreDe(db.productos, d.ProductoId, 'NombreProducto'), Cantidad: d.Cantidad, Precio: d.Precio,
-        SubTotal: d.SubTotal, ProcentajeDescuento: d.ProcentajeDescuento, MontoDescuento: d.MontoDescuento, Total: d.Total, CantidadUnitaria: d.CantidadUnitaria, Detalle: '',
-        PrecioCosto: d.PrecioCosto, Lote: '20200101', FechaVencimiento: new Date(Date.UTC(2020, 0, 1)), estado: 1, img: null,
-        stock: (db.stock[d.ProductoId] || 0) + d.CantidadUnitaria, Conversion: d.Conversion,
+        SubTotal: d.SubTotal, ProcentajeDescuento: d.ProcentajeDescuento, MontoDescuento: d.MontoDescuento, Total: d.Total, Detalle: '',
+        PrecioCosto: d.PrecioCosto, Lote: '20200101', FechaVencimiento: new Date(Date.UTC(2020, 0, 1)), estado: 1,
+        TipoNombre: Number(d.Tipo) === 2 ? 'Kits' : 'Productos', Tipo: Number(d.Tipo) || 1, KitNombre: d.KitNombre || '', KitId: Number(d.KitId) || 0, CantidadKit: Number(d.CantidadKit) || 0,
+        img: null, stock: (db.stock[d.ProductoId] || 0) + (d.CantidadUnitaria ?? d.Cantidad),
     }));
+}
+
+// Kaily: MAM_Ventas @tipo 5 (@SucursalId, @CategoriaVentaId). Precio por unidad. Tipo 1 = producto, Tipo 2 = kit
+db.kits = [{ Id: 90, NombreProducto: 'COMBO FIESTA', comps: [{ ProductoId: 1, Cantidad: 2, PrecioVenta: 10 }, { ProductoId: 3, Cantidad: 1, PrecioVenta: 5 }] }];
+function productosVentaKaily(sucursal, categoria) {
+    const pr = (pid, c) => (db.precios.find((y) => y.almacen === 1 && y.yhprod === pid && y.yhcatpre === c) || {}).yhprecio || 0;
+    const prods = db.productos.filter((x) => x.estado).map((x) => ({
+        Id: x.Id, Tipo: 1, CodigoExterno: x.CodigoExterno, estado: 1, NombreProducto: x.NombreProducto, DescripcionProducto: x.DescripcionProducto, NombreTipo: 'PRODUCTO',
+        NombreCategoria: x.NombreCategoria, industria: '', PrecioCosto: pr(x.Id, 1), stock: sucursal === 1 ? (db.stock[x.Id] || 0) : 0, PrecioVenta: pr(x.Id, categoria) || pr(x.Id, 2),
+    }));
+    const kits = db.kits.map((k) => ({ Id: k.Id, Tipo: 2, CodigoExterno: `K${k.Id}`, estado: 1, NombreProducto: k.NombreProducto, DescripcionProducto: k.NombreProducto, NombreTipo: 'KIT',
+        NombreCategoria: 'KITS', industria: '', PrecioCosto: 0, stock: sucursal === 1 ? Math.min(...k.comps.map((c) => Math.floor((db.stock[c.ProductoId] || 0) / c.Cantidad))) : 0,
+        PrecioVenta: k.comps.reduce((s, c) => s + c.PrecioVenta * c.Cantidad, 0) }));
+    return [...prods, ...kits];
 }
 
 function productosVenta(sucursal, precioId) {
@@ -321,7 +340,7 @@ function productosVenta(sucursal, precioId) {
 }
 
 // Simula el SP: aplica el detalle segun "estado" (0 inserta, 2 modifica, -1 elimina, 1 y -2 se ignoran)
-function grabarVenta(tipo, id, v, detalle, dest = { cab: 'ventas', det: 'ventasDet', stock: true }) {
+function grabarVenta(tipo, id, v, detalle, dest = { cab: 'ventas', det: 'ventasDet', stock: true }, detPagos = null) {
     const col = (f, n) => f[detalle.columnas.indexOf(n)];
     const filas = detalle.filas.map((f) => (Array.isArray(f) ? f : detalle.columnas.map((c) => f[c])));
     let Id = id;
@@ -330,10 +349,16 @@ function grabarVenta(tipo, id, v, detalle, dest = { cab: 'ventas', det: 'ventasD
         SucursalId: Number(v('SucursalId')), FechaVenta: new Date(String(v('FechaVenta')).replace(/\//g, '-') + 'T00:00:00Z'), PersonalId: Number(v('PersonalId')),
         Personal: nombreDe(db.personal, v('PersonalId'), 'Nombre'), TipoVenta: Number(v('TipoVenta')), TVenta: Number(v('TipoVenta')) === 1 ? 'CONTADO' : 'CREDITO',
         FechaVencimientoCredito: new Date(String(v('FechaVencimientoCredito')).replace(/\//g, '-') + 'T00:00:00Z'), ClienteId: Number(v('ClienteId')), NombreCliente: cli ? cli.NombreCliente : '',
-        Glosa: v('Glosa'), TotalVenta: Number(v('TotalVenta')), Descuento: Number(v('Descuento')), EstadoPedido: Number(v('EstadoPedido')),
-        NombreEstado: (db.estados.find((e) => e.id === Number(v('EstadoPedido'))) || {}).NombreEstado || '', VentaDirecta: Number(v('Ventadirecta')),
-        VentaDirectaSinConciliacion: Number(v('VentaDirectaSinConciliacion')), FechaEntrega: new Date(String(v('FechaEntregar')).replace(/\//g, '-') + 'T00:00:00Z'),
+        Glosa: v('Glosa'), TotalVenta: Number(v('TotalVenta')), Descuento: Number(v('Descuento')), EstadoPedido: Number(v('EstadoPedido')) || 4,
+        NombreEstado: (db.estados.find((e) => e.id === (Number(v('EstadoPedido')) || 4)) || {}).NombreEstado || '', VentaDirecta: Number(v('Ventadirecta')) || 0,
+        VentaDirectaSinConciliacion: Number(v('VentaDirectaSinConciliacion')) || 0,
+        FechaEntrega: new Date(String(v('FechaEntregar') ?? v('FechaVenta')).replace(/\//g, '-') + 'T00:00:00Z'),
+        // Kaily: @Facturado y @VentaPagos (1 fila posicional en contado)
+        Facturado: Number(v('Facturado')) || 0,
     };
+    const pg = detPagos?.filas?.[0];
+    Object.assign(cab, pg ? { MontoBs: Number(pg[2]), MontoDolares: Number(pg[3]), TarjetaBancaria: Number(pg[4]), TransferenciaBancaria: Number(pg[5]), TipoCambio: Number(pg[6]) }
+        : { MontoBs: 0, MontoDolares: 0, TarjetaBancaria: 0, TransferenciaBancaria: 0, TipoCambio: 0 });
     if (tipo === 1) {
         Id = sig(db[dest.cab]);
         const h = new Date(Date.now() - 4 * 3600 * 1000);
@@ -344,9 +369,12 @@ function grabarVenta(tipo, id, v, detalle, dest = { cab: 'ventas', det: 'ventasD
     }
     for (const f of filas) {
         const est = Number(col(f, 'estado'));
-        const reg = { ProductoId: Number(col(f, 'ProductoId')), Cantidad: Number(col(f, 'Cantidad')), CantidadUnitaria: Number(col(f, 'CantidadUnitaria')), Precio: Number(col(f, 'Precio')),
+        // Kaily no tiene CantidadUnitaria: la Cantidad ya es en unidades
+        const unid = detalle.columnas.includes('CantidadUnitaria') ? Number(col(f, 'CantidadUnitaria')) : Number(col(f, 'Cantidad'));
+        const reg = { ProductoId: Number(col(f, 'ProductoId')), Cantidad: Number(col(f, 'Cantidad')), CantidadUnitaria: unid, Precio: Number(col(f, 'Precio')),
             SubTotal: Number(col(f, 'SubTotal')), ProcentajeDescuento: Number(col(f, 'ProcentajeDescuento')), MontoDescuento: Number(col(f, 'MontoDescuento')), Total: Number(col(f, 'Total')),
-            PrecioCosto: Number(col(f, 'PrecioCosto')), Conversion: Number(col(f, 'Conversion')) };
+            PrecioCosto: Number(col(f, 'PrecioCosto')), Conversion: Number(col(f, 'Conversion')) || 1,
+            Tipo: Number(col(f, 'Tipo')) || 1, KitId: Number(col(f, 'KitId')) || 0, KitNombre: col(f, 'KitNombre') || '', CantidadKit: Number(col(f, 'CantidadKit')) || 0 };
         if (est === 0) { db[dest.det].push({ Id: sig(db[dest.det]), VentaId: Id, ...reg }); if (dest.stock) db.stock[reg.ProductoId] = (db.stock[reg.ProductoId] || 0) - reg.CantidadUnitaria; }
         const ant = db[dest.det].find((d) => d.Id === Number(col(f, 'Id')) && d.VentaId === Id);
         if (est === 2 && ant) { if (dest.stock) db.stock[ant.ProductoId] += ant.CantidadUnitaria - reg.CantidadUnitaria; Object.assign(ant, reg); }
@@ -412,6 +440,12 @@ async function EjecutarProcedimiento(nombre, lista) {
         }
         case 'MAM_Productos': {
             if (tipo === 3) return tabla(db.productos);
+            // Kaily ListPreciosDetalles: id (categoria de precio), Descripcion, precio
+            if (tipo === 10) {
+                db.preciosProducto = db.preciosProducto || {};
+                return tabla([{ id: 1, Descripcion: 'PRECIO COSTO' }, { id: 2, Descripcion: 'PRECIO VENTA' }]
+                    .map((c) => ({ ...c, precio: (db.preciosProducto[id] || {})[c.id] ?? 0 })), ['id', 'Descripcion', 'precio']);
+            }
             if (tipo === 4) return tabla(db.categorias.map((c) => ({ Id: c.Id, NombreCategoria: c.NombreCategoria })));
             if (tipo === 7) return tabla(db.proveedores);
             if (tipo === 8) return tabla([{ Id: -1, NombrePersonal: 'TODOS' }, ...db.personal.map((x) => ({ Id: x.Id, NombrePersonal: x.Nombre }))]);
@@ -456,6 +490,9 @@ async function EjecutarProcedimiento(nombre, lista) {
                 if (est === 0) db.imagenes.push({ lhnumi: sig(db.imagenes, 'lhnumi'), lhprod: Id, lhima: f[2] });
                 if (est === -1) db.imagenes = db.imagenes.filter((x) => x.lhnumi !== f[0]);
             }
+            // @PrecioT (Kaily): filas posicionales [id, Descripcion, precio]
+            db.preciosProducto = db.preciosProducto || {};
+            db.preciosProducto[Id] = Object.fromEntries((p.preciot?.detalle.filas || []).map((f) => [Number(f[0]), Number(f[2])]));
             return tabla([{ Id }]);
         }
         case 'MAM_Ventas': {
@@ -464,8 +501,19 @@ async function EjecutarProcedimiento(nombre, lista) {
             if (tipo === 3) {
                 const d = new Date(String(v('desde')).replace(/\//g, '-') + 'T00:00:00Z');
                 const h = new Date(String(v('hasta')).replace(/\//g, '-') + 'T00:00:00Z');
-                return tabla(db.ventas.filter((x) => x.FechaVenta >= d && x.FechaVenta <= h));
+                // Kaily: @SucursalId (Global_Sucursal, -1 = todas) y columnas de pago / cierre
+                const suc = v('SucursalId') === undefined ? -1 : Number(v('SucursalId'));
+                return tabla(db.ventas.filter((x) => x.FechaVenta >= d && x.FechaVenta <= h && (suc <= 0 || x.SucursalId === suc))
+                    .map((x) => ({ NombreAlmacen: 'CENTRAL', Facturado: 0, MontoBs: 0, MontoDolares: 0, TarjetaBancaria: 0, TransferenciaBancaria: 0, TipoCambio: 0, CierreModulo: 0, ...x })));
             }
+            // Kaily: estructura de @VentaPagos (ListaVentasDetallePago)
+            if (tipo === 8 && !p.asignacion) return tabla([], COLS_PAGO);
+            // Kaily: productos de un kit (L_prListarProductosKitsVenta)
+            if (tipo === 10 && v('ChoferId') === undefined) {
+                const k = db.kits.find((x) => x.Id === id);
+                return tabla((k ? k.comps : []).map((c) => ({ ProductoId: c.ProductoId, NombreProducto: nombreDe(db.productos, c.ProductoId, 'NombreProducto'), Cantidad: c.Cantidad, PrecioVenta: c.PrecioVenta, PrecioCosto: c.PrecioVenta * 0.7 })));
+            }
+            if (tipo === 5 && v('CategoriaVentaId') !== undefined) return tabla(productosVentaKaily(Number(v('SucursalId')), Number(v('CategoriaVentaId'))));
             if (tipo === 7) return tabla(db.ventas.filter((x) => x.NombreEstado === 'PENDIENTE').map(filaAsig));
             if (tipo === 23) {
                 const f = String(v('FechaVenta')).replace(/\//g, '-');
@@ -521,7 +569,7 @@ async function EjecutarProcedimiento(nombre, lista) {
                 db.ventas = db.ventas.filter((y) => y.Id !== id);
                 return tabla([{ Id: id }]);
             }
-            if (tipo === 1 || tipo === 2) return grabarVenta(tipo, id, v, p.ventadetalletype.detalle);
+            if (tipo === 1 || tipo === 2) return grabarVenta(tipo, id, v, p.ventadetalletype.detalle, undefined, p.ventapagos?.detalle);
             return tabla([]);
         }
         case 'MAM_Personal':
@@ -698,6 +746,15 @@ async function EjecutarProcedimiento(nombre, lista) {
             if (tipo === 8) return tabla(db.movCaja.filter((m) => m.Id === id).map((m) => ({ ...filaMov(m), img: null })));
             if (tipo === 9) return tabla(db.movCaja.filter((m) => m.Fecha.getUTCFullYear() === Number(v('Anio')) && m.Fecha.getUTCMonth() + 1 === Number(v('Mes'))).map((m) => ({ Monto: m.Monto, IngresoEgreso: m.IngresoEgreso })));
             if (tipo === 12) return tabla(db.movCaja.map((m) => { const f = filaMov(m); return { Fecha: f.Fecha, Caja: f.NombreCaja, Movimiento: f.Movimiento, Motivo: f.NombreTipoMovimiento, Descripcion: f.Descripcion, Monto: f.Monto }; }));
+            // Kaily Caja general: @tipo 6 = movimientos anteriores a FechaI ; @tipo 7 = del rango. Egreso en negativo
+            if (tipo === 6 || tipo === 7) {
+                const fi = new Date(String(v('FechaI')).replace(/\//g, '-') + 'T00:00:00Z');
+                const ff = tipo === 7 ? new Date(String(v('FechaF')).replace(/\//g, '-') + 'T00:00:00Z') : null;
+                return tabla(db.movCaja.filter((m) => (tipo === 6 ? m.Fecha < fi : m.Fecha >= fi && m.Fecha <= ff)).map((m) => ({ Id: m.Id, IngresoEgreso: m.IngresoEgreso, Fecha: m.Fecha,
+                    CajatipoMovimientoId: m.CajatipoMovimientoId, TipoMovimiento: nombreDe(db.tiposMov, m.CajatipoMovimientoId, 'Descripcion'), Descripcion: m.Descripcion,
+                    Ingreso: m.IngresoEgreso ? m.Monto : 0, Egreso: m.IngresoEgreso ? 0 : -m.Monto, Saldo: 0 })));
+            }
+            if (tipo === 13) return tabla(db.movCaja.filter((m) => Number(v('CajaId')) === -1 || m.CajaId === Number(v('CajaId'))).map((m) => { const f = filaMov(m); return { Fecha: f.Fecha, Caja: f.NombreCaja, Movimiento: f.Movimiento, Descripcion: f.Descripcion, Monto: f.Monto }; }));
             if (tipo === -1) { db.movCaja = db.movCaja.filter((m) => m.Id !== id); return tabla([{ Id: id }]); }
             if (tipo === 1 || tipo === 2) {
                 const reg = { CierreCajeroId: 0, Fecha: new Date(String(v('Fecha')).replace(/\//g, '-') + 'T00:00:00Z'), Descripcion: v('Descripcion'), Monto: Number(v('Monto')), CajaId: Number(v('CajaId')), IngresoEgreso: Number(v('IngresoEgreso')),
@@ -707,8 +764,35 @@ async function EjecutarProcedimiento(nombre, lista) {
             }
             return tabla([]);
         }
-        case 'MAM_CierreCajero':
-            return tipo === 3 ? tabla(db.cierreCajero) : tabla([]);
+        case 'MAM_CierreCajero': {
+            // Kaily: Tec_CierreCajaCajero
+            const COLS_CORTE = ['Id', 'CierreCajeroId', 'CorteBs', 'CantidadBs', 'SubTotalBs', 'CorteDolares', 'CantidadDolares', 'SubtotalDolares'];
+            const COLS_MOD = ['Id', 'CierreCajeroId', 'Modulo', 'IdModulo'];
+            const filaCC = (c) => ({ MontoInicial: 0, TipoCambio: 6.96, TotalVentas: 0, TotalCobranza: 0, TotalIngreso: 0, TotalEgresos: 0, TotalCaja: 0, TotalEfectivo: 0,
+                TotalTransferencia: 0, TotalTarjeta: 0, TotalEfectivoRecibido: 0, Diferencia: 0, Observacion: '', PersonalId: 1, ...c,
+                NombrePersonal: nombreDe(db.personal, c.PersonalId ?? 1, 'Nombre'), Sucursal: 'CENTRAL', Caja: Number(c.EstadoCaja) === 1 ? 'Abierta' : 'Cerrada' });
+            db.cortesCC = db.cortesCC || {};
+            if (tipo === 3) return tabla(db.cierreCajero.map(filaCC));
+            if (tipo === 5) return tabla([{ Id: 501, FechaVenta: diaUTC(0), contado: 100, 'contado$': 0, tarjeta: 20, TransferenciaBancaria: 30, tipocambio: 6.96, credito: 0, totalbs: 150, 'total$': 0 }]);
+            if (tipo === 7) return tabla([{ id: 21, NroComprobanteVenta: 'venta0000021', Monto: 40, FechaPago: diaUTC(0), PersonalId: 1, NombrePersonal: 'MARCO MAMANI' }]);
+            if (tipo === 9) return tabla([{ id: 1, Fecha: diaUTC(0), Descripcion: 'GASTO', Monto: 10, IngresoEgreso: 0, Movimiento: 'EGRESO', CajatipoMovimientoId: 2, NombreTipoMovimiento: 'PAGO', PersonalId: 1, NombrePersonal: 'MARCO MAMANI' }]);
+            if (tipo === 4 || tipo === 6 || tipo === 8) return tabla([]);
+            if (tipo === 10) return tabla(db.cortesCC[id] || [], COLS_CORTE);
+            if (tipo === 11) return tabla([], COLS_MOD);
+            if (tipo === -1) { db.cierreCajero = db.cierreCajero.filter((x) => x.Id !== id); return tabla([{ Id: id }]); }
+            if (tipo === 1 || tipo === 2) {
+                const reg = { Fecha: new Date(String(v('Fecha')).replace(/\//g, '-') + 'T00:00:00Z'), PersonalId: Number(v('PersonalId')), SucursalId: Number(v('SucursalId')),
+                    MontoInicial: Number(v('MontoInicial')), EstadoCaja: Number(v('EstadoCaja')), TipoCambio: Number(v('TipoCambio')), TotalVentas: Number(v('TotalVentas')),
+                    TotalCobranza: Number(v('TotalCobranzas')), TotalIngreso: Number(v('TotalIngresos')), TotalEgresos: Number(v('TotalEgreso')), TotalCaja: Number(v('TotalCaja')),
+                    TotalEfectivo: Number(v('TotalEfectivo')), TotalTransferencia: Number(v('Totaltransferencia')), TotalTarjeta: Number(v('TotalTarjeta')),
+                    TotalEfectivoRecibido: Number(v('TotalEfectivoRecibido')), Diferencia: Number(v('Diferencia')), Observacion: v('Observacion') };
+                if (tipo === 1) { const Id = sig(db.cierreCajero); db.cierreCajero.push({ Id, ...reg }); return tabla([{ Id }]); }
+                Object.assign(db.cierreCajero.find((x) => x.Id === id), reg);
+                db.cortesCC[id] = p.cortebilletes.detalle.filas.map((f) => Object.fromEntries(COLS_CORTE.map((c, i) => [c, f[i]])));
+                return tabla([{ Id: id }]);
+            }
+            return tabla([]);
+        }
         case 'MAM_CierreCaja': {
             const COLS_G = ['Id', 'CierreCajaId', 'ConceptoGastoId', 'Detalle', 'Descripcion', 'Monto', 'estado', 'img'];
             const COLS_C = ['TransaccionVentasCreditoId', 'ClienteId', 'NombreCliente', 'NroNotaVenta', 'Monto'];
@@ -842,7 +926,8 @@ async function EjecutarProcedimiento(nombre, lista) {
                     Regional: 'Santa Cruz', FechaIngreso: ddmm(c.InicioContrato), 'Antigüedad': '1 Año; 1 Meses; 4 Dias', HaberBasico: pl.Sueldo };
                 const tot = { SueldoBruto: pl.SueldoBruto, SueldoNeto: neto(pl), img: Buffer.from('x'), SumaConceptoFijo: suma(1), SumaConceptoVariable: suma(0) };
                 if (!conc.length) return tabla([{ ...base, NombreConcepto: null, TipoConcepto: 'Variable', asNombreOperacion: '---', Porcentaje: '---', Monto: 0, ...tot }]);
-                return tabla(conc.map((x) => ({ ...base, NombreConcepto: `${x.NombreConcepto}
+                return tabla(conc.map((x) => ({ ...base, NombreConcepto: `${x.NombreConcepto}
+
 Fecha: ${ddmm(x.Fecha || new Date())}`, TipoConcepto: Number(x.TipoConcepto) === 1 ? 'Fijo' : 'Variable',
                     asNombreOperacion: Number(x.Monto) < 0 ? 'Resta' : 'Suma', Porcentaje: Number(x.TipoConcepto) === 1 ? String(Math.abs(Number(x.Porcentaje))) : '---', Monto: x.Monto, ...tot })));
             }
@@ -959,7 +1044,9 @@ Fecha: ${ddmm(x.Fecha || new Date())}`, TipoConcepto: Number(x.TipoConcepto) ===
             if (tipo === 3) return tabla(db.usuarios);
             if (tipo === 4) return tabla(db.empresas.map((e) => ({ Id: e.Id, Codigo: e.Id, Nombre: e.Nombre })));
             if (tipo === 5) return tabla(db.roles.map((r) => ({ Id: r.Id, NombreRol: r.NombreRol })));
-            if (tipo === -1) { db.usuarios = db.usuarios.filter((x) => x.Id !== id); return tabla([{ Id: id }]); }
+            if (tipo === -1) { db.usuarios = db.usuarios.filter((x) => x.Id !== id); return tabla([{ Id: id }]); }IdPersonal: Number(v('IdPersonal')), Personal: nombreDe(db.personal, v('IdPersonal'), 'Nombre'),
+                ModificarPrecioVenta: Number(v('ModificarPrecio')), AplicarDescuentoVenta: Number(v('ModificarDescuento')), VerTodasVentas: Number(v('VentasTodasVentas')),
+                VerTodosVentasCierre: Number(v('VerTodasVentasCierre')), ModificarRegistroAnteriores: Number(v('ModificarRegistroAntiguos')) };
             const reg = { NombreUsuario: v('NombreUsuario'), Contrasena: v('Contrasena'), estado: !!v('Estado'), RolId: Number(v('RolId')), NombreRol: nombreDe(db.roles, v('RolId'), 'NombreRol'), SucursalId: v('SucursalId'), IdEmpresa: Number(v('IdEmpresa')), Empresa: nombreDe(db.empresas, v('IdEmpresa'), 'Nombre'), IdPersonal: Number(v('IdPersonal')), pedido: !!v('PedidoSinConciliacion'), Personal: nombreDe(db.personal, v('IdPersonal'), 'Nombre') };
             if (tipo === 1) { const Id = sig(db.usuarios); db.usuarios.push({ Id, ...reg }); return tabla([{ Id }]); }
             if (tipo === 2) { Object.assign(db.usuarios.find((x) => x.Id === id), reg); return tabla([{ Id: id }]); }
@@ -986,8 +1073,13 @@ async function EjecutarConsulta(sqlTexto, lista) {
     if (/FROM\s+Usuarios/i.test(sqlTexto)) {
         return tabla(db.usuarios
             .filter((u) => u.NombreUsuario === p.nom.valor && u.Contrasena === p.pass.valor && u.estado)
-            .map((u) => ({ Id: u.Id, RolId: u.RolId, SucursalId: u.SucursalId, IdPersonal: u.IdPersonal })));
+            .map((u) => ({ Id: u.Id, RolId: u.RolId, SucursalId: u.SucursalId, IdPersonal: u.IdPersonal, Monto: db.tipoCambio,
+                ModificarPrecioVenta: u.ModificarPrecioVenta ?? 1, AplicarDescuentoVenta: u.AplicarDescuentoVenta ?? 1, VerTodasVentas: u.VerTodasVentas ?? 1,
+                VerTodosVentasCierre: u.VerTodosVentasCierre ?? 1, FechaBolivia: new Date(hoy() + 'T00:00:00Z'), ModificarRegistroAnteriores: u.ModificarRegistroAnteriores ?? 0,
+                NombreSucursal: 'CENTRAL' })));
     }
+    if (/FROM\s+TipoCambio/i.test(sqlTexto)) return tabla([{ Monto: db.tipoCambio }]);
+    if (/FROM\s+Configuracion/i.test(sqlTexto)) return tabla([{ Lote: false, Mapa: true, TotalCajaGeneral: 1250.5 }]);
     if (/RolesDetalles/i.test(sqlTexto)) {
         const rol = Number(p.rolid?.valor);
         const mod = p.modulo ? Number(p.modulo.valor) : null;

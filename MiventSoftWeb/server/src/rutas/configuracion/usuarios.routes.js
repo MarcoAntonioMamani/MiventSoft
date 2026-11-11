@@ -13,25 +13,31 @@ const router = express.Router();
 router.use(requierePrograma('btConfUsuarios'));
 
 // Solo lo que usa la pantalla (la Contrasena NUNCA se envia)
-const CAMPOS = ['Id', 'NombreUsuario', 'estado', 'RolId', 'NombreRol', 'IdEmpresa', 'Empresa', 'IdPersonal', 'pedido', 'Personal'];
+const CAMPOS = ['Id', 'NombreUsuario', 'estado', 'RolId', 'NombreRol', 'SucursalId', 'IdEmpresa', 'Empresa', 'IdPersonal', 'Personal',
+    'ModificarPrecioVenta', 'AplicarDescuentoVenta', 'VerTodasVentas', 'VerTodosVentasCierre', 'ModificarRegistroAnteriores'];
 
 router.get('/', asyncHandler(async (req, res) => {
     res.json({ ok: true, data: v.proyectar(await L.L_prUsuarioGeneral(), CAMPOS) });
 }));
 
-// cbRol, cbEmpresa y la ayuda de Personal (btnVendedor -> ListarPersonal)
+// cbRol, cbEmpresa, cbSucursal y la ayuda de Personal (btnVendedor -> ListarPersonal)
 router.get('/combos', asyncHandler(async (req, res) => {
-    const [roles, empresas, personal] = await Promise.all([
+    const [roles, empresas, personal, sucursales] = await Promise.all([
         L.L_prListaRolesUsuarios(),
         L.L_prListaEmpresasUsuarios(),
         L.ListarPersonal(),
+        L.L_fnGeneralSucursales(),
     ]);
+    // Igual que VB: dt.Rows.Add(-1, "Todos")
+    const suc = v.proyectar(sucursales, ['aanumi', 'aabdes']);
+    suc.push({ aanumi: -1, aabdes: 'Todos' });
     res.json({
         ok: true,
         data: {
             roles: v.proyectar(roles, ['Id', 'NombreRol']),
             empresas: v.proyectar(empresas, ['Id', 'Nombre']),
             personal: v.proyectar(personal, ['Id', 'Nombre', 'Direccion', 'Telefono01']),
+            sucursales: suc,
         },
     });
 }));
@@ -45,8 +51,13 @@ function _leerUsuario(body, esNuevo) {
         _IdEmpresa: v.entero(body.IdEmpresa, 'Una Empresa', { requeridoPositivo: true }),
         _RolId: v.entero(body.RolId, 'Una Rol', { requeridoPositivo: true }),
         _estado: v.bit(body.estado),
-        _sucursalId: 1, // igual que el escritorio (fijo en 1)
-        VentaDirecta: v.bit(body.pedido),
+        // cbSucursal (-1 = Todos), igual que Kaily
+        _sucursalId: v.entero(body.SucursalId ?? 1, 'Una Sucursal'),
+        _ModificarPrecio: v.bit(body.ModificarPrecioVenta),
+        _ModificarDescuento: v.bit(body.AplicarDescuentoVenta),
+        _VerTodasVentas: v.bit(body.VerTodasVentas),
+        _VerTodosCierres: v.bit(body.VerTodosVentasCierre),
+        _ModificarRegistrosAntiguos: v.bit(body.ModificarRegistroAnteriores),
     };
     if (esNuevo && u._Contrasena === '') throw new ErrorNegocio('Ingrese una Contraseña');
     return u;

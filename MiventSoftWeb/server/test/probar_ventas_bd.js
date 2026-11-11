@@ -6,10 +6,10 @@
 //  REVIERTE (ROLLBACK): nada queda grabado.
 //    1. Personal:    InsertarPersonal -> ModificarPersonal -> L_prBorrarRegistro
 //    2. Proveedores: InsertarProveedor -> ModificarProveedor -> L_prBorrarRegistro
-//    3. Ventas:      VentaInsertar (pedido) -> verifica detalle y total
-//                    VentaModificar (cambia cantidad, agrega/quita producto) -> verifica
+//    3. Ventas (Kaily): VentaInsertar contado con @VentaPagos -> verifica detalle y total
+//                    VentaModificar (cambia cantidad, quita producto) -> verifica
 //                    L_prBorrarRegistro -> verifica que ya no existe
-//  Usa la MISMA logica que la web (rutas/ventas/ventas.routes.js).
+//  Usa la MISMA logica que la web (rutas/ventas/ventasPuntoVenta.routes.js).
 //
 //  Seguridad: pide escribir el nombre de la base antes de empezar.
 //  NO lo ejecute contra produccion (aunque se revierta, bloquea tablas mientras corre).
@@ -19,7 +19,7 @@ const readline = require('node:readline/promises');
 const sql = require('mssql');
 const MetodoDatos = require('../src/datos/MetodoDatos');
 const L = require('../src/negocio/AccesoLogica');
-const { _interno: V } = require('../src/rutas/ventas/ventas.routes');
+const { _interno: V } = require('../src/rutas/ventas/ventasPuntoVenta.routes');
 
 let fallas = 0;
 const ok = (c, m) => { console.log(`${c ? '  [OK]   ' : '  [FALLA]'} ${m}`); if (!c) fallas++; };
@@ -68,45 +68,44 @@ const hoyIso = () => { const d = new Date(Date.now() - 4 * 3600 * 1000); return 
             ok(await L.L_prBorrarRegistro(p1._numi, 'MAM_Proveedores'), 'L_prBorrarRegistro MAM_Proveedores');
 
             // ---------- Ventas ----------
-            console.log('\nVentas (pedido):');
+            console.log('\nVentas (Kaily, contado con cobro):');
             const suc = (await L.L_fnGeneralSucursales())[0];
             const cli = (await L.ListarCliente())[0];
             const vend = (await L.ListarPersonal())[0];
             const cat = (await L.L_prListaCategoriasPrecios())[0];
             if (!suc || !cli || !vend || !cat) throw new Error('Faltan datos base (sucursal, cliente, personal o categoria de precio)');
             const hoy = hoyIso();
-            const cab = V._leerCabecera({ SucursalId: col(suc, 'aanumi'), FechaVenta: hoy, PersonalId: col(vend, 'Id'), ClienteId: col(cli, 'Id'), TipoVenta: 1, FechaEntregar: hoy, Glosa: 'PRUEBA WEB (se revierte)', PrecioId: col(cat, 'Id') });
-            const prods = (await L.L_prListarProductosVentas(cab.AlmacenId, cab.ClienteId, cab.PrecioId)).filter((p) => num(col(p, 'stock')) >= 2);
+            const aVB = (x) => x.replace(/-/g, '/');
+            // permisos como un administrador (sin editar precio ni descuento)
+            const g = { rol: 1, sucursal: -1, personal: num(col(vend, 'Id')), modificarPrecio: false, modificarDescuento: false, verTodas: true, modificarAnteriores: true };
+            const cab = V._leerCabecera({ SucursalId: col(suc, 'aanumi'), FechaVenta: hoy, ClienteId: col(cli, 'Id'), TipoVenta: 1, Glosa: 'PRUEBA WEB (se revierte)', PrecioId: col(cat, 'Id') });
+            const prods = (await L.L_prListarProductosVentas(cab.AlmacenId, cab.PrecioId)).filter((p) => (num(col(p, 'Tipo')) || 1) === 1 && num(col(p, 'stock')) >= 2);
             if (prods.length < 2) throw new Error('Se necesitan al menos 2 productos con stock >= 2 en la sucursal para la prueba');
             const [a, b] = prods;
-            const entradas = [{ nuevo: true, ProductoId: col(a, 'Id'), PrecioId: cab.PrecioId, CantidadUnitaria: 1 }, { nuevo: true, ProductoId: col(b, 'Id'), PrecioId: cab.PrecioId, CantidadUnitaria: 2, ProcentajeDescuento: 10 }];
-            const d1 = await V._armarDetalle({ ventaId: -1, cab, entradas, ventaDirectaVariable: 0, existentes: [] });
-            const inc = await V._incrementoHoy();
-            const v1 = await L.VentaInsertar({ _numi: '0', AlmacenId: cab.AlmacenId, FechaTransacccion: hoy.replace(/-/g, '/'), PersonalId: cab.PersonalId, ClienteId: cab.ClienteId, TipoVenta: 1,
-                FechaVencCredito: hoy.replace(/-/g, '/'), estado: 1, glosa: cab.glosa, TotalCompra: d1.sumaTotal + inc, Descuento: 0, EstadoPedido: 1, FechaEntregar: hoy.replace(/-/g, '/'),
-                VentaDirecta: 0, VentaDirectaSinConciliacion: 0, IncrementoVenta: inc }, d1.detalle);
-            ok(v1.resultado, `VentaInsertar -> Venta ${v1._numi} (detalle ${d1.detalle.columnas.length} columnas)`);
+            const entradas = [{ nuevo: true, Tipo: 1, ProductoId: col(a, 'Id'), PrecioId: cab.PrecioId, Cantidad: 1 }, { nuevo: true, Tipo: 1, ProductoId: col(b, 'Id'), PrecioId: cab.PrecioId, Cantidad: 2 }];
+            const d1 = await V._armarDetalle(g, { ventaId: -1, cab, entradas, existentes: [] });
+            const pagos1 = await V._armarPagos(1, { MontoBs: d1.suma }, d1.suma);
+            const base = { AlmacenId: cab.AlmacenId, FechaTransacccion: aVB(hoy), PersonalId: g.personal, ClienteId: cab.ClienteId, TipoVenta: 1, FechaVencCredito: aVB(hoy), glosa: cab.glosa, Descuento: 0, Facturado: 0 };
+            const v1 = await L.VentaInsertar({ _numi: '0', ...base, TotalCompra: d1.suma }, d1.detalle, pagos1);
+            ok(v1.resultado, `VentaInsertar -> Venta ${v1._numi} (detalle ${d1.detalle.columnas.length} columnas, pagos ${pagos1.columnas.length} columnas)`);
             const det1 = await L.ListaVentasDetalles(v1._numi);
             ok(det1.length === 2, `ListaVentasDetalles: ${det1.length} filas (esperado 2)`);
             const suma1 = det1.reduce((s, f) => s + num(col(f, 'Total')), 0);
-            ok(Math.abs(suma1 - d1.sumaTotal) < 0.01, `total detalle en BD ${suma1.toFixed(2)} = calculado ${d1.sumaTotal.toFixed(2)}`);
-            const vta1 = await V._buscarVenta(v1._numi, hoy);
-            ok(Math.abs(num(vta1.TotalVenta) - (d1.sumaTotal + inc)) < 0.01, `TotalVenta ${num(vta1.TotalVenta).toFixed(2)} (incremento ${inc})`);
+            ok(Math.abs(suma1 - d1.suma) < 0.01, `total detalle en BD ${suma1.toFixed(2)} = calculado ${d1.suma.toFixed(2)}`);
+            const pago = await L.ListaVentasDetallePago(v1._numi);
+            ok(pago.length === 1 && Math.abs(num(col(pago[0], 'MontoBs')) - d1.suma) < 0.01, `ListaVentasDetallePago: ${pago.length} fila(s)`);
 
             console.log('\nVentas (modificar):');
             const filaA = det1.find((f) => num(col(f, 'ProductoId')) === num(col(a, 'Id')));
-            const entradas2 = [{ Id: col(filaA, 'Id'), CantidadUnitaria: 2 }]; // A: 1 -> 2 ; B: se elimina
-            const d2 = await V._armarDetalle({ ventaId: v1._numi, cab, entradas: entradas2, ventaDirectaVariable: 0, existentes: det1 });
-            const v2 = await L.VentaModificar({ _numi: v1._numi, AlmacenId: cab.AlmacenId, FechaTransacccion: hoy.replace(/-/g, '/'), PersonalId: cab.PersonalId, ClienteId: cab.ClienteId, TipoVenta: 1,
-                FechaVencCredito: hoy.replace(/-/g, '/'), Moneda: 1, estado: 1, glosa: cab.glosa, TotalCompra: d2.sumaTotal + num(vta1.IncrementoVenta), Descuento: 0, EstadoPedido: num(vta1.EstadoPedido),
-                FechaEntregar: hoy.replace(/-/g, '/'), VentaDirecta: 0, VentaDirectaSinConciliacion: 0 }, d2.detalle);
+            const d2 = await V._armarDetalle(g, { ventaId: v1._numi, cab, entradas: [{ Id: col(filaA, 'Id'), Cantidad: 2 }], existentes: det1 }); // A: 1 -> 2 ; B: se elimina
+            const v2 = await L.VentaModificar({ _numi: v1._numi, ...base, TotalCompra: d2.suma }, d2.detalle, await V._armarPagos(1, { MontoBs: d2.suma }, d2.suma));
             ok(v2.resultado, 'VentaModificar');
             const det2 = await L.ListaVentasDetalles(v1._numi);
-            ok(det2.length === 1 && num(col(det2[0], 'CantidadUnitaria')) === 2, `detalle modificado: ${det2.length} fila(s), cantidad ${det2[0] ? col(det2[0], 'CantidadUnitaria') : '-'}`);
+            ok(det2.length === 1 && num(col(det2[0], 'Cantidad')) === 2, `detalle modificado: ${det2.length} fila(s), cantidad ${det2[0] ? col(det2[0], 'Cantidad') : '-'}`);
 
             console.log('\nVentas (eliminar):');
             ok(await L.L_prBorrarRegistro(v1._numi, 'MAM_Ventas'), 'L_prBorrarRegistro MAM_Ventas');
-            const sigue = (await L.L_prListarGeneralFechas('MAM_Ventas', hoy.replace(/-/g, '/'), hoy.replace(/-/g, '/'))).some((f) => num(col(f, 'Id')) === num(v1._numi));
+            const sigue = (await L.L_prListarVentasGeneralFiltroFecha('MAM_Ventas', aVB(hoy), aVB(hoy), -1)).some((f) => num(col(f, 'Id')) === num(v1._numi));
             ok(!sigue, 'la venta ya no aparece en el buscador');
         });
     } catch (e) {
