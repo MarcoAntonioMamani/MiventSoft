@@ -316,6 +316,34 @@ test('PROFORMAS (Kaily): MAM_Proforma sin pagos, cotiza sin stock y sin caja', a
     await ok('DELETE', `/api/ventas/proformas/${p.id}?fecha=${ayer}`);
 });
 
+test('DESPACHO VENTAS (Kaily FrmDespacho): MAM_Ventas @tipo 11, despachador requerido, nota solo entregado', async () => {
+    const hoy = new Date(Date.now() - 4 * 3600e3).toISOString().slice(0, 10);
+    const ayer = new Date(Date.now() - 28 * 3600e3).toISOString().slice(0, 10);
+    const v = await ok('POST', '/api/ventas/ventas', { SucursalId: 1, FechaVenta: hoy, ClienteId: 1, TipoVenta: 0, PrecioId: 2, Glosa: 'despacho',
+        detalle: [{ nuevo: true, Tipo: 1, ProductoId: 1, Cantidad: 2 }] });
+    const fila = async () => (await ok('GET', `/api/ventas/despacho?desde=${hoy}&hasta=${hoy}`)).data.find((x) => Number(x.Id) === Number(v.id));
+    let f = await fila();
+    assert.deepEqual([f.EstadoDespacho, f.FechaDespacho, f.PersonalDespachadorId], [0, null, 0], 'sin despacho: sin la fecha 1900-01-01 del isnull');
+    assert.match((await api('GET', `/api/ventas/despacho/${v.id}/recibo?fecha=${hoy}`)).mensaje, /NO ESTA ENTREGADO/);
+    assert.match((await api('PUT', `/api/ventas/despacho/${v.id}`, { fecha: hoy, Despachado: 1 })).mensaje, /DESPACHADOR/);
+
+    await ok('PUT', `/api/ventas/despacho/${v.id}`, { fecha: hoy, PersonalId: 2, Despachado: 1, Observacion: 'entregado en tienda' });
+    assert.deepEqual(ultimaLlamada('MAM_Ventas', 11).params, { '@tipo': 11, '@VentaId': Number(v.id), '@PersonalId': 2, '@ObservacionDespacho': 'entregado en tienda', '@Despachado': 1, '@usuario': ultimaLlamada('MAM_Ventas', 11).params['@usuario'] });
+    f = await fila();
+    assert.deepEqual([f.EstadoDespacho, f.PersonalDespachadorId, f.ObservacionDespacho, f.FechaDespacho], [1, 2, 'entregado en tienda', hoy]);
+    assert.ok((await ok('GET', `/api/ventas/despacho/${v.id}/recibo?fecha=${hoy}`)).data.detalle.length >= 1, 'nota de despacho');
+
+    // No entregado: borra el despacho
+    await ok('PUT', `/api/ventas/despacho/${v.id}`, { fecha: hoy, PersonalId: 2, Despachado: 0 });
+    assert.equal((await fila()).EstadoDespacho, 0);
+    // dias anteriores sin ModificarRegistroAnteriores; sin Nuevo ni Eliminar
+    const viejas = (await ok('GET', `/api/ventas/despacho?desde=${new Date(Date.now() - 25 * 864e5).toISOString().slice(0, 10)}&hasta=${ayer}`)).data;
+    assert.match((await api('PUT', `/api/ventas/despacho/${viejas[0].Id}`, { fecha: viejas[0].FechaVenta, PersonalId: 2, Despachado: 1 })).mensaje, /ANTERIORES/);
+    assert.equal((await api('POST', '/api/ventas/despacho', {})).status, 404);
+    assert.equal((await api('DELETE', `/api/ventas/despacho/${v.id}`)).status, 404);
+    await ok('DELETE', `/api/ventas/ventas/${v.id}?fecha=${hoy}`);
+});
+
 test('CIERRE CAJERO (Kaily): abrir caja, cerrar con pendientes y billetes, totales del servidor', async () => {
     const hoy = new Date(Date.now() - 4 * 3600e3).toISOString().slice(0, 10);
     const ini = (await ok('GET', '/api/caja/cierre-cajero/inicio')).data;

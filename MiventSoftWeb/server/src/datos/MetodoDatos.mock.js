@@ -84,7 +84,7 @@ const db = {
         ['btnCompras', 'Compras', 6], ['btnCompraCredito', 'Cuentas Por Pagar', 6], ['btnHistorico', 'Historico De Compras', 6], ['btnComprasPorProducto', 'Compras Por Producto', 6],
         ['btnConceptoFijos', 'Conceptos Fijos', 7], ['btnContratos', 'Contratos', 7], ['btnRegistrarPlanilla', 'Registrar Personal A Planilla', 7], ['btnPlanilla', 'Planilla', 7],
         // Kaily (al final para no mover las posiciones que usan los roles de prueba)
-        ['btnKits', 'Gestion De Kits', 1], ['btConfDosificacion', 'Gestion De Dosificacion', 1],
+        ['btnKits', 'Gestion De Kits', 1], ['btConfDosificacion', 'Gestion De Dosificacion', 1], ['btnDespachoVenta', 'Despacho Ventas', 2],
     ].map(([IdPrograma, DescripcionPrograma, Modulo], i) => ({ Id: i + 1, IdPrograma, DescripcionPrograma, Modulo })),
     roles: [
         { Id: 1, NombreRol: 'ADMINISTRADOR', FechaRegistro: hoy(), HoraRegistro: '08:00', UsuarioRegistro: 'SISTEMA' },
@@ -206,6 +206,7 @@ db.ventas.filter((vt) => vt.FechaVenta.toISOString().slice(0, 10) === hoy()).for
     vt.IncrementoVenta = 1; vt.Glosa = 'Entregar por la tarde';
 });
 db.tipoCambio = 6.96; // Kaily: Global_TipoCambio (tabla TipoCambio)
+db.despachoVentas = []; // Kaily: tabla Despacho (FrmDespacho, MAM_Ventas @tipo 11)
 // Kaily: MAM_Dosificacion (llave de prueba, no real)
 db.dosificaciones = [{ Id: 1, SucursalId: 1, NumeroAutorizacion: '29040011007', UltimoNroFactura: 120, Llave: 'LLAVE-DE-PRUEBA', FechaInicio: new Date(Date.UTC(2026, 0, 1)),
     FechaLimite: new Date(Date.UTC(2026, 11, 31)), Nota01: 'Nota 1', Nota02: '', Estado: true, TipoComputarizado: true }];
@@ -540,8 +541,24 @@ async function EjecutarProcedimiento(nombre, lista) {
                 const h = new Date(String(v('hasta')).replace(/\//g, '-') + 'T00:00:00Z');
                 // Kaily: @SucursalId (Global_Sucursal, -1 = todas) y columnas de pago / cierre
                 const suc = v('SucursalId') === undefined ? -1 : Number(v('SucursalId'));
+                // Kaily: left join despacho (FrmDespacho). Sin despacho: isnull(...,'') -> 1900-01-01
+                const desp = (x) => {
+                    const dp = db.despachoVentas.find((y) => y.VentaId === x.Id);
+                    return dp ? { EstadoDespacho: 1, TDespachado: 'DESPACHADO', FechaDespacho: dp.FechaDespacho, Despachante: nombreDe(db.personal, dp.PersonalId, 'Nombre'), PersonalDespachadorId: dp.PersonalId, ObservacionDespacho: dp.Observacion }
+                        : { EstadoDespacho: 0, TDespachado: 'NO DESPACHADO', FechaDespacho: new Date(Date.UTC(1900, 0, 1)), Despachante: '', PersonalDespachadorId: 0, ObservacionDespacho: '' };
+                };
                 return tabla(db.ventas.filter((x) => x.FechaVenta >= d && x.FechaVenta <= h && (suc <= 0 || x.SucursalId === suc))
-                    .map((x) => ({ NombreAlmacen: 'CENTRAL', Facturado: 0, MontoBs: 0, MontoDolares: 0, TarjetaBancaria: 0, TransferenciaBancaria: 0, TipoCambio: 0, CierreModulo: 0, ...x })));
+                    .map((x) => ({ NombreAlmacen: 'CENTRAL', Facturado: 0, MontoBs: 0, MontoDolares: 0, TarjetaBancaria: 0, TransferenciaBancaria: 0, TipoCambio: 0, CierreModulo: 0, ...x, ...desp(x) })));
+            }
+            // Kaily: VentaInsertarDespacho (FrmDespacho). 1 = inserta si no existe; 0 = borra
+            if (tipo === 11) {
+                const vid = Number(v('VentaId'));
+                const existe = db.despachoVentas.some((y) => y.VentaId === vid);
+                if (Number(v('Despachado')) === 1 && !existe) {
+                    db.despachoVentas.push({ VentaId: vid, PersonalId: Number(v('PersonalId')), Observacion: String(v('ObservacionDespacho') ?? ''), FechaDespacho: diaUTC(0) });
+                }
+                if (Number(v('Despachado')) === 0) db.despachoVentas = db.despachoVentas.filter((y) => y.VentaId !== vid);
+                return tabla([{ newNumi: db.despachoVentas.length }]);
             }
             // Kaily: estructura de @VentaPagos (ListaVentasDetallePago)
             if (tipo === 8) return tabla([], COLS_PAGO);

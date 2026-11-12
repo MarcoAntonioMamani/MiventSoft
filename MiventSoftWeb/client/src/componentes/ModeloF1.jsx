@@ -18,6 +18,7 @@
 //    _PMOBloqueoModificar(fila)        -> texto si NO se puede modificar (ej. conciliacion cerrada)
 //    _PMOBloqueoEliminar(fila)         -> texto si NO se puede eliminar
 //    filtroExtra(fila) / filtroExtraClave -> filtro adicional de la lista (ej. por estado)
+//    sinNuevo / sinEliminar            -> la pantalla no registra / no elimina aunque el rol pueda
 //  Props del componente:
 //    menuNuevo=[{texto, icono, accion}] -> varias formas de crear (ej. Pedido / Venta directa)
 //    accionesRegistro                   -> botones extra al ver un registro (ej. Imprimir)
@@ -57,7 +58,13 @@ export function useModeloF1(opciones) {
   op.current = opciones;
   const idCampo = opciones.idCampo || 'Id';
   const toast = useToast();
-  const puede = usePermisos();
+  const permisos = usePermisos();
+  // sinNuevo / sinEliminar: la pantalla no tiene esas acciones (ej. FrmDespacho: botones ocultos en el escritorio)
+  const puede = useMemo(() => ({
+    ...permisos,
+    insertar: !!permisos?.insertar && !opciones.sinNuevo,
+    eliminar: !!permisos?.eliminar && !opciones.sinEliminar,
+  }), [permisos, opciones.sinNuevo, opciones.sinEliminar]);
   const navigate = useNavigate();
   const location = useLocation();
   const ruta = _leerRuta(location.pathname);

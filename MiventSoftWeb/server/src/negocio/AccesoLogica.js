@@ -53,7 +53,7 @@ async function L_prLibreriaDetalleGeneral(_IdClasificador) {
 async function L_Validar_Usuario(_Nom, _Pass) {
     return D_ConsultaParam(
         `SELECT Id, RolId, SucursalId, IdPersonal,
-                ISNULL((SELECT TOP 1 Monto FROM TipoCambio AS t ORDER BY id DESC), 0) AS Monto,
+                ISNULL((SELECT TOP 1 Monto FROM TipoCambio AS t WHERE t.Monto > 0 ORDER BY id DESC), 0) AS Monto,
                 ISNULL(ModificarPrecioVenta, 0) AS ModificarPrecioVenta,
                 ISNULL(AplicarDescuentoVenta, 0) AS AplicarDescuentoVenta,
                 ISNULL(VerTodasVentas, 0) AS VerTodasVentas,
@@ -812,6 +812,19 @@ async function InsertarTipoCambio(TipoCambio) {
     ]), '');
 }
 
+// Kaily: FrmDespacho (btnDespachoVenta)  MAM_Ventas @tipo 11
+//   Despachado 1: inserta en Despacho si la venta aun no tiene; 0: borra el despacho de la venta
+async function VentaInsertarDespacho(VentaId, Observacion, PersonalId, Despachado) {
+    return _fnResultadoGrabar(await D_ProcedimientoConParam('MAM_Ventas', [
+        new DParametro('@tipo', 11),
+        new DParametro('@VentaId', VentaId),
+        new DParametro('@PersonalId', PersonalId),
+        new DParametro('@ObservacionDespacho', Observacion),
+        new DParametro('@Despachado', Despachado),
+        new DParametro('@usuario', L_Usuario()),
+    ]), VentaId);
+}
+
 // Kaily: Tec_CajaGeneral (btnCajaGeneral) - saldo anterior (@tipo 6) y movimientos del rango (@tipo 7)
 async function L_fnObtenerHistorialCajaGeneral(FechaI) {
     return _cc2(6, [new DParametro('@FechaI', FechaI)]);
@@ -829,9 +842,10 @@ async function L_ObtenerConfiguraciones() {
     return D_ConsultaParam('SELECT Lote, Mapa, TotalCajaGeneral FROM Configuracion', []);
 }
 
-// Global_TipoCambio: VB lo lee al iniciar sesion (L_Validar_Usuario); aqui se lee el vigente al grabar
+// Global_TipoCambio: VB lo lee al iniciar sesion (L_Validar_Usuario); aqui se lee el vigente al grabar.
+// Ultimo tipo de cambio VALIDO (> 0): se ignoran los 0 que grababa test/verificar.js (usuario VERIFICAR)
 async function L_ObtenerTipoCambio() {
-    const dt = await D_ConsultaParam('SELECT ISNULL((SELECT TOP 1 Monto FROM TipoCambio AS t ORDER BY id DESC), 0) AS Monto', []);
+    const dt = await D_ConsultaParam('SELECT ISNULL((SELECT TOP 1 Monto FROM TipoCambio AS t WHERE t.Monto > 0 ORDER BY id DESC), 0) AS Monto', []);
     return dt.length ? Number(dt[0].Monto) || 0 : 0;
 }
 
@@ -1145,7 +1159,7 @@ module.exports = {
     L_prCierreCajeroInsertar, L_prCierreCajeroModificar,
     L_fnObtenerHistorialCajaGeneral, L_fnObtenerHistorialCajaGeneralDesdeHasta, ReporteIngresoEgresoDetalladoCaja, L_ObtenerConfiguraciones,
     ListaProductosKits, ListarProductosKits, InsertarKit, ModificarKit,
-    L_prInsertarDosificacion, L_prModificarDosificacion, InsertarTipoCambio,
+    L_prInsertarDosificacion, L_prModificarDosificacion, InsertarTipoCambio, VentaInsertarDespacho,
     L_prListarPagosPendientes, L_prListarPagosPendientesClientes, ReporteVentasProductosMasVendido,
     L_prListarProductosConStock0, L_prListarProductosConStockMinimo,
     L_fnListarCategoriaPrecio, L_prListarProductosTodosInventario,

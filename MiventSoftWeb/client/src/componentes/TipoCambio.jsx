@@ -19,7 +19,7 @@ export default function TipoCambio() {
   return (
     <>
       <button type="button" className={`chip-incremento ${sinTc ? 'chip-alerta' : ''}`} onClick={() => { leer(); setAbierto(true); }}
-        title={sinTc ? 'El último tipo de cambio guardado es 0: actualícelo' : 'Actualizar Tipo De Cambio'}>
+        title={sinTc ? 'No hay un tipo de cambio registrado: actualícelo' : 'Actualizar Tipo De Cambio'}>
         <Icono n="dollar" size={15} /><span className="ci-txt">Tipo Cambio:</span><b>{monto === null ? '…' : Number(monto).toString()}</b>
       </button>
       {abierto && <Dialogo actual={monto} onCerrar={(nuevo) => {

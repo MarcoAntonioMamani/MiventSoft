@@ -655,7 +655,8 @@ function CobroVenta({ total, tipoCambio, onAceptar, onCancelar }) {
 }
 
 // ---------- P_GenerarReporte: Nota de venta (Recibo.rpt). Total = Suma - Descuento ----------
-function NotaVenta({ datos, cfg, onCerrar }) {
+// (FrmDespacho la usa como "NOTA DE DESPACHO": mismo Recibo.rpt)
+export function NotaVenta({ datos, cfg, onCerrar }) {
   const { venta, detalle, total, empresa, cliente = {}, codigos = {} } = datos;
   const credito = cfg.tipoVenta && Number(venta.TipoVenta) === 0;
   const pagado = num(venta.MontoBs) + num(venta.MontoDolares) * num(venta.TipoCambio) + num(venta.TarjetaBancaria) + num(venta.TransferenciaBancaria);

@@ -21,6 +21,7 @@ import Frm_Proveedor from './paginas/ventas/Frm_Proveedor';
 import Tec_CuentasPorCobrar from './paginas/ventas/Tec_CuentasPorCobrar';
 import Reporte from './paginas/ventas/Reportes';
 import Proforma from './paginas/ventas/Proforma';
+import Tec_DespachoVentas from './paginas/ventas/Tec_DespachoVentas';
 import Tec_IngresoEgreso, { URL_CAJA } from './paginas/distribucion/Tec_IngresoEgreso';
 import Tec_CierreCajero from './paginas/caja/Tec_CierreCajero';
 import ReporteCaja from './paginas/caja/ReportesCaja';
@@ -69,6 +70,7 @@ const PROGRAMAS = [
   ['ventas/proveedores', 'btnProveedores', Frm_Proveedor],
   ['ventas/cuentas-cobrar', 'btnCredPago', Tec_CuentasPorCobrar],
   ['ventas/proformas', 'btnProforma', Proforma], // Kaily: btnProforma (MAM_Proforma)
+  ['ventas/despacho', 'btnDespachoVenta', Tec_DespachoVentas], // Kaily: FrmDespacho (MAM_Ventas @tipo 11)
   ['planilla/conceptos-fijos', 'btnConceptoFijos', Tec_ConceptosFijos],
   ['planilla/contratos', 'btnContratos', Tec_Contratos],
   ['planilla/registrar', 'btnRegistrarPlanilla', Tec_RegistrarPlanilla],

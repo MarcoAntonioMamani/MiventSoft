@@ -81,6 +81,7 @@ app.use('/api/ventas/ventas', requiereSesion, require('./rutas/ventas/ventasPunt
 app.use('/api/ventas/cuentas-cobrar', requiereSesion, require('./rutas/ventas/cuentasCobrar.routes'));
 app.use('/api/ventas/reportes', requiereSesion, require('./rutas/ventas/reportes.routes'));
 app.use('/api/ventas/proformas', requiereSesion, require('./rutas/ventas/proformas.routes'));
+app.use('/api/ventas/despacho', requiereSesion, require('./rutas/ventas/despachoVentas.routes')); // Kaily: btnDespachoVenta (FrmDespacho)
 app.use('/api/distribucion/ingresos-egresos', requiereSesion, require('./rutas/distribucion/ingresosEgresos.routes'));
 // Kaily: Administrar Caja > Caja general y Reporte caja detallado
 app.use('/api/caja/reportes', requiereSesion, require('./rutas/caja/reportes.routes'));

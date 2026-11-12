@@ -90,7 +90,9 @@ function globales(s) {
 // _PMOGetListEstructuraBuscador (solo lo que usa la pantalla)
 const CAMPOS_LISTA = ['Id', 'SucursalId', 'FechaVenta', 'HoraRegistro', 'PersonalId', 'Personal', 'TipoVenta', 'TVenta', 'FechaVencimientoCredito',
     'ClienteId', 'NombreCliente', 'Glosa', 'NombreAlmacen', 'TotalVenta', 'Descuento', 'Facturado', 'MontoBs', 'MontoDolares', 'TarjetaBancaria',
-    'TransferenciaBancaria', 'TipoCambio', 'TDespachado', 'Despachante', 'CierreModulo'];
+    'TransferenciaBancaria', 'TipoCambio', 'TDespachado', 'Despachante', 'CierreModulo',
+    // FrmDespacho (btnDespachoVenta) usa la misma lista
+    'EstadoDespacho', 'FechaDespacho', 'PersonalDespachadorId', 'ObservacionDespacho'];
 
 function _filaLista(f) {
     return {
@@ -515,6 +517,11 @@ router.get('/:id/recibo', asyncHandler(async (req, res) => {
     const g = globales(req.sesion);
     const id = v.idRuta(req.params.id);
     const venta = await _buscarVenta(g, id, fechaReq(req.query.fecha, 'Fecha'));
+    res.json({ ok: true, data: await _recibo(id, venta) });
+}));
+
+// datos de la nota (tambien la "NOTA DE DESPACHO" de FrmDespacho)
+async function _recibo(id, venta) {
     const [detalle, empresas, imagen, rec] = await Promise.all([
         C.listaDetalles(id),
         L.L_prListarGeneral('MAM_Empresas'),
@@ -526,22 +533,19 @@ router.get('/:id/recibo', asyncHandler(async (req, res) => {
     const de = (...n) => { for (const x of n) { const y = c0(r0, x); if (y !== undefined && y !== null && y !== '') return y; } return null; };
     const det = v.proyectar(detalle, ['ProductoId', 'Producto', 'Cantidad', 'Precio', 'SubTotal', 'MontoDescuento', 'Total', 'KitNombre']);
     const suma = det.reduce((s, f) => s + num(f.Total), 0);
-    res.json({
-        ok: true,
-        data: {
-            venta,
-            detalle: det,
-            subtotal: suma,
-            total: suma - num(venta.Descuento),
-            empresa: v.proyectar(empresas, ['Nombre', 'Direccion', 'Telefono', 'Nit', 'Ciudad'])[0] || null,
-            cliente: { Nit: de('Nit', 'NitCi', 'NroDocumento'), Telefono: de('Telefono', 'Telefono01'), Direccion: de('Direccion', 'DireccionCliente') },
-            codigos: Object.fromEntries(rec.map((f) => [String(c0(f, 'Producto') ?? c0(f, 'NombreProducto') ?? ''), c0(f, 'CodigoExterno') ?? null]).filter(([k, x]) => k && x !== null)),
-            imagenEmpresa: imagen.length ? String(Object.values(imagen[0])[0] ?? '') : '',
-        },
-    });
-}));
+    return {
+        venta,
+        detalle: det,
+        subtotal: suma,
+        total: suma - num(venta.Descuento),
+        empresa: v.proyectar(empresas, ['Nombre', 'Direccion', 'Telefono', 'Nit', 'Ciudad'])[0] || null,
+        cliente: { Nit: de('Nit', 'NitCi', 'NroDocumento'), Telefono: de('Telefono', 'Telefono01'), Direccion: de('Direccion', 'DireccionCliente') },
+        codigos: Object.fromEntries(rec.map((f) => [String(c0(f, 'Producto') ?? c0(f, 'NombreProducto') ?? ''), c0(f, 'CodigoExterno') ?? null]).filter(([k, x]) => k && x !== null)),
+        imagenEmpresa: imagen.length ? String(Object.values(imagen[0])[0] ?? '') : '',
+    };
+}
 
-router._interno = { _armarDetalle, _armarPagos, _leerCabecera, _calcular, _buscarVenta, globales };
+router._interno = { _armarDetalle, _armarPagos, _leerCabecera, _calcular, _buscarVenta, _lista, _recibo, globales, fechaReq, hoyBolivia, isoDe };
 return router;
 }
 
