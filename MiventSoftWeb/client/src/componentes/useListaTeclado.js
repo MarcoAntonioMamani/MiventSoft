@@ -2,20 +2,34 @@
 //  * En el buscador: Flecha abajo baja a la tabla; Enter elige la fila marcada (la primera si no se movio).
 //  * En la tabla: flechas / Inicio / Fin / RePag / AvPag mueven la seleccion, Enter elige,
 //    Flecha arriba en la primera fila vuelve al buscador y escribir una letra sigue la busqueda.
+//  * Mouse / dedo: un clic (toque) solo marca la fila; doble clic (doble toque) la elige.
+//  * Se dibujan LOTE filas y las demas al bajar (centinela): con miles de productos la busqueda no se traba.
 //  * Despues de agregar (o cancelar) el foco vuelve al buscador / a la fila.
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { createElement, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 const PAGINA = 8;
+const LOTE = 100;
+// dos clics o toques en la misma fila dentro de este tiempo = doble clic (el dblclick nativo no llega en todos los celulares)
+const DOBLE_MS = 450;
+
+const claveDe = (f) => `${f?.Tipo ?? ''}-${f?.Id ?? ''}`;
 
 export function useListaTeclado(filas, onElegir, { onCerrar, pausado = false } = {}) {
   const [marcada, setMarcada] = useState(0);
+  const [limite, setLimite] = useState(LOTE);
   const buscarRef = useRef(null);
   const tbodyRef = useRef(null);
-  const total = filas.length;
+  const clic = useRef({ clave: null, t: 0 });
+  const pendiente = useRef(null);
+  const observador = useRef(null);
 
-  // al cambiar el filtro se vuelve a marcar la primera fila
-  const firma = filas.map((f) => f?.Id ?? '').join(',');
-  useEffect(() => { setMarcada(0); }, [firma]);
+  // al cambiar el filtro se vuelve a marcar la primera fila y a dibujar solo el primer lote
+  const firma = useMemo(() => filas.map(claveDe).join(','), [filas]);
+  useEffect(() => { setMarcada(0); setLimite(LOTE); clic.current = { clave: null, t: 0 }; }, [firma]);
+
+  const visibles = useMemo(() => (filas.length > limite ? filas.slice(0, limite) : filas), [filas, limite]);
+  const total = visibles.length;
+  const hayMas = filas.length > total;
 
   // Esc cierra el buscador aunque el foco se haya perdido (p. ej. justo al cerrar la ventana de cantidad)
   useEffect(() => {
@@ -25,14 +39,37 @@ export function useListaTeclado(filas, onElegir, { onCerrar, pausado = false } =
     return () => window.removeEventListener('keydown', k);
   }, [onCerrar, pausado]);
 
+  useEffect(() => () => observador.current?.disconnect(), []);
+
   const filaEl = (i) => tbodyRef.current?.querySelectorAll('tr[data-fila]')[i];
-  const irA = useCallback((i, enfocar = true) => {
-    if (!total) return;
-    const n = Math.max(0, Math.min(total - 1, i));
-    setMarcada(n);
+  const mostrar = (n, enfocar) => {
     const el = filaEl(n);
     if (el) { if (enfocar) el.focus({ preventScroll: true }); el.scrollIntoView({ block: 'nearest' }); }
-  }, [total]);
+  };
+  const irA = useCallback((i, enfocar = true) => {
+    if (!filas.length) return;
+    const n = Math.max(0, Math.min(filas.length - 1, i));
+    setMarcada(n);
+    // la fila aun no esta dibujada (RePag / Fin): se dibuja el lote que la contiene y se enfoca despues
+    if (n >= limite) { pendiente.current = { n, enfocar }; setLimite(Math.ceil((n + 1) / LOTE) * LOTE); return; }
+    mostrar(n, enfocar);
+  }, [filas.length, limite]);
+  useEffect(() => {
+    const p = pendiente.current;
+    if (!p) return;
+    pendiente.current = null;
+    mostrar(p.n, p.enfocar);
+  }, [limite]);
+
+  // fila al final de la tabla: cuando se ve, se dibuja el siguiente lote
+  const centinelaRef = useCallback((el) => {
+    observador.current?.disconnect();
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+    observador.current = new IntersectionObserver((ents) => {
+      if (ents.some((x) => x.isIntersecting)) setLimite((l) => l + LOTE);
+    }, { root: el.closest('.tabla-scroll'), rootMargin: '400px 0px' });
+    observador.current.observe(el);
+  }, []);
 
   const enfocarBuscar = useCallback((seleccionar = true) => {
     const el = buscarRef.current;
@@ -43,7 +80,7 @@ export function useListaTeclado(filas, onElegir, { onCerrar, pausado = false } =
 
   const teclaBuscar = (e) => {
     if (e.key === 'ArrowDown' && total) { e.preventDefault(); irA(marcada); }
-    else if (e.key === 'Enter' && total) { e.preventDefault(); onElegir(filas[Math.min(marcada, total - 1)], marcada); }
+    else if (e.key === 'Enter' && total) { e.preventDefault(); onElegir(visibles[Math.min(marcada, total - 1)], marcada); }
   };
 
   const teclaFila = (i) => (e) => {
@@ -53,11 +90,26 @@ export function useListaTeclado(filas, onElegir, { onCerrar, pausado = false } =
     else if (k === 'PageDown') { e.preventDefault(); irA(i + PAGINA); }
     else if (k === 'PageUp') { e.preventDefault(); irA(i - PAGINA); }
     else if (k === 'Home') { e.preventDefault(); irA(0); }
-    else if (k === 'End') { e.preventDefault(); irA(total - 1); }
-    else if (k === 'Enter' || k === ' ') { e.preventDefault(); onElegir(filas[i], i); }
+    else if (k === 'End') { e.preventDefault(); irA(filas.length - 1); }
+    else if (k === 'Enter' || k === ' ') { e.preventDefault(); onElegir(visibles[i], i); }
     else if ((k.length === 1 || k === 'Backspace') && !e.ctrlKey && !e.altKey && !e.metaKey) {
       // seguir escribiendo en el buscador sin tener que volver con el mouse
       enfocarBuscar(false);
+    }
+  };
+
+  // un clic marca; el segundo clic sobre la misma fila (antes de DOBLE_MS) la elige
+  const clicFila = (i) => () => {
+    const f = visibles[i];
+    const clave = claveDe(f);
+    const ahora = Date.now();
+    const u = clic.current;
+    setMarcada(i);
+    if (u.clave === clave && ahora - u.t <= DOBLE_MS) {
+      clic.current = { clave: null, t: 0 };
+      onElegir(f, i);
+    } else {
+      clic.current = { clave, t: ahora };
     }
   };
 
@@ -67,12 +119,24 @@ export function useListaTeclado(filas, onElegir, { onCerrar, pausado = false } =
     'aria-selected': i === marcada,
     onKeyDown: teclaFila(i),
     onFocus: () => setMarcada(i),
+    onClick: clicFila(i),
   });
 
   // volver despues del dialogo de cantidad: al buscador (agrego) o a la fila (cancelo)
   const volver = useCallback((agrego, i = marcada) => {
+    clic.current = { clave: null, t: 0 };
     setTimeout(() => (agrego ? enfocarBuscar() : irA(i)), 0);
   }, [enfocarBuscar, irA, marcada]);
 
-  return { marcada, buscarRef, tbodyRef, teclaBuscar, propsFila, volver, enfocarBuscar };
+  return { marcada, buscarRef, tbodyRef, teclaBuscar, propsFila, volver, enfocarBuscar, visibles, hayMas, total: filas.length, centinelaRef };
 }
+
+// Ultima fila de la tabla mientras falten filas por dibujar (la key cambia con cada lote para volver a observarla)
+export function FilaMas({ nav, columnas }) {
+  if (!nav.hayMas) return null;
+  return createElement('tr', { key: nav.visibles.length, ref: nav.centinelaRef, className: 'fila-mas', 'aria-hidden': true },
+    createElement('td', { colSpan: columnas, className: 'vacio' },
+      `Mostrando ${nav.visibles.length.toLocaleString('es-BO')} de ${nav.total.toLocaleString('es-BO')} · baje para ver más o escriba para filtrar`));
+}
+
+export const AYUDA_ELEGIR = 'Doble clic (o doble toque) en un producto para indicar la cantidad';

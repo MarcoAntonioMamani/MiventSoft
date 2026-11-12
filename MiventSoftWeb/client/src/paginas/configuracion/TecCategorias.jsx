@@ -1,11 +1,12 @@
 // =====================================================================
 //  TecCategorias.vb -> Gestion De Categorias   (SP: MAM_Categorias)
 // =====================================================================
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ModeloF1, { useModeloF1 } from '../../componentes/ModeloF1';
 import { Campo, ComboMulti, ImagenSelector, SwitchButton } from '../../componentes/Controles';
 import { Celda } from '../../global/Celda';
 import { api, urlImagen } from '../../api/http';
+import { useAlActivar } from '../../global/vistaActiva';
 
 const URL = '/api/configuracion/categorias';
 const VACIO = { Id: '', NombreCategoria: '', DescripcionCategoria: '', Estado: true, VisibleApp: true, EmpresaId: '', Imagen: 'Default.jpg' };
@@ -20,7 +21,7 @@ export default function TecCategorias() {
   const set = (k) => (v) => { quitarError(k); setForm((f) => ({ ...f, [k]: v?.target ? v.target.value : v })); };
 
   // _prCargarComboGenerico(cbEmpresa, L_prListaEmpresasUsuarios(), "Id", "Codigo", "Nombre", "Empresa")
-  useEffect(() => { api.get(`${URL}/combos`).then((r) => setEmpresas(r.data.empresas)).catch(() => {}); }, []);
+  useAlActivar(() => { api.get(`${URL}/combos`).then((r) => setEmpresas(r.data.empresas)).catch(() => {}); });
 
   const _datos = () => {
     const fd = new FormData();

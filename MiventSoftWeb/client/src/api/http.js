@@ -7,7 +7,8 @@ export function alExpirarSesion(fn) {
 }
 
 async function _peticion(metodo, url, cuerpo) {
-  const opciones = { method: metodo, credentials: 'include', headers: {} };
+  // no-store: siempre a la BD, nunca una respuesta guardada por el navegador
+  const opciones = { method: metodo, credentials: 'include', headers: {}, cache: 'no-store' };
   if (cuerpo instanceof FormData) {
     opciones.body = cuerpo;
   } else if (cuerpo !== undefined) {

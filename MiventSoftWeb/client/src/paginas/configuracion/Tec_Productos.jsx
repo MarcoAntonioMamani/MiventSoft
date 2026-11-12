@@ -10,6 +10,8 @@ import { Celda } from '../../global/Celda';
 import { api, urlImagen } from '../../api/http';
 import { useToast } from '../../componentes/Toast';
 import Icono from '../../componentes/Icono';
+import ReportePreciosProductos from './ReportePreciosProductos';
+import { useAlActivar } from '../../global/vistaActiva';
 
 const URL = '/api/configuracion/productos';
 const VACIO = { Id: '', CodigoExterno: '', CodigoBarras: '', NombreProducto: '', DescripcionProducto: '', StockMinimo: '0', estado: true,
@@ -63,6 +65,8 @@ export default function Tec_Productos() {
   const [imgs, setImgs] = useState({ existentes: [], eliminar: [], nuevas: [] });
   // Kaily: grPrecios (ListPreciosDetalles) -> [{ id, Descripcion, precio }]
   const [precios, setPrecios] = useState([]);
+  // Kaily: ButtonX4 "Reporte Precios" (false) / btnReporteConImagenes (true); null = cerrado
+  const [reporte, setReporte] = useState(null);
   const combosRef = useRef(null);
   const pedido = useRef(0);
   const pedidoPrecios = useRef(0);
@@ -85,9 +89,9 @@ export default function Tec_Productos() {
   const quitarError = (k) => setErrores((e) => (e[k] ? { ...e, [k]: undefined } : e));
   const set = (k) => (v) => { quitarError(k); setForm((f) => ({ ...f, [k]: v?.target ? v.target.value : v })); };
 
-  useEffect(() => {
+  useAlActivar(() => {
     api.get(`${URL}/combos`).then((r) => { combosRef.current = r.data; setCombos(r.data); }).catch((e) => toast(e.message, 'error'));
-  }, [toast]);
+  });
 
   const cargarImagenes = async (id) => {
     const n = ++pedido.current;
@@ -147,6 +151,7 @@ export default function Tec_Productos() {
       if (!form.CategoriaId) e.CategoriaId = 'Seleccione una Categoria';
       if (String(form.StockMinimo).trim() === '' || Number(form.StockMinimo) < 0) e.StockMinimo = 'Ingrese valor Stock Minimo';
       if (!(Number(form.Conversion) > 0)) e.Conversion = 'Ingrese Valor en Conversion';
+      // el codigo externo repetido (ObtenerCoincidenciasCodigoExterno) lo valida el servidor al grabar
       setErrores(e);
       return !Object.keys(e).length;
     },
@@ -164,7 +169,14 @@ export default function Tec_Productos() {
   };
 
   return (
-    <ModeloF1 m={m} titulo="Productos" subtitulo="Gestion De Productos" icono="box">
+    <ModeloF1 m={m} titulo="Productos" subtitulo="Gestion De Productos" icono="box"
+      extraBuscador={(
+        <div className="filtros-lista">
+          <button type="button" className="btn btn-sec" onClick={() => setReporte(false)}><Icono n="printer" size={15} /> Reporte Precios</button>
+          <button type="button" className="btn btn-sec" onClick={() => setReporte(true)}><Icono n="image" size={15} /> Reporte Precios Imágenes</button>
+          {reporte !== null && <ReportePreciosProductos conImagenes={reporte} onCerrar={() => setReporte(null)} />}
+        </div>
+      )}>
       <div className="registro-grid con-lateral-ancho">
         <div className="tarjeta">
           <h2 className="tarjeta-tit">Datos del producto</h2>

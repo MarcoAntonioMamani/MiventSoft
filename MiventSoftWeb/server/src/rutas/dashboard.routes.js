@@ -1,11 +1,11 @@
 // =====================================================================
 //  Panel principal (dashboard) - SOLO LECTURA
 //  Fuentes (mismos SP que el escritorio):
-//    MAM_Ventas @tipo 3 (L_prListarGeneralFechas)   -> pedidos, montos, vendedores, horas, tendencia
+//    MAM_Ventas @tipo 3 (L_prListarVentasGeneralFiltroFecha, sucursal del usuario) -> ventas, montos, vendedores, horas, tendencia
 //    MAM_CreditosVentas @tipo 1                      -> cuentas por cobrar
 //    MAM_CreditosCompras @tipo 1                     -> cuentas por pagar
 //    MAM_ReporteVentas @tipo 6 / 10 / 11             -> productos mas vendidos, stock 0, stock minimo
-//    MAM_Ventas @tipo 7                              -> pedidos pendientes de asignar
+//  Kaily (punto de venta): sin pedidos pendientes de asignar ni mapa de pedidos (MAM_Ventas 7 / 23 no existen).
 //  Destacados del mes: mismo MAM_Ventas @tipo 3 (desde el 1ro del mes) y MAM_ReporteVentas @tipo 6 del mes.
 //  Al navegador se envian SOLO agregados (totales, rankings), nunca las listas completas.
 // =====================================================================
@@ -45,6 +45,12 @@ function lector(filas) {
         }
         return null;
     };
+}
+
+// Ventas como Tec_Ventas de Kaily: L_prListarVentasGeneralFiltroFecha("MAM_Ventas", desde, hasta, Global_Sucursal)
+function ventasRango(sesion, desde, hasta) {
+    const suc = Number(sesion?.gi_userSuc);
+    return L.L_prListarVentasGeneralFiltroFecha('MAM_Ventas', fmtVB(desde), fmtVB(hasta), Number.isFinite(suc) ? suc : -1);
 }
 
 // Hoy en Bolivia (UTC-4) aunque el servidor tenga otra zona
@@ -267,15 +273,14 @@ router.get('/', asyncHandler(async (req, res) => {
     const desde = desdeMes < desde30 ? desdeMes : desde30; // una sola lectura cubre tendencia y mes
     const errores = [];
 
-    const [ventas, cxc, cxp, productos, productosMes, stock0, stockMin, pendientes] = await Promise.all([
-        seguro(L.L_prListarGeneralFechas('MAM_Ventas', fmtVB(desde), fmtVB(fecha)), 'ventas', errores),
+    const [ventas, cxc, cxp, productos, productosMes, stock0, stockMin] = await Promise.all([
+        seguro(ventasRango(req.sesion, desde, fecha), 'ventas', errores),
         seguro(L.L_prListarPagosPendientesClientes(), 'cuentas por cobrar', errores),
         seguro(L.L_prListarPagosPendientes(), 'cuentas por pagar', errores),
         seguro(L.ReporteVentasProductosMasVendido(fmtVB(fecha), fmtVB(fecha)), 'productos', errores),
         seguro(L.ReporteVentasProductosMasVendido(fmtVB(desdeMes), fmtVB(fecha)), 'productos del mes', errores),
         seguro(L.L_prListarProductosConStock0(), 'stock en cero', errores),
         seguro(L.L_prListarProductosConStockMinimo(), 'stock minimo', errores),
-        seguro(L.ListaPedidosPendientesAsignaciones(), 'pendientes de asignar', errores),
     ]);
 
     const v = ventas ? resumenVentas(ventas, fecha, idVendedor) : null;
@@ -296,7 +301,6 @@ router.get('/', asyncHandler(async (req, res) => {
             alertas: {
                 stock0: stock0 ? stock0.length : null,
                 stockMinimo: stockMin ? stockMin.length : null,
-                pendientesAsignar: pendientes ? pendientes.length : null,
             },
             errores,
         },
@@ -315,10 +319,10 @@ function horaTxt(v) {
 }
 
 const DETALLES = {
-    async pedidos(q) {
+    async pedidos(q, sesion) {
         const fecha = leerFecha(q.fecha);
         const ini = q.mes === '1' ? inicioMes(fecha) : fecha;
-        const filas = await L.L_prListarGeneralFechas('MAM_Ventas', fmtVB(ini), fmtVB(fecha));
+        const filas = await ventasRango(sesion, ini, fecha);
         const c = lector(filas);
         const dia = iso(fecha);
         const diaIni = iso(ini);
@@ -367,15 +371,6 @@ const DETALLES = {
     },
     async stock0() { return productosDetalle(await L.L_prListarProductosConStock0()); },
     async stockmin() { return productosDetalle(await L.L_prListarProductosConStockMinimo()); },
-    async asignar() {
-        const filas = await L.ListaPedidosPendientesAsignaciones();
-        const c = lector(filas);
-        const arr = filas.map((f) => ({ id: c(f, 'Id', 'VentaId'), cliente: String(c(f, 'NombreCliente', 'Cliente') ?? '').trim(), total: r2(num(c(f, 'totalPedido', 'TotalVenta', 'Total'))) }));
-        return {
-            columnas: [{ k: 'id', t: 'N°', tipo: 'num' }, { k: 'cliente', t: 'Cliente', ancho: true }, { k: 'total', t: 'Total', tipo: 'bs' }],
-            filas: arr, total: r2(arr.reduce((s, p) => s + p.total, 0)),
-        };
-    },
 };
 
 function creditosDetalle(filas, campoNombre, q, conPreventista) {
@@ -421,110 +416,6 @@ function productosDetalle(filas) {
     return { columnas, filas: arr.map((x) => Object.fromEntries(columnas.map((k) => [k.k, x[k.k]]))) };
 }
 
-// ---------- pedidos por vendedor con la ubicacion donde se registraron ----------
-//  MAM_Ventas @tipo 3 del dia -> vendedores, estado y anulado (solo registros activos)
-//  MAM_Ventas @tipo 23 (@FechaVenta, @PersonalId) -> Latitud/Longitud del pedido, ordenado por Id = orden de creacion
-function puntoGps(lat, lon) {
-    if (lat === null || lat === undefined || lat === '' || lon === null || lon === undefined || lon === '') return null;
-    const a = Number(lat); const o = Number(lon);
-    if (!Number.isFinite(a) || !Number.isFinite(o) || (a === 0 && o === 0) || Math.abs(a) > 90 || Math.abs(o) > 180) return null;
-    return [a, o];
-}
-
-// Distancia en linea recta entre dos puntos GPS (haversine), en km
-function kmEntre([la1, lo1], [la2, lo2]) {
-    const rad = Math.PI / 180;
-    const dLa = (la2 - la1) * rad; const dLo = (lo2 - lo1) * rad;
-    const h = Math.sin(dLa / 2) ** 2 + Math.cos(la1 * rad) * Math.cos(la2 * rad) * Math.sin(dLo / 2) ** 2;
-    return 6371 * 2 * Math.asin(Math.min(1, Math.sqrt(h)));
-}
-const minutosDe = (h) => { const m = /^(\d{2}):(\d{2})$/.exec(h || ''); return m ? Number(m[1]) * 60 + Number(m[2]) : null; };
-
-// Recorrido aproximado del punto 1 al ultimo (solo pedidos con GPS): tramo de cada pedido y total
-function calcularRecorrido(pedidos) {
-    let previo = null; let km = 0; let tramos = 0;
-    for (const p of pedidos) {
-        p.tramoKm = null; p.tramoMin = null;
-        if (!p.punto) continue;
-        if (previo) {
-            const d = kmEntre(previo.punto, p.punto);
-            const t0 = minutosDe(previo.hora); const t1 = minutosDe(p.hora);
-            p.tramoKm = r2(d);
-            p.tramoMin = t0 !== null && t1 !== null && t1 >= t0 ? t1 - t0 : null;
-            km += d; tramos++;
-        }
-        previo = p;
-    }
-    const conGps = pedidos.filter((p) => p.punto);
-    if (!conGps.length) return null;
-    const ini = conGps[0]; const fin = conGps[conGps.length - 1];
-    const t0 = minutosDe(ini.hora); const t1 = minutosDe(fin.hora);
-    const minutos = t0 !== null && t1 !== null && t1 >= t0 ? t1 - t0 : null;
-    return {
-        km: r2(km), tramos, minutos, desde: ini.hora, hasta: fin.hora,
-        // velocidad promedio entre pedidos (km/h), solo si hubo tiempo
-        kmh: minutos ? r2(km / (minutos / 60)) : null,
-    };
-}
-
-router.get('/pedidos-mapa', asyncHandler(async (req, res) => {
-    const fecha = leerFecha(req.query.fecha);
-    if (req.query.vendedor && !/^\d+$/.test(String(req.query.vendedor))) throw new ErrorNegocio('Vendedor no valido');
-    const dia = iso(fecha);
-
-    const filas = await L.L_prListarGeneralFechas('MAM_Ventas', fmtVB(fecha), fmtVB(fecha));
-    const c = lector(filas);
-    const delDia = filas.map((f) => ({
-        id: String(c(f, 'Id')),
-        dia: diaDe(c(f, 'FechaVenta')),
-        vendedorId: String(c(f, 'PersonalId') ?? ''),
-        vendedor: String(c(f, 'Personal') ?? 'SIN VENDEDOR').trim(),
-        estado: String(c(f, 'NombreEstado') ?? '').trim().toUpperCase(),
-        anulado: num(c(f, 'Anulado')) === 1,
-        total: num(c(f, 'TotalVenta')),
-    })).filter((p) => p.dia === dia && p.vendedorId);
-
-    // Resumen por vendedor (para elegir)
-    const m = new Map();
-    for (const p of delDia) {
-        const x = m.get(p.vendedorId) || { id: p.vendedorId, nombre: p.vendedor, pedidos: 0, anulados: 0, monto: 0 };
-        x.pedidos++;
-        if (p.anulado || /ANUL/.test(p.estado)) x.anulados++; else x.monto += p.total;
-        m.set(p.vendedorId, x);
-    }
-    const vendedores = [...m.values()].map((x) => ({ ...x, monto: r2(x.monto) })).sort((a, b) => b.pedidos - a.pedidos || b.monto - a.monto);
-
-    const pedido = req.query.vendedor ? String(req.query.vendedor) : '';
-    const vendedor = vendedores.find((x) => x.id === pedido)?.id || vendedores[0]?.id || null;
-    let pedidos = [];
-    if (vendedor) {
-        const activos = new Map(delDia.filter((p) => p.vendedorId === vendedor).map((p) => [p.id, p]));
-        const gps = await L.ListarVentasVendedorFecha(fmtVB(fecha), Number(vendedor));
-        const g = lector(gps);
-        pedidos = gps.map((f) => ({ f, id: String(g(f, 'id', 'Id')) }))
-            .filter((x) => activos.has(x.id)) // @tipo 23 no filtra Estado = 1
-            .sort((a, b) => Number(a.id) - Number(b.id))
-            .map(({ f, id }, i) => {
-                const a = activos.get(id);
-                const km = g(f, 'DistanciaKm');
-                return {
-                    orden: i + 1,
-                    id: Number(id),
-                    hora: horaTxt(g(f, 'HoraRegistro')),
-                    cliente: String(g(f, 'NombreCliente') ?? '').trim(),
-                    total: r2(num(g(f, 'TotalVenta'))),
-                    estado: a.anulado ? 'ANULADO' : a.estado,
-                    punto: puntoGps(g(f, 'Latitud'), g(f, 'Longitud')),
-                    distanciaKm: km === null ? null : r2(num(km)),
-                };
-            });
-    }
-    const recorrido = calcularRecorrido(pedidos);
-
-    res.set('Cache-Control', 'no-store');
-    res.json({ ok: true, data: { fecha: dia, vendedor, vendedores, pedidos, recorrido } });
-}));
-
 router.get('/detalle/:tipo', asyncHandler(async (req, res) => {
     const fn = DETALLES[req.params.tipo];
     if (!fn) throw new ErrorNegocio('Detalle no disponible');
@@ -535,7 +426,7 @@ router.get('/detalle/:tipo', asyncHandler(async (req, res) => {
     if (q.vendedor && !/^\d+$/.test(q.vendedor)) throw new ErrorNegocio('Vendedor no valido');
     if (q.hora && !/^\d{1,2}$/.test(q.hora)) throw new ErrorNegocio('Hora no valida');
     if (q.cliente && !/^\d+$/.test(q.cliente)) throw new ErrorNegocio('Cliente no valido');
-    const r = await fn(q);
+    const r = await fn(q, req.sesion);
     const truncado = r.filas.length > LIMITE_DETALLE;
     res.set('Cache-Control', 'no-store');
     res.json({ ok: true, data: { ...r, cantidad: r.filas.length, filas: r.filas.slice(0, LIMITE_DETALLE), truncado } });

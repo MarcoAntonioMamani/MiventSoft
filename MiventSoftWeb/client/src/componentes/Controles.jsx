@@ -36,7 +36,7 @@ export function SwitchButton({ valor, onChange, deshabilitado, textoOn = 'ACTIVO
  * La lista se dibuja en un "portal" (encima de todo) para que ninguna tarjeta la recorte.
  * PC: se abre hacia abajo o hacia arriba segun el espacio. Celular: hoja inferior.
  */
-export function ComboMulti({ dt = [], valor, onChange, id = 'Id', nameId = 'Codigo', descripcionId = 'Nombre', descripcion = 'Nombre', deshabilitado, error }) {
+export function ComboMulti({ dt = [], valor, onChange, id = 'Id', nameId = 'Codigo', descripcionId = 'Nombre', descripcion = 'Nombre', deshabilitado, error, onAbrir }) {
   const [abierto, setAbierto] = useState(false);
   const [filtro, setFiltro] = useState('');
   const [pos, setPos] = useState(null);
@@ -71,6 +71,7 @@ export function ComboMulti({ dt = [], valor, onChange, id = 'Id', nameId = 'Codi
     setActivo(Math.max(0, dt.findIndex((r) => String(r[id]) === String(valor))));
     calcular();
     setAbierto(true);
+    onAbrir?.(); // opcional: recargar la lista (la pestaña queda montada y los datos pueden estar viejos)
   };
   const cerrar = () => { setAbierto(false); btn.current?.focus(); };
   const elegir = (r) => { onChange(r[id], r); setAbierto(false); btn.current?.focus(); };

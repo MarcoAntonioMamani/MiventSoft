@@ -109,32 +109,9 @@ let fallas = 0;
         }
     } catch (e) { console.log(`${MAL} No se pudo comparar el detalle: ${e.message}`); fallas++; }
 
-    // Asignacion de pedidos: VB envia la grilla (columnas de MAM_Ventas 7 / 15 / 17) POR POSICION
-    console.log('\nAsignacion de pedidos (tipos tabla vs columnas de las grillas, solo lectura):');
-    const colsTVP = async (param) => (await pool.request().input('sp', 'MAM_Ventas').input('p', param).query(`
-            SELECT c.name AS col FROM sys.parameters p
-            JOIN sys.table_types tt ON tt.user_type_id = p.user_type_id
-            JOIN sys.columns c ON c.object_id = tt.type_table_object_id
-            WHERE p.object_id = OBJECT_ID(@sp) AND p.name = @p ORDER BY c.column_id`)).recordset.map((x) => x.col);
-    for (const [param, tipo, extra] of [['@Asignacion', 7, {}], ['@AsignacionEntregado', 15, { ChoferId: -1, IDConciliacion: -1 }], ['@AsignacionAnulacion', 17, {}]]) {
-        try {
-            const tvp = await colsTVP(param);
-            const rq = pool.request().input('tipo', tipo).input('usuario', 'VERIFICAR');
-            Object.entries(extra).forEach(([k, x]) => rq.input(k, x));
-            const r = await rq.execute('MAM_Ventas'); // solo SELECT (listas de la pantalla)
-            const cols = Object.values(r.recordset.columns).sort((a, b) => a.index - b.index).map((c) => c.name);
-            const asig = cols.some((c) => c.toLowerCase() === 'asignar');
-            if (!tvp.length) { console.log(`${MAL} MAM_Ventas no tiene ${param}`); fallas++; }
-            else if (tvp.length !== cols.length && asig && tvp.every((c) => cols.some((g) => g.toLowerCase() === c.toLowerCase()))) {
-                console.log(`${OK} ${param}: la grilla (@tipo ${tipo}) trae ${cols.length} columnas y el tipo ${tvp.length}; la web envia solo las ${tvp.length} del tipo, por nombre`);
-            } else if (tvp.length !== cols.length || !asig) {
-                console.log(`${MAL} ${param}: el tipo tiene ${tvp.length} columnas y la grilla (@tipo ${tipo}) ${cols.length}${asig ? '' : ' (sin columna Asignar)'}`);
-                console.log(`         tipo:    ${tvp.join(', ')}`);
-                console.log(`         grilla:  ${cols.join(', ')}`);
-                fallas++;
-            } else console.log(`${OK} ${param}: ${tvp.length} columnas = grilla @tipo ${tipo}`);
-        } catch (e) { console.log(`${MAL} ${param}: ${e.message}`); fallas++; }
-    }
+    // KAILY: SIN "Asignacion de pedidos" (era de Distral: MAM_Ventas 7 / 15 / 17).
+    // En Kaily MAM_Ventas @tipo 7 es InsertarTipoCambio: ejecutarlo aqui GRABABA un tipo de cambio en 0
+    // (usuario VERIFICAR) en cada arranque de iniciar.bat. Este script solo debe ejecutar @tipo de LECTURA.
 
     // Distribucion: tipos tabla vs las grillas que envia el escritorio (solo lectura)
     console.log('\nDistribucion (tipos tabla vs grillas, solo lectura):');

@@ -40,7 +40,7 @@ const BASE = 'http://localhost:3001';
     await btn.click().catch(() => {});
     if (await p.locator('.selector-productos').count()) {
       await p.waitForSelector('.selector-productos tbody tr.fila-clic');
-      await p.locator('.selector-productos tbody tr.fila-clic:not(.sin-stock)').first().click();
+      await p.locator('.selector-productos tbody tr.fila-clic:not(.sin-stock)').first().dblclick();
       await p.waitForSelector('.cantidad-cajas'); await p.keyboard.type('1'); await p.keyboard.press('Enter'); await p.waitForTimeout(250);
       ok((await p.locator('.selector-productos .chip-ok').innerText().catch(() => '')).trim() === '1 agregado', 'movimientos: contador de agregados');
     } else ok(true, 'movimientos: requiere tipo de movimiento antes (sin cambios)');

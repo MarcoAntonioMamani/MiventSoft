@@ -1,8 +1,11 @@
 // =====================================================================
-//  Tec_AdministrarCuentasPorCobrar.vb -> Administrar Cuentas por Cobrar  (SP: MAM_CreditosVentas)
+//  KAILY LA PAZ: Tec_AdministrarCuentasPorCobrar.vb -> Administrar Cuentas por Cobrar  (SP: MAM_CreditosVentas)
 //  Pestañas como el escritorio: Cobrar Credito · Creditos Pendientes · Creditos Cobrados · Administrar Cobros
+//  Kaily: sin preventista (Vendedor solo en Creditos Pendientes), el servidor filtra por el personal del usuario
+//  si no puede ver todas las ventas, el cobro exige Caja Chica abierta y un pago de un cierre o de días
+//  anteriores no se elimina.
 //  Reportes impresos (ReporteImpreso):
-//   - Creditos pendientes: agrupado por preventista con subtotales (Reporte_CobrosPendientes.rpt)
+//   - Creditos pendientes: sin agrupar (Reporte_CobrosPendientes.rpt de Kaily)
 //   - Creditos cobrados: sin agrupar, todos o filtrados por fecha de venta (Reporte_CreditoVentaPagados.rpt)
 // =====================================================================
 import { useCallback, useEffect, useState } from 'react';
@@ -18,6 +21,7 @@ import { Celda } from '../../global/Celda';
 import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
+import { useAlActivar, useRefrescar } from '../../global/vistaActiva';
 
 const URL = '/api/ventas/cuentas-cobrar';
 const BASE = '/ventas/cuentas-cobrar';
@@ -59,7 +63,6 @@ const COLS_DEUDA = [
   { campo: 'Credito', titulo: 'Crédito' },
   { campo: 'Venta', titulo: 'Venta' },
   { campo: 'Nombre', titulo: 'Cliente', ancho: 180, render: (f) => tit(f.Nombre) },
-  { campo: 'NombrePersonal', titulo: 'Preventista', render: (f) => tit(f.NombrePersonal) },
   { campo: 'Monto', titulo: 'Monto', tipo: 'bs', total: true },
   { campo: 'abonado', titulo: 'Abonado', tipo: 'bs', total: true },
   { campo: 'Restante', titulo: 'Restante', tipo: 'bs', total: true, render: (f) => <b>{bs(f.Restante)}</b> },
@@ -87,6 +90,8 @@ export default function Tec_CuentasPorCobrar() {
     try { const res = await api.get(`${URL}/${ruta}${qs}`); setDatos((d) => ({ ...d, [t]: res.data })); } catch (e) { toast(e.message, 'error'); } finally { setCargando(false); }
   }, [tab, rango, toast]);
   useEffect(() => { cargar(tab); }, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
+  useAlActivar(() => cargar(tab), { alMontar: false }); // saldos actualizados al volver a la pestaña
+  const refrescar = useRefrescar(() => cargar());
 
   const cambiarRango = (cambio) => {
     const r = { ...rango, ...cambio };
@@ -107,11 +112,9 @@ export default function Tec_CuentasPorCobrar() {
   const imprimirPendientes = (fs) => {
     const vencido = fs.reduce((a, f) => a + (num(f.DiasMora) > 0 ? num(f.Restante) : 0), 0);
     const restante = fs.reduce((a, f) => a + num(f.Restante), 0);
-    const preventistas = new Set(fs.map((f) => String(f.NombrePersonal || '').trim())).size;
     imprimir(fs, {
       titulo: 'Cobros pendientes (Cuentas por cobrar)', columnas: IMP_PENDIENTES, unidad: 'crédito',
-      agruparPor: (f) => f.NombrePersonal, tituloGrupo: 'Preventista',
-      datos: [['Preventistas:', String(preventistas)], ['Por cobrar:', `Bs ${bs(restante)}`], ['Vencido:', `Bs ${bs(vencido)}`]],
+      datos: [['Por cobrar:', `Bs ${bs(restante)}`], ['Vencido:', `Bs ${bs(vencido)}`]],
     });
   };
   const imprimirCobrados = (fs) => imprimir(fs, {
@@ -129,7 +132,7 @@ export default function Tec_CuentasPorCobrar() {
           <span className="modelo-icono"><Icono n="wallet" size={22} /></span>
           <div><h1>Cuentas por cobrar</h1><p>Administrar Cuentas por Cobrar</p></div>
         </div>
-        <div className="barra"><button className="btn-icono" title="Actualizar" aria-label="Actualizar" onClick={() => cargar()}><Icono n="refresh" size={18} /></button></div>
+        <div className="barra"><button className="btn-icono" title="Actualizar" aria-label="Actualizar" onClick={refrescar} disabled={cargando}>{cargando ? <span className="spinner" /> : <Icono n="refresh" size={18} />}</button></div>
       </header>
       <nav className="tabs-cxc" aria-label="Secciones">
         {TABS.map((t) => (
@@ -153,7 +156,7 @@ export default function Tec_CuentasPorCobrar() {
         {tab === 'pendientes' && (
           <TablaReporte titulo="Reporte de créditos pendientes" columnas={[
             { campo: 'Credito', titulo: 'Crédito' }, { campo: 'venta', titulo: 'Venta' },
-            { campo: 'NombrePersonal', titulo: 'Preventista', render: (f) => tit(f.NombrePersonal) },
+            { campo: 'NombrePersonal', titulo: 'Vendedor', render: (f) => tit(f.NombrePersonal) },
             { campo: 'Nombrecliente', titulo: 'Cliente', ancho: 180, render: (f) => tit(f.Nombrecliente) },
             { campo: 'Monto', titulo: 'Monto', tipo: 'bs', total: true }, { campo: 'abonado', titulo: 'Abonado', tipo: 'bs', total: true },
             { campo: 'Restante', titulo: 'Restante', tipo: 'bs', total: true }, { campo: 'FechaVencimientoCredito', titulo: 'Venc. crédito', tipo: 'fecha' },
@@ -242,10 +245,17 @@ function DialogoCredito({ fila, modo, puede, onCerrar }) {
       cargarPagos();
     } catch (er) { toast(er.message, 'error', 8000); } finally { setEnviando(false); }
   };
+  // grPagosTodos_Click (Kaily): pagos de dias anteriores sin permiso o de un cierre de caja no se eliminan
+  const { sesion: ses } = useSesion();
+  const pedirBorrar = (p) => {
+    if (!ses?.permisosVenta?.modificarRegistrosAnteriores && p.FechaPago < hoy()) { toast('No puede Eliminar Pagos Anteriores a la fecha de Hoy, Consulte con su Administrador'.toUpperCase(), 'error', 6000); return; }
+    if (num(p.CierreModulo) > 0) { toast(`No Es Posible Eliminar El Cobro por Que ya Pertenece a un Cierre De Caja # ${num(p.CierreModulo)}`, 'error', 6000); return; }
+    setBorrar(p);
+  };
   const confirmarBorrar = async () => {
     const p = borrar; setBorrar(null);
     try {
-      const r = await api.del(`${URL}/pagos/${p.Id}`);
+      const r = await api.del(`${URL}/${fila.Id}/pagos/${p.Id}`);
       toast(r.mensaje, 'ok'); setSaldo((s) => s + num(p.Monto)); setCambio(true); cargarPagos();
     } catch (er) { toast(er.message, 'error'); }
   };
@@ -265,7 +275,6 @@ function DialogoCredito({ fila, modo, puede, onCerrar }) {
           <div><span>Monto venta</span><b>Bs {bs(fila.Monto)}</b></div>
           <div><span>Pagado</span><b>Bs {bs(num(fila.Monto) - saldo)}</b></div>
           <div className={saldo > 0 ? 'saldo' : 'saldo cero'}><span>Saldo adeudado</span><b>Bs {bs(saldo)}</b></div>
-          <div><span>Preventista</span><b className="texto">{tit(fila.NombrePersonal) || '—'}</b></div>
         </div>
         <div className={`credito-cuerpo ${cobrar ? 'con-form' : ''}`}>
           {cobrar && (
@@ -307,7 +316,7 @@ function DialogoCredito({ fila, modo, puede, onCerrar }) {
                       <td data-label="Comprobante">{p.NroComprobante || '—'}</td>
                       <td data-label="Glosa">{p.Glosa || '—'}</td>
                       <td data-label="Personal">{tit(p.NombrePersonal)}</td>
-                      {modo === 'administrar' && puede.eliminar && <td className="col-acc"><button className="btn-icono peligro" onClick={() => setBorrar(p)} aria-label="Eliminar pago" title="Eliminar pago"><Icono n="trash" size={16} /></button></td>}
+                      {modo === 'administrar' && puede.eliminar && <td className="col-acc"><button className="btn-icono peligro" onClick={() => pedirBorrar(p)} aria-label="Eliminar pago" title="Eliminar pago"><Icono n="trash" size={16} /></button></td>}
                     </tr>
                   ))}
                   {!pagos.length && <tr><td colSpan={6} className="vacio">Sin pagos registrados</td></tr>}

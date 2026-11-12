@@ -15,6 +15,7 @@ import { useToast } from '../../componentes/Toast';
 import { Celda } from '../../global/Celda';
 import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
+import { useAlActivar } from '../../global/vistaActiva';
 
 const URL = '/api/caja/cierre-cajero';
 const dos = (n) => String(n).padStart(2, '0');
@@ -67,6 +68,10 @@ export default function Tec_CierreCajero() {
   const set = (k) => (x) => setForm((f) => ({ ...f, [k]: x?.target ? x.target.value : x }));
 
   useEffect(() => { api.get(`${URL}/inicio`).then((r) => setIni(r.data)).catch((e) => toast(e.message, 'error')); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useAlActivar(() => {
+    if (m.modo !== 'ver') return; // un cierre a medio registrar no se toca (cambiar ini lo limpiaria)
+    api.get(`${URL}/inicio`).then((r) => setIni(r.data)).catch((e) => toast(e.message, 'error'));
+  }, { alMontar: false });
 
   const cargarDetalle = async (f, pendiente) => {
     const n = ++pedido.current;

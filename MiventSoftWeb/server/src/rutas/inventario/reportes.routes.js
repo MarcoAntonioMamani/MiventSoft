@@ -62,7 +62,10 @@ router.get('/saldos', requierePrograma('btInvSaldo'), asyncHandler(async (req, r
     const todos = !(dep > 0);
     const dt = todos ? (mayor0 ? await L.ReporteSaldosTodosAlmacenesMayorA0() : await L.ReporteSaldosTodosAlmacenesTodos())
         : (mayor0 ? await L.ReporteSaldosUnAlmacenCantidadMayor0(dep) : await L.ReporteSaldosUnAlmacenTodosCantidad(dep));
-    res.json({ ok: true, data: sinImg(dt) });
+    // "orden" y "descripcion" solo sirven para agrupar en el Crystal del escritorio (R_ReporteSaldoFamilia):
+    // en la grilla web no aportan. Se respeta el orden de filas que entrega el SP.
+    const SOBRAN = /^(orden|descripcion)$/i;
+    res.json({ ok: true, data: sinImg(dt).map((f) => Object.fromEntries(Object.entries(f).filter(([k]) => !SOBRAN.test(k)))) });
 }));
 
 router.get('/saldos-valorados', requierePrograma('btInvSaldosValorados'), asyncHandler(async (req, res) => {

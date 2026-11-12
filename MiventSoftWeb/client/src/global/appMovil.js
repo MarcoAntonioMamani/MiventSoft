@@ -1,5 +1,5 @@
 // =====================================================================
-//  Integracion con la app Android (Santit movil, carpeta /android)
+//  Integracion con la app Android (Sanbit movil, carpeta /android)
 //  La app expone window.SantitApp. En el navegador nada de esto se activa.
 // =====================================================================
 const app = typeof window !== 'undefined' ? window.SantitApp : undefined;
@@ -12,7 +12,7 @@ export const configurarServidorApp = () => app?.configurarServidor();
 /** Imprime con el servicio de impresion de Android. Devuelve false si no es la app. */
 export function imprimirEnApp(html, titulo, horizontal) {
   if (!app) return false;
-  app.imprimir(html, titulo || 'Santit', !!horizontal);
+  app.imprimir(html, titulo || 'Sanbit', !!horizontal);
   return true;
 }
 

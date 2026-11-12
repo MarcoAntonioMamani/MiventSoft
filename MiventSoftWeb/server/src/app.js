@@ -51,6 +51,12 @@ if (process.env.NODE_ENV !== 'production' && process.env.CORS_ORIGIN) {
 
 app.get('/api/salud', (req, res) => res.json({ ok: true, servicio: 'MiventSoft API' }));
 
+// Datos siempre frescos de la BD: ninguna respuesta de la API se guarda en el navegador ni en proxies.
+// (imagenes.routes lo reemplaza por su propio max-age: las imagenes no son datos de negocio)
+app.use('/api', (req, res, next) => { res.set('Cache-Control', 'no-store'); next(); });
+// JSON grandes (listas de productos con stock) comprimidos: llegan mas rapido al celular, sin cache
+app.use('/api', require('./middleware/comprimir').comprimirJson);
+
 app.use('/api/auth', require('./rutas/auth.routes'));
 app.use('/api/imagenes', requiereSesion, require('./rutas/imagenes.routes'));
 app.use('/api/dashboard', requiereSesion, require('./rutas/dashboard.routes'));
@@ -65,17 +71,16 @@ app.use('/api/configuracion/zonas', requiereSesion, require('./rutas/configuraci
 app.use('/api/configuracion/productos', requiereSesion, require('./rutas/configuracion/productos.routes'));
 app.use('/api/configuracion/kits', requiereSesion, require('./rutas/configuracion/kits.routes'));
 app.use('/api/configuracion/precios', requiereSesion, require('./rutas/configuracion/precios.routes'));
+app.use('/api/configuracion/dosificacion', requiereSesion, require('./rutas/configuracion/dosificacion.routes')); // Kaily: MAM_Dosificacion
+app.use('/api/tipo-cambio', requiereSesion, require('./rutas/tipoCambio.routes')); // Kaily: btnTipoCambio (ActualizarTipoCambio)
 // Paso 3: modulo Ventas
 app.use('/api/ventas/personal', requiereSesion, require('./rutas/ventas/personal.routes'));
 app.use('/api/ventas/proveedores', requiereSesion, require('./rutas/ventas/proveedores.routes'));
-// Kaily La Paz (punto de venta). La version de distribucion (ventas.routes.js) la sigue usando proformas.routes.js
+// Kaily La Paz (punto de venta): ventas y proformas con crearRouterPV (ventasPuntoVenta.routes.js)
 app.use('/api/ventas/ventas', requiereSesion, require('./rutas/ventas/ventasPuntoVenta.routes'));
 app.use('/api/ventas/cuentas-cobrar', requiereSesion, require('./rutas/ventas/cuentasCobrar.routes'));
 app.use('/api/ventas/reportes', requiereSesion, require('./rutas/ventas/reportes.routes'));
 app.use('/api/ventas/proformas', requiereSesion, require('./rutas/ventas/proformas.routes'));
-app.use('/api/ventas/asignaciones', requiereSesion, require('./rutas/ventas/asignaciones.routes'));
-app.use('/api/distribucion/despachos', requiereSesion, require('./rutas/distribucion/despachos.routes'));
-app.use('/api/distribucion/conciliaciones', requiereSesion, require('./rutas/distribucion/conciliaciones.routes'));
 app.use('/api/distribucion/ingresos-egresos', requiereSesion, require('./rutas/distribucion/ingresosEgresos.routes'));
 // Kaily: Administrar Caja > Caja general y Reporte caja detallado
 app.use('/api/caja/reportes', requiereSesion, require('./rutas/caja/reportes.routes'));
@@ -84,20 +89,16 @@ app.use('/api/caja/cierre-cajero', requiereSesion, require('./rutas/caja/cierreC
 // Kaily: Administrar Caja > Registrar Gastos o Ingresos (btnGastos), mismo formulario y SP
 app.use('/api/caja/ingresos-egresos', requiereSesion, require('./rutas/distribucion/ingresosEgresos.routes').crearRouterIE('btnGastos'));
 app.use('/api/distribucion/reportes', requiereSesion, require('./rutas/distribucion/reportes.routes'));
-app.use('/api/distribucion/zonas', requiereSesion, require('./rutas/distribucion/zonas.routes'));
 app.use('/api/mapa/clientes', requiereSesion, require('./rutas/mapa/clientes.routes'));
 app.use('/api/inventario/almacenes', requiereSesion, require('./rutas/inventario/almacenes.routes'));
 app.use('/api/compras/compras', requiereSesion, require('./rutas/compras/compras.routes'));
 app.use('/api/compras/cuentas-pagar', requiereSesion, require('./rutas/compras/cuentasPagar.routes'));
-app.use('/api/compras/reportes', requiereSesion, require('./rutas/compras/reportes.routes'));
 app.use('/api/planilla/conceptos-fijos', requiereSesion, require('./rutas/planilla/conceptosFijos.routes'));
 app.use('/api/planilla/contratos', requiereSesion, require('./rutas/planilla/contratos.routes'));
 app.use('/api/planilla/planilla', requiereSesion, require('./rutas/planilla/planilla.routes'));
 app.use('/api/inventario/movimientos', requiereSesion, require('./rutas/inventario/movimientos.routes'));
 app.use('/api/inventario/reportes', requiereSesion, require('./rutas/inventario/reportes.routes'));
 app.use('/api/inventario/stock', requiereSesion, require('./rutas/inventario/stock.routes')); // pestaña fija "Inventario" (FormularioStock)
-app.use('/api/distribucion/cierre-caja', requiereSesion, require('./rutas/distribucion/cierreCaja.routes'));
-app.use('/api/incremento', requiereSesion, require('./rutas/incremento.routes'));
 
 app.use('/api', (req, res) => res.status(404).json({ ok: false, mensaje: 'Recurso no encontrado' }));
 
@@ -114,7 +115,7 @@ const PORT = Number(process.env.PORT || 3001);
 const servidor = app.listen(PORT, async () => {
     console.log('');
     console.log('  ==============================================');
-    console.log(`   Santit Web lista en  http://localhost:${PORT}`);
+    console.log(`   Sanbit (Punto de Ventas) listo en  http://localhost:${PORT}`);
     console.log('   Para usarla desde otra PC o celular de la red:');
     for (const ifs of Object.values(require('node:os').networkInterfaces())) {
         for (const i of ifs || []) if (i.family === 'IPv4' && !i.internal) console.log(`     http://${i.address}:${PORT}`);
@@ -129,7 +130,7 @@ const servidor = app.listen(PORT, async () => {
 servidor.on('error', (e) => {
     if (e.code === 'EADDRINUSE') {
         console.error('');
-        console.error(`  *** El puerto ${PORT} ya esta en uso: hay OTRA copia de Santit Web abierta (con la configuracion anterior).`);
+        console.error(`  *** El puerto ${PORT} ya esta en uso: hay OTRA copia de Sanbit abierta (con la configuracion anterior).`);
         console.error('  *** Cierre esa ventana (o ejecute detener.bat) y vuelva a abrir iniciar.bat.');
         console.error('');
         process.exit(1);

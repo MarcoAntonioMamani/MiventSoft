@@ -33,8 +33,16 @@ La web se trajo de la rama de distribución (Distral) y se está ajustando progr
   - Cierre de caja del cajero (`btnCierreCajero`, `rutas/caja/cierreCajero.routes.js` + `paginas/caja/Tec_CierreCajero.jsx`): `MAM_CierreCajero` 1–11. Nuevo = abrir caja; Modificar = cerrar con ventas, cobranzas e ingresos/egresos pendientes y el conteo de billetes (`@CorteBilletes`, `@ModuloId`). Los totales se recalculan en el servidor.
   - Caja general (`btnCajaGeneral`, `MAM_CajaIngresoEgreso` 6 + 7 con saldo inicial y acumulado) y Reporte caja detallado (`btnReporteCajaDetallado`, @tipo 13).
   - Ingresos/egresos mensuales y detallado (`btnIngresoEgresosMensuales`, `btnIngresoEgresoDetallado`): los reportes de distribución, que usan los mismos SP. `requierePrograma` ahora acepta varios Id.
-- **Pendiente**: Kits, Dosificación, Despacho de productos y la revisión de Compras, Inventario, Cuentas por cobrar/pagar, Planilla y reportes.
-- Las pruebas de pantalla (`client/test/*.e2e.cjs`) y `test/probar_ventas_bd.js` siguen escritas para Distral.
+- **Dosificación** (`btConfDosificacion`, `MAM_Dosificacion` 1/2/3/-1) y **Tipo de cambio** (botón de la cabecera, `ActualizarTipoCambio` → `MAM_Ventas` @tipo 7). La Llave no se muestra en la lista ni va a los logs.
+- **Productos**: código externo único (`MAM_Productos` @tipo 11) y reporte "Listado de precios" con y sin imágenes (@tipo 8 + categorías elegidas).
+- **Ventas / Proformas**: alta rápida de cliente (`FormularioCliente`, `MAM_Clientes` @tipo 8 con `@Telefono`).
+- **Precios**: Cod. Sistema visible; al agregar una categoría de precio se graban los precios pendientes (`btnGrabar.PerformClick`).
+- **Inventario**: traspasos con `@DepositoIdDestino` / `@IdMovimientoDestino`, borrar con `L_prBorrarRegistroMovimiento` (@ConceptoId), comprobante (@tipo 17), FormularioStock sin proveedor y categoría de precio = `sp_Mam_Precios` @tipo 8.
+- **Compras**: sin nro. de nota de compra/recepción, lista por fechas (`L_prListarGeneralComprasFiltro`). **CxC**: sin preventista, cobro con Caja Chica abierta.
+- **`@tipo` que cambiaron respecto a Distral** (mismos parámetros, el contrato no los detecta): `InsertarTipoMovimiento` 21→9, `L_fnListarCategoriaPrecio` 9→8; el @tipo 7 de `MAM_Ventas` ahora es `InsertarTipoCambio` (el panel ya no lo llama).
+- **Fuera de esta rama** (punto de venta, no distribución): módulo Distribución (despachos, conciliaciones, cierre de chofer), "Despacho De Productos" de Ventas (`btnDespachoVenta`), asignaciones de pedidos y de zonas, incremento de ventas, histórico/compras por producto y los reportes de Distral. Se quitaron de la web, del menú y de las pruebas.
+- **Contrato**: `node test/generar_contrato.js` regenera `test/contrato_vb.json` desde el `Negocio/AccesoLogica.vb` de la rama (`--comparar` muestra las diferencias). Hacerlo al traer la web a otra rama de cliente.
+- Pendiente: `test/probar_ventas_bd.js` y algunas pruebas de pantalla (`client/test/*.e2e.cjs`) siguen escritas para Distral; el comprobante de movimientos (@tipo 17) falta validarlo contra la BD real.
 
 ## Arranque rápido contra tu BD (como el sistema normal)
 1. Instala **Node.js LTS** desde https://nodejs.org (una sola vez).
@@ -87,9 +95,6 @@ node test/ventas.e2e.cjs      # modulo Ventas completo + responsivo
 node test/cxc.e2e.cjs         # cuentas por cobrar, incremento y permisos por accion
 node test/reportes.e2e.cjs    # los 7 reportes de Gestion Pedidos
 node test/proforma.e2e.cjs    # proformas
-node test/asignacion.e2e.cjs  # asignacion de pedidos (asignar, entregar, anular, revertir)
-node test/distribucion.e2e.cjs # despachos y conciliaciones
-node test/distribucion2.e2e.cjs # menu de mosaico, cierre de caja, ingresos/egresos, zonas y reportes
 node test/inventario.e2e.cjs  # ingreso y salida de productos, kardex, saldos y monitoreo
 node test/mapa.e2e.cjs        # mapa de clientes + iconos a color en los menus
 node test/nota_venta.e2e.cjs  # nota de venta compacta: 1 pagina, empieza arriba, ~media hoja

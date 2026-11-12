@@ -118,7 +118,7 @@ Public Class Recibo
     
     <Browsable(false),  _
      DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-    Public ReadOnly Property Parameter_TipoReporte() As CrystalDecisions.[Shared].IParameterField
+    Public ReadOnly Property Parameter_Incremento() As CrystalDecisions.[Shared].IParameterField
         Get
             Return Me.DataDefinition.ParameterFields(3)
         End Get

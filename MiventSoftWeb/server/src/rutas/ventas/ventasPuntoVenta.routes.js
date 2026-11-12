@@ -214,6 +214,29 @@ router.get('/clientes', asyncHandler(async (req, res) => {
     res.json({ ok: true, data: lista });
 }));
 
+// Kaily FormularioCliente (Efecto tipo 7): crear cliente sin salir de la venta/proforma
+//  Combos: Tipo Documento = libreria 8, Precios = L_prListaCategoriasPrecios (primer item por defecto)
+router.get('/clientes/combos', asyncHandler(async (req, res) => {
+    const [tipos, precios] = await Promise.all([L.L_prLibreriaDetalleGeneral(8), L.L_prListaCategoriasPrecios()]);
+    res.json({ ok: true, data: { tiposDocumento: v.proyectar(tipos, ['cnnum', 'cndesc1']), categoriasPrecio: v.proyectar(precios, ['Id', 'Descripcion']) } });
+}));
+
+// ButtonX1_Click: _PMOValidarCampos (Nombre Cliente, Precios, Tipo Documento) e InsertarClienteFormularioExterno
+//  como el escritorio: RazonSocial = Nombre y Nit = Nro Documento
+router.post('/clientes', asyncHandler(async (req, res) => {
+    const b = req.body || {};
+    const nombre = v.requerido(b.NombreCliente, 'Nombre Cliente', 200);
+    const precio = v.entero(b.PrecioCategoriaId, 'Precios', { requeridoPositivo: true });
+    const tipoDoc = v.entero(b.TipoDocumento, 'Tipo Documento', { requeridoPositivo: true });
+    const nro = v.texto(b.NroDocumento, 50);
+    const telefono = v.texto(b.Telefono, 50);
+    const dt = await L.InsertarClienteFormularioExterno('', nombre, tipoDoc, nro, nombre, nro, precio, telefono);
+    if (!dt.length) throw new ErrorNegocio('No se pudo registrar el cliente'.toUpperCase());
+    const c = lector(dt);
+    const Id = c(dt[0], 'Id');
+    res.json({ ok: true, data: { Id, NombreCliente: String(c(dt[0], 'NombreCliente') ?? nombre) }, mensaje: `Cliente ${Id} registrado con Exito.`.toUpperCase() });
+}));
+
 // Tec_VentasDetalle: productos y kits de la sucursal con el precio de la categoria (sin PrecioCosto)
 const CAMPOS_PRODUCTO = ['Id', 'Tipo', 'CodigoExterno', 'NombreProducto', 'DescripcionProducto', 'NombreTipo', 'NombreCategoria', 'industria', 'stock', 'PrecioVenta'];
 router.get('/productos', asyncHandler(async (req, res) => {

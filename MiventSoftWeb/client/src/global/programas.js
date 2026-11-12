@@ -12,6 +12,8 @@ export const PROGRAMAS_WEB = {
   BTCONFPRODUCTO: { ruta: '/configuracion/productos', icono: 'box' },
   BTCONFPRECIO: { ruta: '/configuracion/precios', icono: 'dollar' },
   BTNKITS: { ruta: '/configuracion/kits', icono: 'box' },
+  // Kaily: Tec_Dosificacion (MAM_Dosificacion)
+  BTCONFDOSIFICACION: { ruta: '/configuracion/dosificacion', icono: 'receipt' },
   BTZONA: { ruta: '/configuracion/zonas', icono: 'map' },
   BTZONAMAPACLIENTE: { ruta: '/mapa-clientes/ubicacion', icono: 'globe' },
   // Paso 3: modulo Ventas
@@ -41,35 +43,19 @@ export const PROGRAMAS_WEB = {
   // Compras
   BTNCOMPRAS: { ruta: '/compras/compras', icono: 'bag' },
   BTNCOMPRACREDITO: { ruta: '/compras/cuentas-pagar', icono: 'wallet' },
-  BTNHISTORICO: { ruta: '/compras/historico', icono: 'history' },
-  BTNCOMPRASPORPRODUCTO: { ruta: '/compras/compras-por-producto', icono: 'bars' },
+  // Kaily no tiene Historico de compras ni Compras por producto
   // Planilla
   BTNCONCEPTOFIJOS: { ruta: '/planilla/conceptos-fijos', icono: 'clipboard' },
   BTNCONTRATOS: { ruta: '/planilla/contratos', icono: 'clipboard' },
   BTNREGISTRARPLANILLA: { ruta: '/planilla/registrar', icono: 'users' },
   BTNPLANILLA: { ruta: '/planilla/planilla', icono: 'wallet' },
-  // Distribucion
-  BTNDESPACHO: { ruta: '/distribucion/despachos', icono: 'truck' },
-  BTNCONCILIACIONES: { ruta: '/distribucion/conciliaciones', icono: 'clipboard' },
-  // Kaily: btnCierreCaja esta en Panel_Distribucion pero no tiene evento Click (no abre nada en el escritorio)
-  // BTNCIERRECAJA: { ruta: '/distribucion/cierre-caja', icono: 'calc' },
+  // Panel_Distribucion (Despachos, Conciliaciones, Cierre de caja) no corresponde a Kaily (punto de venta): sin programas web.
   BTNCIERREREGISTROINGRESOEGRESOGENERALES: { ruta: '/distribucion/ingresos-egresos', icono: 'wallet' },
-  BTNASIGNACIONZONA: { ruta: '/distribucion/asignacion-zonas', icono: 'target' },
-  BTNCIERREREPORTEGASTOS: { ruta: '/distribucion/gastos-chofer', icono: 'pie' },
-  BTNCIERREREPORTEANUAL: { ruta: '/distribucion/ingresos-egresos-anual', icono: 'chart' },
-  BTNCIERREREPORTEDETALLADO: { ruta: '/distribucion/ingresos-egresos-detallado', icono: 'bars' },
-  BTNHISTORICOCLIENTE: { ruta: '/distribucion/historico-clientes', icono: 'globe' },
-  BTNREPORTEVENTASPORPRODUCTOS: { ruta: '/distribucion/productos-por-cliente', icono: 'area' },
-  BTNREPAUDITORIAVENTAS: { ruta: '/distribucion/auditoria-ventas', icono: 'clipboard' },
-  BTNHISTORICOINCREMENTO: { ruta: '/distribucion/historial-incremento', icono: 'history' },
-  BTNASIGNACIONPEDIDOS: { ruta: '/ventas/asignacion-pedidos', icono: 'truck' },
   BTVENTREPORTEREALIZADA: { ruta: '/ventas/reporte-ventas', icono: 'chart' },
   BTVENTREPORTEVENTAVSCOSTO: { ruta: '/ventas/ventas-vs-costos', icono: 'dollar' },
   BTVENTPRODMASVENDIDOS: { ruta: '/ventas/productos-mas-vendidos', icono: 'bars' },
   BTVENTRENDIMIENTO: { ruta: '/ventas/rendimiento-personal', icono: 'target' },
-  BTNVENTAPRODUCTOS: { ruta: '/ventas/ventas-por-productos', icono: 'area' },
-  BTNREPORTECOBRANZA: { ruta: '/ventas/reporte-cobranza', icono: 'history' },
-  BTNREPORTEPRODUCTOCATEGORIA: { ruta: '/ventas/ventas-por-categoria', icono: 'pie' },
+  // Kaily no tiene Ventas por productos, Reporte de cobranza ni Ventas por categoria
 };
 
 export const ICONO_MODULO = {

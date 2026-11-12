@@ -1,9 +1,8 @@
 // =====================================================================
-//  Panel de control (pantalla principal de Santit)
+//  Panel de control (pantalla principal de Sanbit)
 //  Datos de /api/dashboard (solo agregados, calculados con los SP del escritorio)
 // =====================================================================
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useSesion } from '../global/Sesion';
 import { titulo } from '../global/programas';
 import { api } from '../api/http';
@@ -11,7 +10,6 @@ import { ComboMulti } from '../componentes/Controles';
 import { LineaHoras, BarrasDias, BarrasH, BarraSegmentada, fmtBs, fmtN } from '../componentes/Graficos';
 import Icono from '../componentes/Icono';
 import DetalleDashboard from '../componentes/DetalleDashboard';
-import PedidosVendedor from '../componentes/PedidosVendedor';
 
 const REFRESCO_MS = 120000; // 2 minutos
 const COLOR_ESTADO = (n) => (/ENTREG/.test(n) ? 'var(--estado-ok)' : /ANUL/.test(n) ? 'var(--estado-mal)' : /PEND/.test(n) ? 'var(--estado-aviso)' : /ASIG|RUTA|DESP/.test(n) ? 'var(--serie-1)' : 'var(--serie-7)');
@@ -113,8 +111,7 @@ function Esqueleto() {
 }
 
 export default function Inicio() {
-  const { sesion, tienePrograma } = useSesion();
-  const navegar = useNavigate();
+  const { sesion } = useSesion();
   const [fecha, setFecha] = useState(hoyLocal());
   const [vendedor, setVendedor] = useState('');
   const [datos, setDatos] = useState(null);
@@ -178,8 +175,6 @@ export default function Inicio() {
   const TRAMO_TXT = ['al día', 'con 1 a 30 días de mora', 'con 31 a 60 días de mora', 'con más de 60 días de mora'];
 
   const alertas = datos ? [
-    { n: datos.alertas.pendientesAsignar, t: 'Pedidos sin asignar a chofer', i: 'truck', nivel: 'aviso', ver: () => setDetalle({ tipo: 'asignar', titulo: 'Pedidos sin asignar a chofer', sub: 'Pendientes de asignación',
-      accion: tienePrograma('btnAsignacionPedidos') ? { texto: 'Ir a Asignación de pedidos', fn: () => navegar('/ventas/asignacion-pedidos') } : undefined }) },
     { n: datos.cobrar?.documentosVencidos, t: 'Créditos de clientes vencidos', i: 'wallet', nivel: 'mal', ver: () => verCobrar('Créditos de clientes vencidos', { vencido: '1' }) },
     { n: datos.alertas.stock0, t: 'Productos con stock en cero', i: 'box', nivel: 'mal', ver: () => setDetalle({ tipo: 'stock0', titulo: 'Productos con stock en cero', sub: 'Inventario actual' }) },
     { n: datos.alertas.stockMinimo, t: 'Productos bajo stock mínimo', i: 'alert', nivel: 'aviso', ver: () => setDetalle({ tipo: 'stockmin', titulo: 'Productos bajo stock mínimo', sub: 'Inventario actual' }) },
@@ -265,9 +260,6 @@ export default function Inicio() {
               </div>
             ) : <SinDatos texto="Sin pedidos en el día" />}
           </Panel>
-
-          {/* ===== Pedidos por vendedor y mapa de donde se registraron ===== */}
-          <PedidosVendedor fecha={fecha} vendedor={vendedor} recarga={actualizado?.getTime()} />
 
           {/* ===== Destacados del mes ===== */}
           <Panel clase="span-12" titulo="Destacados del mes" sub={`${subMes}${vendedor && nomVend ? ` · clientes de ${titulo(nomVend)}` : ''}`}

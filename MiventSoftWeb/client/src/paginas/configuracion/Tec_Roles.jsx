@@ -2,13 +2,14 @@
 //  Tec_Roles.vb -> Gestion De Roles   (SP: MAM_Roles, TVP RolDetalleType)
 //  estado del detalle: igual que el escritorio (si estaba en 1 y se edita -> 2)
 // =====================================================================
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import ModeloF1, { useModeloF1 } from '../../componentes/ModeloF1';
 import { Campo } from '../../componentes/Controles';
 import { Celda } from '../../global/Celda';
 import { api } from '../../api/http';
 import { useToast } from '../../componentes/Toast';
 import Icono from '../../componentes/Icono';
+import { useAlActivar } from '../../global/vistaActiva';
 
 const URL = '/api/configuracion/roles';
 
@@ -21,9 +22,9 @@ export default function Tec_Roles() {
   const [errores, setErrores] = useState({});
   const pedido = useRef(0);
 
-  useEffect(() => {
-    api.get(`${URL}/modulos`).then((r) => { setModulos(r.data); setModSel(r.data[0]?.cnnum ?? null); }).catch((e) => toast(e.message, 'error'));
-  }, [toast]);
+  useAlActivar(() => {
+    api.get(`${URL}/modulos`).then((r) => { setModulos(r.data); setModSel((s) => s ?? r.data[0]?.cnnum ?? null); }).catch((e) => toast(e.message, 'error'));
+  });
 
   // _prCargarGridDetalle(numi)
   const cargarDetalle = async (numi) => {

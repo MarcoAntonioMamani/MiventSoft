@@ -16,7 +16,7 @@ const llamadas = []; // historial para las pruebas automaticas
 // Columnas que tienen los tipos tabla (TVP) en el escritorio
 const TVP_COLUMNAS = { cortebilletes: 8, moduloid: 4, roldetalletype: 10, zonaspuntos: 5, tcl0064: 5, preciot: 3, ty007: 6, ventadetalletype: 22, ventapagos: 8, asignaciontype: 5, detallegastos: 8, cobranzas: 5, asignacion: 8, asignacionentregado: 11, asignacionanulacion: 9, detalledespacho: 10, referenciaventa: 2, detalleconciliacion: 5, detalle: 13 };
 // Por SP (tiene prioridad): ancho desconocido en el escritorio -> null = no se valida (ver test/verificar.js)
-const TVP_SP = { 'MAM_Compras:detalle': null, 'MAM_Contratos:detallecontratoconcepto': 6, 'MAM_Planilla:planillaconcepto': null };
+const TVP_SP = { 'MAM_Movimientos:detalle': 10, 'MAM_Compras:detalle': null, 'MAM_Contratos:detallecontratoconcepto': 6, 'MAM_Planilla:planillaconcepto': null };
 // Orden del SELECT de MAM_Ventas @tipo 4 de Kaily (simulado: 22 columnas, como _prAddDetalleVenta de Tec_VentasDetalle.vb)
 const COLS_VDET = ['Id', 'VentaId', 'ProductoId', 'Producto', 'Cantidad', 'Precio', 'SubTotal', 'ProcentajeDescuento', 'MontoDescuento', 'Total', 'Detalle', 'PrecioCosto',
     'Lote', 'FechaVencimiento', 'estado', 'TipoNombre', 'Tipo', 'KitNombre', 'KitId', 'CantidadKit', 'img', 'stock'];
@@ -83,6 +83,8 @@ const db = {
         ['btnReporteVentasPorProductos', 'Ventas Productos Por Cliente', 4], ['btnRepAuditoriaVentas', 'Auditoria Ventas', 4], ['btnhistoricoIncremento', 'Historial Incremento Ventas', 4], ['btnAsignacionPedidos', 'Asignacion De Pedidos', 2],
         ['btnCompras', 'Compras', 6], ['btnCompraCredito', 'Cuentas Por Pagar', 6], ['btnHistorico', 'Historico De Compras', 6], ['btnComprasPorProducto', 'Compras Por Producto', 6],
         ['btnConceptoFijos', 'Conceptos Fijos', 7], ['btnContratos', 'Contratos', 7], ['btnRegistrarPlanilla', 'Registrar Personal A Planilla', 7], ['btnPlanilla', 'Planilla', 7],
+        // Kaily (al final para no mover las posiciones que usan los roles de prueba)
+        ['btnKits', 'Gestion De Kits', 1], ['btConfDosificacion', 'Gestion De Dosificacion', 1],
     ].map(([IdPrograma, DescripcionPrograma, Modulo], i) => ({ Id: i + 1, IdPrograma, DescripcionPrograma, Modulo })),
     roles: [
         { Id: 1, NombreRol: 'ADMINISTRADOR', FechaRegistro: hoy(), HoraRegistro: '08:00', UsuarioRegistro: 'SISTEMA' },
@@ -204,6 +206,9 @@ db.ventas.filter((vt) => vt.FechaVenta.toISOString().slice(0, 10) === hoy()).for
     vt.IncrementoVenta = 1; vt.Glosa = 'Entregar por la tarde';
 });
 db.tipoCambio = 6.96; // Kaily: Global_TipoCambio (tabla TipoCambio)
+// Kaily: MAM_Dosificacion (llave de prueba, no real)
+db.dosificaciones = [{ Id: 1, SucursalId: 1, NumeroAutorizacion: '29040011007', UltimoNroFactura: 120, Llave: 'LLAVE-DE-PRUEBA', FechaInicio: new Date(Date.UTC(2026, 0, 1)),
+    FechaLimite: new Date(Date.UTC(2026, 11, 31)), Nota01: 'Nota 1', Nota02: '', Estado: true, TipoComputarizado: true }];
 db.proformas = [];
 db.proformasDet = [];
 db.pagosCxc = [];
@@ -231,10 +236,11 @@ db.despachos = [
 ];
 db.depositos = [{ Id: 1, NombreDeposito: 'ALMACEN CENTRAL' }, { Id: 2, NombreDeposito: 'ALMACEN NORTE' }];
 db.sucursales = [{ Id: 1, DepositoId: 1, NombreAlmacen: 'CENTRAL', Direccion: 'AV. AMERICA 100', Descripcion: '', Telefono: '4400000', estado: 1 }, { Id: 2, DepositoId: 2, NombreAlmacen: 'NORTE', Direccion: 'CALLE 5', Descripcion: '', Telefono: '', estado: 1 }];
-db.tiposMovInv = [{ Id: 3, Descripcion: 'SALIDA' }, { Id: 4, Descripcion: 'INGRESO' }];
+db.tiposMovInv = [{ Id: 3, Descripcion: 'SALIDA' }, { Id: 4, Descripcion: 'INGRESO' }, { Id: 7, Descripcion: 'TRASPASO INGRESO' }, { Id: 8, Descripcion: 'TRASPASO SALIDA' }];
 db.movInv = [{ Id: 1, fdoc: diaUTC(20), concep: 4, obs: 'COMPRA INICIAL', alm: 1, det: [{ Id: 1, ProductoId: 1, Cantidad: 100 }, { Id: 2, ProductoId: 2, Cantidad: 50 }] },
     { Id: 2, fdoc: diaUTC(2), concep: 3, obs: 'MERMA', alm: 1, det: [{ Id: 1, ProductoId: 1, Cantidad: 4 }] }];
-const COLS_MDET = ['Id', 'MovimientoId', 'ProductoId', 'Producto', 'Cantidad', 'CantidadCajas', 'Lote', 'FechaVencimiento', 'img', 'estado', 'stock', 'stockFinal', 'conversion'];
+// Kaily: a.id, a.MovimientoId, a.ProductoId, Producto, a.Cantidad, a.Lote, a.FechaVencimiento, img, estado, stock (Tec_Movimientos.vb)
+const COLS_MDET = ['Id', 'MovimientoId', 'ProductoId', 'Producto', 'Cantidad', 'Lote', 'FechaVencimiento', 'img', 'estado', 'stock'];
 const kardexDe = (pid, dep) => db.movInv.filter((m) => m.alm === dep).flatMap((m) => m.det.filter((d) => d.ProductoId === pid).map((d) => ({ id: m.Id, fdoc: m.fdoc, concep: m.concep === 4 ? 1 : 2, descConcep: m.concep === 4 ? 'INGRESO' : 'SALIDA', obs: m.obs, // como el SP: 1 = Factor 1, 2 = Factor -1
     Lote: '', FechaVenc: null, est: 1, alm: dep, id2: 0, cprod: pid, descProd: nombreDe(db.productos, pid, 'NombreProducto'), entrada: m.concep === 4 ? d.Cantidad : 0, salida: m.concep === 4 ? 0 : -d.Cantidad, saldo: 0, fechaDocumento: m.fdoc })));
 db.cajas = [{ Id: 1, NombreCaja: 'CAJA GENERAL' }, { Id: 2, NombreCaja: 'CAJA CHICA' }, { Id: 3, NombreCaja: 'BANCO' }];
@@ -257,15 +263,19 @@ db.cxc = db.clientes.slice(0, 14).map((c, i) => ({ Id: i + 1, FechaVencimientoCr
 [15, 16].forEach((Id) => db.cxc.push({ Id, DiasMora: 0, Credito: Id, venta: 100 + Id, Nombrecliente: db.clientes[Id].NombreCliente, NombrePersonal: 'LUIS QUISPE', Monto: 300, abonado: 300, Restante: 0 }));
 // mas creditos pagados, de ventas de distintas fechas (para el filtro por fecha de venta)
 [60, 220, 410, 640, 820, 990, db.ventas[db.ventas.length - 3].Id].forEach((venta, i) => { const Id = 17 + i; db.cxc.push({ Id, DiasMora: 0, Credito: Id, venta, Nombrecliente: db.clientes[(Id * 3) % db.clientes.length].NombreCliente, NombrePersonal: VENDEDORES[i % 5][1], Monto: 150 + i * 75, abonado: 150 + i * 75, Restante: 0 }); });
-// Compras: cabecera + detalle (columnas del SELECT de MAM_Compras @tipo 4)
-const COLS_CDET = ['Id', 'CompraId', 'ProductoId', 'Producto', 'Cantidad', 'CantidadCajas', 'Lote', 'FechaVencimiento', 'PrecioCosto', 'PrecioVenta', 'TotalCompra', 'img', 'estado', 'costo', 'venta', 'conversion'];
-db.compras = [1, 2, 3].map((i) => ({ Id: i, AlmacenId: 1, NroNotaCompra: `NC-${100 + i}`, NroNotaRecepcion: `NR-${200 + i}`, ProveedorId: i === 3 ? 2 : 1, FechaTransaccion: diaUTC(i * 3),
+// Kaily: los creditos traen PersonalId (filtro por vendedor de Tec_AdministrarCuentasPorCobrar)
+db.cxc.forEach((c) => { c.PersonalId = (VENDEDORES.find(([, n]) => n === c.NombrePersonal) || [0])[0]; });
+// Compras de Kaily: cabecera + detalle (columnas del SELECT de MAM_Compras @tipo 4, como _prAddDetalleVenta de Tec_ComprasDetalle.vb)
+const COLS_CDET = ['Id', 'CompraId', 'ProductoId', 'Producto', 'CantidadCompra', 'PorcentajeIncremento', 'CantidadIncremento', 'Cantidad', 'PrecioCosto', 'Lote', 'FechaVencimiento',
+    'TotalCompra', 'PrecioVenta', 'estado', 'img', 'costo', 'venta'];
+db.compras = [1, 2, 3].map((i) => ({ Id: i, AlmacenId: 1, ProveedorId: i === 3 ? 2 : 1, FechaTransaccion: diaUTC(i * 3),
     TipoVenta: i === 2 ? 0 : 1, FechaVencimientoCredito: diaUTC(i * 3 - 30), Moneda: 1, TituloMoneda: 'BOLIVIANOS', Estado: 1, Glosa: `COMPRA DE PRUEBA ${i}`, TotalCompra: 0, descuento: 0, EmpresaId: 1, transaccion: i === 2 ? 1 : 0 }));
 db.comprasDet = [];
 // como la base real: "Credito0001" / "Compra0050"; cada compra a credito con su detalle (MAM_Compras @tipo 4)
 db.cxp = db.proveedores.concat([{ Id: 4, NombreProveedor: 'MOLINO ANDINO' }]).map((p, i) => ({ Id: i + 1, DiasMora: [0, 20, 40, 75][i], Credito: `Credito${String(i + 1).padStart(4, '0')}`, Compra: `Compra${String(50 + i).padStart(4, '0')}`, NombreProveedor: p.NombreProveedor, Monto: 9000 - i * 1500, abonado: 1000, Restante: 8000 - i * 1500 }));
-db.cxp.forEach((c, i) => (i === 0 ? Array.from({ length: 24 }, (_, k) => k + 1) : [1, 2]).forEach((pid, j) => db.comprasDet.push({ Id: 900 + i * 2 + j, CompraId: 50 + i, ProductoId: pid, Producto: ['COCA COLA 2L', 'SPRITE 2L'][j] || `PRODUCTO DE PRUEBA ${pid}`, Cantidad: 120 + j * 60, CantidadCajas: 20 + j * 10, Lote: '', FechaVencimiento: null,
-    PrecioCosto: 7 + j, PrecioVenta: 8.5 + j, TotalCompra: (120 + j * 60) * (7 + j), img: null, estado: 1, costo: 0, venta: 0, conversion: 6 })));
+db.cxp.forEach((c, i) => (i === 0 ? Array.from({ length: 24 }, (_, k) => k + 1) : [1, 2]).forEach((pid, j) => db.comprasDet.push({ Id: 900 + i * 2 + j, CompraId: 50 + i, ProductoId: pid, Producto: ['COCA COLA 2L', 'SPRITE 2L'][j] || `PRODUCTO DE PRUEBA ${pid}`,
+    CantidadCompra: 120 + j * 60, PorcentajeIncremento: 0, CantidadIncremento: 0, Cantidad: 120 + j * 60, Lote: '', FechaVencimiento: null,
+    PrecioCosto: 7 + j, PrecioVenta: 8.5 + j, TotalCompra: (120 + j * 60) * (7 + j), img: null, estado: 1, costo: 0, venta: 0 })));
 // Planilla
 db.conceptosFijos = [{ Id: 1, NombreConcepto: 'AFP', Porcentaje: 12.71, OperacionId: 2, Tipo: 1, Estado: 1 }, { Id: 2, NombreConcepto: 'BONO ANTIGUEDAD', Porcentaje: 5, OperacionId: 1, Tipo: 1, Estado: 1 }, { Id: 3, NombreConcepto: 'ANTICIPO', Porcentaje: 0, OperacionId: 2, Tipo: 0, Estado: 1 }];
 db.operacionesCF = [{ Id: 1, NombreOperacion: 'SUMA', Operacion: 1 }, { Id: 2, NombreOperacion: 'RESTA', Operacion: -1 }];
@@ -401,14 +411,19 @@ async function EjecutarProcedimiento(nombre, lista) {
             if (tipo === 9) return tabla(db.personal);
             if (tipo === 6 || tipo === 7) return tabla(db.clientes.filter((c) => tipo === 6 || Number(c.ZonaId ?? c.Id % 3 + 1) === Number(v('ZonaId'))).map((c, i) => ({ Id: c.Id, NombreCliente: c.NombreCliente, Telefono: c.Telefono, DireccionCliente: c.DireccionCliente,
                 Latitud: Number(c.Latitud) || (i % 7 === 6 ? 0 : -17.39 + (i % 10) * 0.004), Longitud: Number(c.Longitud) || (i % 7 === 6 ? 0 : -66.16 - Math.floor(i / 10) * 0.004) })));
-            if (tipo === 13) return tabla([{ Id: 1, idPersonal: 2, Fecha: new Date(), Accion: 'MODIFICADO', NombrePersonal: 'LUIS QUISPE', ValorAnterior: JSON.stringify([{ NombreCliente: 'TIENDA X', Telefono: '700' }]), ValorNuevo: JSON.stringify([{ NombreCliente: 'TIENDA X', Telefono: '711', Latitud: -16.5, Longitud: -68.15 }]) }]);
-            if (tipo === 14) return tabla(db.productos.map((p) => ({ Id: p.Id, NombreProducto: p.NombreProducto })));
-            if (tipo === 12) return tabla(db.personal.filter((x) => x.TipoPersonal === 2).map(({ Id, Nombre }) => ({ Id, Nombre, Telefono01: '' })));
             if (tipo === 11) return tabla(db.personal.filter((x) => x.Id === id));
             if (tipo === 3) return tabla(db.clientes);
             if (tipo === 4) return tabla(db.zonas.map((z) => ({ Id: z.Id, NombreZona: z.NombreZona })));
             if (tipo === 5) return tabla(db.preciosCat);
             if (tipo === 10) return tabla(db.clientes.map((c) => ({ Id: c.Id, NombreCliente: c.NombreCliente, DireccionCliente: c.DireccionCliente, Telefono: c.Telefono })));
+            // Kaily InsertarClienteFormularioExterno (FormularioCliente): devuelve Id, NombreCliente
+            if (tipo === 8) {
+                const Id = sig(db.clientes);
+                db.clientes.push({ Id, CodigoExterno: '', NombreCliente: v('NombreCliente'), DireccionCliente: '', Telefono: v('Telefono'), TipoDocumento: v('TipoDocumento'), NroDocumento: v('NroDocumento'),
+                    RazonSocial: v('RazonSocial'), Nit: v('nit'), Estado: true, FechaIngreso: hoy(), Latitud: 0, Longitud: 0, PrecioCategoriaId: v('PrecioCategoriaId'), ZonaId: 0,
+                    FechaUltimaVenta: null, ImagenCliente: 'Default.jpg', imgEstado: null });
+                return tabla([{ Id, NombreCliente: v('NombreCliente') }]);
+            }
             if (tipo === -1) { db.clientes = db.clientes.filter((x) => x.Id !== id); return tabla([{ Id: id }]); }
             const reg = {
                 CodigoExterno: v('CodigoExterno'), NombreCliente: v('NombreCliente'), DireccionCliente: v('DireccionCliente'), Telefono: v('Telefono'),
@@ -422,8 +437,6 @@ async function EjecutarProcedimiento(nombre, lista) {
         }
         case 'sp_Mam_Zonas': {
             if (tipo === 3) return tabla(db.zonas);
-            if (tipo === 5) { const r = Number(v('idRepartidor')); const a = db.zonasAsig[r] || new Set(); return tabla(db.zonas.map((z, i) => ({ id: i + 1, NombreZona: z.NombreZona, idRepartidor: r, idZona: z.Id, asignada: a.has(z.Id) })), ['id', 'NombreZona', 'idRepartidor', 'idZona', 'asignada']); }
-            if (tipo === 6) { db.zonasAsig[Number(v('idRepartidor'))] = new Set(p.asignaciontype.detalle.filas.filter((f) => f.asignada).map((f) => f.idZona)); return tabla([{ ok: 1 }]); }
             if (tipo === 4) return tabla(db.puntos.filter((x) => x.zbzona === id).map((x) => ({ ...x, estado: 1 })), COLS_PUNTO);
             if (tipo === -1) { db.zonas = db.zonas.filter((x) => x.Id !== id); db.puntos = db.puntos.filter((x) => x.zbzona !== id); return tabla([{ Id: id }]); }
             let Id = id;
@@ -448,6 +461,17 @@ async function EjecutarProcedimiento(nombre, lista) {
             }
             if (tipo === 4) return tabla(db.categorias.map((c) => ({ Id: c.Id, NombreCategoria: c.NombreCategoria })));
             if (tipo === 7) return tabla(db.proveedores);
+            // Kaily GenerarReportePrecios (@tipo 8, @CategoriaPrecio, @SucursalId): Vista_ProductoPrecios
+            if (tipo === 8 && v('CategoriaPrecio') !== undefined) {
+                const cp = Number(v('CategoriaPrecio'));
+                return tabla(db.productos.map((x) => ({ Id: x.Id, CodigoExterno: x.CodigoExterno, NombreProducto: x.NombreProducto, DescripcionProducto: x.DescripcionProducto || x.NombreProducto,
+                    industria: 'BOLIVIA', unidad: 'UNIDAD', NombreCategoria: nombreDe(db.categorias, x.CategoriaId, 'NombreCategoria'), CategoriaId: x.CategoriaId, Rutaimg: `\\producto_${x.Id}.jpg`,
+                    Precio: (db.precios.find((y) => y.yhprod === x.Id && y.yhcatpre === cp) || {}).yhprecio ?? 0, img: null, imgEmpresa: null })));
+            }
+            // Kaily ObtenerCoincidenciasCodigoExterno (@tipo 11, @CodigoExterno)
+            if (tipo === 11 && v('CodigoExterno') !== undefined) {
+                return tabla(db.productos.filter((x) => String(x.CodigoExterno || '').trim() === String(v('CodigoExterno'))).map((x) => ({ id: x.Id, DescripcionProducto: x.DescripcionProducto || x.NombreProducto })));
+            }
             if (tipo === 8) return tabla([{ Id: -1, NombrePersonal: 'TODOS' }, ...db.personal.map((x) => ({ Id: x.Id, NombrePersonal: x.Nombre }))]);
             if (tipo === 11) return tabla([{ Id: -1, NombreSubCategoria: 'TODOS' }, { Id: 1, NombreSubCategoria: 'GASEOSAS' }, { Id: 2, NombreSubCategoria: 'LACTEOS' }]);
             if (tipo === 9 || tipo === 12) {
@@ -495,7 +519,20 @@ async function EjecutarProcedimiento(nombre, lista) {
             db.preciosProducto[Id] = Object.fromEntries((p.preciot?.detalle.filas || []).map((f) => [Number(f[0]), Number(f[2])]));
             return tabla([{ Id }]);
         }
+        case 'MAM_Dosificacion': {
+            // Kaily: Tec_Dosificacion (@tipo 3 lista, 1/2 grabar, -1 eliminar)
+            if (tipo === 3) return tabla(db.dosificaciones.map((d) => ({ ...d, NombreAlmacen: d.SucursalId === 1 ? 'CENTRAL' : 'SUCURSAL 2' })));
+            if (tipo === -1) { db.dosificaciones = db.dosificaciones.filter((x) => x.Id !== id); return tabla([{ Id: id }]); }
+            const reg = { SucursalId: Number(v('SucursalId')), NumeroAutorizacion: v('NumeroAutorizacion'), UltimoNroFactura: Number(v('UltimoNroFactura')), Llave: v('Llave'),
+                FechaInicio: new Date(`${String(v('FechaInicio')).replace(/\//g, '-')}T00:00:00Z`), FechaLimite: new Date(`${String(v('FechaLimite')).replace(/\//g, '-')}T00:00:00Z`),
+                Nota01: v('Nota01'), Nota02: v('Nota02'), Estado: !!Number(v('Estado')), TipoComputarizado: !!Number(v('TipoComputarizado')) };
+            if (tipo === 1) { const Id = sig(db.dosificaciones); db.dosificaciones.push({ Id, ...reg }); return tabla([{ Id }]); }
+            if (tipo === 2) { Object.assign(db.dosificaciones.find((x) => x.Id === id), reg); return tabla([{ Id: id }]); }
+            return tabla([]);
+        }
         case 'MAM_Ventas': {
+            // Kaily: InsertarTipoCambio (ActualizarTipoCambio)
+            if (tipo === 7) { db.tipoCambio = Number(v('TipoCambio')); return tabla([{ Id: 1 }]); }
             if (tipo === 6) { const vr = db.ventas.find((x) => x.Id === id); const cl = vr ? db.clientes.find((c) => c.Id === vr.ClienteId) || {} : {};
                 return tabla(vr ? (detalleVenta(vr.Id).length ? detalleVenta(vr.Id) : [{}]).map((d) => ({ Id: vr.Id, NombreCliente: vr.NombreCliente, Nit: cl.Nit || 'SN', Telefono: cl.Telefono || '', Direccion: cl.Direccion || '', HoraRegistro: vr.HoraRegistro || '19:18', ProductoId: d.ProductoId, CodigoExterno: d.ProductoId ? 100 + d.ProductoId : null, Producto: d.Producto, Total: d.Total, DescuentoVenta: vr.Descuento || 0, IncrementoVenta: 1, imageEmpresa: null })) : []); }
             if (tipo === 3) {
@@ -507,60 +544,15 @@ async function EjecutarProcedimiento(nombre, lista) {
                     .map((x) => ({ NombreAlmacen: 'CENTRAL', Facturado: 0, MontoBs: 0, MontoDolares: 0, TarjetaBancaria: 0, TransferenciaBancaria: 0, TipoCambio: 0, CierreModulo: 0, ...x })));
             }
             // Kaily: estructura de @VentaPagos (ListaVentasDetallePago)
-            if (tipo === 8 && !p.asignacion) return tabla([], COLS_PAGO);
+            if (tipo === 8) return tabla([], COLS_PAGO);
             // Kaily: productos de un kit (L_prListarProductosKitsVenta)
-            if (tipo === 10 && v('ChoferId') === undefined) {
+            if (tipo === 10) {
                 const k = db.kits.find((x) => x.Id === id);
                 return tabla((k ? k.comps : []).map((c) => ({ ProductoId: c.ProductoId, NombreProducto: nombreDe(db.productos, c.ProductoId, 'NombreProducto'), Cantidad: c.Cantidad, PrecioVenta: c.PrecioVenta, PrecioCosto: c.PrecioVenta * 0.7 })));
             }
             if (tipo === 5 && v('CategoriaVentaId') !== undefined) return tabla(productosVentaKaily(Number(v('SucursalId')), Number(v('CategoriaVentaId'))));
-            if (tipo === 7) return tabla(db.ventas.filter((x) => x.NombreEstado === 'PENDIENTE').map(filaAsig));
-            if (tipo === 23) {
-                const f = String(v('FechaVenta')).replace(/\//g, '-');
-                return tabla(db.ventas.filter((x) => x.FechaVenta.toISOString().slice(0, 10) === f && x.PersonalId === Number(v('PersonalId'))).sort((x, y) => x.Id - y.Id).map((x, i) => {
-                    const cl = db.clientes.find((c) => c.Id === x.ClienteId) || {};
-                    const sinGps = i % 6 === 5;
-                    const lat = sinGps ? 0 : (Number(cl.Latitud) || -19.585 + i * 0.0011) + 0.0003;
-                    const lon = sinGps ? 0 : (Number(cl.Longitud) || -65.755 + (i % 4) * 0.0013) - 0.0002;
-                    return { id: x.Id, FechaVenta: x.FechaVenta, ClienteId: x.ClienteId, NombreCliente: x.NombreCliente, TotalVenta: x.TotalVenta, HoraRegistro: x.HoraRegistro, Latitud: lat, Longitud: lon, DistanciaKm: sinGps ? null : 0.04 };
-                }));
-            }
-            if (tipo === 30) return tabla(db.categorias.map((c) => ({ id: c.Id, NombreCategoria: c.NombreCategoria })));
-            if (tipo === 31) return tabla([{ ClienteId: 1, NombreCliente: 'TIENDA LOS PINOS', ProductoId: 1, CodigoExterno: 'CC2', NombreProveedor: 'EMBOL', NombreProducto: 'COCA COLA 2L', Categoria: 'BEBIDAS', unidad: 'UNIDAD', Conversion: 6, CantidadUni: 24, CantidadCaja: 4, TotalVenta: 240 }]);
-            if (tipo === 22) return tabla(db.conciliaciones.map(({ id: cid, conciliacion }) => ({ id: cid, conciliacion })));
-            const chof = Number(v('ChoferId'));
-            if (tipo === 9) return tabla(db.ventas.filter((x) => x.NombreEstado === 'ASIGNADO' && x.ChoferId === chof).map(filaAsig));
-            if (tipo === 15) {
-                return tabla(db.ventas.filter((x) => x.NombreEstado === 'ENTREGADO' && x.ChoferId === chof && x.conciliacionId === Number(v('IDConciliacion')))
-                    .map((x) => ({ ...filaAsig(x), conciliacion: conc(x.conciliacionId).conciliacion, EstadoConciliacion: x.EstadoConciliacion, ConciliacionId: x.conciliacionId })));
-            }
-            if (tipo === 17) return tabla(db.ventas.filter((x) => x.NombreEstado === 'ANULADO').map((x) => ({ ...filaAsig(x), FechaAnulacion: x.FechaAnulacion })));
-            if (tipo === 10 || tipo === 11) {
-                const ped = db.ventas.filter((x) => x.NombreEstado === 'ASIGNADO' && x.ChoferId === chof);
-                if (tipo === 11) return tabla(ped.map((x) => ({ Id: x.Id, NombreCliente: x.NombreCliente, Direccion: (db.clientes.find((c) => c.Id === x.ClienteId) || {}).DireccionCliente || '', Total: x.TotalVenta, img: Buffer.alloc(0) })));
-                const m = new Map();
-                ped.forEach((x) => (detalleVenta(x.Id).length ? detalleVenta(x.Id) : [{ ProductoId: (x.Id % 5) + 1, Producto: nombreDe(db.productos, (x.Id % 5) + 1, 'NombreProducto'), Cantidad: 1 + (x.Id % 4), Total: x.TotalVenta }]).forEach((d) => { const a = m.get(d.ProductoId) || { ProductoId: d.ProductoId, Producto: d.Producto, Cantidad: 0, Total: 0, img: Buffer.alloc(0) }; a.Cantidad += d.Cantidad; a.Total += d.Total; m.set(d.ProductoId, a); }));
-                return tabla([...m.values()]);
-            }
-            if ([8, 12, 13, 14, 16, 18].includes(tipo)) {
-                const tvp = p.asignacion || p.asignacionentregado || p.asignacionanulacion;
-                const sel = tvp.detalle.filas.filter((f) => f.Asignar === true || f.Asignar === 1).map((f) => f.Id);
-                if (tipo === 14 && !db.conciliacionAbierta.has(chof)) return tabla([{ valor: 0 }]);
-                const nuevo = { 8: 'ASIGNADO', 12: 'PENDIENTE', 13: 'ANULADO', 14: 'ENTREGADO', 16: 'ASIGNADO', 18: 'PENDIENTE' }[tipo];
-                db.ventas.filter((x) => sel.includes(x.Id)).forEach((x) => {
-                    x.NombreEstado = nuevo; x.EstadoPedido = ESTADO_ID[nuevo];
-                    if (tipo === 8) x.ChoferId = Number(v('PersonalId'));
-                    if (tipo === 12) x.ChoferId = 0;
-                    if (tipo === 13) x.FechaAnulacion = new Date();
-                    if (tipo === 14) { x.conciliacionId = 13; x.EstadoConciliacion = 1; }
-                });
-                return tabla([{ valor: sel.length }]);
-            }
             if (tipo === 4) return tabla(detalleVenta(id), COLS_VDET);
             if (tipo === 5) return tabla(productosVenta(Number(v('SucursalId')), Number(v('PrecioId'))));
-            // @tipo 20: solo lo cargado en la conciliacion del chofer (en el simulador: lo que tiene stock)
-            if (tipo === 20) return tabla(productosVenta(Number(v('SucursalId')), Number(v('PrecioId'))).filter((x) => x.stock > 0));
-            if (tipo === 19) return tabla([{ abierta: db.conciliacionAbierta.has(Number(v('ChoferId'))) ? 1 : 0 }]);
             if (tipo === -1) {
                 const x = db.ventas.find((y) => y.Id === id);
                 if (!x) return tabla([]);
@@ -592,12 +584,6 @@ async function EjecutarProcedimiento(nombre, lista) {
             if (tipo === 2) { Object.assign(arr.find((x) => x.Id === id), reg); return tabla([{ Id: id }]); }
             return tabla([]);
         }
-        case 'MAM_VentasIncremento': {
-            if (tipo === 1) return tabla([{ Fecha: hoy(), Monto: db.incremento[db.incremento.length - 1].Monto }]);
-            if (tipo === 2) { db.incremento.push({ Id: sig(db.incremento), Fecha: new Date(hoy() + 'T00:00:00Z'), Monto: Number(v('Monto')), Usuario: v('usuario'), FechaHoraModificacion: new Date() }); return tabla([{ ok: 1 }]); }
-            if (tipo === 3) return tabla(db.incremento);
-            return tabla([]);
-        }
         case 'MAM_Almacenes': {
             if (tipo === 4) return tabla(db.depositos);
             if (tipo === 3) return tabla(db.sucursales.map((a) => ({ ...a, NombreDeposito: nombreDe(db.depositos, a.DepositoId, 'NombreDeposito') })));
@@ -611,18 +597,20 @@ async function EjecutarProcedimiento(nombre, lista) {
             const fd = (k) => new Date(String(v(k)).replace(/\//g, '-') + 'T00:00:00Z');
             if (tipo === 13) return tabla(db.productos.map((x) => ({ Id: x.Id, CodigoExterno: x.CodigoExterno, Nombre: x.NombreProducto, DescripcionProducto: x.NombreProducto, stock: db.stock[x.Id] || 0, estado: 1 })));
             if (tipo === 3) return tabla(db.movInv.map((m) => ({ Id: m.Id, fdoc: m.fdoc, concep: m.concep, nconcep: nombreDe(db.tiposMovInv, m.concep, 'Descripcion'), obs: m.obs, est: 1, alm: m.alm, NombreDeposito: nombreDe(db.depositos, m.alm, 'NombreDeposito') })));
-            if (tipo === 4) { const m = db.movInv.find((x) => x.Id === id); return tabla(m ? m.det.map((d) => ({ Id: d.Id, MovimientoId: m.Id, ProductoId: d.ProductoId, Producto: nombreDe(db.productos, d.ProductoId, 'NombreProducto'), Cantidad: d.Cantidad, CantidadCajas: d.Cantidad / convDe(d.ProductoId), Lote: '20200101', FechaVencimiento: new Date(Date.UTC(2020, 0, 1)), img: null, estado: 1, stock: db.stock[d.ProductoId] || 0, stockFinal: 0, conversion: convDe(d.ProductoId) })) : [], COLS_MDET); }
+            if (tipo === 4) { const m = db.movInv.find((x) => x.Id === id); return tabla(m ? m.det.map((d) => ({ Id: d.Id, MovimientoId: m.Id, ProductoId: d.ProductoId, Producto: nombreDe(db.productos, d.ProductoId, 'NombreProducto'), Cantidad: d.Cantidad, Lote: '20200101', FechaVencimiento: new Date(Date.UTC(2020, 0, 1)), img: null, estado: 1, stock: db.stock[d.ProductoId] || 0 })) : [], COLS_MDET); }
+            // Kaily: comprobante Reporte_Movimiento
+            if (tipo === 17) { const m = db.movInv.find((x) => x.Id === id); return tabla(m ? m.det.map((d) => ({ Id: m.Id, FechaDocumento: m.fdoc, TipoMovimiento: nombreDe(db.tiposMovInv, m.concep, 'Descripcion'), NombreDeposito: nombreDe(db.depositos, m.alm, 'NombreDeposito'), Observacion: m.obs, CodigoExterno: nombreDe(db.productos, d.ProductoId, 'CodigoExterno'), Producto: nombreDe(db.productos, d.ProductoId, 'NombreProducto'), Cantidad: d.Cantidad, img: null })) : []); }
             if (tipo === 5) return tabla(db.tiposMovInv);
             if (tipo === 7) return tabla(productosVenta(1, 1).map((x) => ({ Id: x.Id, CodigoExterno: x.CodigoExterno, NombreProducto: x.NombreProducto, DescripcionProducto: x.NombreProducto, NombreCategoria: x.NombreCategoria, stockUnidad: Number(v('DepositoId')) === 1 ? x.stock : 0, conversion: x.Conversion })));
             if (tipo === 9 || tipo === 10 || tipo === 11 || tipo === 12) return tabla(db.productos.map((x) => ({ Id: x.Id, NombreProducto: x.NombreProducto, Categoria: x.NombreCategoria, Deposito: 'ALMACEN CENTRAL', Cantidad: db.stock[x.Id] || 0 })).filter((r) => (tipo === 9 || tipo === 12 ? r.Cantidad > 0 : true)));
             if (tipo === 14) return tabla(kardexDe(Number(v('ProductoId')), Number(v('DepositoId'))).filter((r) => r.fdoc < fd('FechaDocumento')));
             if (tipo === 15) return tabla(kardexDe(Number(v('ProductoId')), Number(v('DepositoId'))).filter((r) => r.fdoc >= fd('FechaI') && r.fdoc <= fd('FechaF')));
             if (tipo === 16) { const ids = [...new Set(db.movInv.filter((m) => m.alm === Number(v('DepositoId')) && m.fdoc >= fd('fechaI') && m.fdoc <= fd('fechaF')).flatMap((m) => m.det.map((d) => d.ProductoId)))]; return tabla(ids.map((i) => ({ Id: i, NombreProducto: nombreDe(db.productos, i, 'NombreProducto'), SaldoAnterior: '', Entradas: '', Salidas: '', SaldoFinal: '' }))); }
-            if (tipo === -1) { db.movInv = db.movInv.filter((m) => m.Id !== id); return tabla([{ Id: id }]); }
+            if (tipo === -1) { db.movInv = db.movInv.filter((m) => m.Id !== id && !(Number(v('ConceptoId')) === 8 && m.destinoDe === id)); return tabla([{ Id: id }]); }
             if (tipo === 1 || tipo === 2) {
                 const reg = { fdoc: fd('FechaDocumento'), concep: Number(v('ConceptoId')), obs: v('Observacion'), alm: Number(v('DepositoId')) };
                 let m;
-                if (tipo === 1) { m = { Id: sig(db.movInv), ...reg, det: [] }; db.movInv.push(m); } else { m = db.movInv.find((x) => x.Id === id); Object.assign(m, reg); }
+                if (tipo === 1) { m = { Id: sig(db.movInv), ...reg, depDestino: Number(v('DepositoIdDestino')), destinoDe: Number(v('IdMovimientoDestino')), det: [] }; db.movInv.push(m); } else { m = db.movInv.find((x) => x.Id === id); Object.assign(m, reg); }
                 for (const f of p.detalle.detalle.filas) {
                     const e = Number(f.estado); const ant = m.det.find((d) => d.Id === Number(f.Id));
                     if (e === 0) m.det.push({ Id: sig(m.det), ProductoId: Number(f.ProductoId), Cantidad: Number(f.Cantidad) });
@@ -633,67 +621,13 @@ async function EjecutarProcedimiento(nombre, lista) {
             }
             if (tipo === 13) return tabla(db.productos.map((x) => ({ Id: x.Id, Nombre: x.NombreProducto, Stock: db.stock[x.Id] || 0 })));
             if (tipo === 18) {
-                const cat = Number(v('CategoriaPrecio')); const prov = Number(v('ProveedorId'));
-                return tabla(db.productos.filter((x) => prov === -1 || x.ProveedorId === prov).map((x) => ({
-                    Id: x.Id, CodigoExterno: x.CodigoExterno, NombreProveedor: nombreDe(db.proveedores, x.ProveedorId, 'NombreProveedor'), NombreProducto: x.NombreProducto,
+                const cat = Number(v('CategoriaPrecio'));
+                return tabla(db.productos.map((x) => ({
+                    Id: x.Id, CodigoExterno: x.CodigoExterno, NombreProducto: x.NombreProducto,
                     Categoria: x.NombreCategoria, industria: '', unidad: 'UNIDAD', DescripcionProducto: x.DescripcionProducto || x.NombreProducto, stockMinimo: x.StockMinimo,
                     precio: (db.precios.find((y) => y.almacen === 1 && y.yhprod === x.Id && y.yhcatpre === cat) || {}).yhprecio || 0, stock: db.stock[x.Id] || 0, stockGeneral: db.stock[x.Id] || 0 })));
             }
             return tipo === 6 ? tabla([{ Lote: false }]) : tabla([]);
-        }
-        case 'MAM_DespachoProductos': {
-            const conEst = (x) => ({ Id: x.Id, PersonalId: x.PersonalId, NombrePersonal: nombreDe(db.personal, x.PersonalId, 'Nombre'), ConciliacionId: x.ConciliacionId, SucursalId: 1, Fecha: x.Fecha,
-                NroNota: String(x.Id), Detalle: x.Detalle, TipoMovimientoId: 5, EstadoConciliacion: conc(x.ConciliacionId).Estado ?? 1, DespachoAutomatico: x.DespachoAutomatico });
-            if (tipo === 3) {
-                const d = new Date(String(v('desde')).replace(/\//g, '-') + 'T00:00:00Z'); const h = new Date(String(v('hasta')).replace(/\//g, '-') + 'T00:00:00Z');
-                return tabla(db.despachos.filter((x) => x.Fecha >= d && x.Fecha <= h).map(conEst));
-            }
-            if (tipo === 4) { const x = db.despachos.find((y) => y.Id === id); return tabla(x ? x.det.map((d) => filaDDet(d, x.Id)) : [], COLS_DDET); }
-            if (tipo === 5) return tabla(productosVenta(1, 1).map((x) => ({ Id: x.Id, CodigoExterno: x.CodigoExterno, NombreProducto: x.NombreProducto, DescripcionProducto: x.DescripcionProducto, NombreCategoria: x.NombreCategoria, stock: x.stock, conversion: x.Conversion, estado: 1 })));
-            if (tipo === 6) { const x = db.despachos.find((y) => y.Id === id); return tabla(x ? x.det.map((d) => ({ Id: x.Id, Fecha: x.Fecha, NombrePersonal: nombreDe(db.personal, x.PersonalId, 'Nombre'), ConciliacionId: x.ConciliacionId || null, Detalle: x.Detalle || '', Item: d.ProductoId, NombreProducto: nombreDe(db.productos, d.ProductoId, 'NombreProducto'), Cantidad: d.Cantidad, img: null })) : []); }
-            if (tipo === 7) return tabla([1, 3].map((pid, i) => filaDDet({ Id: i + 1, ProductoId: pid, Cantidad: 6 * (i + 1) }, 0)).map((f) => ({ ...f, estado: 0 })), COLS_DDET);
-            if (tipo === 8) return tabla(Number(v('PersonalId')) > 0 ? db.ventas.filter((x) => x.NombreEstado === 'ASIGNADO').slice(0, 3).map((x) => ({ VentaId: x.Id, PersonalId: Number(v('PersonalId')) })) : [], ['VentaId', 'PersonalId']);
-            if (tipo === -1) { const x = db.despachos.find((y) => y.Id === id); if (!x) return tabla([]); x.det.forEach((d) => { db.stock[d.ProductoId] = (db.stock[d.ProductoId] || 0) + d.Cantidad; }); db.despachos = db.despachos.filter((y) => y.Id !== id); return tabla([{ Id: id }]); }
-            if (tipo === 1 || tipo === 2) {
-                const filas = p.detalledespacho.detalle.filas;
-                let x;
-                if (tipo === 1) {
-                    const per = Number(v('PersonalId'));
-                    let c = db.conciliaciones.find((y) => y.PersonalId === per && y.Estado === 1);
-                    if (!c) { c = { id: sig(db.conciliaciones, 'id'), conciliacion: 'NUEVA', ChoferId: per, Estado: 1, Fecha: new Date(String(v('Fecha')).replace(/\//g, '-') + 'T00:00:00Z'), PersonalId: per, Observacion: '', CierreCaja: 0 }; db.conciliaciones.push(c); }
-                    x = { Id: sig(db.despachos), PersonalId: per, ConciliacionId: c.id, det: [], DespachoAutomatico: Number(v('DespachoAutomatico')) };
-                    db.despachos.push(x);
-                } else x = db.despachos.find((y) => y.Id === id);
-                Object.assign(x, { PersonalId: Number(v('PersonalId')), Fecha: new Date(String(v('Fecha')).replace(/\//g, '-') + 'T00:00:00Z'), Detalle: v('Detalle') });
-                for (const f of filas) {
-                    const e = Number(f.estado);
-                    const ant = x.det.find((d) => d.Id === Number(f.Id));
-                    if (e === 0) { x.det.push({ Id: sig(x.det), ProductoId: Number(f.ProductoId), Cantidad: Number(f.Cantidad) }); db.stock[f.ProductoId] -= Number(f.Cantidad); }
-                    if (e === 2 && ant) { db.stock[f.ProductoId] += ant.Cantidad - Number(f.Cantidad); ant.Cantidad = Number(f.Cantidad); }
-                    if (e === -1 && ant) { db.stock[f.ProductoId] += ant.Cantidad; x.det = x.det.filter((d) => d !== ant); }
-                }
-                return tabla([{ Id: x.Id }]);
-            }
-            return tabla([]);
-        }
-        case 'MAM_Conciliacion': {
-            const desps = () => db.despachos.filter((x) => x.ConciliacionId === id);
-            if (tipo === 3) {
-                const d = new Date(String(v('desde')).replace(/\//g, '-') + 'T00:00:00Z'); const h = new Date(String(v('hasta')).replace(/\//g, '-') + 'T00:00:00Z');
-                return tabla(db.conciliaciones.filter((c) => c.Fecha >= d && c.Fecha <= h).map((c) => ({ Id: c.id, Fecha: c.Fecha, Estado: c.Estado === 1, CierreCaja: c.CierreCaja, PersonalId: c.PersonalId, NombrePersonal: nombreDe(db.personal, c.PersonalId, 'Nombre'), SucursalId: 1, Observacion: c.Observacion, imgEstado: null })));
-            }
-            if (tipo === 4) { const ids = [...new Set(desps().flatMap((x) => x.det.map((d) => d.ProductoId)))]; return tabla(ids.map((pid) => ({ ProductoId: pid, NombreProducto: nombreDe(db.productos, pid, 'NombreProducto') })), ['ProductoId', 'NombreProducto']); }
-            if (tipo === 5) { const ds = desps(); return tabla(ds.flatMap((x) => x.det.map((d) => ({ DespachoProductosId: x.Id, ProductoId: d.ProductoId, Cantidad: d.Cantidad, CantidadSalidas: ds.length })))); }
-            if (tipo === 6) return tabla(id === 13 ? [{ ProductoId: 1, Cantidad: 30 }] : []);
-            if (tipo === 7) return tabla(db.concDet[id] || []);
-            if (tipo === 2) {
-                const c = conc(id);
-                Object.assign(c, { Fecha: new Date(String(v('Fecha')).replace(/\//g, '-') + 'T00:00:00Z'), Estado: Number(v('Estado')), Observacion: v('Observacion') });
-                db.concDet[id] = p.detalleconciliacion.detalle.filas.map((f) => ({ ...f, TotalDevolucionesCalculado: f.TotalDevoluciones - f.Diferencia }));
-                if (c.Estado === 1) db.conciliacionAbierta.add(c.PersonalId);
-                return tabla([{ Id: id }]);
-            }
-            return tabla([]);
         }
         case 'MAM_Proforma': {
             if (tipo === 3) {
@@ -711,13 +645,14 @@ async function EjecutarProcedimiento(nombre, lista) {
         case 'MAM_CreditosVentas': {
             const vivo = (c) => Math.round((c.Monto - c.abonado) * 100) / 100;
             db.cxc.forEach((c) => { c.Restante = vivo(c); });
-            const deuda = (c) => ({ Id: c.Id, Credito: c.Credito, Venta: String(c.venta), NombrePersonal: c.NombrePersonal, Nombre: c.Nombrecliente, Monto: c.Monto,
-                abonado: c.abonado, Restante: c.Restante, FechaVencimientoCredito: new Date(Date.UTC(2026, 9, 1 + c.Id)), DiasMora: c.DiasMora });
+            // Kaily: sin NombrePersonal en @tipo 3 / 6; PersonalId en 1 / 2 / 3 / 6; CierreModulo en los pagos (@tipo 5)
+            const deuda = (c) => ({ Id: c.Id, Credito: c.Credito, Venta: String(c.venta), Nombre: c.Nombrecliente, Monto: c.Monto,
+                abonado: c.abonado, Restante: c.Restante, FechaVencimientoCredito: new Date(Date.UTC(2026, 9, 1 + c.Id)), DiasMora: c.DiasMora, PersonalId: c.PersonalId });
             if (tipo === 1) return tabla(db.cxc.filter((c) => c.Restante > 0));
             if (tipo === 3) return tabla(db.cxc.filter((c) => c.Restante > 0).map(deuda));
             if (tipo === 6) return tabla(db.cxc.map(deuda));
-            if (tipo === 2) return tabla(db.cxc.filter((c) => c.Restante <= 0).map((c) => ({ Id: c.Id, Credito: `Credito${String(c.Credito).padStart(7, '0')}`, venta: `venta${String(c.venta).padStart(8, '0')}`, NombreCliente: c.Nombrecliente, Monto: c.Monto, Pagado: c.abonado, FechaVencimientoCredito: new Date(Date.UTC(2026, 9, 1)), FechaUltimaPago: new Date() })));
-            if (tipo === 5) return tabla(db.pagosCxc.filter((x) => x.Credito === Number(v('CreditoVentaId'))).map(({ Credito, ...x }) => x), ['Id', 'FechaPago', 'Monto', 'Glosa', 'NroComprobante', 'NombrePersonal', 'NombreCliente', 'img']);
+            if (tipo === 2) return tabla(db.cxc.filter((c) => c.Restante <= 0).map((c) => ({ Id: c.Id, Credito: `Credito${String(c.Credito).padStart(7, '0')}`, venta: `venta${String(c.venta).padStart(8, '0')}`, NombreCliente: c.Nombrecliente, Monto: c.Monto, Pagado: c.abonado, FechaVencimientoCredito: new Date(Date.UTC(2026, 9, 1)), FechaUltimaPago: new Date(), PersonalId: c.PersonalId })));
+            if (tipo === 5) return tabla(db.pagosCxc.filter((x) => x.Credito === Number(v('CreditoVentaId'))).map(({ Credito, ...x }) => ({ CierreModulo: 0, ...x })), ['Id', 'FechaPago', 'Monto', 'Glosa', 'NroComprobante', 'NombrePersonal', 'NombreCliente', 'CierreModulo', 'img']);
             if (tipo === 4) {
                 const c = db.cxc.find((x) => x.Id === Number(v('CreditoVentaId')));
                 const Id = sig(db.pagosCxc);
@@ -793,47 +728,22 @@ async function EjecutarProcedimiento(nombre, lista) {
             }
             return tabla([]);
         }
-        case 'MAM_CierreCaja': {
-            const COLS_G = ['Id', 'CierreCajaId', 'ConceptoGastoId', 'Detalle', 'Descripcion', 'Monto', 'estado', 'img'];
-            const COLS_C = ['TransaccionVentasCreditoId', 'ClienteId', 'NombreCliente', 'NroNotaVenta', 'Monto'];
-            const cobrosSin = () => [{ TransaccionVentasCreditoId: 21, ClienteId: 1, NombreCliente: 'TIENDA LOS PINOS', NroNotaVenta: 1201, Monto: 80 }];
-            if (tipo === 3) {
-                const d = new Date(String(v('desde')).replace(/\//g, '-') + 'T00:00:00Z'); const h = new Date(String(v('hasta')).replace(/\//g, '-') + 'T00:00:00Z');
-                return tabla(db.cierres.filter((c) => c.FechaCierre >= d && c.FechaCierre <= h).map(({ gastos, cobros, ...c }) => ({ ...c, NombrePersonal: nombreDe(db.personal, c.PersonalId, 'Nombre') })));
-            }
-            if (tipo === 4) { const c = db.cierres.find((x) => x.Id === id); return tabla(c ? c.gastos.map((g) => ({ ...g, CierreCajaId: c.Id, estado: 1, img: null })) : [], COLS_G); }
-            if (tipo === 5) return tabla(db.conciliaciones.filter((c) => c.Estado === 0 && !c.CierreCaja).map((c) => ({ NroConciliacion: c.id, Fecha: c.Fecha, PersonalID: c.PersonalId, NombrePersonal: nombreDe(db.personal, c.PersonalId, 'Nombre') })));
-            if (tipo === 6) return tabla(db.ventas.filter((x) => x.conciliacionId === id).slice(0, 6).map((x) => ({ VentaId: x.Id, NroNotaVenta: x.Id, ClienteId: x.ClienteId, NombreCliente: x.NombreCliente, FechaEntregado: x.FechaVenta, Contado: x.TipoVenta === 1 ? x.TotalVenta : 0, Credito: x.TipoVenta === 1 ? 0 : x.TotalVenta })));
-            if (tipo === 7) return tabla(cobrosSin(), COLS_C);
-            if (tipo === 8) { const c = db.cierres.find((x) => x.Id === id); return tabla(c ? c.cobros : [], COLS_C); }
-            if (tipo === 9) { const c = db.cierres.find((x) => x.Id === id); return tabla(c ? [{ Id: c.Id, FechaCierre: c.FechaCierre, Concepto: 'EFECTIVO RECIBIDO', Monto: c.EfectivoRecibido, img: null }] : []); }
-            if (tipo === -1) { const c = db.cierres.find((x) => x.Id === id); if (!c) return tabla([]); const cc = conc(c.NroConciliacion); if (cc.id) cc.CierreCaja = 0; db.cierres = db.cierres.filter((x) => x.Id !== id); return tabla([{ Id: id }]); }
-            if (tipo === 1 || tipo === 2) {
-                const reg = { PersonalId: Number(v('PersonalId')), NroConciliacion: Number(v('ConciliacionId')), FechaCierre: new Date(String(v('FechaCierre')).replace(/\//g, '-') + 'T00:00:00Z'), Detalle: '',
-                    TotalGastos: Number(v('TotalGastos')), VentasCreditos: Number(v('VentasCredito')), VentasContado: Number(v('VentasContado')), TotalCobros: Number(v('TotalCobros')),
-                    EfectivoCalculado: Number(v('EfectivoCalculado')), EfectivoRecibido: Number(v('EfectivoRecibido')), Diferencia: Number(v('Diferencia')) };
-                const gastos = p.detallegastos.detalle.filas.filter((g) => Number(g.estado) >= 0).map((g, i) => ({ Id: i + 1, ConceptoGastoId: g.ConceptoGastoId, Detalle: g.Detalle, Descripcion: g.Descripcion, Monto: Number(g.Monto) }));
-                const cobros = p.cobranzas.detalle.filas;
-                if (tipo === 1) { const Id = sig(db.cierres); db.cierres.push({ Id, ...reg, gastos, cobros }); conc(reg.NroConciliacion).CierreCaja = Id; return tabla([{ Id }]); }
-                Object.assign(db.cierres.find((x) => x.Id === id), reg, { gastos, cobros }); return tabla([{ Id: id }]);
-            }
-            return tipo === 10 ? tabla([{ Fecha: diaUTC(0), PersonalId: 4, NombrePersonal: 'CARLOS VARGAS', TipoGastoId: 1, TipoGasto: 'COMBUSTIBLE', Detalle: 'GASOLINA', Monto: 150 }, { Fecha: diaUTC(0), PersonalId: 4, NombrePersonal: 'CARLOS VARGAS', TipoGastoId: 3, TipoGasto: 'PEAJE', Detalle: '', Monto: 20 }]) : tabla([]);
-        }
-        case 'MAM_AuditoriaVentas':
-            if (tipo === 1) return tabla([{ Id: 1, VentaId: 1450, TipoEvento: 'MODIFICADO', Origen: 'WEB', FechaHora: new Date(), Usuario: 'ADMIN', Personal: 'MARCO MAMANI', Cliente: 'TIENDA LOS PINOS', TotalVenta: 120.5, ClienteId: 1, Observacion: '' }, { Id: 2, VentaId: 1451, TipoEvento: 'ANULADO', Origen: 'MOVIL', FechaHora: new Date(), Usuario: 'LQUISPE', Personal: 'LUIS QUISPE', Cliente: 'SUPER NORTE', TotalVenta: 80, ClienteId: 2, Observacion: '' }].filter((x) => v('tipoEvento') === 'TODOS' || x.TipoEvento === v('tipoEvento')));
-            return tipo === 2 ? tabla([{ Id: 1, EventoId: Number(v('EventoId')), VentaId: 1450, ProductoId: 1, Producto: 'COCA COLA 2L', TipoCambio: 'CANTIDAD_MODIFICADA', CantidadAntes: 12, CantidadDespues: 6, PrecioAntes: 10, PrecioDespues: 10 }]) : tabla([]);
         case 'MAM_Compras': {
-            if (tipo === 12) return tabla(db.proveedores.map((p) => ({ Id: p.Id, Proveedor: p.NombreProveedor })));
             if (tipo === 8) return tabla(db.personal.map(({ Id, Nombre, Direccion, Telefono01 }) => ({ Id, Nombre, Direccion, Telefono01 })));
             if (tipo === 6) return tabla(db.proveedores.map((p) => ({ Id: p.Id, Nombre: p.NombreProveedor, Direccion: p.Direccion, Telefono01: p.Telefono01 })));
-            if (tipo === 3) return tabla(db.compras.map((c) => ({ ...c, NombreProveedor: nombreDe(db.proveedores, c.ProveedorId, 'NombreProveedor') })));
+            if (tipo === 3) { // Kaily: L_prListarGeneralComprasFiltro (@desde / @hasta)
+                const d = new Date(String(v('desde')).replace(/\//g, '-') + 'T00:00:00Z');
+                const h = new Date(String(v('hasta')).replace(/\//g, '-') + 'T00:00:00Z');
+                return tabla(db.compras.filter((c) => c.FechaTransaccion >= d && c.FechaTransaccion <= h).map((c) => ({ ...c, NombreProveedor: nombreDe(db.proveedores, c.ProveedorId, 'NombreProveedor') })));
+            }
             if (tipo === 4) return tabla(db.comprasDet.filter((d) => d.CompraId === Number(v('id'))), COLS_CDET);
-            if (tipo === 5) return tabla(db.productos.map((x) => ({ Id: x.Id, CodigoExterno: x.CodigoExterno, NombreProducto: x.NombreProducto, PrecioCosto: 30 + x.Id, PrecioVenta: (30 + x.Id) * 1.2, stock: db.stock[x.Id] || 0, conversion: convDe(x.Id), estado: 1 })));
+            if (tipo === 5) return tabla(db.productos.map((x) => ({ Id: x.Id, CodigoExterno: x.CodigoExterno, NombreProducto: x.NombreProducto, DescripcionProducto: x.DescripcionProducto || x.NombreProducto,
+                NombreCategoria: nombreDe(db.categorias, x.CategoriaId, 'NombreCategoria'), industria: 'BOLIVIA', PrecioCosto: 30 + x.Id, PrecioVenta: (30 + x.Id) * 1.2, stock: db.stock[x.Id] || 0, estado: 1 })));
             if (tipo === 7) return tabla(db.comprasDet.filter((d) => d.CompraId === Number(v('id'))).map((d) => ({ Producto: d.Producto, Cantidad: d.Cantidad, PrecioCosto: d.PrecioCosto, TotalCompra: d.TotalCompra, Logo: Buffer.from('x') })));
             if (tipo === 1 || tipo === 2) {
                 const det = p.detalle.detalle;
                 const fila = (f) => (Array.isArray(f) ? Object.fromEntries(det.columnas.map((c, i) => [c, f[i]])) : f);
-                const cab = { AlmacenId: Number(v('AlmacenId')), NroNotaCompra: v('NroNotaCompra'), NroNotaRecepcion: v('NroNotaRecepcion'), ProveedorId: Number(v('Proveedor')), FechaTransaccion: new Date(String(v('FechaTransaccion')).replace(/\//g, '-') + 'T00:00:00Z'),
+                const cab = { AlmacenId: Number(v('AlmacenId')), ProveedorId: Number(v('Proveedor')), FechaTransaccion: new Date(String(v('FechaTransaccion')).replace(/\//g, '-') + 'T00:00:00Z'),
                     TipoVenta: Number(v('TipoVenta')), FechaVencimientoCredito: new Date(String(v('FechaVencimientoCredito')).replace(/\//g, '-') + 'T00:00:00Z'), Moneda: 1, TituloMoneda: 'BOLIVIANOS', Estado: 1, Glosa: v('Glosa'), TotalCompra: Number(v('TotalCompra')), descuento: Number(v('Descuento')), EmpresaId: 1 };
                 const Id = tipo === 1 ? sig(db.compras) : id;
                 if (tipo === 1) db.compras.push({ Id, ...cab, transaccion: 0 }); else Object.assign(db.compras.find((c) => c.Id === id), cab);
@@ -846,12 +756,6 @@ async function EjecutarProcedimiento(nombre, lista) {
                 return tabla([{ Id }]);
             }
             if (tipo === -1) { db.compras = db.compras.filter((c) => c.Id !== id); db.comprasDet = db.comprasDet.filter((d) => d.CompraId !== id); return tabla([{ Id: id }]); }
-            const fi = () => new Date(String(v('FechaI')).replace(/\//g, '-') + 'T00:00:00Z');
-            const ff = () => new Date(String(v('FechaF')).replace(/\//g, '-') + 'T00:00:00Z');
-            const rangoC = () => db.compras.filter((c) => c.FechaTransaccion >= fi() && c.FechaTransaccion <= ff());
-            if (tipo === 9) return tabla(rangoC().map((c) => ({ Id: c.Id, FechaCompra: c.FechaTransaccion, NombreProveedor: nombreDe(db.proveedores, c.ProveedorId, 'NombreProveedor'), NroNotaCompra: c.NroNotaCompra, NroNotaRecepcion: c.NroNotaRecepcion })));
-            if (tipo === 11) return tabla(rangoC().flatMap((c) => db.comprasDet.filter((d) => d.CompraId === c.Id).map((d) => ({ Id: c.Id, ProductoId: d.ProductoId, NombreProducto: d.Producto, Cantidad: d.Cantidad, PrecioCosto: d.PrecioCosto }))));
-            if (tipo === 10) return tabla(rangoC().map((c) => ({ Id: c.Id, Cantidad: db.comprasDet.filter((d) => d.CompraId === c.Id).reduce((a, d) => a + d.Cantidad, 0), TotalCompra: c.TotalCompra })));
             return tabla([]);
         }
         case 'MAM_ConceptosFijos': {
@@ -1007,9 +911,11 @@ Fecha: ${ddmm(x.Fecha || new Date())}`, TipoConcepto: Number(x.TipoConcepto) ===
         case 'sp_Mam_Precios': {
             if (tipo === 3) return tabla(db.catPrecio);
             if (tipo === 4) return tabla(db.almacenes);
-            if (tipo === 8) return tabla(db.estados);
             if (tipo === 6) return tabla(db.productos.map((x) => ({ yfnumi: x.Id, yfcprod: x.CodigoExterno, yfcdprod1: x.NombreProducto, NombreCategoria: x.NombreCategoria, proveedor: nombreDe(db.proveedores, x.ProveedorId, 'NombreProveedor') })));
-            if (tipo === 7 || tipo === 9) return tabla(db.catPrecio.map(({ ygnumi, ygcod, ygdesc }) => ({ ygnumi, ygcod, ygdesc })));
+            // Kaily: @tipo 9 = L_fnListarCategoriaPrecioFilter (ygnumi, Nombre) · @tipo 10 = L_fnListarCategoriaProductos (id, Nombre, seleccionado)
+            if (tipo === 9) return tabla(db.catPrecio.map(({ ygnumi, ygcod, ygdesc }) => ({ ygnumi, ygcod, Nombre: ygdesc, ygdesc })));
+            if (tipo === 10) return tabla(db.categorias.map((c) => ({ id: c.Id, Nombre: c.NombreCategoria, seleccionado: false })));
+            if (tipo === 7 || tipo === 8) return tabla(db.catPrecio.map(({ ygnumi, ygcod, ygdesc }) => ({ ygnumi, ygcod, ygdesc })));
             if (tipo === 5) return matrizPrecios(Number(v('almacen')));
             if (tipo === 1) { const ygnumi = sig(db.catPrecio, 'ygnumi'); db.catPrecio.push({ ygnumi, ygcod: v('Codigo'), ygdesc: v('Descripcion'), ygpcv: 1, estado: Number(v('TipoCategoria')) ? 'LETRA' : 'NUMERO' }); return tabla([{ ygnumi }]); }
             if (tipo === -1) { db.catPrecio = db.catPrecio.filter((x) => x.ygnumi !== id); return tabla([{ ygnumi: id }]); }
@@ -1044,10 +950,10 @@ Fecha: ${ddmm(x.Fecha || new Date())}`, TipoConcepto: Number(x.TipoConcepto) ===
             if (tipo === 3) return tabla(db.usuarios);
             if (tipo === 4) return tabla(db.empresas.map((e) => ({ Id: e.Id, Codigo: e.Id, Nombre: e.Nombre })));
             if (tipo === 5) return tabla(db.roles.map((r) => ({ Id: r.Id, NombreRol: r.NombreRol })));
-            if (tipo === -1) { db.usuarios = db.usuarios.filter((x) => x.Id !== id); return tabla([{ Id: id }]); }IdPersonal: Number(v('IdPersonal')), Personal: nombreDe(db.personal, v('IdPersonal'), 'Nombre'),
+            if (tipo === -1) { db.usuarios = db.usuarios.filter((x) => x.Id !== id); return tabla([{ Id: id }]); }
+            const reg = { NombreUsuario: v('NombreUsuario'), Contrasena: v('Contrasena'), estado: !!v('Estado'), RolId: Number(v('RolId')), NombreRol: nombreDe(db.roles, v('RolId'), 'NombreRol'), SucursalId: v('SucursalId'), IdEmpresa: Number(v('IdEmpresa')), Empresa: nombreDe(db.empresas, v('IdEmpresa'), 'Nombre'), IdPersonal: Number(v('IdPersonal')), Personal: nombreDe(db.personal, v('IdPersonal'), 'Nombre'),
                 ModificarPrecioVenta: Number(v('ModificarPrecio')), AplicarDescuentoVenta: Number(v('ModificarDescuento')), VerTodasVentas: Number(v('VentasTodasVentas')),
                 VerTodosVentasCierre: Number(v('VerTodasVentasCierre')), ModificarRegistroAnteriores: Number(v('ModificarRegistroAntiguos')) };
-            const reg = { NombreUsuario: v('NombreUsuario'), Contrasena: v('Contrasena'), estado: !!v('Estado'), RolId: Number(v('RolId')), NombreRol: nombreDe(db.roles, v('RolId'), 'NombreRol'), SucursalId: v('SucursalId'), IdEmpresa: Number(v('IdEmpresa')), Empresa: nombreDe(db.empresas, v('IdEmpresa'), 'Nombre'), IdPersonal: Number(v('IdPersonal')), pedido: !!v('PedidoSinConciliacion'), Personal: nombreDe(db.personal, v('IdPersonal'), 'Nombre') };
             if (tipo === 1) { const Id = sig(db.usuarios); db.usuarios.push({ Id, ...reg }); return tabla([{ Id }]); }
             if (tipo === 2) { Object.assign(db.usuarios.find((x) => x.Id === id), reg); return tabla([{ Id: id }]); }
             return tabla([]);

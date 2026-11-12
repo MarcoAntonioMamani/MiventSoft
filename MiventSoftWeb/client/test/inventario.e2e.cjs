@@ -28,7 +28,7 @@ const BASE = 'http://localhost:3001';
   ok(await espera(p, 'INSERTE UN DETALLE'), 'exige detalle');
   await p.locator('button', { hasText: 'Agregar producto' }).click();
   await p.waitForSelector('.selector-productos tbody tr.fila-clic');
-  await p.locator('.selector-productos tbody tr.fila-clic:not(.sin-stock)').first().click();
+  await p.locator('.selector-productos tbody tr.fila-clic:not(.sin-stock)').first().dblclick();
   await p.locator('.cantidad-cajas input').first().fill('1');
   await p.locator('.cantidad-cajas .btn-pri').click();
   await p.locator('.selector-productos .modal-acciones .btn-pri').click();

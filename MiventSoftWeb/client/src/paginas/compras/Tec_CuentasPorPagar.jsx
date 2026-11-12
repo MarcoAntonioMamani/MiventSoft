@@ -15,6 +15,7 @@ import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
 import { imprimirReporte } from '../../componentes/ReporteImpreso';
+import { useAlActivar, useRefrescar } from '../../global/vistaActiva';
 
 const URL = '/api/compras/cuentas-pagar';
 const BASE = '/compras/cuentas-pagar';
@@ -69,6 +70,8 @@ export default function Tec_CuentasPorPagar() {
     try { const r = await api.get(`${URL}/${ruta}`); setDatos((d) => ({ ...d, [t]: r.data })); } catch (e) { toast(e.message, 'error'); } finally { setCargando(false); }
   }, [tab, toast]);
   useEffect(() => { cargar(tab); }, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
+  useAlActivar(() => cargar(tab), { alMontar: false }); // saldos actualizados al volver a la pestaña
+  const refrescar = useRefrescar(() => cargar());
 
   const filas = datos[tab] || [];
   const resumen = (datos.pagar || datos.pendientes || []).reduce((a, f) => ({ total: a.total + num(f.Restante), vencido: a.vencido + (num(f.DiasMora) > 0 ? num(f.Restante) : 0), n: a.n + 1 }), { total: 0, vencido: 0, n: 0 });
@@ -80,7 +83,7 @@ export default function Tec_CuentasPorPagar() {
           <span className="modelo-icono"><Icono n="wallet" size={22} /></span>
           <div><h1>Cuentas por pagar</h1><p>Administrar Cuentas por Pagar</p></div>
         </div>
-        <div className="barra"><button className="btn-icono" title="Actualizar" aria-label="Actualizar" onClick={() => cargar()}><Icono n="refresh" size={18} /></button></div>
+        <div className="barra"><button className="btn-icono" title="Actualizar" aria-label="Actualizar" onClick={refrescar} disabled={cargando}>{cargando ? <span className="spinner" /> : <Icono n="refresh" size={18} />}</button></div>
       </header>
       <nav className="tabs-cxc" aria-label="Secciones">
         {TABS.map((t) => (
@@ -202,7 +205,7 @@ function DialogoCredito({ fila, modo, puede, onCerrar }) {
           <div><span>Monto compra</span><b>Bs {bs(fila.Monto)}</b></div>
           <div><span>Pagado</span><b>Bs {bs(num(fila.Monto) - saldo)}</b></div>
           <div className={saldo > 0 ? 'saldo' : 'saldo cero'}><span>Saldo adeudado</span><b>Bs {bs(saldo)}</b></div>
-          <div><span>Preventista</span><b className="texto">{sinValor(fila.NombrePersonal) ? '—' : tit(fila.NombrePersonal)}</b></div>
+          {!sinValor(fila.NombrePersonal) && <div><span>Personal</span><b className="texto">{tit(fila.NombrePersonal)}</b></div>}
         </div>
         <div className={`credito-cuerpo ${cobrar ? 'con-form' : ''}`}>
           {cobrar && (

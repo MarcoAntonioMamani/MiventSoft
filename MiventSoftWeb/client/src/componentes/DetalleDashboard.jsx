@@ -25,7 +25,7 @@ function celda(c, v) {
 }
 
 /**
- * consulta = { tipo: 'pedidos'|'cobrar'|'pagar'|'stock0'|'stockmin'|'asignar', titulo, sub, params, accion? }
+ * consulta = { tipo: 'pedidos'|'cobrar'|'pagar'|'stock0'|'stockmin', titulo, sub, params, accion? }
  */
 export default function DetalleDashboard({ consulta, onCerrar }) {
   const [estado, setEstado] = useState({ cargando: true, error: '', datos: null });

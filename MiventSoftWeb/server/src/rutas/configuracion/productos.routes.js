@@ -8,6 +8,7 @@
 //    estado 0 = nueva, 1 = existente, -1 = eliminar
 //  El navegador envia solo: archivos nuevos + nombres a eliminar.
 //  La tabla completa se arma aqui con L_prCargarImagenesRecepcion, igual que VB.
+//  Kaily: codigo externo unico (MAM_Productos @tipo 11) y reporte de precios (@tipo 8, sp_Mam_Precios 4/9/10).
 // =====================================================================
 const express = require('express');
 const L = require('../../negocio/AccesoLogica');
@@ -40,6 +41,47 @@ router.get('/combos', asyncHandler(async (req, res) => {
             categorias: v.proyectar(categorias, ['Id', 'NombreCategoria']),
             proveedores: v.proyectar(proveedores, ['Id', 'NombreProveedor']),
             marcas, atributos, familias, unidadesVenta, unidadesMaxima,
+        },
+    });
+}));
+
+// ---------------------------------------------------------------------
+//  Kaily: "Reporte Precios" (ButtonX4, sin imagenes) y "Reporte Precios Imagenes" (btnReporteConImagenes)
+//  AyudaMultiCategoria: Sucursal (L_fnGeneralSucursales), Categoria Precio (L_fnListarCategoriaPrecioFilter)
+//  y las categorias de producto a incluir (L_fnListarCategoriaProductos, al menos una).
+//  GenerarReporte: GenerarReportePrecios(CategoriaPrecio, Sucursal) y solo las filas de las categorias
+//  elegidas (ExisteCategoria). Cabecera: ObtenerImagenEmpresa (imagen, Nombre, Direccion).
+//  Las imagenes no se incrustan: el navegador las pide a /api/imagenes/producto.
+// ---------------------------------------------------------------------
+router.get('/reporte-precios/combos', asyncHandler(async (req, res) => {
+    const [sucursales, preciosCat, categorias] = await Promise.all([L.L_fnGeneralSucursales(), L.L_fnListarCategoriaPrecioFilter(), L.L_fnListarCategoriaProductos()]);
+    res.json({
+        ok: true,
+        data: {
+            sucursales: v.proyectar(sucursales, ['aanumi', 'aabdes']),
+            categoriasPrecio: v.proyectar(preciosCat, ['ygnumi', 'Nombre']),
+            categorias: v.proyectar(categorias, ['id', 'Nombre']),
+        },
+    });
+}));
+
+router.get('/reporte-precios', asyncHandler(async (req, res) => {
+    const categoriaPrecio = v.entero(req.query.categoriaPrecio, 'una Categoria Precio', { requeridoPositivo: true });
+    const sucursal = v.entero(req.query.sucursal, 'una Sucursal');
+    const elegidas = new Set(String(req.query.categorias || '').split(',').map((x) => Number.parseInt(x, 10)).filter(Number.isFinite));
+    if (!elegidas.size) throw new ErrorNegocio('Debe Seleccionar Al Menos una Categoria');
+    const conImagenes = req.query.imagenes === '1';
+    const [dt, imagen] = await Promise.all([L.GenerarReportePrecios(categoriaPrecio, sucursal), L.ObtenerImagenEmpresa().catch(() => [])]);
+    const campos = ['Id', 'CodigoExterno', 'NombreProducto', 'DescripcionProducto', 'industria', 'unidad', 'NombreCategoria', 'CategoriaId', 'Precio', ...(conImagenes ? ['Rutaimg'] : [])];
+    const filas = v.proyectar(dt, campos)
+        .filter((f) => elegidas.has(Number(f.CategoriaId)))
+        .map((f) => (conImagenes ? { ...f, Rutaimg: f.Rutaimg ? String(f.Rutaimg).replace(/\\/g, '/').split('/').pop() : '' } : f));
+    const e = imagen[0] || {};
+    res.json({
+        ok: true,
+        data: {
+            filas,
+            cabecera: { imagenEmpresa: imagen.length ? String(Object.values(e)[0] ?? '') : '', Nombre: String(v.campo(e, 'Nombre') ?? ''), Direccion: String(v.campo(e, 'Direccion') ?? '') },
         },
     });
 }));
@@ -139,6 +181,17 @@ async function _armarTablaPrecios(idProducto, precios) {
     return { columnas: [], filas };
 }
 
+// Kaily _PMOValidarCampos: codigo externo repetido (ObtenerCoincidenciasCodigoExterno, MAM_Productos @tipo 11)
+//  Nuevo: con 1 coincidencia ya existe · Modificar: el propio producto cuenta, error con mas de 1 (igual que el escritorio)
+async function _validarCodigoExterno(codigo, nuevo) {
+    if (!codigo) return;
+    const dt = await L.ObtenerCoincidenciasCodigoExterno(codigo);
+    if (nuevo && dt.length > 0) {
+        throw new ErrorNegocio(`Ya existe un Producto con un mismo codigo Externo= ${codigo} En el Producto ${v.campo(dt[0], 'id') ?? ''}  ${v.campo(dt[0], 'DescripcionProducto') ?? ''}`.trim());
+    }
+    if (!nuevo && dt.length > 1) throw new ErrorNegocio('Ya existe un Producto con un mismo codigo Externo');
+}
+
 // _prGuardarImagenes: despues de grabar en BD, escribe/borra archivos
 async function _guardarArchivos({ nuevas, borrar }) {
     for (const n of nuevas) await img.GuardarImagenConNombre('producto', n.nombre, n.buffer);
@@ -147,6 +200,7 @@ async function _guardarArchivos({ nuevas, borrar }) {
 
 router.post('/', img.subirImagenes, asyncHandler(async (req, res) => {
     const p = _leerProducto(req.body);
+    await _validarCodigoExterno(p._CodigoExterno, true);
     const t = await _armarTablaImagenes(0, req.files, []);
     const precios = await _armarTablaPrecios(0, req.body.precios);
     const r = await L.L_prProductoInsertar({ _numi: '', ...p }, t.tabla, precios);
@@ -158,6 +212,7 @@ router.post('/', img.subirImagenes, asyncHandler(async (req, res) => {
 router.put('/:id', img.subirImagenes, asyncHandler(async (req, res) => {
     const id = v.idRuta(req.params.id);
     const p = _leerProducto(req.body);
+    await _validarCodigoExterno(p._CodigoExterno, false);
     const t = await _armarTablaImagenes(id, req.files, _leerEliminar(req.body));
     const precios = await _armarTablaPrecios(id, req.body.precios);
     const r = await L.L_prProductoModificar({ _numi: id, ...p }, t.tabla, precios);

@@ -11,6 +11,7 @@ import { usePermisos } from '../../global/Sesion';
 import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
+import { useAlActivar } from '../../global/vistaActiva';
 
 const URL = '/api/planilla/planilla';
 const MESES = ['ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO', 'JUNIO', 'JULIO', 'AGOSTO', 'SEPTIEMBRE', 'OCTUBRE', 'NOVIEMBRE', 'DICIEMBRE'];
@@ -29,13 +30,14 @@ export default function Tec_RegistrarPlanilla() {
   const [filas, setFilas] = useState([]);
   const [cargando, setCargando] = useState(false);
   const [grabando, setGrabando] = useState(false);
-  useEffect(() => { api.get(`${URL}/combos`).then((r) => { setC(r.data); setP(periodoInicial(r.data.anios, r.data.meses)); }).catch((e) => toast(e.message, 'error')); }, [toast]);
+  useAlActivar(() => { api.get(`${URL}/combos`).then((r) => { setC(r.data); setP((o) => (o.anio && o.mes ? o : periodoInicial(r.data.anios, r.data.meses))); }).catch((e) => toast(e.message, 'error')); });
   const cargar = () => {
     if (!p.anio || !p.mes) return;
     setCargando(true);
     api.get(`${URL}/registrar/sin-planilla?mes=${p.mes}&anio=${p.anio}`).then((r) => setFilas(r.data)).catch((e) => toast(e.message, 'error')).finally(() => setCargando(false));
   };
   useEffect(cargar, [p.anio, p.mes]); // eslint-disable-line react-hooks/exhaustive-deps
+  useAlActivar(cargar, { alMontar: false }); // personal sin planilla actualizado al volver a la pestaña
   const nuevoAnio = async (descripcion) => {
     const r = await api.post(`${URL}/registrar/libreria/13`, { descripcion });
     setC((o) => ({ ...o, anios: r.data }));

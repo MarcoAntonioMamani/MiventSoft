@@ -15,9 +15,9 @@ module.exports = crearRouterPV({
     programa: 'btnProforma',
     nombre: 'Proforma',
     sp: 'MAM_Proforma',
-    listaDetalles: (id) => L.ListaProformaDetalles(id),
+    listaDetalles: (id) => L.ListaProformasDetalles(id),
     insertar: (x, d) => L.ProformaInsertar(x, d),
     modificar: (x, d) => L.ProformaModificar(x, d),
-    recibo: (id) => L.ListarProformaRecibo(id),
+    recibo: (id) => L.ListarVentaProforma(id),
     conPagos: false, exigeCaja: false, validarEditable: false, filtrarPorVendedor: false, sinStock: true, soloContado: true,
 });

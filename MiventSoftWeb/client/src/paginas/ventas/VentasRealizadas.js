@@ -1,5 +1,5 @@
 // =====================================================================
-//  Rep_VentasRealizadas (btVentReporteRealizada): datos del SP MAM_ReporteVentas @tipo 1 / 2 / 13 / 14
+//  Rep_VentasRealizadas (btVentReporteRealizada): datos del SP MAM_ReporteVentas @tipo 1 / 2 (Kaily: sin filtro de cliente)
 //   - "Reporte Datos"  = Reporte_VentasRealizadas.rpt: agrupado por Sucursal > Personal,
 //     Id cliente, Cliente, Comprobante (Id - año), Fecha venta, Total venta, con subtotales.
 //   - "Grafico"        = ReporteGraficoVentasRealizadas.rpt: "Ventas Por Vendedores" (dona con el total al centro,
@@ -15,9 +15,6 @@
 //   - Grafico = ReporteGraficoProductosMasVendidos.rpt con los primeros N productos (tbCantidad, 10):
 //     "Productos Mas Vendidos" (barras por producto, eje Cantidad / Productos, leyenda en 2 columnas) y
 //     "Productos Mas Vendidos Por Sucursal" (dona por sucursal con el total al centro y leyenda con total).
-//  Reporte_HistoricoCobro (btnReporteCobranza): MAM_ReporteVentas @tipo 17 (todos) / 18 (un vendedor)
-//   - Datos = Reporte_Cobros.rpt: agrupado por Personal; Cod Venta, Fecha Venta, Fecha Pago, Glosa (cliente - glosa), Monto.
-//     Solo el monto cobrado (el SP puede traer tambien el monto de la venta: no se repite). Sin grafico, como el escritorio.
 //  Los nombres de columna se buscan sin importar mayusculas (lo que devuelva el SP).
 // =====================================================================
 import { esc } from '../../global/imprimir';
@@ -312,12 +309,15 @@ export function normalizarProductos(filas) {
     alm: buscar(f0, 'NombreAlmacen', 'Almacen', 'NombreSucursal', 'Sucursal'),
     cant: buscar(f0, 'Cantidad', 'CantidadVendida'), total: buscar(f0, 'Total', 'TotalVenta', 'Monto'),
   };
+  // de mayor a menor cantidad (empate: mayor total, luego el orden del SP): datos, impresion y primeros N del grafico
   return filas.map((f, i) => ({
-    ...f, __n: i,
+    ...f, __orig: i,
     __prodId: k.id ? f[k.id] : '', __prod: k.prod ? String(f[k.prod] ?? '') : '', __fam: k.fam ? String(f[k.fam] ?? '') : '',
     __sucId: k.sucId ? f[k.sucId] : '', __alm: k.alm ? String(f[k.alm] ?? '') : '',
     __cant: num(k.cant ? f[k.cant] : 0), __total: num(k.total ? f[k.total] : 0),
-  }));
+  }))
+    .sort((a, b) => (b.__cant - a.__cant) || (b.__total - a.__total) || (a.__orig - b.__orig))
+    .map((f, i) => ({ ...f, __n: i }));
 }
 const COLS_PROD_PANTALLA = [
   { campo: '__prodId', titulo: 'Código' },
@@ -368,10 +368,12 @@ function svgBarrasProductos(items) {
 /** Graficos de productos mas vendidos (pantalla e impresion), con los primeros N del SP */
 export function htmlGraficoProductos(filas, { topN = 10 } = {}) {
   const top = filas.slice(0, Math.max(1, topN));
-  // orden alfabetico (como el .rpt); el mismo color por producto en los dos graficos
-  const prods = [...new Map(top.map((f) => [f.__prod, f.__prod])).keys()].sort((a, b) => a.localeCompare(b, 'es'));
+  // de mayor a menor cantidad (barras, leyenda y donas); el mismo color por producto en los dos graficos
+  const porProd = [...new Map(top.map((f) => [f.__prod, f.__prod])).keys()]
+    .map((p) => ({ nombre: p, v: top.filter((f) => f.__prod === p).reduce((a, f) => a + f.__cant, 0) }))
+    .sort((a, b) => (b.v - a.v) || a.nombre.localeCompare(b.nombre, 'es'));
+  const prods = porProd.map((x) => x.nombre);
   const color = new Map(prods.map((p, i) => [p, i]));
-  const porProd = prods.map((p) => ({ nombre: p, v: top.filter((f) => f.__prod === p).reduce((a, f) => a + f.__cant, 0) }));
   const sucursales = [...new Map(top.map((f) => [`${f.__sucId}|${f.__alm}`, f])).values()];
   const ley2 = `<div class="vg-ley2">${porProd.map((x) => `<div><i style="background:${PALETA[color.get(x.nombre) % PALETA.length]}"></i><span>${esc(x.nombre)}</span></div>`).join('')}</div>`;
   const donas = sucursales.map((sf) => {
@@ -385,127 +387,6 @@ export function htmlGraficoProductos(filas, { topN = 10 } = {}) {
 <section class="vg-sec"><h2>Productos Mas Vendidos</h2>
 <div class="vg-cuerpo"><div class="vg-svg vg-svg-barras">${svgBarrasProductos(porProd)}</div>${ley2}</div></section>
 <section class="vg-sec"><h2>Productos Mas Vendidos Por Sucursal</h2>${donas}</section>
-</div>`;
-}
-
-// ---------- Reporte de cobranzas ----------
-export function normalizarCobros(filas) {
-  const f0 = filas[0] || {};
-  const k = {
-    venta: buscar(f0, 'VentaId', 'IdVenta', 'CodVenta', 'CodigoVenta', 'Venta', 'NroVenta'),
-    fVenta: buscar(f0, 'FechaVenta'), fPago: buscar(f0, 'FechaPago', 'Fecha'),
-    cli: buscar(f0, 'NombreCliente', 'Cliente', 'Nombrecliente'), glosa: buscar(f0, 'Glosa', 'Observacion', 'Detalle'),
-    // monto COBRADO (no el de la venta)
-    monto: buscar(f0, 'Monto', 'MontoPago', 'Pago', 'MontoCobrado', 'Abono', 'Importe'),
-    perId: buscar(f0, 'PersonalId', 'IdPersonal'), per: buscar(f0, 'NombrePersonal', 'Personal', 'Vendedor'),
-  };
-  return filas.map((f, i) => {
-    const cli = k.cli ? String(f[k.cli] ?? '').trim() : ''; const gl = k.glosa ? String(f[k.glosa] ?? '').trim() : '';
-    return {
-      ...f, __n: i,
-      __venta: k.venta ? String(f[k.venta] ?? '').replace(/^venta0*/i, '') : '',
-      __fVenta: k.fVenta ? fechaDe(f[k.fVenta]) : '', __fPago: k.fPago ? fechaDe(f[k.fPago]) : '',
-      // como el .rpt: "CLIENTE - glosa" (sin repetir el cliente si la glosa ya lo trae)
-      __glosa: cli && gl && !gl.toUpperCase().startsWith(cli.toUpperCase()) ? `${cli} - ${gl}` : (gl || cli),
-      __total: num(k.monto ? f[k.monto] : 0),
-      __perId: k.perId ? f[k.perId] : '', __per: k.per ? String(f[k.per] ?? '') : '',
-    };
-  });
-}
-const COLS_COBROS = [
-  { campo: '__venta', titulo: 'Cod venta' },
-  { campo: '__fVenta', titulo: 'Fecha venta', tipo: 'fecha' },
-  { campo: '__fPago', titulo: 'Fecha pago', tipo: 'fecha' },
-  { campo: '__per', titulo: 'Personal', render: (f) => tit(f.__per) },
-  { campo: '__glosa', titulo: 'Glosa', ancho: 280 },
-  { campo: '__total', titulo: 'Monto', tipo: 'bs', total: true },
-];
-const colsCobrosImpresion = () => [
-  { campo: '__venta', titulo: 'Cod venta', nowrap: true, clase: () => 'num' },
-  { campo: '__fVenta', titulo: 'Fecha venta', tipo: 'fecha' },
-  { campo: '__fPago', titulo: 'Fecha pago', tipo: 'fecha' },
-  { campo: '__glosa', titulo: 'Glosa', ancho: '52%' },
-  { campo: '__total', titulo: 'Monto', tipo: 'bs', total: true },
-];
-
-
-// ---------- Ventas por categoria (FrmVentasPorCategoria) ----------
-//  Detallado = ProductosXCategoriaRep.rpt   (MAM_Productos @tipo 9):  Categoria > Vendedor; FechaVenta, Cod. Venta, Producto, Cantidad, Precio, Descuento, Total
-//  General   = ReporteGeneralPorCategoria.rpt (MAM_Productos @tipo 12): Vendedor; Categoria, Cantidad, total y "Total: <vendedor>"
-export function normalizarCategoria(filas) {
-  const f0 = filas[0] || {};
-  const k = {
-    cat: buscar(f0, 'NombreCategoria', 'Categoria', 'Categoría'), sub: buscar(f0, 'Subcategoria', 'NombreSubCategoria', 'SubCategoria'),
-    per: buscar(f0, 'NombrePersonal', 'Personal', 'Vendedor'), perId: buscar(f0, 'PersonalId', 'IdPersonal'),
-    fecha: buscar(f0, 'FechaVenta', 'Fecha'), venta: buscar(f0, 'VentaId', 'IdVenta', 'CodVenta', 'NroVenta'),
-    prod: buscar(f0, 'NombreProducto', 'Producto', 'DescripcionProducto'), prodId: buscar(f0, 'ProductoId', 'CodigoExterno'),
-    cant: buscar(f0, 'Cantidad', 'CantidadUnitaria'), precio: buscar(f0, 'Precio', 'PrecioVenta'),
-    desc: buscar(f0, 'MontoDescuento', 'Descuento'), total: buscar(f0, 'Total', 'TotalVenta', 'Monto'),
-  };
-  const resumen = !k.venta && !k.prod; // @tipo 12: ya viene totalizado por categoria
-  const fs = filas.map((f) => ({
-    ...f, __resumen: resumen,
-    __cat: k.cat ? String(f[k.cat] ?? '').trim() : '', __sub: k.sub ? String(f[k.sub] ?? '').trim() : '',
-    __per: k.per ? String(f[k.per] ?? '').trim() : '', __perId: k.perId ? f[k.perId] : '',
-    __fecha: k.fecha ? fechaDe(f[k.fecha]) : '', __venta: k.venta ? String(f[k.venta] ?? '') : '',
-    __prod: k.prod ? String(f[k.prod] ?? '').trim() : '', __prodId: k.prodId ? f[k.prodId] : '',
-    __cant: num(k.cant ? f[k.cant] : 0), __precio: num(k.precio ? f[k.precio] : 0), __desc: num(k.desc ? f[k.desc] : 0),
-    __total: num(k.total ? f[k.total] : 0),
-  }));
-  // orden del .rpt: General = vendedor > categoria; Detallado = categoria > vendedor > fecha > venta
-  const c = (x, y) => String(x).localeCompare(String(y), 'es', { numeric: true });
-  fs.sort(resumen ? (x, y) => c(x.__per, y.__per) || c(x.__cat, y.__cat)
-    : (x, y) => c(x.__cat, y.__cat) || c(x.__per, y.__per) || c(x.__fecha, y.__fecha) || c(x.__venta, y.__venta));
-  return fs.map((f, i) => ({ ...f, __n: i }));
-}
-const esResumenCat = (fs) => !!fs[0]?.__resumen;
-const ventaMiles = (f) => (f.__venta && /^\d+$/.test(f.__venta) ? Number(f.__venta).toLocaleString('en-US') : f.__venta); // 47,949 como el .rpt
-const colsCatPantalla = (fs) => (esResumenCat(fs) ? [
-  { campo: '__per', titulo: 'Vendedor', render: (f) => tit(f.__per) },
-  { campo: '__cat', titulo: 'Categoría' },
-  { campo: '__cant', titulo: 'Cantidad', tipo: 'num', total: true },
-  { campo: '__total', titulo: 'Total', tipo: 'bs', total: true },
-] : [
-  { campo: '__cat', titulo: 'Categoría' },
-  { campo: '__per', titulo: 'Vendedor', render: (f) => tit(f.__per) },
-  { campo: '__fecha', titulo: 'Fecha venta', tipo: 'fecha' },
-  { campo: '__venta', titulo: 'Cod. venta' },
-  { campo: '__prod', titulo: 'Producto', ancho: 260 },
-  { campo: '__cant', titulo: 'Cantidad', tipo: 'num', total: true },
-  { campo: '__precio', titulo: 'Precio', tipo: 'bs' },
-  { campo: '__desc', titulo: 'Descuento', tipo: 'bs', total: true },
-  { campo: '__total', titulo: 'Total', tipo: 'bs', total: true },
-]);
-const colsCatImpresion = (fs) => (esResumenCat(fs) ? [
-  { campo: '__cat', titulo: 'Categoria', ancho: '60%' },
-  { campo: '__cant', titulo: 'Cantidad', tipo: 'num', total: true },
-  { campo: '__total', titulo: 'Total', tipo: 'bs', total: true },
-] : [
-  { campo: '__fecha', titulo: 'FechaVenta', valor: (f) => f.__fecha, nowrap: true },
-  { campo: '__venta', titulo: 'Cod. Venta', valor: ventaMiles, nowrap: true, clase: () => 'num' },
-  { campo: '__prod', titulo: 'Producto', ancho: '40%' },
-  { campo: '__cant', titulo: 'Cantidad', tipo: 'num', total: true },
-  { campo: '__precio', titulo: 'Precio', tipo: 'bs' },
-  { campo: '__desc', titulo: 'Descuento', tipo: 'bs', total: true },
-  { campo: '__total', titulo: 'Total', tipo: 'bs', total: true },
-]);
-const nivelVendedorCat = (subtotal, conSub) => ({
-  clave: (f) => `${f.__per}${conSub ? `|${f.__sub}` : ''}`,
-  etiqueta: (f) => [tit(f.__per) || 'Sin vendedor', conSub && f.__sub && f.__sub.toUpperCase() !== f.__cat.toUpperCase() ? f.__sub : ''].filter(Boolean).join(' · '),
-  orden: (f) => f.__per, titulo: 'Vendedor', subtotal,
-});
-const nivelesCat = (fs) => (esResumenCat(fs)
-  ? [nivelVendedorCat('Total:', false)]
-  : [{ clave: (f) => f.__cat, etiqueta: (f) => f.__cat || 'Sin categoría', titulo: 'Categoria', subtotal: 'Total categoria' }, nivelVendedorCat('Total', true)]);
-function htmlGraficoCategoria(fs) {
-  const agrupar = (clave) => { const m = new Map(); fs.forEach((f) => { const n = clave(f) || '—'; m.set(n, (m.get(n) || 0) + f.__total); }); return [...m].map(([nombre, v]) => ({ nombre, v })).sort((a, b) => b.v - a.v); };
-  const cats = agrupar((f) => f.__cat); const pers = agrupar((f) => tit(f.__per)).sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'));
-  const tot = fs.reduce((a, f) => a + f.__total, 0);
-  return `<div class="vg">
-<section class="vg-sec"><h2>Ventas Por Categoria</h2><p class="vg-sub">Expresado en Bolivianos</p>
-<div class="vg-cuerpo"><div class="vg-svg">${svgDona(cats, tot)}</div>${leyenda(cats, tot)}</div></section>
-<section class="vg-sec"><h2>Ventas Por Vendedor</h2>
-<div class="vg-cuerpo"><div class="vg-svg vg-svg-barras">${svgBarras(pers, { ejeY: 'Total Ventas', ejeX: 'Vendedores' })}</div>${leyenda(pers, undefined, false)}</div></section>
 </div>`;
 }
 
@@ -538,29 +419,6 @@ export const MODOS = {
     topN: true,
     resumen: (fs) => [['Cantidad:', fs.reduce((a, x) => a + x.__cant, 0).toLocaleString('es-BO')], ['Total:', `Bs ${bs(fs.reduce((a, x) => a + x.__total, 0))}`]],
     htmlGrafico: (fs, o) => htmlGraficoProductos(fs, o),
-  },
-  'historico-cobros': {
-    normalizar: normalizarCobros,
-    colsPantalla: COLS_COBROS,
-    colsImpresion: colsCobrosImpresion,
-    niveles: (fs) => nivelesImpresion(fs).filter((n) => n.titulo === 'Personal'),
-    unidad: 'cobro',
-    titulo: 'Reporte de cobranzas', subtitulo: 'Expresado en Bolivianos',
-    sinGrafico: true,
-    etiquetaDesde: 'Movimiento desde:',
-    resumen: (fs) => [['Total cobrado:', `Bs ${bs(fs.reduce((a, x) => a + x.__total, 0))}`], ['Ventas cobradas:', String(new Set(fs.map((x) => x.__venta)).size)]],
-  },
-  'ventas-categoria': {
-    normalizar: normalizarCategoria,
-    colsPantalla: colsCatPantalla, // funcion: depende de si es detallado o general
-    colsImpresion: colsCatImpresion,
-    niveles: nivelesCat,
-    unidad: 'registro',
-    titulo: 'Reporte de ventas realizadas', subtitulo: '',
-    subtituloFn: (fs) => (esResumenCat(fs) ? 'General por categoría' : 'Detallado por categoría'),
-    tituloGrafico: 'Reporte gráfico de ventas por categoría', subtituloGrafico: 'Expresado en Bolivianos',
-    resumen: (fs) => [['Cantidad:', bs(fs.reduce((a, x) => a + x.__cant, 0))], ['Total vendido:', `Bs ${bs(fs.reduce((a, x) => a + x.__total, 0))}`]],
-    htmlGrafico: (fs) => htmlGraficoCategoria(fs),
   },
   'ventas-costos': {
     colsPantalla: COLS_VC_PANTALLA,

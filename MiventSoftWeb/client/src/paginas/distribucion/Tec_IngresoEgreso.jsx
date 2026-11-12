@@ -3,7 +3,7 @@
 //  El motivo define si es Ingreso o Egreso. Motivo 9 = traspaso entre cajas (pide caja destino).
 //  Caja chica exige cierre de cajero abierto en la fecha. Bloqueado si pertenece a un cierre.
 // =====================================================================
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import ModeloF1, { useModeloF1 } from '../../componentes/ModeloF1';
 import { Campo, ComboMulti, fechaCorta } from '../../componentes/Controles';
@@ -15,6 +15,7 @@ import Icono from '../../componentes/Icono';
 import { columnasDe } from '../ventas/Reportes';
 import { imprimirReporte } from '../../componentes/ReporteImpreso';
 import { useSesion } from '../../global/Sesion';
+import { useAlActivar } from '../../global/vistaActiva';
 
 // Columnas para la hoja impresa (mismas que en pantalla; los textos en MAYUSCULAS se muestran como Titulo)
 const colsImpresion = (filas) => columnasDe(filas).map((c) => (c.render ? { ...c, valor: c.render } : c));
@@ -35,7 +36,7 @@ export default function Tec_IngresoEgreso({ url = URL_DISTRIBUCION }) {
   const [c, setC] = useState({ cajas: [], tipos: [], sucursales: [], personal: null });
   const [form, setForm] = useState({});
   const [errores, setErrores] = useState({});
-  useEffect(() => { api.get(`${URL}/combos`).then((r) => setC(r.data)).catch((e) => toast(e.message, 'error')); }, [toast]);
+  useAlActivar(() => { api.get(`${URL}/combos`).then((r) => setC(r.data)).catch((e) => toast(e.message, 'error')); });
   const tipo = c.tipos.find((t) => Number(t.Id) === Number(form.CajaTipoMovimientoId));
   const esIngreso = tipo ? Number(tipo.Tipo) === 1 : true;
   const esTraspaso = Number(form.CajaTipoMovimientoId) === TRASPASO;

@@ -64,20 +64,6 @@ const BASE = 'http://localhost:3001';
   const [descarga] = await Promise.all([p.waitForEvent('download'), p.locator('.tr-acciones button', { hasText: 'Excel' }).click()]);
   ok(descarga.suggestedFilename().endsWith('.csv'), 'exporta a Excel (CSV)');
 
-  console.log('INCREMENTO');
-  await p.locator('.chip-incremento').click();
-  await p.locator('.inc-monto input').fill('1.75');
-  await p.locator('.dialogo-incremento .btn-pri').click();
-  ok(await espera(p, 'ACTUALIZADO'), 'guarda incremento');
-  ok((await p.locator('.chip-incremento b').innerText()).includes('1,75'), 'barra muestra el nuevo monto');
-  await p.locator('.chip-incremento').click();
-  await p.locator('.dialogo-incremento .btn-txt').click();
-  await p.waitForSelector('.inc-historial .tr-tabla tbody tr td:not(.vacio)');
-  ok(await p.locator('.inc-historial .tr-tabla tbody tr').count() >= 2, 'historial de cambios');
-  await p.keyboard.press('Escape');
-  await p.goto(`${BASE}/ventas/ventas/nuevo?tipo=pedido`);
-  await p.waitForSelector('.venta-totales');
-  ok((await p.locator('.venta-totales').innerText()).includes('1,75'), 'venta nueva usa el incremento nuevo');
   await p.close();
 
   console.log('PERMISOS POR ACCION (rol VENDEDOR: Clientes Ver + Modificar, Productos solo Ver)');
@@ -113,7 +99,7 @@ const BASE = 'http://localhost:3001';
     await r.screenshot({ path: `${OUT}/cxc_dialogo_${w}.png` });
     await r.keyboard.press('Escape');
     const cab = await r.evaluate(() => { const c = document.querySelector('.cabecera'); return c.scrollWidth <= c.clientWidth + 1; });
-    ok(cab, `${w} cabecera (incremento + servidor + usuario) sin desbordar`);
+    ok(cab, `${w} cabecera (servidor + usuario) sin desbordar`);
     await r.screenshot({ path: `${OUT}/cxc_lista_${w}.png` });
     await r.close();
   }

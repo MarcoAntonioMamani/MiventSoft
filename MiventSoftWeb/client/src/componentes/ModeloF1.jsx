@@ -31,6 +31,7 @@
 //  Al Grabar, Cancelar o Eliminar se vuelve a la lista con el registro resaltado.
 // =====================================================================
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useAlActivar, useRefrescar } from '../global/vistaActiva';
 import { createPortal } from 'react-dom';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import GridBuscador, { valorCelda } from './GridBuscador';
@@ -144,6 +145,25 @@ export function useModeloF1(opciones) {
   useEffect(() => {
     _PMFiltrar();
   }, [_PMFiltrar]);
+
+  // Al volver a la pestaña: el buscador se trae otra vez de la BD (sin spinner).
+  // Un registro a medio registrar/editar no se toca; el que solo se esta viendo se muestra actualizado.
+  const rutaRef = useRef(ruta);
+  rutaRef.current = ruta;
+  useAlActivar(async () => {
+    try {
+      const datos = await op.current._PMOGetTablaBuscador();
+      const conId = datos.map((f) => ({ ...f, __id: String(f[idCampo]) }));
+      setDt(conId);
+      const r = rutaRef.current;
+      if (r.tipo === 'ver') {
+        const fila = conId.find((f) => f.__id === r.id);
+        if (fila) _mostrar(fila);
+      }
+    } catch (e) {
+      toast(e.message, 'error', 8000);
+    }
+  }, { alMontar: false, alRefrescar: false }); // con "Actualizar" el buscador lo recarga _PMFiltrar (con spinner)
 
   // La URL manda: aplica lista / nuevo / ver / editar
   useEffect(() => {
@@ -270,7 +290,8 @@ export function useModeloF1(opciones) {
 
 export default function ModeloF1({ m, titulo, subtitulo, icono = 'grid', children, extraBuscador, menuNuevo, accionesRegistro, accionesFila }) {
   const [menuAbierto, setMenuAbierto] = useState(null); // 'barra' | 'fab' | null
-  const nuevo = (origen) => (menuNuevo?.length ? setMenuAbierto(origen) : m._PMNuevo());
+  const refrescar = useRefrescar();
+  const nuevo =(origen) => (menuNuevo?.length ? setMenuAbierto(origen) : m._PMNuevo());
   // Atajos: Ctrl+S grabar, Esc cancelar
   useEffect(() => {
     const t = (e) => {
@@ -301,7 +322,10 @@ export default function ModeloF1({ m, titulo, subtitulo, icono = 'grid', childre
         <div className="barra">
           {enLista ? (
             <>
-              <button className="btn-icono" title="Actualizar" aria-label="Actualizar" onClick={() => m._PMFiltrar()}><Icono n="refresh" size={18} /></button>
+              {/* Actualizar: buscador + combos de la pantalla, todo de la BD */}
+              <button className="btn-icono" title="Actualizar" aria-label="Actualizar" disabled={m.cargando} onClick={() => { m._PMFiltrar(); refrescar(); }}>
+                {m.cargando ? <span className="spinner" /> : <Icono n="refresh" size={18} />}
+              </button>
               {m.puede.insertar && <button className="btn btn-pri ocultar-movil" onClick={() => nuevo('barra')} aria-haspopup={menuNuevo?.length ? 'menu' : undefined} aria-expanded={menuAbierto === 'barra'}>
                 <Icono n="plus" size={17} /> Nuevo{menuNuevo?.length ? <Icono n="chevronDown" size={14} /> : null}
               </button>}

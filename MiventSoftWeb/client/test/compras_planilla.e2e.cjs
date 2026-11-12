@@ -44,7 +44,7 @@ const BASE = 'http://localhost:3001';
   await p.locator('.combo-lista tr').nth(1).click();
   await p.locator('button', { hasText: 'Agregar producto' }).click();
   await p.waitForSelector('.selector-productos tbody tr.fila-clic');
-  await p.locator('.selector-productos tbody tr.fila-clic').first().click();
+  await p.locator('.selector-productos tbody tr.fila-clic').first().dblclick();
   await p.locator('.cantidad-cajas input').first().fill('2');
   await p.locator('.cantidad-cajas .btn-pri').click();
   await p.locator('.selector-productos .modal-acciones .btn-pri').click();

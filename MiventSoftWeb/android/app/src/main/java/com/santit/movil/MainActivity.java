@@ -65,7 +65,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Santit movil: contenedor de Santit Web (WebView) con la IP/puerto del servidor configurables.
+ * Sanbit movil: contenedor de Sanbit web (WebView) con la IP/puerto del servidor configurables.
  *
  * Puente JS "SantitApp" (lo usa la web en src/global/appMovil.js):
  *   configurarServidor(), reintentar(), servidorActual(), version(),
@@ -107,7 +107,7 @@ public class MainActivity extends Activity {
         if (paginaLocal || isFinishing()) return;
         web.stopLoading();
         mostrarLocal("Sin conexión con el servidor",
-                "El servidor no respondió a tiempo. Verifique que la PC esté encendida, que Santit Web esté iniciado y que el teléfono esté en la misma red Wi-Fi.");
+                "El servidor no respondió a tiempo. Verifique que la PC esté encendida, que Sanbit esté iniciado y que el teléfono esté en la misma red Wi-Fi.");
     };
 
     private final Runnable vencioUbicacion = () -> {
@@ -242,7 +242,7 @@ public class MainActivity extends Activity {
     }
 
     private void mostrarBienvenida() {
-        mostrarLocal("Bienvenido", "Para comenzar, configure la IP y el puerto de la PC donde corre Santit Web.");
+        mostrarLocal("Bienvenido", "Para comenzar, configure la IP y el puerto de la PC donde corre Sanbit.");
     }
 
     /** Pagina local (assets/inicio.html): bienvenida o error de conexion, con Reintentar / Configurar servidor. */
@@ -343,7 +343,7 @@ public class MainActivity extends Activity {
             case WebViewClient.ERROR_HOST_LOOKUP:
                 return "No se encontró " + destino + ". Verifique la IP configurada.";
             case WebViewClient.ERROR_CONNECT:
-                return "No se pudo conectar con " + destino + ". Verifique que Santit Web esté iniciado, el puerto y que el teléfono esté en la misma red Wi-Fi.";
+                return "No se pudo conectar con " + destino + ". Verifique que Sanbit esté iniciado, el puerto y que el teléfono esté en la misma red Wi-Fi.";
             case WebViewClient.ERROR_TIMEOUT:
                 return destino + " no responde. Verifique que la PC esté encendida y en la misma red.";
             default:
@@ -595,7 +595,7 @@ public class MainActivity extends Activity {
     private void imprimirHtml(String html, String titulo, boolean horizontal) {
         if (html == null || html.isEmpty()) return;
         if (webImpresion != null) webImpresion.destroy();
-        String nombre = titulo == null || titulo.trim().isEmpty() ? "Santit" : titulo.trim();
+        String nombre = titulo == null || titulo.trim().isEmpty() ? "Sanbit" : titulo.trim();
 
         WebView w = new WebView(this);
         w.getSettings().setJavaScriptEnabled(false);
@@ -733,7 +733,7 @@ public class MainActivity extends Activity {
         boolean concedido = false;
         for (int r : resultados) concedido |= r == PackageManager.PERMISSION_GRANTED;
         if (concedido) iniciarUbicacion();
-        else responderErrorUbicacion(1, "Permiso de ubicación denegado. Puede habilitarlo en Ajustes > Aplicaciones > Santit.");
+        else responderErrorUbicacion(1, "Permiso de ubicación denegado. Puede habilitarlo en Ajustes > Aplicaciones > Sanbit.");
     }
 
     private void iniciarUbicacion() {

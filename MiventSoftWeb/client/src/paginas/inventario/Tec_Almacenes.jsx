@@ -7,6 +7,7 @@ import { Campo, ComboMulti, SwitchButton } from '../../componentes/Controles';
 import { Celda } from '../../global/Celda';
 import { api } from '../../api/http';
 import { useToast } from '../../componentes/Toast';
+import { useAlActivar } from '../../global/vistaActiva';
 
 const URL = '/api/inventario/almacenes';
 const VACIO = { Id: '', NombreAlmacen: '', DepositoId: '', Direccion: '', Descripcion: '', Telefono: '', estado: 1 };
@@ -16,7 +17,7 @@ export default function Tec_Almacenes() {
   const [form, setForm] = useState(VACIO);
   const [errores, setErrores] = useState({});
   const [deps, setDeps] = useState([]);
-  useEffect(() => { api.get(`${URL}/depositos`).then((r) => setDeps(r.data)).catch((e) => toast(e.message, 'error')); }, [toast]);
+  useAlActivar(() => { api.get(`${URL}/depositos`).then((r) => setDeps(r.data)).catch((e) => toast(e.message, 'error')); });
   // si se abrio 'Nuevo' antes de que cargue la lista de depositos
   useEffect(() => { if (deps.length) setForm((f) => (f.Id === '' && !f.DepositoId ? { ...f, DepositoId: deps[0].Id } : f)); }, [deps]);
   const set = (k) => (e) => { setErrores((x) => ({ ...x, [k]: undefined })); setForm((f) => ({ ...f, [k]: e.target.value })); };

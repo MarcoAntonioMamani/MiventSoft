@@ -16,8 +16,10 @@ import { createContext, useContext, useEffect, useLayoutEffect, useMemo, useRef,
 import { Link, NavLink, Outlet, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { useSesion } from '../global/Sesion';
 import { PROGRAMAS_WEB, imgPrograma, iconoModulo, slug, titulo, ubicar } from '../global/programas';
-import IncrementoVenta from '../componentes/Incremento';
+import TipoCambio from '../componentes/TipoCambio';
+import { ProveedorVista } from '../global/vistaActiva';
 import Icono from '../componentes/Icono';
+import { MarcaSistema, NOMBRE_SISTEMA, LEMA_SISTEMA } from '../componentes/Logo';
 
 const MAX_PESTANAS = 10;
 const ANCHO_PESTANA = 176; const ESPACIO_PESTANA = 6;
@@ -130,7 +132,7 @@ export default function Tec_Principal({ rutas }) {
     setMenuMovil(false);
     // el programa activo siempre visible en el menu lateral
     const t = setTimeout(() => document.querySelector('.menu-item.sub.active')?.scrollIntoView({ block: 'nearest', behavior: 'smooth' }), 260);
-    document.title = `${programa ? titulo(programa.DescripcionPrograma) + ' · ' : modulo ? titulo(modulo.cndesc1) + ' · ' : ''}Santit`;
+    document.title = `${programa ? titulo(programa.DescripcionPrograma) + ' · ' : modulo ? titulo(modulo.cndesc1) + ' · ' : ''}${NOMBRE_SISTEMA}`;
     return () => clearTimeout(t);
   }, [loc.pathname]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -146,7 +148,7 @@ export default function Tec_Principal({ rutas }) {
     <PestanasContext.Provider value={contexto}>
     <div className={`app ${menuMovil ? 'menu-abierto' : ''} ${maximizado ? 'maximizado' : ''}`}>
       <aside className="lateral">
-        <Link to="/" className="marca"><span className="marca-logo">S</span><span className="marca-txt">Santit<small>Distribución</small></span></Link>
+        <Link to="/" className="marca"><MarcaSistema /></Link>
         <nav className="menu" aria-label="Menu principal">
           <NavLink to="/" end className="menu-item"><Icono n="home" size={18} /> Inicio</NavLink>
           {sesion.modulos.map((m) => {
@@ -186,7 +188,7 @@ export default function Tec_Principal({ rutas }) {
             );
           })()}
         </nav>
-        <div className="lateral-pie">Santit Web · v1.0</div>
+        <div className="lateral-pie">{NOMBRE_SISTEMA} · {LEMA_SISTEMA} · v1.0</div>
       </aside>
       <div className="principal">
         <header className="cabecera">
@@ -198,7 +200,7 @@ export default function Tec_Principal({ rutas }) {
             {sub && (<><Icono n="next" size={13} className="miga-sep" /><b>{sub}</b></>)}
             {!modulo && <><Icono n="next" size={13} className="miga-sep" /><b>Inicio</b></>}
           </nav>
-          <IncrementoVenta />
+          <TipoCambio />
           {sesion.conexion && (
             <div className={`conexion-bd ${sesion.conexion.mock ? 'mock' : ''}`}
               title={`Servidor: ${sesion.conexion.servidor}\nBase de datos: ${sesion.conexion.bd}${sesion.conexion.configurado && sesion.conexion.configurado.toUpperCase() !== sesion.conexion.servidor.toUpperCase() ? `\nConfigurado en dbConnect: ${sesion.conexion.configurado}` : ''}`}>
@@ -209,7 +211,7 @@ export default function Tec_Principal({ rutas }) {
           <div className="usuario">
             <button className="usuario-btn" onClick={() => setMenuUsuario(!menuUsuario)} aria-expanded={menuUsuario}>
               <span className="usuario-av">{(sesion.gs_user || '?').slice(0, 1)}</span>
-              <span className="usuario-txt"><b>{titulo(sesion.gs_user)}</b><span>{sesion.gs_login} · Suc. {sesion.gi_userSuc}</span></span>
+              <span className="usuario-txt"><b>{titulo(sesion.gs_user)}</b><span>{sesion.gs_login} · Suc. {sesion.nombreSucursal || sesion.gi_userSuc}</span></span>
               <Icono n="chevronDown" size={15} />
             </button>
             {menuUsuario && (
@@ -260,9 +262,12 @@ export default function Tec_Principal({ rutas }) {
           {/* cada programa abierto sigue montado (conserva lo que se estaba haciendo); solo se ve el activo */}
           {lista.filter((p) => p.ruta === activa || montadas.has(p.ruta)).map((p) => (
             <div key={p.ruta} className="pestana-vista" hidden={p.ruta !== activa}>
-              <Routes location={p.ruta === activa ? loc : { pathname: p.url.split('?')[0], search: p.url.includes('?') ? `?${p.url.split('?')[1]}` : '', hash: '', state: null, key: p.ruta }}>
-                {rutas}
-              </Routes>
+              {/* al volver a la pestaña o pulsar "Actualizar" cada pantalla recarga sus datos de la BD (useAlActivar) */}
+              <ProveedorVista activa={p.ruta === activa}>
+                <Routes location={p.ruta === activa ? loc : { pathname: p.url.split('?')[0], search: p.url.includes('?') ? `?${p.url.split('?')[1]}` : '', hash: '', state: null, key: p.ruta }}>
+                  {rutas}
+                </Routes>
+              </ProveedorVista>
             </div>
           ))}
         </main>

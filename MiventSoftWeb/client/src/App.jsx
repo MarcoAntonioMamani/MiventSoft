@@ -13,6 +13,7 @@ import Tec_Zonas from './paginas/configuracion/Tec_Zonas';
 import Tec_Productos from './paginas/configuracion/Tec_Productos';
 import Tec_Precios from './paginas/configuracion/Tec_Precios';
 import Tec_Kits from './paginas/configuracion/Tec_Kits';
+import Tec_Dosificacion from './paginas/configuracion/Tec_Dosificacion';
 // Kaily La Paz (punto de venta). Tec_Ventas.jsx (distribucion) lo sigue usando Proforma.jsx
 import Tec_Ventas from './paginas/ventas/Tec_VentasPuntoVenta';
 import Tec_Personal from './paginas/ventas/Tec_Personal';
@@ -20,14 +21,9 @@ import Frm_Proveedor from './paginas/ventas/Frm_Proveedor';
 import Tec_CuentasPorCobrar from './paginas/ventas/Tec_CuentasPorCobrar';
 import Reporte from './paginas/ventas/Reportes';
 import Proforma from './paginas/ventas/Proforma';
-import Tec_AsignacionPedidos from './paginas/ventas/Tec_AsignacionPedidos';
-import Tec_Despachos from './paginas/distribucion/Tec_Despachos';
-import Tec_Conciliacion from './paginas/distribucion/Tec_Conciliacion';
 import Tec_IngresoEgreso, { URL_CAJA } from './paginas/distribucion/Tec_IngresoEgreso';
 import Tec_CierreCajero from './paginas/caja/Tec_CierreCajero';
 import ReporteCaja from './paginas/caja/ReportesCaja';
-import Tec_CierreCaja from './paginas/distribucion/Tec_CierreCaja';
-import Tec_AsignacionZona from './paginas/distribucion/Tec_AsignacionZona';
 import ReporteDistribucion from './paginas/distribucion/ReportesDistribucion';
 import Tec_ConceptosFijos from './paginas/planilla/Tec_ConceptosFijos';
 import Tec_Contratos from './paginas/planilla/Tec_Contratos';
@@ -35,7 +31,6 @@ import Tec_RegistrarPlanilla from './paginas/planilla/Tec_RegistrarPlanilla';
 import Tec_Planilla from './paginas/planilla/Tec_Planilla';
 import Tec_Compras from './paginas/compras/Tec_Compras';
 import Tec_CuentasPorPagar from './paginas/compras/Tec_CuentasPorPagar';
-import ReporteCompras from './paginas/compras/ReportesCompras';
 import Tec_Almacenes from './paginas/inventario/Tec_Almacenes';
 import Tec_Movimientos from './paginas/inventario/Tec_Movimientos';
 import Tec_MapaClientes from './paginas/mapa/Tec_MapaClientes';
@@ -48,9 +43,6 @@ const REPORTES = [
   ['ventas/ventas-vs-costos', 'btVentReporteVentaVsCosto', 'ventas-costos'],
   ['ventas/productos-mas-vendidos', 'btVentProdMasVendidos', 'productos-mas-vendidos'],
   ['ventas/rendimiento-personal', 'btVentRendimiento', 'rendimiento'],
-  ['ventas/ventas-por-productos', 'btnVentaProductos', 'ventas-productos'],
-  ['ventas/reporte-cobranza', 'btnReporteCobranza', 'historico-cobros'],
-  ['ventas/ventas-por-categoria', 'btnReporteProductoCategoria', 'ventas-categoria'],
 ].map(([ruta, prog, clave]) => [ruta, prog, () => <Reporte key={clave} clave={clave} />]);
 
 function Protegido({ programa, children }) {
@@ -71,20 +63,18 @@ const PROGRAMAS = [
   ['configuracion/productos', 'btConfProducto', Tec_Productos],
   ['configuracion/precios', 'btConfPrecio', Tec_Precios],
   ['configuracion/kits', 'btnKits', Tec_Kits], // Kaily: MAM_Kits
+  ['configuracion/dosificacion', 'btConfDosificacion', Tec_Dosificacion], // Kaily: MAM_Dosificacion
   ['ventas/ventas', 'btVentVenta', Tec_Ventas],
   ['ventas/personal', 'btnPersonal', Tec_Personal],
   ['ventas/proveedores', 'btnProveedores', Frm_Proveedor],
   ['ventas/cuentas-cobrar', 'btnCredPago', Tec_CuentasPorCobrar],
   ['ventas/proformas', 'btnProforma', Proforma], // Kaily: btnProforma (MAM_Proforma)
-  ['ventas/asignacion-pedidos', 'btnAsignacionPedidos', Tec_AsignacionPedidos],
   ['planilla/conceptos-fijos', 'btnConceptoFijos', Tec_ConceptosFijos],
   ['planilla/contratos', 'btnContratos', Tec_Contratos],
   ['planilla/registrar', 'btnRegistrarPlanilla', Tec_RegistrarPlanilla],
   ['planilla/planilla', 'btnPlanilla', Tec_Planilla],
   ['compras/compras', 'btnCompras', Tec_Compras],
   ['compras/cuentas-pagar', 'btnCompraCredito', Tec_CuentasPorPagar],
-  ['compras/historico', 'btnHistorico', () => <ReporteCompras key="historico" clave="historico" />],
-  ['compras/compras-por-producto', 'btnComprasPorProducto', () => <ReporteCompras key="cpp" clave="compras-por-producto" />],
   ['inventario/almacenes', 'btInvAmacen', Tec_Almacenes],
   ['inventario/movimientos', 'btInvMovimiento', Tec_Movimientos],
   ['inventario/productos', 'FormularioStock', Tec_InventarioProductos],
@@ -92,9 +82,6 @@ const PROGRAMAS = [
   ...[['historial-productos', 'btInvKardex', 'kardex'], ['saldos', 'btInvSaldo', 'saldos'], ['saldos-valorados', 'btInvSaldosValorados', 'saldos-valorados'],
     ['reporte-general', 'btInvKardexReporte', 'general'], ['monitoreo', 'btnInvMonitoreo', 'monitoreo']]
     .map(([ruta, prog, clave]) => [`inventario/${ruta}`, prog, () => <ReporteInventario key={clave} clave={clave} />]),
-  ['distribucion/despachos', 'btnDespacho', Tec_Despachos],
-  ['distribucion/conciliaciones', 'btnConciliaciones', Tec_Conciliacion],
-  ['distribucion/cierre-caja', 'btnCierreCaja', Tec_CierreCaja],
   ['distribucion/ingresos-egresos', 'btnCierreRegistroIngresoEgresoGenerales', Tec_IngresoEgreso],
   // Kaily: Administrar Caja
   ['ventas/gastos-ingresos', 'btnGastos', () => <Tec_IngresoEgreso url={URL_CAJA} />],
@@ -103,12 +90,6 @@ const PROGRAMAS = [
   ['ventas/ingresos-egresos-detallado', 'btnIngresoEgresoDetallado', () => <ReporteDistribucion key="ie-det" clave="ingresos-egresos-detallado" />],
   ['ventas/caja-general', 'btnCajaGeneral', () => <ReporteCaja key="caja-general" clave="caja-general" />],
   ['ventas/reporte-caja-detallado', 'btnReporteCajaDetallado', () => <ReporteCaja key="caja-detallado" clave="caja-detallado" />],
-  ['distribucion/asignacion-zonas', 'btnAsignacionZona', Tec_AsignacionZona],
-  ...[
-    ['gastos-chofer', 'btnCierreReporteGastos'], ['ingresos-egresos-anual', 'btnCierreReporteAnual'], ['ingresos-egresos-detallado', 'btnCierreReporteDetallado'],
-    ['historico-clientes', 'btnhistoricoCliente'], ['productos-por-cliente', 'btnReporteVentasPorProductos'], ['auditoria-ventas', 'btnRepAuditoriaVentas'],
-    ['historial-incremento', 'btnhistoricoIncremento'],
-  ].map(([clave, prog]) => [`distribucion/${clave}`, prog, () => <ReporteDistribucion key={clave} clave={clave} />]),
   ...REPORTES,
 ];
 

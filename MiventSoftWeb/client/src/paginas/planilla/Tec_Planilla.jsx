@@ -18,6 +18,7 @@ import { CSS_HOJA } from '../../componentes/NotaImpresa';
 import Icono from '../../componentes/Icono';
 import { columnasDe } from '../ventas/Reportes';
 import { periodoInicial } from './Tec_RegistrarPlanilla';
+import { useAlActivar, useRefrescar } from '../../global/vistaActiva';
 
 const URL = '/api/planilla/planilla';
 const n2 = (n) => Number(n || 0).toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -30,7 +31,7 @@ export default function Tec_Planilla() {
   const [filas, setFilas] = useState([]);
   const [cargando, setCargando] = useState(false);
   const [dialogo, setDialogo] = useState(null); // { tipo: 'fijos'|'variables'|'boleta'|'reporte', fila }
-  useEffect(() => { api.get(`${URL}/combos`).then((r) => { setC(r.data); setP((o) => ({ ...o, ...periodoInicial(r.data.anios, r.data.meses) })); }).catch((e) => toast(e.message, 'error')); }, [toast]);
+  useAlActivar(() => { api.get(`${URL}/combos`).then((r) => { setC(r.data); setP((o) => (o.anio && o.mes ? o : { ...o, ...periodoInicial(r.data.anios, r.data.meses) })); }).catch((e) => toast(e.message, 'error')); });
   const q = `mes=${p.mes}&anio=${p.anio}${p.todos ? '&todos=1' : ''}`;
   const cargar = useCallback(() => {
     if (!p.todos && (!p.anio || !p.mes)) return;
@@ -38,13 +39,15 @@ export default function Tec_Planilla() {
     api.get(`${URL}/listar?${q}`).then((r) => setFilas(r.data)).catch((e) => toast(e.message, 'error')).finally(() => setCargando(false));
   }, [q, p.todos, p.anio, p.mes, toast]);
   useEffect(cargar, [cargar]);
+  useAlActivar(cargar, { alMontar: false }); // planillas actualizadas al volver a la pestaña
+  const refrescar = useRefrescar(cargar); // boton Actualizar: combos + planillas de la BD
   const btn = (f, tipo, icono, texto) => <button type="button" className="btn-icono btn-planilla" onClick={(e) => { e.stopPropagation(); setDialogo({ tipo, fila: f }); }} title={texto} aria-label={`${texto} de ${f.Trabajador}`}><Icono n={icono} size={17} /></button>;
 
   return (
     <section className="modelo entrada">
       <header className="modelo-cab">
         <div className="modelo-titulo"><span className="modelo-icono"><Icono n="wallet" size={22} /></span><div><h1>Planilla de sueldos</h1><p>Listar Planilla</p></div></div>
-        <div className="barra"><button className="btn-icono" title="Actualizar" aria-label="Actualizar" onClick={cargar}><Icono n="refresh" size={18} /></button></div>
+        <div className="barra"><button className="btn-icono" title="Actualizar" aria-label="Actualizar" onClick={refrescar} disabled={cargando}>{cargando ? <span className="spinner" /> : <Icono n="refresh" size={18} />}</button></div>
       </header>
       <div className="modelo-cuerpo">
         <div className="filtros-lista filtros-reporte">

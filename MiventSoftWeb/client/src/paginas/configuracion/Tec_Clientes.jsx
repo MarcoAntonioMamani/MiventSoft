@@ -22,12 +22,11 @@ export default function Tec_Clientes() {
   const quitarError = (k) => setErrores((e) => (e[k] ? { ...e, [k]: undefined } : e));
   const set = (k) => (v) => { quitarError(k); setForm((f) => ({ ...f, [k]: v?.target ? v.target.value : v })); };
 
-  // Los combos se cargan una vez y sirven tambien para mostrar el nombre de la zona en el buscador
+  // Los combos se traen de la BD cada vez que se carga el buscador (al abrir y al volver a la pestaña);
+  // sirven tambien para mostrar el nombre de la zona en el buscador
   const cargarCombos = async () => {
-    if (!combosRef.current) {
-      combosRef.current = (await api.get(`${URL}/combos`)).data;
-      setCombos(combosRef.current);
-    }
+    combosRef.current = (await api.get(`${URL}/combos`)).data;
+    setCombos(combosRef.current);
     return combosRef.current;
   };
 

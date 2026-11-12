@@ -5,7 +5,7 @@
 //  El navegador calcula para MOSTRAR; al grabar el servidor vuelve a tomar precios y
 //  stock de los mismos SP y recalcula todo (no se confia en montos del navegador).
 // =====================================================================
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useLocation } from 'react-router-dom';
 import ModeloF1, { useModeloF1 } from '../../componentes/ModeloF1';
@@ -17,8 +17,9 @@ import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
 import NotaImpresa from '../../componentes/NotaImpresa';
-import { useListaTeclado } from '../../componentes/useListaTeclado';
-import { palabrasDe, coincide } from '../../global/buscar';
+import { useListaTeclado, FilaMas, AYUDA_ELEGIR } from '../../componentes/useListaTeclado';
+import { palabrasDe, indexar, filtrarIndice } from '../../global/buscar';
+import { useAlActivar } from '../../global/vistaActiva';
 
 const URL = '/api/ventas/ventas';
 
@@ -104,6 +105,11 @@ export function PantallaVentas({ cfg }) {
   const set = (k) => (v) => { quitarError(k); setForm((f) => ({ ...f, [k]: v?.target ? v.target.value : v })); };
 
   useEffect(() => { api.get(`${URL}/inicio`).then((r) => setIni(r.data)).catch((e) => toast(e.message, 'error')); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  // al volver a la pestaña se recargan los combos, pero NO con una venta a medio registrar/editar (cambiar ini la limpiaria)
+  useAlActivar(() => {
+    if (m.ruta.tipo === 'nuevo' || m.ruta.tipo === 'editar') return;
+    api.get(`${URL}/inicio`).then((r) => setIni(r.data)).catch((e) => toast(e.message, 'error'));
+  }, { alMontar: false });
 
   const vigentes = detalle.filter((f) => !f.eliminado);
   const errFila = (f) => (f._editado ? errorFilaVenta(f, cfg.sinStock) : {});
@@ -507,7 +513,8 @@ export function errorDetalle(filas, errorFila, nombre) {
 }
 
 // ---------- Buscar cliente (btnCliente -> ListarCliente) con busqueda en el servidor ----------
-export function BuscarCliente({ onSeleccionar, onCancelar, url = `${URL}/clientes` }) {
+// pie: botones extra al pie (Kaily: "Nuevo cliente" de FormularioCliente)
+export function BuscarCliente({ onSeleccionar, onCancelar, url = `${URL}/clientes`, pie = null }) {
   const [q, setQ] = useState('');
   const [filas, setFilas] = useState([]);
   const [pos, setPos] = useState(0);
@@ -544,7 +551,7 @@ export function BuscarCliente({ onSeleccionar, onCancelar, url = `${URL}/cliente
             </tbody>
           </table>
         </div>
-        <div className="modal-acciones"><span className="ayuda-tip">Se muestran hasta 50 · toque un cliente para elegirlo</span><button className="btn btn-sec" onClick={onCancelar}>Cancelar</button></div>
+        <div className="modal-acciones"><span className="ayuda-tip">Se muestran hasta 50 · toque un cliente para elegirlo</span>{pie}<button className="btn btn-sec" onClick={onCancelar}>Cancelar</button></div>
       </div>
     </div>,
     document.body,
@@ -569,12 +576,9 @@ function SelectorProductos({ url, parametros, categorias, enDetalle, onAgregar, 
   }, [precioId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // tbProducto_TextChanged: todas las palabras deben estar en codigo + nombre + descripcion + categoria
-  const filtrados = useMemo(() => {
-    const palabras = palabrasDe(q);
-    return productos.filter((p) => !enDetalle.has(Number(p.Id))).filter((p) => {
-      return coincide(`${p.CodigoExterno ?? ''} ${p.NombreProducto ?? ''} ${p.DescripcionProducto ?? ''} ${p.NombreCategoria ?? ''}`, palabras);
-    });
-  }, [productos, q, enDetalle]);
+  const indice = useMemo(() => indexar(productos, (p) => `${p.CodigoExterno ?? ''} ${p.NombreProducto ?? ''} ${p.DescripcionProducto ?? ''} ${p.NombreCategoria ?? ''}`), [productos]);
+  const qBusca = useDeferredValue(q);
+  const filtrados = useMemo(() => filtrarIndice(indice, palabrasDe(qBusca)).filter((p) => !enDetalle.has(Number(p.Id))), [indice, qBusca, enDetalle]);
 
   const elegir = (p) => {
     if (!sinStock && !(num(p.stock) > 0)) { toast('No Existe Stock del Producto Para Proceder con la Venta'.toUpperCase(), 'error'); return; }
@@ -601,8 +605,8 @@ function SelectorProductos({ url, parametros, categorias, enDetalle, onAgregar, 
           <table className="grid grid-tarjetas tabla-productos">
             <thead><tr><th>Código</th><th>Producto</th><th>Categoría</th><th className="num">Conv.</th><th className="num">Stock unid.</th><th className="num">Stock cajas</th><th className="num">Precio caja</th></tr></thead>
             <tbody ref={nav.tbodyRef}>
-              {filtrados.map((p, i) => (
-                <tr key={p.Id} className={`fila-clic ${i === nav.marcada ? 'marcada' : ''} ${num(p.stock) <= 0 ? `sin-stock${sinStock ? ' sin-stock-elegible' : ''}` : ''}`} title={num(p.stock) <= 0 && sinStock ? 'Sin stock: se puede cotizar igual' : undefined} onClick={() => elegir(p)} {...nav.propsFila(i)}>
+              {nav.visibles.map((p, i) => (
+                <tr key={p.Id} className={`fila-clic ${i === nav.marcada ? 'marcada' : ''} ${num(p.stock) <= 0 ? `sin-stock${sinStock ? ' sin-stock-elegible' : ''}` : ''}`} title={num(p.stock) <= 0 && sinStock ? 'Sin stock: se puede cotizar igual' : undefined} {...nav.propsFila(i)}>
                   <td data-label="Código">{p.CodigoExterno}</td>
                   <td data-label="Producto"><b>{tit(p.NombreProducto)}</b></td>
                   <td data-label="Categoría">{tit(p.NombreCategoria)}</td>
@@ -612,11 +616,12 @@ function SelectorProductos({ url, parametros, categorias, enDetalle, onAgregar, 
                   <td data-label="Precio caja" className="num"><b>{bs(p.PrecioVenta)}</b></td>
                 </tr>
               ))}
+              <FilaMas nav={nav} columnas={7} />
               {!filtrados.length && <tr><td colSpan={7} className="vacio">{cargando ? 'Cargando productos...' : 'Sin productos'}</td></tr>}
             </tbody>
           </table>
         </div>
-        <div className="modal-acciones"><span className="ayuda-tip"><span className="solo-teclado"><kbd>↓</kbd><kbd>↑</kbd> elegir · <kbd>Enter</kbd> cantidad · </span>{sinStock ? <>Toque un producto para indicar la cantidad · <span className="leyenda-sin-stock">en rojo</span>: sin stock (se puede cotizar)</> : 'Toque un producto para indicar la cantidad'}</span><button className="btn btn-pri" onClick={onCerrar}>Listo</button></div>
+        <div className="modal-acciones"><span className="ayuda-tip"><span className="solo-teclado"><kbd>↓</kbd><kbd>↑</kbd> elegir · <kbd>Enter</kbd> cantidad · </span>{AYUDA_ELEGIR}{sinStock && <> · <span className="leyenda-sin-stock">en rojo</span>: sin stock (se puede cotizar)</>}</span><button className="btn btn-pri" onClick={onCerrar}>Listo</button></div>
       </div>
       {elegido && (
         <CantidadCajas producto={elegido} sinLimite={sinStock} onCancelar={() => { setElegido(null); nav.volver(false); }}

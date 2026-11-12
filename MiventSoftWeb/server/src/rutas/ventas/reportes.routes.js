@@ -1,12 +1,10 @@
 // =====================================================================
-//  Reportes de "Gestion Pedidos" (cada uno con SU programa, como el menu del escritorio)
-//   ventas-realizadas      Rep_VentasRealizadas      btVentReporteRealizada     MAM_ReporteVentas 1 / 2 / 13 / 14
-//   ventas-costos          Reporte_VentasVsCostos    btVentReporteVentaVsCosto  MAM_ReporteVentas 4 / 5 (+ filtro cliente)
+//  KAILY LA PAZ: reportes del Panel_Ventas (cada uno con SU programa, como el menu del escritorio)
+//   ventas-realizadas      Rep_VentasRealizadas      btVentReporteRealizada     MAM_ReporteVentas 1 / 2 (sin filtro de cliente)
+//   ventas-costos          Reporte_VentasVsCostos    btVentReporteVentaVsCosto  MAM_ReporteVentas 4 / 5 (sin filtro de cliente)
 //   productos-mas-vendidos Reporte_ProductoMasVendido btVentProdMasVendidos     MAM_ReporteVentas 6
 //   rendimiento            Reporte_RendimientoPersonal btVentRendimiento        MAM_ReporteVentas 7 + 8 (@PersonalType)
-//   ventas-productos       Rep_VentasPorProductos    btnVentaProductos          MAM_ReporteVentas 15
-//   historico-cobros       Reporte_HistoricoCobro    btnReporteCobranza         MAM_ReporteVentas 17 / 18
-//   ventas-categoria       FrmVentasPorCategoria     btnReporteProductoCategoria MAM_Productos 8 / 4 / 11 / 9 / 12
+//  Kaily no tiene Rep_VentasPorProductos, Reporte_HistoricoCobro ni FrmVentasPorCategoria (sus SP @tipo ya no estan en AccesoLogica.vb).
 //  Se devuelven las columnas tal cual las entrega el SP (sin imagenes), fechas como AAAA-MM-DD.
 // =====================================================================
 const express = require('express');
@@ -52,7 +50,7 @@ function limpiar(dt) {
 const enviar = (res, dt) => res.json({ ok: true, data: limpiar(dt) });
 
 // ---------- auxiliares (combos de los reportes): solo con algun programa de reportes ----------
-const REPORTES = ['BTVENTREPORTEREALIZADA', 'BTVENTREPORTEVENTAVSCOSTO', 'BTVENTPRODMASVENDIDOS', 'BTVENTRENDIMIENTO', 'BTNVENTAPRODUCTOS', 'BTNREPORTECOBRANZA', 'BTNREPORTEPRODUCTOCATEGORIA'];
+const REPORTES = ['BTVENTREPORTEREALIZADA', 'BTVENTREPORTEVENTAVSCOSTO', 'BTVENTPRODMASVENDIDOS', 'BTVENTRENDIMIENTO'];
 router.use('/aux', asyncHandler(async (req, res, next) => {
     const p = await ProgramasPermitidos(req.sesion.gi_userRol);
     if (!REPORTES.some((x) => p.has(x))) return res.status(403).json({ ok: false, mensaje: 'No tiene privilegios para este programa.' });
@@ -72,33 +70,17 @@ router.get('/aux/cabecera', asyncHandler(async (req, res) => {
         },
     });
 }));
-router.get('/aux/clientes', asyncHandler(async (req, res) => {
-    const q = v.texto(req.query.q, 60).toUpperCase().split(/\s+/).filter(Boolean);
-    const dt = v.proyectar(await L.ListarCliente(), ['Id', 'NombreCliente', 'DireccionCliente']);
-    res.json({ ok: true, data: dt.filter((c) => q.every((w) => `${c.Id} ${c.NombreCliente}`.toUpperCase().includes(w))).slice(0, 50) });
-}));
-
 // ---------- reportes ----------
 router.get('/ventas-realizadas', requierePrograma('btVentReporteRealizada'), asyncHandler(async (req, res) => {
     const [d, h] = fechas(req.query);
-    const vend = idOpc(req.query.vendedor);
-    const cli = idOpc(req.query.cliente);
-    let dt;
-    if (!vend) dt = cli ? await L.ReporteVentasAtendidasTodosUnCliente(d, h, cli) : await L.ReporteVentasAtendidasTodos(d, h);
-    else dt = cli ? await L.ReporteVentasAtendidasTodosUnVendedorUnCliente(d, h, vend, cli) : await L.ReporteVentasAtendidasTodosUnVendedor(d, h, vend);
-    enviar(res, dt);
+    const vend = idOpc(req.query.vendedor); // chkTodos = sin vendedor
+    enviar(res, vend ? await L.ReporteVentasAtendidasTodosUnVendedor(d, h, vend) : await L.ReporteVentasAtendidasTodos(d, h));
 }));
 
 router.get('/ventas-costos', requierePrograma('btVentReporteVentaVsCosto'), asyncHandler(async (req, res) => {
     const [d, h] = fechas(req.query);
     const vend = idOpc(req.query.vendedor);
-    const cli = idOpc(req.query.cliente);
-    let dt = vend ? await L.ReporteVentasUtilidadesTodosUnVendedor(d, h, vend) : await L.ReporteVentasUtilidadesTodos(d, h);
-    if (cli) { // VB filtra por ClienteId sobre el resultado
-        const k = Object.keys(dt[0] || {}).find((x) => x.toLowerCase() === 'clienteid');
-        dt = k ? dt.filter((f) => Number(f[k]) === cli) : dt;
-    }
-    enviar(res, dt);
+    enviar(res, vend ? await L.ReporteVentasUtilidadesTodosUnVendedor(d, h, vend) : await L.ReporteVentasUtilidadesTodos(d, h));
 }));
 
 router.get('/productos-mas-vendidos', requierePrograma('btVentProdMasVendidos'), asyncHandler(async (req, res) => {
@@ -206,33 +188,6 @@ router.get('/rendimiento/mensual', requierePrograma('btVentRendimiento'), asyncH
     }
     const series = elegidos.map((e) => ({ ...e, valores: acc.tot.get(e.id).map((x) => ({ total: r2(x.total), pedidos: x.pedidos })) }));
     res.json({ ok: true, data: { meses, series, aviso: acc.aviso('rendimiento/mensual') } });
-}));
-
-router.get('/ventas-productos/productos', requierePrograma('btnVentaProductos'), asyncHandler(async (req, res) => {
-    res.json({ ok: true, data: v.proyectar(await L.L_prListarProductosKardex(1), ['Id', 'Nombre']) });
-}));
-router.get('/ventas-productos', requierePrograma('btnVentaProductos'), asyncHandler(async (req, res) => {
-    const [d, h] = fechas(req.query);
-    enviar(res, await L.ReporteVentasPorProductos(d, h, idOpc(req.query.producto))); // 0 = todos (chkTodos)
-}));
-
-router.get('/historico-cobros', requierePrograma('btnReporteCobranza'), asyncHandler(async (req, res) => {
-    const [d, h] = fechas(req.query);
-    const vend = idOpc(req.query.vendedor);
-    enviar(res, vend ? await L.ReporteHistoricoCobrosbyVendedor(d, h, vend) : await L.ReporteHistoricoCobrosTodos(d, h));
-}));
-
-router.get('/ventas-categoria/combos', requierePrograma('btnReporteProductoCategoria'), asyncHandler(async (req, res) => {
-    const [vend, cat, sub] = await Promise.all([L.L_prListaPersonalCB(), L.L_prListaCategorias(), L.L_prListarSubcategoriaAsignados()]);
-    res.json({ ok: true, data: { vendedores: limpiar(vend), categorias: limpiar(cat), subcategorias: limpiar(sub) } });
-}));
-const filtroCat = (x) => { const n = Number.parseInt(x, 10); return Number.isFinite(n) ? n : -1; }; // -1 = todos (cb.Value = -1)
-router.get('/ventas-categoria', requierePrograma('btnReporteProductoCategoria'), asyncHandler(async (req, res) => {
-    const [d, h] = fechas(req.query);
-    const q = req.query;
-    enviar(res, q.resumen === '1'
-        ? await L.L_prListarProductosPorCategoriaTotalV2PorCategoria(d, h, filtroCat(q.vendedor), filtroCat(q.categoria))
-        : await L.L_prListarProductosPorCategoria(d, h, filtroCat(q.vendedor), filtroCat(q.categoria), filtroCat(q.subcategoria)));
 }));
 
 module.exports = router;

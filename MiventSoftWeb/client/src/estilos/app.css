@@ -1,5 +1,5 @@
 /* =====================================================================
-   Santit Web — estilos (Material Design adaptado, sin frameworks)
+   Sanbit (Punto de Ventas) — estilos (Material Design adaptado, sin frameworks)
    Layout: menu lateral oscuro + barra superior + tarjetas elevadas sobre fondo frio
    ===================================================================== */
 :root {
@@ -97,10 +97,11 @@ a { color: var(--pri); }
 .app { display: grid; grid-template-columns: 264px minmax(0, 1fr); min-height: 100%; }
 .lateral { background: linear-gradient(180deg, var(--lat-1), var(--lat-2)); color: var(--lat-txt); display: flex; flex-direction: column; position: sticky; top: 0; height: 100vh; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #2a3b6b transparent; }
 .marca { display: flex; align-items: center; gap: 12px; padding: 20px 20px 18px; color: #fff; text-decoration: none; }
-.marca-logo { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 11px; background: linear-gradient(135deg, #3b82f6, var(--pri)); color: #fff; font-weight: 700; font-size: 19px; box-shadow: 0 4px 14px rgba(59, 130, 246, .45); flex: none; }
+.marca-logo { display: block; width: 38px; height: 38px; border-radius: 11px; box-shadow: 0 4px 14px rgba(59, 130, 246, .45); flex: none; }
 .marca-txt { display: flex; flex-direction: column; font-weight: 700; font-size: 19px; letter-spacing: .3px; line-height: 1.1; }
-.marca-txt small { font-weight: 400; font-size: 11px; letter-spacing: 1.6px; text-transform: uppercase; color: #7f93bd; }
-.marca.grande .marca-logo { width: 48px; height: 48px; font-size: 24px; border-radius: 14px; }
+.marca-txt b { color: #60a5fa; font-weight: 700; }
+.marca-txt small { font-weight: 400; font-size: 11px; letter-spacing: 1.6px; text-transform: uppercase; color: #7f93bd; margin-top: 2px; }
+.marca.grande .marca-logo { width: 50px; height: 50px; border-radius: 14px; }
 .marca.grande .marca-txt { font-size: 26px; }
 .menu { padding: 4px 12px 20px; display: flex; flex-direction: column; gap: 2px; flex: 1; }
 .menu-item { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 10px; color: var(--lat-txt); text-decoration: none; font-size: 14px; transition: background var(--t-rapida), color var(--t-rapida); }
@@ -452,19 +453,31 @@ tr:hover .acciones-fila, tr.sel .acciones-fila, .acciones-fila:focus-within { op
 @media (prefers-reduced-motion: reduce) { .toast { animation: none; } .toast-barra { display: none; } }
 
 /* ---------- Login ---------- */
-.login { min-height: 100%; display: grid; grid-template-columns: 1.1fr 1fr; background: var(--sup); }
-.login-lado { position: relative; overflow: hidden; background: radial-gradient(circle at 20% 15%, #2563eb, var(--lat-1) 70%); color: #fff; padding: 56px; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
-.login-lado::after { content: ''; position: absolute; right: -120px; bottom: -120px; width: 420px; height: 420px; border-radius: 50%; border: 60px solid rgba(255, 255, 255, .05); }
-.login-lado h1 { font-size: 38px; font-weight: 500; margin-top: 36px; animation: subir 400ms both 100ms; }
+/* Izquierda: ilustracion de mostrador POS (assets/login-pos.svg, local: funciona sin internet) */
+.login { min-height: 100%; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(400px, 1fr); background: var(--sup); }
+.login-lado { position: relative; overflow: hidden; isolation: isolate; color: #fff; padding: 44px 56px 52px; display: flex; flex-direction: column; justify-content: space-between; gap: 32px;
+  background: #0a1430 url('../assets/login-pos.svg') center 38% / cover no-repeat; }
+.login-lado::before { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(10, 20, 48, .6) 0%, rgba(10, 20, 48, 0) 20%, rgba(10, 20, 48, 0) 46%, rgba(10, 20, 48, .9) 70%, #0a1430 100%); }
+.login-lado .marca { padding: 0; animation: subir 400ms both; }
+.login-texto { display: flex; flex-direction: column; gap: 14px; max-width: 480px; }
+.login-etiqueta { align-self: flex-start; display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px; border-radius: 999px; background: rgba(245, 158, 11, .16); border: 1px solid rgba(245, 158, 11, .35); color: #fcd34d; font-size: 12px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; animation: subir 400ms both 60ms; }
+.login-lado h1 { font-size: clamp(28px, 2.7vw, 40px); font-weight: 500; line-height: 1.15; animation: subir 400ms both 100ms; }
 .login-lado p { color: #c7d7f2; font-size: 17px; margin: 0; max-width: 430px; animation: subir 400ms both 180ms; }
-.login-puntos { list-style: none; padding: 0; margin: 22px 0 0; display: flex; flex-direction: column; gap: 14px; color: #dbe6f7; }
+.login-puntos { list-style: none; padding: 0; margin: 10px 0 0; display: flex; flex-direction: column; gap: 12px; color: #dbe6f7; }
 .login-puntos li { display: flex; align-items: center; gap: 12px; animation: subir 400ms both; }
 .login-puntos li:nth-child(1) { animation-delay: 260ms; } .login-puntos li:nth-child(2) { animation-delay: 330ms; } .login-puntos li:nth-child(3) { animation-delay: 400ms; }
-.login-puntos .icono { color: var(--acento); }
-.login-form { align-self: center; justify-self: center; width: min(390px, calc(100% - 32px)); display: flex; flex-direction: column; gap: 18px; animation: subir var(--t-media) both; }
+.login-puntos .icono { color: var(--acento); flex: none; }
+/* Derecha: formulario */
+.login-panel { display: grid; place-content: center; justify-items: center; gap: 24px; padding: 32px 16px;
+  background: radial-gradient(circle at 100% 0%, var(--pri-50), transparent 42%), radial-gradient(circle at 0% 100%, #fef7e6, transparent 38%), var(--sup); }
+.login-marca-movil { display: none; }
+.login-form { width: min(380px, calc(100vw - 32px)); display: flex; flex-direction: column; gap: 18px; animation: subir var(--t-media) both; }
+.login-saludo { font-size: 12.5px; font-weight: 500; letter-spacing: 1.4px; text-transform: uppercase; color: var(--pri); margin-bottom: -12px; }
 .login-form h2 { font-size: 28px; font-weight: 500; }
 .login-form .sub { margin: -12px 0 4px; color: var(--txt-3); }
-.login-pie { text-align: center; color: var(--txt-4); font-size: 12px; }
+.login-form .btn-bloque { margin-top: 4px; }
+.login-pie { text-align: center; color: var(--txt-4); font-size: 12px; margin: 4px 0 0; }
 .alerta { display: flex; gap: 8px; align-items: flex-start; background: var(--peligro-bg); color: #991b1b; border: 1px solid #fecaca; padding: 11px 13px; border-radius: 8px; font-size: 13px; font-weight: 500; animation: subir var(--t-rapida) both; }
 .cargando-app { display: grid; place-items: center; height: 100%; }
 .sin-permiso { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; height: 50vh; color: var(--txt-3); }
@@ -487,8 +500,12 @@ tr:hover .acciones-fila, tr.sel .acciones-fila, .acciones-fila:focus-within { op
   .contenido { padding: 16px max(16px, env(safe-area-inset-right, 0px)) 90px max(16px, env(safe-area-inset-left, 0px)); }
   .campos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .roles-layout { grid-template-columns: 1fr; }
-  .login { grid-template-columns: 1fr; }
+  /* celular/tablet: la ilustracion pasa a ser el fondo y el formulario una tarjeta */
+  .login { grid-template-columns: 1fr; background: #0a1430 url('../assets/login-pos.svg') center 30% / cover no-repeat; }
   .login-lado { display: none; }
+  .login-panel { background: linear-gradient(180deg, rgba(10, 20, 48, .55), rgba(10, 20, 48, .82)); padding: max(28px, env(safe-area-inset-top, 0px)) 16px max(28px, env(safe-area-inset-bottom, 0px)); }
+  .login-marca-movil { display: flex; padding: 0; animation: subir 400ms both; }
+  .login-form { background: var(--sup); padding: 28px 24px 22px; border-radius: 18px; box-shadow: var(--e4); }
 }
 
 /* ---------- Celular: grillas como tarjetas, FAB, hojas inferiores ---------- */
@@ -976,6 +993,13 @@ button.credito-vencido:disabled { cursor: default; }
 .cc-campos label { display: flex; flex-direction: column; gap: 5px; font-size: 12px; font-weight: 500; color: var(--txt-3); }
 .cc-campos .control { height: 48px; font-size: 20px; }
 .cc-igual { padding-bottom: 12px; font-size: 20px; color: var(--txt-3); }
+/* sin cajas (solo unidades): un solo campo, centrado */
+.cc-campos.cc-unico { grid-template-columns: minmax(0, 240px); justify-content: center; text-align: center; }
+.cc-unico label { align-items: center; }
+.cc-unico .control { width: 100%; text-align: center; font-weight: 600; }
+/* buscadores de productos: un clic marca, doble clic elige (sin seleccionar texto ni zoom por doble toque) */
+.tabla-productos tbody tr.fila-clic { user-select: none; -webkit-user-select: none; touch-action: manipulation; }
+.tabla-productos tr.fila-mas td { padding: 12px !important; font-size: 12px; }
 
 /* nota de venta: estilos de la hoja en Tec_Ventas.jsx (CSS_NOTA), compartidos con la impresion */
 .nota-venta { max-width: 900px; width: 100%; }

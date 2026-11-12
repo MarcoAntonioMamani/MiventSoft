@@ -1,9 +1,9 @@
 // =====================================================================
-//  Reportes de "Gestion Pedidos" (Rep_VentasRealizadas, Reporte_VentasVsCostos, Reporte_ProductoMasVendido,
-//  Reporte_RendimientoPersonal, Rep_VentasPorProductos, Reporte_HistoricoCobro, FrmVentasPorCategoria)
+//  KAILY LA PAZ: reportes del Panel_Ventas (Rep_VentasRealizadas, Reporte_VentasVsCostos, Reporte_ProductoMasVendido,
+//  Reporte_RendimientoPersonal). Kaily quito el filtro de cliente de Ventas realizadas y Ventas vs costos.
 //  Mismos filtros que el escritorio; las columnas son las que devuelve el SP.
 //  "Datos" = tabla (Imprimir / Excel) · "Grafico" = barras (swTipoReporte del escritorio)
-//  Ventas realizadas, Ventas vs costos, Productos mas vendidos y Cobranzas: impresion y graficos como el escritorio (VentasRealizadas.js, MODOS)
+//  Ventas realizadas, Ventas vs costos y Productos mas vendidos: impresion y graficos como el escritorio (VentasRealizadas.js, MODOS)
 // =====================================================================
 import { useEffect, useMemo, useState } from 'react';
 import TablaReporte from '../../componentes/TablaReporte';
@@ -13,11 +13,11 @@ import { imprimirReporte } from '../../componentes/ReporteImpreso';
 import { useSesion } from '../../global/Sesion';
 import { MODOS, CSS_GRAFICO_VR } from './VentasRealizadas';
 import RendimientoMensual from './RendimientoMensual';
-import { BuscarCliente } from './Tec_Ventas';
 import { useToast } from '../../componentes/Toast';
 import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
+import { useAlActivar } from '../../global/vistaActiva';
 
 const URL = '/api/ventas/reportes';
 const dos = (n) => String(n).padStart(2, '0');
@@ -51,25 +51,21 @@ export function columnasDe(filas) {
 }
 
 const CONFIG = {
-  'ventas-realizadas': { titulo: 'Reporte de ventas', sub: 'Reporte De Ventas Realizadas', icono: 'list', filtros: ['vendedor', 'cliente'] },
-  'ventas-costos': { titulo: 'Ventas vs costos', sub: 'Reporte De Utilidades Ventas', icono: 'dollar', filtros: ['vendedor', 'cliente'] },
+  'ventas-realizadas': { titulo: 'Reporte de ventas', sub: 'Reporte De Ventas Realizadas', icono: 'list', filtros: ['vendedor'] },
+  'ventas-costos': { titulo: 'Ventas vs costos', sub: 'Reporte De Utilidades Ventas', icono: 'dollar', filtros: ['vendedor'] },
   'productos-mas-vendidos': { titulo: 'Productos más vendidos', sub: 'Reporte De Productos Mas Vendidos', icono: 'box', filtros: [], topN: true },
   rendimiento: { titulo: 'Rendimiento del personal', sub: 'Reporte Rendimiento De Personal', icono: 'users', filtros: ['personal'] },
-  'ventas-productos': { titulo: 'Ventas por productos', sub: 'Reporte De Ventas Por Productos', icono: 'box', filtros: ['producto'] },
-  'historico-cobros': { titulo: 'Reporte de cobranza', sub: 'Reporte Historico Cobros', icono: 'wallet', filtros: ['vendedor'] },
-  'ventas-categoria': { titulo: 'Ventas por categoría', sub: 'Ventas Por Categoria', icono: 'tag', filtros: ['categoria'] },
 };
 
 export default function Reporte({ clave }) {
   const cfg = CONFIG[clave];
   const toast = useToast();
-  const [f, setF] = useState({ desde: hoy(), hasta: hoy(), vendedor: '', cliente: null, producto: '', personal: [], cvend: -1, ccat: -1, csub: -1, resumen: false });
-  const [aux, setAux] = useState({ personal: [], productos: [], rendimiento: [], cat: null });
+  const [f, setF] = useState({ desde: hoy(), hasta: hoy(), vendedor: '', personal: [] });
+  const [aux, setAux] = useState({ personal: [], rendimiento: [] });
   const [filas, setFilas] = useState(null);
   const [cargando, setCargando] = useState(false);
   const [vista, setVista] = useState('datos');
   const [topN, setTopN] = useState(10);
-  const [verCli, setVerCli] = useState(false);
   const set = (k) => (v) => setF((x) => ({ ...x, [k]: v?.target ? v.target.value : v }));
   const { sesion } = useSesion();
   const [cabecera, setCabecera] = useState(null);
@@ -80,10 +76,13 @@ export default function Reporte({ clave }) {
   useEffect(() => {
     setFilas(null);
     if (cfg.filtros.includes('vendedor')) api.get(`${URL}/aux/personal`).then((r) => setAux((a) => ({ ...a, personal: [{ Id: '', Nombre: 'TODOS' }, ...r.data] }))).catch(() => {});
-    if (cfg.filtros.includes('producto')) api.get(`${URL}/ventas-productos/productos`).then((r) => setAux((a) => ({ ...a, productos: [{ Id: '', Nombre: 'TODOS' }, ...r.data] }))).catch(() => {});
     if (cfg.filtros.includes('personal')) api.get(`${URL}/rendimiento/personal`).then((r) => setAux((a) => ({ ...a, rendimiento: r.data }))).catch(() => {});
-    if (cfg.filtros.includes('categoria')) api.get(`${URL}/ventas-categoria/combos`).then((r) => setAux((a) => ({ ...a, cat: r.data }))).catch(() => {});
   }, [clave]); // eslint-disable-line react-hooks/exhaustive-deps
+  // al volver a la pestaña: personal actualizado de la BD (sin borrar el reporte generado)
+  useAlActivar(() => {
+    if (cfg.filtros.includes('vendedor')) api.get(`${URL}/aux/personal`).then((r) => setAux((a) => ({ ...a, personal: [{ Id: '', Nombre: 'TODOS' }, ...r.data] }))).catch(() => {});
+    if (cfg.filtros.includes('personal')) api.get(`${URL}/rendimiento/personal`).then((r) => setAux((a) => ({ ...a, rendimiento: r.data }))).catch(() => {});
+  }, { alMontar: false });
 
   // Rendimiento: ventas del rango por persona para ordenar la lista (con ventas primero, sin ventas al final).
   // Se recalcula al cambiar Desde/Hasta, con espera de 400 ms para no consultar en cada tecla.
@@ -125,19 +124,12 @@ export default function Reporte({ clave }) {
     if (clave === 'rendimiento' && !f.personal.length) { toast('Seleccione al menos un Personal', 'error'); return; }
     const q = new URLSearchParams({ desde: f.desde, hasta: f.hasta });
     if (f.vendedor) q.set('vendedor', f.vendedor);
-    if (f.cliente) q.set('cliente', f.cliente.Id);
-    if (f.producto) q.set('producto', f.producto);
     if (clave === 'rendimiento') q.set('personal', f.personal.join(','));
-    if (clave === 'ventas-categoria') { q.set('vendedor', f.cvend); q.set('categoria', f.ccat); if (f.resumen) q.set('resumen', '1'); else q.set('subcategoria', f.csub); }
     setCargando(true);
     try {
       const r = await api.get(`${URL}/${clave}?${q}`);
       setFilas(r.data);
-      // filtros de Ventas por categoria para la cabecera del reporte (solo los que no son TODOS)
-      const nomCombo = (dt, val) => { const r = (dt || []).find((x) => String(x.Id) === String(val)); return r ? String(Object.entries(r).find(([k2]) => k2 !== 'Id')?.[1] ?? '') : ''; };
-      const extra = clave === 'ventas-categoria' && aux.cat ? [['Vendedor:', f.cvend], ['Categoría:', f.ccat], ...(f.resumen ? [] : [['Subcategoría:', f.csub]])]
-        .map(([e, val], i) => [e, Number(val) === -1 ? '' : tit(nomCombo([aux.cat.vendedores, aux.cat.categorias, aux.cat.subcategorias][i], val))]).filter(([, x]) => x) : [];
-      setConsulta({ desde: f.desde, hasta: f.hasta, extra, vendedor: f.vendedor ? (aux.personal.find((p) => String(p.Id) === String(f.vendedor))?.Nombre || f.vendedor) : 'TODOS', cliente: f.cliente ? f.cliente.NombreCliente : 'TODOS', personal: [...f.personal] });
+      setConsulta({ desde: f.desde, hasta: f.hasta, vendedor: f.vendedor ? (aux.personal.find((p) => String(p.Id) === String(f.vendedor))?.Nombre || f.vendedor) : 'TODOS', personal: [...f.personal] });
       if (!r.data.length) toast('No Existen Datos Para Mostrar con Los Filtros Seleccionados'.toUpperCase(), 'error');
     } catch (e) { toast(e.message, 'error', 7000); } finally { setCargando(false); }
   };
@@ -165,14 +157,14 @@ export default function Reporte({ clave }) {
     if (!cab) { try { cab = (await api.get(`${URL}/aux/cabecera`)).data; setCabecera(cab); } catch { cab = {}; } }
     const c = consulta;
     const filtros = [[modo.etiquetaDesde || 'Desde:', c.desde.split('-').reverse().join('/')], ['Hasta:', c.hasta.split('-').reverse().join('/')],
-      ...(c.vendedor !== 'TODOS' ? [['Personal:', tit(c.vendedor)]] : []), ...(c.cliente !== 'TODOS' ? [['Cliente:', tit(c.cliente)]] : [])];
+      ...(c.vendedor !== 'TODOS' ? [['Personal:', tit(c.vendedor)]] : [])];
     const base = { ...cab, usuario: tit(sesion?.gs_user || ''), filas: fs, unidad: modo.unidad };
     if (grafico) {
       const n = modo.topN ? Math.min(topN, fs.length) : fs.length;
       imprimirReporte({ ...base, filas: fs.slice(0, n), titulo: modo.tituloGrafico, subtitulo: modo.subtituloGrafico,
         datos: [...filtros, ...(modo.topN ? [['Mostrar:', `${n} productos`]] : [])], sinTabla: true, antes: modo.htmlGrafico(fs, { topN }), css: CSS_GRAFICO_VR });
     } else {
-      imprimirReporte({ ...base, titulo: modo.titulo, subtitulo: modo.subtituloFn ? modo.subtituloFn(fs) : modo.subtitulo, columnas: modo.colsImpresion(fs), niveles: modo.niveles(fs), datos: [...filtros, ...(c.extra || []), ...modo.resumen(fs)] });
+      imprimirReporte({ ...base, titulo: modo.titulo, subtitulo: modo.subtituloFn ? modo.subtituloFn(fs) : modo.subtitulo, columnas: modo.colsImpresion(fs), niveles: modo.niveles(fs), datos: [...filtros, ...modo.resumen(fs)] });
     }
   };
 
@@ -192,33 +184,6 @@ export default function Reporte({ clave }) {
             <div className="filtro filtro-ancho"><span>Vendedor</span>
               <ComboMulti dt={aux.personal} valor={f.vendedor} onChange={set('vendedor')} id="Id" nameId="Cód." descripcionId="Nombre" descripcion="Vendedor" />
             </div>
-          )}
-          {cfg.filtros.includes('cliente') && (
-            <div className="filtro filtro-ancho"><span>Cliente</span>
-              <div className="control-con-btn">
-                <input className="control control-elegir" readOnly value={f.cliente ? tit(f.cliente.NombreCliente) : 'TODOS LOS CLIENTES'} onClick={() => setVerCli(true)} />
-                {f.cliente ? <button className="btn btn-sec" onClick={() => setF((x) => ({ ...x, cliente: null }))} aria-label="Todos los clientes"><Icono n="x" size={15} /></button>
-                  : <button className="btn btn-sec" onClick={() => setVerCli(true)} aria-label="Buscar cliente"><Icono n="search" size={15} /></button>}
-              </div>
-            </div>
-          )}
-          {cfg.filtros.includes('producto') && (
-            <div className="filtro filtro-ancho"><span>Producto</span>
-              <ComboMulti dt={aux.productos} valor={f.producto} onChange={set('producto')} id="Id" nameId="Cód." descripcionId="Nombre" descripcion="Producto" />
-            </div>
-          )}
-          {cfg.filtros.includes('categoria') && aux.cat && (
-            <>
-              <div className="filtro filtro-ancho"><span>Vendedor</span><ComboMulti dt={aux.cat.vendedores} valor={f.cvend} onChange={set('cvend')} id="Id" nameId="Cód." descripcionId={Object.keys(aux.cat.vendedores[0] || { Nombre: 1 }).find((k) => k !== 'Id') || 'Nombre'} descripcion="Vendedor" /></div>
-              <div className="filtro filtro-ancho"><span>Categoría</span><ComboMulti dt={aux.cat.categorias} valor={f.ccat} onChange={set('ccat')} id="Id" nameId="Cód." descripcionId={Object.keys(aux.cat.categorias[0] || { Nombre: 1 }).find((k) => k !== 'Id') || 'Nombre'} descripcion="Categoría" /></div>
-              {!f.resumen && <div className="filtro filtro-ancho"><span>Subcategoría</span><ComboMulti dt={aux.cat.subcategorias} valor={f.csub} onChange={set('csub')} id="Id" nameId="Cód." descripcionId={Object.keys(aux.cat.subcategorias[0] || { Nombre: 1 }).find((k) => k !== 'Id') || 'Nombre'} descripcion="Subcategoría" /></div>}
-              <div className="filtro"><span>Ver</span>
-                <div className="chips-estado">
-                  <button type="button" className={`chip-filtro ${!f.resumen ? 'activo' : ''}`} onClick={() => { setF((x) => ({ ...x, resumen: false })); if (f.resumen) setFilas(null); }}>Detallado</button>
-                  <button type="button" className={`chip-filtro ${f.resumen ? 'activo' : ''}`} onClick={() => { setF((x) => ({ ...x, resumen: true })); if (!f.resumen) setFilas(null); }}>General (total por categoría)</button>
-                </div>
-              </div>
-            </>
           )}
           <button className="btn btn-pri filtro-boton" onClick={() => generar()} disabled={cargando}>{cargando ? <span className="spinner" /> : <Icono n="search" size={16} />} Generar</button>
         </div>
@@ -282,7 +247,6 @@ export default function Reporte({ clave }) {
         )}
         {!filas && !cargando && <div className="reporte-vacio"><Icono n="search" size={28} /><span>Elija los filtros y presione <b>Generar</b></span></div>}
       </div>
-      {verCli && <BuscarCliente url={`${URL}/aux/clientes`} onCancelar={() => setVerCli(false)} onSeleccionar={(r) => { setF((x) => ({ ...x, cliente: r })); setVerCli(false); }} />}
     </section>
   );
 }

@@ -32,7 +32,6 @@ const PANELES = [
         ['BTVENTPRODMASVENDIDOS', "Reporte Productos Mas Vendidos"],
         ['BTVENTRENDIMIENTO', "Rendimiento Personal"],
         ['BTNCREDPAGO', "Cuentas Por Cobrar A Credito"],
-        ['BTNDESPACHOVENTA', "Despacho De Productos"],
         ['BTNGASTOS', "Registrar Gastos o Ingresos"],
         ['BTNCIERRECAJERO', "Administrar Cierre Caja"],
         ['BTNCAJAGENERAL', "Caja General"],
@@ -69,13 +68,8 @@ const PANELES = [
         ['BTNREGISTRARPLANILLA', "Asignar Trabajador A Planilla"],
         ['BTNPLANILLA', "Administrar Planilla Salarios"],
     ] },
-    { panel: 'Panel_Distribucion', botones: [
-        ['BTNDESPACHO', "Despacho De Productos"],
-        ['BTNCONCILIACIONES', "Conciliaciones De Productos"],
-        ['BTNCIERRECAJA', "Cierre De Caja"],
-        ['METROTILEITEM4', "Asignar Trabajador A Planilla"],
-        ['METROTILEITEM5', "Administrar Planilla Salarios"],
-    ] }
+    // Panel_Distribucion (Despachos, Conciliaciones, Cierre de caja) existe en el diseño pero no corresponde
+    // a Kaily (punto de venta): no se migra y su modulo no se muestra en la web.
 ];
 
 const _ids = PANELES.map((p) => new Map(p.botones.map(([id, texto], i) => [id, { texto, orden: i }])));
@@ -86,7 +80,7 @@ const _ids = PANELES.map((p) => new Map(p.botones.map(([id, texto], i) => [id, {
  *  - panel del modulo: el de su misma posicion (como listaTabs.Item(i)); si no comparte ningun boton
  *    (otro orden en la base), el panel con mas botones en comun
  *  - programas: solo los que estan en ese panel, en el orden del panel y con su texto
- *  - si ningun panel coincide se deja como viene (no se oculta nada que no se pueda ubicar)
+ *  - si ningun panel coincide el modulo no se muestra (ej. Distribucion, que no corresponde a Kaily)
  */
 function comoEscritorio(modulos) {
     return modulos.map((m, i) => {
@@ -96,7 +90,7 @@ function comoEscritorio(modulos) {
             let mejor = 0;
             PANELES.forEach((_, j) => { const c = comunes(j); if (c > mejor) { mejor = c; k = j; } });
         }
-        if (k < 0) return m;
+        if (k < 0) return { ...m, programas: [] };
         const panel = _ids[k];
         const programas = m.programas
             .filter((p) => panel.has(String(p.IdPrograma).toUpperCase()))

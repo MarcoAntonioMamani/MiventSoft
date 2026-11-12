@@ -27,7 +27,7 @@ const BASE = 'http://localhost:3001';
     const fondo = await sinSt.first().locator('td').nth(1).evaluate((td) => getComputedStyle(td.closest('tr')).backgroundColor + getComputedStyle(td).backgroundColor);
     ok(/220, 38, 38/.test(fondo), `${w} los sin stock se ven en rojo`);
     await p.screenshot({ path: `${OUT}/proforma_selector_${w}.png` });
-    await p.locator('.tabla-productos tbody tr.fila-clic').first().click();
+    await p.locator('.tabla-productos tbody tr.fila-clic').first().dblclick();
     await p.locator('.cantidad-cajas input').first().fill('2');
     await p.locator('.cantidad-cajas .btn-pri').click();
     await sinSt.first().click();

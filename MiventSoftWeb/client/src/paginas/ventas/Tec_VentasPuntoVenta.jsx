@@ -10,7 +10,7 @@
 //   * Contado: al grabar se pide el cobro (Bs, $, tarjeta, transferencia) y debe cubrir el total.
 //  El navegador calcula para MOSTRAR; el servidor vuelve a tomar precios, costos y stock de los SP.
 // =====================================================================
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import ModeloF1, { useModeloF1 } from '../../componentes/ModeloF1';
 import { Campo, ComboMulti, SwitchButton, fechaCorta } from '../../componentes/Controles';
@@ -20,9 +20,12 @@ import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
 import NotaImpresa from '../../componentes/NotaImpresa';
-import { useListaTeclado } from '../../componentes/useListaTeclado';
-import { palabrasDe, coincide } from '../../global/buscar';
+import { useListaTeclado, FilaMas, AYUDA_ELEGIR } from '../../componentes/useListaTeclado';
+import { palabrasDe, indexar, filtrarIndice } from '../../global/buscar';
 import { NumeroCelda, BuscarCliente, errorDetalle } from './Tec_Ventas';
+import FormularioCliente from './FormularioCliente';
+import { useAlActivar } from '../../global/vistaActiva';
+import { useTipoCambio, aDolares } from '../../global/tipoCambio';
 
 // Tec_Ventas.vb y Tec_Proformas.vb de Kaily comparten la pantalla
 export const CFG_VENTA_PV = { url: '/api/ventas/ventas', titulo: 'Ventas', subtitulo: 'Gestion De Ventas', icono: 'cart', nombre: 'Venta', cobro: true, caja: true, tipoVenta: true, facturado: true, sinStock: false, nota: 'Nota de Venta' };
@@ -78,8 +81,12 @@ export function PantallaPV({ cfg }) {
   const [cargandoDet, setCargandoDet] = useState(false);
   const [errores, setErrores] = useState({});
   const [ini, setIni] = useState(null);
+  // tipo de cambio vigente (ultimo guardado en la BD): total en $us y cobro en dolares. Se relee al volver a la pestaña
+  const [tc, leerTc] = useTipoCambio();
+  useAlActivar(leerTc, { alMontar: false });
   const [filtro, setFiltro] = useState({ desde: hoyLocal(), hasta: hoyLocal() });
   const [ayudaCli, setAyudaCli] = useState(false);
+  const [nuevoCli, setNuevoCli] = useState(false); // Kaily FormularioCliente: alta rapida
   const [selector, setSelector] = useState(false);
   const [categoria, setCategoria] = useState(''); // cbPrecios (se conserva entre aperturas, como el escritorio)
   const [cobro, setCobro] = useState(null); // { total, resolver }
@@ -94,6 +101,11 @@ export function PantallaPV({ cfg }) {
   useEffect(() => {
     api.get(`${URL}/inicio`).then((r) => { setIni(r.data); setCategoria(r.data.categoriaDefecto); }).catch((e) => toast(e.message, 'error'));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  // al volver a la pestaña se recargan los combos, pero NO con una venta a medio registrar/editar (cambiar ini la limpiaria)
+  useAlActivar(() => {
+    if (m.ruta.tipo === 'nuevo' || m.ruta.tipo === 'editar') return;
+    api.get(`${URL}/inicio`).then((r) => setIni(r.data)).catch((e) => toast(e.message, 'error'));
+  }, { alMontar: false });
 
   const vigentes = detalle.filter((f) => !f.eliminado);
   const errDe = (f) => (f._editado ? errorFila(f, cfg.sinStock) : {});
@@ -339,7 +351,7 @@ export function PantallaPV({ cfg }) {
         <div className="filtros-lista">
           <label className="filtro"><span>Desde</span><input type="date" className="control" value={filtro.desde} max={filtro.hasta} onChange={(e) => e.target.value && setFiltro((x) => ({ ...x, desde: e.target.value }))} /></label>
           <label className="filtro"><span>Hasta</span><input type="date" className="control" value={filtro.hasta} min={filtro.desde} onChange={(e) => e.target.value && setFiltro((x) => ({ ...x, hasta: e.target.value }))} /></label>
-          {ini && <span className="ayuda-tip">Tipo de cambio: <b>{n2(ini.tipoCambio)}</b></span>}
+          {tc !== null && <span className="ayuda-tip">Tipo de cambio: <b>{n2(tc)}</b></span>}
         </div>
       )}>
       <div className="venta-grid">
@@ -446,20 +458,30 @@ export function PantallaPV({ cfg }) {
                 <label className="desc-inputs">Bs<input className="control num" type="number" min="0" step="0.01" value={r2(total)} onChange={(e) => setTotal(e.target.value)} aria-label="Total de la venta" title="Si escribe un total menor, la diferencia se aplica como descuento" /></label>
               )}
             </div>
+            {/* total en dolares con el ultimo tipo de cambio guardado (tabla TipoCambio) */}
+            <div className="venta-total-dolar">
+              <span>Total en dólares <small>(TC {tc === null ? '…' : n2(tc)})</small></span>
+              {tc === null ? <b>…</b> : tc > 0 ? <b>$us {bs(aDolares(total, tc))}</b> : <b className="neg" title="Actualice el tipo de cambio con el botón de la cabecera">Sin tipo de cambio</b>}
+            </div>
           </div>
         </div>
       </div>
 
       {ayudaCli && (
         <BuscarCliente url={`${URL}/clientes`} onCancelar={() => setAyudaCli(false)}
-          onSeleccionar={(r) => { quitarError('Cliente'); setAyudaCli(false); setForm((f) => ({ ...f, ClienteId: r.Id, NombreCliente: r.NombreCliente })); }} />
+          onSeleccionar={(r) => { quitarError('Cliente'); setAyudaCli(false); setForm((f) => ({ ...f, ClienteId: r.Id, NombreCliente: r.NombreCliente })); }}
+          pie={<button type="button" className="btn btn-sec" onClick={() => setNuevoCli(true)}><Icono n="user" size={15} /> Nuevo cliente</button>} />
+      )}
+      {nuevoCli && (
+        <FormularioCliente url={`${URL}/clientes`} onCerrar={() => setNuevoCli(false)}
+          onCreado={(r) => { quitarError('Cliente'); setNuevoCli(false); setAyudaCli(false); setForm((f) => ({ ...f, ClienteId: r.Id, NombreCliente: r.NombreCliente })); }} />
       )}
       {selector && (
         <SelectorProductos url={URL} sinStock={!!cfg.sinStock} sucursal={form.SucursalId} categorias={ini?.categoriasPrecio || []} categoria={categoria} onCategoria={setCategoria}
           enDetalle={enDetalle} onAgregar={agregar} onCerrar={() => setSelector(false)} />
       )}
       {cobro && (
-        <CobroVenta total={cobro.total} tipoCambio={num(ini?.tipoCambio)}
+        <CobroVenta total={cobro.total} tipoCambio={num(tc)}
           onAceptar={(p) => { cobro.resolver(p); setCobro(null); }} onCancelar={() => { cobro.resolver(null); setCobro(null); }} />
       )}
     </ModeloF1>
@@ -477,20 +499,24 @@ function SelectorProductos({ url, sinStock, sucursal, categorias, categoria, onC
   const [elegido, setElegido] = useState(null);
   const [agregados, setAgregados] = useState(0);
 
+  // stock siempre de la BD (sin cache): se pide cada vez que se abre o se cambia la categoria;
+  // si se cambia de categoria antes de que llegue la respuesta anterior, esa se descarta
   useEffect(() => {
-    if (!categoria) return;
+    if (!categoria) return undefined;
+    let vigente = true;
     setCargando(true);
-    api.get(`${url}/productos?${new URLSearchParams({ sucursal, precio: categoria })}`).then((r) => setProductos(r.data))
-      .catch((e) => toast(e.message, 'error')).finally(() => setCargando(false));
+    setProductos([]);
+    api.get(`${url}/productos?${new URLSearchParams({ sucursal, precio: categoria })}`).then((r) => { if (vigente) setProductos(r.data); })
+      .catch((e) => { if (vigente) toast(e.message, 'error'); }).finally(() => { if (vigente) setCargando(false); });
+    return () => { vigente = false; };
   }, [categoria]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // tbProducto_TextChanged: todas las palabras en codigo + nombre + descripcion + categoria + industria
-  const filtrados = useMemo(() => {
-    const w = palabrasDe(q);
-    return productos
-      .filter((p) => (Number(p.Tipo) === 2 ? !enDetalle.kits.has(Number(p.Id)) : !enDetalle.productos.has(Number(p.Id))))
-      .filter((p) => coincide(`${p.CodigoExterno ?? ''} ${p.NombreProducto ?? ''} ${p.DescripcionProducto ?? ''} ${p.NombreCategoria ?? ''} ${p.industria ?? ''}`, w));
-  }, [productos, q, enDetalle]);
+  // (texto normalizado una sola vez por carga; la lista se filtra sin trabar lo que se escribe)
+  const indice = useMemo(() => indexar(productos, (p) => `${p.CodigoExterno ?? ''} ${p.NombreProducto ?? ''} ${p.DescripcionProducto ?? ''} ${p.NombreCategoria ?? ''} ${p.industria ?? ''}`), [productos]);
+  const qBusca = useDeferredValue(q);
+  const filtrados = useMemo(() => filtrarIndice(indice, palabrasDe(qBusca))
+    .filter((p) => (Number(p.Tipo) === 2 ? !enDetalle.kits.has(Number(p.Id)) : !enDetalle.productos.has(Number(p.Id)))), [indice, qBusca, enDetalle]);
 
   const elegir = (p) => {
     if (!sinStock && !(num(p.stock) > 0)) { toast(`El Producto: ${p.NombreProducto} NO CUENTA CON STOCK DISPONIBLE`.toUpperCase(), 'error'); return; }
@@ -515,8 +541,8 @@ function SelectorProductos({ url, sinStock, sucursal, categorias, categoria, onC
           <table className="grid grid-tarjetas tabla-productos">
             <thead><tr><th>Código</th><th>Descripción</th><th>Tipo</th><th>Categoría</th><th>Industria</th><th className="num">Stock</th><th className="num">Precio</th></tr></thead>
             <tbody ref={nav.tbodyRef}>
-              {filtrados.map((p, i) => (
-                <tr key={`${p.Tipo}-${p.Id}`} className={`fila-clic ${i === nav.marcada ? 'marcada' : ''} ${num(p.stock) <= 0 ? 'sin-stock-elegible' : ''}`} onClick={() => elegir(p)} {...nav.propsFila(i)}>
+              {nav.visibles.map((p, i) => (
+                <tr key={`${p.Tipo}-${p.Id}`} className={`fila-clic ${i === nav.marcada ? 'marcada' : ''} ${num(p.stock) <= 0 ? 'sin-stock-elegible' : ''}`} {...nav.propsFila(i)}>
                   <td data-label="Código">{p.CodigoExterno}</td>
                   <td data-label="Descripción"><b>{tit(p.DescripcionProducto || p.NombreProducto)}</b></td>
                   <td data-label="Tipo">{Number(p.Tipo) === 2 ? <span className="badge">Kit</span> : tit(p.NombreTipo || 'Producto')}</td>
@@ -526,11 +552,12 @@ function SelectorProductos({ url, sinStock, sucursal, categorias, categoria, onC
                   <td data-label="Precio" className="num"><b>{bs(p.PrecioVenta)}</b></td>
                 </tr>
               ))}
+              <FilaMas nav={nav} columnas={7} />
               {!filtrados.length && <tr><td colSpan={7} className="vacio">{cargando ? 'Cargando productos...' : 'Sin productos'}</td></tr>}
             </tbody>
           </table>
         </div>
-        <div className="modal-acciones"><span className="ayuda-tip"><span className="solo-teclado"><kbd>↓</kbd><kbd>↑</kbd> elegir · <kbd>Enter</kbd> cantidad · </span>Toque un producto para indicar la cantidad · <span className="leyenda-sin-stock">en rojo</span>: sin stock</span><button className="btn btn-pri" onClick={onCerrar}>Listo</button></div>
+        <div className="modal-acciones"><span className="ayuda-tip"><span className="solo-teclado"><kbd>↓</kbd><kbd>↑</kbd> elegir · <kbd>Enter</kbd> cantidad · </span>{AYUDA_ELEGIR} · <span className="leyenda-sin-stock">en rojo</span>: sin stock</span><button className="btn btn-pri" onClick={onCerrar}>Listo</button></div>
       </div>
       {elegido && (
         <CantidadVenta producto={elegido} sinLimite={sinStock} onCancelar={() => { setElegido(null); nav.volver(false); }}
@@ -564,7 +591,7 @@ function CantidadVenta({ producto, onAceptar, onCancelar, sinLimite = false }) {
         onKeyDown={(e) => { if (e.key === 'Escape') { e.stopPropagation(); onCancelar(); } if (e.key === 'Enter') { e.preventDefault(); validar(); } }}>
         <h3>{tit(producto.DescripcionProducto || producto.NombreProducto)}{Number(producto.Tipo) === 2 ? ' (kit)' : ''}</h3>
         <p className="cc-stock">Stock: <b>{n2(stock)}</b> · Precio: <b>{bs(producto.PrecioVenta)}</b></p>
-        <div className="cc-campos">
+        <div className="cc-campos cc-unico">
           <label>Cantidad<input autoFocus onFocus={(e) => e.target.select()} className="control num" type="number" inputMode="decimal" min="0" step="any" value={cant}
             onChange={(e) => { setErr(''); setCant(e.target.value); }} /></label>
         </div>

@@ -10,6 +10,7 @@ import { useToast } from '../../componentes/Toast';
 import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
 import { columnasDe } from '../ventas/Reportes';
+import { useAlActivar } from '../../global/vistaActiva';
 
 const URL = '/api/caja/reportes';
 const dos = (n) => String(n).padStart(2, '0');
@@ -37,6 +38,7 @@ export default function ReporteCaja({ clave }) {
   const [cargando, setCargando] = useState(false);
 
   useEffect(() => { if (clave === 'caja-detallado') api.get(`${URL}/caja-detallado/cajas`).then((r) => setCajas(r.data)).catch((e) => toast(e.message, 'error')); }, [clave]); // eslint-disable-line react-hooks/exhaustive-deps
+  useAlActivar(() => { if (clave === 'caja-detallado') api.get(`${URL}/caja-detallado/cajas`).then((r) => setCajas(r.data)).catch((e) => toast(e.message, 'error')); }, { alMontar: false });
 
   const generar = async () => {
     if (f.desde > f.hasta) { toast('La Fecha Desde Debe Ser Menor Que la Fecha Hasta', 'error'); return; }

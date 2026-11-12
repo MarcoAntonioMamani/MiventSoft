@@ -2,13 +2,14 @@
 //  Tec_Users.vb -> Gestion De Usuarios   (SP: MAM_Usuarios)
 //  Nota: la contraseña ya no viaja al navegador. Al modificar, dejarla vacia = sin cambios.
 // =====================================================================
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ModeloF1, { useModeloF1 } from '../../componentes/ModeloF1';
 import { Campo, ComboMulti, SwitchButton } from '../../componentes/Controles';
 import { EfectoAyuda } from '../../componentes/Efecto';
 import { Celda } from '../../global/Celda';
 import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
+import { useAlActivar } from '../../global/vistaActiva';
 
 const URL = '/api/configuracion/usuarios';
 // Kaily (punto de venta): switches de permisos del usuario, igual que Tec_Users.vb
@@ -32,7 +33,10 @@ export default function Tec_Users() {
   const set = (k) => (v) => { quitarError(k); setForm((f) => ({ ...f, [k]: v?.target ? v.target.value : v })); };
   const setMay = (k) => (e) => { quitarError(k); setForm((f) => ({ ...f, [k]: e.target.value.toUpperCase() })); };
 
-  useEffect(() => { api.get(`${URL}/combos`).then((r) => setCombos(r.data)).catch(() => {}); }, []);
+  const cargarCombos = () => api.get(`${URL}/combos`).then((r) => setCombos(r.data)).catch(() => {});
+  useAlActivar(cargarCombos); // al montar y al volver a la pestaña
+  // La pestaña queda montada: se recarga al abrir la ayuda para ver el personal creado despues
+  const abrirAyuda = () => { setAyuda(true); cargarCombos(); };
 
   const _datos = () => ({
     NombreUsuario: form.NombreUsuario, Contrasena: form.Contrasena, estado: form.estado,
@@ -89,8 +93,8 @@ export default function Tec_Users() {
             <Campo etiqueta="Personal" ancho={2} error={errores.Personal} requerido>
               <div className="control-con-btn">
                 <input className={`control ${!ro ? 'control-elegir' : ''}`} value={form.Personal} readOnly placeholder="Toque para buscar el personal..."
-                  onClick={() => !ro && setAyuda(true)} onKeyDown={(e) => !ro && (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), setAyuda(true))} />
-                {!ro && <button type="button" className="btn btn-sec" onClick={() => setAyuda(true)}><Icono n="search" size={15} /> Buscar</button>}
+                  onClick={() => !ro && abrirAyuda()} onKeyDown={(e) => !ro && (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), abrirAyuda())} />
+                {!ro && <button type="button" className="btn btn-sec" onClick={abrirAyuda}><Icono n="search" size={15} /> Buscar</button>}
               </div>
             </Campo>
             <Campo etiqueta="Nombre de usuario" error={errores.NombreUsuario} requerido>

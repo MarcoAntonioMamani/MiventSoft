@@ -10,6 +10,7 @@ import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
 import { columnasDe } from '../ventas/Reportes';
+import { useAlActivar, useRefrescar } from '../../global/vistaActiva';
 
 const URL = '/api/inventario/reportes';
 const dos = (n) => String(n).padStart(2, '0');
@@ -58,6 +59,11 @@ function Reporte({ clave }) {
     if (!tiene('producto') || !f.deposito) return;
     api.get(`${URL}/kardex/productos/${f.deposito}`).then((r) => { setProds(r.data); setF((o) => ({ ...o, producto: '' })); }).catch((e) => toast(e.message, 'error'));
   }, [f.deposito, clave]); // eslint-disable-line react-hooks/exhaustive-deps
+  // al volver a la pestaña: almacenes y productos actualizados, sin perder lo elegido
+  useAlActivar(() => {
+    if (tiene('deposito') || tiene('depositoTodos')) api.get(`${URL}/aux/depositos`).then((r) => setDeps(tiene('depositoTodos') ? [{ Id: -1, NombreDeposito: 'TODOS LOS ALMACENES' }, ...r.data] : r.data)).catch((e) => toast(e.message, 'error'));
+    if (tiene('producto') && f.deposito) api.get(`${URL}/kardex/productos/${f.deposito}`).then((r) => setProds(r.data)).catch((e) => toast(e.message, 'error'));
+  }, { alMontar: false });
 
   const generar = async () => {
     if (tiene('producto') && !f.producto) { toast('Seleccione un Producto'.toUpperCase(), 'error'); return; }
@@ -137,14 +143,15 @@ function Monitoreo() {
   const [datos, setDatos] = useState(null);
   const [tab, setTab] = useState('sinStock');
   const cargar = () => api.get(`${URL}/monitoreo`).then((r) => setDatos(r.data)).catch((e) => toast(e.message, 'error'));
-  useEffect(() => { cargar(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useAlActivar(cargar); // stock actual al abrir, al volver a la pestaña y con Actualizar
+  const refrescar = useRefrescar(cargar);
   const filas = datos?.[tab] || [];
   const cols = useMemo(() => columnasDe(filas).map((c) => (c.tipo === 'bs' ? { ...c, tipo: 'num' } : c)), [filas]);
   return (
     <section className="modelo entrada">
       <header className="modelo-cab">
         <div className="modelo-titulo"><span className="modelo-icono"><Icono n="target" size={22} /></span><div><h1>Monitoreo de productos</h1><p>Stock en cero, stock mínimo y vencidos</p></div></div>
-        <div className="barra"><button className="btn-icono" title="Actualizar" aria-label="Actualizar" onClick={cargar}><Icono n="refresh" size={18} /></button></div>
+        <div className="barra"><button className="btn-icono" title="Actualizar" aria-label="Actualizar" onClick={refrescar}><Icono n="refresh" size={18} /></button></div>
       </header>
       <div className="modelo-cuerpo">
         <div className="mon-tarjetas">

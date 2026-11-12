@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" font-family="Segoe UI, Roboto, Arial, sans-serif">
+  <!-- Fondo del login de Sanbit: mostrador de punto de venta (ilustracion propia, sin dependencias) -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1736"/><stop offset=".55" stop-color="#0a1430"/><stop offset="1" stop-color="#132f6c"/>
+    </linearGradient>
+    <radialGradient id="luz" cx="540" cy="380" r="470" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2563eb" stop-opacity=".6"/><stop offset="1" stop-color="#2563eb" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="luz2" cx="170" cy="700" r="360" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f59e0b" stop-opacity=".16"/><stop offset="1" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="puntos" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.3" fill="#93c5fd" fill-opacity=".14"/></pattern>
+    <linearGradient id="mostrador" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1b3a85"/><stop offset="1" stop-color="#0a1430" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="tarjeta" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fbbf24"/><stop offset="1" stop-color="#ea580c"/>
+    </linearGradient>
+    <linearGradient id="impresora" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f1f5f9"/><stop offset="1" stop-color="#b8c4d6"/>
+    </linearGradient>
+    <linearGradient id="vidrio" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset="1" stop-color="#fff" stop-opacity=".06"/>
+    </linearGradient>
+    <clipPath id="pantalla"><rect x="359" y="314" width="282" height="184" rx="8"/></clipPath>
+    <filter id="sombra" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#020617" flood-opacity=".55"/>
+    </filter>
+  </defs>
+
+  <rect width="1000" height="1000" fill="url(#bg)"/>
+  <rect width="1000" height="1000" fill="url(#puntos)"/>
+  <rect width="1000" height="1000" fill="url(#luz)"/>
+  <rect width="1000" height="1000" fill="url(#luz2)"/>
+  <circle cx="540" cy="390" r="330" fill="none" stroke="#60a5fa" stroke-opacity=".09" stroke-width="1.5"/>
+  <circle cx="540" cy="390" r="430" fill="none" stroke="#60a5fa" stroke-opacity=".05" stroke-width="1.5"/>
+
+  <!-- mostrador -->
+  <rect x="80" y="622" width="840" height="300" fill="url(#mostrador)"/>
+  <rect x="70" y="600" width="860" height="24" rx="12" fill="#22468f"/>
+  <rect x="84" y="601" width="832" height="3" rx="1.5" fill="#5b82d6" fill-opacity=".55"/>
+  <g fill="#020617" fill-opacity=".35">
+    <ellipse cx="500" cy="604" rx="100" ry="5"/><ellipse cx="746" cy="604" rx="66" ry="5"/>
+    <ellipse cx="250" cy="604" rx="56" ry="5"/><ellipse cx="864" cy="604" rx="44" ry="5"/><ellipse cx="146" cy="604" rx="30" ry="4"/>
+  </g>
+
+  <!-- monedas -->
+  <g>
+    <rect x="120" y="566" width="52" height="34" fill="#d97706"/>
+    <ellipse cx="146" cy="600" rx="26" ry="7" fill="#b45309"/>
+    <path d="M120 577h52M120 588h52" stroke="#b45309" stroke-width="2"/>
+    <ellipse cx="146" cy="566" rx="26" ry="7" fill="#fbbf24"/>
+    <ellipse cx="146" cy="566" rx="15" ry="3.6" fill="none" stroke="#d97706" stroke-width="1.6"/>
+  </g>
+
+  <!-- tarjeta de pago -->
+  <g filter="url(#sombra)" transform="rotate(-14 250 398)">
+    <rect x="190" y="360" width="120" height="76" rx="10" fill="url(#tarjeta)"/>
+    <rect x="206" y="380" width="20" height="15" rx="3" fill="#fde68a" stroke="#b45309" stroke-width=".8"/>
+    <g fill="#fff" fill-opacity=".85"><rect x="206" y="410" width="18" height="4" rx="2"/><rect x="230" y="410" width="18" height="4" rx="2"/><rect x="254" y="410" width="18" height="4" rx="2"/></g>
+    <circle cx="282" cy="420" r="8" fill="#fff" fill-opacity=".35"/><circle cx="292" cy="420" r="8" fill="#fff" fill-opacity=".55"/>
+  </g>
+  <path d="M318 430a22 22 0 0 1 0 30M330 422a34 34 0 0 1 0 46" fill="none" stroke="#93c5fd" stroke-opacity=".7" stroke-width="3.5" stroke-linecap="round"/>
+
+  <!-- terminal de cobro con tarjeta -->
+  <g filter="url(#sombra)" transform="rotate(-6 250 520)">
+    <rect x="205" y="442" width="90" height="158" rx="16" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+    <rect x="217" y="458" width="66" height="44" rx="6" fill="#dcfce7"/>
+    <path d="M238 481l9 9 17-19" fill="none" stroke="#16a34a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <g fill="#475569"><circle cx="232" cy="520" r="6"/><circle cx="250" cy="520" r="6"/><circle cx="268" cy="520" r="6"/><circle cx="232" cy="538" r="6"/><circle cx="250" cy="538" r="6"/><circle cx="268" cy="538" r="6"/><circle cx="232" cy="556" r="6"/><circle cx="250" cy="556" r="6"/><circle cx="268" cy="556" r="6"/></g>
+    <rect x="224" y="572" width="16" height="10" rx="5" fill="#ef4444"/><rect x="242" y="572" width="16" height="10" rx="5" fill="#f59e0b"/><rect x="260" y="572" width="16" height="10" rx="5" fill="#22c55e"/>
+  </g>
+
+  <!-- monitor de caja -->
+  <g filter="url(#sombra)">
+    <rect x="484" y="520" width="32" height="70" fill="#1e293b"/>
+    <rect x="425" y="584" width="150" height="16" rx="8" fill="#1e293b"/>
+    <rect x="345" y="300" width="310" height="222" rx="18" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+    <circle cx="500" cy="510" r="3" fill="#334155"/>
+  </g>
+  <rect x="359" y="314" width="282" height="184" rx="8" fill="#f8fafc"/>
+  <g clip-path="url(#pantalla)">
+    <rect x="359" y="314" width="282" height="26" fill="#1d4ed8"/>
+    <rect x="369" y="320" width="14" height="14" rx="4" fill="#fff" fill-opacity=".9"/>
+    <text x="390" y="331.5" font-size="11" font-weight="600" fill="#fff">Sanbit · Caja 1</text>
+    <circle cx="627" cy="327" r="6" fill="#93c5fd"/>
+    <g>
+      <rect x="371" y="350" width="20" height="20" rx="5" fill="#fde68a"/>
+      <rect x="371" y="380" width="20" height="20" rx="5" fill="#bfdbfe"/>
+      <rect x="371" y="410" width="20" height="20" rx="5" fill="#bbf7d0"/>
+      <rect x="371" y="440" width="20" height="20" rx="5" fill="#fecaca"/>
+      <g fill="#cbd5e1"><rect x="399" y="353" width="62" height="6" rx="3"/><rect x="399" y="383" width="50" height="6" rx="3"/><rect x="399" y="413" width="58" height="6" rx="3"/><rect x="399" y="443" width="44" height="6" rx="3"/></g>
+      <g fill="#e2e8f0"><rect x="399" y="363" width="34" height="5" rx="2.5"/><rect x="399" y="393" width="28" height="5" rx="2.5"/><rect x="399" y="423" width="38" height="5" rx="2.5"/><rect x="399" y="453" width="30" height="5" rx="2.5"/></g>
+      <g font-size="10" font-weight="600" fill="#334155" text-anchor="end"><text x="505" y="364">35,00</text><text x="505" y="394">12,50</text><text x="505" y="424">88,00</text><text x="505" y="454">110,00</text></g>
+      <path d="M371 474h134" stroke="#e2e8f0" stroke-width="1.5"/>
+      <rect x="371" y="482" width="44" height="6" rx="3" fill="#cbd5e1"/>
+    </g>
+    <rect x="517" y="350" width="114" height="140" rx="8" fill="#eff6ff"/>
+    <text x="529" y="371" font-size="9" font-weight="600" letter-spacing="1.5" fill="#64748b">TOTAL</text>
+    <text x="529" y="397" font-size="19" font-weight="700" fill="#0f172a">Bs 245,50</text>
+    <g fill="#cbd5e1"><rect x="529" y="412" width="40" height="5" rx="2.5"/><rect x="595" y="412" width="24" height="5" rx="2.5"/><rect x="529" y="426" width="32" height="5" rx="2.5"/><rect x="599" y="426" width="20" height="5" rx="2.5"/></g>
+    <rect x="527" y="452" width="94" height="26" rx="7" fill="#16a34a"/>
+    <text x="574" y="469" font-size="10" font-weight="700" letter-spacing="1" fill="#fff" text-anchor="middle">COBRAR</text>
+  </g>
+
+  <!-- impresora de tickets -->
+  <g filter="url(#sombra)">
+    <path d="M712 531V384l5.67-6 5.67 6 5.67-6 5.67 6 5.66-6 5.67 6 5.67-6 5.67 6 5.67-6 5.66 6 5.67-6 5.67 6V531Z" fill="#fff"/>
+  </g>
+  <text x="746" y="403" font-size="9" font-weight="700" letter-spacing="1.5" fill="#0f172a" text-anchor="middle">SANBIT</text>
+  <g fill="#cbd5e1"><rect x="720" y="414" width="30" height="4" rx="2"/><rect x="758" y="414" width="14" height="4" rx="2"/><rect x="720" y="424" width="24" height="4" rx="2"/><rect x="758" y="424" width="14" height="4" rx="2"/><rect x="720" y="434" width="34" height="4" rx="2"/><rect x="758" y="434" width="14" height="4" rx="2"/></g>
+  <path d="M720 450h52" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <text x="720" y="466" font-size="8" font-weight="700" fill="#0f172a">TOTAL</text>
+  <text x="772" y="466" font-size="8" font-weight="700" fill="#b45309" text-anchor="end">245,50</text>
+  <g fill="#0f172a"><rect x="720" y="478" width="2" height="22"/><rect x="724" y="478" width="1" height="22"/><rect x="727" y="478" width="3" height="22"/><rect x="732" y="478" width="1" height="22"/><rect x="735" y="478" width="2" height="22"/><rect x="739" y="478" width="1" height="22"/><rect x="742" y="478" width="3" height="22"/><rect x="747" y="478" width="1" height="22"/><rect x="750" y="478" width="2" height="22"/><rect x="754" y="478" width="1" height="22"/><rect x="757" y="478" width="3" height="22"/><rect x="762" y="478" width="2" height="22"/><rect x="766" y="478" width="1" height="22"/><rect x="769" y="478" width="3" height="22"/></g>
+  <g filter="url(#sombra)">
+    <rect x="688" y="516" width="116" height="84" rx="14" fill="url(#impresora)"/>
+  </g>
+  <rect x="706" y="527" width="80" height="7" rx="3.5" fill="#475569"/>
+  <circle cx="708" cy="582" r="4" fill="#22c55e"/>
+  <rect x="760" y="577" width="26" height="10" rx="5" fill="#94a3b8"/>
+
+  <!-- bolsa de compras -->
+  <g filter="url(#sombra)">
+    <rect x="842" y="466" width="15" height="40" rx="5" fill="#22c55e"/>
+    <rect x="845" y="458" width="9" height="12" rx="3" fill="#15803d"/>
+    <rect x="864" y="476" width="24" height="30" rx="3" fill="#60a5fa"/>
+    <path d="M846 506v-14a18 18 0 0 1 36 0v14" fill="none" stroke="#fbbf24" stroke-width="5" stroke-linecap="round"/>
+    <rect x="826" y="500" width="76" height="100" rx="8" fill="#f59e0b"/>
+    <rect x="826" y="500" width="76" height="12" rx="6" fill="#d97706"/>
+    <circle cx="864" cy="552" r="14" fill="#fff" fill-opacity=".28"/>
+  </g>
+
+  <!-- tarjetas flotantes -->
+  <g filter="url(#sombra)">
+    <rect x="140" y="190" width="224" height="74" rx="16" fill="url(#vidrio)" stroke="#fff" stroke-opacity=".2" stroke-width="1.5"/>
+  </g>
+  <circle cx="176" cy="227" r="17" fill="#22c55e"/>
+  <path d="M168 227l6 6 11-12" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="204" y="222" font-size="15" font-weight="600" fill="#fff">Venta registrada</text>
+  <text x="204" y="243" font-size="12.5" fill="#bfdbfe">Bs 245,50 · Efectivo</text>
+
+  <g filter="url(#sombra)">
+    <rect x="640" y="146" width="226" height="126" rx="16" fill="url(#vidrio)" stroke="#fff" stroke-opacity=".2" stroke-width="1.5"/>
+  </g>
+  <text x="660" y="176" font-size="12.5" fill="#bfdbfe">Ventas de hoy</text>
+  <text x="660" y="203" font-size="21" font-weight="700" fill="#fff">Bs 8.940</text>
+  <rect x="794" y="162" width="54" height="21" rx="10.5" fill="#22c55e" fill-opacity=".22"/>
+  <text x="821" y="177" font-size="11.5" font-weight="700" fill="#4ade80" text-anchor="middle">+18%</text>
+  <g fill="#60a5fa" fill-opacity=".75">
+    <rect x="660" y="242" width="16" height="14" rx="3"/><rect x="686" y="234" width="16" height="22" rx="3"/><rect x="712" y="239" width="16" height="17" rx="3"/>
+    <rect x="738" y="228" width="16" height="28" rx="3"/><rect x="764" y="231" width="16" height="25" rx="3"/><rect x="790" y="221" width="16" height="35" rx="3"/>
+  </g>
+  <rect x="816" y="214" width="16" height="42" rx="3" fill="#f59e0b"/>
+
+  <!-- destellos -->
+  <g fill="#93c5fd">
+    <circle cx="420" cy="230" r="3" fill-opacity=".5"/><circle cx="600" cy="110" r="2" fill-opacity=".4"/><circle cx="905" cy="350" r="2.5" fill-opacity=".45"/>
+    <circle cx="96" cy="420" r="2" fill-opacity=".35"/><circle cx="330" cy="140" r="2" fill-opacity=".35"/><circle cx="700" cy="320" r="2" fill-opacity=".4"/>
+  </g>
+</svg>
