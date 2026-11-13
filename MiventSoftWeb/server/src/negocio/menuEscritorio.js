@@ -20,6 +20,8 @@ const PANELES = [
         ['BTNCONFCATEGORIA', "Gestion De Categorias"],
         ['BTCONFEMPRESA', "Gestion De Empresas"],
         ['BTNKITS', "Gestion De Kits"],
+        // Solo web (no esta en el escritorio): sql/07_Auditoria.sql crea el programa y lo asigna al Administrador
+        ['BTNAUDITORIAREGISTROS', "Auditoria De Registros"],
     ] },
     // Panel_Ventas tiene dos grupos: "Ventas" (ItemContainer2) y "Administrar Caja" (ItemContainer8)
     { panel: 'Panel_Ventas', botones: [
@@ -32,6 +34,8 @@ const PANELES = [
         ['BTVENTPRODMASVENDIDOS', "Reporte Productos Mas Vendidos"],
         ['BTVENTRENDIMIENTO', "Rendimiento Personal"],
         ['BTNCREDPAGO', "Cuentas Por Cobrar A Credito"],
+        // btnDespachoVenta (FrmDespacho): ultimo del grupo Ventas (ItemContainer2), TitleText "Despacho De Productos"
+        ['BTNDESPACHOVENTA', "Despacho De Productos"],
         ['BTNGASTOS', "Registrar Gastos o Ingresos"],
         ['BTNCIERRECAJERO', "Administrar Cierre Caja"],
         ['BTNCAJAGENERAL', "Caja General"],

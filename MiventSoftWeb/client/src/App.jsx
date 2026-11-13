@@ -14,6 +14,7 @@ import Tec_Productos from './paginas/configuracion/Tec_Productos';
 import Tec_Precios from './paginas/configuracion/Tec_Precios';
 import Tec_Kits from './paginas/configuracion/Tec_Kits';
 import Tec_Dosificacion from './paginas/configuracion/Tec_Dosificacion';
+import Tec_Auditoria from './paginas/configuracion/Tec_Auditoria';
 // Kaily La Paz (punto de venta). Tec_Ventas.jsx (distribucion) lo sigue usando Proforma.jsx
 import Tec_Ventas from './paginas/ventas/Tec_VentasPuntoVenta';
 import Tec_Personal from './paginas/ventas/Tec_Personal';
@@ -65,6 +66,7 @@ const PROGRAMAS = [
   ['configuracion/precios', 'btConfPrecio', Tec_Precios],
   ['configuracion/kits', 'btnKits', Tec_Kits], // Kaily: MAM_Kits
   ['configuracion/dosificacion', 'btConfDosificacion', Tec_Dosificacion], // Kaily: MAM_Dosificacion
+  ['configuracion/auditoria', 'btnAuditoriaRegistros', Tec_Auditoria], // solo web: MAM_Auditoria
   ['ventas/ventas', 'btVentVenta', Tec_Ventas],
   ['ventas/personal', 'btnPersonal', Tec_Personal],
   ['ventas/proveedores', 'btnProveedores', Frm_Proveedor],

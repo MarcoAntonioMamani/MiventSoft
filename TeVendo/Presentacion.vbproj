@@ -437,6 +437,12 @@
     <Compile Include="Modulo Configuracion\Tec_Users.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modulo Configuracion\Tec_AuditoriaRegistros.Designer.vb">
+      <DependentUpon>Tec_AuditoriaRegistros.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo Configuracion\Tec_AuditoriaRegistros.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Modulo Configuracion\Tec_Zonas.Designer.vb">
       <DependentUpon>Tec_Zonas.vb</DependentUpon>
     </Compile>
@@ -957,6 +963,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo Configuracion\Tec_Users.resx">
       <DependentUpon>Tec_Users.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo Configuracion\Tec_AuditoriaRegistros.resx">
+      <DependentUpon>Tec_AuditoriaRegistros.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo Configuracion\Tec_Zonas.resx">
       <DependentUpon>Tec_Zonas.vb</DependentUpon>

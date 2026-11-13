@@ -11,15 +11,14 @@
 //  ByRef _numi: en VB se devolvia por referencia. Aqui se devuelve
 //  { resultado: true/false, _numi }.
 // =====================================================================
-const { AsyncLocalStorage } = require('node:async_hooks');
 const DParametro = require('../datos/DParametro');
 const { D_ProcedimientoConParam, D_ConsultaParam } = require('../datos/AccesoDatos');
+const { contexto: _contexto } = require('../datos/ContextoPeticion');
 
-const _contexto = new AsyncLocalStorage();
-
-/** Ejecuta fn dentro del contexto del usuario autenticado */
-function L_prConUsuario(usuario, fn) {
-    return _contexto.run({ usuario }, fn);
+/** Ejecuta fn dentro del contexto del usuario autenticado.
+ *  cliente: equipo del navegador para la auditoria (middleware/clienteAuditoria.js); si no se pasa, se conserva el actual */
+function L_prConUsuario(usuario, fn, cliente = _contexto.getStore()?.cliente) {
+    return _contexto.run({ usuario, cliente: cliente || null }, fn);
 }
 function L_Usuario() {
     return _contexto.getStore()?.usuario ?? 'DEFAULT';
@@ -230,6 +229,8 @@ function _paramsUsuario(tipo, u) {
         new DParametro('@ModificarRegistroAntiguos', u._ModificarRegistrosAntiguos),
         new DParametro('@ModificarPrecio', u._ModificarPrecio),
         new DParametro('@ModificarDescuento', u._ModificarDescuento),
+        // Usuarios.EliminarRegistros (sql/generar/eliminar_registros.js)
+        new DParametro('@EliminarRegistros', u._EliminarRegistros),
     ];
 }
 
@@ -568,6 +569,16 @@ async function L_prListarProductosConStock0() {
 async function L_prListarProductosConStockMinimo() {
     return D_ProcedimientoConParam('MAM_ReporteVentas', [new DParametro('@tipo', 11), new DParametro('@usuario', L_Usuario())]);
 }
+// SOLO WEB: MAM_PanelControl (server/sql/03_MAM_PanelControl.sql), SP propio del panel de control; el escritorio no lo usa.
+// Fechas como los demas reportes (yyyy/MM/dd). SucursalId -1 = todas (igual que MAM_Ventas @tipo 3).
+const _panel = (tipo, FechaI, FechaF, extra = []) => D_ProcedimientoConParam('MAM_PanelControl', [
+    new DParametro('@tipo', tipo), new DParametro('@usuario', L_Usuario()), new DParametro('@FechaI', FechaI), new DParametro('@FechaF', FechaF), ...extra]);
+// @tipo 1: Id, HoraRegistro de las ventas (MAM_Ventas @tipo 3 de Kaily no trae la hora)
+async function L_prPanelHorasVentas(FechaI, FechaF, SucursalId) { return _panel(1, FechaI, FechaF, [new DParametro('@SucursalId', SucursalId)]); }
+// @tipo 2: ClienteId, NombreCliente, FechaVenta, Compras, Monto (por cliente y por dia)
+async function L_prPanelComprasClientes(FechaI, FechaF, SucursalId) { return _panel(2, FechaI, FechaF, [new DParametro('@SucursalId', SucursalId)]); }
+// @tipo 3: productos con stock y sin ventas entre FechaI y FechaF (Id, CodigoExterno, NombreProducto, Categoria, Stock, PrecioVenta, Valor, UltimaVenta)
+async function L_prPanelProductosSinVenta(FechaI, FechaF) { return _panel(3, FechaI, FechaF); }
 
 // =====================================================================
 //  PASO 3: MODULO VENTAS  (Tec_Personal, Frm_Proveedor, Tec_Ventas, Tec_VentasDetalle)
@@ -960,6 +971,15 @@ const _spUsu = (sp, tipo, extra = []) => D_ProcedimientoConParam(sp, [new DParam
 //  DISTRIBUCION (2): Ingresos/Egresos de caja, reportes del panel, asignacion de zonas
 // =====================================================================
 const _spT = (sp, tipo, extra = []) => D_ProcedimientoConParam(sp, [new DParametro('@tipo', tipo), ...extra]);
+// SOLO WEB: Auditoria De Registros (btnAuditoriaRegistros) -> MAM_Auditoria (server/sql/07_Auditoria.sql)
+// @tipo 3 lista (fechas de la operacion; -1 / '' = todos), @tipo 4 detalle con las fotos antes / despues, @tipo 5 usuarios
+async function L_prAuditoriaListar(desde, hasta, modulo, operacion, usuario, documento) {
+    return _spUsu('MAM_Auditoria', 3, [new DParametro('@Desde', desde), new DParametro('@Hasta', hasta), new DParametro('@Modulo', modulo),
+        new DParametro('@Operacion', operacion), new DParametro('@UsuarioFiltro', usuario), new DParametro('@DocumentoId', documento)]);
+}
+async function L_prAuditoriaDetalle(id) { return _spUsu('MAM_Auditoria', 4, [new DParametro('@Id', id)]); }
+async function L_prAuditoriaUsuarios() { return _spUsu('MAM_Auditoria', 5); }
+
 async function L_prListarCaja() { return _spUsu('MAM_CajaIngresoEgreso', 4); }
 async function L_prListarTipoMovimientoCaja() { return _spUsu('MAM_CajaIngresoEgreso', 5); }
 /** VB InsertarTipoMovimiento (Crear_TipoMovimientoCaja): MAM_Ventas @tipo 9 en Kaily (21 en Distral) -> { resultado, _numi } ; Tipo 1 = ingreso, 0 = egreso */
@@ -1127,9 +1147,37 @@ async function ReporteBoletaSalarioIndividual(id) { return _spUsu('MAM_Planilla'
 // P_GenerarReporte (Nota de venta del escritorio)
 async function ListarVentaRecibo(VentaId) { return _spUsu('MAM_Ventas', 6, [new DParametro('@id', VentaId)]); }
 
+// #Region "Kaily: productos activos y stock seguro" =====================
+
+const _valor = (f, n) => { const k = Object.keys(f).find((x) => x.toLowerCase() === n.toLowerCase()); return k === undefined ? undefined : f[k]; };
+const _r2 = (x) => Math.round((Number(x) || 0) * 100) / 100;
+
+// Productos desactivados (Estado <> 1): no se ofrecen para vender, comprar, mover inventario, precios ni kits;
+// solo se ven en reportes. MAM_Productos @3 trae Id y Estado de todos los productos.
+async function L_prProductosInactivos() {
+    const dt = await L_prListarGeneral('MAM_Productos');
+    return new Set(dt.filter((f) => Number(_valor(f, 'Estado')) !== 1).map((f) => Number(_valor(f, 'Id'))));
+}
+/** Quita los productos desactivados de una lista (arreglo o promesa). esProducto: filas que son productos (no kits) */
+async function L_prSoloActivos(lista, colId = 'Id', esProducto = () => true) {
+    const [dt, inactivos] = await Promise.all([lista, L_prProductosInactivos()]);
+    if (!inactivos.size || !dt.length) return dt;
+    return dt.filter((f) => !(esProducto(f) && inactivos.has(Number(_valor(f, colId)))));
+}
+
+/** Error de stock insuficiente: mensaje legible + lista para marcar las filas en pantalla */
+function L_prErrorSinStock(faltantes, accion = 'grabar') {
+    const txt = faltantes.slice(0, 5).map((f) => `${f.Producto} (stock actual ${_r2(f.stock)}, se necesita ${_r2(f.solicitado)})`).join('; ');
+    const mas = faltantes.length > 5 ? ` y ${faltantes.length - 5} mas` : '';
+    return Object.assign(new Error(`No se puede ${accion}: stock insuficiente en ${faltantes.length} producto(s): ${txt}${mas}.`),
+        { esNegocio: true, status: 400, datos: { sinStock: faltantes } });
+}
 
 module.exports = {
     ListarVentaRecibo,
+    L_prProductosInactivos,
+    L_prSoloActivos,
+    L_prErrorSinStock,
     L_prListarOperacionesConceptosFijos, L_prConceptoFijoInsertar, L_prConceptoFijoModificar, ListaConceptosContratos, ListaConceptosFijosContrato,
     InsertarContratos, ModificarContratos, InsertarPlanilla, ModificarPlanillaSoloDetalle, ListaConceptosPlanilla, ListarPersonalSinPlanilla,
     ListarConceptoVariablePlanilla, ListarPlanilla, ListarPlanillaReporte, ReporteBoletaSalarioIndividual,
@@ -1162,6 +1210,7 @@ module.exports = {
     L_prInsertarDosificacion, L_prModificarDosificacion, InsertarTipoCambio, VentaInsertarDespacho,
     L_prListarPagosPendientes, L_prListarPagosPendientesClientes, ReporteVentasProductosMasVendido,
     L_prListarProductosConStock0, L_prListarProductosConStockMinimo,
+    L_prPanelHorasVentas, L_prPanelComprasClientes, L_prPanelProductosSinVenta,
     L_fnListarCategoriaPrecio, L_prListarProductosTodosInventario,
     _columnasDe,
     L_prClasificadorGrabar,
@@ -1192,6 +1241,9 @@ module.exports = {
     L_prUsuarioBorrar,
     L_prUsuarioInsertar,
     L_prUsuarioModificar,
+    L_prAuditoriaListar,
+    L_prAuditoriaDetalle,
+    L_prAuditoriaUsuarios,
     L_prRolGeneral,
     L_prRolDetalleGeneral,
     L_prRolGrabar,

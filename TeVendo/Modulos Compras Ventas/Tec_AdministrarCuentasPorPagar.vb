@@ -834,6 +834,12 @@ Public Class Tec_AdministrarCuentasPorPagar
     Private Sub grPagosTodos_Click(sender As Object, e As EventArgs) Handles grPagosTodos.Click
         If (grPagosTodos.RowCount >= 1) Then
             If (grPagosTodos.CurrentColumn.Index = grPagosTodos.RootTable.Columns("img").Index) Then
+                'Usuarios.EliminarRegistros
+                If (Global_EliminarRegistro = 0) Then
+                    Dim imgPermiso As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    ToastNotification.Show(Me, "No Tiene Permiso Para Eliminar Registros, Consulte con su Administrador".ToUpper, imgPermiso, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                    Return
+                End If
                 Dim ef = New Efecto
 
 

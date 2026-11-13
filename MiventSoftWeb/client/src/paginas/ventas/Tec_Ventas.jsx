@@ -16,6 +16,7 @@ import { Celda } from '../../global/Celda';
 import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
+import { whatsappCliente } from '../../global/pdf';
 import NotaImpresa from '../../componentes/NotaImpresa';
 import { useListaTeclado, FilaMas, AYUDA_ELEGIR } from '../../componentes/useListaTeclado';
 import { palabrasDe, indexar, filtrarIndice } from '../../global/buscar';
@@ -687,6 +688,7 @@ function NotaVenta({ datos, nombre = 'Venta', onCerrar }) {
   const credito = Number(venta.TipoVenta) === 0;
   return (
     <NotaImpresa titulo={nombre === 'Venta' ? 'Nota de Venta' : nombre} id={venta.Id} fecha={venta.FechaVenta} empresa={empresa} imagenEmpresa={datos.imagenEmpresa} onCerrar={onCerrar}
+      whatsapp={whatsappCliente({ telefono: cliente.Telefono, cliente: venta.NombreCliente, documento: `${nombre === 'Venta' ? 'Nota de Venta' : nombre} N° ${venta.Id}`, empresa: empresa?.Nombre })}
       grabada={datos.grabada ? `${nombre} #${venta.Id} ${datos.grabada === 'nueva' ? 'grabada' : 'modificada'} con éxito.` : null}
       cabecera={[
         ['Señor(es):', venta.NombreCliente], ['Nit/Ci:', cliente.Nit || 'SN'], ['Dirección:', cliente.Direccion || ''], ['Teléfono:', cliente.Telefono || ''],

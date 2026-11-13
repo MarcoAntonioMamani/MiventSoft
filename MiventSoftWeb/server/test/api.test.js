@@ -271,6 +271,13 @@ test('VENTAS (Kaily): precios del servidor, kits, pagos, caja abierta, permisos 
     assert.equal(ll['@Facturado'], 0);
     assert.deepEqual(ll['@VentaPagos'].filas, [[0, 0, 50, 20, 0, 0, 6.96, 0]], 'fila de pago como dt.Rows.Add de VB');
     assert.ok(!('@EstadoPedido' in ll) && !('@IncrementoVenta' in ll), 'sin campos de distribucion');
+    // lista y nota: total en dolares con el tipo de cambio cobrado en la venta
+    const filaVenta = async () => (await ok('GET', `/api/ventas/ventas?desde=${hoy}&hasta=${hoy}`)).data.find((x) => Number(x.Id) === Number(v.id));
+    let fv = await filaVenta();
+    assert.ok(fv.TotalDolares > 0 && cerca(fv.TotalDolares, Math.round((fv.TotalVenta / 6.96) * 100) / 100), 'Total $us = TotalVenta / TipoCambio');
+    let nv = (await ok('GET', `/api/ventas/ventas/${v.id}/recibo?fecha=${hoy}`)).data;
+    assert.equal(nv.tipoCambio, 6.96);
+    assert.ok(cerca(nv.totalDolares, fv.TotalDolares), 'nota: el mismo total en dolares que la lista');
 
     // modificar: cambia cantidad (2), quita (-1); los productos del kit quedan sin cambios (1)
     const detBD = (await ok('GET', `/api/ventas/ventas/${v.id}/detalle`)).data;
@@ -284,6 +291,9 @@ test('VENTAS (Kaily): precios del servidor, kits, pagos, caja abierta, permisos 
         detBD.map((f) => [f.Id, f.Id === idCoca ? 2 : f.Id === idLeche ? -1 : 1]).sort((a, b) => a[0] - b[0]));
     assert.equal(ll['@VentaPagos'].filas.length, 0, 'credito: sin pagos');
     assert.equal(ll['@Facturado'], 1);
+    fv = await filaVenta();
+    nv = (await ok('GET', `/api/ventas/ventas/${v.id}/recibo?fecha=${hoy}`)).data;
+    assert.deepEqual([fv.TipoCambio, fv.TotalDolares, nv.totalDolares], [0, 0, 0], 'credito: sin tipo de cambio -> 0 dolares');
 
     // reglas
     assert.equal((await api('POST', '/api/ventas/ventas', { ...cab, detalle: [{ nuevo: true, ProductoId: 4, Cantidad: 9999 }], pago: { MontoBs: 1e6 } })).status, 400, 'stock');
@@ -312,11 +322,24 @@ test('PROFORMAS (Kaily): MAM_Proforma sin pagos, cotiza sin stock y sin caja', a
         detalle: [{ Id: det[0].Id, Cantidad: 60 }, { Id: det[1].Id, eliminado: true }] });
     ll = ultimaLlamada('MAM_Proforma', 2).params;
     assert.deepEqual(ll['@VentaDetalleType'].filas.map((f) => f.estado).sort(), [-1, 2]);
-    assert.ok((await ok('GET', `/api/ventas/proformas/${p.id}/recibo?fecha=${ayer}`)).data.detalle.length >= 1);
+    const np = (await ok('GET', `/api/ventas/proformas/${p.id}/recibo?fecha=${ayer}`)).data;
+    assert.ok(np.detalle.length >= 1);
+    // la lista de proformas no trae tipo de cambio; la nota usa el vigente
+    assert.ok(lista.every((x) => x.TotalDolares === null), 'MAM_Proforma @tipo 3 sin TipoCambio');
+    const tcVigente = (await ok('GET', '/api/tipo-cambio')).data.monto;
+    assert.ok(tcVigente > 0);
+    assert.equal(np.tipoCambio, tcVigente, 'nota de proforma con el tipo de cambio vigente');
+    assert.ok(Math.abs(np.totalDolares - Math.round((np.total / tcVigente) * 100) / 100) < 1e-9);
     await ok('DELETE', `/api/ventas/proformas/${p.id}?fecha=${ayer}`);
 });
 
 test('DESPACHO VENTAS (Kaily FrmDespacho): MAM_Ventas @tipo 11, despachador requerido, nota solo entregado', async () => {
+    // menu: en el grupo Ventas de Panel_Ventas, despues de "Cuentas Por Cobrar A Credito" (Tec_Principal.Designer.vb)
+    const ventas = (await ok('GET', '/api/auth/sesion')).data.modulos.find((m) => m.panel === 'Panel_Ventas');
+    const ids = ventas.programas.map((p) => p.IdPrograma);
+    assert.ok(ids.includes('BTNDESPACHOVENTA'), 'Despacho De Productos en el menu de Ventas');
+    assert.equal(ventas.programas.find((p) => p.IdPrograma === 'BTNDESPACHOVENTA').DescripcionPrograma, 'DESPACHO DE PRODUCTOS');
+    if (ids.includes('BTNCREDPAGO')) assert.equal(ids.indexOf('BTNDESPACHOVENTA'), ids.indexOf('BTNCREDPAGO') + 1);
     const hoy = new Date(Date.now() - 4 * 3600e3).toISOString().slice(0, 10);
     const ayer = new Date(Date.now() - 28 * 3600e3).toISOString().slice(0, 10);
     const v = await ok('POST', '/api/ventas/ventas', { SucursalId: 1, FechaVenta: hoy, ClienteId: 1, TipoVenta: 0, PrecioId: 2, Glosa: 'despacho',
@@ -434,7 +457,7 @@ test('INVENTARIO: movimientos (stock, estados, ingreso sin limite), kardex, sald
     const p1 = prods.find((x) => x.stock > 5);
     const cab = { ConceptoId: 3, DepositoId: 1, FechaDocumento: hoy, Observacion: 'prueba' };
     const p2 = prods.find((x) => x.Id !== p1.Id);
-    assert.match((await api('POST', '/api/inventario/movimientos', { ...cab, detalle: [{ ProductoId: p1.Id, Cantidad: p1.stock + 1 }] })).mensaje, /MAYOR A LA QUE EXISTE/);
+    assert.match((await api('POST', '/api/inventario/movimientos', { ...cab, detalle: [{ ProductoId: p1.Id, Cantidad: p1.stock + 1 }] })).mensaje, /stock insuficiente/i);
     assert.match((await api('POST', '/api/inventario/movimientos', { ...cab, detalle: [] })).mensaje, /DETALLE/);
     // Kaily: las filas en 0 no se graban (Agregar todos); al menos una con cantidad
     assert.match((await api('POST', '/api/inventario/movimientos', { ...cab, detalle: [{ ProductoId: p1.Id, Cantidad: 0 }] })).mensaje, /AL MENOS UN PRODUCTO/);
@@ -775,11 +798,139 @@ test('PANEL y MENU (Kaily): ventas por sucursal, sin pedidos por asignar ni mapa
     const ll = [...mock.__llamadas].reverse().find((x) => x.sp === 'MAM_Ventas' && x.tipo === 3).params;
     assert.ok('@SucursalId' in ll, 'L_prListarVentasGeneralFiltroFecha con la sucursal del usuario');
     assert.ok(Array.isArray((await ok('GET', '/api/dashboard/detalle/pedidos')).data.filas));
+    // Kaily: MAM_Ventas @tipo 3 sin NombreEstado -> sin estados ni anulados
+    assert.equal(d.ventas.kpis.anulados, null);
+    assert.deepEqual(d.ventas.estados, []);
+    // al tocar una venta del detalle (ventas del dia / por vendedor / ...) se ven sus productos: MAM_Ventas @tipo 4
+    const hoy = new Date(Date.now() - 4 * 3600e3).toISOString().slice(0, 10);
+    const vta = await ok('POST', '/api/ventas/ventas', { SucursalId: 1, FechaVenta: hoy, ClienteId: 1, TipoVenta: 0, PrecioId: 2, Glosa: 'panel',
+        detalle: [{ nuevo: true, Tipo: 1, ProductoId: 1, Cantidad: 3 }] });
+    const det = (await ok('GET', `/api/dashboard/detalle/pedidos?fecha=${hoy}&vendedor=1&validos=1`)).data;
+    assert.ok(det.detalleVenta && !det.columnas.some((c) => c.k === 'estado'), 'sin columna Estado');
+    const fila = det.filas.find((f) => Number(f.id) === Number(vta.id));
+    assert.equal(fila.fecha, hoy, 'la fecha viaja para pedir el detalle');
+    const pv = (await ok('GET', `/api/dashboard/venta/${vta.id}?fecha=${hoy}`)).data;
+    assert.equal(Number(ultimaLlamada('MAM_Ventas', 4).params['@id']), Number(vta.id), 'ListaVentasDetalles');
+    assert.deepEqual(pv.filas.map((p) => p.cantidad), [3]);
+    assert.ok(Math.abs(pv.total - fila.total) < 1e-9, 'total del detalle = total de la venta');
+    assert.equal((await api('GET', `/api/dashboard/venta/999999?fecha=${hoy}`)).status, 404, 'solo ventas de la lista de la sucursal');
+    assert.equal((await api('GET', `/api/dashboard/venta/abc?fecha=${hoy}`)).status, 400);
+    await ok('DELETE', `/api/ventas/ventas/${vta.id}?fecha=${hoy}`);
     assert.equal((await api('GET', '/api/dashboard/detalle/asignar')).status, 400);
     assert.equal((await api('GET', '/api/dashboard/pedidos-mapa')).status, 404);
     const s = await ok('GET', '/api/auth/sesion');
     const ids = s.data.modulos.flatMap((m) => m.programas.map((p) => p.IdPrograma.toUpperCase()));
     for (const p of ['BTNDESPACHO', 'BTNCONCILIACIONES', 'BTNCIERRECAJA', 'BTNASIGNACIONPEDIDOS', 'BTNASIGNACIONZONA']) assert.ok(!ids.includes(p), `${p} no aparece`);
+});
+
+test('PANEL: hora de las ventas, clientes que dejaron de comprar, clientes rentables y productos sin venta (MAM_PanelControl)', async () => {
+    const hoy = new Date(Date.now() - 4 * 3600e3).toISOString().slice(0, 10);
+    // MAM_Ventas @tipo 3 no trae la hora: se une por Id con MAM_PanelControl @tipo 1 (hora 'H:m' sin ceros)
+    const d = (await ok('GET', `/api/dashboard?fecha=${hoy}`)).data;
+    assert.equal(d.ventas.conHora, true);
+    assert.ok(d.ventas.porHora.some((h) => h.promedio > 0), 'el grafico por hora tiene datos');
+    const ll = ultimaLlamada('MAM_PanelControl', 1).params;
+    assert.ok('@SucursalId' in ll && '@FechaI' in ll && '@FechaF' in ll);
+    const det = (await ok('GET', `/api/dashboard/detalle/pedidos?fecha=${hoy}&dias=30`)).data;
+    assert.ok(det.columnas.some((c) => c.k === 'fecha'), 'con periodo de dias se muestra la fecha');
+    assert.ok(det.filas.length && det.filas.every((f) => /^\d{2}:\d{2}$/.test(f.hora)), 'hora HH:mm aunque venga 9:5');
+
+    // cliente que compro hace 100 dias y no volvio
+    const db = mock.__db;
+    const f100 = new Date(Date.parse(`${hoy}T00:00:00Z`) - 100 * 864e5);
+    db.ventas.push({ ...db.ventas[0], Id: 99001, FechaVenta: f100, ClienteId: 9901, NombreCliente: 'CLIENTE QUE NO VOLVIO', TotalVenta: 500, Estado: 1, HoraRegistro: '10:05:00' });
+    try {
+        const a = (await ok('GET', `/api/dashboard/analisis?fecha=${hoy}`)).data;
+        assert.deepEqual(a.errores, []);
+        const sc = a.clientes.sinCompra;
+        const x = sc.top.find((c) => c.id === '9901');
+        assert.ok(x, 'aparece en clientes que dejaron de comprar');
+        assert.equal(x.sinComprar, 100);
+        assert.equal(sc.tramos[1].clientes >= 1, true, '91 a 180 dias');
+        assert.equal(Number(ultimaLlamada('MAM_PanelControl', 2).params['@SucursalId']), 1, 'sucursal del usuario');
+        // rentables por periodo, sin el cliente de mostrador (Id 1)
+        for (const p of ['30', '90', '365']) {
+            const r = a.clientes.rentables[p];
+            assert.ok(r.topMonto.length && r.topFrecuencia.length, `periodo ${p}`);
+            assert.ok(![...r.topMonto, ...r.topFrecuencia, ...r.puntos].some((c) => c.id === '1'), 'sin cliente de mostrador');
+            assert.ok(r.topMonto.every((c, i, arr) => !i || arr[i - 1].monto >= c.monto));
+            assert.ok(r.topFrecuencia.every((c, i, arr) => !i || arr[i - 1].dias >= c.dias));
+        }
+        assert.ok(!a.clientes.rentables['30'].puntos.some((c) => c.id === '9901'), 'la compra de hace 100 dias no cuenta en 30 dias');
+        const sd = (await ok('GET', `/api/dashboard/detalle/sinCompra?fecha=${hoy}&tramo=1`)).data;
+        assert.ok(sd.filas.some((f) => f.nombre === 'CLIENTE QUE NO VOLVIO' && f.ultima === f100.toISOString().slice(0, 10)));
+        const cp = (await ok('GET', `/api/dashboard/detalle/pedidos?fecha=${hoy}&dias=365&cliente=9901`)).data;
+        assert.equal(cp.filas.length, 1, 'compras del cliente en 12 meses');
+        const ct = (await ok('GET', `/api/dashboard/detalle/clientesTop?fecha=${hoy}&dias=90&orden=frecuencia`)).data;
+        assert.ok(ct.filas.every((f, i, arr) => !i || arr[i - 1].dias >= f.dias));
+        // productos con stock sin ventas en 60 dias: el 2 tiene stock y nunca se vendio
+        const pr = a.productos;
+        assert.ok(pr.productos >= 1 && pr.tramos[3].productos >= 1, 'nunca se vendio');
+        assert.equal(ultimaLlamada('MAM_PanelControl', 3).params['@FechaF'], hoy.replace(/-/g, '/'));
+        const sv = (await ok('GET', `/api/dashboard/detalle/sinVenta?fecha=${hoy}&tramo=3`)).data;
+        assert.ok(sv.filas.length && sv.filas.every((f) => f.ultima === null && f.stock > 0));
+        assert.equal((await api('GET', `/api/dashboard/detalle/pedidos?fecha=${hoy}&dias=999`)).status, 400);
+    } finally {
+        db.ventas = db.ventas.filter((v) => v.Id !== 99001);
+    }
+});
+
+test('ELIMINAR REGISTROS (Usuarios.EliminarRegistros): se lee de la BD, oculta el boton y bloquea el DELETE', async () => {
+    const admin = { NombreUsuario: 'ADMIN', Contrasena: '', IdEmpresa: 1, RolId: 1, IdPersonal: 1, estado: true, SucursalId: 1,
+        ModificarPrecioVenta: true, AplicarDescuentoVenta: true, VerTodasVentas: true, VerTodosVentasCierre: true, ModificarRegistroAnteriores: false };
+    const E = async (id) => (await ok('GET', '/api/auth/sesion')).data.modulos.flatMap((m) => m.programas).find((p) => p.IdPrograma === id)?.E;
+    try {
+        await ok('PUT', '/api/configuracion/usuarios/1', { ...admin, EliminarRegistros: false });
+        assert.equal(ultimaLlamada('MAM_Usuarios', 2).params['@EliminarRegistros'], 0);
+        const s = (await ok('GET', '/api/auth/sesion')).data;
+        assert.equal(s.permisosVenta.eliminarRegistros, false, 'sin volver a iniciar sesion');
+        for (const p of ['BTVENTVENTA', 'BTNCOMPRAS', 'BTINVMOVIMIENTO', 'BTNCREDPAGO', 'BTNCOMPRACREDITO']) assert.equal(await E(p), 0, `${p} sin boton eliminar`);
+        assert.equal(await E('BTCONFCLIENTE'), 1, 'los catalogos no cambian');
+        for (const ruta of ['/api/ventas/ventas/999?fecha=2026-01-01', '/api/compras/compras/999?fecha=2026-01-01', '/api/inventario/movimientos/999',
+            '/api/ventas/cuentas-cobrar/1/pagos/1', '/api/compras/cuentas-pagar/pagos/1']) {
+            const r = await api('DELETE', ruta);
+            assert.equal(r.status, 403, ruta);
+            assert.match(r.mensaje, /no tiene permiso para eliminar registros/i, ruta);
+        }
+        assert.equal((await api('GET', '/api/compras/compras?desde=2026-01-01&hasta=2026-01-02')).status, 200, 'ver y grabar siguen igual');
+    } finally {
+        await ok('PUT', '/api/configuracion/usuarios/1', { ...admin, EliminarRegistros: true });
+    }
+    assert.equal(await E('BTVENTVENTA'), 1);
+    assert.notEqual((await api('DELETE', '/api/compras/compras/999?fecha=2026-01-01')).status, 403, 'con el permiso vuelve a poder eliminar');
+});
+
+test('AUDITORIA DE REGISTROS (MAM_Auditoria): lista, filtros, resumen y comparacion antes / despues', async () => {
+    const hoy = new Date(Date.now() - 4 * 3600e3).toISOString().slice(0, 10);
+    const progs = (await ok('GET', '/api/auth/sesion')).data.modulos.flatMap((m) => m.programas.map((p) => p.IdPrograma));
+    assert.ok(progs.includes('BTNAUDITORIAREGISTROS'), 'programa en el menu (Gestion De Usuarios)');
+    const l = (await ok('GET', `/api/configuracion/auditoria?desde=${hoy}&hasta=${hoy}`)).data;
+    assert.deepEqual(Object.keys(ultimaLlamada('MAM_Auditoria', 3).params).sort(),
+        ['@Desde', '@DocumentoId', '@Hasta', '@Modulo', '@Operacion', '@UsuarioFiltro', '@tipo', '@usuario'].sort());
+    assert.equal(l.filas.length, 2);
+    assert.deepEqual([l.resumen.eliminados, l.resumen.modificados, l.resumen.usuarios], [1, 1, 2]);
+    assert.ok(l.filas.every((f) => !('Antes' in f) && !('Despues' in f)), 'la lista no trae las fotos');
+    assert.deepEqual(l.filas.map((f) => f.Origen).sort(), ['Escritorio', 'Web']);
+    const solo = (await ok('GET', `/api/configuracion/auditoria?desde=${hoy}&hasta=${hoy}&operacion=2&modulo=2&usuario=LUIS%20QUISPE`)).data;
+    assert.deepEqual(solo.filas.map((f) => f.Id), [2]);
+    assert.deepEqual((await ok('GET', '/api/configuracion/auditoria/usuarios')).data.sort(), ['LUIS QUISPE', 'MARCO MAMANI']);
+
+    const m = (await ok('GET', '/api/configuracion/auditoria/1')).data;
+    const cab = Object.fromEntries(m.cabecera.map((c) => [c.campo, c]));
+    assert.deepEqual([cab.Total.antes, cab.Total.despues, cab.Total.cambio], ['30', '27.5', true]);
+    assert.equal(cab.Glosa.antes, 'A & B', 'entidades XML decodificadas');
+    assert.equal(cab.Cliente.cambio, false);
+    const est = Object.fromEntries(m.detalle.map((d) => [(d.despues || d.antes).Producto, d]));
+    assert.equal(est['COCA COLA 2L'].estado, 'modificado');
+    assert.deepEqual(est['COCA COLA 2L'].cambios.sort(), ['Cantidad', 'Total']);
+    assert.equal(est['AGUA 600'].estado, 'agregado');
+    assert.equal(est['PIL 1L'].estado, 'quitado');
+    assert.deepEqual(m.resumenDetalle, { agregados: 1, quitados: 1, modificados: 1 });
+
+    const e = (await ok('GET', '/api/configuracion/auditoria/2')).data;
+    assert.equal(e.registro.NombreOperacion, 'Eliminado');
+    assert.ok(e.detalle.length === 1 && e.detalle[0].estado === 'eliminado' && e.detalle[0].antes.Cantidad === '10');
+    assert.equal((await api('GET', '/api/configuracion/auditoria/999')).status, 404);
 });
 
 test('ningun llamado rompio el contrato de los SP del escritorio', () => {

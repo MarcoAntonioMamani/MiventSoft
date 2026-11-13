@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Sanbit</string>
+    <!-- app_name: se define en app/build.gradle (APP_NOMBRE) -->
 </resources>

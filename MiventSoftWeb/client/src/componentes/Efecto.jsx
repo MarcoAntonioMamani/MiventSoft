@@ -29,6 +29,49 @@ export function EfectoConfirmar({ abierto, titulo, descripcion, onAceptar, onCan
   );
 }
 
+// No se puede eliminar porque el stock quedaria negativo (lo que ingreso ya se vendio o salio).
+// productos: [{ Producto, stock, cantidad, quedaria }] (servidor: middleware/errores.js productosStock)
+const fmt = (n) => Number(n || 0).toLocaleString('es-BO', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+export function EfectoStockNegativo({ abierto, mensaje, productos = [], onCerrar }) {
+  const btn = useRef(null);
+  useEffect(() => {
+    if (abierto) btn.current?.focus();
+  }, [abierto]);
+  if (!abierto) return null;
+  return (
+    <div className="modal-fondo" onMouseDown={onCerrar}>
+      <div className="modal modal-stock" role="alertdialog" aria-modal="true" aria-labelledby="stock-neg-tit"
+        onMouseDown={(e) => e.stopPropagation()} onKeyDown={(e) => e.key === 'Escape' && onCerrar()}>
+        <div className="modal-icono peligro"><Icono n="alert" size={26} /></div>
+        <h3 id="stock-neg-tit">No se puede eliminar</h3>
+        <p>{mensaje}</p>
+        <div className="stock-neg-lista" role="table" aria-label="Productos que quedarian con stock negativo">
+          <div className="stock-neg-fila cab" role="row">
+            <span role="columnheader">Producto</span>
+            <span role="columnheader" className="num">Stock actual</span>
+            <span role="columnheader" className="num">Se quitaria</span>
+            <span role="columnheader" className="num">Quedaria</span>
+          </div>
+          {productos.map((p) => (
+            <div key={p.Producto} className="stock-neg-fila" role="row">
+              <span role="cell" className="stock-neg-prod">{p.Producto}</span>
+              <span role="cell" className="num" data-t="Stock actual">{fmt(p.stock)}</span>
+              <span role="cell" className="num" data-t="Se quitaria">-{fmt(p.cantidad)}</span>
+              <span role="cell" className="num stock-neg-queda" data-t="Quedaria">{fmt(p.quedaria)}</span>
+            </div>
+          ))}
+        </div>
+        <p className="stock-neg-ayuda">
+          Para eliminarlo, primero registre un ingreso de esos productos o anule las ventas o salidas que los usaron.
+        </p>
+        <div className="modal-acciones">
+          <button ref={btn} className="btn btn-pri" onClick={onCerrar}>Entendido</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function EfectoAyuda({ abierto, titulo, dt = [], columnas, onSeleccionar, onCancelar }) {
   const [filtro, setFiltro] = useState('');
   const [pos, setPos] = useState(0);

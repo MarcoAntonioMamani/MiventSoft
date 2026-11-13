@@ -111,6 +111,7 @@ Public Class Tec_Login
             Global_TipoCambio = dtUsuario.Rows(0).Item("Monto")
             Global_NombreSucursal = dtUsuario.Rows(0).Item("NombreSucursal")
             Global_ModificarRegistro = dtUsuario.Rows(0).Item("ModificarRegistroAnteriores")
+            Global_EliminarRegistro = dtUsuario.Rows(0).Item("EliminarRegistros")
             Global_CierreTodos = dtUsuario.Rows(0).Item("VerTodosVentasCierre")
             Global_VentasTodos = dtUsuario.Rows(0).Item("VerTodasVentas")
             Global_FechaActual = dtUsuario.Rows(0).Item("FechaBolivia")

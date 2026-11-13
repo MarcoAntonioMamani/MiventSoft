@@ -13,7 +13,7 @@ const {
 const { D_InfoConexion } = require('../datos/AccesoDatos');
 const { comoEscritorio } = require('../negocio/menuEscritorio');
 const { crearSesion, cerrarSesion, requiereSesion } = require('../middleware/autenticacion');
-const { _tienePermiso, _acciones } = require('../middleware/permisos');
+const { _tienePermiso, _acciones, UsuarioPuedeEliminar, PROGRAMAS_ELIMINAR_USUARIO } = require('../middleware/permisos');
 const { asyncHandler, ErrorNegocio } = require('../middleware/errores');
 
 const router = express.Router();
@@ -83,6 +83,8 @@ router.get(
     requiereSesion,
     asyncHandler(async (req, res) => {
         const s = req.sesion;
+        // Usuarios.EliminarRegistros: sin el permiso se ocultan los botones de eliminar de ventas, compras, movimientos y pagos
+        const eliminarRegistros = await L_prConUsuario(s.gs_user, () => UsuarioPuedeEliminar(s.gi_userNumi));
         const modulos = await L_prConUsuario(s.gs_user, async () => {
             const dtModulos = await L_prLibreriaDetalleGeneral(1); // id=1 los modulos del sistema
             const resultado = [];
@@ -91,8 +93,10 @@ router.get(
                 const programas = dtDetRol.filter(_tienePermiso).map((f) => {
                     // permisos por accion para ocultar botones (solo "Ver" = todo, como el escritorio)
                     const a = _acciones(f);
+                    const id = String(f.IdPrograma).toUpperCase();
+                    if (!eliminarRegistros && PROGRAMAS_ELIMINAR_USUARIO.has(id)) a.eliminar = false;
                     return {
-                        IdPrograma: String(f.IdPrograma).toUpperCase(),
+                        IdPrograma: id,
                         DescripcionPrograma: String(f.DescripcionPrograma || '').toUpperCase(),
                         I: a.insertar ? 1 : 0, M: a.modificar ? 1 : 0, E: a.eliminar ? 1 : 0,
                     };
@@ -118,6 +122,7 @@ router.get(
                     verTodasVentas: s.Global_VentasTodos === 1,
                     verTodosCierres: s.Global_CierreTodos === 1,
                     modificarRegistrosAnteriores: s.Global_ModificarRegistro === 1,
+                    eliminarRegistros,
                 },
                 nombreSucursal: s.Global_NombreSucursal || '',
                 modulos,

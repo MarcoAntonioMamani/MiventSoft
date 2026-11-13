@@ -9,6 +9,7 @@
 // =====================================================================
 const sql = require('mssql');
 const Configuracion = require('./Configuracion');
+const { clienteActual, usuarioActual } = require('./ContextoPeticion');
 
 let _pool = null;
 let _conectando = null;
@@ -134,6 +135,27 @@ function _NormalizarValor(v) {
     return v;
 }
 
+// ---------------------------------------------------------------------
+//  Auditoria (sql/10_AuditoriaEquipo.sql): al modificar (@tipo 2) o eliminar (@tipo -1) en estos SP, los datos
+//  del equipo del cliente se dejan en AuditoriaContexto en el MISMO lote que ejecuta el SP (misma sesion SQL,
+//  @@SPID), y MAM_Auditoria los lee al registrar. Si el 10 no esta instalado se ejecuta el SP como siempre.
+//  Con el 11 tambien va el nombre completo del usuario (MAM_Compras y MAM_Movimientos lo reciben cortado a 10).
+// ---------------------------------------------------------------------
+const _SP_AUDITADOS = new Set(['mam_ventas', 'mam_compras', 'mam_movimientos']);
+let _hayContexto = { valor: false, usuario: false, vence: 0 };
+async function _ContextoInstalado(pool) {
+    if ((_hayContexto.valor && _hayContexto.usuario) || _hayContexto.vence > Date.now()) return _hayContexto;
+    try {
+        const r = await pool.request().query("SELECT CASE WHEN OBJECT_ID('dbo.AuditoriaContexto', 'U') IS NULL THEN 0 ELSE 1 END AS x, CASE WHEN COL_LENGTH('dbo.AuditoriaContexto', 'Usuario') IS NULL THEN 0 ELSE 1 END AS u");
+        // todo instalado (10 y 11): para siempre ; si falta algo se vuelve a mirar en 1 minuto (por si se ejecuta sin reiniciar)
+        _hayContexto = { valor: r.recordset[0].x === 1, usuario: r.recordset[0].u === 1, vence: Date.now() + 60 * 1000 };
+    } catch {
+        _hayContexto = { valor: false, usuario: false, vence: Date.now() + 60 * 1000 };
+    }
+    return _hayContexto;
+}
+const _nombreSeguro = (n) => /^[A-Za-z_][A-Za-z0-9_]*$/.test(n);
+
 // =====================================================================
 //  EjecutarProcedimiento  -> devuelve el primer recordset (como el DataTable de VB)
 // =====================================================================
@@ -144,8 +166,10 @@ async function EjecutarProcedimiento(_Nombre, _listaParam) {
     const hayDetalle = _listaParam.some((p) => p.detalle);
     const defTVP = hayDetalle ? await _ObtenerTiposTabla(pool, _Nombre) : {};
 
+    const nombres = [];
     for (const p of _listaParam) {
         const nombre = p.nombre.replace(/^@/, '');
+        nombres.push(nombre);
         if (p.detalle) {
             const def = defTVP[p.nombre.toLowerCase()];
             if (!def) throw new Error(`El SP ${_Nombre} no tiene un parametro tipo tabla ${p.nombre}`);
@@ -153,6 +177,28 @@ async function EjecutarProcedimiento(_Nombre, _listaParam) {
         } else {
             request.input(nombre, _NormalizarValor(p.valor));
         }
+    }
+
+    const cliente = clienteActual();
+    const tipo = Number(_listaParam.find((p) => /^@?tipo$/i.test(p.nombre))?.valor);
+    if (cliente && _SP_AUDITADOS.has(_Nombre.toLowerCase()) && (tipo === 2 || tipo === -1)
+        && nombres.every(_nombreSeguro) && (await _ContextoInstalado(pool)).valor) {
+        const conUsuario = _hayContexto.usuario;
+        if (conUsuario) request.input('__audUsuario', sql.NVarChar(100), usuarioActual());
+        request.input('__audIp', sql.NVarChar(64), cliente.ip || null);
+        request.input('__audNav', sql.NVarChar(200), cliente.navegador || null);
+        request.input('__audEquipo', sql.NVarChar(128), cliente.equipo || null);
+        // texto exacto ("-16.495521234567891"): SQL lo convierte a la columna (decimal(21,18) con el 12; decimal(9,6) antes)
+        request.input('__audLat', sql.VarChar(40), cliente.latitud ?? null);
+        request.input('__audLng', sql.VarChar(40), cliente.longitud ?? null);
+        request.input('__audPrec', sql.Int, cliente.precision ?? null);
+        const resultado = await request.query(`SET NOCOUNT ON;
+DELETE dbo.AuditoriaContexto WHERE Spid = @@SPID OR Fecha < DATEADD(DAY, -1, GETDATE());
+INSERT dbo.AuditoriaContexto (Spid, Fecha, Ip, Navegador, Equipo, Latitud, Longitud, PrecisionMetros${conUsuario ? ', Usuario' : ''})
+VALUES (@@SPID, GETDATE(), @__audIp, @__audNav, @__audEquipo, @__audLat, @__audLng, @__audPrec${conUsuario ? ', @__audUsuario' : ''});
+EXEC dbo.[${_Nombre}] ${nombres.map((n) => `@${n}=@${n}`).join(', ')};
+DELETE dbo.AuditoriaContexto WHERE Spid = @@SPID;`);
+        return resultado.recordset || [];
     }
 
     const resultado = await request.execute(_Nombre);

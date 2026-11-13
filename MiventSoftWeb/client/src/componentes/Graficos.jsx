@@ -116,9 +116,9 @@ export function LineaHoras({ datos, desde = 7, hasta = 20, onElegir }) {
       {h && (
         <Tooltip x={x(hover)} y={y(h.monto)} ancho={W}>
           <b>{String(h.hora).padStart(2, '0')}:00 – {String(h.hora).padStart(2, '0')}:59</b>
-          <span><i className="dot s1" /> Día: {fmtBs(h.monto)} · {h.pedidos} ped.</span>
+          <span><i className="dot s1" /> Día: {fmtBs(h.monto)} · {h.pedidos} {h.pedidos === 1 ? 'venta' : 'ventas'}</span>
           <span><i className="dot prom" /> Promedio: {fmtBs(h.promedio)}</span>
-          {onElegir && h.pedidos > 0 && <small>Clic para ver los pedidos</small>}
+          {onElegir && h.pedidos > 0 && <small>Clic para ver las ventas</small>}
         </Tooltip>
       )}
     </div>
@@ -166,18 +166,88 @@ export function BarrasDias({ datos, seleccion, onElegir, valor = 'monto' }) {
         <Tooltip x={m.l + hover * bw + bw / 2} y={y(d[valor])} ancho={W}>
           <b>{dia(d.fecha).toLocaleDateString('es-BO', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' })}</b>
           <span>{fmtBs(d.monto)}</span>
-          <span>{d.pedidos} pedidos</span>
+          <span>{d.pedidos} {d.pedidos === 1 ? 'venta' : 'ventas'}</span>
         </Tooltip>
       )}
     </div>
   );
 }
 
-/** Barras horizontales con etiqueta y valor */
-export function BarrasH({ filas, valor, etiqueta, formato = fmtBs, extra, destacar, onElegir }) {
+// Escala del eje X con pasos enteros (dias, compras)
+function escalaEntera(max) {
+  const e = escala(max);
+  return e.paso < 1 ? { tope: Math.max(1, Math.ceil(max)), paso: 1 } : e;
+}
+
+/**
+ * Dispersion: un punto por cliente (x = dias con compra, y = monto). Los destacados (top 10) van en el color
+ * de acento y encima. Tooltip con el punto mas cercano (raton o dedo) y clic para ver el detalle.
+ */
+export function Dispersion({ puntos, x = 'dias', y = 'monto', destacar, onElegir, etiquetaX = 'Días con compra', formatoY = fmtBs }) {
+  const [ref, W] = useAncho();
+  const [hover, setHover] = useState(null);
+  // celular: el 1er toque muestra el dato, el 2do toque sobre el mismo punto abre el detalle
+  const toque = useRef({ tactil: false, abrir: false });
+  const H = 260, m = { t: 18, r: 16, b: 42, l: 54 };
+  const ex = escalaEntera(Math.max(...puntos.map((p) => p[x]), 1));
+  const ey = escala(Math.max(...puntos.map((p) => p[y]), 0));
+  const px = (v) => m.l + (v / ex.tope) * (W - m.l - m.r);
+  const py = (v) => H - m.b - (v / ey.tope) * (H - m.t - m.b);
+  // los destacados al final: se dibujan encima
+  const orden = puntos.map((p, i) => ({ p, i, d: !!destacar?.(p) })).sort((a, b) => a.d - b.d);
+  const cercano = (e) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    const t = e.touches ? e.touches[0] : e;
+    const cx = t.clientX - r.left, cy = t.clientY - r.top;
+    let mejor = null, dist = 24 * 24;
+    for (const { p, i } of orden) { const dx = px(p[x]) - cx, dy = py(p[y]) - cy; const dd = dx * dx + dy * dy; if (dd <= dist) { dist = dd; mejor = i; } }
+    return mejor;
+  };
+  const h = hover !== null ? puntos[hover] : null;
+  return (
+    <div className="viz" ref={ref}>
+      <svg width={W} height={H} role="img" aria-label={`Clientes por días con compra y monto: ${puntos.length} clientes`}
+        onMouseMove={(e) => !toque.current.tactil && setHover(cercano(e))} onMouseLeave={() => setHover(null)}
+        onTouchStart={(e) => { const i = cercano(e); toque.current = { tactil: true, abrir: i !== null && i === hover }; setHover(i); }}
+        onClick={(e) => {
+          const i = cercano(e);
+          const { tactil, abrir } = toque.current;
+          toque.current = { tactil: false, abrir: false };
+          if (i !== null && onElegir && (!tactil || abrir)) onElegir(puntos[i]);
+        }}
+        style={{ cursor: onElegir && h ? 'pointer' : 'default' }}>
+        {Array.from({ length: Math.round(ey.tope / ey.paso) + 1 }, (_, i) => i * ey.paso).map((v) => (
+          <g key={`y${v}`}>
+            <line x1={m.l} x2={W - m.r} y1={py(v)} y2={py(v)} className="viz-grid" />
+            <text x={m.l - 8} y={py(v)} className="viz-eje" textAnchor="end" dominantBaseline="middle">{fmtCorto(v)}</text>
+          </g>
+        ))}
+        {Array.from({ length: Math.round(ex.tope / ex.paso) + 1 }, (_, i) => i * ex.paso).map((v) => (
+          <text key={`x${v}`} x={px(v)} y={H - m.b + 16} className="viz-eje" textAnchor="middle">{fmtN(v)}</text>
+        ))}
+        <text x={(m.l + W - m.r) / 2} y={H - 6} className="viz-eje viz-titulo-eje" textAnchor="middle">{etiquetaX} →</text>
+        <text x={W - m.r} y={m.t - 6} className="viz-eje viz-titulo-eje" textAnchor="end">↗ compran más y más seguido</text>
+        {orden.map(({ p, i, d }, k) => (
+          <circle key={p.id ?? i} cx={px(p[x])} cy={py(p[y])} r={hover === i ? 7 : 5} className={`viz-disp ${d ? 'dest' : ''} ${hover === i ? 'hover' : ''}`} style={{ '--i': k }} />
+        ))}
+      </svg>
+      {h && (
+        <Tooltip x={px(h[x])} y={py(h[y])} ancho={W}>
+          <b>{h.nombre}</b>
+          <span>{formatoY(h[y])}</span>
+          <span>{fmtN(h.dias)} {h.dias === 1 ? 'día' : 'días'} con compra · {fmtN(h.compras)} {h.compras === 1 ? 'compra' : 'compras'}</span>
+          {onElegir && <small>{toque.current.tactil ? 'Toque otra vez para ver sus compras' : 'Clic para ver sus compras'}</small>}
+        </Tooltip>
+      )}
+    </div>
+  );
+}
+
+/** Barras horizontales con etiqueta y valor (color opcional de la barra) */
+export function BarrasH({ filas, valor, etiqueta, formato = fmtBs, extra, destacar, onElegir, color }) {
   const max = Math.max(...filas.map((f) => f[valor]), 0) || 1;
   return (
-    <ul className="barras-h">
+    <ul className="barras-h" style={color ? { '--barra': color } : undefined}>
       {filas.map((f, i) => (
         <li key={f[etiqueta] + i} className={`${destacar?.(f) ? 'destacada' : ''} ${onElegir ? 'clic' : ''}`} style={{ '--i': i }}
           {...(onElegir ? { role: 'button', tabIndex: 0, onClick: () => onElegir(f), onKeyDown: (e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), onElegir(f)), title: 'Ver detalle' } : {})}>
@@ -196,7 +266,7 @@ export function BarraSegmentada({ partes, valor = 'pedidos', formato = fmtN, onE
   return (
     <div className="seg">
       <div className="seg-barra" role="img" aria-label={partes.map((p) => `${p.nombre}: ${formato(p[valor])}`).join(', ')}>
-        {partes.map((p) => (
+        {partes.filter((p) => p[valor] > 0).map((p) => (
           <span key={p.nombre} className="seg-parte" title={`${p.nombre}: ${formato(p[valor])}`} style={{ width: `${(p[valor] / total) * 100}%`, background: p.color }} />
         ))}
       </div>

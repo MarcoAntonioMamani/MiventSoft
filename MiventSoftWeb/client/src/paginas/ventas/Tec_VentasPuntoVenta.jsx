@@ -7,7 +7,7 @@
 //   * Cantidad en unidades; precio editable solo con "Modificar precio"; descuentos solo con "Aplicar descuento".
 //     El total se puede escribir y el descuento sale de la diferencia (tbTotal_ValueChanged).
 //   * Un kit se agrega como sus productos (no editables) y se quita completo.
-//   * Contado: al grabar se pide el cobro (Bs, $, tarjeta, transferencia) y debe cubrir el total.
+//   * Contado: al grabar se pide el cobro (Bs, $, tarjeta, QR = TransferenciaBancaria) y debe cubrir el total.
 //  El navegador calcula para MOSTRAR; el servidor vuelve a tomar precios, costos y stock de los SP.
 // =====================================================================
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
@@ -19,6 +19,7 @@ import { Celda } from '../../global/Celda';
 import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
+import { whatsappCliente } from '../../global/pdf';
 import NotaImpresa from '../../componentes/NotaImpresa';
 import { useListaTeclado, FilaMas, AYUDA_ELEGIR } from '../../componentes/useListaTeclado';
 import { palabrasDe, indexar, filtrarIndice } from '../../global/buscar';
@@ -28,8 +29,10 @@ import { useAlActivar } from '../../global/vistaActiva';
 import { useTipoCambio, aDolares } from '../../global/tipoCambio';
 
 // Tec_Ventas.vb y Tec_Proformas.vb de Kaily comparten la pantalla
-export const CFG_VENTA_PV = { url: '/api/ventas/ventas', titulo: 'Ventas', subtitulo: 'Gestion De Ventas', icono: 'cart', nombre: 'Venta', cobro: true, caja: true, tipoVenta: true, facturado: true, sinStock: false, nota: 'Nota de Venta' };
-export const CFG_PROFORMA_PV = { url: '/api/ventas/proformas', titulo: 'Proformas', subtitulo: 'Gestion De Proformas', icono: 'list', nombre: 'Proforma', cobro: false, caja: false, tipoVenta: false, facturado: false, sinStock: true, nota: 'Proforma' };
+//  despacho: columnas Estado Despacho / Despachante en la lista (la proforma no se despacha)
+//  dolares:  columna Total $us en la lista (MAM_Proforma @tipo 3 no trae el tipo de cambio)
+export const CFG_VENTA_PV = { url: '/api/ventas/ventas', titulo: 'Ventas', subtitulo: 'Gestion De Ventas', icono: 'cart', nombre: 'Venta', cobro: true, caja: true, tipoVenta: true, facturado: true, sinStock: false, nota: 'Nota de Venta', despacho: true, dolares: true };
+export const CFG_PROFORMA_PV = { url: '/api/ventas/proformas', titulo: 'Proformas', subtitulo: 'Gestion De Proformas', icono: 'list', nombre: 'Proforma', cobro: false, caja: false, tipoVenta: false, facturado: false, sinStock: true, nota: 'Proforma', despacho: false, dolares: false };
 const dos = (n) => String(n).padStart(2, '0');
 const hoyLocal = () => { const d = new Date(); return `${d.getFullYear()}-${dos(d.getMonth() + 1)}-${dos(d.getDate())}`; };
 const bs = (n, d = 2) => Number(n || 0).toLocaleString('es-BO', { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -62,7 +65,8 @@ function errorFila(f, sinStock) {
   const e = {};
   const cant = num(f.Cantidad);
   if (!(cant > 0)) e.Cantidad = 'La Cantidad debe ser Mayor a 0';
-  else if (!sinStock && Number(f.Tipo) !== 2 && cant > num(f.stock) + 1e-9) e.Cantidad = `La Cantidad = ${n2(cant)} es mayor al Stock del Producto = ${n2(f.stock)}`;
+  // filas nuevas: el stock se relee de la BD al grabar (problemasDetalle), aqui solo las existentes
+  else if (!sinStock && Number(f.Tipo) !== 2 && !f.nuevo && cant > num(f.stock) + 1e-9) e.Cantidad = `La Cantidad = ${n2(cant)} es mayor al Stock del Producto = ${n2(f.stock)}`;
   if (num(f.Precio) < 0) e.Precio = 'Precio no valido';
   const sub = cant * num(f.Precio);
   if (f._origenDesc === 'monto') {
@@ -109,9 +113,19 @@ export function PantallaPV({ cfg }) {
 
   const vigentes = detalle.filter((f) => !f.eliminado);
   const errDe = (f) => (f._editado ? errorFila(f, cfg.sinStock) : {});
+  // Lo que impide grabar (se recalcula en vivo: al bajar la cantidad o poner el precio desaparece el aviso).
+  // Stock: filas nuevas o con stock ya confirmado por el servidor (otro usuario pudo haber vendido)
+  const faltaStock = (f) => !cfg.sinStock && Number(f.Tipo) !== 2 && (f.nuevo || f._stockVerificado) && num(f.Cantidad) > num(f.stock) + 1e-9;
+  const faltaPrecio = (f) => Number(f.Tipo) !== 2 && (f.nuevo || f._editado) && !(num(f.Precio) > 0);
+  const filasSinStock = vigentes.filter(faltaStock);
+  const filasSinPrecio = vigentes.filter(faltaPrecio);
   const suma = vigentes.reduce((s, f) => s + num(f.Total), 0);
   const total = suma - num(form.Descuento);
   const sucursalFija = ini && Number(ini.sucursalUsuario) >= 0;
+  // Total en dolares: venta ya guardada -> el tipo de cambio con el que se registro (MAM_Ventas @tipo 3, 0 si fue a credito);
+  // venta nueva (y proforma, que no guarda tipo de cambio) -> el ultimo del sistema
+  const tcGuardado = !!cfg.dolares && !!form.Id;
+  const tcTotal = tcGuardado ? num(form.TipoCambio) : tc;
 
   // _PMOLimpiar + btnNuevo_Click
   const limpiar = (d = ini) => {
@@ -144,10 +158,10 @@ export function PantallaPV({ cfg }) {
   };
 
   // Lo que se envia: filas existentes por Id; productos nuevos; cada kit nuevo una sola vez
-  const _datos = (pago) => {
+  const _datos = (pago, detalleActual = detalle) => {
     const kits = new Set();
     const filas = [];
-    for (const f of detalle) {
+    for (const f of detalleActual) {
       if (!f.nuevo) {
         filas.push({ Id: f.Id, eliminado: !!f.eliminado, Cantidad: f.Cantidad, ProcentajeDescuento: f.ProcentajeDescuento, MontoDescuento: f.MontoDescuento,
           ...(permisos.modificarPrecio ? { Precio: f.Precio } : {}) });
@@ -168,13 +182,63 @@ export function PantallaPV({ cfg }) {
 
   // Efecto tipo 20 (EfectivoCobranza): solo en contado. Cancelar = no se graba
   const conCobro = cfg.cobro && form.TipoVenta;
-  const pedirCobro = () => (conCobro
-    ? new Promise((resolver) => setCobro({ total: r2(total), resolver }))
+  const pedirCobro = (t) => (conCobro
+    ? new Promise((resolver) => setCobro({ total: r2(t), resolver }))
     : Promise.resolve(null));
+
+  // Kaily: se puede elegir un producto con precio 0 o sin stock, pero no se graba hasta que tenga precio y stock.
+  // Al grabar se releen precio y stock de los productos nuevos (pudieron colocar el precio o ingresar stock mientras tanto);
+  // el precio escrito a mano (permiso ModificarPrecioVenta) se respeta. El servidor vuelve a validar todo.
+  const actualizarNuevos = async () => {
+    const nuevos = detalle.filter((f) => f.nuevo && !f.eliminado && Number(f.Tipo) !== 2);
+    if (!nuevos.length) return detalle;
+    const cats = [...new Set(nuevos.map((f) => String(f.PrecioId)))];
+    const listas = new Map(await Promise.all(cats.map(async (c) => [c, (await api.get(`${URL}/productos?${new URLSearchParams({ sucursal: form.SucursalId, precio: c })}`)).data])));
+    return detalle.map((f) => {
+      if (!f.nuevo || f.eliminado || Number(f.Tipo) === 2) return f;
+      const p = (listas.get(String(f.PrecioId)) || []).find((x) => Number(x.Id) === Number(f.ProductoId) && (Number(x.Tipo) || 1) === 1);
+      if (!p) return f;
+      return recalcular({ ...f, stock: num(p.stock), _stockVerificado: true, Precio: f._precioManual ? f.Precio : num(p.PrecioVenta) });
+    });
+  };
+  // El detalle de cada producto se muestra en el aviso rojo sobre la tabla; aqui solo el resumen
+  const problemasDetalle = (filas) => {
+    const v = filas.filter((f) => !f.eliminado);
+    const sinStock = v.filter(faltaStock).length;
+    const sinPrecio = v.filter(faltaPrecio).length;
+    const msg = [];
+    if (sinStock) msg.push(`${sinStock} producto(s) sin stock suficiente`);
+    if (sinPrecio) msg.push(`${sinPrecio} producto(s) sin precio de venta`);
+    return msg.length ? `No se puede grabar: ${msg.join(' y ')}. Revise los productos marcados en rojo.` : null;
+  };
+  // El servidor (y el SP) confirman el stock al grabar: si otro usuario vendio antes, devuelven cada producto con su
+  // stock actual. Se actualiza la fila para que quede marcada con lo que realmente hay.
+  const marcarSinStock = (lista) => {
+    const porId = new Map(lista.map((x) => [Number(x.ProductoId), x]));
+    setDetalle((d) => d.map((f) => {
+      const x = !f.eliminado && Number(f.Tipo) !== 2 ? porId.get(Number(f.ProductoId)) : null;
+      return x ? { ...f, stock: num(x.stock), _stockVerificado: true } : f;
+    }));
+    setErrores((e) => ({ ...e, detalle: `No se puede grabar: ${lista.length} producto(s) sin stock suficiente. Revise los productos marcados en rojo.` }));
+  };
+
   const grabar = async (enviar) => {
-    const pago = await pedirCobro();
+    const filas = await actualizarNuevos();
+    if (filas !== detalle) {
+      const cambiados = filas.filter((f, i) => f !== detalle[i] && num(f.Precio) !== num(detalle[i].Precio)).length;
+      setDetalle(filas);
+      if (cambiados) toast(`Se actualizó el precio de ${cambiados} producto(s) con el vigente.`, 'aviso', 6000);
+    }
+    const problema = problemasDetalle(filas);
+    if (problema) { setErrores((e) => ({ ...e, detalle: problema })); throw new Error(problema); }
+    const pago = await pedirCobro(filas.filter((f) => !f.eliminado).reduce((s, f) => s + num(f.Total), 0) - num(form.Descuento));
     if (conCobro && !pago) throw new Error('Cobro cancelado: la venta no se grabo.');
-    return enviar(_datos(pago));
+    try {
+      return await enviar(_datos(pago, filas));
+    } catch (e) {
+      if (Array.isArray(e.datos?.sinStock) && e.datos.sinStock.length) marcarSinStock(e.datos.sinStock);
+      throw e;
+    }
   };
 
   // btnModificar / btnEliminar / menu de la fila
@@ -200,8 +264,10 @@ export function PantallaPV({ cfg }) {
       new Celda('Glosa', true, 'Glosa', 160),
       new Celda('NombreAlmacen', true, 'Sucursal', 120),
       new Celda('TotalVenta', true, 'Total Venta', 110, '0.00', 'num'),
-      new Celda('TDespachado', true, 'Estado Despacho', 130),
-      new Celda('Despachante', true, 'Despachante', 140),
+      // TotalVenta / TipoCambio cobrado en la venta; 0 si no tiene tipo de cambio (credito)
+      new Celda('TotalDolares', !!cfg.dolares, 'Total $us', 100, '0.00', 'num'),
+      new Celda('TDespachado', !!cfg.despacho, 'Estado Despacho', 130),
+      new Celda('Despachante', !!cfg.despacho, 'Despachante', 140),
     ],
     _PMOLimpiar: () => limpiar(),
     _PMOMostrarRegistro: mostrar,
@@ -258,6 +324,7 @@ export function PantallaPV({ cfg }) {
       if (f.key !== key) return f;
       const nf = { ...f, ...cambio, _editado: true };
       if ('Cantidad' in cambio || 'Precio' in cambio) nf._origenDesc = 'porc'; // se conserva el % (CellValueChanged)
+      if ('Precio' in cambio) nf._precioManual = true; // al grabar no se reemplaza por el precio de la lista
       return recalcular(nf);
     }));
     quitarError('detalle');
@@ -394,7 +461,7 @@ export function PantallaPV({ cfg }) {
                 <Campo etiqueta="Efectivo Bs"><input className="control num" value={bs(form.MontoBs)} readOnly /></Campo>
                 <Campo etiqueta="Dólares"><input className="control num" value={bs(form.MontoDolares)} readOnly /></Campo>
                 <Campo etiqueta="Tarjeta"><input className="control num" value={bs(form.TarjetaBancaria)} readOnly /></Campo>
-                <Campo etiqueta="Transferencia"><input className="control num" value={bs(form.TransferenciaBancaria)} readOnly /></Campo>
+                <Campo etiqueta="QR"><input className="control num" value={bs(form.TransferenciaBancaria)} readOnly /></Campo>
                 <Campo etiqueta={`Total pagado (TC ${n2(form.TipoCambio)})`}><input className="control num" value={bs(pagado)} readOnly /></Campo>
                 <Campo etiqueta="Cambio"><input className="control num" value={bs(pagado - total)} readOnly /></Campo>
               </div>
@@ -407,7 +474,26 @@ export function PantallaPV({ cfg }) {
             <h2 className="tarjeta-tit">Detalle productos <span className="contador">{vigentes.length}</span></h2>
             {!ro && <button className="btn btn-pri" onClick={abrirSelector}><Icono n="plus" size={16} /> Agregar productos</button>}
           </div>
-          {errores.detalle && <p className="campo-error" role="alert">{errores.detalle}</p>}
+          {!ro && (filasSinStock.length > 0 || filasSinPrecio.length > 0) ? (
+            <div className="alerta alerta-grabar" role="alert">
+              <Icono n="alert" size={18} />
+              <div>
+                <b>No se puede grabar todavía</b>
+                {filasSinStock.length > 0 && (
+                  <>
+                    <span className="ag-tit">Sin stock suficiente ({filasSinStock.length}): otro usuario pudo haberlos vendido. Baje la cantidad, quite el producto o espere el ingreso.</span>
+                    <ul>{filasSinStock.map((f) => <li key={f.key}><span>{tit(f.Producto)}</span><span>stock actual <b>{n2(f.stock)}</b> · pide <b>{n2(f.Cantidad)}</b></span></li>)}</ul>
+                  </>
+                )}
+                {filasSinPrecio.length > 0 && (
+                  <>
+                    <span className="ag-tit">Sin precio de venta ({filasSinPrecio.length}): coloque el precio en Precios y vuelva a grabar.</span>
+                    <ul>{filasSinPrecio.map((f) => <li key={f.key}><span>{tit(f.Producto)}</span><span>precio <b>Bs 0.00</b></span></li>)}</ul>
+                  </>
+                )}
+              </div>
+            </div>
+          ) : errores.detalle && <p className="campo-error" role="alert">{errores.detalle}</p>}
           {cargandoDet ? <div className="cargando-bloque"><span className="spinner" /> Cargando detalle...</div> : (
             <div className="tabla-scroll">
               <table className="grid grid-tarjetas tabla-detalle">
@@ -422,8 +508,10 @@ export function PantallaPV({ cfg }) {
                     const esKit = Number(f.Tipo) === 2;
                     const editable = !ro && !esKit;
                     return (
-                      <tr key={f.key} className={f.nuevo ? 'fila-nueva' : ''}>
-                        <td data-label="Producto" className="det-producto"><b>{tit(f.Producto)}</b><small>Cód. {f.ProductoId}{!esKit ? ` · stock ${n2(f.stock)}` : ''}</small></td>
+                      <tr key={f.key} className={`${f.nuevo ? 'fila-nueva' : ''} ${!ro && (faltaStock(f) || faltaPrecio(f)) ? 'fila-no-graba' : ''}`}>
+                        <td data-label="Producto" className="det-producto"><b>{tit(f.Producto)}</b><small>Cód. {f.ProductoId}{!esKit ? ` · stock ${n2(f.stock)}` : ''}</small>
+                          {!ro && faltaStock(f) && <small className="det-falta">Sin stock suficiente: hay {n2(f.stock)}, pide {n2(f.Cantidad)}</small>}
+                          {!ro && faltaPrecio(f) && <small className="det-falta">Sin precio de venta</small>}</td>
                         <td data-label="Kit">{esKit ? `${tit(f.KitNombre)} × ${n2(f.CantidadKit)}` : '—'}</td>
                         <td data-label="Cantidad" className="num">{editable ? <NumeroCelda valor={f.Cantidad} onCambio={(x) => cambiarFila(f.key, { Cantidad: x })} etiqueta={`Cantidad de ${f.Producto}`} error={errDe(f).Cantidad} /> : n2(f.Cantidad)}</td>
                         <td data-label="Precio" className="num">{editable && permisos.modificarPrecio ? <NumeroCelda valor={f.Precio} onCambio={(x) => cambiarFila(f.key, { Precio: x })} etiqueta={`Precio de ${f.Producto}`} error={errDe(f).Precio} /> : bs(f.Precio)}</td>
@@ -458,10 +546,13 @@ export function PantallaPV({ cfg }) {
                 <label className="desc-inputs">Bs<input className="control num" type="number" min="0" step="0.01" value={r2(total)} onChange={(e) => setTotal(e.target.value)} aria-label="Total de la venta" title="Si escribe un total menor, la diferencia se aplica como descuento" /></label>
               )}
             </div>
-            {/* total en dolares con el ultimo tipo de cambio guardado (tabla TipoCambio) */}
+            {/* total en dolares: TC de la venta guardada, o el ultimo de la tabla TipoCambio si es nueva */}
             <div className="venta-total-dolar">
-              <span>Total en dólares <small>(TC {tc === null ? '…' : n2(tc)})</small></span>
-              {tc === null ? <b>…</b> : tc > 0 ? <b>$us {bs(aDolares(total, tc))}</b> : <b className="neg" title="Actualice el tipo de cambio con el botón de la cabecera">Sin tipo de cambio</b>}
+              <span>Total en dólares <small>(TC {tcTotal === null ? '…' : n2(tcTotal)}{tcGuardado ? ' de la venta' : ''})</small></span>
+              {tcTotal === null ? <b>…</b>
+                : tcTotal > 0 ? <b>$us {bs(aDolares(total, tcTotal))}</b>
+                  : tcGuardado ? <b title="La venta no tiene tipo de cambio registrado (venta a crédito)">$us {bs(0)}</b>
+                    : <b className="neg" title="Actualice el tipo de cambio con el botón de la cabecera">Sin tipo de cambio</b>}
             </div>
           </div>
         </div>
@@ -518,8 +609,9 @@ function SelectorProductos({ url, sinStock, sucursal, categorias, categoria, onC
   const filtrados = useMemo(() => filtrarIndice(indice, palabrasDe(qBusca))
     .filter((p) => (Number(p.Tipo) === 2 ? !enDetalle.kits.has(Number(p.Id)) : !enDetalle.productos.has(Number(p.Id)))), [indice, qBusca, enDetalle]);
 
+  // Kaily: se puede elegir sin stock o con precio 0 (avisando); no se graba hasta que tenga stock y precio
   const elegir = (p) => {
-    if (!sinStock && !(num(p.stock) > 0)) { toast(`El Producto: ${p.NombreProducto} NO CUENTA CON STOCK DISPONIBLE`.toUpperCase(), 'error'); return; }
+    if (!sinStock && Number(p.Tipo) === 2 && !(num(p.stock) > 0)) { toast(`El Producto: ${p.NombreProducto} NO CUENTA CON STOCK DISPONIBLE`.toUpperCase(), 'error'); return; }
     setElegido(p);
   };
   const nav = useListaTeclado(filtrados, elegir, { onCerrar, pausado: !!elegido });
@@ -549,7 +641,7 @@ function SelectorProductos({ url, sinStock, sucursal, categorias, categoria, onC
                   <td data-label="Categoría">{tit(p.NombreCategoria)}</td>
                   <td data-label="Industria">{tit(p.industria)}</td>
                   <td data-label="Stock" className="num">{num(p.stock) <= 0 ? <span className="badge badge-mal">Sin stock</span> : n2(p.stock)}</td>
-                  <td data-label="Precio" className="num"><b>{bs(p.PrecioVenta)}</b></td>
+                  <td data-label="Precio" className="num">{num(p.PrecioVenta) > 0 ? <b>{bs(p.PrecioVenta)}</b> : <span className="badge badge-mal">Sin precio</span>}</td>
                 </tr>
               ))}
               <FilaMas nav={nav} columnas={7} />
@@ -582,9 +674,12 @@ function CantidadVenta({ producto, onAceptar, onCancelar, sinLimite = false }) {
   const validar = () => {
     const c = num(cant);
     if (!(c > 0)) { setErr('La Cantidad debe ser Mayor a 0'); return; }
-    if (!sinLimite && c > stock + 1e-9) { setErr(`La cantidad es Superior Al Stock Disponible = ${n2(stock)}`); return; }
+    // productos: se agrega aunque supere el stock; no se podra grabar hasta que haya stock (kits: se mantiene el limite)
+    if (!sinLimite && Number(producto.Tipo) === 2 && c > stock + 1e-9) { setErr(`La cantidad es Superior Al Stock Disponible = ${n2(stock)}`); return; }
     onAceptar(c);
   };
+  const faltaStock = !sinLimite && Number(producto.Tipo) !== 2 && num(cant) > stock + 1e-9;
+  const faltaPrecio = Number(producto.Tipo) !== 2 && !(num(producto.PrecioVenta) > 0);
   return (
     <div className="modal-fondo modal-encima" onMouseDown={(e) => { e.stopPropagation(); onCancelar(); }}>
       <div className="modal modal-sm cantidad-cajas" role="dialog" aria-modal="true" aria-label="Cantidad" onMouseDown={(e) => e.stopPropagation()}
@@ -596,6 +691,11 @@ function CantidadVenta({ producto, onAceptar, onCancelar, sinLimite = false }) {
             onChange={(e) => { setErr(''); setCant(e.target.value); }} /></label>
         </div>
         {err && <p className="campo-error" role="alert">{err}</p>}
+        {(faltaStock || faltaPrecio) && (
+          <p className="aviso-lote" role="status">
+            {faltaPrecio ? 'Sin precio de venta' : ''}{faltaPrecio && faltaStock ? ' y ' : ''}{faltaStock ? `la cantidad supera el stock (${n2(stock)})` : ''}: se agrega, pero no se podrá grabar hasta que tenga {faltaPrecio ? 'precio' : ''}{faltaPrecio && faltaStock ? ' y ' : ''}{faltaStock ? 'stock' : ''}.
+          </p>
+        )}
         <div className="modal-acciones">
           <button className="btn btn-sec" onClick={onCancelar}>Cancelar</button>
           <button className="btn btn-pri" onClick={validar}>Agregar</button>
@@ -606,42 +706,85 @@ function CantidadVenta({ producto, onAceptar, onCancelar, sinLimite = false }) {
 }
 
 // ---------- EfectivoCobranza: cobro en contado ----------
+// Formas de pago (la clave es la que espera la ruta; "QR" se graba en TransferenciaBancaria, como antes "Transferencia")
+const FORMAS_COBRO = [
+  { k: 'MontoBs', titulo: 'Efectivo', moneda: 'Bs', icono: 'billete', tono: 'efectivo' },
+  { k: 'MontoDolares', titulo: 'Dólares', moneda: '$us', icono: 'dollar', tono: 'dolar' },
+  { k: 'Tarjeta', titulo: 'Tarjeta', moneda: 'Bs', icono: 'tarjeta', tono: 'tarjeta' },
+  { k: 'Transferencia', titulo: 'QR', moneda: 'Bs', icono: 'qr', tono: 'qr' },
+];
+const BILLETES = [10, 20, 50, 100, 200];
+// Montos sugeridos para efectivo: lo justo y los billetes con los que suele pagar el cliente
+function montosRapidos(falta) {
+  if (!(falta > 0)) return [];
+  const s = new Set([r2(falta)]);
+  BILLETES.forEach((b) => { const m = Math.ceil(falta / b - 1e-9) * b; if (m > falta + 1e-9) s.add(m); });
+  return [...s].sort((a, b) => a - b).slice(0, 4);
+}
+
 function CobroVenta({ total, tipoCambio, onAceptar, onCancelar }) {
   const [p, setP] = useState({ MontoBs: '', MontoDolares: '', Tarjeta: '', Transferencia: '' });
   const [err, setErr] = useState('');
-  const setv = (k) => (e) => { setErr(''); setP((x) => ({ ...x, [k]: e.target.value })); };
-  // chkMontoBs / chkTarjeta / chkTransferencia: todo el total en esa forma de pago
-  const todo = (k) => (e) => { setErr(''); setP((x) => ({ ...x, [k]: e.target.checked ? String(total) : '' })); };
-  const pagado = num(p.MontoBs) + num(p.MontoDolares) * tipoCambio + num(p.Tarjeta) + num(p.Transferencia);
-  const cambio = Math.max(0, pagado - total);
+  // en celular no se abre el teclado de entrada: primero se ve el total y las formas de pago
+  const [tactil] = useState(() => typeof window !== 'undefined' && window.matchMedia?.('(hover: none)').matches);
+  const enBs = (k, v = p[k]) => num(v) * (k === 'MontoDolares' ? tipoCambio : 1);
+  const pagado = FORMAS_COBRO.reduce((s, f) => s + enBs(f.k), 0);
+  const falta = Math.max(0, r2(total - pagado));
+  const cambio = Math.max(0, r2(pagado - total));
+  const restoPara = (k) => Math.max(0, r2(total - (pagado - enBs(k)))); // lo que falta sin contar esa forma de pago
+  const poner = (k, v) => { setErr(''); setP((x) => ({ ...x, [k]: v })); };
+  // chkMontoBs / chkTarjeta / chkTransferencia: el resto (todo, si es la unica) en esa forma de pago; otro toque lo quita
+  const completar = (k) => { const r = restoPara(k); poner(k, r > 0 && num(p[k]) !== r ? String(r) : ''); };
   const aceptar = () => {
-    if (r2(pagado) < r2(total)) { setErr('El Monto Pagado Es Menor Al Monto Total De La Venta'); return; }
+    if (r2(pagado) < r2(total)) { setErr(`El monto pagado es menor al total de la venta: falta Bs ${bs(falta)}`); return; }
     onAceptar({ MontoBs: num(p.MontoBs), MontoDolares: num(p.MontoDolares), Tarjeta: num(p.Tarjeta), Transferencia: num(p.Transferencia) });
   };
-  const fila = (k, etiqueta, conTodo = true) => (
-    <label className="cobro-fila" key={k}>
-      <span>{etiqueta}</span>
-      <input className="control num" type="number" inputMode="decimal" min="0" step="0.01" value={p[k]} onChange={setv(k)} onFocus={(e) => e.target.select()} autoFocus={k === 'MontoBs'} />
-      {conTodo ? <span className="cobro-todo"><input type="checkbox" checked={num(p[k]) === total && total > 0} onChange={todo(k)} aria-label={`Todo en ${etiqueta}`} /> Todo</span> : <small>{bs(num(p[k]) * tipoCambio)} Bs</small>}
-    </label>
-  );
+  const rapidos = montosRapidos(restoPara('MontoBs'));
   return createPortal(
     <div className="modal-fondo" onMouseDown={onCancelar}>
-      <div className="modal modal-sm" role="dialog" aria-modal="true" aria-label="Cobro de la venta" onMouseDown={(e) => e.stopPropagation()}
+      <div className="modal modal-cobro" role="dialog" aria-modal="true" aria-label="Cobro de la venta" onMouseDown={(e) => e.stopPropagation()}
         onKeyDown={(e) => { if (e.key === 'Escape') onCancelar(); if (e.key === 'Enter') { e.preventDefault(); aceptar(); } }}>
         <div className="modal-cab"><h3>Cobro de la venta</h3><button className="btn-icono" onClick={onCancelar} aria-label="Cerrar"><Icono n="x" /></button></div>
-        <div className="venta-totales">
-          <div className="venta-total"><span>Total venta</span><b>Bs {bs(total)}</b></div>
+        <div className="cobro-total">
+          <span>Total a cobrar</span>
+          <b>Bs {bs(total)}</b>
+          {tipoCambio > 0 && <small>$us {bs(total / tipoCambio)} · TC {n2(tipoCambio)}</small>}
         </div>
-        <div className="cobro-campos">
-          {fila('MontoBs', 'Efectivo Bs')}
-          {fila('MontoDolares', `Dólares (TC ${n2(tipoCambio)})`, false)}
-          {fila('Tarjeta', 'Tarjeta')}
-          {fila('Transferencia', 'Transferencia')}
+        <div className="cobro-formas">
+          {FORMAS_COBRO.map((f) => {
+            const r = restoPara(f.k);
+            const lleno = num(p[f.k]) > 0;
+            const quitar = lleno && !(r > 0 && num(p[f.k]) !== r); // mismo criterio que completar()
+            return (
+              <div key={f.k} className={`cobro-forma cf-${f.tono} ${lleno ? 'con-monto' : ''}`}>
+                <label className="cf-cab" htmlFor={`cobro-${f.k}`}><span className="cf-ico"><Icono n={f.icono} size={18} /></span>{f.titulo}</label>
+                <div className="cf-monto">
+                  <span className="cf-moneda">{f.moneda}</span>
+                  <input id={`cobro-${f.k}`} className="cf-input" type="number" inputMode="decimal" min="0" step="0.01" placeholder="0.00"
+                    value={p[f.k]} onChange={(e) => poner(f.k, e.target.value)} onFocus={(e) => e.target.select()} autoFocus={!tactil && f.k === 'MontoBs'} />
+                </div>
+                {f.k === 'MontoDolares'
+                  ? <small className="cf-nota">{lleno ? `= Bs ${bs(enBs(f.k))}` : `TC ${n2(tipoCambio)}`}</small>
+                  : <button type="button" className={`cf-todo ${quitar ? 'quitar' : ''}`} disabled={!lleno && !(r > 0)} onClick={() => completar(f.k)}>
+                      {quitar ? <><Icono n="x" size={13} /> Quitar</> : r > 0 && r !== r2(total) ? `Resto ${bs(r)}` : 'Todo'}
+                    </button>}
+              </div>
+            );
+          })}
         </div>
-        <div className="venta-totales">
-          <div><span>Total pagado</span><b>{bs(pagado)}</b></div>
-          <div className="venta-total"><span>Cambio</span><b>Bs {bs(cambio)}</b></div>
+        {rapidos.length > 0 && (
+          <div className="cobro-rapidos" role="group" aria-label="Efectivo recibido">
+            <span>Recibe en efectivo:</span>
+            {rapidos.map((m, i) => (
+              <button key={m} type="button" className={`chip-filtro ${num(p.MontoBs) === m ? 'activo' : ''}`} onClick={() => poner('MontoBs', String(m))}>{i === 0 ? `Justo ${bs(m)}` : `Bs ${n2(m)}`}</button>
+            ))}
+          </div>
+        )}
+        <div className={`cobro-resumen ${falta > 0 ? 'falta' : 'ok'}`} aria-live="polite">
+          <div><span>Pagado</span><b>Bs {bs(pagado)}</b></div>
+          {falta > 0
+            ? <div><span>Falta</span><b>Bs {bs(falta)}</b></div>
+            : <div><span>Cambio</span><b>Bs {bs(cambio)}</b></div>}
         </div>
         {err && <p className="campo-error" role="alert">{err}</p>}
         <div className="modal-acciones">
@@ -662,6 +805,7 @@ export function NotaVenta({ datos, cfg, onCerrar }) {
   const pagado = num(venta.MontoBs) + num(venta.MontoDolares) * num(venta.TipoCambio) + num(venta.TarjetaBancaria) + num(venta.TransferenciaBancaria);
   return (
     <NotaImpresa titulo={cfg.nota} id={venta.Id} fecha={venta.FechaVenta} empresa={empresa} imagenEmpresa={datos.imagenEmpresa} onCerrar={onCerrar}
+      whatsapp={whatsappCliente({ telefono: cliente.Telefono, cliente: venta.NombreCliente, documento: `${tit(cfg.nota)} N° ${venta.Id}`, empresa: empresa?.Nombre })}
       grabada={datos.grabada ? `${cfg.nombre} #${venta.Id} ${datos.grabada === 'nueva' ? 'grabada' : 'modificada'} con éxito.` : null}
       cabecera={[
         ['Señor(es):', venta.NombreCliente], ['Nit/Ci:', cliente.Nit || 'SN'], ['Dirección:', cliente.Direccion || ''], ['Teléfono:', cliente.Telefono || ''],
@@ -678,6 +822,8 @@ export function NotaVenta({ datos, cfg, onCerrar }) {
       filas={detalle} claveFila={(f, i) => `${f.ProductoId}-${i}`}
       pie={[['Vendedor:', tit(venta.Personal || '')], ['Glosa:', venta.Glosa || ''], ...(cfg.cobro && !credito && pagado > 0 ? [['Pagado:', bs(pagado)], ['Cambio:', bs(pagado - total)]] : [])]}
       totales={[['Sub Total:', bs(datos.subtotal)], ['Descuento:', bs(venta.Descuento)]]}
-      etiquetaTotal={`Total ${cfg.nombre}: Bs`} total={total} />
+      etiquetaTotal={`Total ${cfg.nombre}: Bs`} total={total}
+      // venta: tipo de cambio cobrado (0 en credito); proforma: el vigente
+      despuesTotal={[[`Total $us (TC ${n2(datos.tipoCambio)}):`, bs(datos.totalDolares)]]} />
   );
 }

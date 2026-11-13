@@ -11,6 +11,17 @@ const path = require('node:path');
 const fs = require('node:fs');
 
 const CONTRATO = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'test', 'contrato_vb.json'), 'utf8'));
+// SP propios de la web (server/sql/*.sql), no existen en AccesoLogica.vb: se validan igual (parametros exactos)
+const _pc = (funcion, params) => [{ funcion, params }];
+Object.assign(CONTRATO, {
+    'MAM_PanelControl|1': _pc('L_prPanelHorasVentas', ['@fechaf', '@fechai', '@sucursalid', '@tipo', '@usuario']),
+    'MAM_PanelControl|2': _pc('L_prPanelComprasClientes', ['@fechaf', '@fechai', '@sucursalid', '@tipo', '@usuario']),
+    'MAM_PanelControl|3': _pc('L_prPanelProductosSinVenta', ['@fechaf', '@fechai', '@tipo', '@usuario']),
+    // Auditoria De Registros (server/sql/07_Auditoria.sql)
+    'MAM_Auditoria|3': _pc('L_prAuditoriaListar', ['@desde', '@documentoid', '@hasta', '@modulo', '@operacion', '@tipo', '@usuario', '@usuariofiltro']),
+    'MAM_Auditoria|4': _pc('L_prAuditoriaDetalle', ['@id', '@tipo', '@usuario']),
+    'MAM_Auditoria|5': _pc('L_prAuditoriaUsuarios', ['@tipo', '@usuario']),
+});
 const llamadas = []; // historial para las pruebas automaticas
 
 // Columnas que tienen los tipos tabla (TVP) en el escritorio
@@ -85,6 +96,7 @@ const db = {
         ['btnConceptoFijos', 'Conceptos Fijos', 7], ['btnContratos', 'Contratos', 7], ['btnRegistrarPlanilla', 'Registrar Personal A Planilla', 7], ['btnPlanilla', 'Planilla', 7],
         // Kaily (al final para no mover las posiciones que usan los roles de prueba)
         ['btnKits', 'Gestion De Kits', 1], ['btConfDosificacion', 'Gestion De Dosificacion', 1], ['btnDespachoVenta', 'Despacho Ventas', 2],
+        ['btnAuditoriaRegistros', 'Auditoria De Registros', 1], // solo web (sql/07_Auditoria.sql)
     ].map(([IdPrograma, DescripcionPrograma, Modulo], i) => ({ Id: i + 1, IdPrograma, DescripcionPrograma, Modulo })),
     roles: [
         { Id: 1, NombreRol: 'ADMINISTRADOR', FechaRegistro: hoy(), HoraRegistro: '08:00', UsuarioRegistro: 'SISTEMA' },
@@ -107,8 +119,8 @@ const db = {
         TipoPersonal: tp, Tipo: tp === 1 ? 'VENDEDOR' : 'CHOFER', Estado: true, EmpresaId: 1, FechaNacimiento: new Date(Date.UTC(1990, Id, 10)),
     })),
     usuarios: [
-        { Id: 1, NombreUsuario: 'ADMIN', Contrasena: '123', estado: true, RolId: 1, NombreRol: 'ADMINISTRADOR', SucursalId: 1, IdEmpresa: 1, Empresa: 'DISTRIBUIDORA CENTRAL', IdPersonal: 1, pedido: false, Personal: 'MARCO MAMANI' },
-        { Id: 2, NombreUsuario: 'LQUISPE', Contrasena: 'ABC', estado: true, RolId: 2, NombreRol: 'VENDEDOR', SucursalId: 1, IdEmpresa: 2, Empresa: 'SUCURSAL NORTE', IdPersonal: 2, pedido: true, Personal: 'LUIS QUISPE' },
+        { Id: 1, NombreUsuario: 'ADMIN', Contrasena: '123', estado: true, RolId: 1, NombreRol: 'ADMINISTRADOR', SucursalId: 1, IdEmpresa: 1, Empresa: 'DISTRIBUIDORA CENTRAL', IdPersonal: 1, pedido: false, Personal: 'MARCO MAMANI', EliminarRegistros: 1 },
+        { Id: 2, NombreUsuario: 'LQUISPE', Contrasena: 'ABC', estado: true, RolId: 2, NombreRol: 'VENDEDOR', SucursalId: 1, IdEmpresa: 2, Empresa: 'SUCURSAL NORTE', IdPersonal: 2, pedido: true, Personal: 'LUIS QUISPE', EliminarRegistros: 0 },
     ],
     zonas: [
         { Id: 1, NombreZona: 'CENTRO', DescripcionZona: 'Casco viejo', Color: '#2C6AA8' },
@@ -136,6 +148,19 @@ const db = {
     almacenes: [{ aanumi: 1, aabdes: 'ALMACEN CENTRAL' }, { aanumi: 2, aabdes: 'ALMACEN NORTE' }],
     precios: [], // { almacen, yhprod, yhcatpre, yhprecio }
 };
+
+// Auditoria (MAM_Auditoria): una venta modificada (cantidad, item agregado y quitado) y una compra eliminada
+const _ahora = new Date(Date.now() - 4 * 3600 * 1000);
+db.auditoria = [
+    { Id: 1, Fecha: _ahora, Modulo: 1, Operacion: 1, DocumentoId: 50, FechaDocumento: new Date(hoy() + 'T00:00:00Z'), Descripcion: 'Cliente: TIENDA DON PEPE', TotalAntes: 30, TotalDespues: 27.5,
+        Usuario: 'MARCO MAMANI', Equipo: 'CAJA 1 (DESKTOP-49S3GJO)', Aplicacion: 'MiventSoftWeb',
+        Ip: '192.168.100.22 | 166.114.162.240', Navegador: 'Edge 131 · Windows 10/11', Latitud: -16.495521, Longitud: -68.133614, PrecisionMetros: 18,
+        Antes: `<foto><cab Id="50" Fecha="${hoy()}" Cliente="TIENDA DON PEPE" TipoVenta="Contado" Glosa="A &amp; B" Descuento="0.00" Total="30.00" Facturado="0"/><det ProductoId="1" Producto="COCA COLA 2L" Cantidad="2.00" Precio="10.00" Total="20.00"/><det ProductoId="2" Producto="PIL 1L" Cantidad="1.00" Precio="10.00" Total="10.00"/></foto>`,
+        Despues: `<foto><cab Id="50" Fecha="${hoy()}" Cliente="TIENDA DON PEPE" TipoVenta="Contado" Glosa="A &amp; B" Descuento="0.00" Total="27.50" Facturado="0"/><det ProductoId="1" Producto="COCA COLA 2L" Cantidad="1.00" Precio="10.00" Total="10.00"/><det ProductoId="3" Producto="AGUA 600" Cantidad="5.00" Precio="3.50" Total="17.50"/></foto>` },
+    { Id: 2, Fecha: _ahora, Modulo: 2, Operacion: 2, DocumentoId: 7, FechaDocumento: new Date(hoy() + 'T00:00:00Z'), Descripcion: 'Proveedor: EMBOL S.A.', TotalAntes: 100, TotalDespues: null,
+        Usuario: 'LUIS QUISPE', Equipo: 'PC-ALMACEN', Aplicacion: '.Net SqlClient Data Provider', Ip: '192.168.100.40', Navegador: 'Escritorio (.Net SqlClient Data Provider)',
+        Antes: '<foto><cab Id="7" Proveedor="EMBOL S.A." Total="100.00"/><det ProductoId="1" Producto="COCA COLA 2L" Cantidad="10.00" PrecioCosto="10.00" Total="100.00"/></foto>', Despues: null },
+];
 
 let _sec = 100;
 db.programas.forEach((p) => db.rolesDetalle.push({ Id: _sec++, RolId: 1, ProgramaId: p.Id, Ver: 1, Insertar: 1, Modificar: 1, Eliminar: 1 }));
@@ -547,8 +572,9 @@ async function EjecutarProcedimiento(nombre, lista) {
                     return dp ? { EstadoDespacho: 1, TDespachado: 'DESPACHADO', FechaDespacho: dp.FechaDespacho, Despachante: nombreDe(db.personal, dp.PersonalId, 'Nombre'), PersonalDespachadorId: dp.PersonalId, ObservacionDespacho: dp.Observacion }
                         : { EstadoDespacho: 0, TDespachado: 'NO DESPACHADO', FechaDespacho: new Date(Date.UTC(1900, 0, 1)), Despachante: '', PersonalDespachadorId: 0, ObservacionDespacho: '' };
                 };
+                // como el SP real de Kaily: sin NombreEstado / EstadoPedido (no hay estados de pedido) ni HoraRegistro
                 return tabla(db.ventas.filter((x) => x.FechaVenta >= d && x.FechaVenta <= h && (suc <= 0 || x.SucursalId === suc))
-                    .map((x) => ({ NombreAlmacen: 'CENTRAL', Facturado: 0, MontoBs: 0, MontoDolares: 0, TarjetaBancaria: 0, TransferenciaBancaria: 0, TipoCambio: 0, CierreModulo: 0, ...x, ...desp(x) })));
+                    .map(({ NombreEstado, EstadoPedido, HoraRegistro, ...x }) => ({ NombreAlmacen: 'CENTRAL', Facturado: 0, MontoBs: 0, MontoDolares: 0, TarjetaBancaria: 0, TransferenciaBancaria: 0, TipoCambio: 0, CierreModulo: 0, ...x, ...desp(x) })));
             }
             // Kaily: VentaInsertarDespacho (FrmDespacho). 1 = inserta si no existe; 0 = borra
             if (tipo === 11) {
@@ -650,7 +676,9 @@ async function EjecutarProcedimiento(nombre, lista) {
             if (tipo === 3) {
                 const d = new Date(String(v('desde')).replace(/\//g, '-') + 'T00:00:00Z');
                 const h = new Date(String(v('hasta')).replace(/\//g, '-') + 'T00:00:00Z');
-                return tabla(db.proformas.filter((x) => x.FechaVenta >= d && x.FechaVenta <= h).map(({ IncrementoVenta, ...x }) => x));
+                // como el SP real: sin columnas de cobro ni TipoCambio
+                return tabla(db.proformas.filter((x) => x.FechaVenta >= d && x.FechaVenta <= h)
+                    .map(({ IncrementoVenta, MontoBs, MontoDolares, TarjetaBancaria, TransferenciaBancaria, TipoCambio, ...x }) => x));
             }
             if (tipo === 4) return tabla(detalleVenta(id, 'proformasDet'), COLS_VDET);
             if (tipo === 6) { const vr = db.proformas.find((x) => x.Id === id); const cl = vr ? db.clientes.find((c) => c.Id === vr.ClienteId) || {} : {};
@@ -970,7 +998,7 @@ Fecha: ${ddmm(x.Fecha || new Date())}`, TipoConcepto: Number(x.TipoConcepto) ===
             if (tipo === -1) { db.usuarios = db.usuarios.filter((x) => x.Id !== id); return tabla([{ Id: id }]); }
             const reg = { NombreUsuario: v('NombreUsuario'), Contrasena: v('Contrasena'), estado: !!v('Estado'), RolId: Number(v('RolId')), NombreRol: nombreDe(db.roles, v('RolId'), 'NombreRol'), SucursalId: v('SucursalId'), IdEmpresa: Number(v('IdEmpresa')), Empresa: nombreDe(db.empresas, v('IdEmpresa'), 'Nombre'), IdPersonal: Number(v('IdPersonal')), Personal: nombreDe(db.personal, v('IdPersonal'), 'Nombre'),
                 ModificarPrecioVenta: Number(v('ModificarPrecio')), AplicarDescuentoVenta: Number(v('ModificarDescuento')), VerTodasVentas: Number(v('VentasTodasVentas')),
-                VerTodosVentasCierre: Number(v('VerTodasVentasCierre')), ModificarRegistroAnteriores: Number(v('ModificarRegistroAntiguos')) };
+                VerTodosVentasCierre: Number(v('VerTodasVentasCierre')), ModificarRegistroAnteriores: Number(v('ModificarRegistroAntiguos')), EliminarRegistros: Number(v('EliminarRegistros')) };
             if (tipo === 1) { const Id = sig(db.usuarios); db.usuarios.push({ Id, ...reg }); return tabla([{ Id }]); }
             if (tipo === 2) { Object.assign(db.usuarios.find((x) => x.Id === id), reg); return tabla([{ Id: id }]); }
             return tabla([]);
@@ -985,6 +1013,46 @@ Fecha: ${ddmm(x.Fecha || new Date())}`, TipoConcepto: Number(x.TipoConcepto) ===
             db.rolesDetalle = db.rolesDetalle.filter((x) => x.RolId !== Id);
             p.roldetalletype.detalle.filas.forEach((f) => db.rolesDetalle.push({ Id: _sec++, RolId: Id, ProgramaId: f.ProgramaId, Ver: f.Ver, Insertar: f.Insertar, Modificar: f.Modificar, Eliminar: f.Eliminar }));
             return tabla([{ Id }]);
+        }
+        // Auditoria De Registros (server/sql/07_Auditoria.sql): lo que registran MAM_Ventas / MAM_Compras / MAM_Movimientos
+        case 'MAM_Auditoria': {
+            if (tipo === 3) {
+                const d = new Date(String(v('Desde')).split('/').join('-') + 'T00:00:00Z'); const h = new Date(String(v('Hasta')).split('/').join('-') + 'T23:59:59Z');
+                const m = Number(v('Modulo')); const o = Number(v('Operacion')); const doc = Number(v('DocumentoId')); const u = String(v('UsuarioFiltro') || '');
+                return tabla(db.auditoria.filter((a) => a.Fecha >= d && a.Fecha <= h && (m === -1 || a.Modulo === m) && (o === -1 || a.Operacion === o)
+                    && (doc === -1 || a.DocumentoId === doc) && (!u || a.Usuario === u)).map(({ Antes, Despues, ...a }) => a));
+            }
+            if (tipo === 4) return tabla(db.auditoria.filter((a) => a.Id === id));
+            if (tipo === 5) return tabla([...new Set(db.auditoria.map((a) => a.Usuario))].map((Usuario) => ({ Usuario })));
+            return tabla([]);
+        }
+        // SP propio del panel (server/sql/03_MAM_PanelControl.sql)
+        case 'MAM_PanelControl': {
+            const fd = (k) => new Date(String(v(k)).replace(/\//g, '-') + 'T00:00:00Z');
+            const suc = v('SucursalId') === undefined ? -1 : Number(v('SucursalId'));
+            const ventas = db.ventas.filter((x) => x.Estado === 1 && x.FechaVenta >= fd('FechaI') && x.FechaVenta <= fd('FechaF') && (suc < 0 || x.SucursalId === suc));
+            // como lo graba el escritorio: 'H:m' sin ceros ('9:5', '23:0')
+            if (tipo === 1) return tabla(ventas.map((x) => { const [hh, mm] = String(x.HoraRegistro || '').split(':'); return { Id: x.Id, HoraRegistro: hh ? `${Number(hh)}:${Number(mm)}` : null }; }), ['Id', 'HoraRegistro']);
+            if (tipo === 2) {
+                const g = new Map();
+                for (const x of ventas) {
+                    const k = `${x.ClienteId}|${x.FechaVenta.toISOString().slice(0, 10)}`;
+                    const r = g.get(k) || { ClienteId: x.ClienteId, NombreCliente: x.NombreCliente, FechaVenta: x.FechaVenta, Compras: 0, Monto: 0 };
+                    r.Compras++; r.Monto = Math.round((r.Monto + x.TotalVenta) * 100) / 100;
+                    g.set(k, r);
+                }
+                return tabla([...g.values()].sort((a, b) => a.ClienteId - b.ClienteId || a.FechaVenta - b.FechaVenta), ['ClienteId', 'NombreCliente', 'FechaVenta', 'Compras', 'Monto']);
+            }
+            if (tipo === 3) {
+                const ultima = (pid) => db.ventasDet.filter((d) => d.ProductoId === pid).map((d) => db.ventas.find((x) => x.Id === d.VentaId))
+                    .filter((x) => x && x.Estado === 1 && x.FechaVenta <= fd('FechaF')).reduce((a, x) => (!a || x.FechaVenta > a ? x.FechaVenta : a), null);
+                return tabla(db.productos.filter((x) => (db.stock[x.Id] || 0) > 0).map((x) => {
+                    const precio = (db.precios.find((y) => y.almacen === 1 && y.yhprod === x.Id && y.yhcatpre === 1) || {}).yhprecio || 0;
+                    return { Id: x.Id, CodigoExterno: x.CodigoExterno, NombreProducto: x.NombreProducto, Categoria: x.NombreCategoria, Stock: db.stock[x.Id], PrecioVenta: precio, Valor: db.stock[x.Id] * precio, UltimaVenta: ultima(x.Id) };
+                }).filter((x) => !x.UltimaVenta || x.UltimaVenta < fd('FechaI')).sort((a, b) => b.Valor - a.Valor),
+                ['Id', 'CodigoExterno', 'NombreProducto', 'Categoria', 'Stock', 'PrecioVenta', 'Valor', 'UltimaVenta']);
+            }
+            return tabla([]);
         }
         default:
             return tabla([]);

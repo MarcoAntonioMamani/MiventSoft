@@ -19,6 +19,8 @@ const PERMISOS = [
   ['VerTodasVentas', 'Ver todas las ventas'],
   ['VerTodosVentasCierre', 'Ver todos los cierres'],
   ['ModificarRegistroAnteriores', 'Modificar registros anteriores'],
+  // ventas, compras, movimientos de inventario y pagos de cobranzas / cuentas por pagar
+  ['EliminarRegistros', 'Eliminar registros'],
 ];
 const PERMISOS_VACIO = Object.fromEntries(PERMISOS.map(([k]) => [k, false]));
 const VACIO = { Id: '', NombreUsuario: '', Contrasena: '', estado: true, RolId: '', IdEmpresa: '', SucursalId: 1, IdPersonal: 0, Personal: '', ...PERMISOS_VACIO };

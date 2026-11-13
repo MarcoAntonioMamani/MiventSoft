@@ -86,7 +86,7 @@ Public Class AccesoLogica
     Public Shared Function L_Validar_Usuario(_Nom As String, _Pass As String) As DataTable
         Dim _Tabla As DataTable
         _Tabla = D_Datos_Tabla("Id,RolId,SucursalId,IdPersonal,isnull((select top 1 Monto from TipoCambio as t order by id desc),0) as Monto,isnull(ModificarPrecioVenta,0) as ModificarPrecioVenta, isnull(AplicarDescuentoVenta,0)as AplicarDescuentoVenta,isnull(VerTodasVentas,0) as VerTodasVentas,isnull(VerTodosVentasCierre,0) as VerTodosVentasCierre,CAST(DATEADD(HOUR, -4, GETUTCDATE()) AS DATE) AS FechaBolivia,
-		isnull(ModificarRegistroAnteriores,0) as ModificarRegistroAnteriores,isnull((select al.Nombrealmacen from Almacenes  as al where al.id=SucursalId ),'Todos') as NombreSucursal", "Usuarios", "NombreUsuario = '" + _Nom + "' AND Contrasena = '" + _Pass + "'")
+		isnull(ModificarRegistroAnteriores,0) as ModificarRegistroAnteriores,isnull(EliminarRegistros,0) as EliminarRegistros,isnull((select al.Nombrealmacen from Almacenes  as al where al.id=SucursalId ),'Todos') as NombreSucursal", "Usuarios", "NombreUsuario = '" + _Nom + "' AND Contrasena = '" + _Pass + "'")
         Return _Tabla
     End Function
 
@@ -2697,10 +2697,10 @@ Public Class AccesoLogica
     Public Shared Function L_prUsuarioModificar(_numi As String, _RolId As Integer, _NombreUsuario As String,
                                                 _Contrasena As String, _estado As Integer,
  _sucursalId As Integer, _IdEmpresa As Integer, IdPersonal As Integer, _ModificarPrecio As Integer, _ModificarDescuento As Integer,
-                                                _VerTodasVentas As Integer, _VerTodosCierres As Integer, _ModificarRegistrosAntiguos As Integer) As Boolean
+                                                _VerTodasVentas As Integer, _VerTodosCierres As Integer, _ModificarRegistrosAntiguos As Integer, _EliminarRegistros As Integer) As Boolean
         Dim _resultado As Boolean
 
-        'INSERT INTO Usuarios  VALUES(@RolId ,@NombreUsuario ,@Contrasena ,@Estado 
+        'INSERT INTO Usuarios  VALUES(@RolId ,@NombreUsuario ,@Contrasena ,@Estado
         ',@SucursalId ,@newFecha,@newHora,@usuario,@IdEmpresa  )
 
         Dim _Tabla As DataTable
@@ -2721,6 +2721,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@ModificarRegistroAntiguos", _ModificarRegistrosAntiguos))
         _listParam.Add(New Datos.DParametro("@ModificarPrecio", _ModificarPrecio))
         _listParam.Add(New Datos.DParametro("@ModificarDescuento", _ModificarDescuento))
+        _listParam.Add(New Datos.DParametro("@EliminarRegistros", _EliminarRegistros))
         _Tabla = D_ProcedimientoConParam("MAM_Usuarios", _listParam)
 
         If _Tabla.Rows.Count > 0 Then
@@ -2733,10 +2734,61 @@ Public Class AccesoLogica
         Return _resultado
     End Function
 
+#Region "AUDITORIA DE REGISTROS (MAM_Auditoria: scripts 07 al 12 de MiventSoftWeb\server\sql)"
+    'Lista de lo MODIFICADO y ELIMINADO (ventas, compras y movimientos), por fecha de la operacion
+    '_Modulo: -1 todos, 1 Venta, 2 Compra, 3 Movimiento ; _Operacion: -1 todos, 1 Modificado, 2 Eliminado
+    '_UsuarioFiltro: "" todos ; _DocumentoId: -1 todos
+    Public Shared Function L_prAuditoriaListar(_Desde As Date, _Hasta As Date, _Modulo As Integer, _Operacion As Integer,
+                                               _UsuarioFiltro As String, _DocumentoId As Integer) As DataTable
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@Desde", _Desde.ToString("yyyyMMdd")))
+        _listParam.Add(New Datos.DParametro("@Hasta", _Hasta.ToString("yyyyMMdd")))
+        _listParam.Add(New Datos.DParametro("@Modulo", _Modulo))
+        _listParam.Add(New Datos.DParametro("@Operacion", _Operacion))
+        _listParam.Add(New Datos.DParametro("@UsuarioFiltro", _UsuarioFiltro))
+        _listParam.Add(New Datos.DParametro("@DocumentoId", _DocumentoId))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Auditoria", _listParam)
+
+        Return _Tabla
+    End Function
+
+    'Un registro con sus fotos ANTES y DESPUES (XML en texto)
+    Public Shared Function L_prAuditoriaDetalle(_Id As Integer) As DataTable
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@Id", _Id))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Auditoria", _listParam)
+
+        Return _Tabla
+    End Function
+
+    'Usuarios que tienen registros en la auditoria (para el filtro)
+    Public Shared Function L_prAuditoriaUsuarios() As DataTable
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@usuario", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("MAM_Auditoria", _listParam)
+
+        Return _Tabla
+    End Function
+#End Region
+
     Public Shared Function L_prUsuarioInsertar(ByRef _numi As String, _RolId As Integer, _NombreUsuario As String,
                                                 _Contrasena As String, _estado As Integer,
  _sucursalId As Integer, _IdEmpresa As Integer, IdPersonal As Integer, _ModificarPrecio As Integer, _ModificarDescuento As Integer,
-                                               _VerTodasVentas As Integer, _VerTodosCierres As Integer, _ModificarRegistrosAntiguos As Integer) As Boolean
+                                               _VerTodasVentas As Integer, _VerTodosCierres As Integer, _ModificarRegistrosAntiguos As Integer, _EliminarRegistros As Integer) As Boolean
         Dim _resultado As Boolean
 
         'INSERT INTO Usuarios  VALUES(@RolId ,@NombreUsuario ,@Contrasena ,@Estado 
@@ -2760,6 +2812,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@ModificarRegistroAntiguos", _ModificarRegistrosAntiguos))
         _listParam.Add(New Datos.DParametro("@ModificarPrecio", _ModificarPrecio))
         _listParam.Add(New Datos.DParametro("@ModificarDescuento", _ModificarDescuento))
+        _listParam.Add(New Datos.DParametro("@EliminarRegistros", _EliminarRegistros))
 
         _Tabla = D_ProcedimientoConParam("MAM_Usuarios", _listParam)
 

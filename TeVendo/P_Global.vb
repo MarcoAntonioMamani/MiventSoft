@@ -131,6 +131,8 @@ Module P_Global
     Public Global_VentasTodos As String = ""
     Public Global_CierreTodos As String = ""
     Public Global_ModificarRegistro As String = ""
+    'Usuarios.EliminarRegistros: 1 = puede eliminar ventas, compras, movimientos y pagos
+    Public Global_EliminarRegistro As String = ""
     Public Global_FechaActual As Date
     'configuracion del sistema tabla TCG011
     Public gd_notaAproTeo As Double = 0

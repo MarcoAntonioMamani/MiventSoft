@@ -21,6 +21,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
+import android.util.Base64;
 import android.print.PrintAttributes;
 import android.print.PrintManager;
 import android.view.Gravity;
@@ -53,6 +54,8 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -97,6 +100,7 @@ public class MainActivity extends Activity {
     private AlertDialog dialogoServidor;
     private ValueCallback<Uri[]> archivosCallback;
     private String guardarContenido;
+    private byte[] guardarBytes; // guardarBinario (PDF)
     private WebView webImpresion;
 
     private String ubicacionId;
@@ -251,6 +255,7 @@ public class MainActivity extends Activity {
         paginaLocal = true;
         Servidor s = servidor;
         String html = plantilla()
+                .replace("{{APP}}", esc(getString(R.string.app_name)))
                 .replace("{{TITULO}}", esc(titulo))
                 .replace("{{MENSAJE}}", esc(mensaje))
                 .replace("{{SERVIDOR}}", s == null ? "" : esc(s.url()))
@@ -578,6 +583,24 @@ public class MainActivity extends Activity {
         public void obtenerUbicacion(String id) {
             enUi(() -> pedirUbicacion(id));
         }
+
+        /** Menu Compartir del telefono con el archivo adjunto (PDF de un reporte o nota). */
+        @JavascriptInterface
+        public void compartirArchivo(String nombre, String base64, String mime, String titulo, String texto) {
+            enUi(() -> compartir(nombre, base64, mime, titulo, texto, null));
+        }
+
+        /** WhatsApp directo al chat de un numero (ej. el cliente de la venta) con el archivo adjunto. */
+        @JavascriptInterface
+        public void enviarWhatsApp(String nombre, String base64, String mime, String celular, String texto) {
+            enUi(() -> compartir(nombre, base64, mime, null, texto, celular));
+        }
+
+        /** Guarda un archivo binario (PDF) donde elija el usuario. */
+        @JavascriptInterface
+        public void guardarBinario(String nombre, String base64, String mime) {
+            enUi(() -> pedirGuardarBinario(nombre, base64, mime));
+        }
     }
 
     /** Los metodos del puente solo actuan si la pagina actual es la local o la del servidor configurado. */
@@ -632,6 +655,90 @@ public class MainActivity extends Activity {
     // ------------------------------------------------------------------ archivos
 
     /** Exportar CSV: el usuario elige donde guardarlo (sin permisos de almacenamiento). */
+    // ------------------------------------------------------------------ compartir PDF
+
+    /** Escribe el archivo en cache/compartir (los de mas de un dia se borran). */
+    private File escribirCompartido(String nombre, String base64) throws IOException {
+        byte[] datos = Base64.decode(base64 == null ? "" : base64, Base64.DEFAULT);
+        if (datos.length == 0) throw new IOException("archivo vacio");
+        File dir = ArchivosCompartidos.carpeta(this);
+        File[] viejos = dir.listFiles();
+        long limite = System.currentTimeMillis() - 24L * 3600 * 1000;
+        if (viejos != null) for (File v : viejos) if (v.lastModified() < limite) //noinspection ResultOfMethodCallIgnored
+            v.delete();
+        String limpio = (nombre == null ? "" : nombre).replaceAll("[^\\w\\-. ]+", "_").replaceAll("^[. ]+", "").trim();
+        if (limpio.isEmpty()) limpio = "documento.pdf";
+        File f = new File(dir, limpio);
+        try (FileOutputStream os = new FileOutputStream(f)) {
+            os.write(datos);
+        }
+        return f;
+    }
+
+    /** celular != null: directo al chat de WhatsApp de ese numero; si no, menu Compartir del telefono. */
+    private void compartir(String nombre, String base64, String mime, String titulo, String texto, String celular) {
+        File f;
+        try {
+            f = escribirCompartido(nombre, base64);
+        } catch (IOException | IllegalArgumentException e) {
+            aviso("No se pudo preparar el archivo: " + e.getMessage());
+            return;
+        }
+        Uri uri = ArchivosCompartidos.uriDe(this, f);
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType(mime == null || mime.trim().isEmpty() ? "application/pdf" : mime);
+        i.putExtra(Intent.EXTRA_STREAM, uri);
+        i.setClipData(ClipData.newRawUri(f.getName(), uri));
+        i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        if (texto != null && !texto.trim().isEmpty()) i.putExtra(Intent.EXTRA_TEXT, texto);
+        if (celular != null) {
+            String numero = celular.replaceAll("\\D", "");
+            if (!numero.isEmpty()) {
+                // "jid": WhatsApp abre el chat de ese numero con el adjunto (si no, muestra su lista de chats)
+                i.putExtra("jid", numero + "@s.whatsapp.net");
+                for (String paquete : new String[]{"com.whatsapp", "com.whatsapp.w4b"}) {
+                    i.setPackage(paquete);
+                    try {
+                        startActivity(i);
+                        return;
+                    } catch (ActivityNotFoundException ignorado) {
+                        // no instalado: se prueba el siguiente
+                    }
+                }
+                i.setPackage(null);
+                i.removeExtra("jid");
+                aviso("WhatsApp no está instalado: elija otra app");
+            }
+        }
+        try {
+            startActivity(Intent.createChooser(i, titulo == null || titulo.trim().isEmpty() ? "Compartir" : titulo));
+        } catch (ActivityNotFoundException e) {
+            aviso("No hay apps para compartir el archivo");
+        }
+    }
+
+    private void pedirGuardarBinario(String nombre, String base64, String mime) {
+        byte[] datos;
+        try {
+            datos = Base64.decode(base64 == null ? "" : base64, Base64.DEFAULT);
+        } catch (IllegalArgumentException e) {
+            aviso("Archivo no valido");
+            return;
+        }
+        Intent i = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+        i.addCategory(Intent.CATEGORY_OPENABLE);
+        i.setType(mime == null || mime.trim().isEmpty() ? "application/pdf" : mime.split(";")[0].trim());
+        i.putExtra(Intent.EXTRA_TITLE, nombre == null || nombre.trim().isEmpty() ? "documento.pdf" : nombre.trim());
+        guardarContenido = null;
+        guardarBytes = datos;
+        try {
+            startActivityForResult(i, REQ_GUARDAR);
+        } catch (ActivityNotFoundException e) {
+            guardarBytes = null;
+            aviso("No se puede guardar archivos en este teléfono");
+        }
+    }
+
     private void pedirGuardar(String nombre, String contenido, String mime) {
         if (contenido == null) return;
         String tipo = mime == null || mime.trim().isEmpty() ? "text/plain" : mime.split(";")[0].trim();
@@ -640,6 +747,7 @@ public class MainActivity extends Activity {
         i.setType(tipo);
         i.putExtra(Intent.EXTRA_TITLE, nombre == null || nombre.trim().isEmpty() ? "archivo" : nombre.trim());
         guardarContenido = contenido;
+        guardarBytes = null;
         try {
             startActivityForResult(i, REQ_GUARDAR);
         } catch (ActivityNotFoundException e) {
@@ -668,11 +776,13 @@ public class MainActivity extends Activity {
         }
         if (req == REQ_GUARDAR) {
             String contenido = guardarContenido;
+            byte[] bytes = guardarBytes;
             guardarContenido = null;
-            if (resultado != RESULT_OK || datos == null || datos.getData() == null || contenido == null) return;
+            guardarBytes = null;
+            if (resultado != RESULT_OK || datos == null || datos.getData() == null || (contenido == null && bytes == null)) return;
             try (OutputStream os = getContentResolver().openOutputStream(datos.getData(), "wt")) {
                 if (os == null) throw new IOException("destino no disponible");
-                os.write(contenido.getBytes(StandardCharsets.UTF_8));
+                os.write(bytes != null ? bytes : contenido.getBytes(StandardCharsets.UTF_8));
                 aviso("Archivo guardado");
             } catch (IOException | SecurityException e) {
                 aviso("No se pudo guardar el archivo: " + e.getMessage());
@@ -733,7 +843,7 @@ public class MainActivity extends Activity {
         boolean concedido = false;
         for (int r : resultados) concedido |= r == PackageManager.PERMISSION_GRANTED;
         if (concedido) iniciarUbicacion();
-        else responderErrorUbicacion(1, "Permiso de ubicación denegado. Puede habilitarlo en Ajustes > Aplicaciones > Sanbit.");
+        else responderErrorUbicacion(1, "Permiso de ubicación denegado. Puede habilitarlo en Ajustes > Aplicaciones > " + getString(R.string.app_name) + ".");
     }
 
     private void iniciarUbicacion() {

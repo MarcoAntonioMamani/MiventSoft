@@ -40,7 +40,7 @@ function requiereSesion(req, res, next) {
         cerrarSesion(res);
         return res.status(401).json({ ok: false, mensaje: 'La sesion expiro. Ingrese nuevamente.' });
     }
-    L_prConUsuario(req.sesion.gs_user, () => next());
+    L_prConUsuario(req.sesion.gs_user, () => next(), req.clienteAud);
 }
 
 module.exports = { crearSesion, cerrarSesion, requiereSesion };

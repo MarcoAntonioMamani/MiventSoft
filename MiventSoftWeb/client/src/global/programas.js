@@ -12,6 +12,8 @@ export const PROGRAMAS_WEB = {
   BTCONFPRODUCTO: { ruta: '/configuracion/productos', icono: 'box' },
   BTCONFPRECIO: { ruta: '/configuracion/precios', icono: 'dollar' },
   BTNKITS: { ruta: '/configuracion/kits', icono: 'box' },
+  // Solo web: Auditoria De Registros (MAM_Auditoria, server/sql/07 y 08)
+  BTNAUDITORIAREGISTROS: { ruta: '/configuracion/auditoria', icono: 'shield' },
   // Kaily: Tec_Dosificacion (MAM_Dosificacion)
   BTCONFDOSIFICACION: { ruta: '/configuracion/dosificacion', icono: 'receipt' },
   BTZONA: { ruta: '/configuracion/zonas', icono: 'map' },

@@ -32,7 +32,8 @@ const v = require('../../utils/validar');
 /**
  * Mismo programa para Tec_Ventas (MAM_Ventas) y Tec_Proformas (MAM_Proforma) de Kaily.
  * C = { programa, nombre, sp, listaDetalles, insertar, modificar, recibo,
- *       conPagos, exigeCaja, validarEditable, filtrarPorVendedor, sinStock, soloContado }
+ *       conPagos, exigeCaja, validarEditable, filtrarPorVendedor, sinStock, soloContado,
+ *       tcNota: 'venta' (tipo de cambio cobrado en la venta) | 'vigente' (ultimo de la tabla TipoCambio) }
  */
 function crearRouterPV(C) {
 const router = express.Router();
@@ -42,11 +43,14 @@ const SP = C.sp;
 const MAX_DIAS_LISTA = 370;
 const MAX_FILAS_DETALLE = 300;
 const CATEGORIA_DEFECTO = 3; // _PMOLimpiar: cbPrecios.Value = 3
+const _esProducto = (f) => (Number(f.Tipo ?? f.tipo) || 1) === 1; // en la lista de venta, Tipo 2 = kit (su Id no es de producto)
 
 // ---------- utilidades ----------
 const dos = (n) => String(n).padStart(2, '0');
 const num = (x) => { const n = Number(x); return Number.isFinite(n) ? n : 0; };
 const r2 = (x) => Math.round(num(x) * 100) / 100;
+// Total en dolares: Bs / tipo de cambio; 0 si no hay tipo de cambio (ej. venta a credito, sin VentasMonedaCobrada)
+const aDolares = (bs, tc) => (num(tc) > 0 ? r2(num(bs) / num(tc)) : 0);
 function isoDe(x) {
     if (!x) return null;
     if (x instanceof Date) return `${x.getUTCFullYear()}-${dos(x.getUTCMonth() + 1)}-${dos(x.getUTCDate())}`;
@@ -100,6 +104,8 @@ function _filaLista(f) {
         FechaVenta: isoDe(f.FechaVenta),
         FechaVencimientoCredito: isoDe(f.FechaVencimientoCredito),
         HoraRegistro: f.HoraRegistro instanceof Date ? `${dos(f.HoraRegistro.getUTCHours())}:${dos(f.HoraRegistro.getUTCMinutes())}` : (f.HoraRegistro ?? ''),
+        // MAM_Ventas @tipo 3 trae el TipoCambio cobrado (isnull(pago.TipoCambio,0)); MAM_Proforma @tipo 3 no lo trae (null)
+        TotalDolares: f.TipoCambio === null || f.TipoCambio === undefined ? null : aDolares(f.TotalVenta, f.TipoCambio),
     };
 }
 
@@ -244,7 +250,7 @@ const CAMPOS_PRODUCTO = ['Id', 'Tipo', 'CodigoExterno', 'NombreProducto', 'Descr
 router.get('/productos', asyncHandler(async (req, res) => {
     const sucursal = v.entero(req.query.sucursal, 'una Sucursal', { requeridoPositivo: true });
     const precio = v.entero(req.query.precio, 'una Categoria de Precio', { requeridoPositivo: true });
-    const dt = v.proyectar(await L.L_prListarProductosVentas(sucursal, precio), CAMPOS_PRODUCTO);
+    const dt = v.proyectar(await L.L_prSoloActivos(L.L_prListarProductosVentas(sucursal, precio), 'Id', _esProducto), CAMPOS_PRODUCTO); // sin desactivados
     res.json({ ok: true, data: dt.map((p) => ({ ...p, Tipo: num(p.Tipo) || 1 })) });
 }));
 
@@ -337,11 +343,15 @@ async function _armarDetalle(g, { ventaId, cab, entradas, existentes }) {
     const cache = new Map();
     const productosDe = async (precioId) => {
         if (!cache.has(precioId)) {
-            const dt = await L.L_prListarProductosVentas(cab.AlmacenId, precioId);
+            const dt = await L.L_prSoloActivos(L.L_prListarProductosVentas(cab.AlmacenId, precioId), 'Id', _esProducto); // sin desactivados
             cache.set(precioId, { dt, c: lector(dt) });
         }
         return cache.get(precioId);
     };
+
+    // Stock insuficiente: se juntan TODOS los productos para marcarlos en pantalla (no solo el primero)
+    const faltan = [];
+    const faltaStock = (f, solicitado) => faltan.push({ ProductoId: num(f.ProductoId), Producto: String(f.Producto ?? '').trim(), stock: num(f.stock), solicitado: num(solicitado) });
 
     const filas = [];
     const productosUsados = new Set();
@@ -372,7 +382,7 @@ async function _armarDetalle(g, { ventaId, cab, entradas, existentes }) {
         const calc = _calcular({ ...fila, Precio: precio }, cant, porc, monto);
         const cambio = Math.abs(cant - num(cE(ex, 'Cantidad'))) > 1e-6 || Math.abs(precio - num(cE(ex, 'Precio'))) > 1e-6
             || Math.abs(calc.MontoDescuento - num(cE(ex, 'MontoDescuento'))) > 1e-6;
-        if (cambio && !C.sinStock && cant > fila.stock + 1e-9) throw new ErrorNegocio(`La Cantidad = ${cant} de ${fila.Producto} es mayor al Stock del Producto = ${fila.stock}`);
+        if (cambio && !C.sinStock && cant > fila.stock + 1e-9) faltaStock(fila, cant);
         filas.push({ ...calc, estado: cambio ? 2 : 1 });
     }
 
@@ -417,11 +427,20 @@ async function _armarDetalle(g, { ventaId, cab, entradas, existentes }) {
             ..._base(mayorId), ProductoId: productoId, Producto: String(c(prod, 'NombreProducto') ?? ''), Precio: num(c(prod, 'PrecioVenta')),
             PrecioCosto: num(c(prod, 'PrecioCosto')), stock: num(c(prod, 'stock')),
         };
-        if (!C.sinStock && !(fila.stock > 0)) throw new ErrorNegocio(`No Existe Stock del Producto ${fila.Producto} Para Proceder con la Venta`.toUpperCase());
         const precio = _precio(g, e, fila.Precio, fila.PrecioCosto, fila.Producto);
         const calc = _calcular({ ...fila, Precio: precio }, num(e.Cantidad), g.modificarDescuento ? e.ProcentajeDescuento : 0, g.modificarDescuento ? e.MontoDescuento : 0);
-        if (!C.sinStock && calc.Cantidad > fila.stock + 1e-9) throw new ErrorNegocio(`La cantidad de ${fila.Producto} es Superior Al Stock Disponible = ${fila.stock}`);
+        if (!C.sinStock && calc.Cantidad > fila.stock + 1e-9) faltaStock(fila, calc.Cantidad); // incluye stock 0
         filas.push({ ...calc, estado: 0 });
+    }
+
+    if (faltan.length) throw L.L_prErrorSinStock(faltan, `grabar la ${C.nombre.toLowerCase()}`);
+
+    // Kaily: un producto con precio 0 se puede elegir, pero no se graba hasta que tenga precio (filas nuevas o modificadas;
+    // las de un kit toman el precio del kit). El stock ya se valida arriba con el stock vigente de la BD.
+    const sinPrecio = filas.filter((f) => (f.estado === 0 || f.estado === 2) && num(f.Tipo) !== 2 && !(num(f.Precio) > 0)).map((f) => f.Producto);
+    if (sinPrecio.length) {
+        const nombres = sinPrecio.length > 5 ? `${sinPrecio.slice(0, 5).join(', ')} y ${sinPrecio.length - 5} mas` : sinPrecio.join(', ');
+        throw new ErrorNegocio(`No se puede grabar: ${nombres} sin precio de venta. Coloque el precio en Precios.`);
     }
 
     const vigentes = filas.filter((f) => f.estado >= 0);
@@ -456,6 +475,22 @@ async function _armarPagos(tipoVenta, pago, total) {
     return { columnas, filas: [[0, 0, montos[0], montos[1], montos[2], montos[3], tc, 0]] };
 }
 
+/**
+ * El SP (MAM_Ventas @1/@2) valida el stock dentro de su transaccion, con las filas bloqueadas: es la ultima palabra
+ * (web y escritorio). Si otro usuario vendio el mismo producto entre que se armo el detalle y se grabo, el SP
+ * responde "STOCK INSUFICIENTE: ..."; aqui se vuelve a armar el detalle con el stock que quedo, para devolver
+ * la lista de productos y su stock actual y que la pantalla los marque.
+ */
+async function _grabarConStock(grabar, rearmar) {
+    try {
+        return await grabar();
+    } catch (e) {
+        if (!/STOCK INSUFICIENTE/i.test(e.message) || C.sinStock) throw e;
+        await rearmar(); // lanza el error con la lista (stock actual de cada producto)
+        throw new ErrorNegocio(e.message);
+    }
+}
+
 function _validarDescuento(descuento, suma) {
     if (descuento > suma + 1e-9) throw new ErrorNegocio('El total Ingresado es Superior al monto total de la venta');
 }
@@ -471,10 +506,10 @@ router.post('/', asyncHandler(async (req, res) => {
     _validarDescuento(cab.Descuento, suma);
     const total = suma - cab.Descuento;
     const pagos = await _armarPagos(cab.TipoVenta, req.body.pago, total);
-    const r = await C.insertar({
+    const r = await _grabarConStock(() => C.insertar({
         _numi: '0', AlmacenId: cab.AlmacenId, FechaTransacccion: aVB(cab.FechaVenta), PersonalId: g.personal, ClienteId: cab.ClienteId,
         TipoVenta: cab.TipoVenta, FechaVencCredito: aVB(cab.FechaVencCredito), glosa: cab.glosa, TotalCompra: total, Descuento: cab.Descuento, Facturado: cab.Facturado,
-    }, detalle, pagos);
+    }, detalle, pagos), () => _armarDetalle(g, { ventaId: -1, cab, entradas: req.body.detalle, existentes: [] }));
     if (!r.resultado) throw new ErrorNegocio(`Error al guardar la ${C.nombre}`.toUpperCase());
     res.json({ ok: true, id: r._numi, fecha: cab.FechaVenta, mensaje: `Codigo de ${C.nombre} ${r._numi} Grabado con Exito.`.toUpperCase() });
 }));
@@ -493,10 +528,10 @@ router.put('/:id', asyncHandler(async (req, res) => {
     _validarDescuento(cab.Descuento, suma);
     const total = suma - cab.Descuento;
     const pagos = await _armarPagos(cab.TipoVenta, req.body.pago, total);
-    const r = await C.modificar({
+    const r = await _grabarConStock(() => C.modificar({
         _numi: id, AlmacenId: cab.AlmacenId, FechaTransacccion: aVB(cab.FechaVenta), PersonalId: num(original.PersonalId), ClienteId: cab.ClienteId,
         TipoVenta: cab.TipoVenta, FechaVencCredito: aVB(cab.FechaVencCredito), glosa: cab.glosa, TotalCompra: total, Descuento: cab.Descuento, Facturado: cab.Facturado,
-    }, detalle, pagos);
+    }, detalle, pagos), async () => _armarDetalle(g, { ventaId: id, cab, entradas: req.body.detalle, existentes: await C.listaDetalles(id) }));
     if (!r.resultado) throw new ErrorNegocio(`Error al Modificar la ${C.nombre}`.toUpperCase());
     res.json({ ok: true, id, fecha: cab.FechaVenta, mensaje: `Codigo de ${C.nombre} ${id} Modificado con Exito.`.toUpperCase() });
 }));
@@ -522,22 +557,29 @@ router.get('/:id/recibo', asyncHandler(async (req, res) => {
 
 // datos de la nota (tambien la "NOTA DE DESPACHO" de FrmDespacho)
 async function _recibo(id, venta) {
-    const [detalle, empresas, imagen, rec] = await Promise.all([
+    const [detalle, empresas, imagen, rec, tcVigente] = await Promise.all([
         C.listaDetalles(id),
         L.L_prListarGeneral('MAM_Empresas'),
         L.ObtenerImagenEmpresa().catch(() => []),
         C.recibo(id).catch(() => []),
+        C.tcNota === 'vigente' ? L.L_ObtenerTipoCambio() : null,
     ]);
+    // total en dolares: venta = el tipo de cambio cobrado (el mismo de la lista, 0 en credito);
+    // proforma = el vigente (MAM_Proforma @tipo 6 lo busca en VentasMonedaCobrada con el Id de la proforma, que es otra venta)
+    const tipoCambio = C.tcNota === 'vigente' ? num(tcVigente) : num(venta.TipoCambio);
     const r0 = rec[0] || {};
     const c0 = lector(rec);
     const de = (...n) => { for (const x of n) { const y = c0(r0, x); if (y !== undefined && y !== null && y !== '') return y; } return null; };
     const det = v.proyectar(detalle, ['ProductoId', 'Producto', 'Cantidad', 'Precio', 'SubTotal', 'MontoDescuento', 'Total', 'KitNombre']);
     const suma = det.reduce((s, f) => s + num(f.Total), 0);
+    const total = suma - num(venta.Descuento);
     return {
         venta,
         detalle: det,
         subtotal: suma,
-        total: suma - num(venta.Descuento),
+        total,
+        tipoCambio,
+        totalDolares: aDolares(total, tipoCambio),
         empresa: v.proyectar(empresas, ['Nombre', 'Direccion', 'Telefono', 'Nit', 'Ciudad'])[0] || null,
         cliente: { Nit: de('Nit', 'NitCi', 'NroDocumento'), Telefono: de('Telefono', 'Telefono01'), Direccion: de('Direccion', 'DireccionCliente') },
         codigos: Object.fromEntries(rec.map((f) => [String(c0(f, 'Producto') ?? c0(f, 'NombreProducto') ?? ''), c0(f, 'CodigoExterno') ?? null]).filter(([k, x]) => k && x !== null)),
@@ -556,7 +598,7 @@ const routerVentas = crearRouterPV({
     insertar: (x, d, p) => L.VentaInsertar(x, d, p),
     modificar: (x, d, p) => L.VentaModificar(x, d, p),
     recibo: (id) => L.ListarVentaRecibo(id),
-    conPagos: true, exigeCaja: true, validarEditable: true, filtrarPorVendedor: true, sinStock: false, soloContado: false,
+    conPagos: true, exigeCaja: true, validarEditable: true, filtrarPorVendedor: true, sinStock: false, soloContado: false, tcNota: 'venta',
 });
 
 module.exports = routerVentas;

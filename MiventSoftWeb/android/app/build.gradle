@@ -7,17 +7,25 @@ def firmaProps = new Properties()
 def firmaArchivo = rootProject.file('keystore.properties')
 if (firmaArchivo.exists()) firmaArchivo.withInputStream { firmaProps.load(it) }
 
+// ---- Identidad de la app. Con un applicationId distinto se instala JUNTO a la otra ("Sanbit", com.santit.movil),
+//      cada una con su propio servidor configurado y su propia sesion. Para otra empresa: cambiar estas 3 lineas.
+//      Una vez instalada, NO cambiar APP_ID (seria otra app) y subir versionCode en cada APK nuevo.
+def APP_ID = 'com.santit.kaily'
+def APP_NOMBRE = 'Sanbit Kaily'      // nombre debajo del icono
+def APK_NOMBRE = 'SanbitKaily'       // archivo generado: android\apk\SanbitKaily.apk
+
 android {
-    namespace 'com.santit.movil'
+    namespace 'com.santit.movil'     // paquete del codigo Java (no es el id de la app)
     compileSdk 33
     buildToolsVersion '33.0.0'
 
     defaultConfig {
-        applicationId 'com.santit.movil'
+        applicationId APP_ID
         minSdk 24
         targetSdk 33
-        versionCode 1
-        versionName '1.0.0'
+        versionCode 2
+        versionName '1.1.0'
+        resValue 'string', 'app_name', APP_NOMBRE
     }
 
     signingConfigs {
@@ -43,4 +51,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+}
+
+// APK firmado listo para instalar: gradlew copiarApk  ->  android\apk\<APK_NOMBRE>.apk (lo usa construir_apk.bat)
+tasks.register('copiarApk', Copy) {
+    dependsOn 'assembleRelease'
+    from(layout.buildDirectory.file('outputs/apk/release/app-release.apk'))
+    into(rootProject.file('apk'))
+    rename { "${APK_NOMBRE}.apk" }
+    doLast { println "APK listo: ${rootProject.file("apk/${APK_NOMBRE}.apk")}" }
 }

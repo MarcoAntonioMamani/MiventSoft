@@ -125,7 +125,11 @@ export default function TablaReporte({ columnas, filas = [], cargando, titulo, s
             </tr>
           </thead>
           <tbody>
-            {cargando && !filas.length && <tr><td colSpan={nCols} className="vacio"><span className="spinner" /> Cargando...</td></tr>}
+            {cargando && !filas.length && Array.from({ length: 6 }, (_, i) => (
+              <tr key={`sk${i}`} className="esqueleto" aria-hidden="true">
+                {Array.from({ length: nCols }, (_, j) => <td key={j}><span className="esq-barra" style={{ width: `${45 + ((i * 7 + j * 13) % 45)}%` }} /></td>)}
+              </tr>
+            ))}
             {visibles.map((f, i) => (
               <tr key={f[claveFila] ?? i} className={`${onFila ? 'fila-clic' : ''} ${(filaSel !== undefined && filaSel === f[claveFila]) || seleccion?.ids.has(f[claveFila]) ? 'sel' : ''} ${claseFila ? claseFila(f) || '' : ''}`} onClick={onFila ? () => onFila(f) : undefined}
                 tabIndex={onFila ? 0 : undefined} onKeyDown={onFila ? (e) => e.key === 'Enter' && e.target === e.currentTarget && onFila(f) : undefined}>

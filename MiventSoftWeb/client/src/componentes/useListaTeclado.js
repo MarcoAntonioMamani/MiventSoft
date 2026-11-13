@@ -2,10 +2,10 @@
 //  * En el buscador: Flecha abajo baja a la tabla; Enter elige la fila marcada (la primera si no se movio).
 //  * En la tabla: flechas / Inicio / Fin / RePag / AvPag mueven la seleccion, Enter elige,
 //    Flecha arriba en la primera fila vuelve al buscador y escribir una letra sigue la busqueda.
-//  * Mouse / dedo: un clic (toque) solo marca la fila; doble clic (doble toque) la elige.
+//  * Mouse: un clic marca la fila y doble clic la elige. Dedo (celular / tablet): un toque la elige.
 //  * Se dibujan LOTE filas y las demas al bajar (centinela): con miles de productos la busqueda no se traba.
 //  * Despues de agregar (o cancelar) el foco vuelve al buscador / a la fila.
-import { createElement, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { createElement, Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 const PAGINA = 8;
 const LOTE = 100;
@@ -20,6 +20,7 @@ export function useListaTeclado(filas, onElegir, { onCerrar, pausado = false } =
   const buscarRef = useRef(null);
   const tbodyRef = useRef(null);
   const clic = useRef({ clave: null, t: 0 });
+  const tactil = useRef(false); // el ultimo clic vino de un dedo (o lapiz), no del mouse
   const pendiente = useRef(null);
   const observador = useRef(null);
 
@@ -98,14 +99,15 @@ export function useListaTeclado(filas, onElegir, { onCerrar, pausado = false } =
     }
   };
 
-  // un clic marca; el segundo clic sobre la misma fila (antes de DOBLE_MS) la elige
+  // mouse: un clic marca y el segundo clic sobre la misma fila (antes de DOBLE_MS) la elige.
+  // dedo: un toque la elige (el navegador no manda el clic si el dedo se desplazo: hacer scroll no elige nada)
   const clicFila = (i) => () => {
     const f = visibles[i];
     const clave = claveDe(f);
     const ahora = Date.now();
     const u = clic.current;
     setMarcada(i);
-    if (u.clave === clave && ahora - u.t <= DOBLE_MS) {
+    if (tactil.current || (u.clave === clave && ahora - u.t <= DOBLE_MS)) {
       clic.current = { clave: null, t: 0 };
       onElegir(f, i);
     } else {
@@ -119,6 +121,7 @@ export function useListaTeclado(filas, onElegir, { onCerrar, pausado = false } =
     'aria-selected': i === marcada,
     onKeyDown: teclaFila(i),
     onFocus: () => setMarcada(i),
+    onPointerDown: (e) => { tactil.current = e.pointerType === 'touch' || e.pointerType === 'pen'; },
     onClick: clicFila(i),
   });
 
@@ -139,4 +142,7 @@ export function FilaMas({ nav, columnas }) {
       `Mostrando ${nav.visibles.length.toLocaleString('es-BO')} de ${nav.total.toLocaleString('es-BO')} · baje para ver más o escriba para filtrar`));
 }
 
-export const AYUDA_ELEGIR = 'Doble clic (o doble toque) en un producto para indicar la cantidad';
+// En PC dice "doble clic"; en celular (sin mouse) dice "toque"
+export const AYUDA_ELEGIR = createElement(Fragment, null,
+  createElement('span', { className: 'solo-teclado' }, 'Doble clic en un producto para indicar la cantidad'),
+  createElement('span', { className: 'solo-tactil' }, 'Toque un producto para indicar la cantidad'));

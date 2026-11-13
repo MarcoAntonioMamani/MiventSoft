@@ -17,9 +17,14 @@ import { Link, NavLink, Outlet, Routes, useLocation, useNavigate } from 'react-r
 import { useSesion } from '../global/Sesion';
 import { PROGRAMAS_WEB, imgPrograma, iconoModulo, slug, titulo, ubicar } from '../global/programas';
 import TipoCambio from '../componentes/TipoCambio';
+import Reloj from '../componentes/Reloj';
 import { ProveedorVista } from '../global/vistaActiva';
 import Icono from '../componentes/Icono';
 import { MarcaSistema, NOMBRE_SISTEMA, LEMA_SISTEMA } from '../componentes/Logo';
+import { useToast } from '../componentes/Toast';
+import NombreEquipo from '../componentes/NombreEquipo';
+import { idEquipo, nombreEquipo, ubicacionAuditoria, ubicacionDisponible } from '../global/equipo';
+import { esApp } from '../global/appMovil';
 
 const MAX_PESTANAS = 10;
 const ANCHO_PESTANA = 176; const ESPACIO_PESTANA = 6;
@@ -126,6 +131,16 @@ export default function Tec_Principal({ rutas }) {
   const [abierto, setAbierto] = useState(() => modulo?.cnnum ?? null); // modulo desplegado (uno solo)
   const [menuMovil, setMenuMovil] = useState(false);
   const [menuUsuario, setMenuUsuario] = useState(false);
+  const [verEquipo, setVerEquipo] = useState(false); // Nombre de este equipo (auditoria)
+  const toast = useToast();
+  // Ubicacion para la auditoria: se pide al entrar (app Android o navegador con https / localhost), asi el
+  // permiso se acepta una vez y al modificar o eliminar ya esta lista. Se renueva cada 2 minutos de uso.
+  useEffect(() => {
+    if (!esApp && !ubicacionDisponible()) return undefined;
+    ubicacionAuditoria();
+    const t = setInterval(() => ubicacionAuditoria(), 120000);
+    return () => clearInterval(t);
+  }, []);
 
   useEffect(() => {
     if (modulo) setAbierto(modulo.cnnum);
@@ -200,6 +215,7 @@ export default function Tec_Principal({ rutas }) {
             {sub && (<><Icono n="next" size={13} className="miga-sep" /><b>{sub}</b></>)}
             {!modulo && <><Icono n="next" size={13} className="miga-sep" /><b>Inicio</b></>}
           </nav>
+          <Reloj />
           <TipoCambio />
           {sesion.conexion && (
             <div className={`conexion-bd ${sesion.conexion.mock ? 'mock' : ''}`}
@@ -220,10 +236,15 @@ export default function Tec_Principal({ rutas }) {
                 <div className="menu-flotante">
                   <div className="menu-flotante-cab"><b>{titulo(sesion.gs_user)}</b><span>Usuario {sesion.gs_login}</span>
                     {sesion.conexion && <span className="menu-bd">{sesion.conexion.servidor} · {sesion.conexion.bd}</span>}</div>
+                  <button className="menu-neutro" onClick={() => { setMenuUsuario(false); setVerEquipo(true); }}>
+                    <Icono n={esApp ? 'phone' : 'monitor'} size={16} />
+                    <span className="menu-equipo">Nombre de este equipo<small>{nombreEquipo() || `Sin nombre · #${idEquipo()}`}</small></span>
+                  </button>
                   <button onClick={salir}><Icono n="logout" size={16} /> Cerrar sesión</button>
                 </div>
               </>
             )}
+            {verEquipo && <NombreEquipo toast={toast} onCerrar={() => setVerEquipo(false)} />}
           </div>
         </header>
         {activa && lista.length > 0 && ( /* en Inicio o en el menu de un modulo no se muestran (como el escritorio) */

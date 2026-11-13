@@ -4,5 +4,6 @@
     <color name="marca">#1D4ED8</color>
     <color name="marca_oscuro">#1E3A8A</color>
     <color name="fondo">#FFFFFF</color>
-    <color name="ic_launcher_background">#1D4ED8</color>
+    <!-- Icono de Sanbit Kaily: verde azulado, para distinguirla de "Sanbit" (azul) en el telefono -->
+    <color name="ic_launcher_background">#0F766E</color>
 </resources>

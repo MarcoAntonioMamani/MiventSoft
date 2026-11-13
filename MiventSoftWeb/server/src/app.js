@@ -32,7 +32,8 @@ app.use(helmet({
         },
     },
 }));
-app.use(express.json({ limit: '1mb' }));
+const jsonApi = express.json({ limit: '1mb' });
+app.use((req, res, next) => (req.path === '/api/pdf' ? next() : jsonApi(req, res, next))); // /api/pdf tiene su propio limite
 app.use(cookieParser());
 
 // CORS solo para el Vite de desarrollo (en produccion el front se sirve desde aqui mismo)
@@ -41,7 +42,7 @@ if (process.env.NODE_ENV !== 'production' && process.env.CORS_ORIGIN) {
         if (req.headers.origin === process.env.CORS_ORIGIN) {
             res.set('Access-Control-Allow-Origin', process.env.CORS_ORIGIN);
             res.set('Access-Control-Allow-Credentials', 'true');
-            res.set('Access-Control-Allow-Headers', 'Content-Type');
+            res.set('Access-Control-Allow-Headers', 'Content-Type, X-Equipo-Id, X-Equipo-Nombre, X-Ubicacion');
             res.set('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
             if (req.method === 'OPTIONS') return res.sendStatus(204);
         }
@@ -56,6 +57,8 @@ app.get('/api/salud', (req, res) => res.json({ ok: true, servicio: 'MiventSoft A
 app.use('/api', (req, res, next) => { res.set('Cache-Control', 'no-store'); next(); });
 // JSON grandes (listas de productos con stock) comprimidos: llegan mas rapido al celular, sin cache
 app.use('/api', require('./middleware/comprimir').comprimirJson);
+// Auditoria: equipo, IP, navegador y ubicacion de quien modifica o elimina (sql/10_AuditoriaEquipo.sql)
+app.use('/api', require('./middleware/clienteAuditoria').clienteAuditoria);
 
 app.use('/api/auth', require('./rutas/auth.routes'));
 app.use('/api/imagenes', requiereSesion, require('./rutas/imagenes.routes'));
@@ -66,12 +69,14 @@ app.use('/api/configuracion/categorias', requiereSesion, require('./rutas/config
 app.use('/api/configuracion/empresas', requiereSesion, require('./rutas/configuracion/empresas.routes'));
 app.use('/api/configuracion/usuarios', requiereSesion, require('./rutas/configuracion/usuarios.routes'));
 app.use('/api/configuracion/roles', requiereSesion, require('./rutas/configuracion/roles.routes'));
+app.use('/api/configuracion/auditoria', requiereSesion, require('./rutas/configuracion/auditoria.routes')); // solo web: MAM_Auditoria (sql/07)
 app.use('/api/configuracion/clientes', requiereSesion, require('./rutas/configuracion/clientes.routes'));
 app.use('/api/configuracion/zonas', requiereSesion, require('./rutas/configuracion/zonas.routes'));
 app.use('/api/configuracion/productos', requiereSesion, require('./rutas/configuracion/productos.routes'));
 app.use('/api/configuracion/kits', requiereSesion, require('./rutas/configuracion/kits.routes'));
 app.use('/api/configuracion/precios', requiereSesion, require('./rutas/configuracion/precios.routes'));
 app.use('/api/configuracion/dosificacion', requiereSesion, require('./rutas/configuracion/dosificacion.routes')); // Kaily: MAM_Dosificacion
+app.use('/api/pdf', requiereSesion, require('./rutas/pdf.routes')); // PDF de reportes y notas (utils/pdf.js)
 app.use('/api/tipo-cambio', requiereSesion, require('./rutas/tipoCambio.routes')); // Kaily: btnTipoCambio (ActualizarTipoCambio)
 // Paso 3: modulo Ventas
 app.use('/api/ventas/personal', requiereSesion, require('./rutas/ventas/personal.routes'));

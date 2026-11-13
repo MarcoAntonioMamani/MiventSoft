@@ -1,6 +1,7 @@
 @echo off
 REM =====================================================================
-REM  Santit movil - genera el APK firmado en android\apk\Santit.apk
+REM  Sanbit movil - genera el APK firmado en android\apk\
+REM  Nombre de la app, id y nombre del APK: APP_NOMBRE / APP_ID / APK_NOMBRE en app\build.gradle
 REM  Requiere: JDK 11 (el de Android Studio) y el SDK de Android (local.properties)
 REM  La primera vez crea la firma (santit-release.jks + keystore.properties):
 REM  RESPALDELA. Sin ella no se puede actualizar la app ya instalada.
@@ -30,11 +31,10 @@ if errorlevel 1 ( echo  Error creando la firma. & pause & exit /b 1 )
 set "CLAVE="
 
 :compilar
-call "%~dp0gradlew.bat" assembleRelease --no-daemon
+call "%~dp0gradlew.bat" copiarApk --no-daemon
 if errorlevel 1 ( echo. & echo  Error al compilar el APK. & pause & exit /b 1 )
 
-if not exist apk mkdir apk
-copy /y app\build\outputs\apk\release\app-release.apk apk\Santit.apk >nul
 echo.
-echo  APK listo: %~dp0apk\Santit.apk
+echo  APK en %~dp0apk\ (el mas nuevo primero):
+dir /b /o-d "%~dp0apk\*.apk"
 endlocal

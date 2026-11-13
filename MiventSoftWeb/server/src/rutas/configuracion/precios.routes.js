@@ -28,7 +28,7 @@ router.get('/categorias', asyncHandler(async (req, res) => {
 router.get('/matriz/:almacen', asyncHandler(async (req, res) => {
     const almacen = v.idRuta(req.params.almacen);
     const [productos, categorias, precio] = await Promise.all([
-        L.L_fnListarProductos(), L.L_fnListarCategorias(), L.L_fnListarProductosConPrecios(almacen),
+        L.L_prSoloActivos(L.L_fnListarProductos(), 'yfnumi'), L.L_fnListarCategorias(), L.L_fnListarProductosConPrecios(almacen),
     ]);
     const p = v.proyectar(precio, ['yhprod', 'yhcatpre', 'yhprecio', 'estado']);
     res.json({

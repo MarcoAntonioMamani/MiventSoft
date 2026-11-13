@@ -1761,6 +1761,12 @@ Public Class FrmDespacho
     End Sub
 
     Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
+        'Usuarios.EliminarRegistros
+        If (Global_EliminarRegistro = 0) Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "No Tiene Permiso Para Eliminar Registros, Consulte con su Administrador".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Return
+        End If
         If (Global_ModificarRegistro = 0 And JGrM_Buscador.GetValue("FechaVenta") < Global_FechaActual) Then
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
             ToastNotification.Show(Me, "No puede Eliminar Ventas Anteriores a la fecha de Hoy, Consulte con su Administrador".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
@@ -2307,6 +2313,12 @@ Public Class FrmDespacho
     Private Sub EliminarToolStripMenuItem1_Click(sender As Object, e As EventArgs)
 
 
+        'Usuarios.EliminarRegistros
+        If (Global_EliminarRegistro = 0) Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "No Tiene Permiso Para Eliminar Registros, Consulte con su Administrador".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            Return
+        End If
         If (Global_ModificarRegistro = 0 And JGrM_Buscador.GetValue("FechaVenta") < Global_FechaActual) Then
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
             ToastNotification.Show(Me, "No puede Eliminar Ventas Anteriores a la fecha de Hoy, Consulte con su Administrador".ToUpper, img, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)

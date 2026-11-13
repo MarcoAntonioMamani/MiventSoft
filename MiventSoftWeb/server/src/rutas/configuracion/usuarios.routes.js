@@ -14,7 +14,7 @@ router.use(requierePrograma('btConfUsuarios'));
 
 // Solo lo que usa la pantalla (la Contrasena NUNCA se envia)
 const CAMPOS = ['Id', 'NombreUsuario', 'estado', 'RolId', 'NombreRol', 'SucursalId', 'IdEmpresa', 'Empresa', 'IdPersonal', 'Personal',
-    'ModificarPrecioVenta', 'AplicarDescuentoVenta', 'VerTodasVentas', 'VerTodosVentasCierre', 'ModificarRegistroAnteriores'];
+    'ModificarPrecioVenta', 'AplicarDescuentoVenta', 'VerTodasVentas', 'VerTodosVentasCierre', 'ModificarRegistroAnteriores', 'EliminarRegistros'];
 
 router.get('/', asyncHandler(async (req, res) => {
     res.json({ ok: true, data: v.proyectar(await L.L_prUsuarioGeneral(), CAMPOS) });
@@ -58,6 +58,7 @@ function _leerUsuario(body, esNuevo) {
         _VerTodasVentas: v.bit(body.VerTodasVentas),
         _VerTodosCierres: v.bit(body.VerTodosVentasCierre),
         _ModificarRegistrosAntiguos: v.bit(body.ModificarRegistroAnteriores),
+        _EliminarRegistros: v.bit(body.EliminarRegistros),
     };
     if (esNuevo && u._Contrasena === '') throw new ErrorNegocio('Ingrese una Contraseña');
     return u;
@@ -67,6 +68,7 @@ router.post('/', asyncHandler(async (req, res) => {
     const u = _leerUsuario(req.body, true);
     const r = await L.L_prUsuarioInsertar({ _numi: '', ...u });
     if (!r.resultado) throw new ErrorNegocio('No se pudo grabar el usuario');
+    LimpiarCachePermisos();
     res.json({ ok: true, id: r._numi, mensaje: `Codigo de Usuario ${r._numi} Grabado con Exito.`.toUpperCase() });
 }));
 
@@ -89,6 +91,7 @@ router.delete('/:id', asyncHandler(async (req, res) => {
     if (id === Number(req.sesion.gi_userNumi)) throw new ErrorNegocio('No puede eliminar su propio usuario.');
     const ok = await L.L_prUsuarioBorrar(id);
     if (!ok) throw new ErrorNegocio('No se pudo eliminar el usuario.');
+    LimpiarCachePermisos();
     res.json({ ok: true, mensaje: `Codigo de Usuario ${id} eliminado con Exito.`.toUpperCase() });
 }));
 

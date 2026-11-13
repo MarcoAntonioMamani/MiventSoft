@@ -36,7 +36,7 @@ import { useAlActivar, useRefrescar } from '../global/vistaActiva';
 import { createPortal } from 'react-dom';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import GridBuscador, { valorCelda } from './GridBuscador';
-import { EfectoConfirmar } from './Efecto';
+import { EfectoConfirmar, EfectoStockNegativo } from './Efecto';
 import { useToast } from './Toast';
 import Icono from './Icono';
 import { usePermisos } from '../global/Sesion';
@@ -78,6 +78,7 @@ export function useModeloF1(opciones) {
   const [cargando, setCargando] = useState(true);
   const [grabando, setGrabando] = useState(false);
   const [confirmar, setConfirmar] = useState(null);
+  const [avisoStock, setAvisoStock] = useState(null); // { mensaje, productos } al no poder eliminar por stock
   const tab = ruta.tipo === 'lista' ? 'buscador' : 'registro';
   const habilitado = modo !== 'ver';
 
@@ -250,7 +251,9 @@ export function useModeloF1(opciones) {
       await _PMFiltrar();
       irLista();
     } catch (e) {
-      toast(e.message, 'error', 8000);
+      // stock quedaria negativo: popup con los productos (en vez de un mensaje que desaparece)
+      if (e.datos?.stockNegativo?.length) setAvisoStock({ mensaje: e.message, productos: e.datos.stockNegativo });
+      else toast(e.message, 'error', 8000);
     }
   };
 
@@ -287,7 +290,7 @@ export function useModeloF1(opciones) {
 
   return {
     dt, filas, filtros, setFiltros, orden, setOrden, idSel, resaltado, filaActual, _MPos, ruta,
-    modo, habilitado, tab, cargando, grabando, confirmar, setConfirmar, _confirmarEliminar,
+    modo, habilitado, tab, cargando, grabando, confirmar, setConfirmar, _confirmarEliminar, avisoStock, setAvisoStock,
     _PMFiltrar, _PMNuevo, _PMModificar, _PMEliminar, _PMGuardar, _PMSalir, abrir, seleccionar: (f) => setIdSel(f.__id), irLista,
     _PMPrimerRegistro, _PMAnteriorRegistro, _PMSiguienteRegistro, _PMUltimoRegistro,
     estructura: opciones._PMOGetListEstructuraBuscador,
@@ -445,6 +448,12 @@ export default function ModeloF1({ m, titulo, subtitulo, icono = 'grid', childre
         descripcion={m.confirmar?.descripcion}
         onAceptar={m._confirmarEliminar}
         onCancelar={() => m.setConfirmar(null)}
+      />
+      <EfectoStockNegativo
+        abierto={!!m.avisoStock}
+        mensaje={m.avisoStock?.mensaje}
+        productos={m.avisoStock?.productos}
+        onCerrar={() => m.setAvisoStock(null)}
       />
     </section>
   );

@@ -83,6 +83,8 @@ Partial Class Tec_Users
         Me.LabelX12 = New DevComponents.DotNetBar.LabelX()
         Me.swModificarRegistros = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.LabelX13 = New DevComponents.DotNetBar.LabelX()
+        Me.swEliminarRegistros = New DevComponents.DotNetBar.Controls.SwitchButton()
+        Me.LabelX14 = New DevComponents.DotNetBar.LabelX()
         Me.Panel1.SuspendLayout()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelLEft.SuspendLayout()
@@ -257,6 +259,8 @@ Partial Class Tec_Users
         '
         'PanelCampos
         '
+        Me.PanelCampos.Controls.Add(Me.swEliminarRegistros)
+        Me.PanelCampos.Controls.Add(Me.LabelX14)
         Me.PanelCampos.Controls.Add(Me.swModificarRegistros)
         Me.PanelCampos.Controls.Add(Me.LabelX13)
         Me.PanelCampos.Controls.Add(Me.swCierreTodos)
@@ -1054,6 +1058,45 @@ Partial Class Tec_Users
         Me.LabelX13.TabIndex = 225
         Me.LabelX13.Text = "Modificar Registros Antiguos?"
         '
+        'swEliminarRegistros
+        '
+        '
+        '
+        '
+        Me.swEliminarRegistros.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.swEliminarRegistros.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.swEliminarRegistros.Location = New System.Drawing.Point(189, 300)
+        Me.swEliminarRegistros.Name = "swEliminarRegistros"
+        Me.swEliminarRegistros.OffBackColor = System.Drawing.Color.Red
+        Me.swEliminarRegistros.OffText = "No"
+        Me.swEliminarRegistros.OffTextColor = System.Drawing.Color.White
+        Me.swEliminarRegistros.OnBackColor = System.Drawing.Color.MediumTurquoise
+        Me.swEliminarRegistros.OnText = "Si"
+        Me.swEliminarRegistros.OnTextColor = System.Drawing.Color.White
+        Me.swEliminarRegistros.Size = New System.Drawing.Size(164, 22)
+        Me.swEliminarRegistros.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.swEliminarRegistros.TabIndex = 226
+        Me.swEliminarRegistros.ValueFalse = "0"
+        Me.swEliminarRegistros.ValueObject = "0"
+        Me.swEliminarRegistros.ValueTrue = "1"
+        '
+        'LabelX14
+        '
+        Me.LabelX14.AutoSize = True
+        Me.LabelX14.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX14.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX14.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX14.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.LabelX14.Location = New System.Drawing.Point(189, 282)
+        Me.LabelX14.Name = "LabelX14"
+        Me.LabelX14.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX14.Size = New System.Drawing.Size(132, 17)
+        Me.LabelX14.TabIndex = 227
+        Me.LabelX14.Text = "Puede Eliminar Registros?"
+        '
         'Tec_Users
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1140,6 +1183,8 @@ Partial Class Tec_Users
     Friend WithEvents LabelX9 As DevComponents.DotNetBar.LabelX
     Friend WithEvents swModificarRegistros As DevComponents.DotNetBar.Controls.SwitchButton
     Friend WithEvents LabelX13 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents swEliminarRegistros As DevComponents.DotNetBar.Controls.SwitchButton
+    Friend WithEvents LabelX14 As DevComponents.DotNetBar.LabelX
     Friend WithEvents swCierreTodos As DevComponents.DotNetBar.Controls.SwitchButton
     Friend WithEvents LabelX11 As DevComponents.DotNetBar.LabelX
     Friend WithEvents swVentasTodos As DevComponents.DotNetBar.Controls.SwitchButton

@@ -90,6 +90,23 @@ function filasNuevas(columnas, pedidos, productos, tipo, siguienteId, vigentes) 
 }
 const ERROR_SIN_CANTIDAD = 'Ingrese la Cantidad de al menos un Producto'.toUpperCase();
 
+// Salidas (y un ingreso con cantidad negativa): se juntan TODOS los productos sin stock suficiente y se avisan juntos.
+// El SP (MAM_Movimientos) vuelve a validar con las filas de stock bloqueadas: si otro usuario saco el producto
+// recien, el SP lo rechaza igual (web y escritorio).
+function validarStock(pedidos, productos, tipo) {
+    const faltan = [];
+    for (const d of pedidos) {
+        const p = productos.find((x) => x.Id === Number(d.ProductoId));
+        const n = Number(d.Cantidad);
+        if (!p || !Number.isFinite(n) || n === 0) continue;
+        const sale = tipo === INGRESO ? -n : n; // lo que descuenta del deposito
+        if (sale > 0 && sale > num(p.stock) + 1e-9) {
+            faltan.push({ ProductoId: p.Id, Producto: String(p.DescripcionProducto || p.NombreProducto).trim(), stock: num(p.stock), solicitado: sale });
+        }
+    }
+    if (faltan.length) throw L.L_prErrorSinStock(faltan, 'grabar el movimiento');
+}
+
 async function buscarMovimiento(id) {
     const f = v.proyectar(await L.L_prListarGeneral('MAM_Movimientos'), CAMPOS).map(fila).find((x) => Number(x.Id) === id);
     if (!f) throw new ErrorNegocio('No se encontro el movimiento. Actualice la lista.', 404);
@@ -131,7 +148,7 @@ router.get('/combos', asyncHandler(async (req, res) => res.json({ ok: true, data
     ...(await combos()), lote: await usaLote(), modificarAnteriores: modificarAnteriores(req), hoy: hoyBolivia(), traspaso: TRASPASO, ingreso: INGRESO,
 } })));
 router.get('/productos/:deposito', asyncHandler(async (req, res) => {
-    res.json({ ok: true, data: productosCampos(await L.L_prListarProductosLote(v.idRuta(req.params.deposito))) });
+    res.json({ ok: true, data: productosCampos(await L.L_prSoloActivos(L.L_prListarProductosLote(v.idRuta(req.params.deposito)))) });
 }));
 router.get('/:id/detalle', asyncHandler(async (req, res) => {
     const dt = await L.L_prListarDetalleMovimiento(v.idRuta(req.params.id));
@@ -166,7 +183,8 @@ router.post('/', asyncHandler(async (req, res) => {
     const columnas = L._columnasDe(await L.L_prListarDetalleMovimiento(-1));
     const pedidos = (Array.isArray(b.detalle) ? b.detalle : []).filter((d) => !d.eliminado);
     if (!pedidos.length) throw new ErrorNegocio('Por Favor Inserte un Detalle'.toUpperCase());
-    const productos = productosCampos(await L.L_prListarProductosLote(cab.DepositoId));
+    const productos = productosCampos(await L.L_prSoloActivos(L.L_prListarProductosLote(cab.DepositoId)));
+    validarStock(pedidos, productos, cab.ConceptoId);
     const filas = filasNuevas(columnas, pedidos, productos, cab.ConceptoId, 0, []);
     if (!filas.length) throw new ErrorNegocio(ERROR_SIN_CANTIDAD);
     const dt = { columnas, filas };
@@ -212,7 +230,7 @@ router.put('/:id', asyncHandler(async (req, res) => {
     const vigentes = filas.filter((f) => num(col(f, 'estado')) >= 0).map((f) => num(col(f, 'ProductoId')));
     const nuevos = enviados.filter((d) => d.nuevo && !d.eliminado);
     if (nuevos.length) {
-        const productos = productosCampos(await L.L_prListarProductosLote(cab.DepositoId));
+        const productos = productosCampos(await L.L_prSoloActivos(L.L_prListarProductosLote(cab.DepositoId)));
         filas.push(...filasNuevas(columnas, nuevos, productos, cab.ConceptoId, existentes.reduce((m, f) => Math.max(m, num(col(f, 'Id'))), 0), vigentes));
     }
     if (!filas.some((f) => num(col(f, 'estado')) >= 0 && num(col(f, 'ProductoId')) > 0)) throw new ErrorNegocio(ERROR_SIN_CANTIDAD);

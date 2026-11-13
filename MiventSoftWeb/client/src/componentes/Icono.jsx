@@ -49,9 +49,14 @@ const P = {
   lock: 'M19 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2ZM7 11V7a5 5 0 0 1 10 0v4',
   store: 'M3 9l1.5-5h15L21 9M3 9v11h18V9M3 9h18M9 20v-6h6v6',
   dollar: 'M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6',
+  billete: 'M2 6h20v12H2ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM6 12h.01M18 12h.01',
+  tarjeta: 'M2 5h20v14H2ZM2 10h20M6 15h4',
+  qr: 'M3 3h7v7H3ZM14 3h7v7h-7ZM3 14h7v7H3ZM14 14h3v3h-3ZM18 18h3v3h-3ZM18 14h3M14 18v3M6 6h1v1H6ZM17 6h1v1h-1ZM6 17h1v1H6Z',
   undo: 'M3 7v6h6M21 17a9 9 0 0 0-15-6.7L3 13',
   pencil: 'M3 21l3.8-1 11-11a2.7 2.7 0 0 0-3.8-3.8l-11 11Z',
   home: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2ZM9 22V12h6v10',
+  monitor: 'M4 4h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1ZM8 20h8M12 16v4',
+  phone: 'M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2ZM11 18h2',
 };
 
 export default function Icono({ n, size = 18, className = '', title }) {

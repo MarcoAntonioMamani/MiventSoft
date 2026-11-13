@@ -1885,6 +1885,7 @@
    "funcion": "L_prUsuarioInsertar",
    "params": [
     "@contrasena",
+    "@eliminarregistros",
     "@estado",
     "@id",
     "@idempresa",
@@ -1907,6 +1908,7 @@
    "funcion": "L_prUsuarioModificar",
    "params": [
     "@contrasena",
+    "@eliminarregistros",
     "@estado",
     "@id",
     "@idempresa",

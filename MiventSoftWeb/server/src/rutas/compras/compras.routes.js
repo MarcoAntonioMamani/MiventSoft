@@ -120,7 +120,7 @@ router.get('/combos', asyncHandler(async (req, res) => res.json({ ok: true, data
     sucursales: await sucursales(), proveedores: await proveedores(), lote: await usaLote(),
     hoy: hoyBolivia(), modificarAnteriores: req.sesion.Global_ModificarRegistro === 1,
 } })));
-router.get('/productos/:sucursal', asyncHandler(async (req, res) => res.json({ ok: true, data: productosCampos(await L.L_prListarProductosCompras(v.idRuta(req.params.sucursal))) })));
+router.get('/productos/:sucursal', asyncHandler(async (req, res) => res.json({ ok: true, data: productosCampos(await L.L_prSoloActivos(L.L_prListarProductosCompras(v.idRuta(req.params.sucursal)))) })));
 router.get('/:id/detalle', asyncHandler(async (req, res) => res.json({ ok: true, data: (await L.ListaComprasDetalles(v.idRuta(req.params.id))).map(detalleCampos) })));
 // Comprobante de compra (@tipo 7)
 router.get('/:id/comprobante', asyncHandler(async (req, res) => res.json({ ok: true, data: limpiar(await L.ReporteCompras(v.idRuta(req.params.id))) })));
@@ -152,7 +152,7 @@ router.post('/', asyncHandler(async (req, res) => {
     const b = req.body || {};
     const cab = await leerCabecera(b);
     const columnas = L._columnasDe(await L.ListaComprasDetalles(-1));
-    const productos = productosCampos(await L.L_prListarProductosCompras(cab.AlmacenId));
+    const productos = productosCampos(await L.L_prSoloActivos(L.L_prListarProductosCompras(cab.AlmacenId)));
     const filas = filasNuevas(columnas, (Array.isArray(b.detalle) ? b.detalle : []).filter((d) => !d.eliminado), productos, 0, []);
     if (!filas.length) throw new ErrorNegocio('Por Favor Inserte un Detalle'.toUpperCase());
     const r = await L.ComprasInsertar({ ...totales(cab, filas), _numi: '0' }, { columnas, filas });
@@ -184,7 +184,7 @@ router.put('/:id', asyncHandler(async (req, res) => {
     const vigentes = filas.filter((f) => num(col(f, 'estado')) >= 0).map((f) => num(col(f, 'ProductoId')));
     const nuevos = enviados.filter((d) => d.nuevo && !d.eliminado);
     if (nuevos.length) {
-        const productos = productosCampos(await L.L_prListarProductosCompras(cab.AlmacenId));
+        const productos = productosCampos(await L.L_prSoloActivos(L.L_prListarProductosCompras(cab.AlmacenId)));
         filas.push(...filasNuevas(columnas, nuevos, productos, filas.reduce((m, f) => Math.max(m, num(col(f, 'Id'))), 0), vigentes));
     }
     if (!filas.some((f) => num(col(f, 'estado')) >= 0)) throw new ErrorNegocio('Por Favor Inserte un Detalle'.toUpperCase());

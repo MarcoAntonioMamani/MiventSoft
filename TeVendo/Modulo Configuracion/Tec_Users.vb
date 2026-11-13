@@ -247,6 +247,7 @@ Public Class Tec_Users
             .SetHighlightOnFocus(swVentasTodos, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(swCierreTodos, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(swModificarRegistros, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(swEliminarRegistros, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
 
             .SetHighlightOnFocus(tbContrasena, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(cbEmpresa, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
@@ -333,6 +334,7 @@ Public Class Tec_Users
         swModificarDescuento.IsReadOnly = False
         swModificarPrecio.IsReadOnly = False
         swModificarRegistros.IsReadOnly = False
+        swEliminarRegistros.IsReadOnly = False
         swVentasTodos.IsReadOnly = False
         swCierreTodos.IsReadOnly = False
     End Sub
@@ -347,6 +349,7 @@ Public Class Tec_Users
         tbVendedor.ReadOnly = True
 
         swModificarRegistros.IsReadOnly = True
+        swEliminarRegistros.IsReadOnly = True
         swVentasTodos.IsReadOnly = True
         swCierreTodos.IsReadOnly = True
 
@@ -369,6 +372,7 @@ Public Class Tec_Users
         swModificarPrecio.Value = False
 
         swModificarRegistros.Value = False
+        swEliminarRegistros.Value = False
         swVentasTodos.Value = False
         swCierreTodos.Value = False
 
@@ -401,7 +405,7 @@ Public Class Tec_Users
                                                   tbContrasena.Text, IIf(swEstado.Value = True, 1, 0),
                                                   cbSucursal.Value, cbEmpresa.Value, IdPersonal,
                                                   IIf(swModificarPrecio.Value = True, 1, 0), IIf(swModificarDescuento.Value = True, 1, 0),
- IIf(swVentasTodos.Value = True, 1, 0), IIf(swCierreTodos.Value = True, 1, 0), IIf(swModificarRegistros.Value = True, 1, 0))
+ IIf(swVentasTodos.Value = True, 1, 0), IIf(swCierreTodos.Value = True, 1, 0), IIf(swModificarRegistros.Value = True, 1, 0), IIf(swEliminarRegistros.Value = True, 1, 0))
         If res Then
             ToastNotification.Show(Me, "Codigo de Usuario ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
         End If
@@ -414,7 +418,7 @@ Public Class Tec_Users
         Dim res As Boolean = L_prUsuarioModificar(tbCodigo.Text, cbRol.Value, tbNombreUsuario.Text,
                                                   tbContrasena.Text, IIf(swEstado.Value = True, 1, 0),
                                                   cbSucursal.Value, cbEmpresa.Value, IdPersonal,
-                                                  IIf(swModificarPrecio.Value = True, 1, 0), IIf(swModificarDescuento.Value = True, 1, 0), IIf(swVentasTodos.Value = True, 1, 0), IIf(swCierreTodos.Value = True, 1, 0), IIf(swModificarRegistros.Value = True, 1, 0))
+                                                  IIf(swModificarPrecio.Value = True, 1, 0), IIf(swModificarDescuento.Value = True, 1, 0), IIf(swVentasTodos.Value = True, 1, 0), IIf(swCierreTodos.Value = True, 1, 0), IIf(swModificarRegistros.Value = True, 1, 0), IIf(swEliminarRegistros.Value = True, 1, 0))
         If res Then
 
             ToastNotification.Show(Me, "Codigo de Usuario ".ToUpper + tbCodigo.Text + " modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
@@ -549,6 +553,7 @@ Public Class Tec_Users
         listEstCeldas.Add(New Celda("VerTodasVentas", False))
         listEstCeldas.Add(New Celda("VerTodosVentasCierre", False))
         listEstCeldas.Add(New Celda("ModificarRegistroAnteriores", False))
+        listEstCeldas.Add(New Celda("EliminarRegistros", False))
 
         Return listEstCeldas
     End Function
@@ -577,6 +582,7 @@ Public Class Tec_Users
             swModificarPrecio.Value = .GetValue("ModificarPrecioVenta")
             swModificarDescuento.Value = .GetValue("AplicarDescuentoVenta")
             swModificarRegistros.Value = .GetValue("ModificarRegistroAnteriores")
+            swEliminarRegistros.Value = .GetValue("EliminarRegistros")
             swVentasTodos.Value = .GetValue("VerTodasVentas")
             swCierreTodos.Value = .GetValue("VerTodosVentasCierre")
 

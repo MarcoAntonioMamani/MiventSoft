@@ -31,7 +31,7 @@ router.get('/', asyncHandler(async (req, res) => {
 
 // btnAgregarProducto -> ListarProductosKits (sin PrecioCosto)
 router.get('/productos', asyncHandler(async (req, res) => {
-    res.json({ ok: true, data: v.proyectar(await L.ListarProductosKits(), ['ProductoId', 'NombreProducto', 'NombreCategoria', 'PrecioVenta']) });
+    res.json({ ok: true, data: v.proyectar(await L.L_prSoloActivos(L.ListarProductosKits(), 'ProductoId'), ['ProductoId', 'NombreProducto', 'NombreCategoria', 'PrecioVenta']) });
 }));
 
 router.get('/:id/productos', asyncHandler(async (req, res) => {

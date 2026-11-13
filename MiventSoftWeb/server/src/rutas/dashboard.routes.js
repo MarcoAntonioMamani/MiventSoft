@@ -6,7 +6,12 @@
 //    MAM_CreditosCompras @tipo 1                     -> cuentas por pagar
 //    MAM_ReporteVentas @tipo 6 / 10 / 11             -> productos mas vendidos, stock 0, stock minimo
 //  Kaily (punto de venta): sin pedidos pendientes de asignar ni mapa de pedidos (MAM_Ventas 7 / 23 no existen).
+//    Sin NombreEstado en MAM_Ventas @tipo 3: no hay estados ni anulados. Detalle de cada venta: MAM_Ventas @tipo 4.
 //  Destacados del mes: mismo MAM_Ventas @tipo 3 (desde el 1ro del mes) y MAM_ReporteVentas @tipo 6 del mes.
+//  MAM_PanelControl (SP propio de la web, server/sql/03_MAM_PanelControl.sql):
+//    @tipo 1 hora de cada venta (MAM_Ventas @tipo 3 no trae HoraRegistro) -> ventas por hora
+//    @tipo 2 compras por cliente y dia (12 meses) -> clientes que dejaron de comprar, clientes rentables (GET /analisis)
+//    @tipo 3 productos con stock sin ventas en 60 dias, con su ultima venta (GET /analisis)
 //  Al navegador se envian SOLO agregados (totales, rankings), nunca las listas completas.
 // =====================================================================
 const express = require('express');
@@ -47,10 +52,27 @@ function lector(filas) {
     };
 }
 
+// Sucursal del usuario (Global_Sucursal); -1 = todas
+const sucursalDe = (sesion) => { const s = Number(sesion?.gi_userSuc); return Number.isFinite(s) ? s : -1; };
+
 // Ventas como Tec_Ventas de Kaily: L_prListarVentasGeneralFiltroFecha("MAM_Ventas", desde, hasta, Global_Sucursal)
 function ventasRango(sesion, desde, hasta) {
-    const suc = Number(sesion?.gi_userSuc);
-    return L.L_prListarVentasGeneralFiltroFecha('MAM_Ventas', fmtVB(desde), fmtVB(hasta), Number.isFinite(suc) ? suc : -1);
+    return L.L_prListarVentasGeneralFiltroFecha('MAM_Ventas', fmtVB(desde), fmtVB(hasta), sucursalDe(sesion));
+}
+
+// Hora de las ventas del mismo rango y sucursal: MAM_PanelControl @tipo 1 (Id, HoraRegistro)
+function horasRango(sesion, desde, hasta) {
+    return L.L_prPanelHorasVentas(fmtVB(desde), fmtVB(hasta), sucursalDe(sesion));
+}
+
+// Pone HoraRegistro (por Id) en las filas de MAM_Ventas @tipo 3. Si el SP ya la trae, la deja como esta.
+function unirHoras(filas, horas) {
+    if (!filas?.length || !horas?.length) return filas;
+    const c = lector(filas);
+    if (filas.some((f) => c(f, 'HoraRegistro') !== null)) return filas;
+    const ch = lector(horas);
+    const m = new Map(horas.map((h) => [String(ch(h, 'Id')), ch(h, 'HoraRegistro')]));
+    return filas.map((f) => ({ ...f, HoraRegistro: m.get(String(c(f, 'Id', 'VentaId'))) ?? null }));
 }
 
 // Hoy en Bolivia (UTC-4) aunque el servidor tenga otra zona
@@ -78,11 +100,11 @@ function diaDe(v) {
     return m2 ? `${m2[3]}-${m2[2]}-${m2[1]}` : null;
 }
 
-// HoraRegistro -> 0..23 (puede venir 'HH:mm', 'HH:mm:ss' o un TIME/DATETIME)
+// HoraRegistro -> 0..23 (puede venir 'HH:mm', 'HH:mm:ss', un TIME/DATETIME o sin ceros: '9:5', '23:0' como lo graba el SP)
 function horaDe(v) {
     if (v === null || v === undefined || v === '') return null;
     if (v instanceof Date) return v.getUTCHours();
-    const m = /(\d{1,2}):(\d{2})/.exec(String(v));
+    const m = /(\d{1,2}):(\d{1,2})/.exec(String(v));
     return m ? Math.min(23, Number(m[1])) : null;
 }
 
@@ -113,6 +135,8 @@ function resumenVentas(filas, fechaSel, idVendedor) {
         tipo: String(c(f, 'TVenta') ?? (num(c(f, 'TipoVenta')) === 1 ? 'CONTADO' : 'CREDITO')).trim().toUpperCase(),
         estado: String(c(f, 'NombreEstado') ?? 'SIN ESTADO').trim().toUpperCase(),
     })).filter((p) => p.dia);
+    // Kaily: MAM_Ventas @tipo 3 no trae NombreEstado (sin estados de pedido ni anulados)
+    const conEstado = filas.some((f) => c(f, 'NombreEstado') !== null);
 
     // Lista de vendedores (de los ultimos 30 dias) para el filtro
     const vend = new Map();
@@ -166,6 +190,7 @@ function resumenVentas(filas, fechaSel, idVendedor) {
 
     return {
         vendedores,
+        conHora: pedidos.some((p) => p.hora !== null), // false: el SP de horas no respondio o las ventas no tienen hora
         kpis: {
             pedidos: deDia.length,
             monto: monto(deDia),
@@ -175,13 +200,13 @@ function resumenVentas(filas, fechaSel, idVendedor) {
             montoAyer: monto(deAyer),
             promMonto,
             promPedidos,
-            anulados: todosDia.filter(anulado).length,
+            anulados: conEstado ? todosDia.filter(anulado).length : null,
         },
         porHora,
         tendencia,
         ranking: ranking.slice(0, 8),
         masPedidos,
-        estados: agrupar(todosDia, 'estado'),
+        estados: conEstado ? agrupar(todosDia, 'estado') : [],
         tipos: agrupar(deDia, 'tipo'),
         mes: resumenMes(validos, delVendedor, fechaSel),
     };
@@ -273,8 +298,9 @@ router.get('/', asyncHandler(async (req, res) => {
     const desde = desdeMes < desde30 ? desdeMes : desde30; // una sola lectura cubre tendencia y mes
     const errores = [];
 
-    const [ventas, cxc, cxp, productos, productosMes, stock0, stockMin] = await Promise.all([
+    const [ventasSP, horas, cxc, cxp, productos, productosMes, stock0, stockMin] = await Promise.all([
         seguro(ventasRango(req.sesion, desde, fecha), 'ventas', errores),
+        seguro(horasRango(req.sesion, desde, fecha), 'hora de las ventas (MAM_PanelControl)', errores),
         seguro(L.L_prListarPagosPendientesClientes(), 'cuentas por cobrar', errores),
         seguro(L.L_prListarPagosPendientes(), 'cuentas por pagar', errores),
         seguro(L.ReporteVentasProductosMasVendido(fmtVB(fecha), fmtVB(fecha)), 'productos', errores),
@@ -283,6 +309,7 @@ router.get('/', asyncHandler(async (req, res) => {
         seguro(L.L_prListarProductosConStockMinimo(), 'stock minimo', errores),
     ]);
 
+    const ventas = unirHoras(ventasSP, horas);
     const v = ventas ? resumenVentas(ventas, fecha, idVendedor) : null;
     const nombreVend = idVendedor && v ? (v.vendedores.find((x) => x.id === idVendedor)?.nombre || '') : '';
 
@@ -314,15 +341,21 @@ const TRAMOS = [[-Infinity, 0], [1, 30], [31, 60], [61, Infinity]];
 function horaTxt(v) {
     if (v === null || v === undefined || v === '') return '';
     if (v instanceof Date) return `${dos(v.getUTCHours())}:${dos(v.getUTCMinutes())}`;
-    const m = /(\d{1,2}):(\d{2})/.exec(String(v));
-    return m ? `${dos(m[1])}:${m[2]}` : '';
+    const m = /(\d{1,2}):(\d{1,2})/.exec(String(v));
+    return m ? `${dos(m[1])}:${dos(m[2])}` : '';
 }
 
 const DETALLES = {
     async pedidos(q, sesion) {
         const fecha = leerFecha(q.fecha);
-        const ini = q.mes === '1' ? inicioMes(fecha) : fecha;
-        const filas = await ventasRango(sesion, ini, fecha);
+        // dias = ultimos N dias (compras de un cliente desde el analisis); mes = desde el 1ro del mes; si no, solo el dia
+        const dias = q.dias ? Number(q.dias) : 0;
+        const ini = dias ? sumar(fecha, -(dias - 1)) : q.mes === '1' ? inicioMes(fecha) : fecha;
+        const [ventas, horas] = await Promise.all([
+            ventasRango(sesion, ini, fecha),
+            horasRango(sesion, ini, fecha).catch((e) => { console.error('[dashboard] hora de las ventas:', e.message); return null; }),
+        ]);
+        const filas = unirHoras(ventas, horas);
         const c = lector(filas);
         const dia = iso(fecha);
         const diaIni = iso(ini);
@@ -348,14 +381,17 @@ const DETALLES = {
         if (q.tipo) arr = arr.filter((p) => p.tipo === String(q.tipo).toUpperCase());
         if (hora !== null && Number.isFinite(hora)) arr = arr.filter((p) => p.h === hora);
         arr.sort((a, b) => (b.fecha + b.hora).localeCompare(a.fecha + a.hora));
-        const conFecha = q.mes === '1';
+        const conFecha = q.mes === '1' || dias > 1;
+        const conEstado = filas.some((f) => c(f, 'NombreEstado') !== null); // Kaily: sin NombreEstado
         return {
             columnas: [
                 { k: 'id', t: 'N°', tipo: 'num' }, ...(conFecha ? [{ k: 'fecha', t: 'Fecha', tipo: 'fecha' }] : []), { k: 'hora', t: 'Hora' }, { k: 'cliente', t: 'Cliente', ancho: true },
-                { k: 'vendedor', t: 'Vendedor' }, { k: 'tipo', t: 'Pago' }, { k: 'estado', t: 'Estado', chip: true }, { k: 'total', t: 'Total', tipo: 'bs' },
+                { k: 'vendedor', t: 'Vendedor' }, { k: 'tipo', t: 'Pago' }, ...(conEstado ? [{ k: 'estado', t: 'Estado', chip: true }] : []), { k: 'total', t: 'Total', tipo: 'bs' },
             ],
-            filas: arr.map(({ id, fecha: fe, hora: hh, cliente, vendedor, tipo, estado, total }) => ({ id, ...(conFecha ? { fecha: fe } : {}), hora: hh, cliente, vendedor, tipo, estado, total })),
+            // la fecha va siempre: con id + fecha se pide el detalle de la venta (GET /venta/:id)
+            filas: arr.map(({ id, fecha: fe, hora: hh, cliente, vendedor, tipo, estado, total }) => ({ id, fecha: fe, hora: hh, cliente, vendedor, tipo, ...(conEstado ? { estado } : {}), total })),
             total: r2(arr.reduce((s, p) => s + p.total, 0)),
+            detalleVenta: true,
         };
     },
     async cobrar(q) { return creditosDetalle(await L.L_prListarPagosPendientesClientes(), 'Nombrecliente', q, true); },
@@ -371,7 +407,209 @@ const DETALLES = {
     },
     async stock0() { return productosDetalle(await L.L_prListarProductosConStock0()); },
     async stockmin() { return productosDetalle(await L.L_prListarProductosConStockMinimo()); },
+    // Clientes que compraron en los ultimos 12 meses y no volvieron en 60 dias (tramo opcional)
+    async sinCompra(q, sesion) {
+        const fecha = leerFecha(q.fecha);
+        let arr = clientesSinCompra(await comprasClientes(sesion, fecha)).arr;
+        const t = q.tramo !== undefined && q.tramo !== '' ? Number(q.tramo) : null;
+        if (t !== null && TRAMOS_SIN_COMPRA[t]) arr = arr.filter((x) => enTramo(x.sinComprar, TRAMOS_SIN_COMPRA[t]));
+        return {
+            columnas: [{ k: 'nombre', t: 'Cliente', ancho: true }, { k: 'ultima', t: 'Última compra', tipo: 'fecha' }, { k: 'sinComprar', t: 'Días sin comprar', tipo: 'num' },
+                { k: 'compras', t: 'Compras', tipo: 'num' }, { k: 'total', t: 'Compró (12 meses)', tipo: 'bs' }],
+            filas: arr.map((x) => ({ nombre: x.nombre, ultima: x.ultima, sinComprar: x.sinComprar, compras: x.compras, total: x.monto })),
+            total: r2(arr.reduce((s, x) => s + x.monto, 0)),
+        };
+    },
+    // Ranking completo de clientes del periodo (30 / 90 / 365 dias) por monto o por frecuencia
+    async clientesTop(q, sesion) {
+        const fecha = leerFecha(q.fecha);
+        const dias = PERIODOS.includes(Number(q.dias)) ? Number(q.dias) : PERIODOS[1];
+        const arr = periodoClientes(await comprasClientes(sesion, fecha), dias).arr.sort(ORDEN_CLIENTES[q.orden === 'frecuencia' ? 'frecuencia' : 'monto']);
+        return {
+            columnas: [{ k: 'puesto', t: 'N°', tipo: 'num' }, { k: 'nombre', t: 'Cliente', ancho: true }, { k: 'dias', t: 'Días con compra', tipo: 'num' }, { k: 'compras', t: 'Compras', tipo: 'num' },
+                { k: 'ticket', t: 'Ticket prom.', tipo: 'bs' }, { k: 'total', t: 'Total', tipo: 'bs' }, { k: 'ultima', t: 'Última compra', tipo: 'fecha' }],
+            filas: arr.map((x, i) => ({ puesto: i + 1, nombre: x.nombre, dias: x.dias, compras: x.compras, ticket: x.ticket, total: x.monto, ultima: x.ultima })),
+            total: r2(arr.reduce((s, x) => s + x.monto, 0)),
+        };
+    },
+    // Productos con stock y sin ventas en 60 dias (tramo de dias sin venta o categoria opcional)
+    async sinVenta(q) {
+        const fecha = leerFecha(q.fecha);
+        let arr = await productosSinVenta(fecha);
+        const t = q.tramo !== undefined && q.tramo !== '' ? Number(q.tramo) : null;
+        if (t !== null && TRAMOS_SIN_VENTA[t]) arr = arr.filter((x) => x.tramo === t);
+        if (q.categoria) arr = arr.filter((x) => x.categoria.toUpperCase() === String(q.categoria).toUpperCase());
+        return {
+            columnas: [{ k: 'codigo', t: 'Código' }, { k: 'producto', t: 'Producto', ancho: true }, { k: 'categoria', t: 'Categoría' }, { k: 'stock', t: 'Stock', tipo: 'num' },
+                { k: 'precio', t: 'Precio', tipo: 'bs' }, { k: 'total', t: 'Valor en stock', tipo: 'bs' }, { k: 'ultima', t: 'Última venta', tipo: 'fecha' }],
+            filas: arr.map((x) => ({ codigo: x.codigo, producto: x.producto, categoria: x.categoria, stock: x.stock, precio: x.precio, total: x.valor, ultima: x.ultima })),
+            total: r2(arr.reduce((s, x) => s + x.valor, 0)),
+            limite: 5000, // todos (para buscar cualquier producto); son filas cortas
+        };
+    },
 };
+
+// =====================================================================
+//  ANALISIS (GET /analisis): clientes que dejaron de comprar, clientes rentables y productos sin venta.
+//  Clientes: MAM_PanelControl @tipo 2 (compras por cliente y dia, 12 meses, sucursal del usuario),
+//            sin el cliente por defecto de Tec_Ventas (Id 1, mostrador): no es un cliente identificado.
+//  Productos: MAM_PanelControl @tipo 3 (stock > 0 y sin ventas en 60 dias, toda la empresa), valor a precio de venta.
+//  No depende del filtro de vendedor: un cliente "deja de comprar" a la tienda, no a un vendedor.
+// =====================================================================
+const DIAS_SIN_COMPRA = 60;
+const DIAS_ANALISIS = 365;
+const CLIENTE_MOSTRADOR = 1;
+const PERIODOS = [30, 90, 365];
+const TRAMOS_SIN_COMPRA = [[60, 90, '60 a 90 días'], [91, 180, '91 a 180 días'], [181, Infinity, 'Más de 180 días']];
+const TRAMOS_SIN_VENTA = [[60, 180, '60 a 180 días'], [181, 365, '181 a 365 días'], [366, Infinity, 'Más de 1 año'], [null, null, 'Nunca se vendió']];
+const enTramo = (d, [a, b]) => d >= a && d <= b;
+const diasEntre = (a, b) => Math.round((Date.parse(`${b}T00:00:00Z`) - Date.parse(`${a}T00:00:00Z`)) / 864e5);
+const ORDEN_CLIENTES = {
+    monto: (a, b) => b.monto - a.monto || b.dias - a.dias,
+    frecuencia: (a, b) => b.dias - a.dias || b.compras - a.compras || b.monto - a.monto,
+};
+
+// { fecha, clientes: [{ id, nombre, dias: [{ dia, compras, monto }] }], mostrador: [{ dia, monto }] }
+async function comprasClientes(sesion, fecha) {
+    const filas = await L.L_prPanelComprasClientes(fmtVB(sumar(fecha, -(DIAS_ANALISIS - 1))), fmtVB(fecha), sucursalDe(sesion));
+    const c = lector(filas);
+    const m = new Map();
+    const mostrador = [];
+    for (const f of filas) {
+        const id = c(f, 'ClienteId');
+        const dia = diaDe(c(f, 'FechaVenta'));
+        if (id === null || !dia) continue;
+        const d = { dia, compras: num(c(f, 'Compras')), monto: num(c(f, 'Monto')) };
+        if (Number(id) === CLIENTE_MOSTRADOR) { mostrador.push(d); continue; }
+        const k = String(id);
+        if (!m.has(k)) m.set(k, { id: k, nombre: String(c(f, 'NombreCliente') ?? '').trim() || 'SIN NOMBRE', dias: [] });
+        m.get(k).dias.push(d);
+    }
+    return { fecha, clientes: [...m.values()], mostrador };
+}
+
+// Compras de un cliente desde un dia: monto, compras, dias distintos con compra (frecuencia), ticket, ultima compra
+function comprasDesde(x, desde) {
+    const ds = x.dias.filter((d) => d.dia >= desde);
+    if (!ds.length) return null;
+    const monto = r2(ds.reduce((s, d) => s + d.monto, 0));
+    const compras = ds.reduce((s, d) => s + d.compras, 0);
+    return { id: x.id, nombre: x.nombre, monto, compras, dias: ds.length, ticket: compras ? r2(monto / compras) : 0, ultima: ds.reduce((a, d) => (d.dia > a ? d.dia : a), '') };
+}
+
+function periodoClientes(base, dias) {
+    const desde = iso(sumar(base.fecha, -(dias - 1)));
+    return {
+        desde,
+        arr: base.clientes.map((x) => comprasDesde(x, desde)).filter(Boolean),
+        mostrador: r2(base.mostrador.filter((d) => d.dia >= desde).reduce((s, d) => s + d.monto, 0)),
+    };
+}
+
+function clientesSinCompra(base) {
+    const hasta = iso(base.fecha);
+    const todos = base.clientes.map((x) => comprasDesde(x, '0000-00-00')).filter(Boolean).map((x) => ({ ...x, sinComprar: diasEntre(x.ultima, hasta) }));
+    return { total: todos.length, arr: todos.filter((x) => x.sinComprar >= DIAS_SIN_COMPRA).sort(ORDEN_CLIENTES.monto) };
+}
+
+const corto = (x) => ({ id: x.id, nombre: x.nombre, monto: x.monto, compras: x.compras, dias: x.dias, ticket: x.ticket, ultima: x.ultima });
+
+function resumenClientes(base) {
+    const { total, arr } = clientesSinCompra(base);
+    const sinCompra = {
+        clientes: arr.length,
+        deTotal: total,
+        monto: r2(arr.reduce((s, x) => s + x.monto, 0)),
+        frecuentes: arr.filter((x) => x.dias >= 3).length, // compraron en 3 o mas dias distintos
+        tramos: TRAMOS_SIN_COMPRA.map((t, i) => {
+            const xs = arr.filter((x) => enTramo(x.sinComprar, t));
+            return { i, tramo: t[2], clientes: xs.length, monto: r2(xs.reduce((s, x) => s + x.monto, 0)) };
+        }),
+        top: arr.slice(0, 5).map((x) => ({ ...corto(x), sinComprar: x.sinComprar })),
+    };
+    const rentables = {};
+    for (const p of PERIODOS) {
+        const { desde, arr: xs, mostrador } = periodoClientes(base, p);
+        const porMonto = [...xs].sort(ORDEN_CLIENTES.monto);
+        const porFrec = [...xs].sort(ORDEN_CLIENTES.frecuencia);
+        // nube frecuencia vs monto: los 40 primeros por monto y los 40 por frecuencia
+        const ids = new Set([...porMonto.slice(0, 40), ...porFrec.slice(0, 40)].map((x) => x.id));
+        rentables[p] = {
+            desde,
+            clientes: xs.length,
+            monto: r2(xs.reduce((s, x) => s + x.monto, 0)),
+            montoTop: r2(porMonto.slice(0, 10).reduce((s, x) => s + x.monto, 0)),
+            mostrador,
+            topMonto: porMonto.slice(0, 10).map(corto),
+            topFrecuencia: porFrec.slice(0, 10).map(corto),
+            puntos: xs.filter((x) => ids.has(x.id)).map(corto),
+        };
+    }
+    return { sinCompra, rentables };
+}
+
+// Productos con stock y sin ventas en 60 dias (MAM_PanelControl @tipo 3), con tramo segun su ultima venta
+async function productosSinVenta(fecha) {
+    const filas = await L.L_prPanelProductosSinVenta(fmtVB(sumar(fecha, -(DIAS_SIN_COMPRA - 1))), fmtVB(fecha));
+    const c = lector(filas);
+    const hasta = iso(fecha);
+    return filas.map((f) => {
+        const ultima = diaDe(c(f, 'UltimaVenta'));
+        const sin = ultima ? diasEntre(ultima, hasta) : null;
+        return {
+            id: String(c(f, 'Id')),
+            codigo: String(c(f, 'CodigoExterno') ?? '').trim(),
+            producto: String(c(f, 'NombreProducto') ?? '').trim(),
+            categoria: String(c(f, 'Categoria') ?? '').trim() || 'SIN CATEGORIA',
+            stock: r2(num(c(f, 'Stock'))),
+            precio: r2(num(c(f, 'PrecioVenta'))),
+            valor: r2(num(c(f, 'Valor'))),
+            ultima,
+            sinVender: sin,
+            tramo: sin === null ? 3 : Math.max(0, TRAMOS_SIN_VENTA.findIndex((t) => t[0] !== null && enTramo(sin, t))),
+        };
+    }).sort((a, b) => b.valor - a.valor);
+}
+
+function resumenSinVenta(arr) {
+    const grupos = new Map();
+    for (const x of arr) {
+        const g = grupos.get(x.categoria) || { nombre: x.categoria, productos: 0, valor: 0 };
+        g.productos++; g.valor += x.valor;
+        grupos.set(x.categoria, g);
+    }
+    return {
+        productos: arr.length,
+        unidades: r2(arr.reduce((s, x) => s + x.stock, 0)),
+        valor: r2(arr.reduce((s, x) => s + x.valor, 0)),
+        tramos: TRAMOS_SIN_VENTA.map((t, i) => {
+            const xs = arr.filter((x) => x.tramo === i);
+            return { i, tramo: t[2], productos: xs.length, valor: r2(xs.reduce((s, x) => s + x.valor, 0)) };
+        }),
+        categorias: [...grupos.values()].map((g) => ({ ...g, valor: r2(g.valor) })).sort((a, b) => b.valor - a.valor).slice(0, 6),
+        top: arr.slice(0, 5).map(({ id, producto, categoria, stock, valor, ultima, sinVender }) => ({ id, producto, categoria, stock, valor, ultima, sinVender })),
+    };
+}
+
+router.get('/analisis', asyncHandler(async (req, res) => {
+    const fecha = leerFecha(req.query.fecha);
+    const errores = [];
+    const [base, sinVenta] = await Promise.all([
+        seguro(comprasClientes(req.sesion, fecha), 'clientes (MAM_PanelControl)', errores),
+        seguro(productosSinVenta(fecha), 'productos sin venta (MAM_PanelControl)', errores),
+    ]);
+    res.set('Cache-Control', 'no-store');
+    res.json({
+        ok: true,
+        data: {
+            fecha: iso(fecha),
+            diasSinCompra: DIAS_SIN_COMPRA,
+            clientes: base ? resumenClientes(base) : null,
+            productos: sinVenta ? resumenSinVenta(sinVenta) : null,
+            errores,
+        },
+    });
+}));
 
 function creditosDetalle(filas, campoNombre, q, conPreventista) {
     const c = lector(filas);
@@ -420,16 +658,46 @@ router.get('/detalle/:tipo', asyncHandler(async (req, res) => {
     const fn = DETALLES[req.params.tipo];
     if (!fn) throw new ErrorNegocio('Detalle no disponible');
     const q = {};
-    for (const k of ['fecha', 'vendedor', 'vendedorNombre', 'estado', 'tipo', 'hora', 'tramo', 'vencido', 'nombre', 'validos', 'mes', 'cliente']) {
+    for (const k of ['fecha', 'vendedor', 'vendedorNombre', 'estado', 'tipo', 'hora', 'tramo', 'vencido', 'nombre', 'validos', 'mes', 'cliente', 'dias', 'orden', 'categoria']) {
         if (req.query[k] !== undefined) q[k] = String(req.query[k]).slice(0, 80);
     }
     if (q.vendedor && !/^\d+$/.test(q.vendedor)) throw new ErrorNegocio('Vendedor no valido');
     if (q.hora && !/^\d{1,2}$/.test(q.hora)) throw new ErrorNegocio('Hora no valida');
     if (q.cliente && !/^\d+$/.test(q.cliente)) throw new ErrorNegocio('Cliente no valido');
-    const r = await fn(q, req.sesion);
-    const truncado = r.filas.length > LIMITE_DETALLE;
+    if (q.dias && (!/^\d{1,3}$/.test(q.dias) || Number(q.dias) < 1 || Number(q.dias) > DIAS_ANALISIS)) throw new ErrorNegocio('Periodo no valido');
+    const { limite = LIMITE_DETALLE, ...r } = await fn(q, req.sesion);
+    const truncado = r.filas.length > limite;
     res.set('Cache-Control', 'no-store');
-    res.json({ ok: true, data: { ...r, cantidad: r.filas.length, filas: r.filas.slice(0, LIMITE_DETALLE), truncado } });
+    res.json({ ok: true, data: { ...r, cantidad: r.filas.length, filas: r.filas.slice(0, limite), truncado } });
+}));
+
+// Productos de una venta del detalle (al tocar la fila): ListaVentasDetalles = MAM_Ventas @tipo 4.
+// Solo si la venta esta en la lista de esa fecha para la sucursal del usuario (lo mismo que ve en el panel).
+router.get('/venta/:id', asyncHandler(async (req, res) => {
+    if (!/^\d{1,10}$/.test(String(req.params.id))) throw new ErrorNegocio('Venta no valida');
+    const id = Number(req.params.id);
+    const fecha = leerFecha(req.query.fecha);
+    const ventas = await ventasRango(req.sesion, fecha, fecha);
+    const cv = lector(ventas);
+    const venta = ventas.find((f) => Number(cv(f, 'Id', 'VentaId')) === id);
+    if (!venta) throw new ErrorNegocio('No se encontro la venta. Actualice el panel e intente de nuevo.', 404);
+    const det = await L.ListaVentasDetalles(id);
+    const c = lector(det);
+    const filas = det.map((f) => {
+        const kit = String(c(f, 'KitNombre') ?? '').trim();
+        return {
+            producto: String(c(f, 'Producto', 'NombreProducto') ?? '').trim(),
+            kit: kit || null,
+            cantidad: r2(num(c(f, 'Cantidad'))),
+            precio: r2(num(c(f, 'Precio'))),
+            descuento: r2(num(c(f, 'MontoDescuento'))),
+            total: r2(num(c(f, 'Total'))),
+        };
+    });
+    const suma = r2(filas.reduce((s, f) => s + f.total, 0));
+    const descuento = r2(num(cv(venta, 'Descuento')));
+    res.set('Cache-Control', 'no-store');
+    res.json({ ok: true, data: { filas, suma, descuento, total: r2(suma - descuento), glosa: String(cv(venta, 'Glosa') ?? '').trim() } });
 }));
 
 module.exports = router;

@@ -7,7 +7,7 @@ import { useSesion } from '../global/Sesion';
 import { titulo } from '../global/programas';
 import { api } from '../api/http';
 import { ComboMulti } from '../componentes/Controles';
-import { LineaHoras, BarrasDias, BarrasH, BarraSegmentada, fmtBs, fmtN } from '../componentes/Graficos';
+import { LineaHoras, BarrasDias, BarrasH, BarraSegmentada, Dispersion, fmtBs, fmtN } from '../componentes/Graficos';
 import Icono from '../componentes/Icono';
 import DetalleDashboard from '../componentes/DetalleDashboard';
 
@@ -100,6 +100,32 @@ function SinDatos({ texto = 'Sin datos para este filtro' }) {
   return <div className="panel-vacio"><Icono n="grid" size={26} /><span>{texto}</span></div>;
 }
 
+/** Selector de opciones en pastilla (periodo, criterio) */
+function Segmentos({ opciones, valor, onChange, etiqueta }) {
+  return (
+    <div className="segmentos" role="radiogroup" aria-label={etiqueta}>
+      {opciones.map(([k, t]) => (
+        <button key={k} type="button" role="radio" aria-checked={valor === k} className={valor === k ? 'activo' : ''} onClick={() => onChange(k)}>{t}</button>
+      ))}
+    </div>
+  );
+}
+
+// Horas a mostrar en "Ventas por hora": del horario real (dia o promedio) +-1 h, minimo 8 horas
+function rangoHoras(ph) {
+  const con = (ph || []).filter((h) => h.monto > 0 || h.promedio > 0).map((h) => h.hora);
+  if (!con.length) return [8, 20];
+  let a = Math.max(0, Math.min(...con) - 1);
+  let b = Math.min(23, Math.max(...con) + 1);
+  while (b - a < 8 && (a > 0 || b < 23)) { if (b < 23) b += 1; else a -= 1; }
+  return [a, b];
+}
+
+const PERIODOS_TXT = { 30: 'Últimos 30 días', 90: 'Últimos 90 días', 365: 'Últimos 12 meses' };
+const fechaTxtCorta = (d) => { if (!d) return '—'; const [a, m, dd] = String(d).split('-'); return `${dd}/${m}/${a}`; };
+const diasTxt = (n) => `${fmtN(n)} ${n === 1 ? 'día' : 'días'}`;
+const COLOR_TRAMO = ['var(--estado-aviso)', 'var(--estado-mal)', 'var(--mora-grave)', 'var(--txt-4)'];
+
 function Esqueleto() {
   return (
     <div className="dash-grid esqueleto-dash" aria-hidden="true">
@@ -140,6 +166,28 @@ export default function Inicio() {
   }, [fecha, vendedor]);
 
   useEffect(() => { cargar(); }, [cargar]);
+
+  // Analisis de clientes y productos (MAM_PanelControl): aparte, para no demorar los indicadores; solo cambia con la fecha
+  const [analisis, setAnalisis] = useState(null);
+  const [cargandoAn, setCargandoAn] = useState(true);
+  const [periodo, setPeriodo] = useState('90');
+  const [criterio, setCriterio] = useState('monto');
+  const pedidoAn = useRef(0);
+  const cargarAnalisis = useCallback(async () => {
+    const n = ++pedidoAn.current;
+    setCargandoAn(true);
+    try {
+      const r = await api.get(`/api/dashboard/analisis?${new URLSearchParams({ fecha })}`);
+      if (n === pedidoAn.current) setAnalisis(r.data);
+    } catch (e) {
+      if (n === pedidoAn.current) setAnalisis({ error: e.message });
+    } finally {
+      if (n === pedidoAn.current) setCargandoAn(false);
+    }
+  }, [fecha]);
+  useEffect(() => { cargarAnalisis(); }, [cargarAnalisis]);
+  const actualizar = () => { cargar(); cargarAnalisis(); };
+
   // Actualizacion automatica solo para el dia de hoy
   useEffect(() => {
     if (!esHoy) return undefined;
@@ -171,8 +219,29 @@ export default function Inicio() {
   const mesTxt = `${MESES[fMes.getMonth()]} ${fMes.getFullYear()}`;
   const subMes = `${mesTxt.charAt(0).toUpperCase()}${mesTxt.slice(1)} · del 1 al ${fMes.getDate()}`;
   const pct = (x, total) => (total ? `${Math.round((x / total) * 100)}%` : '');
-  const pedidosTxt = (n) => `${fmtN(n)} ${n === 1 ? 'pedido' : 'pedidos'}`;
+  // Kaily (punto de venta): los textos hablan de ventas (los datos siguen llamandose "pedidos")
+  const pedidosTxt = (n) => `${fmtN(n)} ${n === 1 ? 'venta' : 'ventas'}`;
   const TRAMO_TXT = ['al día', 'con 1 a 30 días de mora', 'con 31 a 60 días de mora', 'con más de 60 días de mora'];
+  const horas = rangoHoras(v?.porHora);
+
+  // ---------- analisis: clientes y productos ----------
+  const an = analisis && !analisis.error ? analisis : null;
+  const rent = an?.clientes?.rentables?.[periodo];
+  const sc = an?.clientes?.sinCompra;
+  const ps = an?.productos;
+  const topRent = rent ? (criterio === 'monto' ? rent.topMonto : rent.topFrecuencia) : [];
+  const idsTop = new Set(topRent.map((x) => x.id));
+  const subFecha = esHoy ? 'al día de hoy' : `al ${fechaTxtCorta(fecha)}`;
+  // compras de un cliente (todas, sin filtro de vendedor) en los ultimos N dias
+  const verCompras = (x, dias) => setDetalle({
+    tipo: 'pedidos', titulo: `Compras de ${titulo(x.nombre)}`, sub: `${PERIODOS_TXT[dias] || `Últimos ${dias} días`} · todos los vendedores`, params: { fecha, dias: String(dias), cliente: x.id },
+  });
+  const verSinCompra = (t, extra = {}) => setDetalle({ tipo: 'sinCompra', titulo: t, sub: `Compraron en los últimos 12 meses · ${subFecha}`, params: { fecha, ...extra } });
+  const verSinVenta = (t, extra = {}) => setDetalle({ tipo: 'sinVenta', titulo: t, sub: `Con stock y sin ventas en ${an?.diasSinCompra ?? 60} días · ${subFecha}`, params: { fecha, ...extra } });
+  const verRanking = () => setDetalle({
+    tipo: 'clientesTop', titulo: `Clientes que ${criterio === 'monto' ? 'más compran' : 'compran más seguido'}`, sub: `${PERIODOS_TXT[periodo]} · sin el cliente de mostrador`, params: { fecha, dias: periodo, orden: criterio },
+  });
+  const esqAnalisis = <div className="esq-panel" aria-hidden="true"><span className="esq-barra" style={{ width: '45%' }} /><span className="esq-barra alta" style={{ width: '30%' }} /><div className="esq-bloque bajo" /></div>;
 
   const alertas = datos ? [
     { n: datos.cobrar?.documentosVencidos, t: 'Créditos de clientes vencidos', i: 'wallet', nivel: 'mal', ver: () => verCobrar('Créditos de clientes vencidos', { vencido: '1' }) },
@@ -200,7 +269,7 @@ export default function Inicio() {
           </div>
           <div className="dash-estado">
             {esHoy ? <span className="en-vivo"><i /> EN VIVO</span> : <button className="btn btn-txt btn-sm" onClick={() => setFecha(hoyLocal())}>Ir a hoy</button>}
-            <button className="btn-icono" onClick={cargar} title="Actualizar" aria-label="Actualizar">{cargando && datos ? <span className="spinner" /> : <Icono n="refresh" size={18} />}</button>
+            <button className="btn-icono" onClick={actualizar} title="Actualizar" aria-label="Actualizar">{(cargando && datos) || (cargandoAn && analisis) ? <span className="spinner" /> : <Icono n="refresh" size={18} />}</button>
             {actualizado && <small>Actualizado {actualizado.toLocaleTimeString('es-BO', { hour: '2-digit', minute: '2-digit' })}</small>}
           </div>
         </div>
@@ -212,37 +281,40 @@ export default function Inicio() {
       {!datos ? <Esqueleto /> : (
         <div className={`dash-grid ${cargando ? 'recargando' : ''}`}>
           {/* ===== KPIs ===== */}
-          <Kpi titulo="Pedidos del día" icono="cart" color="var(--serie-1)" onClick={k?.pedidos || k?.anulados ? () => verPedidos('Pedidos del día') : undefined} valor={k ? fmtN(k.pedidos) : '—'}
-            pie={k ? `${fmtN(k.anulados)} ${k.anulados === 1 ? 'anulado' : 'anulados'} · promedio ${fmtN(Math.round(k.promPedidos))}/día` : ''}>
+          <Kpi titulo="Ventas del día" icono="cart" color="var(--serie-1)" onClick={k?.pedidos || k?.anulados ? () => verPedidos('Ventas del día') : undefined} valor={k ? fmtN(k.pedidos) : '—'}
+            pie={k ? `${k.anulados !== null ? `${fmtN(k.anulados)} ${k.anulados === 1 ? 'anulada' : 'anuladas'} · ` : ''}promedio ${fmtN(Math.round(k.promPedidos))}/día` : ''}>
             {k && <><Variacion actual={k.pedidos} base={k.pedidosAyer} etiqueta="vs ayer" /><Variacion actual={k.pedidos} base={k.promPedidos} etiqueta="vs prom." /></>}
           </Kpi>
           <Kpi titulo="Monto vendido" icono="dollar" color="var(--estado-ok)" onClick={k?.pedidos ? () => verPedidos('Monto vendido', { validos: '1' }) : undefined} valor={k ? fmtBs(k.monto) : '—'}
             pie={k ? `Promedio diario ${fmtBs(k.promMonto, 0)}` : ''}>
             {k && <><Variacion actual={k.monto} base={k.montoAyer} etiqueta="vs ayer" /><Variacion actual={k.monto} base={k.promMonto} etiqueta="vs prom." /></>}
           </Kpi>
-          <Kpi titulo="Ticket promedio" icono="tag" color="var(--serie-7)" onClick={k?.pedidos ? () => verPedidos('Pedidos válidos del día', { validos: '1' }) : undefined} valor={k ? fmtBs(k.ticket) : '—'}
+          <Kpi titulo="Ticket promedio" icono="tag" color="var(--serie-7)" onClick={k?.pedidos ? () => verPedidos('Ventas del día', { validos: '1' }) : undefined} valor={k ? fmtBs(k.ticket) : '—'}
             pie={k ? `${fmtN(k.clientes)} ${k.clientes === 1 ? 'cliente atendido' : 'clientes atendidos'}` : ''}>
             {k && k.promPedidos > 0 && <Variacion actual={k.ticket} base={k.promMonto / k.promPedidos} etiqueta="vs prom." />}
           </Kpi>
           <Kpi titulo="Vendedor del día" icono="users" color="var(--serie-2)"
-            onClick={v?.masPedidos ? () => verPedidos(`Pedidos de ${titulo(v.masPedidos.nombre)}`, { vendedor: v.masPedidos.id, validos: '1' }, v.masPedidos.id !== vendedor ? filtrarVend(v.masPedidos.id) : undefined) : undefined}
+            onClick={v?.masPedidos ? () => verPedidos(`Ventas de ${titulo(v.masPedidos.nombre)}`, { vendedor: v.masPedidos.id, validos: '1' }, v.masPedidos.id !== vendedor ? filtrarVend(v.masPedidos.id) : undefined) : undefined}
             valor={v?.masPedidos ? <span className="kpi-nombre">{titulo(v.masPedidos.nombre)}</span> : '—'}
-            pie={v?.masPedidos ? `${fmtN(v.masPedidos.pedidos)} ${v.masPedidos.pedidos === 1 ? 'pedido' : 'pedidos'} · ${fmtBs(v.masPedidos.monto)}` : 'Sin pedidos en el día'}>
+            pie={v?.masPedidos ? `${pedidosTxt(v.masPedidos.pedidos)} · ${fmtBs(v.masPedidos.monto)}` : 'Sin ventas en el día'}>
             {v?.ranking?.[0] && v.ranking[0].id !== v.masPedidos?.id && <span className="chip-var neutro">Mayor monto: {titulo(v.ranking[0].nombre)}</span>}
-            {v?.masPedidos && <span className="chip-var trofeo">★ Más pedidos</span>}
+            {v?.masPedidos && <span className="chip-var trofeo">★ Más ventas</span>}
           </Kpi>
 
           {/* ===== Fila 2 ===== */}
           <Panel clase="span-8" titulo="Ventas por hora" sub={`${esHoy ? 'Hoy' : 'Día seleccionado'} vs promedio de los últimos 30 días`}
             accion={<div className="leyenda"><span><i className="dot s1" /> {esHoy ? 'Hoy' : 'Día'}</span><span><i className="dot prom" /> Promedio 30 días</span></div>}>
-            {v ? <LineaHoras datos={v.porHora} onElegir={(hh) => verPedidos(`Pedidos de ${String(hh).padStart(2, '0')}:00 a ${String(hh).padStart(2, '0')}:59`, { hora: String(hh), validos: '1' })} /> : <SinDatos />}
+            {!v ? <SinDatos /> : !v.conHora ? <SinDatos texto="No se pudo leer la hora de las ventas" /> : (
+              <LineaHoras datos={v.porHora} desde={horas[0]} hasta={horas[1]}
+                onElegir={(hh) => verPedidos(`Ventas de ${String(hh).padStart(2, '0')}:00 a ${String(hh).padStart(2, '0')}:59`, { hora: String(hh), validos: '1' })} />
+            )}
           </Panel>
           <Panel clase="span-4" titulo="Ranking de vendedores" sub="Monto vendido en el día">
             {v?.ranking?.length ? (
               <BarrasH filas={v.ranking.map((r) => ({ ...r, nombre: titulo(r.nombre) }))} valor="monto" etiqueta="nombre"
                 destacar={(r) => vendedor && r.id === vendedor}
-                onElegir={(r) => verPedidos(`Pedidos de ${r.nombre}`, { vendedor: r.id, validos: '1' }, r.id !== vendedor ? filtrarVend(r.id) : undefined)}
-                extra={(r) => <>{fmtN(r.pedidos)} pedidos{r.id === v.masPedidos?.id ? <em className="estrella"> ★ más pedidos</em> : ''}</>} />
+                onElegir={(r) => verPedidos(`Ventas de ${r.nombre}`, { vendedor: r.id, validos: '1' }, r.id !== vendedor ? filtrarVend(r.id) : undefined)}
+                extra={(r) => <>{pedidosTxt(r.pedidos)}{r.id === v.masPedidos?.id ? <em className="estrella"> ★ más ventas</em> : ''}</>} />
             ) : <SinDatos texto="Sin ventas en el día" />}
           </Panel>
 
@@ -250,15 +322,18 @@ export default function Inicio() {
           <Panel clase="span-8" titulo="Rendimiento por día" sub="Monto vendido, últimos 30 días · toque una barra para ver ese día">
             {v ? <BarrasDias datos={v.tendencia} seleccion={fecha} onElegir={setFecha} /> : <SinDatos />}
           </Panel>
-          <Panel clase="span-4" titulo="Pedidos del día" sub="Por estado y forma de pago">
-            {v?.estados?.length ? (
+          {/* Kaily: MAM_Ventas @tipo 3 no trae estados (estados = []): solo la forma de pago */}
+          <Panel clase="span-4" titulo="Ventas del día" sub={v?.estados?.length ? 'Por estado y forma de pago' : 'Por forma de pago'}>
+            {v?.estados?.length || v?.tipos?.length ? (
               <div className="pila">
-                <BarraSegmentada partes={v.estados.map((e) => ({ ...e, orig: e.nombre, nombre: titulo(e.nombre), color: COLOR_ESTADO(e.nombre) }))}
-                  onElegir={(e) => verPedidos(`Pedidos en estado ${e.nombre.toLowerCase()}`, { estado: e.orig })} />
+                {v.estados.length > 0 && (
+                  <BarraSegmentada partes={v.estados.map((e) => ({ ...e, orig: e.nombre, nombre: titulo(e.nombre), color: COLOR_ESTADO(e.nombre) }))}
+                    onElegir={(e) => verPedidos(`Ventas en estado ${e.nombre.toLowerCase()}`, { estado: e.orig })} />
+                )}
                 <BarraSegmentada valor="monto" formato={(n) => fmtBs(n, 0)} partes={v.tipos.map((e) => ({ ...e, orig: e.nombre, nombre: titulo(e.nombre), color: COLOR_TIPO(e.nombre) }))}
-                  onElegir={(e) => verPedidos(`Pedidos al ${e.nombre.toLowerCase()}`, { tipo: e.orig, validos: '1' })} />
+                  onElegir={(e) => verPedidos(`Ventas al ${e.nombre.toLowerCase()}`, { tipo: e.orig, validos: '1' })} />
               </div>
-            ) : <SinDatos texto="Sin pedidos en el día" />}
+            ) : <SinDatos texto="Sin ventas en el día" />}
           </Panel>
 
           {/* ===== Destacados del mes ===== */}
@@ -273,10 +348,87 @@ export default function Inicio() {
                   pie={(x) => `${fmtN(x.cantidad)} unidades vendidas${vendedor ? ' · todos los vendedores' : ''}`}
                   onVerTodo={datos.productosMes?.length ? () => setDetalle({ tipo: 'productosMes', titulo: `Productos más vendidos de ${mesTxt}`, sub: 'Todos los vendedores', params: { fecha } }) : undefined} />
                 <Destacado etiqueta="Vendedor del mes" icono="users" color="var(--serie-7)" lista={m.vendedores} vacio="Sin ventas en el mes"
-                  pie={(x) => `${pedidosTxt(x.pedidos)} · ${pct(x.monto, m.montoTodos)} de las ventas${m.masPedidos && m.masPedidos.id === x.id ? ' · ★ más pedidos' : ''}`}
+                  pie={(x) => `${pedidosTxt(x.pedidos)} · ${pct(x.monto, m.montoTodos)} de las ventas${m.masPedidos && m.masPedidos.id === x.id ? ' · ★ más ventas' : ''}`}
                   onElegir={(x) => verPedidos(`Ventas de ${titulo(x.nombre)} en ${mesTxt}`, { mes: '1', vendedor: x.id, validos: '1' }, x.id !== vendedor ? filtrarVend(x.id) : undefined)} />
               </div>
             ) : <SinDatos />}
+          </Panel>
+
+          {/* ===== Clientes rentables (MAM_PanelControl @tipo 2) ===== */}
+          {analisis?.error && <div className="alerta aviso span-12"><Icono n="alert" size={16} /> Análisis de clientes y productos: {analisis.error}</div>}
+          {an?.errores?.length > 0 && <div className="alerta aviso span-12"><Icono n="alert" size={16} /> No se pudo leer: {an.errores.join(', ')}.</div>}
+          <Panel clase="span-12" titulo="Clientes rentables" sub={`Los que más compran y los que compran más seguido · ${PERIODOS_TXT[periodo].toLowerCase()} · sin el cliente de mostrador`}
+            accion={(
+              <div className="dash-toggles">
+                <Segmentos etiqueta="Ordenar por" valor={criterio} onChange={setCriterio} opciones={[['monto', 'Más compran'], ['frecuencia', 'Más seguido']]} />
+                <Segmentos etiqueta="Período" valor={periodo} onChange={setPeriodo} opciones={[['30', '30 días'], ['90', '90 días'], ['365', '12 meses']]} />
+              </div>
+            )}>
+            {!analisis ? esqAnalisis : !rent ? <SinDatos texto="No disponible" /> : !rent.clientes ? <SinDatos texto="Sin compras de clientes en el período" /> : (
+              <div className={`rent-grid ${cargandoAn ? 'recargando' : ''}`}>
+                <div className="rent-col">
+                  <div className="mini-kpis">
+                    <div><span>Clientes</span><b>{fmtN(rent.clientes)}</b><small>con compras</small></div>
+                    <div><span>Vendido a clientes</span><b>{fmtBs(rent.monto, 0)}</b></div>
+                    <div><span>Los 10 primeros</span><b>{pct(rent.montoTop, rent.monto) || '—'}</b><small>de lo vendido</small></div>
+                  </div>
+                  <BarrasH key={`${periodo}-${criterio}`} color="var(--serie-2)" filas={topRent.map((x) => ({ ...x, nombre: titulo(x.nombre) }))} etiqueta="nombre"
+                    valor={criterio === 'monto' ? 'monto' : 'dias'} formato={criterio === 'monto' ? (n) => fmtBs(n, 0) : diasTxt}
+                    onElegir={(x) => verCompras(x, Number(periodo))}
+                    extra={(x) => (criterio === 'monto'
+                      ? `${pedidosTxt(x.compras)} en ${diasTxt(x.dias)} · ticket ${fmtBs(x.ticket, 0)}`
+                      : `${fmtBs(x.monto, 0)} · ${pedidosTxt(x.compras)} · última ${fechaTxtCorta(x.ultima)}`)} />
+                  <button type="button" className="btn btn-txt btn-sm rent-ver" onClick={verRanking}>Ver ranking completo <Icono n="next" size={14} /></button>
+                </div>
+                <div className="rent-col">
+                  <h3 className="sub-tit">Frecuencia vs monto</h3>
+                  <Dispersion key={periodo} puntos={rent.puntos.map((x) => ({ ...x, nombre: titulo(x.nombre) }))} destacar={(x) => idsTop.has(x.id)} onElegir={(x) => verCompras(x, Number(periodo))} />
+                  <div className="leyenda leyenda-viz"><span><i className="dot s2" /> Los 10 primeros</span><span><i className="dot s1 suave" /> Otros clientes</span></div>
+                  <h3 className="sub-tit">Concentración de las ventas</h3>
+                  <BarraSegmentada valor="monto" formato={(n) => fmtBs(n, 0)} partes={[
+                    { nombre: 'Los 10 primeros clientes', monto: rent.montoTop, color: 'var(--serie-2)' },
+                    { nombre: 'Otros clientes', monto: Math.max(0, Math.round((rent.monto - rent.montoTop) * 100) / 100), color: 'var(--serie-1)' },
+                    { nombre: 'Mostrador (cliente por defecto)', monto: rent.mostrador, color: 'var(--serie-7)' },
+                  ]} />
+                </div>
+              </div>
+            )}
+          </Panel>
+
+          {/* ===== Clientes que dejaron de comprar / Productos sin ventas ===== */}
+          <Panel clase="span-6" titulo="Clientes que dejaron de comprar" sub={`Compraron en los últimos 12 meses y no volvieron en ${an?.diasSinCompra ?? 60} días`}
+            accion={sc?.clientes ? <button className="btn btn-txt btn-sm" onClick={() => verSinCompra('Clientes que dejaron de comprar')}>Ver todo <Icono n="next" size={14} /></button> : null}>
+            {!analisis ? esqAnalisis : !sc ? <SinDatos texto="No disponible" /> : !sc.clientes ? <SinDatos texto="Todos los clientes del año volvieron a comprar" /> : (
+              <div className={`credito ${cargandoAn ? 'recargando' : ''}`}>
+                <div className="credito-total">
+                  <b>{fmtN(sc.clientes)} {sc.clientes === 1 ? 'cliente' : 'clientes'}</b>
+                  <span>{pct(sc.clientes, sc.deTotal)} de los {fmtN(sc.deTotal)} clientes del año · compraban {fmtBs(sc.monto, 0)} · {fmtN(sc.frecuentes)} {sc.frecuentes === 1 ? 'era frecuente' : 'eran frecuentes'} (3+ días de compra)</span>
+                </div>
+                <BarraSegmentada valor="clientes" partes={sc.tramos.map((t) => ({ nombre: `Sin comprar ${t.tramo.toLowerCase()}`, i: t.i, clientes: t.clientes, color: COLOR_TRAMO[t.i] }))}
+                  onElegir={(t) => verSinCompra(`Clientes ${t.nombre.toLowerCase()}`, { tramo: String(t.i) })} />
+                <h3 className="sub-tit">Los que más compraban</h3>
+                <BarrasH filas={sc.top.map((x) => ({ ...x, nombre: titulo(x.nombre) }))} valor="monto" etiqueta="nombre" formato={(n) => fmtBs(n, 0)}
+                  onElegir={(x) => verCompras(x, 365)}
+                  extra={(x) => <><em className="mora">Hace {fmtN(x.sinComprar)} días</em> · {pedidosTxt(x.compras)} · última {fechaTxtCorta(x.ultima)}</>} />
+              </div>
+            )}
+          </Panel>
+          <Panel clase="span-6" titulo="Productos sin ventas" sub={`Con stock y sin ventas en los últimos ${an?.diasSinCompra ?? 60} días · todas las sucursales`}
+            accion={ps?.productos ? <button className="btn btn-txt btn-sm" onClick={() => verSinVenta('Productos sin ventas')}>Ver todo <Icono n="next" size={14} /></button> : null}>
+            {!analisis ? esqAnalisis : !ps ? <SinDatos texto="No disponible" /> : !ps.productos ? <SinDatos texto="Todos los productos con stock tuvieron ventas" /> : (
+              <div className={`credito ${cargandoAn ? 'recargando' : ''}`}>
+                <div className="credito-total">
+                  <b>{fmtN(ps.productos)} {ps.productos === 1 ? 'producto' : 'productos'}</b>
+                  <span>{fmtN(ps.unidades)} unidades en stock · {fmtBs(ps.valor, 0)} a precio de venta</span>
+                </div>
+                <BarraSegmentada valor="productos" partes={ps.tramos.map((t) => ({ nombre: t.i === 3 ? t.tramo : `Última venta: ${t.tramo.toLowerCase()}`, i: t.i, productos: t.productos, color: COLOR_TRAMO[t.i] }))}
+                  onElegir={(t) => verSinVenta(t.i === 3 ? 'Productos con stock que nunca se vendieron' : `Productos sin ventas · ${t.nombre.toLowerCase()}`, { tramo: String(t.i) })} />
+                <h3 className="sub-tit">Por categoría · valor en stock</h3>
+                <BarrasH filas={ps.categorias.map((c) => ({ ...c, orig: c.nombre, nombre: titulo(c.nombre) }))} valor="valor" etiqueta="nombre" formato={(n) => fmtBs(n, 0)}
+                  onElegir={(c) => verSinVenta(`Productos sin ventas · ${c.nombre}`, { categoria: c.orig })}
+                  extra={(c) => `${fmtN(c.productos)} ${c.productos === 1 ? 'producto' : 'productos'}`} />
+              </div>
+            )}
           </Panel>
 
           {/* ===== Fila 4: finanzas, productos, alertas ===== */}

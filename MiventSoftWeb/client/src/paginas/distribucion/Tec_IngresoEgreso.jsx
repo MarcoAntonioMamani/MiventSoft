@@ -157,7 +157,7 @@ function DialogoMotivo({ url: URL, onCreado, onCerrar }) {
         <div className="campos una-col">
           <Campo etiqueta="Tipo movimiento" requerido error={err}><input autoFocus className="control mayus" value={desc} maxLength={100} onChange={(e) => { setDesc(e.target.value.toUpperCase()); setErr(''); }} /></Campo>
           <Campo etiqueta="Tipo">
-            <div className="seg" role="radiogroup" aria-label="Ingreso o egreso">
+            <div className="seg-botones" role="radiogroup" aria-label="Ingreso o egreso">
               <button type="button" role="radio" aria-checked={ingreso} className={`btn ${ingreso ? 'btn-pri' : 'btn-sec'}`} onClick={() => setIngreso(true)}>Ingreso</button>
               <button type="button" role="radio" aria-checked={!ingreso} className={`btn ${!ingreso ? 'btn-pri' : 'btn-sec'}`} onClick={() => setIngreso(false)}>Egreso</button>
             </div>

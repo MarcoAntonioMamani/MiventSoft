@@ -31,7 +31,7 @@ const SIN_DETALLE = { ventas: [], cobranzas: [], movimientos: [], cortes: [] };
 const COL_VENTAS = [
   { campo: 'Id', titulo: 'Cod Venta', tipo: 'entero' }, { campo: 'contado', titulo: 'Contado Bs', tipo: 'bs', total: true },
   { campo: 'contado$', titulo: 'Contado $us', tipo: 'bs', total: true }, { campo: 'tarjeta', titulo: 'Tarjeta', tipo: 'bs', total: true },
-  { campo: 'TransferenciaBancaria', titulo: 'Transferencia', tipo: 'bs', total: true }, { campo: 'credito', titulo: 'Crédito', tipo: 'bs', total: true },
+  { campo: 'TransferenciaBancaria', titulo: 'QR', tipo: 'bs', total: true }, { campo: 'credito', titulo: 'Crédito', tipo: 'bs', total: true },
   { campo: 'totalbs', titulo: 'Total Venta Bs', tipo: 'bs', total: true },
 ];
 const COL_COBROS = [
@@ -190,7 +190,7 @@ export default function Tec_CierreCajero() {
               <div><span>Gastos</span><b>− {bs(t.egresos)}</b></div>
               <div className="venta-total"><span>Total caja</span><b>Bs {bs(t.caja)}</b></div>
               <div><span>Tarjeta</span><b>{bs(t.tarjeta)}</b></div>
-              <div><span>Transferencia</span><b>{bs(t.transferencia)}</b></div>
+              <div><span>QR</span><b>{bs(t.transferencia)}</b></div>
               <div><span>Efectivo recibido</span><b>{bs(t.efectivo)}</b></div>
               <div className="venta-total"><span>Diferencia</span><b className={t.diferencia < 0 ? 'texto-peligro' : ''}>Bs {bs(t.diferencia)}</b></div>
             </div>

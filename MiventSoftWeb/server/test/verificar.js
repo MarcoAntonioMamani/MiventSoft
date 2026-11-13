@@ -12,7 +12,11 @@ const SPS = ['MAM_Clasificadores', 'MAM_Categorias', 'MAM_Empresas', 'MAM_Usuari
     // Paso 3: modulo Ventas
     'MAM_Personal', 'MAM_Proveedores', 'MAM_Ventas', 'MAM_Movimientos', 'MAM_VentasIncremento', 'MAM_ReporteVentas', 'MAM_CreditosVentas', 'MAM_CreditosCompras',
     // Kaily: Ventas exige Caja Chica abierta
-    'MAM_CierreCajero'];
+    'MAM_CierreCajero',
+    // SP propio de la web: panel de control (instalar server/sql/03_MAM_PanelControl.sql)
+    'MAM_PanelControl',
+    // Auditoria De Registros y permiso Eliminar registros (instalar server/sql/06, 07 y 08)
+    'MAM_Auditoria'];
 // Parametros que la web envia a cada SP (los mismos que AccesoLogica.vb, ver test/contrato_vb.json)
 const CONTRATO = require('./contrato_vb.json');
 const SP_PARAMETROS = ['MAM_Personal', 'MAM_Proveedores', 'MAM_Ventas', 'MAM_DespachoProductos', 'MAM_Conciliacion', 'MAM_CajaIngresoEgreso', 'MAM_CierreCaja', 'MAM_AuditoriaVentas', 'MAM_Movimientos', 'MAM_Compras', 'MAM_CreditosCompras', 'MAM_Almacenes', 'MAM_ConceptosFijos', 'MAM_Contratos', 'MAM_Planilla'];
@@ -27,7 +31,7 @@ let fallas = 0;
     let pool;
     try {
         const cfg = Configuracion.CadenaConexion;
-        console.log(`\nConectando a ${cfg.server}${cfg.options.instanceName ? '\\' + cfg.options.instanceName : ''} / BD ${cfg.database} ...`);
+        console.log(`\nConectando a ${cfg.server}${cfg.options.instanceName ? '\\' + cfg.options.instanceName : `:${cfg.port}`} / BD ${cfg.database} ...`);
         pool = await new sql.ConnectionPool(cfg).connect();
         const v = await pool.request().query('SELECT @@VERSION AS v, DB_NAME() AS bd');
         console.log(`${OK} Conexion correcta a ${v.recordset[0].bd}`);

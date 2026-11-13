@@ -374,6 +374,26 @@ Public Class Tec_Principal
         tab3.Icon = ico
     End Sub
 
+    'Auditoria De Registros (lo modificado y eliminado). Programa btnAuditoriaRegistros (script 07)
+    Private Sub btnAuditoriaRegistros_Click(sender As Object, e As EventArgs) Handles btnAuditoriaRegistros.Click
+        SuperTabControlMenu.SelectedTab = tab_ventana
+        Dim frm As New Tec_AuditoriaRegistros
+
+        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
+        tab3.RecalcSize()
+        tab3.ThemeAware = True
+        tab3.ShowSubItems = True
+        tab3.UpdateBindings()
+        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
+        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
+        tab3.AttachedControl.Controls.Add(panel)
+        frm.Show()
+        tab3.Text = frm.Text
+        Dim blah As New Bitmap(btnAuditoriaRegistros.Image, 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        tab3.Icon = ico
+    End Sub
+
     Private Sub btnConfCategoria_Click(sender As Object, e As EventArgs) Handles btnConfCategoria.Click
         SuperTabControlMenu.SelectedTab = tab_ventana
         'Dim frm As New F0_Roles
@@ -1293,4 +1313,6 @@ Public Class Tec_Principal
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         tab3.Icon = ico
     End Sub
+
+
 End Class
