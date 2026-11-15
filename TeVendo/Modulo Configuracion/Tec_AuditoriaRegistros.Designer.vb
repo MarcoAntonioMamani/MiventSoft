@@ -653,14 +653,40 @@ Partial Class Tec_AuditoriaRegistros
         Me.btnImprimirRegistro.Text = "Imprimir registro"
         Me.btnImprimirRegistro.TextColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
         '
+        'SplitContainer2
+        '
+        Me.SplitContainer2.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.SplitContainer2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitContainer2.Location = New System.Drawing.Point(6, 130)
+        Me.SplitContainer2.Name = "SplitContainer2"
+        Me.SplitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal
+        '
+        'SplitContainer2.Panel1
+        '
+        Me.SplitContainer2.Panel1.BackColor = System.Drawing.Color.White
+        Me.SplitContainer2.Panel1.Controls.Add(Me.grCabecera)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.lbCabecera)
+        Me.SplitContainer2.Panel1MinSize = 90
+        '
+        'SplitContainer2.Panel2
+        '
+        Me.SplitContainer2.Panel2.BackColor = System.Drawing.Color.White
+        Me.SplitContainer2.Panel2.Controls.Add(Me.grDetalle)
+        Me.SplitContainer2.Panel2.Controls.Add(Me.lbDetalleResumen)
+        Me.SplitContainer2.Panel2MinSize = 90
+        Me.SplitContainer2.Size = New System.Drawing.Size(637, 441)
+        Me.SplitContainer2.SplitterDistance = 190
+        Me.SplitContainer2.SplitterWidth = 5
+        Me.SplitContainer2.TabIndex = 1
+        '
         'lbCabecera
         '
         Me.lbCabecera.Dock = System.Windows.Forms.DockStyle.Top
         Me.lbCabecera.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbCabecera.ForeColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.lbCabecera.Location = New System.Drawing.Point(6, 130)
+        Me.lbCabecera.Location = New System.Drawing.Point(0, 0)
         Me.lbCabecera.Name = "lbCabecera"
-        Me.lbCabecera.Size = New System.Drawing.Size(637, 26)
+        Me.lbCabecera.Size = New System.Drawing.Size(637, 24)
         Me.lbCabecera.TabIndex = 1
         Me.lbCabecera.Text = "CABECERA"
         Me.lbCabecera.TextAlign = System.Drawing.ContentAlignment.BottomLeft
@@ -668,12 +694,12 @@ Partial Class Tec_AuditoriaRegistros
         'grCabecera
         '
         Me.grCabecera.BackColor = System.Drawing.Color.White
-        Me.grCabecera.Dock = System.Windows.Forms.DockStyle.Top
+        Me.grCabecera.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grCabecera.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grCabecera.GroupByBoxVisible = False
-        Me.grCabecera.Location = New System.Drawing.Point(6, 156)
+        Me.grCabecera.Location = New System.Drawing.Point(0, 24)
         Me.grCabecera.Name = "grCabecera"
-        Me.grCabecera.Size = New System.Drawing.Size(637, 250)
+        Me.grCabecera.Size = New System.Drawing.Size(637, 166)
         Me.grCabecera.TabIndex = 2
         Me.grCabecera.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -682,9 +708,9 @@ Partial Class Tec_AuditoriaRegistros
         Me.lbDetalleResumen.Dock = System.Windows.Forms.DockStyle.Top
         Me.lbDetalleResumen.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbDetalleResumen.ForeColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.lbDetalleResumen.Location = New System.Drawing.Point(6, 346)
+        Me.lbDetalleResumen.Location = New System.Drawing.Point(0, 0)
         Me.lbDetalleResumen.Name = "lbDetalleResumen"
-        Me.lbDetalleResumen.Size = New System.Drawing.Size(637, 26)
+        Me.lbDetalleResumen.Size = New System.Drawing.Size(637, 24)
         Me.lbDetalleResumen.TabIndex = 3
         Me.lbDetalleResumen.Text = "DETALLE"
         Me.lbDetalleResumen.TextAlign = System.Drawing.ContentAlignment.BottomLeft
@@ -695,9 +721,9 @@ Partial Class Tec_AuditoriaRegistros
         Me.grDetalle.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grDetalle.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grDetalle.GroupByBoxVisible = False
-        Me.grDetalle.Location = New System.Drawing.Point(6, 372)
+        Me.grDetalle.Location = New System.Drawing.Point(0, 24)
         Me.grDetalle.Name = "grDetalle"
-        Me.grDetalle.Size = New System.Drawing.Size(637, 199)
+        Me.grDetalle.Size = New System.Drawing.Size(637, 222)
         Me.grDetalle.TabIndex = 4
         Me.grDetalle.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -715,7 +741,7 @@ Partial Class Tec_AuditoriaRegistros
         '
         'Tec_AuditoriaRegistros
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(1280, 720)
@@ -744,6 +770,10 @@ Partial Class Tec_AuditoriaRegistros
         Me.SplitContainer1.ResumeLayout(False)
         CType(Me.grAuditoria, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelDetalle.ResumeLayout(False)
+        Me.SplitContainer2.Panel1.ResumeLayout(False)
+        Me.SplitContainer2.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer2.ResumeLayout(False)
         CType(Me.grDetalle, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grCabecera, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelInfo.ResumeLayout(False)
@@ -778,6 +808,7 @@ Partial Class Tec_AuditoriaRegistros
     Friend WithEvents SplitContainer1 As SplitContainer
     Friend WithEvents grAuditoria As Janus.Windows.GridEX.GridEX
     Friend WithEvents PanelDetalle As Panel
+    Friend WithEvents SplitContainer2 As SplitContainer
     Friend WithEvents PanelInfo As Panel
     Friend WithEvents lbTituloDetalle As Label
     Friend WithEvents lbQuien As Label

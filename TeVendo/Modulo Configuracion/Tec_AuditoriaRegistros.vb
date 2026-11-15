@@ -63,17 +63,29 @@ Public Class Tec_AuditoriaRegistros
         _prIniciarTodo()
     End Sub
 
-    'La lista y el detalle se reparten el ancho de la pantalla (mitad y mitad), sea cual sea la resolucion
+    'La lista usa el 45% del ancho y el detalle el 55%, sea cual sea la resolucion
     Dim DivisorAjustado As Boolean = False
     Private Sub SplitContainer1_SizeChanged(sender As Object, e As EventArgs) Handles SplitContainer1.SizeChanged
         If (DivisorAjustado OrElse SplitContainer1.Width < SplitContainer1.Panel1MinSize + SplitContainer1.Panel2MinSize + 20) Then
             Return
         End If
-        SplitContainer1.SplitterDistance = Math.Max(SplitContainer1.Panel1MinSize, CInt(SplitContainer1.Width * 0.5))
+        SplitContainer1.SplitterDistance = Math.Max(SplitContainer1.Panel1MinSize, CInt(SplitContainer1.Width * 0.45))
         DivisorAjustado = Me.Visible
     End Sub
 
+    'En el detalle: arriba la cabecera (40%) y abajo las lineas del detalle (60%); el usuario puede mover el divisor
+    Dim DivisorDetalleAjustado As Boolean = False
+    Private Sub SplitContainer2_SizeChanged(sender As Object, e As EventArgs) Handles SplitContainer2.SizeChanged
+        If (DivisorDetalleAjustado OrElse Not PanelDetalle.Visible OrElse
+            SplitContainer2.Height < SplitContainer2.Panel1MinSize + SplitContainer2.Panel2MinSize + 20) Then
+            Return
+        End If
+        SplitContainer2.SplitterDistance = Math.Max(SplitContainer2.Panel1MinSize, CInt(SplitContainer2.Height * 0.4))
+        DivisorDetalleAjustado = Me.Visible
+    End Sub
+
     Public Sub _prIniciarTodo()
+        Me.WindowState = FormWindowState.Maximized
         Me.Text = "AUDITORIA DE REGISTROS"
         cbFechaDesde.Value = New Date(Now.Year, Now.Month, 1)
         cbFechaHasta.Value = Now.Date
@@ -380,6 +392,7 @@ Public Class Tec_AuditoriaRegistros
         grCabecera.RootTable.Columns("Despues").Visible = Not r.Eliminado
         grCabecera.RootTable.Columns("Cambio").Visible = False
         _prGrillaSoloLectura(grCabecera)
+        grCabecera.ColumnAutoResize = True 'las columnas de la cabecera llenan el ancho, sin barra horizontal
         grCabecera.RootTable.FormatConditions.Clear()
         Dim fc As New GridEXFormatCondition(grCabecera.RootTable.Columns("Cambio"), ConditionOperator.Equal, 1)
         fc.FormatStyle.BackColor = ColorTranslator.FromHtml(COLOR_CAMBIO)
@@ -418,6 +431,7 @@ Public Class Tec_AuditoriaRegistros
 
         lbSinSeleccion.Visible = False
         PanelDetalle.Visible = True
+        SplitContainer2_SizeChanged(Nothing, Nothing)
         btnImprimirRegistro.Enabled = True
     End Sub
 
