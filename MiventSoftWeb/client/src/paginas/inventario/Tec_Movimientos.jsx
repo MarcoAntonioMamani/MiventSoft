@@ -14,6 +14,8 @@ import Icono from '../../componentes/Icono';
 import { NumeroCelda, errorDetalle } from '../ventas/Tec_Ventas';
 import { SelectorProductos } from '../distribucion/Tec_Despachos';
 
+import { useAlActivar } from '../../global/vistaActiva';
+
 const URL = '/api/inventario/movimientos';
 const INGRESO = 4;
 const SALIDA = 3;
@@ -30,7 +32,7 @@ export default function Tec_Movimientos() {
   const [detalle, setDetalle] = useState([]);
   const [selector, setSelector] = useState(false);
   const [cargandoDet, setCargandoDet] = useState(false);
-  useEffect(() => { api.get(`${URL}/combos`).then((r) => setC(r.data)).catch((e) => toast(e.message, 'error')); }, [toast]);
+  useAlActivar(() => { api.get(`${URL}/combos`).then((r) => setC(r.data)).catch((e) => toast(e.message, 'error')); });
   const vig = detalle.filter((d) => !d.eliminado);
   const tipo = Number(form.ConceptoId);
   const esIngreso = tipo === INGRESO;

@@ -15,6 +15,7 @@ import Icono from '../../componentes/Icono';
 import { columnasDe } from '../ventas/Reportes';
 import { imprimirReporte } from '../../componentes/ReporteImpreso';
 import { useSesion } from '../../global/Sesion';
+import { useAlActivar } from '../../global/vistaActiva';
 
 // Columnas para la hoja impresa (mismas que en pantalla; los textos en MAYUSCULAS se muestran como Titulo)
 const colsImpresion = (filas) => columnasDe(filas).map((c) => (c.render ? { ...c, valor: c.render } : c));
@@ -32,7 +33,7 @@ export default function Tec_IngresoEgreso() {
   const [c, setC] = useState({ cajas: [], tipos: [], sucursales: [], personal: null });
   const [form, setForm] = useState({});
   const [errores, setErrores] = useState({});
-  useEffect(() => { api.get(`${URL}/combos`).then((r) => setC(r.data)).catch((e) => toast(e.message, 'error')); }, [toast]);
+  useAlActivar(() => { api.get(`${URL}/combos`).then((r) => setC(r.data)).catch((e) => toast(e.message, 'error')); });
   const tipo = c.tipos.find((t) => Number(t.Id) === Number(form.CajaTipoMovimientoId));
   const esIngreso = tipo ? Number(tipo.Tipo) === 1 : true;
   const esTraspaso = Number(form.CajaTipoMovimientoId) === TRASPASO;
@@ -153,7 +154,7 @@ function DialogoMotivo({ onCreado, onCerrar }) {
         <div className="campos una-col">
           <Campo etiqueta="Tipo movimiento" requerido error={err}><input autoFocus className="control mayus" value={desc} maxLength={100} onChange={(e) => { setDesc(e.target.value.toUpperCase()); setErr(''); }} /></Campo>
           <Campo etiqueta="Tipo">
-            <div className="seg" role="radiogroup" aria-label="Ingreso o egreso">
+            <div className="seg-botones" role="radiogroup" aria-label="Ingreso o egreso">
               <button type="button" role="radio" aria-checked={ingreso} className={`btn ${ingreso ? 'btn-pri' : 'btn-sec'}`} onClick={() => setIngreso(true)}>Ingreso</button>
               <button type="button" role="radio" aria-checked={!ingreso} className={`btn ${!ingreso ? 'btn-pri' : 'btn-sec'}`} onClick={() => setIngreso(false)}>Egreso</button>
             </div>

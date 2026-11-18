@@ -16,7 +16,7 @@ import java.util.Locale;
 
 import javax.net.ssl.SSLException;
 
-/** Direccion del servidor de Santit Web (IP/nombre + puerto), guardada en el telefono. */
+/** Direccion del servidor de Sanbit (IP/nombre + puerto), guardada en el telefono. */
 final class Servidor {
     static final int PUERTO_DEFECTO = 3001;
     private static final String PREFS = "servidor";
@@ -125,7 +125,7 @@ final class Servidor {
 
     /**
      * Prueba de conexion (llamar en un hilo de fondo).
-     * @return null si el servidor responde como Santit Web; si no, el motivo para mostrar al usuario.
+     * @return null si el servidor responde como Sanbit; si no, el motivo para mostrar al usuario.
      */
     String probar() {
         HttpURLConnection con = null;
@@ -137,14 +137,16 @@ final class Servidor {
             con.setUseCaches(false);
             int codigo = con.getResponseCode();
             if (codigo >= 400) return "El servidor respondió con error HTTP " + codigo + ".";
-            if (!leerInicio(con.getInputStream()).contains("Santit")) {
-                return "Hay un servicio en " + host + ":" + puerto + ", pero no parece Santit Web. Verifique el puerto.";
+            String inicio = leerInicio(con.getInputStream());
+            // "Santit": servidores web anteriores al cambio de nombre a Sanbit
+            if (!inicio.contains("Sanbit") && !inicio.contains("Santit")) {
+                return "Hay un servicio en " + host + ":" + puerto + ", pero no parece Sanbit. Verifique el puerto.";
             }
             return null;
         } catch (SocketTimeoutException e) {
             return "El servidor no responde. Verifique la IP, que la PC esté encendida y que el teléfono esté en la misma red Wi-Fi.";
         } catch (ConnectException e) {
-            return "Conexión rechazada. Verifique el puerto, que Santit Web esté iniciado y que el firewall de la PC lo permita.";
+            return "Conexión rechazada. Verifique el puerto, que Sanbit esté iniciado y que el firewall de la PC lo permita.";
         } catch (UnknownHostException e) {
             return "No se encontró el servidor \"" + host + "\".";
         } catch (SSLException e) {

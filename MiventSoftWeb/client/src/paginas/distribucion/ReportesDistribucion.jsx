@@ -1,10 +1,11 @@
 // =====================================================================
 //  Reportes del panel Distribución (cada uno con su programa y su URL)
 //   gastos-chofer · ingresos-egresos-anual · ingresos-egresos-detallado · historico-clientes
-//   productos-por-cliente · auditoria-ventas · historial-incremento
+//   productos-por-cliente · auditoria-ventas · historial-incremento · registro-celular
 //  Columnas tal como las devuelve cada SP (TablaReporte: buscar, totales, Excel, imprimir).
 // =====================================================================
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useAlActivar } from '../../global/vistaActiva';
 import { createPortal } from 'react-dom';
 import TablaReporte, { fechaTxt } from '../../componentes/TablaReporte';
 import { Mapa, Encuadrar, Pin } from '../../componentes/Mapa';
@@ -37,6 +38,7 @@ export const CONFIG_DIST = {
   'productos-por-cliente': { titulo: 'Ventas de productos por cliente', sub: 'Ventas Productos Por Cliente', icono: 'area', filtros: ['fechas', 'proveedor', 'categoria', 'cliente', 'producto'] },
   'auditoria-ventas': { titulo: 'Auditoría de ventas', sub: 'Auditoria Ventas', icono: 'clipboard', filtros: ['fechas', 'evento'] },
   'historial-incremento': { titulo: 'Historial del incremento de ventas', sub: 'Historial Incremento Ventas', icono: 'history', filtros: ['fechas'], desde: 30 },
+  'registro-celular': { titulo: 'Ubicación de pedidos y entregas', sub: 'Registro del celular', icono: 'pin', filtros: ['fechas', 'personal'] },
 };
 const EVENTOS = [{ Id: 'TODOS', Nombre: 'TODOS' }, { Id: 'ANULADO', Nombre: 'ANULADOS' }, { Id: 'ELIMINADO', Nombre: 'ELIMINADOS' }, { Id: 'MODIFICADO', Nombre: 'MODIFICADOS' }];
 // Rep_AuditoriaVentas (grMaestro): color de toda la fila segun la accion (rojo=Eliminado, naranja=Anulado, azul=Modificado)
@@ -52,6 +54,28 @@ const COLS_AUDITORIA = [
   { campo: 'Personal', titulo: 'Vendedor' },
   { campo: 'TotalVenta', titulo: 'Total venta', tipo: 'bs' },
 ];
+// Ubicacion de pedidos y entregas (app del celular, script 07): una fila por evento
+const EVENTO_CEL = { PEDIDO: { clase: 'cel-pedido', pin: 'empresa', txt: 'Levantó el pedido' }, ENTREGADO: { clase: 'cel-entregado', pin: 'normal', txt: 'Entregó' }, ANULADO: { clase: 'cel-anulado', pin: 'marcado', txt: 'Anuló' } };
+const urlMapa = (x) => `https://www.google.com/maps?q=${x.Latitud},${x.Longitud}`;
+const COLS_CELULAR = [
+  { campo: 'VentaId', titulo: 'Venta', render: (x) => <b>{x.VentaId}</b> },
+  { campo: 'Evento', titulo: 'Evento', render: (x) => <span className={`cel-evento ${EVENTO_CEL[x.Evento]?.clase || ''}`}>{x.Evento}</span> },
+  { campo: 'FechaHoraCelular', titulo: 'Hora celular', render: (x) => <FechaHora t={x.FechaHoraCelular} /> },
+  { campo: 'FechaHoraServidor', titulo: 'Llegó al servidor', render: (x) => <FechaHora t={x.FechaHoraServidor} /> },
+  { campo: 'Personal', titulo: 'Personal', render: (x) => tit(x.Personal) },
+  { campo: 'Cliente', titulo: 'Cliente' },
+  { campo: 'TotalVenta', titulo: 'Total venta', tipo: 'bs' },
+  { campo: 'PrecisionMetros', titulo: 'GPS', render: (x) => (x.Latitud ? <>± {Math.round(Number(x.PrecisionMetros ?? 0))} m</> : <span className="txt-neg">Sin ubicación</span>) },
+  { campo: 'Modelo', titulo: 'Celular', render: (x) => <span className="aud-prod">{x.Modelo}<small>{x.Version}</small></span> },
+];
+// "AAAA-MM-DD HH:MM:SS" -> hora arriba y fecha abajo (sin partir la columna)
+function FechaHora({ t }) {
+  if (!t) return <span className="txt-suave">—</span>;
+  return <span className="cel-fh"><b>{t.slice(11, 19)}</b><small>{t.slice(0, 10).split('-').reverse().join('/')}</small></span>;
+}
+// minutos entre dos "AAAA-MM-DD HH:MM:SS" (si llego mucho despues, se hizo sin internet)
+const minutosEntre = (a, b) => (a && b ? Math.round((Date.parse(b.replace(' ', 'T')) - Date.parse(a.replace(' ', 'T'))) / 60000) : null);
+
 // detalle simplificado: antes -> despues en una sola celda (si no cambio, un solo valor)
 const vacioN = (v) => v === null || v === undefined || v === '';
 function AntesDespues({ a, d }) {
@@ -127,6 +151,12 @@ export default function ReporteDistribucion({ clave }) {
   const set = (k) => (x) => setF((o) => ({ ...o, [k]: x }));
   const tiene = (x) => cfg.filtros.includes(x);
 
+  // al volver a la pestaña: combos actualizados de la BD (sin perder lo elegido)
+  useAlActivar(() => {
+    if (tiene('personal')) api.get(`${URL}/aux/personal`).then((r) => setAux((a) => ({ ...a, personal: TODOS(r.data) }))).catch(() => {});
+    if (tiene('proveedor')) api.get(`${URL}/productos-por-cliente/combos`).then((r) => setAux((a) => ({ ...a, prov: TODOS(r.data.proveedores), cat: TODOS(r.data.categorias), cli: TODOS(r.data.clientes, 'NombreCliente'), prod: TODOS(r.data.productos) }))).catch(() => {});
+  }, { alMontar: false });
+
   useEffect(() => {
     setDatos(null);
     const carga = [];
@@ -160,6 +190,7 @@ export default function ReporteDistribucion({ clave }) {
       setDatos(r.data);
       // historico: se elige de entrada el primer registro con ubicacion (o el primero)
       if (clave === 'historico-clientes' && Array.isArray(r.data)) setSelHist((r.data.find((x) => x.ubicacion || x.ubicacionAntes) || r.data[0])?.Id ?? null);
+      if (clave === 'registro-celular' && Array.isArray(r.data)) setSelHist((r.data.find((x) => x.Latitud) || r.data[0])?.Id ?? null);
       const n = Array.isArray(r.data) ? r.data.length : r.data.filas.length;
       if (!n) toast('No Existen Datos Para Mostrar con Los Filtros Seleccionados'.toUpperCase(), 'error');
     } catch (e) { toast(e.message, 'error', 7000); } finally { setCargando(false); }
@@ -179,6 +210,7 @@ export default function ReporteDistribucion({ clave }) {
         : { ...c, tipo: 'bs', total: false, render: (x) => (x.Concepto === 'SALDO' ? <b className={Number(x[c.campo]) < 0 ? 'txt-neg' : 'txt-pos'}>{bs(x[c.campo])}</b> : bs(x[c.campo])) }));
     }
     if (clave === 'auditoria-ventas') return COLS_AUDITORIA;
+    if (clave === 'registro-celular') return COLS_CELULAR;
     return columnasDe(filas);
   }, [filas, clave]);
   const rango = tiene('fechas') ? `Del ${f.desde.split('-').reverse().join('/')} al ${f.hasta.split('-').reverse().join('/')}` : `Gestión ${anioTxt}`;
@@ -221,7 +253,8 @@ export default function ReporteDistribucion({ clave }) {
           <VentasPorCliente filas={filas} rango={rango} cabecera={datos.cabecera} usuario={tit(sesion?.gs_user || '')} />
         )}
         {datos && clave !== 'ingresos-egresos-detallado' && clave !== 'productos-por-cliente' && (() => {
-          const hist = clave === 'historico-clientes';
+          const cel = clave === 'registro-celular';
+          const hist = clave === 'historico-clientes' || cel;
           const aud = clave === 'auditoria-ventas';
           const tabla = (
           <TablaReporte titulo={aud ? `EVENTOS (${filas.length})` : cfg.sub.toUpperCase()} subtitulo={rango} columnas={columnas} filas={filas} cargando={cargando} claveFila={aud || hist ? 'Id' : '__no'}
@@ -239,7 +272,7 @@ export default function ReporteDistribucion({ clave }) {
           if (aud) return <>{tabla}{evento && <DetalleEvento ev={evento} onCerrar={() => setEvento(null)} />}</>;
           // Rep_Modificaciones: tabla a la izquierda y los mapas Antes / Despues del registro elegido a la derecha
           if (!hist) return tabla;
-          return <div className="hist-layout"><div className="hist-tabla">{tabla}</div><MapasHistorico fila={filas.find((x) => x.Id === selHist)} /></div>;
+          return <div className="hist-layout"><div className="hist-tabla">{tabla}</div>{cel ? <MapaCelular filas={filas} sel={selHist} /> : <MapasHistorico fila={filas.find((x) => x.Id === selHist)} />}</div>;
         })()}
         {!datos && !cargando && <div className="reporte-vacio"><Icono n="search" size={28} /><span>Elija los filtros y presione <b>Generar</b></span></div>}
       </div>
@@ -530,6 +563,53 @@ function MapasHistorico({ fila }) {
           <MapaPunto titulo="Antes" punto={nuevo ? null : fila.ubicacionAntes} tipo="normal"
             vacio={nuevo ? 'Cliente nuevo: no tiene ubicación anterior' : 'Sin latitud / longitud válida antes'} />
           <MapaPunto titulo={nuevo ? 'Ubicación registrada' : 'Después (hoy)'} punto={fila.ubicacion} tipo="marcado" vacio="Sin latitud / longitud válida" />
+        </>
+      )}
+    </aside>
+  );
+}
+
+// Ubicacion de pedidos y entregas: en el mapa, todos los eventos de la venta elegida (pedido / entrega / anulacion)
+function MapaCelular({ filas, sel }) {
+  const fila = filas.find((x) => x.Id === sel);
+  const eventos = fila ? filas.filter((x) => x.VentaId === fila.VentaId) : [];
+  const conGps = eventos.filter((x) => x.Latitud);
+  const pos = conGps.map((x) => [Number(x.Latitud), Number(x.Longitud)]);
+  const ped = conGps.find((x) => x.Evento === 'PEDIDO'); const ent = conGps.find((x) => x.Evento !== 'PEDIDO');
+  let metros = null;
+  if (ped && ent) {
+    const r = Math.PI / 180; const a1 = Number(ped.Latitud) * r; const o1 = Number(ped.Longitud) * r; const a2 = Number(ent.Latitud) * r; const o2 = Number(ent.Longitud) * r;
+    const h = Math.sin((a2 - a1) / 2) ** 2 + Math.cos(a1) * Math.cos(a2) * Math.sin((o2 - o1) / 2) ** 2;
+    metros = Math.round(6371000 * 2 * Math.asin(Math.min(1, Math.sqrt(h))));
+  }
+  return (
+    <aside className="hist-mapas" aria-label="Ubicación del celular">
+      {!fila ? <div className="hist-mapa-aviso"><Icono n="pin" size={18} /> Elija un registro de la tabla para ver su ubicación</div> : (
+        <>
+          <div className="hist-mapa-aviso"><span><b>Venta {fila.VentaId}</b> · {fila.Cliente}{metros !== null ? ` · entrega a ${metros.toLocaleString('es-BO')} m del pedido` : ''}</span></div>
+          <div className="hist-mapa">
+            <div className="hist-mapa-cab"><b>Dónde se registró</b><small className="cel-leyenda">{Object.entries(EVENTO_CEL).map(([k, x]) => <span key={k} className={x.clase}>{k}</span>)}</small></div>
+            <div className="hist-mapa-caja">
+              <Mapa className="hist-mapa-leaflet cel-mapa" zoom={16}>
+                {pos.length > 0 && <Encuadrar puntos={pos} zoom={16} />}
+                {conGps.map((x) => <Pin key={x.Id} posicion={[Number(x.Latitud), Number(x.Longitud)]} tipo={EVENTO_CEL[x.Evento]?.pin || 'normal'} />)}
+              </Mapa>
+              {!pos.length && <div className="hist-mapa-vacio"><Icono n="pin" size={20} /><span>El celular no envió ubicación</span></div>}
+            </div>
+          </div>
+          <ul className="cel-eventos">
+            {eventos.map((x) => {
+              const tarde = minutosEntre(x.FechaHoraCelular, x.FechaHoraServidor);
+              return (
+                <li key={x.Id} className={EVENTO_CEL[x.Evento]?.clase}>
+                  <b>{EVENTO_CEL[x.Evento]?.txt || x.Evento} · {tit(x.Personal)}</b>
+                  <small>Celular: {x.FechaHoraCelular || '—'}{tarde !== null && tarde >= 2 ? ` · llegó ${tarde} min después (sin internet)` : ''}</small>
+                  <small>{x.Latitud ? <>{Number(x.Latitud).toFixed(6)}, {Number(x.Longitud).toFixed(6)} (± {Math.round(Number(x.PrecisionMetros ?? 0))} m) · <a href={urlMapa(x)} target="_blank" rel="noreferrer">Google Maps</a></> : 'Sin ubicación'}</small>
+                  <small>{x.Modelo} · {x.Version}</small>
+                </li>
+              );
+            })}
+          </ul>
         </>
       )}
     </aside>

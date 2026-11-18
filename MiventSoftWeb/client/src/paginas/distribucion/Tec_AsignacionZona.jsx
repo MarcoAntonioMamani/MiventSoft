@@ -9,6 +9,7 @@ import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
 import { palabrasDe, coincide } from '../../global/buscar';
+import { useAlActivar } from '../../global/vistaActiva';
 
 const URL = '/api/distribucion/zonas';
 
@@ -23,7 +24,7 @@ export default function Tec_AsignacionZona() {
   const [original, setOriginal] = useState(new Set());
   const [guardando, setGuardando] = useState(false);
 
-  useEffect(() => { api.get(`${URL}/personal`).then((r) => setPersonal(r.data)).catch((e) => toast(e.message, 'error')); }, [toast]);
+  useAlActivar(() => { api.get(`${URL}/personal`).then((r) => setPersonal(r.data)).catch((e) => toast(e.message, 'error')); });
   const elegir = async (p) => {
     setSel(p); setZonas(null);
     try {

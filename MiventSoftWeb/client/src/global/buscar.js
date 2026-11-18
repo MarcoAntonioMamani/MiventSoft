@@ -15,3 +15,13 @@ export function coincide(texto, palabras) {
   const t = normalizar(texto);
   return w.every((p) => t.includes(p));
 }
+
+// Listas grandes (buscadores de productos): el texto de cada fila se normaliza UNA vez al cargar,
+// no en cada tecla. indice = indexar(lista, (x) => `${x.Codigo} ${x.Nombre}`); filtrarIndice(indice, palabrasDe(q))
+export const indexar = (lista, texto) => (lista || []).map((x) => [normalizar(texto(x)), x]);
+export function filtrarIndice(indice, palabras) {
+  if (!palabras.length) return indice.map((par) => par[1]);
+  const r = [];
+  for (const [t, x] of indice) if (palabras.every((p) => t.includes(p))) r.push(x);
+  return r;
+}

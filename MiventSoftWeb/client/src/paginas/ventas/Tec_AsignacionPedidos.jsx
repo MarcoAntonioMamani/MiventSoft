@@ -16,6 +16,7 @@ import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
 import { columnasDe } from './Reportes';
+import { useAlActivar, useRefrescar } from '../../global/vistaActiva';
 
 const URL = '/api/ventas/asignaciones';
 const BASE = '/ventas/asignacion-pedidos';
@@ -64,13 +65,14 @@ export default function Tec_AsignacionPedidos() {
   const [detalle, setDetalle] = useState(null);
   const [carga, setCarga] = useState(null);
 
-  useEffect(() => {
+  // choferes y conciliaciones de la BD al abrir y al volver a la pestaña (lo elegido se conserva)
+  useAlActivar(() => {
     api.get(`${URL}/inicio`).then((r) => {
       setCombos(r.data);
       const ch = r.data.choferes[0]?.Id ?? '';
-      setSel({ choferAsignar: ch, choferAsignados: ch, choferEntregados: ch, conciliacion: r.data.conciliaciones[0]?.id ?? '' });
+      setSel((s) => (s.choferAsignar !== undefined && s.choferAsignar !== '' ? s : { choferAsignar: ch, choferAsignados: ch, choferEntregados: ch, conciliacion: r.data.conciliaciones[0]?.id ?? '' }));
     }).catch((e) => toast(e.message, 'error'));
-  }, [toast]);
+  });
 
   const rutaDe = useCallback((t) => {
     if (t === 'pendientes' || t === 'anulados') return `${URL}/${t}`;
@@ -86,6 +88,8 @@ export default function Tec_AsignacionPedidos() {
     try { const r = await api.get(ruta); setDatos((d) => ({ ...d, [t]: r.data })); } catch (e) { toast(e.message, 'error'); } finally { setCargando(false); }
   }, [tab, rutaDe, toast]);
   useEffect(() => { cargar(tab); }, [tab, sel.choferAsignados, sel.choferEntregados, sel.conciliacion]); // eslint-disable-line react-hooks/exhaustive-deps
+  useAlActivar(() => cargar(tab), { alMontar: false }); // pedidos actualizados al volver a la pestaña
+  const refrescar = useRefrescar(() => cargar());
 
   const filas = datos[tab] || [];
   const ids = marcados[tab];
@@ -140,7 +144,7 @@ export default function Tec_AsignacionPedidos() {
           <span className="modelo-icono"><Icono n="truck" size={22} /></span>
           <div><h1>Asignación de pedidos</h1><p>Administrar Asignaciones Pedidos</p></div>
         </div>
-        <div className="barra"><button className="btn-icono" title="Actualizar" aria-label="Actualizar" onClick={() => cargar()}><Icono n="refresh" size={18} /></button></div>
+        <div className="barra"><button className="btn-icono" title="Actualizar" aria-label="Actualizar" onClick={refrescar} disabled={cargando}>{cargando ? <span className="spinner" /> : <Icono n="refresh" size={18} />}</button></div>
       </header>
       <nav className="tabs-cxc" aria-label="Secciones">
         {TABS.map((t) => (

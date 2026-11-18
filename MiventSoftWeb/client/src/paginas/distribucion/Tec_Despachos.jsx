@@ -3,7 +3,7 @@
 //  Salida de productos al distribuidor. "Cargar productos de ventas" = despacho automatico.
 //  No se edita ni elimina si la conciliacion esta cerrada; el automatico solo se elimina.
 // =====================================================================
-import { useEffect, useMemo, useState } from 'react';
+import { useDeferredValue, useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import ModeloF1, { useModeloF1 } from '../../componentes/ModeloF1';
 import { Campo, fechaCorta } from '../../componentes/Controles';
@@ -15,9 +15,9 @@ import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
 import { CantidadCajas, NumeroCelda, errorDetalle } from '../ventas/Tec_Ventas';
-import { useListaTeclado } from '../../componentes/useListaTeclado';
+import { useListaTeclado, FilaMas, AYUDA_ELEGIR } from '../../componentes/useListaTeclado';
 import NotaImpresa, { bsNota } from '../../componentes/NotaImpresa';
-import { palabrasDe, coincide } from '../../global/buscar';
+import { palabrasDe, indexar, filtrarIndice } from '../../global/buscar';
 
 const URL = '/api/distribucion/despachos';
 const dos = (n) => String(n).padStart(2, '0');
@@ -222,11 +222,10 @@ export function SelectorProductos({ enDetalle, onAgregar, onCerrar, url = `${URL
   const [elegido, setElegido] = useState(null);
   const [agregados, setAgregados] = useState(0); // como el buscador de Pedido: cuantos se agregaron en esta ventana
   useEffect(() => { api.get(url).then((r) => setProductos(r.data)).catch((e) => { toast(e.message, 'error'); onCerrar(); }); }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  const filtrados = useMemo(() => {
-    const w = palabrasDe(q);
-    return (productos || []).filter((p) => !enDetalle.has(Number(p.Id)))
-      .filter((p) => coincide(`${p.CodigoExterno ?? ''} ${p.NombreProducto ?? ''} ${p.DescripcionProducto ?? ''} ${p.NombreCategoria ?? ''}`, w));
-  }, [productos, q, enDetalle]);
+  // texto normalizado una sola vez por carga; la lista se filtra sin trabar lo que se escribe
+  const indice = useMemo(() => indexar(productos, (p) => `${p.CodigoExterno ?? ''} ${p.NombreProducto ?? ''} ${p.DescripcionProducto ?? ''} ${p.NombreCategoria ?? ''}`), [productos]);
+  const qBusca = useDeferredValue(q);
+  const filtrados = useMemo(() => filtrarIndice(indice, palabrasDe(qBusca)).filter((p) => !enDetalle.has(Number(p.Id))), [indice, qBusca, enDetalle]);
   const elegir = (p) => (sinLimite || num(p.stock) > 0 ? setElegido(p) : toast('El Producto no Cuenta con Stock Disponible', 'error'));
   const nav = useListaTeclado(filtrados, elegir, { onCerrar, pausado: !!elegido });
   return createPortal(
@@ -241,8 +240,8 @@ export function SelectorProductos({ enDetalle, onAgregar, onCerrar, url = `${URL
           <table className="grid grid-tarjetas tabla-productos">
             <thead><tr><th>Código</th><th>Producto</th><th>Categoría</th><th className="num">Conv.</th><th className="num">Stock unid.</th><th className="num">Stock cajas</th></tr></thead>
             <tbody ref={nav.tbodyRef}>
-              {filtrados.map((p, i) => (
-                <tr key={p.Id} className={`fila-clic ${i === nav.marcada ? 'marcada' : ''} ${num(p.stock) <= 0 ? 'sin-stock' : ''}`} onClick={() => elegir(p)} {...nav.propsFila(i)}>
+              {nav.visibles.map((p, i) => (
+                <tr key={p.Id} className={`fila-clic ${i === nav.marcada ? 'marcada' : ''} ${num(p.stock) <= 0 ? 'sin-stock' : ''}`} {...nav.propsFila(i)}>
                   <td data-label="Código">{p.CodigoExterno}</td>
                   <td data-label="Producto"><b>{tit(p.NombreProducto)}</b></td>
                   <td data-label="Categoría">{tit(p.NombreCategoria)}</td>
@@ -251,11 +250,12 @@ export function SelectorProductos({ enDetalle, onAgregar, onCerrar, url = `${URL
                   <td data-label="Stock cajas" className="num">{n2(num(p.stock) / (num(p.conversion) || 1))}</td>
                 </tr>
               ))}
+              <FilaMas nav={nav} columnas={6} />
               {!filtrados.length && <tr><td colSpan={6} className="vacio">{productos ? 'Sin productos' : 'Cargando productos...'}</td></tr>}
             </tbody>
           </table>
         </div>
-        <div className="modal-acciones"><span className="ayuda-tip"><span className="solo-teclado"><kbd>↓</kbd><kbd>↑</kbd> elegir · <kbd>Enter</kbd> cantidad · </span>Toque un producto para indicar la cantidad</span><button className="btn btn-pri" onClick={onCerrar}>Listo</button></div>
+        <div className="modal-acciones"><span className="ayuda-tip"><span className="solo-teclado"><kbd>↓</kbd><kbd>↑</kbd> elegir · <kbd>Enter</kbd> cantidad · </span>{AYUDA_ELEGIR}</span><button className="btn btn-pri" onClick={onCerrar}>Listo</button></div>
       </div>
       {elegido && <CantidadCajas sinLimite={sinLimite} producto={{ ...elegido, Conversion: elegido.conversion }} onCancelar={() => { setElegido(null); nav.volver(false); }}
         onAceptar={(cant) => { onAgregar(elegido, cant); setAgregados((x) => x + 1); setElegido(null); setQ(''); nav.volver(true); }} />}

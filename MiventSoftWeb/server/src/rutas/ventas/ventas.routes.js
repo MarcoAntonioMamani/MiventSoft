@@ -528,6 +528,14 @@ function crearRouter(C) {
     }));
 
 
+    // Donde, cuando y con que celular se levanto y se entrego la venta (script 07). Solo ventas (no proformas).
+    if (C.sp === 'MAM_Ventas') {
+        router.get('/:id/registro-celular', asyncHandler(async (req, res) => {
+            const { registroCelular } = require('../distribucion/reportes.routes');
+            res.json({ ok: true, data: registroCelular(await L.L_prRegistroCelularVenta(v.idRuta(req.params.id))) });
+        }));
+    }
+
     router._interno = { _armarDetalle, _leerCabecera, _incrementoHoy, _buscarVenta, MODOS };
     return router;
 }

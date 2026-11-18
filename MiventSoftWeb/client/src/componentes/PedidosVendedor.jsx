@@ -10,17 +10,18 @@ import { api } from '../api/http';
 import { titulo } from '../global/programas';
 import { fmtBs, fmtN } from './Graficos';
 import Icono from './Icono';
+import Ampliable, { BotonAmpliar } from './Ampliable';
 
 // 0.85 -> "850 m", 12.4 -> "12,4 km" ; 95 -> "1 h 35 min"
-const fmtKm = (n) => (n < 1 ? `${Math.round(n * 1000)} m` : `${Number(n).toLocaleString('es-BO', { maximumFractionDigits: 1 })} km`);
-const fmtMin = (m) => (m < 60 ? `${m} min` : `${Math.floor(m / 60)} h${m % 60 ? ` ${m % 60} min` : ''}`);
-const txtTramo = (p) => (p.tramoKm === null || p.tramoKm === undefined ? '' : `+${fmtKm(p.tramoKm)}${p.tramoMin !== null ? ` · ${fmtMin(p.tramoMin)}` : ''} desde el anterior`);
+export const fmtKm = (n) => (n < 1 ? `${Math.round(n * 1000)} m` : `${Number(n).toLocaleString('es-BO', { maximumFractionDigits: 1 })} km`);
+export const fmtMin = (m) => (m < 60 ? `${m} min` : `${Math.floor(m / 60)} h${m % 60 ? ` ${m % 60} min` : ''}`);
+export const txtTramo = (p) => (p.tramoKm === null || p.tramoKm === undefined ? '' : `+${fmtKm(p.tramoKm)}${p.tramoMin !== null ? ` · ${fmtMin(p.tramoMin)}` : ''} desde el anterior`);
 
-const claseEstado =(e) => (/ANUL/.test(e) ? 'ped-anulado' : /ENTREG/.test(e) ? 'ped-entregado' : /PEND/.test(e) ? 'ped-pendiente' : 'ped-asignado');
+export const claseEstado = (e) => (/ANUL/.test(e) ? 'ped-anulado' : /ENTREG/.test(e) ? 'ped-entregado' : /PEND/.test(e) ? 'ped-pendiente' : 'ped-asignado');
 
 // Icono numerado (se cachea por numero/estado/seleccion)
 const iconos = new Map();
-function iconoOrden(n, estado, activo) {
+export function iconoOrden(n, estado, activo) {
   const k = `${n}|${estado}|${activo ? 1 : 0}`;
   if (iconos.has(k)) return iconos.get(k);
   const t = activo ? 44 : 32;
@@ -34,7 +35,7 @@ function iconoOrden(n, estado, activo) {
   return ic;
 }
 
-function IrA({ punto }) {
+export function IrA({ punto }) {
   const map = useMap();
   useEffect(() => { if (punto) map.setView(punto, Math.max(map.getZoom(), 17)); }, [punto]); // eslint-disable-line react-hooks/exhaustive-deps
   return null;
@@ -78,19 +79,23 @@ export default function PedidosVendedor({ fecha, vendedor, recarga }) {
   const elegir = (p) => p.punto && setSel(p.id === sel?.id ? null : p);
 
   return (
+    <Ampliable>{(completo, alternar) => (
     <section className="panel span-12 pv-panel">
       <header className="panel-cab">
         <div>
           <h2>Pedidos por vendedor</h2>
           <p>Ubicación donde se registró cada pedido · numerados en el orden en que se crearon</p>
         </div>
-        {actual && (
-          <div className="pv-resumen">
-            <span><b>{fmtN(actual.pedidos)}</b> pedidos</span>
-            <span><b>{fmtBs(actual.monto, 0)}</b> válido</span>
-            <span><b>{fmtN(conPunto.length)}</b> con ubicación</span>
-          </div>
-        )}
+        <div className="pv-cab-der">
+          {actual && (
+            <div className="pv-resumen">
+              <span><b>{fmtN(actual.pedidos)}</b> pedidos</span>
+              <span><b>{fmtBs(actual.monto, 0)}</b> válido</span>
+              <span><b>{fmtN(conPunto.length)}</b> con ubicación</span>
+            </div>
+          )}
+          <BotonAmpliar completo={completo} onClick={alternar} />
+        </div>
       </header>
       <div className="panel-cuerpo">
         {error && <div className="alerta"><Icono n="alert" size={16} /> {error}</div>}
@@ -163,5 +168,6 @@ export default function PedidosVendedor({ fecha, vendedor, recarga }) {
         )}
       </div>
     </section>
+    )}</Ampliable>
   );
 }

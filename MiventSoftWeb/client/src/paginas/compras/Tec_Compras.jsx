@@ -12,6 +12,7 @@ import { Celda } from '../../global/Celda';
 import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import NotaImpresa from '../../componentes/NotaImpresa';
+import { useAlActivar } from '../../global/vistaActiva';
 import Icono from '../../componentes/Icono';
 import { NumeroCelda, errorDetalle } from '../ventas/Tec_Ventas';
 import { SelectorProductos } from '../distribucion/Tec_Despachos';
@@ -38,7 +39,7 @@ export default function Tec_Compras() {
     try { const r = await api.get(`${URL}/${id}/nota`); setNota({ ...r.data, grabada }); } catch (e) { toast(e.message, 'error'); }
   };
   const [cargandoDet, setCargandoDet] = useState(false);
-  useEffect(() => { api.get(`${URL}/combos`).then((r) => setC(r.data)).catch((e) => toast(e.message, 'error')); }, [toast]);
+  useAlActivar(() => { api.get(`${URL}/combos`).then((r) => setC(r.data)).catch((e) => toast(e.message, 'error')); });
   useEffect(() => { if (c.sucursales.length) setForm((f) => (f.Id === '' && !f.AlmacenId ? { ...f, AlmacenId: c.sucursales[0].Id } : f)); }, [c.sucursales]);
   const vig = detalle.filter((d) => !d.eliminado);
   const suma = r2(vig.reduce((a, d) => a + num(d.TotalCompra), 0));

@@ -80,6 +80,10 @@ const PANELES = [
         ['BTNREPORTEVENTASPORPRODUCTOS', "Ventas Productos Por Cliente"],
         ['BTNREPAUDITORIAVENTAS', "Auditoria Ventas"],
         ['BTNHISTORICOINCREMENTO', "Historial Incremento Ventas"],
+        // Solo web (no esta en el escritorio): sql/07_UbicacionMovil.sql crea el programa y lo asigna al Administrador
+        ['BTNREGISTROCELULAR', "Ubicacion Pedidos Y Entregas"],
+        // Solo web: sql/09_PedidosObservados.sql crea el programa y lo asigna al Administrador
+        ['BTNPEDIDOSOBSERVADOS', "Pedidos Observados Celular"],
     ] }
 ];
 

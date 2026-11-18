@@ -11,6 +11,7 @@ import { api } from '../../api/http';
 import { useToast } from '../../componentes/Toast';
 import Icono from '../../componentes/Icono';
 import { palabrasDe, coincide } from '../../global/buscar';
+import { useAlActivar, useRefrescar } from '../../global/vistaActiva';
 
 const URL = '/api/configuracion/precios';
 const clave = (p, c) => `${p}|${c}`;
@@ -99,9 +100,9 @@ export default function Tec_Precios() {
   const [panelCat, setPanelCat] = useState(false);
   const [pagina, setPagina] = useState(0);
 
-  useEffect(() => {
-    api.get(`${URL}/almacenes`).then((r) => { setAlmacenes(r.data); setAlmacen(r.data[0]?.aanumi ?? ''); }).catch((e) => toast(e.message, 'error'));
-  }, [toast]);
+  useAlActivar(() => {
+    api.get(`${URL}/almacenes`).then((r) => { setAlmacenes(r.data); setAlmacen((a) => (a !== '' ? a : r.data[0]?.aanumi ?? '')); }).catch((e) => toast(e.message, 'error'));
+  });
 
   const cargar = useCallback(async () => {
     if (!almacen) return;
@@ -113,12 +114,15 @@ export default function Tec_Precios() {
     } catch (e) { toast(e.message, 'error'); } finally { setCargando(false); }
   }, [almacen, toast]);
   useEffect(() => { cargar(); }, [cargar]);
+  // al volver a la pestaña: precios actuales de la BD, salvo que haya cambios sin grabar
+  useAlActivar(() => { if (!editando && !Object.keys(cambios).length) cargar(); }, { alMontar: false });
+  const refrescar = useRefrescar(cargar); // boton Actualizar: almacenes + matriz de la BD
 
   const precios = useMemo(() => new Map(datos.precios.map(([p, c, v]) => [clave(p, c), v])), [datos.precios]);
   const filas = useMemo(() => {
     const w = palabrasDe(filtro);
     if (!w.length) return datos.productos;
-    return datos.productos.filter((p) => coincide(`${p.yfcprod} ${p.yfcdprod1} ${p.NombreCategoria} ${p.proveedor}`, w));
+    return datos.productos.filter((p) => coincide(`${p.yfnumi} ${p.yfcprod} ${p.yfcdprod1} ${p.NombreCategoria} ${p.proveedor}`, w));
   }, [datos.productos, filtro]);
   useEffect(() => setPagina(0), [filtro, almacen]);
   const totalPaginas = Math.max(1, Math.ceil(filas.length / FILAS_POR_PAGINA));
@@ -170,7 +174,7 @@ export default function Tec_Precios() {
             <>
               <button className="btn btn-pri" onClick={() => setEditando(true)} disabled={!datos.productos.length}><Icono n="edit" size={16} /> <span className="txt-btn">Modificar</span></button>
               <button className="btn btn-sec" onClick={() => setPanelCat(true)}><Icono n="tag" size={16} /> <span className="txt-btn">Categorías</span></button>
-              <button className="btn-icono" title="Actualizar" aria-label="Actualizar" onClick={cargar}><Icono n="refresh" size={17} /></button>
+              <button className="btn-icono" title="Actualizar" aria-label="Actualizar" onClick={refrescar} disabled={cargando}>{cargando ? <span className="spinner" /> : <Icono n="refresh" size={17} />}</button>
             </>
           ) : (
             <>

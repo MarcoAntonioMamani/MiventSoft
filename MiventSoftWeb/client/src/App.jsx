@@ -25,6 +25,7 @@ import Tec_IngresoEgreso from './paginas/distribucion/Tec_IngresoEgreso';
 import Tec_CierreCaja from './paginas/distribucion/Tec_CierreCaja';
 import Tec_AsignacionZona from './paginas/distribucion/Tec_AsignacionZona';
 import ReporteDistribucion from './paginas/distribucion/ReportesDistribucion';
+import Tec_PedidosObservados from './paginas/distribucion/Tec_PedidosObservados';
 import Tec_ConceptosFijos from './paginas/planilla/Tec_ConceptosFijos';
 import Tec_Contratos from './paginas/planilla/Tec_Contratos';
 import Tec_RegistrarPlanilla from './paginas/planilla/Tec_RegistrarPlanilla';
@@ -92,10 +93,11 @@ const PROGRAMAS = [
   ['distribucion/cierre-caja', 'btnCierreCaja', Tec_CierreCaja],
   ['distribucion/ingresos-egresos', 'btnCierreRegistroIngresoEgresoGenerales', Tec_IngresoEgreso],
   ['distribucion/asignacion-zonas', 'btnAsignacionZona', Tec_AsignacionZona],
+  ['distribucion/pedidos-observados', 'btnPedidosObservados', Tec_PedidosObservados], // script 09 (solo web)
   ...[
     ['gastos-chofer', 'btnCierreReporteGastos'], ['ingresos-egresos-anual', 'btnCierreReporteAnual'], ['ingresos-egresos-detallado', 'btnCierreReporteDetallado'],
     ['historico-clientes', 'btnhistoricoCliente'], ['productos-por-cliente', 'btnReporteVentasPorProductos'], ['auditoria-ventas', 'btnRepAuditoriaVentas'],
-    ['historial-incremento', 'btnhistoricoIncremento'],
+    ['historial-incremento', 'btnhistoricoIncremento'], ['registro-celular', 'btnRegistroCelular'],
   ].map(([clave, prog]) => [`distribucion/${clave}`, prog, () => <ReporteDistribucion key={clave} clave={clave} />]),
   ...REPORTES,
 ];

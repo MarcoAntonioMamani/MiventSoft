@@ -32,7 +32,8 @@ app.use(helmet({
         },
     },
 }));
-app.use(express.json({ limit: '1mb' }));
+const jsonApi = express.json({ limit: '1mb' });
+app.use((req, res, next) => (req.path === '/api/pdf' ? next() : jsonApi(req, res, next))); // /api/pdf tiene su propio limite
 app.use(cookieParser());
 
 // CORS solo para el Vite de desarrollo (en produccion el front se sirve desde aqui mismo)
@@ -50,6 +51,12 @@ if (process.env.NODE_ENV !== 'production' && process.env.CORS_ORIGIN) {
 }
 
 app.get('/api/salud', (req, res) => res.json({ ok: true, servicio: 'MiventSoft API' }));
+
+// Datos siempre frescos de la BD: ninguna respuesta de la API se guarda en el navegador ni en proxies.
+// (imagenes.routes lo reemplaza por su propio max-age: las imagenes no son datos de negocio)
+app.use('/api', (req, res, next) => { res.set('Cache-Control', 'no-store'); next(); });
+// JSON grandes (listas de productos con stock) comprimidos: llegan mas rapido al celular, sin cache
+app.use('/api', require('./middleware/comprimir').comprimirJson);
 
 app.use('/api/auth', require('./rutas/auth.routes'));
 app.use('/api/imagenes', requiereSesion, require('./rutas/imagenes.routes'));
@@ -76,6 +83,7 @@ app.use('/api/distribucion/despachos', requiereSesion, require('./rutas/distribu
 app.use('/api/distribucion/conciliaciones', requiereSesion, require('./rutas/distribucion/conciliaciones.routes'));
 app.use('/api/distribucion/ingresos-egresos', requiereSesion, require('./rutas/distribucion/ingresosEgresos.routes'));
 app.use('/api/distribucion/reportes', requiereSesion, require('./rutas/distribucion/reportes.routes'));
+app.use('/api/distribucion/pedidos-observados', requiereSesion, require('./rutas/distribucion/pedidosObservados.routes')); // script 09
 app.use('/api/distribucion/zonas', requiereSesion, require('./rutas/distribucion/zonas.routes'));
 app.use('/api/mapa/clientes', requiereSesion, require('./rutas/mapa/clientes.routes'));
 app.use('/api/inventario/almacenes', requiereSesion, require('./rutas/inventario/almacenes.routes'));
@@ -90,6 +98,7 @@ app.use('/api/inventario/reportes', requiereSesion, require('./rutas/inventario/
 app.use('/api/inventario/stock', requiereSesion, require('./rutas/inventario/stock.routes')); // pestaña fija "Inventario" (FormularioStock)
 app.use('/api/distribucion/cierre-caja', requiereSesion, require('./rutas/distribucion/cierreCaja.routes'));
 app.use('/api/incremento', requiereSesion, require('./rutas/incremento.routes'));
+app.use('/api/pdf', requiereSesion, require('./rutas/pdf.routes')); // PDF de reportes y notas (utils/pdf.js)
 
 app.use('/api', (req, res) => res.status(404).json({ ok: false, mensaje: 'Recurso no encontrado' }));
 
@@ -106,7 +115,7 @@ const PORT = Number(process.env.PORT || 3001);
 const servidor = app.listen(PORT, async () => {
     console.log('');
     console.log('  ==============================================');
-    console.log(`   Santit Web lista en  http://localhost:${PORT}`);
+    console.log(`   Sanbit (Distribucion) listo en  http://localhost:${PORT}`);
     console.log('   Para usarla desde otra PC o celular de la red:');
     for (const ifs of Object.values(require('node:os').networkInterfaces())) {
         for (const i of ifs || []) if (i.family === 'IPv4' && !i.internal) console.log(`     http://${i.address}:${PORT}`);
@@ -121,7 +130,7 @@ const servidor = app.listen(PORT, async () => {
 servidor.on('error', (e) => {
     if (e.code === 'EADDRINUSE') {
         console.error('');
-        console.error(`  *** El puerto ${PORT} ya esta en uso: hay OTRA copia de Santit Web abierta (con la configuracion anterior).`);
+        console.error(`  *** El puerto ${PORT} ya esta en uso: hay OTRA copia de Sanbit abierta (con la configuracion anterior).`);
         console.error('  *** Cierre esa ventana (o ejecute detener.bat) y vuelva a abrir iniciar.bat.');
         console.error('');
         process.exit(1);

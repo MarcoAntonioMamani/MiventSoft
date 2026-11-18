@@ -18,6 +18,7 @@ import { useToast } from '../../componentes/Toast';
 import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
+import { useAlActivar } from '../../global/vistaActiva';
 
 const URL = '/api/ventas/reportes';
 const dos = (n) => String(n).padStart(2, '0');
@@ -84,6 +85,12 @@ export default function Reporte({ clave }) {
     if (cfg.filtros.includes('personal')) api.get(`${URL}/rendimiento/personal`).then((r) => setAux((a) => ({ ...a, rendimiento: r.data }))).catch(() => {});
     if (cfg.filtros.includes('categoria')) api.get(`${URL}/ventas-categoria/combos`).then((r) => setAux((a) => ({ ...a, cat: r.data }))).catch(() => {});
   }, [clave]); // eslint-disable-line react-hooks/exhaustive-deps
+  // al volver a la pestaña: combos actualizados de la BD (sin borrar el reporte generado)
+  useAlActivar(() => {
+    if (cfg.filtros.includes('vendedor')) api.get(`${URL}/aux/personal`).then((r) => setAux((a) => ({ ...a, personal: [{ Id: '', Nombre: 'TODOS' }, ...r.data] }))).catch(() => {});
+    if (cfg.filtros.includes('producto')) api.get(`${URL}/ventas-productos/productos`).then((r) => setAux((a) => ({ ...a, productos: [{ Id: '', Nombre: 'TODOS' }, ...r.data] }))).catch(() => {});
+    if (cfg.filtros.includes('personal')) api.get(`${URL}/rendimiento/personal`).then((r) => setAux((a) => ({ ...a, rendimiento: r.data }))).catch(() => {});
+  }, { alMontar: false });
 
   // Rendimiento: ventas del rango por persona para ordenar la lista (con ventas primero, sin ventas al final).
   // Se recalcula al cambiar Desde/Hasta, con espera de 400 ms para no consultar en cada tecla.

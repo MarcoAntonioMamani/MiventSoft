@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" font-family="Segoe UI, Roboto, Arial, sans-serif">
+  <!-- Fondo del login de Sanbit Distribucion: almacen, ruta de entregas y camion de reparto (ilustracion propia, sin dependencias) -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1736"/><stop offset=".55" stop-color="#0a1430"/><stop offset="1" stop-color="#132f6c"/>
+    </linearGradient>
+    <radialGradient id="luz" cx="560" cy="380" r="480" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2563eb" stop-opacity=".55"/><stop offset="1" stop-color="#2563eb" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="luz2" cx="180" cy="720" r="360" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f59e0b" stop-opacity=".16"/><stop offset="1" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="puntos" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.3" fill="#93c5fd" fill-opacity=".14"/></pattern>
+    <linearGradient id="calle" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1b3a85"/><stop offset="1" stop-color="#0a1430" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="carga" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d7e1f0"/>
+    </linearGradient>
+    <linearGradient id="cabina" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3b82f6"/><stop offset="1" stop-color="#1e40af"/>
+    </linearGradient>
+    <linearGradient id="vidrio" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#bfdbfe"/><stop offset="1" stop-color="#60a5fa"/>
+    </linearGradient>
+    <linearGradient id="ambar" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fbbf24"/><stop offset="1" stop-color="#ea580c"/>
+    </linearGradient>
+    <linearGradient id="caja" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e7b77a"/><stop offset="1" stop-color="#c98c47"/>
+    </linearGradient>
+    <filter id="sombra" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#020617" flood-opacity=".55"/>
+    </filter>
+    <filter id="brillo" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+
+  <rect width="1000" height="1000" fill="url(#bg)"/>
+  <rect width="1000" height="1000" fill="url(#puntos)"/>
+  <rect width="1000" height="1000" fill="url(#luz)"/>
+  <rect width="1000" height="1000" fill="url(#luz2)"/>
+  <circle cx="560" cy="390" r="330" fill="none" stroke="#60a5fa" stroke-opacity=".09" stroke-width="1.5"/>
+  <circle cx="560" cy="390" r="430" fill="none" stroke="#60a5fa" stroke-opacity=".05" stroke-width="1.5"/>
+
+  <!-- plano de la ciudad: manzanas -->
+  <g fill="#1d3f8f" fill-opacity=".28" stroke="#60a5fa" stroke-opacity=".12">
+    <rect x="250" y="190" width="120" height="80" rx="10"/><rect x="390" y="190" width="150" height="80" rx="10"/><rect x="560" y="190" width="110" height="80" rx="10"/><rect x="690" y="190" width="140" height="80" rx="10"/>
+    <rect x="250" y="290" width="90" height="100" rx="10"/><rect x="360" y="290" width="130" height="100" rx="10"/><rect x="510" y="290" width="150" height="100" rx="10"/><rect x="680" y="290" width="150" height="100" rx="10"/>
+    <rect x="250" y="410" width="160" height="90" rx="10"/><rect x="430" y="410" width="110" height="90" rx="10"/><rect x="560" y="410" width="120" height="90" rx="10"/><rect x="700" y="410" width="130" height="90" rx="10"/>
+  </g>
+
+  <!-- ruta del dia (punteada) del almacen a los clientes -->
+  <path d="M190 470 C 260 470, 300 400, 350 400 S 430 280, 500 280 S 600 400, 670 400 S 760 280, 800 230" fill="none" stroke="#f59e0b" stroke-opacity=".25" stroke-width="14" stroke-linecap="round" filter="url(#brillo)"/>
+  <path d="M190 470 C 260 470, 300 400, 350 400 S 430 280, 500 280 S 600 400, 670 400 S 760 280, 800 230" fill="none" stroke="#fbbf24" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 14"/>
+
+  <!-- almacen -->
+  <g filter="url(#sombra)">
+    <path d="M110 440 L180 400 L250 440 V520 H110 Z" fill="#22468f"/>
+    <path d="M100 446 L180 398 L260 446" fill="none" stroke="#5b82d6" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="148" y="458" width="64" height="62" rx="4" fill="#0f2557"/>
+    <g stroke="#3b6fd0" stroke-width="3"><line x1="148" y1="474" x2="212" y2="474"/><line x1="148" y1="490" x2="212" y2="490"/><line x1="148" y1="506" x2="212" y2="506"/></g>
+  </g>
+  <!-- cajas listas para despachar -->
+  <g filter="url(#sombra)">
+    <rect x="62" y="486" width="38" height="34" rx="3" fill="url(#caja)"/><rect x="62" y="452" width="38" height="34" rx="3" fill="url(#caja)"/><rect x="24" y="486" width="38" height="34" rx="3" fill="url(#caja)"/>
+    <g stroke="#a46a2c" stroke-width="2.4" stroke-opacity=".7"><line x1="81" y1="486" x2="81" y2="498"/><line x1="81" y1="452" x2="81" y2="464"/><line x1="43" y1="486" x2="43" y2="498"/></g>
+  </g>
+
+  <!-- clientes (entregados y pendiente) -->
+  <g>
+    <circle cx="350" cy="400" r="20" fill="#16a34a" fill-opacity=".22"/>
+    <circle cx="350" cy="400" r="12" fill="#22c55e"/><path d="M344 400 l4 4 l8 -8" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="500" cy="280" r="20" fill="#16a34a" fill-opacity=".22"/>
+    <circle cx="500" cy="280" r="12" fill="#22c55e"/><path d="M494 280 l4 4 l8 -8" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="670" cy="400" r="20" fill="#16a34a" fill-opacity=".22"/>
+    <circle cx="670" cy="400" r="12" fill="#22c55e"/><path d="M664 400 l4 4 l8 -8" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <!-- proximo cliente: pin -->
+  <g filter="url(#sombra)">
+    <circle cx="800" cy="232" r="34" fill="#f59e0b" fill-opacity=".14"/>
+    <path d="M800 236 c-22 -26 -26 -36 -26 -46 a26 26 0 0 1 52 0 c0 10 -4 20 -26 46 Z" fill="url(#ambar)"/>
+    <circle cx="800" cy="190" r="10" fill="#fff"/>
+  </g>
+
+  <!-- tarjeta: pedido entregado -->
+  <g filter="url(#sombra)">
+    <rect x="600" y="104" width="268" height="66" rx="16" fill="#ffffff" fill-opacity=".96"/>
+    <circle cx="634" cy="137" r="17" fill="#dcfce7"/><path d="M626 137 l5 5 l11 -11" fill="none" stroke="#16a34a" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="662" y="122" width="150" height="11" rx="5.5" fill="#1e3a8a" fill-opacity=".85"/>
+    <rect x="662" y="142" width="104" height="9" rx="4.5" fill="#94a3b8"/>
+    <rect x="824" y="128" width="30" height="18" rx="9" fill="#dcfce7"/>
+  </g>
+  <!-- tarjeta: avance de la ruta -->
+  <g filter="url(#sombra)">
+    <rect x="280" y="96" width="232" height="70" rx="16" fill="#0f2557" fill-opacity=".92" stroke="#3b6fd0" stroke-opacity=".5"/>
+    <rect x="302" y="116" width="92" height="10" rx="5" fill="#93c5fd" fill-opacity=".8"/>
+    <rect x="302" y="138" width="188" height="10" rx="5" fill="#1e3a8a"/>
+    <rect x="302" y="138" width="132" height="10" rx="5" fill="url(#ambar)"/>
+    <circle cx="482" cy="121" r="8" fill="#22c55e"/>
+  </g>
+
+  <!-- calle -->
+  <rect x="0" y="652" width="1000" height="320" fill="url(#calle)"/>
+  <rect x="0" y="630" width="1000" height="24" rx="0" fill="#22468f"/>
+  <rect x="0" y="631" width="1000" height="3" fill="#5b82d6" fill-opacity=".55"/>
+  <g fill="#93c5fd" fill-opacity=".35"><rect x="40" y="690" width="70" height="7" rx="3.5"/><rect x="190" y="690" width="70" height="7" rx="3.5"/><rect x="340" y="690" width="70" height="7" rx="3.5"/><rect x="490" y="690" width="70" height="7" rx="3.5"/><rect x="640" y="690" width="70" height="7" rx="3.5"/><rect x="790" y="690" width="70" height="7" rx="3.5"/><rect x="940" y="690" width="70" height="7" rx="3.5"/></g>
+
+  <!-- lineas de velocidad -->
+  <g stroke="#93c5fd" stroke-linecap="round" stroke-opacity=".45">
+    <line x1="196" y1="540" x2="282" y2="540" stroke-width="6"/><line x1="156" y1="572" x2="270" y2="572" stroke-width="6"/><line x1="214" y1="604" x2="276" y2="604" stroke-width="6"/>
+  </g>
+
+  <!-- camion de reparto -->
+  <g filter="url(#sombra)">
+    <ellipse cx="530" cy="634" rx="250" ry="12" fill="#020617" fill-opacity=".45"/>
+    <!-- carga -->
+    <rect x="300" y="456" width="300" height="160" rx="16" fill="url(#carga)"/>
+    <rect x="300" y="456" width="300" height="16" rx="8" fill="#ffffff"/>
+    <rect x="326" y="520" width="200" height="22" rx="11" fill="url(#ambar)"/>
+    <rect x="326" y="554" width="132" height="14" rx="7" fill="#1e3a8a" fill-opacity=".85"/>
+    <!-- marca en la carga -->
+    <rect x="538" y="496" width="44" height="44" rx="11" fill="url(#cabina)"/>
+    <path d="M548 524 v-12 h14 v12 Z M562 515 h6 l4 5 v4 h-10 Z" fill="#fff"/>
+    <circle cx="553" cy="526" r="3" fill="#fff"/><circle cx="567" cy="526" r="3" fill="#fff"/>
+    <!-- cabina -->
+    <path d="M608 496 h86 c10 0 18 5 23 13 l35 54 c4 6 6 12 6 19 v26 c0 4 -3 8 -8 8 H608 Z" fill="url(#cabina)"/>
+    <path d="M628 512 h60 c6 0 10 3 13 8 l24 38 H628 Z" fill="url(#vidrio)"/>
+    <path d="M636 520 h20 l-8 30 h-12 Z" fill="#fff" fill-opacity=".35"/>
+    <rect x="640" y="574" width="24" height="7" rx="3.5" fill="#bfdbfe"/>
+    <rect x="740" y="584" width="20" height="12" rx="4" fill="#fde68a"/>
+    <!-- chasis -->
+    <rect x="292" y="606" width="474" height="16" rx="8" fill="#0f2557"/>
+    <!-- ruedas -->
+    <g>
+      <circle cx="380" cy="626" r="36" fill="#0b1736"/><circle cx="380" cy="626" r="24" fill="#334155"/><circle cx="380" cy="626" r="10" fill="#cbd5e1"/>
+      <circle cx="470" cy="626" r="36" fill="#0b1736"/><circle cx="470" cy="626" r="24" fill="#334155"/><circle cx="470" cy="626" r="10" fill="#cbd5e1"/>
+      <circle cx="686" cy="626" r="36" fill="#0b1736"/><circle cx="686" cy="626" r="24" fill="#334155"/><circle cx="686" cy="626" r="10" fill="#cbd5e1"/>
+    </g>
+  </g>
+
+  <!-- celular del preventista con el pedido -->
+  <g filter="url(#sombra)" transform="rotate(8 860 520)">
+    <rect x="806" y="430" width="108" height="196" rx="18" fill="#0b1736" stroke="#3b6fd0" stroke-width="3"/>
+    <rect x="816" y="446" width="88" height="164" rx="10" fill="#f8fafc"/>
+    <rect x="826" y="458" width="54" height="9" rx="4.5" fill="#1e3a8a"/>
+    <g fill="#cbd5e1"><rect x="826" y="478" width="68" height="7" rx="3.5"/><rect x="826" y="494" width="56" height="7" rx="3.5"/><rect x="826" y="510" width="64" height="7" rx="3.5"/><rect x="826" y="526" width="48" height="7" rx="3.5"/></g>
+    <rect x="826" y="566" width="68" height="28" rx="9" fill="url(#ambar)"/>
+  </g>
+</svg>

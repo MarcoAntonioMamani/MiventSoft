@@ -11,6 +11,7 @@ import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
 import { palabrasDe, coincide } from '../../global/buscar';
+import { useAlActivar } from '../../global/vistaActiva';
 
 const URL = '/api/mapa/clientes';
 // Con muchos clientes se dibujan puntos livianos (canvas) y solo el seleccionado lleva pin
@@ -31,11 +32,13 @@ export default function Tec_MapaClientes() {
   const [sel, setSel] = useState(null);
   const [q, setQ] = useState('');
 
-  useEffect(() => { api.get(`${URL}/zonas`).then((r) => setZonas([{ Id: -1, NombreZona: 'TODAS LAS ZONAS' }, ...r.data])).catch((e) => toast(e.message, 'error')); }, [toast]);
+  useAlActivar(() => { api.get(`${URL}/zonas`).then((r) => setZonas([{ Id: -1, NombreZona: 'TODAS LAS ZONAS' }, ...r.data])).catch((e) => toast(e.message, 'error')); });
   useEffect(() => {
     setCargando(true); setSel(null);
     api.get(`${URL}${Number(zona) > 0 ? `?zona=${zona}` : ''}`).then((r) => setClientes(r.data)).catch((e) => toast(e.message, 'error')).finally(() => setCargando(false));
   }, [zona, toast]);
+  // al volver a la pestaña: clientes actualizados de la BD (sin perder la zona elegida)
+  useAlActivar(() => { api.get(`${URL}${Number(zona) > 0 ? `?zona=${zona}` : ''}`).then((r) => setClientes(r.data)).catch((e) => toast(e.message, 'error')); }, { alMontar: false });
 
   const conPunto = useMemo(() => clientes.filter((c) => c.Latitud && c.Longitud), [clientes]);
   const puntos = useMemo(() => conPunto.map((c) => [c.Latitud, c.Longitud]), [conPunto]);

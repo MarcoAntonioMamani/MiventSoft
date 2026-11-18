@@ -206,8 +206,12 @@ router.delete('/:id', asyncHandler(async (req, res) => {
     const id = v.idRuta(req.params.id);
     const actual = await buscar(id, fechaReq(req.query.fecha, 'Fecha'));
     if (cerrada(actual)) throw new ErrorNegocio(MSJ_CERRADA);
-    if (!(await L.L_prBorrarRegistro(id, 'MAM_DespachoProductos'))) throw new ErrorNegocio('Error al eliminar el Despacho'.toUpperCase());
-    res.json({ ok: true, mensaje: `CODIGO DE DESPACHO ${id} ELIMINADO CON EXITO.` });
+    // sql/12_DespachoSeguro: el SP valida (entregados, conciliacion cerrada) y avisa con RAISERROR -> 400 con su mensaje
+    const r = await L.EliminarDespachoProductos(id);
+    if (!r) throw new ErrorNegocio('Error al eliminar el Despacho'.toUpperCase());
+    res.json({ ok: true, mensaje: r.conciliacionEliminada
+        ? `CODIGO DE DESPACHO ${id} ELIMINADO CON EXITO. ERA EL ULTIMO DE LA CONCILIACION ${r.conciliacionEliminada}: TAMBIEN SE ELIMINO.`
+        : `CODIGO DE DESPACHO ${id} ELIMINADO CON EXITO.` });
 }));
 
 module.exports = router;

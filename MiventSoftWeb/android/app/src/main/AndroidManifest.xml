@@ -30,5 +30,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- PDF de reportes/notas para compartir como adjunto (WhatsApp, correo...). Solo lectura, no exportado -->
+        <provider
+            android:name=".ArchivosCompartidos"
+            android:authorities="${applicationId}.archivos"
+            android:exported="false"
+            android:grantUriPermissions="true" />
     </application>
 </manifest>

@@ -9,6 +9,7 @@ import { Celda } from '../../global/Celda';
 import { api, urlImagen } from '../../api/http';
 import { useToast } from '../../componentes/Toast';
 import Icono from '../../componentes/Icono';
+import { useAlActivar } from '../../global/vistaActiva';
 
 const URL = '/api/configuracion/productos';
 const VACIO = { Id: '', CodigoExterno: '', CodigoBarras: '', NombreProducto: '', DescripcionProducto: '', StockMinimo: '0', estado: true,
@@ -66,9 +67,9 @@ export default function Tec_Productos() {
   const quitarError = (k) => setErrores((e) => (e[k] ? { ...e, [k]: undefined } : e));
   const set = (k) => (v) => { quitarError(k); setForm((f) => ({ ...f, [k]: v?.target ? v.target.value : v })); };
 
-  useEffect(() => {
+  useAlActivar(() => {
     api.get(`${URL}/combos`).then((r) => { combosRef.current = r.data; setCombos(r.data); }).catch((e) => toast(e.message, 'error'));
-  }, [toast]);
+  });
 
   const cargarImagenes = async (id) => {
     const n = ++pedido.current;

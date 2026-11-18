@@ -2,11 +2,12 @@
 //  Frm_Proveedor.vb -> Gestion De Proveedores   (SP: MAM_Proveedores)
 //  Mejora: se agrega "Descripción" (VB la enviaba vacia y al modificar la borraba).
 // =====================================================================
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import ModeloF1, { useModeloF1 } from '../../componentes/ModeloF1';
 import { Campo, ComboLibreria, SwitchButton } from '../../componentes/Controles';
 import { Celda } from '../../global/Celda';
 import { api } from '../../api/http';
+import { useAlActivar } from '../../global/vistaActiva';
 
 const URL = '/api/ventas/proveedores';
 const VACIO = { Id: '', NombreProveedor: '', Direccion: '', Telefono01: '', Telefono02: '', Descripcion: '', TipoDocumento: '', NroDocumento: '', Estado: true };
@@ -20,7 +21,7 @@ export default function Frm_Proveedor() {
   const set = (k) => (v) => { quitarError(k); setForm((f) => ({ ...f, [k]: v?.target ? v.target.value : v })); };
   const setMay = (k) => (e) => { quitarError(k); setForm((f) => ({ ...f, [k]: e.target.value.toUpperCase() })); };
 
-  useEffect(() => { api.get(`${URL}/combos`).then((r) => { combosRef.current = r.data; setCombos(r.data); }).catch(() => {}); }, []);
+  useAlActivar(() => { api.get(`${URL}/combos`).then((r) => { combosRef.current = r.data; setCombos(r.data); }).catch(() => {}); });
 
   const nuevaLibreria = (idClasif, clave) => async (descripcion) => {
     const r = await api.post(`${URL}/libreria/${idClasif}`, { descripcion });

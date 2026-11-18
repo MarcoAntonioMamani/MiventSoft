@@ -52,6 +52,8 @@ export const PROGRAMAS_WEB = {
   BTNREPORTEVENTASPORPRODUCTOS: { ruta: '/distribucion/productos-por-cliente', icono: 'area' },
   BTNREPAUDITORIAVENTAS: { ruta: '/distribucion/auditoria-ventas', icono: 'clipboard' },
   BTNHISTORICOINCREMENTO: { ruta: '/distribucion/historial-incremento', icono: 'history' },
+  BTNREGISTROCELULAR: { ruta: '/distribucion/registro-celular', icono: 'pin' },
+  BTNPEDIDOSOBSERVADOS: { ruta: '/distribucion/pedidos-observados', icono: 'alert' },
   BTNASIGNACIONPEDIDOS: { ruta: '/ventas/asignacion-pedidos', icono: 'truck' },
   BTVENTREPORTEREALIZADA: { ruta: '/ventas/reporte-ventas', icono: 'chart' },
   BTVENTREPORTEVENTAVSCOSTO: { ruta: '/ventas/ventas-vs-costos', icono: 'dollar' },

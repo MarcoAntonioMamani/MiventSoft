@@ -18,6 +18,7 @@ import { Celda } from '../../global/Celda';
 import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
+import { useAlActivar, useRefrescar } from '../../global/vistaActiva';
 
 const URL = '/api/ventas/cuentas-cobrar';
 const BASE = '/ventas/cuentas-cobrar';
@@ -87,6 +88,8 @@ export default function Tec_CuentasPorCobrar() {
     try { const res = await api.get(`${URL}/${ruta}${qs}`); setDatos((d) => ({ ...d, [t]: res.data })); } catch (e) { toast(e.message, 'error'); } finally { setCargando(false); }
   }, [tab, rango, toast]);
   useEffect(() => { cargar(tab); }, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
+  useAlActivar(() => cargar(tab), { alMontar: false }); // saldos actualizados al volver a la pestaña
+  const refrescar = useRefrescar(() => cargar());
 
   const cambiarRango = (cambio) => {
     const r = { ...rango, ...cambio };
@@ -129,7 +132,7 @@ export default function Tec_CuentasPorCobrar() {
           <span className="modelo-icono"><Icono n="wallet" size={22} /></span>
           <div><h1>Cuentas por cobrar</h1><p>Administrar Cuentas por Cobrar</p></div>
         </div>
-        <div className="barra"><button className="btn-icono" title="Actualizar" aria-label="Actualizar" onClick={() => cargar()}><Icono n="refresh" size={18} /></button></div>
+        <div className="barra"><button className="btn-icono" title="Actualizar" aria-label="Actualizar" onClick={refrescar} disabled={cargando}>{cargando ? <span className="spinner" /> : <Icono n="refresh" size={18} />}</button></div>
       </header>
       <nav className="tabs-cxc" aria-label="Secciones">
         {TABS.map((t) => (

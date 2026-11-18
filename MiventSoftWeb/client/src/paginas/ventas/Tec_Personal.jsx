@@ -1,11 +1,12 @@
 // =====================================================================
 //  Tec_Personal.vb -> Gestion De Personal   (SP: MAM_Personal)
 // =====================================================================
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import ModeloF1, { useModeloF1 } from '../../componentes/ModeloF1';
 import { Campo, ComboMulti, ComboLibreria, SwitchButton, fechaCorta } from '../../componentes/Controles';
 import { Celda } from '../../global/Celda';
 import { api } from '../../api/http';
+import { useAlActivar } from '../../global/vistaActiva';
 
 const URL = '/api/ventas/personal';
 const hoy = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
@@ -20,7 +21,7 @@ export default function Tec_Personal() {
   const set = (k) => (v) => { quitarError(k); setForm((f) => ({ ...f, [k]: v?.target ? v.target.value : v })); };
   const setMay = (k) => (e) => { quitarError(k); setForm((f) => ({ ...f, [k]: e.target.value.toUpperCase() })); };
 
-  useEffect(() => { api.get(`${URL}/combos`).then((r) => { combosRef.current = r.data; setCombos(r.data); }).catch(() => {}); }, []);
+  useAlActivar(() => { api.get(`${URL}/combos`).then((r) => { combosRef.current = r.data; setCombos(r.data); }).catch(() => {}); });
 
   // btnTipoDocumento -> Efecto tipo 10 (libreria 8)
   const nuevaLibreria = (idClasif, clave) => async (descripcion) => {

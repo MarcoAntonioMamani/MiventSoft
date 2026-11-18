@@ -81,14 +81,16 @@ export const bsNota = (n, d = 2) => Number(n || 0).toLocaleString('es-BO', { min
  * @param {Array<[string, any]>} [p.totales]  pares antes del total
  * @param {string} p.etiquetaTotal  ej. 'Total Venta: Bs'
  * @param {number} p.total
+ * @param {Array<[string, any]>} [p.despuesTotal]  pares despues del total (ej. total en dolares)
  * @param {string|null} [p.grabada] texto del aviso cuando se ofrece al grabar
  * @param {boolean} [p.literal]     "Son: ... Bolivianos" (no en documentos sin montos, ej. despacho)
  * @param {(n:number)=>string} [p.formatoTotal]
+ * @param {{celular,nombre,texto}|null} [p.whatsapp]  boton 'Enviar a <cliente>' (global/pdf.js whatsappCliente)
  * @param {string[]} [p.firmas]     lineas de firma al pie (ej. ['Encargado Almacen', 'Distribuidor'])
  */
 // La hoja se arma como HTML y se abre en la vista previa comun (global/imprimir.js), igual que los reportes:
 // hoja carta con Imprimir / Cerrar; Imprimir abre la hoja en una ventana aparte.
-export default function NotaImpresa({ titulo, id, fecha, empresa, imagenEmpresa, cabecera = [], columnas = [], filas = [], claveFila = (f, i) => i, pie = [], totales = [], etiquetaTotal = 'Total: Bs', total = 0, grabada = null, literal = true, formatoTotal = bsNota, firmas = [], onCerrar }) {
+export default function NotaImpresa({ titulo, id, fecha, empresa, imagenEmpresa, cabecera = [], columnas = [], filas = [], claveFila = (f, i) => i, pie = [], totales = [], etiquetaTotal = 'Total: Bs', total = 0, despuesTotal = [], grabada = null, literal = true, formatoTotal = bsNota, firmas = [], whatsapp = null, onCerrar }) {
   const cerrarRef = useRef(onCerrar);
   cerrarRef.current = onCerrar;
   useEffect(() => {
@@ -121,6 +123,7 @@ export default function NotaImpresa({ titulo, id, fecha, empresa, imagenEmpresa,
           <div className="nota-totales">
             {totales.map(([k, x]) => <div key={k}><span>{k}</span><b>{x}</b></div>)}
             <div className="nota-total"><span>{etiquetaTotal}</span><b>{formatoTotal(total)}</b></div>
+            {despuesTotal.map(([k, x]) => <div key={k}><span>{k}</span><b>{x}</b></div>)}
           </div>
           {literal && <p className="nota-literal"><span>Son:</span> {montoLiteral(total)}</p>}
         </section>
@@ -130,7 +133,7 @@ export default function NotaImpresa({ titulo, id, fecha, empresa, imagenEmpresa,
     const vp = imprimirHtml({
       cuerpo: hoja, css: CSS_HOJA + CSS_NOTA, titulo: `${titulo} #${id}`,
       aviso: grabada ? `${grabada} ¿Desea imprimir el comprobante?` : '', textoCerrar: grabada ? 'No imprimir' : 'Cerrar',
-      alCerrar: () => cerrarRef.current?.(),
+      alCerrar: () => cerrarRef.current?.(), whatsapp,
     });
     return () => vp?.cerrar(true); // al desmontar se cierra sin volver a avisar
   }, []); // eslint-disable-line react-hooks/exhaustive-deps

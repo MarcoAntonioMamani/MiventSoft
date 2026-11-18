@@ -11,6 +11,7 @@ import { useToast } from '../../componentes/Toast';
 import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
+import { useAlActivar, useRefrescar } from '../../global/vistaActiva';
 
 const URL = '/api/inventario/stock';
 const n2 = (n) => Number(n || 0).toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -25,13 +26,13 @@ export default function Tec_InventarioProductos() {
   const [cargando, setCargando] = useState(false);
   const pedido = useRef(0);
 
-  useEffect(() => {
+  useAlActivar(() => {
     api.get(`${URL}/combos`).then((r) => {
       setCats(r.data.categorias);
       setProvs(r.data.proveedores);
-      setCat(r.data.categorias[0]?.Id ?? '');
+      setCat((c) => (c !== '' ? c : r.data.categorias[0]?.Id ?? ''));
     }).catch((e) => toast(e.message, 'error'));
-  }, [toast]);
+  });
 
   const cargar = useCallback(async () => {
     if (!cat) return;
@@ -50,6 +51,8 @@ export default function Tec_InventarioProductos() {
   }, [cat, prov, toast]);
 
   useEffect(() => { cargar(); }, [cargar]);
+  useAlActivar(cargar, { alMontar: false }); // stock actualizado al volver a la pestaña y con Actualizar
+  const refrescar = useRefrescar(cargar); // boton Actualizar stock: categorias + stock de la BD
 
   const resumen = useMemo(() => {
     const f = filas || [];
@@ -76,7 +79,7 @@ export default function Tec_InventarioProductos() {
       <header className="modelo-cab">
         <div className="modelo-titulo"><span className="modelo-icono"><Icono n="box" size={22} /></span><div><h1>Inventario productos</h1><p>Stock general de productos</p></div></div>
         <div className="barra">
-          <button className="btn btn-pri" onClick={cargar} disabled={cargando || !cat}>{cargando ? <span className="spinner" /> : <Icono n="refresh" size={16} />} Actualizar stock</button>
+          <button className="btn btn-pri" onClick={refrescar} disabled={cargando || !cat}>{cargando ? <span className="spinner" /> : <Icono n="refresh" size={16} />} Actualizar stock</button>
         </div>
       </header>
       <div className="modelo-cuerpo">

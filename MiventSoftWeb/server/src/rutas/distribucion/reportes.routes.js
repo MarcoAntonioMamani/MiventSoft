@@ -7,6 +7,7 @@
 //   productos-por-cliente   FProductosPorClientes             btnReporteVentasPorProductos MAM_Ventas 31 (+ MAM_Compras 12, MAM_Ventas 30, MAM_Clientes 14)
 //   auditoria-ventas        Rep_AuditoriaVentas               btnRepAuditoriaVentas      MAM_AuditoriaVentas 1 / 2
 //   historial-incremento    Rep_HistorialIncrementoVenta      btnhistoricoIncremento     MAM_VentasIncremento 3
+//   registro-celular        (solo web) ubicacion de pedidos y entregas de la app   btnRegistroCelular   MAM_VentasRegistroMovil 2 (script 07)
 // =====================================================================
 const express = require('express');
 const L = require('../../negocio/AccesoLogica');
@@ -22,7 +23,7 @@ const idOpc = (x) => { const n = Number.parseInt(x, 10); return Number.isFinite(
 const MESES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
 // combos compartidos: personal (btnVendedor) / clientes / productos -> con cualquier programa de este grupo
-const PROGS = ['BTNCIERREREPORTEGASTOS', 'BTNHISTORICOCLIENTE', 'BTNREPORTEVENTASPORPRODUCTOS'];
+const PROGS = ['BTNCIERREREPORTEGASTOS', 'BTNHISTORICOCLIENTE', 'BTNREPORTEVENTASPORPRODUCTOS', 'BTNREGISTROCELULAR'];
 router.use('/aux', asyncHandler(async (req, res, next) => {
     const p = await ProgramasPermitidos(req.sesion.gi_userRol);
     if (!PROGS.some((x) => p.has(x))) return res.status(403).json({ ok: false, mensaje: 'No tiene privilegios para este programa.' });
@@ -171,5 +172,39 @@ router.get('/historial-incremento', requierePrograma('btnhistoricoIncremento'), 
     const [d, h] = rango(req.query);
     enviar(res, v.proyectar(await L.L_prListarHistorialIncrementoVenta(d, h), ['Id', 'Fecha', 'Monto', 'Usuario', 'FechaHoraModificacion']));
 }));
+
+// ---------- Ubicacion de pedidos y entregas del celular (script 07, MAM_VentasRegistroMovil @2) ----------
+router.get('/registro-celular', requierePrograma('btnRegistroCelular'), asyncHandler(async (req, res) => {
+    const [d, h] = rango(req.query);
+    res.json({ ok: true, data: registroCelular(await L.L_prRegistroCelularFechas(d, h, idOpc(req.query.personal))) });
+}));
+
+// Filas de VentasRegistroMovil para el navegador (fechas con segundos, coordenadas como texto exacto)
+const dosR = (n) => String(n).padStart(2, '0');
+const fechaHoraTxt = (x) => (x instanceof Date
+    ? `${x.getUTCFullYear()}-${dosR(x.getUTCMonth() + 1)}-${dosR(x.getUTCDate())} ${dosR(x.getUTCHours())}:${dosR(x.getUTCMinutes())}:${dosR(x.getUTCSeconds())}`
+    : (x ?? null));
+function registroCelular(dt) {
+    return dt.map((f) => {
+        const lat = col(f, 'Latitud'); const lng = col(f, 'Longitud');
+        const conGps = lat !== null && lat !== undefined && lng !== null && lng !== undefined && !(Number(lat) === 0 && Number(lng) === 0);
+        return {
+            Id: col(f, 'Id'),
+            VentaId: col(f, 'VentaId'),
+            Evento: String(col(f, 'Evento') ?? ''),
+            Personal: String(col(f, 'NombrePersonal') ?? '').trim(),
+            Cliente: String(col(f, 'NombreCliente') ?? '').trim(),
+            TotalVenta: col(f, 'TotalVenta') === undefined ? undefined : num(col(f, 'TotalVenta')),
+            Latitud: conGps ? String(lat) : null,
+            Longitud: conGps ? String(lng) : null,
+            PrecisionMetros: col(f, 'PrecisionMetros') === null ? null : num(col(f, 'PrecisionMetros')),
+            FechaHoraCelular: fechaHoraTxt(col(f, 'FechaHoraCelular')),
+            FechaHoraServidor: fechaHoraTxt(col(f, 'FechaHoraServidor')),
+            Modelo: String(col(f, 'ModeloCelular') ?? ''),
+            Version: [col(f, 'VersionApp'), col(f, 'VersionAndroid') ? `Android ${col(f, 'VersionAndroid')}` : ''].filter(Boolean).join(' · '),
+        };
+    });
+}
+router.registroCelular = registroCelular; // tambien lo usa ventas.routes (una venta)
 
 module.exports = router;

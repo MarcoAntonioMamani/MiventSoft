@@ -11,6 +11,7 @@ import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import Icono from '../../componentes/Icono';
 import { columnasDe } from '../ventas/Reportes';
+import { useAlActivar } from '../../global/vistaActiva';
 
 const URL = '/api/compras/reportes';
 const dos = (n) => String(n).padStart(2, '0');
@@ -35,6 +36,8 @@ export default function ReporteCompras({ clave }) {
     setDatos(null);
     if (clave === 'compras-por-producto') api.get(`${URL}/compras-por-producto/productos`).then((r) => setProds(r.data)).catch((e) => toast(e.message, 'error'));
   }, [clave]); // eslint-disable-line react-hooks/exhaustive-deps
+  // al volver a la pestaña: productos actualizados (sin perder lo elegido)
+  useAlActivar(() => { if (clave === 'compras-por-producto') api.get(`${URL}/compras-por-producto/productos`).then((r) => setProds(r.data)).catch((e) => toast(e.message, 'error')); }, { alMontar: false });
 
   const generar = async () => {
     if (clave === 'compras-por-producto' && !f.todos && !f.producto) { toast('Seleccione un Producto'.toUpperCase(), 'error'); return; }

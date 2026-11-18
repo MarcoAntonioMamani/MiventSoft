@@ -11,6 +11,7 @@ import { titulo as tit } from '../../global/programas';
 import { api } from '../../api/http';
 import { useToast } from '../../componentes/Toast';
 import Icono from '../../componentes/Icono';
+import { useAlActivar } from '../../global/vistaActiva';
 
 const URL = '/api/planilla/contratos';
 const dos = (n) => String(n).padStart(2, '0');
@@ -26,7 +27,9 @@ export default function Tec_Contratos() {
   const [errores, setErrores] = useState({});
   const [conceptos, setConceptos] = useState([]);
   const [agregar, setAgregar] = useState('');
-  useEffect(() => { api.get(`${URL}/combos`).then((r) => setC(r.data)).catch((e) => toast(e.message, 'error')); }, [toast]);
+  useAlActivar(() => { api.get(`${URL}/combos`).then((r) => setC(r.data)).catch((e) => toast(e.message, 'error')); });
+  // La pestaña queda montada: al desplegar Personal se recarga para ver el personal creado despues
+  const recargarPersonal = () => api.get(`${URL}/combos`).then((r) => setC((o) => ({ ...o, personal: r.data.personal }))).catch(() => {});
   useEffect(() => { setForm((f) => (f.Id === '' ? { ...f, TipoContratoId: f.TipoContratoId || (c.tipos[0]?.cnnum ?? ''), Cargo: f.Cargo || (c.cargos[0]?.cnnum ?? '') } : f)); }, [c.tipos, c.cargos]);
   const set = (k) => (e) => { const x = e?.target ? e.target.value : e; setErrores((o) => ({ ...o, [k]: undefined })); setForm((f) => ({ ...f, [k]: x })); };
   const nuevaLibreria = (idClasif, clave) => async (descripcion) => {
@@ -87,7 +90,7 @@ export default function Tec_Contratos() {
           <div className="campos">
             <Campo etiqueta="Código"><input className="control" value={form.Id} readOnly placeholder="Automático" /></Campo>
             <Campo etiqueta="Personal" requerido error={errores.PersonalId}>
-              <ComboMulti dt={c.personal} valor={form.PersonalId} onChange={set('PersonalId')} id="Id" nameId="Cód." descripcionId="Nombre" descripcion="Personal" deshabilitado={ro} />
+              <ComboMulti dt={c.personal} valor={form.PersonalId} onChange={set('PersonalId')} id="Id" nameId="Cód." descripcionId="Nombre" descripcion="Personal" deshabilitado={ro} onAbrir={recargarPersonal} />
             </Campo>
             <Campo etiqueta="Tipo de contrato" requerido error={errores.TipoContratoId}>
               <ComboLibreria dt={c.tipos} valor={form.TipoContratoId} onChange={set('TipoContratoId')} titulo="Tipo De Contrato" deshabilitado={ro} onNuevo={nuevaLibreria(10, 'tipos')} />

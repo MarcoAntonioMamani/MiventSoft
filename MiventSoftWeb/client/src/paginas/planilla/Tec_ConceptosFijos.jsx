@@ -8,6 +8,7 @@ import { Campo, ComboMulti, SwitchButton } from '../../componentes/Controles';
 import { Celda } from '../../global/Celda';
 import { api } from '../../api/http';
 import { useToast } from '../../componentes/Toast';
+import { useAlActivar } from '../../global/vistaActiva';
 
 const URL = '/api/planilla/conceptos-fijos';
 const VACIO = { Id: '', NombreConcepto: '', Porcentaje: 0, OperacionId: '', TipoConcepto: 1, Estado: 1 };
@@ -17,7 +18,7 @@ export default function Tec_ConceptosFijos() {
   const [form, setForm] = useState(VACIO);
   const [errores, setErrores] = useState({});
   const [ops, setOps] = useState([]);
-  useEffect(() => { api.get(`${URL}/operaciones`).then((r) => setOps(r.data)).catch((e) => toast(e.message, 'error')); }, [toast]);
+  useAlActivar(() => { api.get(`${URL}/operaciones`).then((r) => setOps(r.data)).catch((e) => toast(e.message, 'error')); });
   useEffect(() => { if (ops.length) setForm((f) => (f.Id === '' && !f.OperacionId ? { ...f, OperacionId: ops[0].Id } : f)); }, [ops]);
   const set = (k) => (e) => { const x = e?.target ? e.target.value : e; setErrores((o) => ({ ...o, [k]: undefined })); setForm((f) => ({ ...f, [k]: x })); };
 

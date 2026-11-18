@@ -600,6 +600,15 @@ async function L_fnObtenerIncrementoVentaHoy() {
 async function ListarCliente() {
     return D_ProcedimientoConParam('MAM_Clientes', [new DParametro('@tipo', 10)]);
 }
+// SOLO WEB: MAM_PanelControl (server/sql/02_MAM_PanelControl.sql), SP propio del panel de control; el escritorio no lo usa.
+// Fechas como los demas reportes (yyyy/MM/dd).
+const _panel = (tipo, FechaI, FechaF) => D_ProcedimientoConParam('MAM_PanelControl', [
+    new DParametro('@tipo', tipo), new DParametro('@usuario', L_Usuario()), new DParametro('@FechaI', FechaI), new DParametro('@FechaF', FechaF)]);
+// @tipo 2: ClienteId, NombreCliente, FechaVenta, Compras, Monto (pedidos validos por cliente y por dia)
+async function L_prPanelComprasClientes(FechaI, FechaF) { return _panel(2, FechaI, FechaF); }
+// @tipo 3: productos con stock y sin ventas entre FechaI y FechaF (Id, CodigoExterno, NombreProducto, Categoria, Stock, PrecioVenta, Valor, UltimaVenta)
+async function L_prPanelProductosSinVenta(FechaI, FechaF) { return _panel(3, FechaI, FechaF); }
+
 async function ListaVentasDetalles(VentaId) {
     return D_ProcedimientoConParam('MAM_Ventas', [
         new DParametro('@tipo', 4),
@@ -752,6 +761,50 @@ async function L_prListarHistorialIncrementoVenta(FechaDesde, FechaHasta) {
     return D_ProcedimientoConParam('MAM_VentasIncremento', [
         new DParametro('@tipo', 3), new DParametro('@usuario', L_Usuario()), new DParametro('@FechaDesde', FechaDesde), new DParametro('@FechaHasta', FechaHasta),
     ]);
+}
+
+// =====================================================================
+//  Ubicacion, fecha/hora y celular de pedidos y entregas de la app (script 07: MAM_VentasRegistroMovil)
+// =====================================================================
+async function L_prRegistroCelularVenta(VentaId) {
+    return D_ProcedimientoConParam('MAM_VentasRegistroMovil', [new DParametro('@tipo', 1), new DParametro('@VentaId', VentaId), new DParametro('@usuario', L_Usuario())]);
+}
+async function L_prRegistroCelularFechas(FechaDesde, FechaHasta, PersonalId) {
+    return D_ProcedimientoConParam('MAM_VentasRegistroMovil', [
+        new DParametro('@tipo', 2), new DParametro('@FechaDesde', FechaDesde), new DParametro('@FechaHasta', FechaHasta),
+        new DParametro('@PersonalId', PersonalId), new DParametro('@usuario', L_Usuario()),
+    ]);
+}
+
+// =====================================================================
+//  Pedidos del celular observados (script 09, MAM_PedidosMovilObservados): no pudieron entrar al servidor
+// =====================================================================
+const _obs = (tipo, extra = []) => D_ProcedimientoConParam('MAM_PedidosMovilObservados', [new DParametro('@tipo', tipo), new DParametro('@usuario', L_Usuario()), ...extra]);
+async function L_prPedidosObservadosListar(FechaDesde, FechaHasta, Estado) {
+    return _obs(3, [new DParametro('@FechaDesde', FechaDesde), new DParametro('@FechaHasta', FechaHasta), new DParametro('@Estado', Estado)]);
+}
+async function L_prPedidosObservadosResumen() { return _obs(4); }
+async function L_prPedidoObservado(Id) { return _obs(7, [new DParametro('@Id', Id)]); }
+/** Stock actual (deposito de la sucursal 1, el que valida @26). ids = enteros */
+async function L_prPedidosObservadosStock(ids) {
+    const xml = `<r>${ids.map((n) => `<p>${Number.parseInt(n, 10)}</p>`).join('')}</r>`;
+    return _obs(8, [new DParametro('@Productos', xml)]);
+}
+async function L_prPedidoObservadoCorregido(Id, VentaId, Pedido, ObsResuelve) {
+    return _obs(5, [new DParametro('@Id', Id), new DParametro('@VentaId', VentaId), new DParametro('@Pedido', Pedido), new DParametro('@ObsResuelve', ObsResuelve)]);
+}
+async function L_prPedidoObservadoDescartar(Id, ObsResuelve) {
+    return _obs(6, [new DParametro('@Id', Id), new DParametro('@ObsResuelve', ObsResuelve)]);
+}
+/** Venta que ya entro con ese codigo del celular (Ventas.IdSincronizacion), o null */
+async function L_fnVentaPorCodigoCelular(CodigoGenerado) {
+    const dt = await D_ConsultaParam('SELECT TOP 1 Id FROM Ventas WHERE IdSincronizacion = @codigo', [new DParametro('@codigo', CodigoGenerado)]);
+    return dt.length ? dt[0].Id : null;
+}
+/** Graba el pedido del celular con el mismo SP y parametros que la API del celular (sp_go_TC004_appMovil @26).
+ *  lista = [{ nombre, valor }] ya armada (ver rutas/distribucion/pedidosObservados.routes.js) */
+async function L_prPedidoCelularGrabar(lista) {
+    return D_ProcedimientoConParam('sp_go_TC004_appMovil', lista.map((p) => new DParametro(`@${p.nombre}`, p.valor)));
 }
 
 // =====================================================================
@@ -908,6 +961,14 @@ async function InsertarDespachoProductos(d, dtdetalle, dtReferencia) {
 async function ModificarDespachoProductos(d, dtdetalle) {
     const _Tabla = await D_ProcedimientoConParam('MAM_DespachoProductos', [..._paramsDespacho(2, d), new DParametro('@DetalleDespacho', '', dtdetalle)]);
     return _Tabla.length > 0;
+}
+// Eliminar despacho (@-1). Con el script 12 devuelve ConciliacionEliminada (> 0 si la conciliacion se fue con su
+// ultimo despacho); sin el 12 solo resp. null = el SP no devolvio nada (fallo silencioso de la version vieja)
+async function EliminarDespachoProductos(Id) {
+    const _Tabla = await D_ProcedimientoConParam('MAM_DespachoProductos', [
+        new DParametro('@tipo', -1), new DParametro('@Id', Id), new DParametro('@usuario', L_Usuario()),
+    ]);
+    return _Tabla.length ? { conciliacionEliminada: Number(_Tabla[0].ConciliacionEliminada) || 0 } : null;
 }
 async function ListarProductosSalidasConciliacion(Id) { return _spUsu('MAM_Conciliacion', 4, [new DParametro('@id', Id)]); }
 async function ListarTodasSalidas(Id) { return _spUsu('MAM_Conciliacion', 5, [new DParametro('@id', Id)]); }
@@ -1160,7 +1221,7 @@ module.exports = {
     ReporteIngresosEgresosMes, ReporteIngresoEgresoDetallado, ReporteGastosFecha, L_prListarHistorico, L_prListarAuditoriaVentas, L_prListarAuditoriaVentasDetalle,
     ListarProveedoresCombo, ListarCategoriasVentas, ListarProductosBuscador, L_prGenerarReporteProductosPorVentas, L_fnListarZonasAsignadas, L_prRegistrarAsignacion,
     ListaDetalleDespachoProductos, ListarProductosSeleccionables, GenerarDatosDespachoReporte, CargarProductosAutomatico, CargarReferenciaVentas,
-    InsertarDespachoProductos, ModificarDespachoProductos,
+    InsertarDespachoProductos, ModificarDespachoProductos, EliminarDespachoProductos,
     ListarProductosSalidasConciliacion, ListarTodasSalidas, ListarProductosEntregadoConciliaciones, ListarProductosDetalleConciliacion, ModificarConciliacion,
     ListarSoloChoferes, ListarConciliacion, ListaPedidosAsignadosByChofer, ListaProductosAsignadosByChofer, ListaClientesAsignadosByChofer,
     ListaPedidosEntregadosByChofer, ListaPedidosAnulados, VentaInsertarAsignaciones, VentaEntregarPedidos, VentaQuitarAsignaciones,
@@ -1172,9 +1233,12 @@ module.exports = {
     L_prListaPersonalCB, L_prListarSubcategoriaAsignados, L_prListarProductosPorCategoria, L_prListarProductosPorCategoriaTotalV2PorCategoria,
     L_prListarCreditosPagadosCliente, L_prListarPagosPendientesFiltrosClientes, L_prGrabarPagosCreditoVentas, L_prListarPagosCreditoVenta,
     L_prListarPagosTodosCuentasPorCobrar, L_prEliminarPagosCuentaPorCobrar, L_EstadoDeCuentasPorCobrar, ListarPersonalCredito,
-    L_prGuardarIncrementoVentaHoy, L_prListarHistorialIncrementoVenta,
+    L_prGuardarIncrementoVentaHoy, L_prListarHistorialIncrementoVenta, L_prRegistroCelularVenta, L_prRegistroCelularFechas,
+    L_prPedidosObservadosListar, L_prPedidosObservadosResumen, L_prPedidoObservado, L_prPedidosObservadosStock,
+    L_prPedidoObservadoCorregido, L_prPedidoObservadoDescartar, L_fnVentaPorCodigoCelular, L_prPedidoCelularGrabar,
     InsertarPersonal, ModificarPersonal, InsertarProveedor, ModificarProveedor,
     L_fnPedidosEstados, L_prLeerConfiguracion, L_fnObtenerIncrementoVentaHoy, ListarCliente, ListaVentasDetalles,
+    L_prPanelComprasClientes, L_prPanelProductosSinVenta,
     L_prListarProductosVentas, L_prListarProductosVentasConciliaciones, L_prVerificarConcicliacionAbierta, ObtenerImagenEmpresa,
     VentaInsertar, VentaModificar,
     L_prListarGeneralFechas, L_prListarPagosPendientes, L_prListarPagosPendientesClientes, ReporteVentasProductosMasVendido,
